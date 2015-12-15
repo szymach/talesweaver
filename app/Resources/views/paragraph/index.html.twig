@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Paragraph list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for paragraph in paragraphs %}
+            <tr>
+                <td><a href="{{ path('paragraph_show', { 'id': paragraph.id }) }}">{{ paragraph.id }}</a></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('paragraph_show', { 'id': paragraph.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('paragraph_edit', { 'id': paragraph.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('paragraph_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
