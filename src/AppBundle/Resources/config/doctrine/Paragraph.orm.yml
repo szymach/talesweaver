@@ -1,10 +1,15 @@
 ---
 AppBundle\Entity\Paragraph:
     type: entity
+    repositoryClass: AppBundle\Entity\Repository\TranslatableRepository
     id:
         id:
             type: integer
             generator: { strategy: AUTO }
     fields:
-        text:
-            type: text
+    oneToMany:
+        translations:
+            targetEntity: AppBundle\Entity\Translation\ParagraphTranslation
+            mappedBy: paragraph
+            indexBy: locale
+            cascade: [persist, remove]

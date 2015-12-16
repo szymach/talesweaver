@@ -2,7 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
-#    - { resource: app_config.yml }
+    - { resource: app_config.yml }
 
 parameters:
     locale: pl

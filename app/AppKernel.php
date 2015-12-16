@@ -18,6 +18,8 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 
             # Vendor libraries
+            new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
+            new FSi\Bundle\DoctrineExtensionsBundle\FSiDoctrineExtensionsBundle(),
 
             # App
             new AppBundle\AppBundle(),
