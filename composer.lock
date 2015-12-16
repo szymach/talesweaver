@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f9adc192c946541e3e5f4d306741d892",
-    "content-hash": "e35d27cc74450b1cd2fea1d1f085024f",
+    "hash": "56fb391732864a1fb4c62a4d3bd38bd6",
+    "content-hash": "05ecabc5065f1ed3a084037404df2e45",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -771,6 +771,310 @@
                 "orm"
             ],
             "time": "2015-11-23 12:44:25"
+        },
+        {
+            "name": "fsi/data-indexer",
+            "version": "0.9.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fsi-open/data-indexer.git",
+                "reference": "6d7020a9d237fa5050320dffb5596d0150991111"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fsi-open/data-indexer/zipball/6d7020a9d237fa5050320dffb5596d0150991111",
+                "reference": "6d7020a9d237fa5050320dffb5596d0150991111",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/common": "~2.2",
+                "doctrine/orm": "~2.2",
+                "php": ">=5.3.0",
+                "symfony/property-access": "~2.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "FSi\\Component\\DataIndexer": "lib/",
+                    "FSi\\Component\\DataIndexer\\Tests": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Norbert Orzechowicz",
+                    "email": "norbert@fsi.pl"
+                }
+            ],
+            "description": "FSi DataIndexer Component - Component created to provide one simple object indexing strategy for FSi DataSource and DataGrid components.",
+            "keywords": [
+                "component",
+                "datagrid",
+                "fsi"
+            ],
+            "time": "2014-03-11 06:52:59"
+        },
+        {
+            "name": "fsi/datagrid",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fsi-open/datagrid.git",
+                "reference": "77a4a09329297836f149aaced71b46d18059c4a7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fsi-open/datagrid/zipball/77a4a09329297836f149aaced71b46d18059c4a7",
+                "reference": "77a4a09329297836f149aaced71b46d18059c4a7",
+                "shasum": ""
+            },
+            "require": {
+                "fsi/data-indexer": "0.9.*",
+                "fsi/reflection": "0.9.*",
+                "php": ">=5.4.0",
+                "symfony/event-dispatcher": "~2.2",
+                "symfony/options-resolver": "~2.6",
+                "symfony/property-access": "~2.3"
+            },
+            "require-dev": {
+                "doctrine/common": "~2.5",
+                "doctrine/orm": "~2.5",
+                "gedmo/doctrine-extensions": "~2.3.10",
+                "phpunit/phpunit": "3.7.*",
+                "symfony/dependency-injection": "~2.2",
+                "symfony/doctrine-bridge": "~2.2",
+                "symfony/form": "~2.4",
+                "symfony/http-foundation": "~2.2",
+                "symfony/routing": "~2.2",
+                "symfony/security-csrf": "~2.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "FSi\\Component\\DataGrid\\": "lib/",
+                    "FSi\\Component\\DataGrid\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Norbert Orzechowicz",
+                    "email": "norbert@orzechowicz.pl"
+                }
+            ],
+            "description": "FSi DataGrid Component",
+            "keywords": [
+                "component",
+                "datagrid",
+                "fsi"
+            ],
+            "time": "2015-06-10 14:45:06"
+        },
+        {
+            "name": "fsi/datagrid-bundle",
+            "version": "v1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fsi-open/datagrid-bundle.git",
+                "reference": "06d45921087b47edc55d5d95555faf07e1ceec9f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fsi-open/datagrid-bundle/zipball/06d45921087b47edc55d5d95555faf07e1ceec9f",
+                "reference": "06d45921087b47edc55d5d95555faf07e1ceec9f",
+                "shasum": ""
+            },
+            "require": {
+                "fsi/datagrid": "~1.2@dev",
+                "php": ">=5.4",
+                "symfony/framework-bundle": "~2.4",
+                "symfony/options-resolver": "~2.6",
+                "twig/twig": "~1.11"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*",
+                "symfony/doctrine-bridge": "~2.2",
+                "symfony/form": "~2.4",
+                "symfony/twig-bridge": "~2.2"
+            },
+            "suggest": {
+                "phpoffice/phpexcel": "Allows export data to xls format."
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "FSi\\Bundle\\DataGridBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Norbert Orzechowicz",
+                    "email": "norbert@orzechowicz.pl"
+                }
+            ],
+            "description": "FSi Datagrid Bundle",
+            "keywords": [
+                "bundle",
+                "datagrid",
+                "datagrid-bundle",
+                "fsi",
+                "symfony"
+            ],
+            "time": "2015-08-26 09:39:51"
+        },
+        {
+            "name": "fsi/datasource",
+            "version": "v1.2.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fsi-open/datasource.git",
+                "reference": "e234b0d5b01cd32184b62bff60745212009b0df5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fsi-open/datasource/zipball/e234b0d5b01cd32184b62bff60745212009b0df5",
+                "reference": "e234b0d5b01cd32184b62bff60745212009b0df5",
+                "shasum": ""
+            },
+            "require": {
+                "fsi/data-indexer": "0.9.*",
+                "php": ">=5.3.0",
+                "symfony/event-dispatcher": "~2.2",
+                "symfony/options-resolver": "~2.6"
+            },
+            "require-dev": {
+                "doctrine/collections": "~1.1",
+                "doctrine/common": "~2.4",
+                "doctrine/orm": "~2.3",
+                "phpunit/phpunit": "3.7.*",
+                "symfony/doctrine-bridge": "~2.2",
+                "symfony/form": "~2.4",
+                "symfony/http-foundation": "~2.2",
+                "symfony/property-access": "~2.3",
+                "symfony/security-csrf": "~2.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "FSi\\Component\\DataSource\\": "lib/",
+                    "FSi\\Component\\DataSource\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lukasz Cybula",
+                    "email": "lukasz@fsi.pl"
+                },
+                {
+                    "name": "Szczepan Cieslik",
+                    "email": "szczepan@fsi.pl"
+                }
+            ],
+            "description": "FSi DataSource Component",
+            "keywords": [
+                "component",
+                "datasource",
+                "fsi"
+            ],
+            "time": "2015-06-11 08:00:15"
+        },
+        {
+            "name": "fsi/datasource-bundle",
+            "version": "v1.2.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fsi-open/datasource-bundle.git",
+                "reference": "730ef4c076f89bca33fbb29b33a4b6975a509992"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fsi-open/datasource-bundle/zipball/730ef4c076f89bca33fbb29b33a4b6975a509992",
+                "reference": "730ef4c076f89bca33fbb29b33a4b6975a509992",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/collections": "~1.0",
+                "doctrine/orm": "~2.3",
+                "fsi/datasource": "~1.2@dev",
+                "php": ">=5.3.3",
+                "symfony/dependency-injection": "~2.2",
+                "symfony/framework-bundle": "~2.2",
+                "symfony/options-resolver": "~2.6",
+                "symfony/yaml": "~2.2",
+                "twig/twig": "~1.12"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*",
+                "symfony/form": "~2.2",
+                "symfony/twig-bridge": "~2.2"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "FSi\\Bundle\\DataSourceBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lukasz Cybula",
+                    "email": "lukasz@fsi.pl"
+                }
+            ],
+            "description": "FSi DataSource Bundle",
+            "keywords": [
+                "bundle",
+                "datasource",
+                "datasource-bundle",
+                "fsi",
+                "symfony"
+            ],
+            "time": "2015-06-11 09:45:02"
         },
         {
             "name": "fsi/doctrine-extensions",

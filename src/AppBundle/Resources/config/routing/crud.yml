@@ -1,0 +1,4 @@
+list:
+    path:     /{elementName}/list
+    defaults: { _controller: app.controller.list:listAction }
+    methods:  GET

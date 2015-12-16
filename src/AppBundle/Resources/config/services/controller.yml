@@ -1,0 +1,10 @@
+---
+services:
+    app.controller.list:
+        class: AppBundle\Controller\ListController
+        arguments:
+            - @templating
+            - @doctrine.orm.entity_manager
+            - @app.element.manager
+            - @datagrid.factory
+            - @datasource.factory
