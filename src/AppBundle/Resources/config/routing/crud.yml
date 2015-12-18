@@ -2,3 +2,18 @@ list:
     path:     /{elementName}/list
     defaults: { _controller: app.controller.list:listAction }
     methods:  GET
+
+add:
+    path:     /{elementName}/add
+    defaults: { _controller: app.controller.form:addAction }
+    methods:  [GET, POST]
+
+edit:
+    path:     /{elementName}/edit/{id}
+    defaults: { _controller: app.controller.form:editAction }
+    methods:  [GET, PUT]
+
+delete:
+    path:     /{elementName}/delete/{id}
+    defaults: { _controller: app.controller.form:deleteAction }
+#    methods:  DELETE

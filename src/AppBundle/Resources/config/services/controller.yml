@@ -8,3 +8,14 @@ services:
             - @app.element.manager
             - @datagrid.factory
             - @datasource.factory
+            
+    app.controller.form:
+        class: AppBundle\Controller\FormController
+        arguments:
+            - @templating
+            - @doctrine.orm.entity_manager
+            - @app.element.manager
+            - @form.factory
+            - @datagrid.factory
+            - @datasource.factory
+            - @router

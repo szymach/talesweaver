@@ -29,19 +29,18 @@ class ParagraphElement implements Interfaces\ElementInterface
         return new Paragraph();
     }
 
-    public function getForm(FormFactoryInterface $factory, $data = null)
+    public function getForm(FormFactoryInterface $factory, $data = null, $options = [])
     {
         return $factory->create(
             ParagraphType::class,
-            $data ? $data : $this->getEntity()
+            $data ? $data : $this->getEntity(),
+            $options
         );
     }
 
     public function getGrid(DataGridFactoryInterface $factory)
     {
-        return $factory->createDataGrid($this->getId())
-           ->addColumn('text', 'text')
-        ;
+        return $factory->createDataGrid($this->getId());
     }
 
     public function getSource(DataSourceFactoryInterface $factory)

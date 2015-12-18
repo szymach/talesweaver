@@ -1,0 +1,14 @@
+---
+columns:
+    text:
+        type: text
+    actions:
+        type: action
+        options:
+            label: Usuń
+            field_mapping: ['id']
+            actions:
+                delete:
+                    route_name: delete
+                    additional_parameters: { elementName: paragraph }
+                    parameters_field_mapping: {'id': 'id'}

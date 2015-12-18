@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 
-class ListController
+class ListController extends AbstractController
 {
     public function __construct(
         $templating,
@@ -30,12 +30,7 @@ class ListController
         );
     }
 
-    private function getElement($name)
-    {
-        return $this->elementManager->getElement($name);
-    }
-
-    private function getData($request, $element)
+    protected function getData($request, $element)
     {
         $datasource = $element->getSource($this->dataSourceFactory);
         $datasource->bindParameters($request);
