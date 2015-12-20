@@ -4,33 +4,33 @@ namespace AppBundle\Element;
 
 use Symfony\Component\Form\FormFactoryInterface;
 
-use AppBundle\Entity\Paragraph;
-use AppBundle\Form\ParagraphType;
+use AppBundle\Entity\Chapter;
+use AppBundle\Form\ChapterType;
 
 /**
  * @author Piotr Szymaszek
  */
-class ParagraphElement extends AbstractElement
+class ChapterElement extends AbstractElement
 {
     public function getId()
     {
-        return 'paragraph';
+        return 'chapter';
     }
 
     public function getClassName()
     {
-        return Paragraph::class;
+        return Chapter::class;
     }
 
     public function getEntity()
     {
-        return new Paragraph();
+        return new Chapter();
     }
 
     public function getForm(FormFactoryInterface $factory, $data = null, $options = [])
     {
         return $factory->create(
-            ParagraphType::class,
+            ChapterType::class,
             $data ? $data : $this->getEntity(),
             $options
         );

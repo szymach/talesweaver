@@ -1,6 +1,6 @@
 ---
 columns:
-    text:
+    name:
         type: text
     actions:
         type: action
@@ -10,9 +10,9 @@ columns:
             actions:
                 edit:
                     route_name: edit
-                    additional_parameters: { elementName: paragraph }
+                    additional_parameters: { elementName: chapter }
                     parameters_field_mapping: {'id': 'id'}
                 delete:
                     route_name: delete
-                    additional_parameters: { elementName: paragraph }
+                    additional_parameters: { elementName: chapter }
                     parameters_field_mapping: {'id': 'id'}

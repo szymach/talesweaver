@@ -13,3 +13,7 @@ AppBundle\Entity\Paragraph:
             mappedBy: paragraph
             indexBy: locale
             cascade: [persist, remove]
+    manyToOne:
+        chapter:
+            targetEntity: AppBundle\Entity\Chapter
+            inversedBy: paragraphs

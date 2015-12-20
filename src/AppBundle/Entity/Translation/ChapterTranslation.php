@@ -1,13 +1,15 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Entity\Translation;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 
-class Paragraph
+use AppBundle\Entity\Chapter;
+use AppBundle\Entity\Traits\LocaleTrait;
+
+class ChapterTranslation
 {
-    use Traits\TranslatableTrait;
+    use LocaleTrait;
 
     /**
      * @var integer
@@ -15,20 +17,14 @@ class Paragraph
     private $id;
 
     /**
-     * @Translatable\Translatable(mappedBy="translations")
      * @var string
      */
-    private $text;
+    private $name;
 
     /**
      * @var Chapter
      */
     private $chapter;
-
-    public function __construct()
-    {
-        $this->translations = new ArrayCollection();
-    }
 
     /**
      * @return integer
@@ -39,13 +35,13 @@ class Paragraph
     }
 
     /**
-     * @param string $text
+     * @param string $name
      *
-     * @return Paragraph
+     * @return ChapterTranslation
      */
-    public function setText($text)
+    public function setName($name)
     {
-        $this->text = $text;
+        $this->name = $name;
 
         return $this;
     }
@@ -53,15 +49,15 @@ class Paragraph
     /**
      * @return string
      */
-    public function getText()
+    public function getName()
     {
-        return $this->text;
+        return $this->name;
     }
 
     /**
      * @param Chapter $chapter
      *
-     * @return Paragraph
+     * @return ChapterTranslation
      */
     public function setChapter(Chapter $chapter = null)
     {
