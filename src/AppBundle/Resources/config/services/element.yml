@@ -8,8 +8,7 @@ services:
         tags:
             - { name: app.element }
         
-    app.element.paragraph:
-        class: AppBundle\Element\ParagraphElement
+    app.element.section:
+        class: AppBundle\Element\SectionElement
         tags:
             - { name: app.element }
-

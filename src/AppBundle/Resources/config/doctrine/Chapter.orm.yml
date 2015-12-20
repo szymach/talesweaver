@@ -7,8 +7,8 @@ AppBundle\Entity\Chapter:
             type: integer
             generator: { strategy: AUTO }
     oneToMany:
-        paragraphs:
-            targetEntity: AppBundle\Entity\Paragraph
+        sections:
+            targetEntity: AppBundle\Entity\Section
             mappedBy: chapter
             cascade: [persist]
             joinColumn:

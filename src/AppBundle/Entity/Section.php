@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 
-class Paragraph
+class Section
 {
     use Traits\TranslatableTrait;
 
@@ -13,6 +13,12 @@ class Paragraph
      * @var integer
      */
     private $id;
+
+    /**
+     * @Translatable\Translatable(mappedBy="translations")
+     * @var string
+     */
+    private $title;
 
     /**
      * @Translatable\Translatable(mappedBy="translations")
@@ -39,9 +45,29 @@ class Paragraph
     }
 
     /**
+     * @param string $title
+     *
+     * @return SectionTranslation
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
      * @param string $text
      *
-     * @return Paragraph
+     * @return Section
      */
     public function setText($text)
     {
@@ -61,7 +87,7 @@ class Paragraph
     /**
      * @param Chapter $chapter
      *
-     * @return Paragraph
+     * @return Section
      */
     public function setChapter(Chapter $chapter = null)
     {

@@ -4,13 +4,14 @@ namespace AppBundle\Form;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use AppBundle\Entity\Chapter;
 
-class ParagraphType extends AbstractType
+class SectionType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -18,18 +19,22 @@ class ParagraphType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('text', TextareaType::class, [
-            'label' => false
-        ]);
-
         if ($options['allow_chapter_select']) {
             $builder->add('chapter', EntityType::class, [
-                'label' => false,
+                'label' => 'section.chapter',
                 'class' => Chapter::class,
-                'choice_label' => 'name',
+                'choice_label' => 'title',
                 'required' => false
             ]);
         }
+
+        $builder->add('title', TextType::class, [
+            'label' => 'section.title'
+        ]);
+
+        $builder->add('text', TextareaType::class, [
+            'label' => 'section.text'
+        ]);
     }
 
     /**
@@ -38,7 +43,7 @@ class ParagraphType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Paragraph',
+            'data_class' => 'AppBundle\Entity\Section',
             'allow_chapter_select' => true
         ));
     }
