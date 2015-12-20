@@ -7,14 +7,14 @@ columns:
     actions:
         type: action
         options:
-            label: list.actions
+            label: crud.list.actions
             field_mapping: ['id']
             actions:
                 edit:
-                    route_name: edit
+                    route_name: crud_edit
                     additional_parameters: { elementName: paragraph }
                     parameters_field_mapping: {'id': 'id'}
                 delete:
-                    route_name: delete
+                    route_name: crud_delete
                     additional_parameters: { elementName: paragraph }
                     parameters_field_mapping: {'id': 'id'}

@@ -35,7 +35,10 @@ class FormController extends AbstractController
 
         return $this->templating->renderResponse(
             'crud\form.html.twig',
-            ['form' => $this->getForm($request, $element, null)]
+            [
+                'form' => $this->getForm($request, $element, null),
+                'element' => $elementName
+            ]
         );
     }
 
@@ -48,7 +51,10 @@ class FormController extends AbstractController
         }
         return $this->templating->renderResponse(
             'crud\form.html.twig',
-            ['form' => $this->getForm($request, $element, $entity)]
+            [
+                'form' => $this->getForm($request, $element, $entity),
+                'element' => $elementName
+            ]
         );
     }
 

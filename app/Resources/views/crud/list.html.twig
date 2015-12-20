@@ -1,5 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% block upper_buttons -%}
+        <div>
+            <a href="{{ path('crud_create', { elementName: element }) }}">
+                {{- 'crud.list.create' | trans -}}
+            </a>
+        </div>
+    {%- endblock upper_buttons %}
     {{ datagrid_widget(datagrid) }}
+    {% block lower_buttons -%}
+        <div>
+            <a href="{{ path('crud_create', { elementName: element }) }}">
+                {{- 'crud.list.create' | trans -}}
+            </a>
+        </div>
+    {%- endblock lower_buttons %}
 {% endblock %}

@@ -1,9 +1,13 @@
 ---
-list:
-    actions: Akcje
-    add: Dodaj
-    delete: Usuń
-    edit: Edytuj
+crud:
+    list:
+        actions: Akcje
+        create: Dodaj
+        delete: Usuń
+        edit: Edytuj
+    form:
+        submit: Wyślij
+        return: Powrót
 
 section:
     title: Tytuł
@@ -13,3 +17,11 @@ section:
 chapter:
     title: Tytuł
     sections: Sekcje (sceny)
+
+front:
+    meta:
+        title: Bajkopisarz
+
+    menu:
+        chapter: Rozdziały
+        section: Sekcje (sceny)

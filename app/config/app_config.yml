@@ -4,3 +4,7 @@ fsi_doctrine_extensions:
         default:
             translatable: true
             uploadable: true
+
+knp_menu:
+    twig:
+        template: menu\knp_menu.html.twig

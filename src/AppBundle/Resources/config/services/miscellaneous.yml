@@ -1,0 +1,16 @@
+---
+services:
+    # Menu
+    app.menu.builder:
+        class: AppBundle\Menu\Builder
+        arguments:
+            - @knp_menu.factory
+            - @app.element.manager
+
+    app.menu.main:
+        class: Knp\Menu\MenuItem
+        factory_service: app.menu.builder
+        factory_method: createMainMenu
+        scope: request
+        tags:
+            - { name: knp_menu.menu, alias: main }

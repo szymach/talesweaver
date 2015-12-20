@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new FSi\Bundle\DataSourceBundle\DataSourceBundle(),
 
             # App
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new AppBundle\AppBundle(),
         );
 
