@@ -19,13 +19,13 @@ class ChapterType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', TextType::class, [
-            'label' => 'Nazwa'
+        $builder->add('title', TextType::class, [
+            'label' => 'chapter.title'
         ]);
 
-        $builder->add('paragraphs', CollectionType::class, [
-            'label' => 'Paragrafy',
-            'type' => ParagraphType::class,
+        $builder->add('sections', CollectionType::class, [
+            'label' => 'chapter.sections',
+            'type' => SectionType::class,
             'allow_add' => true,
             'allow_delete' => true,
             'delete_empty' => true,

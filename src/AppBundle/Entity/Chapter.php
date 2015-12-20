@@ -19,16 +19,16 @@ class Chapter
      * @Translatable\Translatable(mappedBy="translations")
      * @var string
      */
-    private $name;
+    private $title;
 
     /**
      * @var Collection
      */
-    private $paragraphs;
+    private $sections;
 
     public function __construct()
     {
-        $this->paragraphs = new ArrayCollection();
+        $this->sections = new ArrayCollection();
         $this->translations = new ArrayCollection();
     }
 
@@ -41,13 +41,13 @@ class Chapter
     }
 
     /**
-     * @param string $name
+     * @param string $title
      *
      * @return Chapter
      */
-    public function setName($name)
+    public function setTitle($title)
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
@@ -55,40 +55,40 @@ class Chapter
     /**
      * @return string
      */
-    public function getName()
+    public function getTitle()
     {
-        return $this->name;
+        return $this->title;
     }
 
     /**
-     * @param Paragraph $paragraph
+     * @param Section $section
      *
      * @return Chapter
      */
-    public function addParagraph(Paragraph $paragraph)
+    public function addSection(Section $section)
     {
-        if (!$this->paragraphs->contains($paragraph)) {
-            $paragraph->setChapter($this);
-            $this->paragraphs = $paragraph;
+        if (!$this->sections->contains($section)) {
+            $section->setChapter($this);
+            $this->sections = $section;
         }
 
         return $this;
     }
 
     /**
-     * @param Paragraph $paragraph
+     * @param Section $section
      */
-    public function removeParagraph(Paragraph $paragraph)
+    public function removeSection(Section $section)
     {
-        $this->paragraphs->removeElement($paragraph);
-        $paragraph->setChapter(null);
+        $this->sections->removeElement($section);
+        $section->setChapter(null);
     }
 
     /**
      * @return Collection
      */
-    public function getParagraphs()
+    public function getSections()
     {
-        return $this->paragraphs;
+        return $this->sections;
     }
 }

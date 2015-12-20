@@ -4,10 +4,10 @@ namespace AppBundle\Entity\Translation;
 
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 
-use AppBundle\Entity\Paragraph;
+use AppBundle\Entity\Section;
 use AppBundle\Entity\Traits\LocaleTrait;
 
-class ParagraphTranslation
+class SectionTranslation
 {
     use LocaleTrait;
 
@@ -19,12 +19,17 @@ class ParagraphTranslation
     /**
      * @var string
      */
+    private $title;
+
+    /**
+     * @var string
+     */
     private $text;
 
     /**
-     * @var Paragraph
+     * @var Section
      */
-    private $paragraph;
+    private $section;
 
     /**
      * @return integer
@@ -35,9 +40,29 @@ class ParagraphTranslation
     }
 
     /**
+     * @param string $title
+     *
+     * @return SectionTranslation
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
      * @param string $text
      *
-     * @return ParagraphTranslation
+     * @return SectionTranslation
      */
     public function setText($text)
     {
@@ -55,22 +80,22 @@ class ParagraphTranslation
     }
 
     /**
-     * @param Paragraph $paragraph
+     * @param Section $section
      *
-     * @return ParagraphTranslation
+     * @return SectionTranslation
      */
-    public function setParagraph(Paragraph $paragraph = null)
+    public function setSection(Section $section = null)
     {
-        $this->paragraph = $paragraph;
+        $this->section = $section;
 
         return $this;
     }
 
     /**
-     * @return Paragraph
+     * @return Section
      */
-    public function getParagraph()
+    public function getSection()
     {
-        return $this->paragraph;
+        return $this->section;
     }
 }

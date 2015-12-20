@@ -26,7 +26,10 @@ class ListController extends AbstractController
 
         return $this->templating->renderResponse(
             'crud\list.html.twig',
-            ['datagrid' => $this->getData($request, $element)]
+            [
+                'datagrid' => $this->getData($request, $element),
+                'element' => $elementName
+            ]
         );
     }
 

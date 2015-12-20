@@ -1,0 +1,15 @@
+---
+list:
+    actions: Akcje
+    add: Dodaj
+    delete: Usuń
+    edit: Edytuj
+
+section:
+    title: Tytuł
+    text: Treść
+    chapter: Rozdział
+
+chapter:
+    title: Tytuł
+    sections: Sekcje (sceny)

@@ -29,7 +29,7 @@ class FormController extends AbstractController
         $this->routing = $routing;
     }
 
-    public function addAction(Request $request, $elementName)
+    public function createAction(Request $request, $elementName)
     {
         $element = $this->getElement($elementName);
 

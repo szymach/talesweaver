@@ -3,9 +3,9 @@ list:
     defaults: { _controller: app.controller.list:listAction }
     methods:  GET
 
-add:
-    path:     /{elementName}/add
-    defaults: { _controller: app.controller.form:addAction }
+create:
+    path:     /{elementName}/create
+    defaults: { _controller: app.controller.form:createAction }
     methods:  [GET, POST]
 
 edit:
@@ -16,4 +16,4 @@ edit:
 delete:
     path:     /{elementName}/delete/{id}
     defaults: { _controller: app.controller.form:deleteAction }
-#    methods:  DELETE
+    methods:  DELETE

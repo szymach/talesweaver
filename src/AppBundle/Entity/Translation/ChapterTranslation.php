@@ -19,7 +19,7 @@ class ChapterTranslation
     /**
      * @var string
      */
-    private $name;
+    private $title;
 
     /**
      * @var Chapter
@@ -35,13 +35,13 @@ class ChapterTranslation
     }
 
     /**
-     * @param string $name
+     * @param string $title
      *
      * @return ChapterTranslation
      */
-    public function setName($name)
+    public function setTitle($title)
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
@@ -49,9 +49,9 @@ class ChapterTranslation
     /**
      * @return string
      */
-    public function getName()
+    public function getTitle()
     {
-        return $this->name;
+        return $this->title;
     }
 
     /**

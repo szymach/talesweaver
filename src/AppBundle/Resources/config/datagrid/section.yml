@@ -1,11 +1,13 @@
 ---
 columns:
-    text:
+    title:
         type: text
+        options:
+            label: section.title
     actions:
         type: action
         options:
-            label: Usuń
+            label: list.actions
             field_mapping: ['id']
             actions:
                 edit:
