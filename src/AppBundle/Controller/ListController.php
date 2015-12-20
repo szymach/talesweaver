@@ -20,6 +20,11 @@ class ListController extends AbstractController
         $this->dataSourceFactory = $dataSourceFactory;
     }
 
+    public function indexAction()
+    {
+        return $this->templating->renderResponse('base.html.twig');
+    }
+    
     public function listAction(Request $request, $elementName)
     {
         $element = $this->getElement($elementName);
