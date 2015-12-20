@@ -1,0 +1,19 @@
+---
+AppBundle\Entity\Translation\ParagraphTranslation:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        text:
+            type: text
+        locale:
+            type: string
+            length: 2
+    manyToOne:
+        paragraph:
+            targetEntity: AppBundle\Entity\Paragraph
+            inversedBy: translations
+            joinColumn:
+                onDelete: "CASCADE"

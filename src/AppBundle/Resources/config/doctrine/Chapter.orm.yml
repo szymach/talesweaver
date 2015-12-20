@@ -1,0 +1,20 @@
+---
+AppBundle\Entity\Chapter:
+    type: entity
+    repositoryClass: AppBundle\Entity\Repository\TranslatableRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    oneToMany:
+        paragraphs:
+            targetEntity: AppBundle\Entity\Paragraph
+            mappedBy: chapter
+            cascade: [persist]
+            joinColumn:
+                onDelete: "SET NULL"
+        translations:
+            targetEntity: AppBundle\Entity\Translation\ChapterTranslation
+            mappedBy: chapter
+            indexBy: locale
+            cascade: [persist, remove]

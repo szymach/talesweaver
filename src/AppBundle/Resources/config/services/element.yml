@@ -1,0 +1,15 @@
+---
+services:
+    app.element.manager:
+        class: AppBundle\Element\Manager\Manager
+        
+    app.element.chapter:
+        class: AppBundle\Element\ChapterElement
+        tags:
+            - { name: app.element }
+        
+    app.element.paragraph:
+        class: AppBundle\Element\ParagraphElement
+        tags:
+            - { name: app.element }
+
