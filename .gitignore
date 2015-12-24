@@ -20,6 +20,9 @@
 /assets/vendor/
 /web/bundles/
 /web/uploads/
+/web/css/
+/web/fonts
+/web/js/
 
 # PHPUnit
 /app/phpunit.xml

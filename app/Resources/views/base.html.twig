@@ -17,6 +17,9 @@
         <nav>{% block menu knp_menu_render('main') %}</nav>
         <main>{% block body '' %}</main>
         <footer>{% block footer '' %}</footer>
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('js/base.js') }}"></script>
+            <script src="{{ asset('js/app.js') }}"></script>
+        {% endblock %}
     </body>
 </html>
