@@ -15,7 +15,7 @@
     </head>
     <body>
         <nav>{% block menu knp_menu_render('main') %}</nav>
-        <main>{% block body '' %}</main>
+        <main class="container">{% block body '' %}</main>
         <footer>{% block footer '' %}</footer>
         {% block javascripts %}
             <script src="{{ asset('js/base.js') }}"></script>
