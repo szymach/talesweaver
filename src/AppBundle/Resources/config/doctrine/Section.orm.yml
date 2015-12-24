@@ -17,3 +17,5 @@ AppBundle\Entity\Section:
         chapter:
             targetEntity: AppBundle\Entity\Chapter
             inversedBy: sections
+            joinColumn:
+                onDelete: "SET NULL"

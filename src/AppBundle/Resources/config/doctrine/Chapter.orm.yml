@@ -11,8 +11,6 @@ AppBundle\Entity\Chapter:
             targetEntity: AppBundle\Entity\Section
             mappedBy: chapter
             cascade: [persist]
-            joinColumn:
-                onDelete: "SET NULL"
         translations:
             targetEntity: AppBundle\Entity\Translation\ChapterTranslation
             mappedBy: chapter
@@ -22,3 +20,5 @@ AppBundle\Entity\Chapter:
         book:
             targetEntity: AppBundle\Entity\Book
             inversedBy: chapters
+            joinColumn:
+                onDelete: "SET NULL"

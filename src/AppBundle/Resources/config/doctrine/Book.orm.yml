@@ -11,8 +11,6 @@ AppBundle\Entity\Book:
             targetEntity: AppBundle\Entity\Chapter
             mappedBy: book
             cascade: [persist]
-            joinColumn:
-                onDelete: "SET NULL"
         translations:
             targetEntity: AppBundle\Entity\Translation\BookTranslation
             mappedBy: book
