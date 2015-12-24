@@ -1,9 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <a href="{{ path('crud_list', {elementName: element}) }}">{{ 'crud.form.return' | trans }}</a>
     {{ form_start(form) }}
         {{ form_rest(form) }}
-        <button>{{ 'crud.form.submit' | trans }}</button>
+        <button class="btn btn-primary">{{ 'crud.form.submit' | trans }}</button>
+        <a class="btn btn-default" href="{{ path('crud_list', {elementName: element}) }}">
+            {{ 'crud.form.return' | trans }}
+        </a>
     {{ form_end(form) }}
 {% endblock %}

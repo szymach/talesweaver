@@ -38,7 +38,9 @@ class Builder
      */
     public function createMainMenu()
     {
-        $menu = $this->factory->createItem('root');
+        $menu = $this->factory->createItem('root')
+            ->setChildrenAttribute('class', 'nav navbar-nav')
+        ;
 
         foreach ($this->elementManager->getElements() as $element) {
             $name = $element->getId();

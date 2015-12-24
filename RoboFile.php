@@ -23,7 +23,8 @@ class RoboFile extends \Robo\Tasks
     public function copyFonts()
     {
         $this->taskCopyDir([
-            __DIR__.'/assets/vendor/components-font-awesome/fonts' => __DIR__.'/web/fonts'
+            __DIR__.'/assets/vendor/components-font-awesome/fonts' => __DIR__.'/web/fonts',
+            __DIR__.'/assets/vendor/bootstrap-sass/assets/fonts/bootstrap' => __DIR__.'/web/fonts/bootstrap'
         ])
         ->run();
     }

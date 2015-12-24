@@ -32,6 +32,7 @@
         "fsi/doctrine-extensions-bundle": "~1.1",
         "henrikbjorn/lurker": "1.1.0 as 1.0.x-dev",
         "incenteev/composer-parameter-handler": "^2.0",
+        "jms/i18n-routing-bundle": "~2.0",
         "knplabs/knp-menu-bundle": "~2.0",
         "leafo/scssphp": "~0.6",
         "markstory/mini-asset": "~1.0",

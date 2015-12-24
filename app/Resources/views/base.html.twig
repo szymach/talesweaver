@@ -14,7 +14,11 @@
         <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     </head>
     <body>
-        <nav>{% block menu knp_menu_render('main') %}</nav>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                {% block menu knp_menu_render('main') %}
+            </div>
+        </nav>
         <main class="container">{% block body '' %}</main>
         <footer>{% block footer '' %}</footer>
         {% block javascripts %}

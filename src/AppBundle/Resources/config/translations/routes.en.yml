@@ -1,0 +1,5 @@
+---
+crud_list: /{elementName}/list
+crud_create: /{elementName}/create
+crud_edit: /{elementName}/edit/{id}
+crud_delete: /{elementName}/delete/{id}

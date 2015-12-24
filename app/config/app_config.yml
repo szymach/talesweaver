@@ -8,3 +8,8 @@ fsi_doctrine_extensions:
 knp_menu:
     twig:
         template: menu\knp_menu.html.twig
+
+jms_i18n_routing:
+    default_locale: pl
+    locales: [pl, en]
+    strategy: prefix

@@ -16,7 +16,7 @@ section:
 
 chapter:
     title: Tytuł
-    sections: Sekcje (sceny)
+    sections: Sceny
     book: Książka
 
 book:
@@ -29,5 +29,5 @@ front:
 
     menu:
         chapter: Rozdziały
-        section: Sekcje (sceny)
+        section: Sceny
         book: Książki
