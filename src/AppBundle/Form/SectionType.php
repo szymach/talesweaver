@@ -2,10 +2,10 @@
 
 namespace AppBundle\Form;
 
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -32,9 +32,11 @@ class SectionType extends AbstractType
             'label' => 'section.title'
         ]);
 
-        $builder->add('text', TextareaType::class, [
-            'label' => 'section.text'
-        ]);
+        if ($options['allow_chapter_select']) {
+            $builder->add('text', CKEditorType::class, [
+                'label' => 'section.text'
+            ]);
+        }
     }
 
     /**

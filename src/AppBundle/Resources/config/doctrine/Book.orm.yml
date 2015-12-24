@@ -1,5 +1,5 @@
 ---
-AppBundle\Entity\Chapter:
+AppBundle\Entity\Book:
     type: entity
     repositoryClass: AppBundle\Entity\Repository\TranslatableRepository
     id:
@@ -7,18 +7,14 @@ AppBundle\Entity\Chapter:
             type: integer
             generator: { strategy: AUTO }
     oneToMany:
-        sections:
-            targetEntity: AppBundle\Entity\Section
-            mappedBy: chapter
+        chapters:
+            targetEntity: AppBundle\Entity\Chapter
+            mappedBy: book
             cascade: [persist]
             joinColumn:
                 onDelete: "SET NULL"
         translations:
-            targetEntity: AppBundle\Entity\Translation\ChapterTranslation
-            mappedBy: chapter
+            targetEntity: AppBundle\Entity\Translation\BookTranslation
+            mappedBy: book
             indexBy: locale
             cascade: [persist, remove]
-    manyToOne:
-        book:
-            targetEntity: AppBundle\Entity\Book
-            inversedBy: chapters

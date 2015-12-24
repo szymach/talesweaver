@@ -1,0 +1,22 @@
+---
+AppBundle\Entity\Translation\BookTranslation:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        title:
+            type: text
+        preface:
+            type: text
+            nullable: true
+        locale:
+            type: string
+            length: 2
+    manyToOne:
+        book:
+            targetEntity: AppBundle\Entity\Book
+            inversedBy: translations
+            joinColumn:
+                onDelete: "CASCADE"

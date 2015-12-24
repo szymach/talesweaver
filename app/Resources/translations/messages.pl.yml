@@ -17,7 +17,12 @@ section:
 chapter:
     title: Tytuł
     sections: Sekcje (sceny)
+    book: Książka
 
+book:
+    title: Tytuł
+    chapters: Rozdziały
+    
 front:
     meta:
         title: Bajkopisarz
@@ -25,3 +30,4 @@ front:
     menu:
         chapter: Rozdziały
         section: Sekcje (sceny)
+        book: Książki

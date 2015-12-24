@@ -1,13 +1,20 @@
 ---
 services:
+    # Manager
     app.element.manager:
         class: AppBundle\Element\Manager\Manager
-        
+
+    # Element
+    app.element.book:
+        class: AppBundle\Element\BookElement
+        tags:
+            - { name: app.element }
+
     app.element.chapter:
         class: AppBundle\Element\ChapterElement
         tags:
             - { name: app.element }
-        
+
     app.element.section:
         class: AppBundle\Element\SectionElement
         tags:

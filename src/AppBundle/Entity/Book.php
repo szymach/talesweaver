@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 
-class Chapter
+class Book
 {
     use Traits\TranslatableTrait;
 
@@ -22,18 +22,13 @@ class Chapter
     private $title;
 
     /**
-     * @var Book
-     */
-    private $book;
-
-    /**
      * @var Collection
      */
-    private $sections;
+    private $chapters;
 
     public function __construct()
     {
-        $this->sections = new ArrayCollection();
+        $this->chapters = new ArrayCollection();
         $this->translations = new ArrayCollection();
     }
 
@@ -48,7 +43,7 @@ class Chapter
     /**
      * @param string $title
      *
-     * @return Chapter
+     * @return Book
      */
     public function setTitle($title)
     {
@@ -66,54 +61,34 @@ class Chapter
     }
 
     /**
-     * @param Section $section
+     * @param Chapter $chapter
      *
-     * @return Chapter
+     * @return Book
      */
-    public function addSection(Section $section)
+    public function addChapter(Chapter $chapter)
     {
-        if (!$this->sections->contains($section)) {
-            $section->setChapter($this);
-            $this->sections->add($section);
+        if (!$this->chapters->contains($chapter)) {
+            $this->chapters->add($chapter);
+            $chapter->setBook($this);
         }
 
         return $this;
     }
 
     /**
-     * @param Section $section
+     * @param Chapter $chapter
      */
-    public function removeSection(Section $section)
+    public function removeChapter(Chapter $chapter)
     {
-        $this->sections->removeElement($section);
-        $section->setChapter(null);
+        $this->chapters->removeElement($chapter);
+        $chapter->setBook(null);
     }
 
     /**
      * @return Collection
      */
-    public function getSections()
+    public function getChapters()
     {
-        return $this->sections;
-    }
-
-    /**
-     * @param Book $book
-     *
-     * @return Chapter
-     */
-    public function setBook(Book $book = null)
-    {
-        $this->book = $book;
-
-        return $this;
-    }
-
-    /**
-     * @return Book
-     */
-    public function getBook()
-    {
-        return $this->book;
+        return $this->chapters;
     }
 }
