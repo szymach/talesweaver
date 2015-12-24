@@ -2,23 +2,69 @@
 
 namespace AppBundle\Controller;
 
+use Doctrine\Common\Persistence\ObjectManager;
+use FSi\Component\DataGrid\DataGridFactoryInterface;
+use FSi\Component\DataSource\DataSourceFactoryInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Templating\EngineInterface;
+
+use AppBundle\Element\Interfaces\ElementInterface;
+use AppBundle\Element\Manager\Manager;
 
 /**
  * @author Piotr Szymaszek
  */
 class FormController extends AbstractController
 {
+    /**
+     * @var EngineInterface
+     */
+    protected $templating;
+
+    /**
+     * @var ObjectManager
+     */
+    protected $entityManager;
+
+    /**
+     * @var Manager
+     */
+    protected $elementManager;
+
+    /**
+     * @var FormFactoryInterface
+     */
+    protected $formFactory;
+
+    /**
+     * @var DataGridFactoryInterface
+     */
+    protected $datagridFactory;
+
+    /**
+     * @var DataSourceFactoryInterface
+     */
+    protected $dataSourceFactory;
+
+    /**
+     * @var RouterInterface
+     */
+    protected $router;
+
     public function __construct(
-        $templating,
-        $entityManager,
-        $elementManager,
-        $formFactory,
-        $datagridFactory,
-        $dataSourceFactory,
-        $routing
+        EngineInterface $templating,
+        ObjectManager $entityManager,
+        Manager $elementManager,
+        FormFactoryInterface $formFactory,
+        DataGridFactoryInterface $datagridFactory,
+        DataSourceFactoryInterface $dataSourceFactory,
+        RouterInterface $router
     ) {
         $this->templating = $templating;
         $this->entityManager = $entityManager;
@@ -26,17 +72,22 @@ class FormController extends AbstractController
         $this->formFactory = $formFactory;
         $this->datagridFactory = $datagridFactory;
         $this->dataSourceFactory = $dataSourceFactory;
-        $this->routing = $routing;
+        $this->router = $router;
     }
 
     public function createAction(Request $request, $elementName)
     {
         $element = $this->getElement($elementName);
+        $form = $this->getForm($element);
+        $submitted = $this->handleForm($request, $form);
+        if ($submitted) {
+            return $this->redirectToEdit($elementName, $form->getData()->getId());
+        }
 
         return $this->templating->renderResponse(
             'crud\form.html.twig',
             [
-                'form' => $this->getForm($request, $element, null),
+                'form' => $form->createView(),
                 'element' => $elementName
             ]
         );
@@ -49,10 +100,18 @@ class FormController extends AbstractController
         if (!$entity) {
             throw new NotFoundHttpException();
         }
+        $form = $this->getForm($element, $entity);
+        $submitted = $this->handleForm($request, $form);
+        if ($submitted) {
+            return $this->redirectToEdit($elementName, $entity->getId());
+        }
+//foreach ($entity->getSections() as $section) {
+//    var_dump($section->getTitle());die();
+//}
         return $this->templating->renderResponse(
             'crud\form.html.twig',
             [
-                'form' => $this->getForm($request, $element, $entity),
+                'form' => $form->createView(),
                 'element' => $elementName
             ]
         );
@@ -62,7 +121,7 @@ class FormController extends AbstractController
     {
         $element = $this->getElement($elementName);
 
-        $this->entityManager
+        $result = $this->entityManager
             ->getRepository($element->getClassName())
             ->createQueryBuilder('e')
             ->delete($element->getClassName(), 'e')
@@ -72,12 +131,15 @@ class FormController extends AbstractController
             ->getResult()
         ;
 
-        return new RedirectResponse(
-            $this->routing->generate('list', ['elementName' => $element->getId()])
-        );
+        return new JsonResponse([$result]);
     }
 
-    protected function find($element, $id)
+    /**
+     * @param ElementInterface $element
+     * @param int $id
+     * @return mixed
+     */
+    protected function find(ElementInterface $element, $id)
     {
         return $this->entityManager
             ->getRepository($element->getClassName())
@@ -85,14 +147,28 @@ class FormController extends AbstractController
         ;
     }
 
-    protected function getForm($request, $element, $data)
+    /**
+     * @param ElementInterface $element
+     * @param mixed $data
+     * @return FormInterface
+     */
+    protected function getForm(ElementInterface $element, $data = null)
     {
         $options = ['method' => 'PUT'];
         if (!$data) {
             $options['method'] = 'POST';
         }
-        $form = $element->getForm($this->formFactory, $data, $options);
+        return $element->getForm($this->formFactory, $data, $options);
+    }
 
+    /**
+     * @param Request $request
+     * @param FormInterface $form
+     * @return RedirectResponse | boolean
+     */
+    protected function handleForm(Request $request, FormInterface $form)
+    {
+        $success = false;
         $form->handleRequest($request);
         if ($form->isValid()) {
             $data = $form->getData();
@@ -100,8 +176,24 @@ class FormController extends AbstractController
                 $this->entityManager->persist($data);
             }
             $this->entityManager->flush();
+            $success = true;
         }
 
-        return $form->createView();
+        return $success;
+    }
+
+    /**
+     * @param string $element
+     * @param int $id
+     * @return RedirectResponse
+     */
+    protected function redirectToEdit($element, $id)
+    {
+        return new RedirectResponse(
+            $this->router->generate(
+                'crud_edit',
+                ['elementName' => $element, 'id' => $id]
+            )
+        );
     }
 }

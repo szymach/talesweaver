@@ -84,7 +84,7 @@ class SectionTranslation
      *
      * @return SectionTranslation
      */
-    public function setSection(Section $section = null)
+    public function setSection(Section $section)
     {
         $this->section = $section;
 

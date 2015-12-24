@@ -10,6 +10,7 @@ AppBundle\Entity\Translation\SectionTranslation:
             type: string
         text:
             type: text
+            nullable: true
         locale:
             type: string
             length: 2

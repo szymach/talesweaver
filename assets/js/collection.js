@@ -12,28 +12,31 @@ $(document).ready(function() {
             .addClass('add btn btn-success')
             .on('click', function(event) {
                 var nextIndex = $el.data('current_index');
-                var newRowHtml = template.replace(/__name__label__/g, nextIndex).replace(/__name__/g, nextIndex);
-                var newRow = $(newRowHtml)
-                    .insertBefore(addBtn);
+                var newRowHtml = template.replace(/__name__label__/g, nextIndex)
+                    .replace(/__name__/g, nextIndex)
+                ;
+                var newRow = $(newRowHtml).insertBefore(addBtn);
 
                 $el.data('current_index', nextIndex + 1);
 
-                newRow.find('> .col-lg-2').remove();
-                newRow.find('> .col-lg-10').removeClass('col-lg-10').addClass('col-lg-11').after(removeCol.clone(true));
+                newRow.find('> label').remove();
+                newRow.append(removeCol.clone(true));
 
                 event.preventDefault();
             });
 
         var removeCol = $('<div />').addClass('col-lg-1');
-        var removeBtn = $('<a href="#">X</a>')
+        $('<a class="fa fa-trash" href="#"></a>')
             .addClass('remove btn btn-danger')
-            .appendTo(removeCol)
-            .on('click', function(event) {
-                $(this).closest('.form-group').remove();
-                event.preventDefault();
-            });
+            .appendTo(removeCol);
+            
 
-        $el.find('> .form-group > .col-lg-2').remove();
-        $el.find('> .form-group > .col-lg-10').removeClass('col-lg-10').addClass('col-lg-11').after(removeCol);
+        $el.find('> .form-group > label').remove();
+        $el.find('> .form-group').append(removeCol);
+    });
+    
+    $('form').on('click', '.fa-trash', function(event) {
+        event.preventDefault();
+        $(this).parents('.form-group').first().remove();
     });
 });

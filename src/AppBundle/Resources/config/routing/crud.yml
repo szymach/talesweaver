@@ -1,19 +1,19 @@
 crud_list:
-    path:     /{elementName}/list
+    path:     /{elementName}/lista
     defaults: { _controller: app.controller.list:listAction }
     methods:  GET
 
 crud_create:
-    path:     /{elementName}/create
+    path:     /{elementName}/dodaj
     defaults: { _controller: app.controller.form:createAction }
     methods:  [GET, POST]
 
 crud_edit:
-    path:     /{elementName}/edit/{id}
+    path:     /{elementName}/edycja/{id}
     defaults: { _controller: app.controller.form:editAction }
     methods:  [GET, PUT]
 
 crud_delete:
-    path:     /{elementName}/delete/{id}
+    path:     /{elementName}/usuń/{id}
     defaults: { _controller: app.controller.form:deleteAction }
     methods:  DELETE

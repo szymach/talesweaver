@@ -46,7 +46,8 @@ class SectionType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Section',
-            'allow_chapter_select' => true
+            'allow_chapter_select' => true,
+            'validation_groups' => ['Default', 'standalone']
         ));
     }
 }
