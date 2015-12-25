@@ -14,21 +14,6 @@ use AppBundle\Element\Manager\Manager;
 class ListController extends AbstractController
 {
     /**
-     * @var EngineInterface
-     */
-    protected $templating;
-
-    /**
-     * @var ObjectManager
-     */
-    protected $entityManager;
-
-    /**
-     * @var Manager
-     */
-    protected $elementManager;
-
-    /**
      * @var DataGridFactoryInterface
      */
     protected $datagridFactory;

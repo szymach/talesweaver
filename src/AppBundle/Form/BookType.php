@@ -22,7 +22,7 @@ class BookType extends AbstractType
 
         $builder->add('chapters', CollectionType::class, [
             'label' => 'book.chapters',
-            'type' => ChapterType::class,
+            'entry_type' => ChapterType::class,
             'allow_add' => true,
             'allow_delete' => true,
             'delete_empty' => true,

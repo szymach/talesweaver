@@ -23,21 +23,6 @@ use AppBundle\Element\Manager\Manager;
 class FormController extends AbstractController
 {
     /**
-     * @var EngineInterface
-     */
-    protected $templating;
-
-    /**
-     * @var ObjectManager
-     */
-    protected $entityManager;
-
-    /**
-     * @var Manager
-     */
-    protected $elementManager;
-
-    /**
      * @var FormFactoryInterface
      */
     protected $formFactory;
@@ -105,9 +90,7 @@ class FormController extends AbstractController
         if ($submitted) {
             return $this->redirectToEdit($elementName, $entity->getId());
         }
-//foreach ($entity->getSections() as $section) {
-//    var_dump($section->getTitle());die();
-//}
+
         return $this->templating->renderResponse(
             'crud\form.html.twig',
             [
