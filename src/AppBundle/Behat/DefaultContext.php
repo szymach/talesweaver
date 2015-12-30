@@ -106,7 +106,7 @@ abstract class DefaultContext extends PageObjectContext implements
             ->getRepository($entityClass)
         ;
     }
-
+    
     /**
      * @return User
      */

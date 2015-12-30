@@ -62,6 +62,14 @@ class ListContext extends DefaultContext
     }
 
     /**
+     * @When I click the :action button in the :position row
+     */
+    public function iClickButtonInRow($action, $position)
+    {
+        $this->getListElement()->clickAction($position, $action);
+    }
+
+    /**
      * @Then there should be no elements on the list
      */
     public function thereShouldBeNoElementsOnList()

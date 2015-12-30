@@ -23,6 +23,35 @@ class ListElement extends Element
     }
 
     /**
+     * @param string $columnHeader
+     * @return int
+     */
+    private function getColumnPosition($columnHeader, $throwIfNotFound = true)
+    {
+        $result = null;
+        $columns = $this->findAll('xpath', "//thead/tr/th");
+        foreach ($columns as $index => $columnElement) {
+            $title = $columnElement->find(
+                'xpath',
+                '/span[contains(text(),"' . $columnHeader . '")]'
+            );
+            if (isset($title)) {
+                $result = $index + 1;
+                break;
+            }
+        }
+        if (null === $result && $throwIfNotFound) {
+            throw new UnexpectedPageException(sprintf(
+                'Column with title "%s" does not exist in DataGrid at page "%s".',
+                $columnHeader,
+                $this->getName()
+            ));
+        }
+
+        return $result;
+    }
+
+    /**
      * @return int
      */
     public function getElementsCount()

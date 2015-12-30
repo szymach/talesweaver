@@ -10,7 +10,7 @@ use SensioLabs\Behat\PageObjectExtension\PageObject\Exception\UnexpectedPageExce
  */
 class EditPage extends AbstractPage
 {
-    protected $path = '/en/crud/scene/edit/{id}';
+    protected $path = '/en/crud/scene/{id}/edit';
 
     protected $elements = [
         'form' => 'form[name=scene]',
@@ -18,7 +18,7 @@ class EditPage extends AbstractPage
 
     protected function verifyPage()
     {
-        if (!$this->hasElement('list')) {
+        if (!$this->hasElement('form')) {
             throw new UnexpectedPageException('Unable to verify page');
         }
     }

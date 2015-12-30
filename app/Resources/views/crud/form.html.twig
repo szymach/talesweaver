@@ -3,7 +3,7 @@
 {% block body %}
     {{ form_start(form) }}
         {{ form_rest(form) }}
-        <button class="btn btn-primary">{{ 'crud.form.submit' | trans }}</button>
+        <button id="submit" class="btn btn-primary">{{ 'crud.form.submit' | trans }}</button>
         <a class="btn btn-default" href="{{ path('crud_list', {elementName: element}) }}">
             {{ 'crud.form.return' | trans }}
         </a>

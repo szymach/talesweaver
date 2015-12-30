@@ -1,12 +1,15 @@
 ---
 default: &default
     suites:
-        base:
-            paths: [ %paths.base%/features ]
+        scene:
+            paths: [ %paths.base%/features/scene ]
             contexts:
                 - AppBundle\Behat\ListContext
                 - AppBundle\Behat\FormContext
+                - AppBundle\Behat\FormFillContext
                 - AppBundle\Behat\NavigationContext
+                - AppBundle\Behat\DataContext
+                - Fidry\AliceBundleExtension\Context\Doctrine\AliceORMContext
     gherkin:
         filters:
             tags: ~@wip
@@ -27,7 +30,9 @@ default: &default
             namespaces:
                 page: AppBundle\Behat\Page
                 element: AppBundle\Behat\Element
-
+        Fidry\AliceBundleExtension\Extension:
+            fixtures_base_path: %paths.base%/features/fixtures
+                
 travis:
     <<: *default
     formatters:
