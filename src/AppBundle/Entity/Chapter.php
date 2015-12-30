@@ -37,6 +37,11 @@ class Chapter
         $this->translations = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->title;
+    }
+
     /**
      * @return integer
      */

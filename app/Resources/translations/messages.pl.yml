@@ -13,6 +13,7 @@ scene:
     title: Tytuł
     text: Treść
     chapter: Rozdział
+    book: Książka
 
 chapter:
     title: Tytuł

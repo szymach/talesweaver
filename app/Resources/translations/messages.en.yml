@@ -13,6 +13,7 @@ scene:
     title: Title
     text: Content
     chapter: Chapter
+    book: Book
 
 chapter:
     title: Title

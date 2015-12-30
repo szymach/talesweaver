@@ -1,0 +1,37 @@
+---
+default: &default
+    suites:
+        base:
+            paths: [ %paths.base%/features ]
+            contexts:
+                - AppBundle\Behat\ListContext
+                - AppBundle\Behat\FormContext
+                - AppBundle\Behat\NavigationContext
+    gherkin:
+        filters:
+            tags: ~@wip
+    extensions:
+        Behat\MinkExtension:
+            sessions:
+                default:
+                    symfony2: ~
+                javascript:
+                    selenium2:
+                        browser: firefox
+            base_url: http://127.0.0.1:8000/app_test.php
+        Behat\Symfony2Extension:
+            kernel:
+                env: test
+                debug: true
+        SensioLabs\Behat\PageObjectExtension:
+            namespaces:
+                page: AppBundle\Behat\Page
+                element: AppBundle\Behat\Element
+
+travis:
+    <<: *default
+    formatters:
+        progress: true
+    extensions:
+        Behat\MinkExtension:
+            base_url: "http://localhost:8080/app_test.php"
