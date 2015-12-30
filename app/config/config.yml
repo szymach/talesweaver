@@ -4,9 +4,6 @@ imports:
     - { resource: services.yml }
     - { resource: app_config.yml }
 
-parameters:
-    locale: pl
-
 framework:
     #esi:             ~
     translator:      { fallbacks: ["%locale%"] }
