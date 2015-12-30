@@ -7,8 +7,8 @@ AppBundle\Entity\Chapter:
             type: integer
             generator: { strategy: AUTO }
     oneToMany:
-        sections:
-            targetEntity: AppBundle\Entity\Section
+        scenes:
+            targetEntity: AppBundle\Entity\Scene
             mappedBy: chapter
             cascade: [persist]
         translations:

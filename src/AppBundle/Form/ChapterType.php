@@ -36,9 +36,9 @@ class ChapterType extends AbstractType
         ]);
         
         if ($options['allow_book_select']) {
-            $builder->add('sections', CollectionType::class, [
-                'label' => 'chapter.sections',
-                'entry_type' => SectionType::class,
+            $builder->add('scenes', CollectionType::class, [
+                'label' => 'chapter.scenes',
+                'entry_type' => SceneType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'delete_empty' => true,

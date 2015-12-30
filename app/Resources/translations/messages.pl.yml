@@ -9,14 +9,14 @@ crud:
         submit: Wyślij
         return: Powrót
 
-section:
+scene:
     title: Tytuł
     text: Treść
     chapter: Rozdział
 
 chapter:
     title: Tytuł
-    sections: Sceny
+    scenes: Sceny
     book: Książka
 
 book:
@@ -29,5 +29,5 @@ front:
 
     menu:
         chapter: Rozdziały
-        section: Sceny
+        scene: Sceny
         book: Książki

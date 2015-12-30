@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use AppBundle\Entity\Chapter;
 
-class SectionType extends AbstractType
+class SceneType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -21,7 +21,7 @@ class SectionType extends AbstractType
     {
         if ($options['allow_chapter_select']) {
             $builder->add('chapter', EntityType::class, [
-                'label' => 'section.chapter',
+                'label' => 'scene.chapter',
                 'class' => Chapter::class,
                 'choice_label' => 'title',
                 'required' => false
@@ -29,12 +29,12 @@ class SectionType extends AbstractType
         }
 
         $builder->add('title', TextType::class, [
-            'label' => 'section.title'
+            'label' => 'scene.title'
         ]);
 
         if ($options['allow_chapter_select']) {
             $builder->add('text', CKEditorType::class, [
-                'label' => 'section.text'
+                'label' => 'scene.text'
             ]);
         }
     }
@@ -45,7 +45,7 @@ class SectionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Section',
+            'data_class' => 'AppBundle\Entity\Scene',
             'allow_chapter_select' => true,
             'validation_groups' => ['Default', 'standalone']
         ));

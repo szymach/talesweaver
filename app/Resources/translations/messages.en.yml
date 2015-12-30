@@ -1,0 +1,33 @@
+---
+crud:
+    list:
+        actions: Actions
+        create: Add
+        delete: Delete
+        edit: Edit
+    form:
+        submit: Submit
+        return: Return
+
+scene:
+    title: Title
+    text: Content
+    chapter: Chapter
+
+chapter:
+    title: Title
+    scenes: Scenes
+    book: Book
+
+book:
+    title: Title
+    chapters: Chapters
+
+front:
+    meta:
+        title: Talesweaver
+
+    menu:
+        chapter: Chapters
+        scene: Scenes
+        book: Books

@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 
-class Section
+class Scene
 {
     use Traits\TranslatableTrait;
 
@@ -47,7 +47,7 @@ class Section
     /**
      * @param string $title
      *
-     * @return SectionTranslation
+     * @return SceneTranslation
      */
     public function setTitle($title)
     {
@@ -67,7 +67,7 @@ class Section
     /**
      * @param string $text
      *
-     * @return Section
+     * @return Scene
      */
     public function setText($text)
     {
@@ -87,7 +87,7 @@ class Section
     /**
      * @param Chapter $chapter
      *
-     * @return Section
+     * @return Scene
      */
     public function setChapter(Chapter $chapter = null)
     {

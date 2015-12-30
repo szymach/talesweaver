@@ -1,5 +1,5 @@
 ---
-AppBundle\Entity\Translation\SectionTranslation:
+AppBundle\Entity\Translation\SceneTranslation:
     type: entity
     id:
         id:
@@ -15,8 +15,8 @@ AppBundle\Entity\Translation\SectionTranslation:
             type: string
             length: 2
     manyToOne:
-        section:
-            targetEntity: AppBundle\Entity\Section
+        scene:
+            targetEntity: AppBundle\Entity\Scene
             inversedBy: translations
             joinColumn:
                 onDelete: "CASCADE"

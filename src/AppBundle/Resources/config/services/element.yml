@@ -15,7 +15,7 @@ services:
         tags:
             - { name: app.element }
 
-    app.element.section:
-        class: AppBundle\Element\SectionElement
+    app.element.scene:
+        class: AppBundle\Element\SceneElement
         tags:
             - { name: app.element }

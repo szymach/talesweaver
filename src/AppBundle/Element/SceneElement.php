@@ -4,33 +4,33 @@ namespace AppBundle\Element;
 
 use Symfony\Component\Form\FormFactoryInterface;
 
-use AppBundle\Entity\Section;
-use AppBundle\Form\SectionType;
+use AppBundle\Entity\Scene;
+use AppBundle\Form\SceneType;
 
 /**
  * @author Piotr Szymaszek
  */
-class SectionElement extends AbstractElement
+class SceneElement extends AbstractElement
 {
     public function getId()
     {
-        return 'section';
+        return 'scene';
     }
 
     public function getClassName()
     {
-        return Section::class;
+        return Scene::class;
     }
 
     public function getEntity()
     {
-        return new Section();
+        return new Scene();
     }
 
     public function getForm(FormFactoryInterface $factory, $data = null, $options = [])
     {
         return $factory->create(
-            SectionType::class,
+            SceneType::class,
             $data ? $data : $this->getEntity(),
             $options
         );

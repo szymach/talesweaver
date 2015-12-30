@@ -29,11 +29,11 @@ class Chapter
     /**
      * @var Collection
      */
-    private $sections;
+    private $scenes;
 
     public function __construct()
     {
-        $this->sections = new ArrayCollection();
+        $this->scenes = new ArrayCollection();
         $this->translations = new ArrayCollection();
     }
 
@@ -66,35 +66,35 @@ class Chapter
     }
 
     /**
-     * @param Section $section
+     * @param Scene $scene
      *
      * @return Chapter
      */
-    public function addSection(Section $section)
+    public function addScene(Scene $scene)
     {
-        if (!$this->sections->contains($section)) {
-            $section->setChapter($this);
-            $this->sections->add($section);
+        if (!$this->scenes->contains($scene)) {
+            $scene->setChapter($this);
+            $this->scenes->add($scene);
         }
 
         return $this;
     }
 
     /**
-     * @param Section $section
+     * @param Scene $scene
      */
-    public function removeSection(Section $section)
+    public function removeScene(Scene $scene)
     {
-        $this->sections->removeElement($section);
-        $section->setChapter(null);
+        $this->scenes->removeElement($scene);
+        $scene->setChapter(null);
     }
 
     /**
      * @return Collection
      */
-    public function getSections()
+    public function getScenes()
     {
-        return $this->sections;
+        return $this->scenes;
     }
 
     /**

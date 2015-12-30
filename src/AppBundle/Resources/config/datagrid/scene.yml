@@ -3,7 +3,7 @@ columns:
     title:
         type: text
         options:
-            label: section.title
+            label: scene.title
     actions:
         type: action
         options:
@@ -12,9 +12,9 @@ columns:
             actions:
                 edit:
                     route_name: crud_edit
-                    additional_parameters: { elementName: section }
+                    additional_parameters: { elementName: scene }
                     parameters_field_mapping: {'id': 'id'}
                 delete:
                     route_name: crud_delete
-                    additional_parameters: { elementName: section }
+                    additional_parameters: { elementName: scene }
                     parameters_field_mapping: {'id': 'id'}
