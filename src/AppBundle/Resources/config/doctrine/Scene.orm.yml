@@ -1,5 +1,5 @@
 ---
-AppBundle\Entity\Section:
+AppBundle\Entity\Scene:
     type: entity
     repositoryClass: AppBundle\Entity\Repository\TranslatableRepository
     id:
@@ -9,11 +9,13 @@ AppBundle\Entity\Section:
     fields:
     oneToMany:
         translations:
-            targetEntity: AppBundle\Entity\Translation\SectionTranslation
-            mappedBy: section
+            targetEntity: AppBundle\Entity\Translation\SceneTranslation
+            mappedBy: scene
             indexBy: locale
             cascade: [persist, remove]
     manyToOne:
         chapter:
             targetEntity: AppBundle\Entity\Chapter
-            inversedBy: sections
+            inversedBy: scenes
+            joinColumn:
+                onDelete: "SET NULL"

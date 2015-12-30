@@ -4,10 +4,10 @@ namespace AppBundle\Entity\Translation;
 
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 
-use AppBundle\Entity\Section;
+use AppBundle\Entity\Scene;
 use AppBundle\Entity\Traits\LocaleTrait;
 
-class SectionTranslation
+class SceneTranslation
 {
     use LocaleTrait;
 
@@ -27,9 +27,9 @@ class SectionTranslation
     private $text;
 
     /**
-     * @var Section
+     * @var Scene
      */
-    private $section;
+    private $scene;
 
     /**
      * @return integer
@@ -42,7 +42,7 @@ class SectionTranslation
     /**
      * @param string $title
      *
-     * @return SectionTranslation
+     * @return SceneTranslation
      */
     public function setTitle($title)
     {
@@ -62,7 +62,7 @@ class SectionTranslation
     /**
      * @param string $text
      *
-     * @return SectionTranslation
+     * @return SceneTranslation
      */
     public function setText($text)
     {
@@ -80,22 +80,22 @@ class SectionTranslation
     }
 
     /**
-     * @param Section $section
+     * @param Scene $scene
      *
-     * @return SectionTranslation
+     * @return SceneTranslation
      */
-    public function setSection(Section $section = null)
+    public function setScene(Scene $scene)
     {
-        $this->section = $section;
+        $this->scene = $scene;
 
         return $this;
     }
 
     /**
-     * @return Section
+     * @return Scene
      */
-    public function getSection()
+    public function getScene()
     {
-        return $this->section;
+        return $this->scene;
     }
 }

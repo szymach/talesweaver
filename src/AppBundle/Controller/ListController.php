@@ -2,22 +2,44 @@
 
 namespace AppBundle\Controller;
 
+use Doctrine\Common\Persistence\ObjectManager;
+use FSi\Component\DataGrid\DataGridFactoryInterface;
+use FSi\Component\DataSource\DataSourceFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Templating\EngineInterface;
+
+use AppBundle\Element\Interfaces\ElementInterface;
+use AppBundle\Element\Manager\Manager;
 
 class ListController extends AbstractController
 {
+    /**
+     * @var DataGridFactoryInterface
+     */
+    protected $datagridFactory;
+
+    /**
+     * @var DataSourceFactoryInterface
+     */
+    protected $dataSourceFactory;
+
     public function __construct(
-        $templating,
-        $entityManager,
-        $elementManager,
-        $datagridFactory,
-        $dataSourceFactory
+        EngineInterface $templating,
+        ObjectManager $entityManager,
+        Manager $elementManager,
+        DataGridFactoryInterface $datagridFactory,
+        DataSourceFactoryInterface $dataSourceFactory
     ) {
         $this->templating = $templating;
         $this->entityManager = $entityManager;
         $this->elementManager = $elementManager;
         $this->datagridFactory = $datagridFactory;
         $this->dataSourceFactory = $dataSourceFactory;
+    }
+
+    public function indexAction()
+    {
+        return $this->templating->renderResponse('base.html.twig');
     }
 
     public function listAction(Request $request, $elementName)
@@ -33,7 +55,12 @@ class ListController extends AbstractController
         );
     }
 
-    protected function getData($request, $element)
+    /**
+     * @param Request $request
+     * @param ElementInterface $element
+     * @return DataGridView
+     */
+    protected function getData(Request $request, ElementInterface $element)
     {
         $datasource = $element->getSource($this->dataSourceFactory);
         $datasource->bindParameters($request);

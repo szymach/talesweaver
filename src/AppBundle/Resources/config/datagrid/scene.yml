@@ -1,0 +1,20 @@
+---
+columns:
+    title:
+        type: text
+        options:
+            label: scene.title
+    actions:
+        type: action
+        options:
+            label: crud.list.actions
+            field_mapping: ['id']
+            actions:
+                edit:
+                    route_name: crud_edit
+                    additional_parameters: { elementName: scene }
+                    parameters_field_mapping: {'id': 'id'}
+                delete:
+                    route_name: crud_delete
+                    additional_parameters: { elementName: scene }
+                    parameters_field_mapping: {'id': 'id'}

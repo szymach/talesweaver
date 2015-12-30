@@ -7,14 +7,18 @@ AppBundle\Entity\Chapter:
             type: integer
             generator: { strategy: AUTO }
     oneToMany:
-        sections:
-            targetEntity: AppBundle\Entity\Section
+        scenes:
+            targetEntity: AppBundle\Entity\Scene
             mappedBy: chapter
             cascade: [persist]
-            joinColumn:
-                onDelete: "SET NULL"
         translations:
             targetEntity: AppBundle\Entity\Translation\ChapterTranslation
             mappedBy: chapter
             indexBy: locale
             cascade: [persist, remove]
+    manyToOne:
+        book:
+            targetEntity: AppBundle\Entity\Book
+            inversedBy: chapters
+            joinColumn:
+                onDelete: "SET NULL"

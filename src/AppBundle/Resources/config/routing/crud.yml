@@ -4,7 +4,7 @@ crud_list:
     methods:  GET
 
 crud_create:
-    path:     /{elementName}/create
+    path:     /{elementName}/add
     defaults: { _controller: app.controller.form:createAction }
     methods:  [GET, POST]
 

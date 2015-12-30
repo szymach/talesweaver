@@ -2,16 +2,16 @@
 
 namespace AppBundle\Form;
 
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use AppBundle\Entity\Chapter;
 
-class SectionType extends AbstractType
+class SceneType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -21,7 +21,7 @@ class SectionType extends AbstractType
     {
         if ($options['allow_chapter_select']) {
             $builder->add('chapter', EntityType::class, [
-                'label' => 'section.chapter',
+                'label' => 'scene.chapter',
                 'class' => Chapter::class,
                 'choice_label' => 'title',
                 'required' => false
@@ -29,12 +29,14 @@ class SectionType extends AbstractType
         }
 
         $builder->add('title', TextType::class, [
-            'label' => 'section.title'
+            'label' => 'scene.title'
         ]);
 
-        $builder->add('text', TextareaType::class, [
-            'label' => 'section.text'
-        ]);
+        if ($options['allow_chapter_select']) {
+            $builder->add('text', CKEditorType::class, [
+                'label' => 'scene.text'
+            ]);
+        }
     }
 
     /**
@@ -43,8 +45,9 @@ class SectionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Section',
-            'allow_chapter_select' => true
+            'data_class' => 'AppBundle\Entity\Scene',
+            'allow_chapter_select' => true,
+            'validation_groups' => ['Default', 'standalone']
         ));
     }
 }

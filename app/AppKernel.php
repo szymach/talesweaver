@@ -24,6 +24,8 @@ class AppKernel extends Kernel
             new FSi\Bundle\DataSourceBundle\DataSourceBundle(),
 
             # App
+            new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
+            new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new AppBundle\AppBundle(),
         );

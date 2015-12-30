@@ -10,17 +10,36 @@ class RoboFile extends \Robo\Tasks
     public function build()
     {
         $this->taskWatch()
-            ->monitor('assets/scss/base.scss', function () {
+            ->monitor(__DIR__.'/assets/scss', function () {
                 $this->buildSass();
+            })
+            ->monitor(__DIR__.'/assets/js', function () {
+                $this->buildJs();
             })
             ->run()
         ;
     }
-    
+
+    public function copyFonts()
+    {
+        $this->taskCopyDir([
+            __DIR__.'/assets/vendor/components-font-awesome/fonts' => __DIR__.'/web/fonts',
+            __DIR__.'/assets/vendor/bootstrap-sass/assets/fonts/bootstrap' => __DIR__.'/web/fonts/bootstrap'
+        ])
+        ->run();
+    }
+
     private function buildSass()
     {
         $this->say("Starting SASS rebuild");
-        $this->_exec('bin/mini_asset build --config app/config/assets.ini');
+        $this->_exec('bin/mini_asset build --config app/config/assets_css.ini');
         $this->say("SASS rebuilt successfully!");
+    }
+
+    private function buildJs()
+    {
+        $this->say("Starting JavaScript rebuild");
+        $this->_exec('bin/mini_asset build --config app/config/assets_js.ini');
+        $this->say("JavaScript rebuilt successfully!");
     }
 }

@@ -2,8 +2,8 @@
 columns:
     title:
         type: text
-        options:
-            label: section.title
+        options: 
+            label: book.title
     actions:
         type: action
         options:
@@ -12,9 +12,9 @@ columns:
             actions:
                 edit:
                     route_name: crud_edit
-                    additional_parameters: { elementName: paragraph }
+                    additional_parameters: { elementName: book }
                     parameters_field_mapping: {'id': 'id'}
                 delete:
                     route_name: crud_delete
-                    additional_parameters: { elementName: paragraph }
+                    additional_parameters: { elementName: book }
                     parameters_field_mapping: {'id': 'id'}

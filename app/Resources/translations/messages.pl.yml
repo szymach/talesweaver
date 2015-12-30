@@ -9,19 +9,25 @@ crud:
         submit: Wyślij
         return: Powrót
 
-section:
+scene:
     title: Tytuł
     text: Treść
     chapter: Rozdział
 
 chapter:
     title: Tytuł
-    sections: Sekcje (sceny)
+    scenes: Sceny
+    book: Książka
 
+book:
+    title: Tytuł
+    chapters: Rozdziały
+    
 front:
     meta:
         title: Bajkopisarz
 
     menu:
         chapter: Rozdziały
-        section: Sekcje (sceny)
+        scene: Sceny
+        book: Książki
