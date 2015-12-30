@@ -1,5 +1,13 @@
 ---
 columns:
+    book:
+        type: text
+        options:
+            label: scene.book
+    chapter:
+        type: text
+        options:
+            label: scene.chapter
     title:
         type: text
         options:

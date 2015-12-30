@@ -36,6 +36,11 @@ class Scene
         $this->translations = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->title;
+    }
+
     /**
      * @return integer
      */
@@ -102,5 +107,18 @@ class Scene
     public function getChapter()
     {
         return $this->chapter;
+    }
+
+    /**
+     * @return Book
+     */
+    public function getBook()
+    {
+        $book = null;
+        if ($this->chapter && $this->chapter->getBook()) {
+            $book = $this->chapter->getBook();
+        }
+
+        return $book;
     }
 }

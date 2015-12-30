@@ -4,16 +4,16 @@ crud_list:
     methods:  GET
 
 crud_create:
-    path:     /{elementName}/add
+    path:     /{elementName}/create
     defaults: { _controller: app.controller.form:createAction }
     methods:  [GET, POST]
 
 crud_edit:
-    path:     /{elementName}/edit/{id}
+    path:     /{elementName}/{id}/edit
     defaults: { _controller: app.controller.form:editAction }
     methods:  [GET, PUT]
 
 crud_delete:
-    path:     /{elementName}/delete/{id}
+    path:     /{elementName}/{id}/delete
     defaults: { _controller: app.controller.form:deleteAction }
     methods:  DELETE
