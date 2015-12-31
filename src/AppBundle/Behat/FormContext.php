@@ -58,8 +58,8 @@ class FormContext extends DefaultContext
     }
 
     /**
-     * @When I click the button :name
-     * @When click the button :name
+     * @When I click the :name button
+     * @When click the :name button
      */
     public function iClickTheButton($name)
     {
@@ -72,6 +72,14 @@ class FormContext extends DefaultContext
         } else {
             throw new UnexpectedPageException(sprintf('Can\'t find button or link "%s"', $name));
         }
+    }
+
+    /**
+     * @When I submit the form
+     */
+    public function iSubmitTheForm()
+    {
+        $this->iClickTheButton('submit');
     }
 
     /**
@@ -104,6 +112,22 @@ class FormContext extends DefaultContext
     public function iUncheckCheckbox($field)
     {
         $this->getFormElement()->uncheckField($field);
+    }
+
+    /**
+     * @Then there should be no errors
+     */
+    public function thereShouldBeNoErrors()
+    {
+        expect(empty($this->getFormElement()->getErrorMessages()))->toBe(true);
+    }
+
+    /**
+     * @return FormElement
+     */
+    private function getContentElement()
+    {
+        return $this->getElement('ContentElement');
     }
 
     /**

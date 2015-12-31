@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Behat\Page\Scene;
+namespace AppBundle\Behat\Page\Chapter;
 
 use AppBundle\Behat\Page\AbstractPage;
 use SensioLabs\Behat\PageObjectExtension\PageObject\Exception\UnexpectedPageException;
@@ -8,17 +8,17 @@ use SensioLabs\Behat\PageObjectExtension\PageObject\Exception\UnexpectedPageExce
 /**
  * @author Piotr Szymaszek
  */
-class EditPage extends AbstractPage
+class ListPage extends AbstractPage
 {
-    protected $path = '/en/crud/scene/{id}/edit';
+    protected $path = '/en/crud/chapter/list';
 
     protected $elements = [
-        'form' => 'form[name=scene]',
+        'list' => '.table-datagrid',
     ];
 
     protected function verifyPage()
     {
-        if (!$this->hasElement('form')) {
+        if (!$this->hasElement('list')) {
             throw new UnexpectedPageException('Unable to verify page');
         }
     }

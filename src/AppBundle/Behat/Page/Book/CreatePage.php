@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Behat\Page\Scene;
+namespace AppBundle\Behat\Page\Book;
 
 use AppBundle\Behat\Page\AbstractPage;
 use SensioLabs\Behat\PageObjectExtension\PageObject\Exception\UnexpectedPageException;
@@ -8,12 +8,12 @@ use SensioLabs\Behat\PageObjectExtension\PageObject\Exception\UnexpectedPageExce
 /**
  * @author Piotr Szymaszek
  */
-class EditPage extends AbstractPage
+class CreatePage extends AbstractPage
 {
-    protected $path = '/en/crud/scene/{id}/edit';
+    protected $path = '/en/crud/book/create';
 
     protected $elements = [
-        'form' => 'form[name=scene]',
+        'form' => 'form[name=book]',
     ];
 
     protected function verifyPage()

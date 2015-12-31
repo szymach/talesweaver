@@ -120,7 +120,7 @@
 
 {% block datagrid_column_type_action_cell_action_edit %}
 {% spaceless %}
-    <a href="{{ attr.href }}" title="{{ 'crud.list.datagrid.action.edit'|trans  }}" class="btn btn-primary btn-sm">
+    <a href="{{ attr.href }}" title="{{ 'crud.list.edit' | trans  }}" class="btn btn-primary btn-sm">
         <span class="fa fa-edit icon-white"></span>
     </a>
 {% endspaceless %}
@@ -128,7 +128,7 @@
 
 {% block datagrid_column_type_action_cell_action_delete %}
 {% spaceless %}
-    <a href="{{ attr.href }}" title="{{ 'crud.list.datagrid.action.delete'|trans  }}" class="btn btn-danger btn-sm datagrid-delete">
+    <a href="{{ attr.href }}" title="{{ 'crud.list.delete' | trans  }}" class="btn btn-danger btn-sm datagrid-delete">
         <span class="fa fa-trash"></span>
     </a>
 {% endspaceless %}

@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new FSi\Bundle\DoctrineExtensionsBundle\FSiDoctrineExtensionsBundle(),
             new FSi\Bundle\DataGridBundle\DataGridBundle(),
             new FSi\Bundle\DataSourceBundle\DataSourceBundle(),
+            new Hautelook\AliceBundle\HautelookAliceBundle(),
 
             # App
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
