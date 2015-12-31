@@ -10,6 +10,24 @@ default: &default
                 - AppBundle\Behat\NavigationContext
                 - AppBundle\Behat\DataContext
                 - Fidry\AliceBundleExtension\Context\Doctrine\AliceORMContext
+        chapter:
+            paths: [ %paths.base%/features/chapter ]
+            contexts:
+                - AppBundle\Behat\ListContext
+                - AppBundle\Behat\FormContext
+                - AppBundle\Behat\FormFillContext
+                - AppBundle\Behat\NavigationContext
+                - AppBundle\Behat\DataContext
+                - Fidry\AliceBundleExtension\Context\Doctrine\AliceORMContext
+        book:
+            paths: [ %paths.base%/features/book ]
+            contexts:
+                - AppBundle\Behat\ListContext
+                - AppBundle\Behat\FormContext
+                - AppBundle\Behat\FormFillContext
+                - AppBundle\Behat\NavigationContext
+                - AppBundle\Behat\DataContext
+                - Fidry\AliceBundleExtension\Context\Doctrine\AliceORMContext
     gherkin:
         filters:
             tags: ~@wip
@@ -32,7 +50,7 @@ default: &default
                 element: AppBundle\Behat\Element
         Fidry\AliceBundleExtension\Extension:
             fixtures_base_path: %paths.base%/features/fixtures
-                
+
 travis:
     <<: *default
     formatters:

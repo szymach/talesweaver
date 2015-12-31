@@ -30,7 +30,39 @@ class FormFillContext extends DefaultContext
             'Changed content.'
         );
     }
-    
+
+    /**
+     * @Given I fill out the form for a new chapter :chapter
+     */
+    public function iFillOutTheFormForANewChapter($chapter)
+    {
+        $this->getFormElement()->fillField('Title', $chapter);
+    }
+
+    /**
+     * @Given I modify the chapter form
+     */
+    public function iModifyChapterForm()
+    {
+        $this->getFormElement()->fillField('Title', 'Modified chapter');
+    }
+
+    /**
+     * @Given I fill out the form for a new book :book
+     */
+    public function iFillOutTheFormForANewBook($book)
+    {
+        $this->getFormElement()->fillField('Title', $book);
+    }
+
+    /**
+     * @Given I modify the book form
+     */
+    public function iModifyBookForm()
+    {
+        $this->getFormElement()->fillField('Title', 'Modified book');
+    }
+
     /**
      * @return FormElement
      */
