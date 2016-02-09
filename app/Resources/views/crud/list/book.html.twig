@@ -1,0 +1,8 @@
+<div>
+    <div>{{ book.title }}</div>
+    <div>
+        <a href="{{ path('crud_view', {'element': 'book', 'id': book.id ) }}">
+            {{ 'crud.action.view' }}
+        </a>
+    </div>
+</div>
