@@ -18,6 +18,7 @@
 
 # Assets and user uploads
 /assets/vendor/
+/node_modules/
 /web/bundles/
 /web/uploads/
 /web/css/

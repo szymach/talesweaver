@@ -1,0 +1,25 @@
+{
+  "name": "talesweaver",
+  "version": "1.0.0",
+  "description": "Book writing app",
+  "dependencies": {
+    "bootstrap-sass": "^3.3.6",
+    "css-loader": "^0.23.1",
+    "style-loader": "^0.13.0",
+    "uglify": "^0.1.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/szymach/talesweaver.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/szymach/talesweaver/issues"
+  },
+  "homepage": "https://github.com/szymach/talesweaver#readme"
+}
