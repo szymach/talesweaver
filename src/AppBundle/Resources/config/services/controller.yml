@@ -1,21 +1,14 @@
 ---
 services:
-    app.controller.list:
-        class: AppBundle\Controller\ListController
+    app.controller.base:
+        class: AppBundle\Controller\BaseController
         arguments:
             - @templating
-            - @doctrine.orm.entity_manager
-            - @app.element.manager
-            - @datagrid.factory
-            - @datasource.factory
-            
-    app.controller.form:
-        class: AppBundle\Controller\FormController
+
+    app.controller.scene:
+        class: AppBundle\Controller\SceneController
         arguments:
             - @templating
-            - @doctrine.orm.entity_manager
-            - @app.element.manager
             - @form.factory
-            - @datagrid.factory
-            - @datasource.factory
+            - @doctrine.orm.entity_manager
             - @router

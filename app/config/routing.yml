@@ -1,7 +1,7 @@
 app_base:
     resource: "@AppBundle/Resources/config/routing/base.yml"
     prefix:   /
-    
-app_crud:
-    resource: "@AppBundle/Resources/config/routing/crud.yml"
-    prefix:   /crud
+
+app_scenes:
+    resource: "@AppBundle/Resources/config/routing/scene.yml"
+    prefix:   /scene

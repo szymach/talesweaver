@@ -1,5 +1,5 @@
 ---
 app_index:
-    path:     /
-    defaults: { _controller: app.controller.list:indexAction }
+    path: /
+    defaults: { _controller: app.controller.base:indexAction }
     methods:  GET
