@@ -21,9 +21,7 @@
 /node_modules/
 /web/bundles/
 /web/uploads/
-/web/css/
-/web/fonts
-/web/js/
+/web/public/
 
 # PHPUnit
 /app/phpunit.xml
