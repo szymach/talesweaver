@@ -1,8 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ form_start(form) }}
-        {{ form_rest(form) }}
-        <button class="btn btn-primary">Zapisz</button>
-    {{ form_end(form) }}
+    <div class="row">
+        <div class="col-xs-12 text-right">
+            <button class="btn btn-default">Postacie</button>
+            <button class="btn btn-default">Miejsca</button>
+            <button class="btn btn-default">Przedmioty</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 text-right">
+            <button class="btn btn-primary tag-add">Dodaj znacznik</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+        {{ form_start(form) }}
+            {{ form_row(form.chapter) }}
+            {{ form_row(form.title) }}
+            {{ form_row(form.text) }}
+            <button class="btn btn-primary">Zapisz</button>
+        {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}

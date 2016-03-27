@@ -19,3 +19,8 @@ AppBundle\Entity\Scene:
             inversedBy: scenes
             joinColumn:
                 onDelete: "SET NULL"
+    manyToMany:
+        characters:
+            targetEntity: AppBundle\Entity\Character
+            inversedBy: scenes
+            cascade: [persist]

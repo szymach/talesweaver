@@ -31,8 +31,14 @@ class Scene
      */
     private $chapter;
 
+    /**
+     * @var Collection
+     */
+    private $characters;
+
     public function __construct()
     {
+        $this->characters = new ArrayCollection();
         $this->translations = new ArrayCollection();
     }
 
@@ -120,5 +126,36 @@ class Scene
         }
 
         return $book;
+    }
+
+    /**
+     * @param Character $character
+     *
+     * @return Scene
+     */
+    public function addCharacter(Character $character)
+    {
+        if (!$this->characters->contains($character)) {
+            $character->addScene($this);
+            $this->characters[] = $character;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Character $character
+     */
+    public function removeCharacter(Scene $character)
+    {
+        $this->characters->removeElement($character);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCharacters()
+    {
+        return $this->characters;
     }
 }
