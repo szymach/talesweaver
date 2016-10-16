@@ -2,16 +2,16 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Scene;
+use AppBundle\Form\Scene\NewType;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Templating\EngineInterface;
-
-use AppBundle\Entity\Scene;
-use AppBundle\Form\Scene\NewType;
 
 /**
  * @author Piotr Szymaszek
@@ -90,6 +90,14 @@ class SceneController
         );
     }
 
+    public function listAction($page = 1)
+    {
+        return $this->templating->renderResponse(
+            'scene\list.html.twig',
+            ['scenes' => $this->getScenes($page)]
+        );
+    }
+
     /**
      * @param string $class
      * @return FormInterface
@@ -97,5 +105,14 @@ class SceneController
     private function getForm($class, $data = null, $options = [])
     {
         return $this->formFactory->create($class, $data, $options);
+    }
+
+    /**
+     * @return Scene[]
+     */
+    private function getScenes($page)
+    {
+        $qb = $this->manager->getRepository('AppBundle:Scene')->createPaginatedQb($page);
+        return new Paginator($qb);
     }
 }

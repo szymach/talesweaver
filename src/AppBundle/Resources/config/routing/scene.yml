@@ -8,3 +8,8 @@ app_scene_edit:
     path: /edit/{id}
     defaults: { _controller: app.controller.scene:editAction }
     methods:  [GET, POST]
+
+app_scene_list:
+    path: /list
+    defaults: { _controller: app.controller.scene:listAction }
+    methods:  GET

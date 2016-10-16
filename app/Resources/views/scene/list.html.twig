@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        {% for scene in scenes %}
+            <div class="col-xs-8">{{ scene }}</div>
+            <div class="col-xs-4">
+                <a href="{{ path('app_scene_edit', { id: scene.id }) }}">
+                    Edycja
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
