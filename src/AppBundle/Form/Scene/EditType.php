@@ -1,8 +1,18 @@
 <?php
 
+/**
+ * (c) FSi sp. z o.o. <info@fsi.pl>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Form\Scene;
 
+use AppBundle\Entity\Chapter;
 use AppBundle\Entity\Scene;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -11,7 +21,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * @author Piotr Szymaszek
  */
-class NewType extends AbstractType
+class EditType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -19,11 +29,24 @@ class NewType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $builder->add('chapter', EntityType::class, [
+            'label' => 'scene.chapter',
+            'class' => Chapter::class,
+            'required' => false
+        ]);
+
         $builder->add('title', TextType::class, [
             'label' => 'scene.title'
         ]);
+
+        $builder->add('text', CKEditorType::class, [
+            'label' => 'scene.text'
+        ]);
     }
 
+    /**
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

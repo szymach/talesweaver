@@ -3,6 +3,3 @@ AppBundle\Entity\Section:
     properties:
         title:
             - NotBlank: ~
-        text:
-            - NotBlank:
-                groups: [standalone]

@@ -5,23 +5,23 @@
         <div class="col-xs-12">
             <a href="{{ path('app_scene_list') }}">{{ 'crud.back' | trans }}</a>
         </div>
-        <div class="col-xs-12 text-right">
-            <button class="btn btn-default">Postacie</button>
-            <button class="btn btn-default">Miejsca</button>
-            <button class="btn btn-default">Przedmioty</button>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12 text-right">
-            <button class="btn btn-primary tag-add">Dodaj znacznik</button>
-        </div>
+        {% if scene.id %}
+            <div class="col-xs-12 text-right">
+                <button class="btn btn-default" data-toggle="modal" data-target="#character-modal">
+                    {{ 'scene.characters' | trans }}
+                </button>
+                <button class="btn btn-default">{{ 'scene.places' | trans }}</button>
+                <button class="btn btn-default">{{ 'scene.items' | trans }}</button>
+            </div>
+            <div class="col-xs-12 text-right">
+                <button class="btn btn-primary tag-add">{{ 'tag.add'|trans }}</button>
+            </div>
+        {% endif %}
     </div>
     <div class="row">
         <div class="col-xs-12">
         {{ form_start(form) }}
-            {{ form_row(form.chapter) }}
-            {{ form_row(form.title) }}
-            {{ form_row(form.text) }}
+            {{ form_rest(form) }}
             <button class="btn btn-primary">{{ 'crud.save' | trans }}</button>
         {{ form_end(form) }}
         </div>

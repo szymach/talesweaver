@@ -1,10 +1,24 @@
 {% if characters is defined %}
-    <div class="list-container character"
-         data-list-url="{{ path('app_character_list', { id: scene.id }) }}"
-    >
-        {% include 'character/list.html.twig' %}
+    <div class="modal fade" id="character-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">{{ 'scene.characters' | trans }}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="list-container character"
+                         data-list-url="{{ path('app_character_list', { id: scene.id }) }}"
+                    >
+                        {% include 'character/list.html.twig' %}
+                    </div>
+                    <div class="form-container character"
+                         data-form-url="{{ path('app_character_new', { id: scene.id }) }}"
+                    ></div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-container character"
-         data-form-url="{{ path('app_character_new', { id: scene.id }) }}"
-    ></div>
 {% endif %}

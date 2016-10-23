@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Character;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Scene\NewType;
+use AppBundle\Form\Scene\EditType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -53,13 +54,14 @@ class SceneController
 
     public function newAction(Request $request)
     {
-        $form = $this->getForm(NewType::class);
+        $scene = new Scene();
+        $form = $this->getForm(NewType::class, $scene);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $data = $form->getData();
             $this->manager->persist($data);
             $this->manager->flush();
-            
+
             return new RedirectResponse(
                 $this->router->generate('app_scene_edit', ['id' => $data->getId()])
             );
@@ -67,13 +69,13 @@ class SceneController
 
         return $this->templating->renderResponse(
             'scene\form.html.twig',
-            ['form' => $form->createView()]
+            ['form' => $form->createView(), 'scene' => $scene]
         );
     }
 
     public function editAction(Request $request, Scene $scene)
     {
-        $form = $this->getForm(NewType::class, $scene);
+        $form = $this->getForm(EditType::class, $scene);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $this->manager->flush();
