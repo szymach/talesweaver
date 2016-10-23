@@ -1,13 +1,17 @@
 ---
 crud:
-    list:
-        actions: Akcje
-        create: Dodaj
-        delete: Usuń
-        edit: Edytuj
-    form:
-        submit: Wyślij
-        return: Powrót
+    save: Zapisz
+    edit: Edycja
+    back: Powrót
+
+book:
+    title: Tytuł
+    chapters: Rozdziały
+
+chapter:
+    title: Tytuł
+    scenes: Sceny
+    book: Książka
 
 scene:
     title: Tytuł
@@ -15,24 +19,14 @@ scene:
     chapter: Rozdział
     book: Książka
 
-chapter:
-    title: Tytuł
-    scenes: Sceny
-    book: Książka
+character:
+    name: Imię
+    description: Opis
 
-book:
-    title: Tytuł
-    chapters: Rozdziały
-    
+home:
+    plan: Stwórz plan
+    write: Przejdź do pisania
+
 front:
     meta:
         title: Bajkopisarz
-
-    menu:
-        chapter: Rozdziały
-        scene: Sceny
-        book: Książki
-
-    home:
-        new: Nowa powieść
-        archive: Archiwum

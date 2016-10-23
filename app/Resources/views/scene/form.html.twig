@@ -3,7 +3,7 @@
 {% block body %}
     <div class="row">
         <div class="col-xs-12">
-            <a href="{{ path('app_scene_list') }}">Powrót</a>
+            <a href="{{ path('app_scene_list') }}">{{ 'crud.back' | trans }}</a>
         </div>
         <div class="col-xs-12 text-right">
             <button class="btn btn-default">Postacie</button>
@@ -22,7 +22,7 @@
             {{ form_row(form.chapter) }}
             {{ form_row(form.title) }}
             {{ form_row(form.text) }}
-            <button class="btn btn-primary">Zapisz</button>
+            <button class="btn btn-primary">{{ 'crud.save' | trans }}</button>
         {{ form_end(form) }}
         </div>
     </div>

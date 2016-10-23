@@ -2,7 +2,7 @@
     <div class="col-xs-8">{{ character }}</div>
     <div class="col-xs-4">
         <a href="{{ path('app_character_edit', { id: character.id }) }}">
-            Edycja
+            {{ 'crud.edit' | trans }}
         </a>
     </div>
 {% endfor %}
