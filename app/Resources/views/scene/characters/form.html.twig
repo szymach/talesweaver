@@ -3,7 +3,9 @@
     {{ form_start(form) }}
         {{ form_row(form.name) }}
         {{ form_row(form.description) }}
-        <button class="btn btn-primary">{{ 'crud.save' | trans }}</button>
+        <div class="form-group text-right">
+            <button class="btn btn-primary">{{ 'crud.save' | trans }}</button>
+        </div>
     {{ form_end(form) }}
     </div>
 </div>

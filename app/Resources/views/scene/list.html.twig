@@ -15,8 +15,11 @@
                     <tr>
                         <td>{{ scene }}</td>
                         <td>
-                            <a href="{{ path('app_scene_edit', { id: scene.id }) }}">
-                                {{ 'crud.edit' | trans }}
+                            <a class="btn btn-primary"
+                               href="{{ path('app_scene_edit', { id: scene.id }) }}"
+                               title="{{ 'crud.edit' | trans }}"
+                            >
+                                <span class="fa fa-edit"></span>
                             </a>
                         </td>
                     </tr>

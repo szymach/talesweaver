@@ -10,9 +10,12 @@
         <tr>
             <td>{{ character }}</td>
             <td>
-                <a href="{{ path('app_character_edit', { id: character.id }) }}">
-                    {{ 'crud.edit' | trans }}
-                </a>
+                <button class="modal-load-edit-form btn btn-primary"
+                    data-edit-form-url="{{ path('app_character_edit', { id: character.id }) }}"
+                    title="{{ 'crud.edit' | trans }}"
+                >
+                    <span class="fa fa-edit"></span>
+                </button>
             </td>
         </tr>
     {% endfor %}

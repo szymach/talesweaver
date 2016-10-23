@@ -73,7 +73,7 @@ class CharacterController
 
         return new JsonResponse([
             'form' => $this->templating->render(
-                'character\form.html.twig',
+                'scene\characters\form.html.twig',
                 ['form' => $form->createView(), 'scene' => $scene]
             )
         ]);
@@ -97,7 +97,7 @@ class CharacterController
 
         return new JsonResponse([
             'form' => $this->templating->render(
-                'character\form.html.twig',
+                'scene\characters\form.html.twig',
                 ['form' => $form->createView()]
             )
         ]);
@@ -111,7 +111,7 @@ class CharacterController
 
         return new JsonResponse([
             'list' => $this->templating->render(
-                'character/list.html.twig',
+                'scene\characters\list.html.twig',
                 ['characters' => $this->getRepository()->getForScene($scene)]
             )
         ]);

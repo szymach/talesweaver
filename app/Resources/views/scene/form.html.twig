@@ -7,7 +7,7 @@
         </div>
         {% if scene.id %}
             <div class="col-xs-12 text-right">
-                <button class="btn btn-default" data-toggle="modal" data-target="#character-modal">
+                <button class="btn btn-default modal-toggle" data-target="#character-modal">
                     {{ 'scene.characters' | trans }}
                 </button>
                 <button class="btn btn-default">{{ 'scene.places' | trans }}</button>
@@ -26,5 +26,5 @@
         {{ form_end(form) }}
         </div>
     </div>
-    {% include 'scene/partials/characters.html.twig' %}
+    {% include 'scene/characters/modal.html.twig' %}
 {% endblock %}

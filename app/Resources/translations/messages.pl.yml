@@ -4,6 +4,8 @@ crud:
     edit: Edycja
     back: Powrót
     actions: Akcje
+    list: Lista
+    create: Dodaj
 
 book:
     title: Tytuł

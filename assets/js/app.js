@@ -1,18 +1,56 @@
 var $ = require('jquery');
 
 $(document).ready(function() {
-    $('.form-container').each(function (index, element) {
-        var $formContainer = $(element);
-        getForm($formContainer);
-        $formContainer.on('submit', '.js-form', function (event) {
-            event.preventDefault();
-            event.stopPropagation();
-            submitForm($(this));
-        });
+    $('.modal-toggle').on('click', function () {
+        $($(this).data('target')).modal();
+    });
+    $('.modal-load-new-form').on('click', function () {
+        getNewForm($(this).parents('.modal').first());
+    });
+    $('.modal-load-edit-form').on('click', function () {
+        var $this = $(this);
+        getEditForm($this.parents('.modal').first(), $this.data('edit-form-url'));
+    });
+    $('.modal-load-list').on('click', function () {
+        getList($(this).parents('.modal').first());
     });
 });
 
-function submitForm($form)
+function getNewForm($modal)
+{
+    $.ajax({
+        method: "GET",
+        url: $modal.data('new-form-url'),
+        dataType: "json"
+    })
+    .success(function(response) {
+        $modal.find('.modal-body').html(response.form);
+        $modal.on('submit', '.js-form', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            submitForm($(this), $modal);
+        });
+    });
+}
+
+function getEditForm($modal, url)
+{
+    $.ajax({
+        method: "GET",
+        url: url,
+        dataType: "json"
+    })
+    .success(function(response) {
+        $modal.find('.modal-body').html(response.form);
+        $modal.on('submit', '.js-form', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            submitForm($(this), $modal);
+        });
+    });
+}
+
+function submitForm($form, $modal)
 {
     $.ajax({
         method: "POST",
@@ -21,41 +59,24 @@ function submitForm($form)
         data: $form.serialize()
     })
     .success(function(response) {
-        $(getFormContainer($form)).html(response.form);
-        updateList($(getListContainer($form)));
+        setModalBody($modal, response.form);
+        getList($modal);
     });
 }
 
-function getForm($formContainer)
+function getList($modal)
 {
     $.ajax({
         method: "GET",
-        url: $formContainer.data('form-url'),
+        url: $modal.data('list-url'),
         dataType: "json"
     })
     .success(function(response) {
-        $formContainer.html(response.form);
+        setModalBody($modal, response.list);
     });
 }
 
-function updateList($listContainer)
+function setModalBody($modal, content)
 {
-    $.ajax({
-        method: "GET",
-        url: $listContainer.data('list-url'),
-        dataType: "json"
-    })
-    .success(function(response) {
-        $listContainer.html(response.list);
-    });
-}
-
-function getFormContainer($form)
-{
-    return '.form-container.' + $form.data('container-id');
-}
-
-function getListContainer($form)
-{
-    return '.list-container.' + $form.data('container-id');
+    $modal.find('.modal-body').html(content);
 }
