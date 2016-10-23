@@ -8,12 +8,12 @@ cache:
 sudo: false
 
 php:
-  - 5.6
+  - 7.0
 
 before_script:
   - composer self-update -n
   - composer install -n --prefer-dist -v
-  - nohup php -S localhost:8080 -t features/fixtures/web > server.log 2>&1 &
+#  - nohup php -S localhost:8080 -t features/fixtures/web > server.log 2>&1 &
   - chmod +x bin/console
 
 script:
@@ -21,4 +21,4 @@ script:
   - bin/console doctrine:database:create --env=test
   - bin/console doctrine:schema:create --env=test
   - bin/console doctrine:schema:validate --env=test -n
-  - bin/behat --no-snippets --verbose --profile=travis -vvv
+#  - bin/behat --no-snippets --verbose --profile=travis -vvv
