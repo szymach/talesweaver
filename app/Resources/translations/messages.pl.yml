@@ -3,6 +3,7 @@ crud:
     save: Zapisz
     edit: Edycja
     back: Powrót
+    actions: Akcje
 
 book:
     title: Tytuł

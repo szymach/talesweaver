@@ -2,13 +2,27 @@
 
 {% block body %}
     <div class="row">
-        {% for scene in scenes %}
-            <div class="col-xs-8">{{ scene }}</div>
-            <div class="col-xs-4">
-                <a href="{{ path('app_scene_edit', { id: scene.id }) }}">
-                    {{ 'crud.edit' | trans }}
-                </a>
-            </div>
-        {% endfor %}
+        <div class="col-xs-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>{{ 'scene.title'|trans }}</th>
+                        <th>{{ 'crud.actions'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for scene in scenes %}
+                    <tr>
+                        <td>{{ scene }}</td>
+                        <td>
+                            <a href="{{ path('app_scene_edit', { id: scene.id }) }}">
+                                {{ 'crud.edit' | trans }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}

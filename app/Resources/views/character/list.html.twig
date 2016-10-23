@@ -1,8 +1,20 @@
-{% for character in characters %}
-    <div class="col-xs-8">{{ character }}</div>
-    <div class="col-xs-4">
-        <a href="{{ path('app_character_edit', { id: character.id }) }}">
-            {{ 'crud.edit' | trans }}
-        </a>
-    </div>
-{% endfor %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>{{ 'character.name'|trans }}</th>
+            <th>{{ 'crud.actions'|trans }}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for character in characters %}
+        <tr>
+            <td>{{ character }}</td>
+            <td>
+                <a href="{{ path('app_character_edit', { id: character.id }) }}">
+                    {{ 'crud.edit' | trans }}
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
