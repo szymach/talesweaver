@@ -5,8 +5,6 @@ namespace AppBundle\Menu;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 
-use AppBundle\Element\Manager\Manager;
-
 /**
  * @author Piotr Szymaszek
  */
@@ -17,20 +15,9 @@ class Builder
      */
     private $factory;
 
-    /**
-     * @var Manager
-     */
-    private $elementManager;
-
-    /**
-     * @param FactoryInterface $factory
-     */
-    public function __construct(
-        FactoryInterface $factory,
-        Manager $elementManager
-    ) {
+    public function __construct(FactoryInterface $factory)
+    {
         $this->factory = $factory;
-        $this->elementManager = $elementManager;
     }
 
     /**
@@ -41,17 +28,6 @@ class Builder
         $menu = $this->factory->createItem('root')
             ->setChildrenAttribute('class', 'nav navbar-nav')
         ;
-
-        foreach ($this->elementManager->getElements() as $element) {
-            $name = $element->getId();
-            $menu->addChild(
-                sprintf('front.menu.%s', $name),
-                [
-                    'route' => 'crud_list',
-                    'routeParameters' => ['elementName' => $name]
-                ]
-            );
-        }
 
         return $menu;
     }
