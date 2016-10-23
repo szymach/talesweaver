@@ -2,10 +2,9 @@
 
 namespace AppBundle\Entity\Translation;
 
-use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
-
 use AppBundle\Entity\Character;
 use AppBundle\Entity\Traits\LocaleTrait;
+use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 
 class CharacterTranslation
 {

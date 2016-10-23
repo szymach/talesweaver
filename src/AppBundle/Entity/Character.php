@@ -41,6 +41,11 @@ class Character
         $this->scenes = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return (string) $this->name;
+    }
+
     /**
      * @return integer
      */

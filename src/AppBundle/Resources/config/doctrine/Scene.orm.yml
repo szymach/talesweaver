@@ -6,7 +6,6 @@ AppBundle\Entity\Scene:
         id:
             type: integer
             generator: { strategy: AUTO }
-    fields:
     oneToMany:
         translations:
             targetEntity: AppBundle\Entity\Translation\SceneTranslation

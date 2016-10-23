@@ -4,6 +4,7 @@ module.exports = {
     entry: [
         'font-awesome-sass-loader',
         'bootstrap-loader/extractStyles',
+        "./assets/js/app.js",
         "./assets/js/tags.js"
     ],
     output: {

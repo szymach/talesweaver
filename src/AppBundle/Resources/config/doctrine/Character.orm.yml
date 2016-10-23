@@ -1,7 +1,8 @@
 ---
 AppBundle\Entity\Character:
     type: entity
-    repositoryClass: AppBundle\Entity\Repository\TranslatableRepository
+    table: character_entity
+    repositoryClass: AppBundle\Entity\Repository\CharacterRepository
     id:
         id:
             type: integer

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Character;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Scene\NewType;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -56,9 +57,7 @@ class SceneController
         $form->handleRequest($request);
         if ($form->isValid()) {
             $data = $form->getData();
-            if (null === $data->getId()) {
-                $this->manager->persist($data);
-            }
+            $this->manager->persist($data);
             $this->manager->flush();
             
             return new RedirectResponse(
@@ -77,16 +76,16 @@ class SceneController
         $form = $this->getForm(NewType::class, $scene);
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $data = $form->getData();
-            if (null === $data->getId()) {
-                $this->manager->persist($data);
-            }
             $this->manager->flush();
         }
 
         return $this->templating->renderResponse(
             'scene\form.html.twig',
-            ['form' => $form->createView()]
+            [
+                'form' => $form->createView(),
+                'characters' => $this->getCharacters($scene),
+                'scene' => $scene
+            ]
         );
     }
 
@@ -96,6 +95,11 @@ class SceneController
             'scene\list.html.twig',
             ['scenes' => $this->getScenes($page)]
         );
+    }
+
+    private function getCharacters(Scene $scene)
+    {
+        return $this->manager->getRepository(Character::class)->getForScene($scene);
     }
 
     /**
@@ -112,7 +116,7 @@ class SceneController
      */
     private function getScenes($page)
     {
-        $qb = $this->manager->getRepository('AppBundle:Scene')->createPaginatedQb($page);
+        $qb = $this->manager->getRepository(Scene::class)->createPaginatedQb($page);
         return new Paginator($qb);
     }
 }

@@ -19,6 +19,8 @@
         </nav>
         <main class="container">{% block body '' %}</main>
         <footer>{% block footer '' %}</footer>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
         <script src="{{ asset('public/app.js') }}"></script>
         {% block javascripts '' %}
     </body>

@@ -1,6 +1,7 @@
 ---
 AppBundle\Entity\Translation\CharacterTranslation:
     type: entity
+    table: character_entity_translation
     id:
         id:
             type: integer

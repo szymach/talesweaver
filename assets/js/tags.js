@@ -1,3 +1,4 @@
+var $ = require('jquery');
 $(document).ready(function() {
     $('.tag-add').on('click', function() {
         surroundSelection(document.createElement("span"));

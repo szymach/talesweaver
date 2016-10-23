@@ -1,0 +1,10 @@
+{% if characters is defined %}
+    <div class="list-container character"
+         data-list-url="{{ path('app_character_list', { id: scene.id }) }}"
+    >
+        {% include 'character/list.html.twig' %}
+    </div>
+    <div class="form-container character"
+         data-form-url="{{ path('app_character_new', { id: scene.id }) }}"
+    ></div>
+{% endif %}

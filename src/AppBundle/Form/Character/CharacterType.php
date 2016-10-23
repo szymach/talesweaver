@@ -1,17 +1,14 @@
 <?php
 
-namespace AppBundle\Form;
+namespace AppBundle\Form\Character;
 
+use AppBundle\Entity\Character;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CharacterType extends AbstractType
 {
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -20,13 +17,12 @@ class CharacterType extends AbstractType
         ;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AppBundle\Entity\Character'
+            'data_class' => Character::class,
+            'method' => 'POST',
+            'attr' => ['class' => 'js-form', 'data-container-id' => 'character']
         ]);
     }
 }
