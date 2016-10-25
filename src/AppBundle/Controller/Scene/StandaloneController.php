@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Scene;
 
 use AppBundle\Entity\Character;
 use AppBundle\Entity\Scene;
@@ -18,7 +18,7 @@ use Symfony\Component\Templating\EngineInterface;
 /**
  * @author Piotr Szymaszek
  */
-class SceneController
+class StandaloneController
 {
     /**
      * @var EngineInterface
@@ -63,7 +63,7 @@ class SceneController
             $this->manager->flush();
 
             return new RedirectResponse(
-                $this->router->generate('app_scene_edit', ['id' => $data->getId()])
+                $this->router->generate('app_standalone_scene_edit', ['id' => $data->getId()])
             );
         }
 

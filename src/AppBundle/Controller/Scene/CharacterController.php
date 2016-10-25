@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Scene;
 
 use AppBundle\Entity\Character;
 use AppBundle\Entity\Repository\CharacterRepository;
@@ -59,7 +59,7 @@ class CharacterController
         }
 
         $form = $this->getForm(CharacterType::class, null, [
-            'action' => $this->router->generate('app_character_new', [
+            'action' => $this->router->generate('app_scene_character_new', [
                 'id' => $scene->getId()
             ])
         ]);
@@ -86,7 +86,7 @@ class CharacterController
         }
 
         $form = $this->getForm(CharacterType::class, $character, [
-            'action' => $this->router->generate('app_character_edit', [
+            'action' => $this->router->generate('app_scene_character_edit', [
                 'id' => $character->getId()
             ])
         ]);

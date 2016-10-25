@@ -5,16 +5,17 @@ services:
         arguments:
             - @templating
 
-    app.controller.scene:
-        class: AppBundle\Controller\SceneController
+    # Scene
+    app.controller.scene.standalone:
+        class: AppBundle\Controller\Scene\StandaloneController
         arguments:
             - @templating
             - @form.factory
             - @doctrine.orm.entity_manager
             - @router
 
-    app.controller.character:
-        class: AppBundle\Controller\CharacterController
+    app.controller.scene.character:
+        class: AppBundle\Controller\Scene\CharacterController
         arguments:
             - @templating
             - @form.factory

@@ -1,15 +1,32 @@
 ---
-app_scene_new:
-    path: /new
-    defaults: { _controller: app.controller.scene:newAction }
+# Standalone
+app_standalone_scene_new:
+    path: /standalone/new
+    defaults: { _controller: app.controller.scene.standalone:newAction }
     methods:  [GET, POST]
 
-app_scene_edit:
-    path: /edit/{id}
-    defaults: { _controller: app.controller.scene:editAction }
+app_standalone_scene_edit:
+    path: /standalone/edit/{id}
+    defaults: { _controller: app.controller.scene.standalone:editAction }
     methods:  [GET, POST]
 
-app_scene_list:
-    path: /list
-    defaults: { _controller: app.controller.scene:listAction }
+app_standalone_scene_list:
+    path: /standalone/list
+    defaults: { _controller: app.controller.scene.standalone:listAction }
+    methods:  GET
+
+# Character
+app_scene_character_new:
+    path: /character/new/{id}
+    defaults: { _controller: app.controller.scene.character:newAction }
+    methods:  [GET, POST]
+
+app_scene_character_edit:
+    path: /character/edit/{id}
+    defaults: { _controller: app.controller.scene.character:editAction }
+    methods:  [GET, POST]
+
+app_scene_character_list:
+    path: /character/list/{id}
+    defaults: { _controller: app.controller.scene.character:listAction }
     methods:  GET
