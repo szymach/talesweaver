@@ -68,7 +68,7 @@ class StandaloneController
         }
 
         return $this->templating->renderResponse(
-            'scene\form.html.twig',
+            'scene/standalone/form.html.twig',
             ['form' => $form->createView(), 'scene' => $scene]
         );
     }
@@ -82,7 +82,7 @@ class StandaloneController
         }
 
         return $this->templating->renderResponse(
-            'scene\form.html.twig',
+            'scene/standalone/form.html.twig',
             [
                 'form' => $form->createView(),
                 'characters' => $this->getCharacters($scene),
@@ -94,7 +94,7 @@ class StandaloneController
     public function listAction($page)
     {
         return $this->templating->renderResponse(
-            'scene\list.html.twig',
+            'scene/standalone/list.html.twig',
             ['scenes' => $this->getScenes($page)]
         );
     }

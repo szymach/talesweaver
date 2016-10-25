@@ -1,10 +1,14 @@
-{% extends 'base.html.twig' %}
+{% extends 'scene/base.html.twig' %}
 
 {% block body %}
     <div class="row">
         <div class="col-xs-12">
-            <a href="{{ path('app_standalone_scene_list') }}">{{ 'crud.back' | trans }}</a>
+            <a href="{{ path('app_standalone_scene_list') }}" class="btn btn-default">
+                {{ 'crud.back' | trans }}
+            </a>
         </div>
+    </div>
+    <div class="row">
         {% if scene.id %}
             <div class="col-xs-12 text-right">
                 <button class="btn btn-default modal-toggle" data-target="#character-modal">

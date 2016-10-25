@@ -3,7 +3,6 @@
 namespace AppBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
-use Knp\Menu\ItemInterface;
 
 /**
  * @author Piotr Szymaszek
@@ -20,14 +19,14 @@ class Builder
         $this->factory = $factory;
     }
 
-    /**
-     * @return ItemInterface
-     */
     public function createMainMenu()
     {
-        $menu = $this->factory->createItem('root')
+        $menu = $this->factory
+            ->createItem('root')
             ->setChildrenAttribute('class', 'nav navbar-nav')
         ;
+
+        $menu->addChild('menu.start', ['route' => 'app_index']);
 
         return $menu;
     }

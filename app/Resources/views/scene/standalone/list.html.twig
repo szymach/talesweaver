@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'scene/base.html.twig' %}
 
 {% block body %}
     <div class="row">
@@ -36,7 +36,7 @@
                         <td colspan="2" class="text-right">
                             <a class="btn btn-success"
                                href="{{ path('app_standalone_scene_new') }}"
-                               title="{{ 'crud.add' | trans }}"
+                               title="{{ 'crud.create' | trans }}"
                             >
                                 <span class="fa fa-plus"></span>
                             </a>
