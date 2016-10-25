@@ -3,21 +3,21 @@ services:
     app.controller.base:
         class: AppBundle\Controller\BaseController
         arguments:
-            - @templating
+            - "@templating"
 
     # Scene
     app.controller.scene.standalone:
         class: AppBundle\Controller\Scene\StandaloneController
         arguments:
-            - @templating
-            - @form.factory
-            - @doctrine.orm.entity_manager
-            - @router
+            - "@templating"
+            - "@form.factory"
+            - "@doctrine.orm.entity_manager"
+            - "@router"
 
     app.controller.scene.character:
         class: AppBundle\Controller\Scene\CharacterController
         arguments:
-            - @templating
-            - @form.factory
-            - @doctrine.orm.entity_manager
-            - @router
+            - "@templating"
+            - "@form.factory"
+            - "@doctrine.orm.entity_manager"
+            - "@router"

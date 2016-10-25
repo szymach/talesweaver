@@ -4,12 +4,11 @@ services:
     app.menu.builder:
         class: AppBundle\Menu\Builder
         arguments:
-            - @knp_menu.factory
+            - "@knp_menu.factory"
 
     app.menu.main:
         class: Knp\Menu\MenuItem
-        factory_service: app.menu.builder
-        factory_method: createMainMenu
+        factory: ["@app.menu.builder", createMainMenu]
         scope: request
         tags:
             - { name: knp_menu.menu, alias: main }
