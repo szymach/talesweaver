@@ -1,0 +1,40 @@
+bootstrapVersion: 3
+preBootstrapCustomizations: ./assets/scss/_variables.scss
+appStyles: ./assets/scss/_bootswatch.scss
+mainSass: ./assets/scss/base.scss
+scripts: true
+styleLoaders: ['style', 'css', 'sass']
+styles:
+    mixins: true
+    normalize: true
+    scaffolding: true
+    type: true
+    variables: true
+    code: true
+    grid: true
+    tables: true
+    forms: true
+    buttons: true
+    component-animations: true
+    dropdowns: true
+    button-groups: true
+    input-groups: true
+    navs: true
+    navbar: true
+    pagination: true
+    pager: true
+    labels: true
+    thumbnails: true
+    alerts: true
+    media: true
+    list-group: true
+    panels: true
+    responsive-embed: true
+    wells: true
+    close: true
+    modals: true
+    tooltip: true
+    popovers: true
+    carousel: true
+    utilities: true
+    responsive-utilities: true

@@ -1,9 +1,10 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
     entry: [
         'font-awesome-sass-loader',
-        'bootstrap-loader/extractStyles',
+        "bootstrap-loader",
         "./assets/js/app.js",
         "./assets/js/tags.js"
     ],
@@ -11,20 +12,19 @@ module.exports = {
         path: 'web/public',
         filename: "app.js"
     },
-    resolve: { extensions: [ '', '.js' ] },
+    resolve: {
+        extensions: [ '.js' ]
+    },
     plugins: [
-        new ExtractTextPlugin('app.css', { allChunks: true })
+        new ExtractTextPlugin({filename: 'app.css', allChunks: true }),
+        new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false }, mangle: false })
     ],
     module: {
         loaders: [
-            { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!postcss!sass') },
-            { test: /.*\/assets\/.*\.js$/, loader: "uglify" },
+            { test: /\.scss$/, loader: ExtractTextPlugin.extract({fallbackLoader: 'style', loader: 'css!postcss!sass'}) },
             { test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url" },
             { test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/, loader: 'file' },
             { test: /bootstrap-sass\/assets\/javascripts\//, loader: 'imports?jQuery=jquery' },
         ]
-    },
-    'uglify-loader': {
-        mangle: false
     }
 };
