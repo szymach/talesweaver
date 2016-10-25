@@ -1,0 +1,20 @@
+---
+app_scene_character_new:
+    path: /character/new/{id}
+    defaults: { _controller: app.controller.scene.character:newAction }
+    methods:  [GET, POST]
+
+app_scene_character_edit:
+    path: /character/edit/{id}
+    defaults: { _controller: app.controller.scene.character:editAction }
+    methods:  [GET, POST]
+
+app_scene_character_list:
+    path: /character/list/{id}
+    defaults: { _controller: app.controller.scene.character:listAction }
+    methods:  GET
+
+app_scene_character_delete:
+    path: /character/delete/{scene_id}/{character_id}
+    defaults: { _controller: app.controller.scene.character:deleteAction }
+    methods:  GET

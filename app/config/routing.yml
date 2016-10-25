@@ -5,14 +5,14 @@ app_base:
     resource: "@AppBundle/Resources/config/routing/base.yml"
     prefix:   /
 
-app_scenes:
-    resource: "@AppBundle/Resources/config/routing/scene.yml"
-    prefix:   /scene
+app_scene_standalone:
+    resource: "@AppBundle/Resources/config/routing/scene/standalone.yml"
+    prefix:   /scene/standalone
     options:
         expose: true
 
-app_characters:
-    resource: "@AppBundle/Resources/config/routing/character.yml"
+app_scene_character:
+    resource: "@AppBundle/Resources/config/routing/scene/character.yml"
     prefix:   /character
     options:
         expose: true
