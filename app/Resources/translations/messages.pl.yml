@@ -6,6 +6,7 @@ crud:
     actions: Akcje
     list: Lista
     create: Dodaj
+    delete: Usuń
 
 book:
     title: Tytuł

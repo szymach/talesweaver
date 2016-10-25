@@ -16,6 +16,12 @@
                 >
                     <span class="fa fa-edit"></span>
                 </button>
+                <button class="modal-delete btn btn-danger"
+                    data-delete-url="{{ path('app_scene_character_delete', { scene_id: scene.id, character_id: character.id }) }}"
+                    title="{{ 'crud.delete' | trans }}"
+                >
+                    <span class="fa fa-trash"></span>
+                </button>
             </td>
         </tr>
     {% endfor %}

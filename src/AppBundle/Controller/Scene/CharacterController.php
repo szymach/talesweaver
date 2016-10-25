@@ -7,6 +7,7 @@ use AppBundle\Entity\Repository\CharacterRepository;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Character\CharacterType;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -112,7 +113,34 @@ class CharacterController
         return new JsonResponse([
             'list' => $this->templating->render(
                 'scene\characters\list.html.twig',
-                ['characters' => $this->getRepository()->getForScene($scene)]
+                [
+                    'characters' => $this->getRepository()->getForScene($scene),
+                    'scene' => $scene
+                ]
+            )
+        ]);
+    }
+
+    /**
+     * @ParamConverter("scene", options={"id" = "scene_id"})
+     * @ParamConverter("character", options={"id" = "character_id"})
+     */
+    public function deleteAction(Request $request, Scene $scene, Character $character)
+    {
+        if (!$request->isXmlHttpRequest()) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $this->manager->remove($character);
+        $this->manager->flush();
+
+        return new JsonResponse([
+            'list' => $this->templating->render(
+                'scene\characters\list.html.twig',
+                [
+                    'characters' => $this->getRepository()->getForScene($scene),
+                    'scene' => $scene
+                ]
             )
         ]);
     }

@@ -1,18 +1,27 @@
 var $ = require('jquery');
 
 $(document).ready(function() {
+    // Turn on modal
     $('.modal-toggle').on('click', function () {
         $($(this).data('target')).modal();
     });
+    // Load new form
     $('.modal-load-new-form').on('click', function () {
-        getNewForm($(this).parents('.modal').first());
+        getNewForm(getModal($(this)));
     });
+    // Load edit form
     $('.modal-load-edit-form').on('click', function () {
         var $this = $(this);
-        getEditForm($this.parents('.modal').first(), $this.data('edit-form-url'));
+        getEditForm(getModal($this), $this.data('edit-form-url'));
     });
+    // Load list
     $('.modal-load-list').on('click', function () {
-        getList($(this).parents('.modal').first());
+        getList(getModal($(this)));
+    });
+    // Delete row
+    $('.modal-delete').on('click', function () {
+        var $this = $(this);
+        deleteRow($this.data('delete-url'), getModal($this));
     });
 });
 
@@ -74,6 +83,23 @@ function getList($modal)
     .success(function(response) {
         setModalBody($modal, response.list);
     });
+}
+
+function deleteRow(url, $modal)
+{
+    $.ajax({
+        method: "GET",
+        url: url,
+        dataType: "json"
+    })
+    .success(function(response) {
+        setModalBody($modal, response.list);
+    });
+}
+
+function getModal($element)
+{
+    return $element.parents('.modal').first();
 }
 
 function setModalBody($modal, content)
