@@ -26,7 +26,7 @@ function surroundSelection(element)
     range.surroundContents(element);
     nativeSelection.removeAllRanges();
     nativeSelection.addRange(range);
-    
+
     if (CKEDITOR.env.ie) {
         selection.lock();
     }

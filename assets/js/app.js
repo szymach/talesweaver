@@ -6,20 +6,20 @@ $(document).ready(function() {
         $($(this).data('target')).modal();
     });
     // Load new form
-    $('.modal-load-new-form').on('click', function () {
+    $('.modal').on('click', '.modal-load-new-form', function () {
         getNewForm(getModal($(this)));
     });
     // Load edit form
-    $('.modal-load-edit-form').on('click', function () {
+    $('.modal').on('click', '.modal-load-edit-form', function () {
         var $this = $(this);
         getEditForm(getModal($this), $this.data('edit-form-url'));
     });
     // Load list
-    $('.modal-load-list').on('click', function () {
+    $('.modal').on('click', '.modal-load-list', function () {
         getList(getModal($(this)));
     });
     // Delete row
-    $('.modal-delete').on('click', function () {
+    $('.modal').on('click', '.modal-delete', function () {
         var $this = $(this);
         deleteRow($this.data('delete-url'), getModal($this));
     });
