@@ -91,11 +91,21 @@ class StandaloneController
         );
     }
 
-    public function listAction($page = 1)
+    public function listAction($page)
     {
         return $this->templating->renderResponse(
             'scene\list.html.twig',
             ['scenes' => $this->getScenes($page)]
+        );
+    }
+
+    public function deleteAction(Scene $scene, $page)
+    {
+        $this->manager->remove($scene);
+        $this->manager->flush();
+
+        return new RedirectResponse(
+            $this->router->generate('app_standalone_scene_list', ['page' => $page])
         );
     }
 

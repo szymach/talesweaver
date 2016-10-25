@@ -11,8 +11,13 @@ app_standalone_scene_edit:
     methods:  [GET, POST]
 
 app_standalone_scene_list:
-    path: /standalone/list
-    defaults: { _controller: app.controller.scene.standalone:listAction }
+    path: /standalone/list/{page}
+    defaults: { _controller: app.controller.scene.standalone:listAction, page: 1 }
+    methods:  GET
+
+app_standalone_scene_delete:
+    path: /character/delete/{id}/{page}
+    defaults: { _controller: app.controller.scene.standalone:deleteAction, page: 1 }
     methods:  GET
 
 # Character

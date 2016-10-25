@@ -21,10 +21,28 @@
                             >
                                 <span class="fa fa-edit"></span>
                             </a>
+                            <a class="btn btn-danger"
+                               href="{{ path('app_standalone_scene_delete', { id: scene.id }) }}"
+                               title="{{ 'crud.delete' | trans }}"
+                            >
+                                <span class="fa fa-trash"></span>
+                            </a>
                         </td>
                     </tr>
                 {% endfor %}
                 </tbody>
+                <tfooter>
+                    <tr>
+                        <td colspan="2" class="text-right">
+                            <a class="btn btn-success"
+                               href="{{ path('app_standalone_scene_new') }}"
+                               title="{{ 'crud.add' | trans }}"
+                            >
+                                <span class="fa fa-plus"></span>
+                            </a>
+                        </td>
+                    </tr>
+                </tfooter>
             </table>
         </div>
     </div>
