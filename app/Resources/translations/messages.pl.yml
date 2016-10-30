@@ -23,11 +23,15 @@ scene:
     chapter: Rozdział
     book: Książka
     characters: Postacie
-    places: Miejsca
+    locations: Miejsca
     items: Przedmioty
 
 character:
     name: Imię
+    description: Opis
+
+location:
+    name: Nazwa
     description: Opis
 
 tag:

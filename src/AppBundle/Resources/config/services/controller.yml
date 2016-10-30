@@ -21,3 +21,11 @@ services:
             - "@form.factory"
             - "@doctrine.orm.entity_manager"
             - "@router"
+
+    app.controller.scene.location:
+        class: AppBundle\Controller\Scene\LocationController
+        arguments:
+            - "@templating"
+            - "@form.factory"
+            - "@doctrine.orm.entity_manager"
+            - "@router"

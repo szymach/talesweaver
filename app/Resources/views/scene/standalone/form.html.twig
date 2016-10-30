@@ -13,7 +13,7 @@
             <div class="col-xs-offset-10 col-xs-2 text-right">
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Akcje
+                        {{ 'crud.actions' | trans }}
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -23,13 +23,15 @@
                             </button>
                         </li>
                         <li>
-                        <button class="btn btn-default">{{ 'scene.places' | trans }}</button>
+                            <button class="btn btn-default modal-toggle" data-target="#location-modal">
+                                {{ 'scene.locations' | trans }}
+                            </button>
                         </li>
                         <li>
-                        <button class="btn btn-default">{{ 'scene.items' | trans }}</button>
+                            <button class="btn btn-default">{{ 'scene.items' | trans }}</button>
                         </li>
                         <li>
-                        <button class="btn btn-primary tag-add">{{ 'tag.add'|trans }}</button>
+                            <button class="btn btn-primary tag-add">{{ 'tag.add'|trans }}</button>
                         </li>
                     </ul>
                 </div>
@@ -46,4 +48,5 @@
         </div>
     </div>
     {% include 'scene/characters/modal.html.twig' %}
+    {% include 'scene/locations/modal.html.twig' %}
 {% endblock %}
