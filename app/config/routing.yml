@@ -17,6 +17,12 @@ app_scene_character:
     options:
         expose: true
 
+app_scene_item:
+    resource: "@AppBundle/Resources/config/routing/scene/item.yml"
+    prefix:   /item
+    options:
+        expose: true
+
 app_scene_location:
     resource: "@AppBundle/Resources/config/routing/scene/location.yml"
     prefix:   /location

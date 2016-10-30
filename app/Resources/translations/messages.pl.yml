@@ -30,6 +30,10 @@ character:
     name: Imię
     description: Opis
 
+item:
+    name: Nazwa
+    description: Opis
+
 location:
     name: Nazwa
     description: Opis

@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Scene;
 
 use AppBundle\Entity\Character;
+use AppBundle\Entity\Item;
 use AppBundle\Entity\Location;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Scene\NewType;
@@ -87,6 +88,7 @@ class StandaloneController
             [
                 'form' => $form->createView(),
                 'characters' => $this->getCharacters($scene),
+                'items' => $this->getItems($scene),
                 'locations' => $this->getLocations($scene),
                 'scene' => $scene
             ]
@@ -114,6 +116,11 @@ class StandaloneController
     private function getCharacters(Scene $scene)
     {
         return $this->manager->getRepository(Character::class)->getForScene($scene);
+    }
+
+    private function getItems(Scene $scene)
+    {
+        return $this->manager->getRepository(Item::class)->getForScene($scene);
     }
 
     private function getLocations(Scene $scene)
