@@ -2,11 +2,11 @@
 
 namespace AppBundle\Entity\Translation;
 
-use AppBundle\Entity\Location;
+use AppBundle\Entity\Item;
 use AppBundle\Entity\Traits\LocaleTrait;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 
-class LocationTranslation
+class ItemTranslation
 {
     use LocaleTrait;
 
@@ -26,10 +26,9 @@ class LocationTranslation
     private $description;
 
     /**
-     * @var Location
+     * @var Item
      */
-    private $location;
-
+    private $item;
 
     /**
      * @return integer
@@ -72,18 +71,18 @@ class LocationTranslation
     }
 
     /**
-     * @param Location $location
+     * @param Item $item
      */
-    public function setLocation(Location $location = null)
+    public function setItem(Item $item = null)
     {
-        $this->location = $location;
+        $this->item = $item;
     }
 
     /**
-     * @return Location
+     * @return Item
      */
-    public function getLocation()
+    public function getItem()
     {
-        return $this->location;
+        return $this->item;
     }
 }

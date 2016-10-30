@@ -1,0 +1,22 @@
+---
+AppBundle\Entity\Translation\ItemTranslation:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+        description:
+            type: text
+            nullable: true
+        locale:
+            type: string
+            length: 2
+    manyToOne:
+        item:
+            targetEntity: AppBundle\Entity\Item
+            inversedBy: translations
+            joinColumn:
+                onDelete: "CASCADE"

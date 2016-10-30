@@ -39,11 +39,17 @@ class Scene
     /**
      * @var Collection
      */
+    private $items;
+
+    /**
+     * @var Collection
+     */
     private $locations;
 
     public function __construct()
     {
         $this->characters = new ArrayCollection();
+        $this->items = new ArrayCollection();
         $this->locations = new ArrayCollection();
         $this->translations = new ArrayCollection();
     }
@@ -174,5 +180,32 @@ class Scene
     public function getLocations()
     {
         return $this->locations;
+    }
+
+    /**
+     * @param Item $item
+     */
+    public function addItem(Item $item)
+    {
+        if (!$this->items->contains($item)) {
+            $item->addScene($this);
+            $this->items[] = $item;
+        }
+    }
+
+    /**
+     * @param Item $item
+     */
+    public function removeItem(Scene $item)
+    {
+        $this->items->removeElement($item);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getItems()
+    {
+        return $this->items;
     }
 }
