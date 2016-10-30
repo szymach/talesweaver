@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-xs-offset-{{ scene.id ? '10' : '11' }} col-xs-1 text-right">
+        <a href="{{ path('app_standalone_scene_list') }}" class="btn btn-default">
+            {{ 'crud.back' | trans }}
+        </a>
+    </div>
+    {% if scene.id %}
+        <div class="col-xs-1 text-right">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    {{ 'crud.actions' | trans }}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li>
+                        <button class="btn btn-default modal-toggle" data-target="#character-modal">
+                            {{ 'scene.characters' | trans }}
+                        </button>
+                    </li>
+                    <li>
+                        <button class="btn btn-default modal-toggle" data-target="#location-modal">
+                            {{ 'scene.locations' | trans }}
+                        </button>
+                    </li>
+                    <li>
+                        <button class="btn btn-default">{{ 'scene.items' | trans }}</button>
+                    </li>
+                    <li>
+                        <button class="btn btn-primary tag-add">{{ 'tag.add'|trans }}</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+</div>

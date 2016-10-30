@@ -1,44 +1,7 @@
 {% extends 'scene/base.html.twig' %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-xs-12">
-            <a href="{{ path('app_standalone_scene_list') }}" class="btn btn-default">
-                {{ 'crud.back' | trans }}
-            </a>
-        </div>
-    </div>
-    <div class="row">
-        {% if scene.id %}
-            <div class="col-xs-offset-10 col-xs-2 text-right">
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        {{ 'crud.actions' | trans }}
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li>
-                            <button class="btn btn-default modal-toggle" data-target="#character-modal">
-                                {{ 'scene.characters' | trans }}
-                            </button>
-                        </li>
-                        <li>
-                            <button class="btn btn-default modal-toggle" data-target="#location-modal">
-                                {{ 'scene.locations' | trans }}
-                            </button>
-                        </li>
-                        <li>
-                            <button class="btn btn-default">{{ 'scene.items' | trans }}</button>
-                        </li>
-                        <li>
-                            <button class="btn btn-primary tag-add">{{ 'tag.add'|trans }}</button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-        {% endif %}
-    </div>
+    {% include 'scene/standalone/actions.html.twig' %}
     <div class="row">
         <div class="col-xs-12">
         {{ form_start(form) }}
