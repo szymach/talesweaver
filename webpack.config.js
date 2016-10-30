@@ -1,4 +1,5 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
@@ -18,6 +19,7 @@ module.exports = {
     },
     plugins: [
         new ExtractTextPlugin({ filename: 'app.css', allChunks: true }),
+        new OptimizeCssAssetsPlugin(),
         new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false }, mangle: false })
     ],
     module: {

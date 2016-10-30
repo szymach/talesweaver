@@ -4,6 +4,7 @@ appStyles: ./assets/scss/_bootswatch.scss
 mainSass: ./assets/scss/base.scss
 scripts: true
 styleLoaders: ['style', 'css', 'sass']
+extractStyles: true
 styles:
     mixins: true
     normalize: true
