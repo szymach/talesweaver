@@ -1,9 +1,15 @@
-// Cosmo 3.3.7
+// Simplex 3.3.7
 // Bootswatch
 // -----------------------------------------------------
 
-$web-font-path: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" !default;
+$web-font-path: "https://fonts.googleapis.com/css?family=Open+Sans:400,700" !default;
 @import url($web-font-path);
+
+@mixin btn-shadow($color){
+  @include gradient-vertical-three-colors(lighten($color, 3%), $color, 6%, darken($color, 3%));
+  filter: none;
+  border: 1px solid darken($color, 10%);
+}
 
 // Navbar =====================================================================
 
@@ -20,88 +26,63 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400
 
 // Buttons ====================================================================
 
+.btn {
+  font-family: $headings-font-family;
+}
+
+.btn-default,
+.btn-default:hover {
+  @include btn-shadow($btn-default-bg);
+}
+
+.btn-primary,
+.btn-primary:hover {
+  @include btn-shadow($btn-primary-bg);
+}
+
+.btn-success,
+.btn-success:hover {
+  @include btn-shadow($btn-success-bg);
+}
+
+.btn-info,
+.btn-info:hover {
+  @include btn-shadow($btn-info-bg);
+}
+
+.btn-warning,
+.btn-warning:hover {
+  @include btn-shadow($btn-warning-bg);
+}
+
+.btn-danger,
+.btn-danger:hover {
+  @include btn-shadow($btn-danger-bg);
+}
+
 // Typography =================================================================
 
 body {
-  -webkit-font-smoothing: antialiased;
-}
-
-.text-primary,
-.text-primary:hover {
-  color: $brand-primary;
-}
-
-.text-success,
-.text-success:hover {
-  color: $brand-success;
-}
-
-.text-danger,
-.text-danger:hover {
-  color: $brand-danger;
-}
-
-.text-warning,
-.text-warning:hover {
-  color: $brand-warning;
-}
-
-.text-info,
-.text-info:hover {
-  color: $brand-info;
+  font-weight: 200;
 }
 
 // Tables =====================================================================
 
-table,
-.table {
-
-  a:not(.btn) {
-    text-decoration: underline;
-  }
-
-  .dropdown-menu a {
-    text-decoration: none;
-  }
-
-  .success,
-  .warning,
-  .danger,
-  .info {
-    color: #fff;
-
-    a {
-      color: #fff;
-    }
-  }
+th {
+  color: $headings-color;
 }
 
 // Forms ======================================================================
 
-
-.has-warning {
-  .help-block,
-  .control-label,
-  .radio,
-  .checkbox,
-  .radio-inline,
-  .checkbox-inline,
-  &.radio label,
-  &.checkbox label,
-  &.radio-inline label,
-  &.checkbox-inline label,
-  .form-control-feedback {
-    color: $brand-warning;
-  }
-
-  .form-control,
-  .form-control:focus,
-  .input-group-addon {
-    border: 1px solid $brand-warning;
-  }
+legend {
+  color: $headings-color;
 }
 
-.has-error {
+label {
+  font-weight: normal;
+}
+
+.has-warning {
   .help-block,
   .control-label,
   .radio,
@@ -117,9 +98,29 @@ table,
   }
 
   .form-control,
-  .form-control:focus,
-  .input-group-addon {
-    border: 1px solid $brand-danger;
+  .form-control:focus {
+    border-color: $brand-danger;
+  }
+}
+
+.has-error {
+  .help-block,
+  .control-label,
+  .radio,
+  .checkbox,
+  .radio-inline,
+  .checkbox-inline,
+  &.radio label,
+  &.checkbox label,
+  &.radio-inline label,
+  &.checkbox-inline label,
+  .form-control-feedback {
+    color: $brand-primary;
+  }
+
+  .form-control,
+  .form-control:focus {
+    border-color: $brand-primary;
   }
 }
 
@@ -139,124 +140,31 @@ table,
   }
 
   .form-control,
-  .form-control:focus,
-  .input-group-addon {
-    border: 1px solid $brand-success;
+  .form-control:focus {
+    border-color: $brand-success;
   }
 }
 
 // Navs =======================================================================
 
-.nav-pills {
-
-  & > li > a {
-    border-radius: 0;
+.pager {
+  a {
+    color: $headings-color;
   }
-}
 
-.dropdown-menu {
+  a:hover,
+  .active > a, {
+    border-color: $brand-primary;
+    color: #fff;
+  }
 
-  & > li > a:hover,
-  & > li > a:focus {
-    background-image: none;
+  .disabled > a {
+    border-color: $pager-border;
   }
 }
 
 // Indicators =================================================================
 
-.close {
-  text-decoration: none;
-  text-shadow: none;
-  opacity: 0.4;
-
-  &:hover,
-  &:focus {
-    opacity: 1;
-  }
-}
-
-.alert {
-  border: none;
-
-  .alert-link {
-    text-decoration: underline;
-    color: #fff;
-  }
-}
-
-.label {
-  border-radius: 0;
-}
-
 // Progress bars ==============================================================
 
-.progress {
-  height: 8px;
-  @include box-shadow(none);
-  .progress-bar {
-    font-size: 8px;
-    line-height: 8px;
-  }
-}
-
 // Containers =================================================================
-
-.panel {
-  &-heading,
-  &-footer {
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
-  }
-
-  &-default {
-    .close {
-      color: $text-color;
-    }
-  }
-}
-
-a.list-group-item {
-
-  &-success {
-    &.active {
-      background-color: $state-success-bg;
-    }
-
-    &.active:hover,
-    &.active:focus {
-      background-color: darken($state-success-bg, 5%);
-    }
-  }
-
-  &-warning {
-    &.active {
-      background-color: $state-warning-bg;
-    }
-    
-    &.active:hover,
-    &.active:focus {
-      background-color: darken($state-warning-bg, 5%);
-    }
-  }
-
-  &-danger {
-    &.active {
-      background-color: $state-danger-bg;
-    }
-    
-    &.active:hover,
-    &.active:focus {
-      background-color: darken($state-danger-bg, 5%);
-    }
-  }
-}
-
-.modal {
-  .close {
-    color: $text-color;
-  }
-}
-
-.popover {
-  color: $text-color;
-}

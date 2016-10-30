@@ -5,7 +5,7 @@ crud:
     back: Powrót
     actions: Akcje
     list: Lista
-    create: Dodaj
+    create: Nowy
     delete: Usuń
 
 book:

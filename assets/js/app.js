@@ -12,16 +12,27 @@ $(document).ready(function() {
     // Load edit form
     $('.modal').on('click', '.modal-load-edit-form', function () {
         var $this = $(this);
-        getEditForm(getModal($this), $this.data('edit-form-url'));
+        var $modal = getModal($this);
+        getEditForm($modal, $this.data('edit-form-url'));
     });
     // Load list
     $('.modal').on('click', '.modal-load-list', function () {
-        getList(getModal($(this)));
+        var $modal = getModal($(this));
+        getList($modal);
     });
     // Delete row
     $('.modal').on('click', '.modal-delete', function () {
         var $this = $(this);
-        deleteRow($this.data('delete-url'), getModal($this));
+        if (window.confirm('Na pewno?')) {
+            deleteRow($this.data('delete-url'), getModal($this));
+        }
+    });
+    $('.delete').on('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (window.confirm('Na pewno?')) {
+            window.location.href = $(this).attr('href');
+        }
     });
 });
 
@@ -39,6 +50,8 @@ function getNewForm($modal)
             event.stopPropagation();
             submitForm($(this), $modal);
         });
+        hideCreateButton($modal);
+        showListButton($modal);
     });
 }
 
@@ -56,6 +69,7 @@ function getEditForm($modal, url)
             event.stopPropagation();
             submitForm($(this), $modal);
         });
+        showListButton($modal);
     });
 }
 
@@ -82,6 +96,8 @@ function getList($modal)
     })
     .success(function(response) {
         setModalBody($modal, response.list);
+        hideListButton($modal);
+        showCreateButton($modal);
     });
 }
 
@@ -105,4 +121,24 @@ function getModal($element)
 function setModalBody($modal, content)
 {
     $modal.find('.modal-body').html(content);
+}
+
+function hideCreateButton($modal)
+{
+    $modal.find('.modal-load-new-form').first().hide();
+}
+
+function showCreateButton($modal)
+{
+    $modal.find('.modal-load-new-form').first().show();
+}
+
+function hideListButton($modal)
+{
+    $modal.find('.modal-load-list').first().hide();
+}
+
+function showListButton($modal)
+{
+    $modal.find('.modal-load-list').first().show();
 }
