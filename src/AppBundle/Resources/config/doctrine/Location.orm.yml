@@ -1,0 +1,18 @@
+---
+AppBundle\Entity\Location:
+    type: entity
+    repositoryClass: AppBundle\Entity\Repository\LocationRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    oneToMany:
+        translations:
+            targetEntity: AppBundle\Entity\Translation\LocationTranslation
+            mappedBy: location
+            indexBy: locale
+            cascade: [persist, remove]
+    manyToMany:
+        scenes:
+            targetEntity: AppBundle\Entity\Scene
+            mappedBy: locations

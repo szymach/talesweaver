@@ -36,9 +36,15 @@ class Scene
      */
     private $characters;
 
+    /**
+     * @var Collection
+     */
+    private $locations;
+
     public function __construct()
     {
         $this->characters = new ArrayCollection();
+        $this->locations = new ArrayCollection();
         $this->translations = new ArrayCollection();
     }
 
@@ -57,14 +63,10 @@ class Scene
 
     /**
      * @param string $title
-     *
-     * @return SceneTranslation
      */
     public function setTitle($title)
     {
         $this->title = $title;
-
-        return $this;
     }
 
     /**
@@ -77,14 +79,10 @@ class Scene
 
     /**
      * @param string $text
-     *
-     * @return Scene
      */
     public function setText($text)
     {
         $this->text = $text;
-
-        return $this;
     }
 
     /**
@@ -97,14 +95,10 @@ class Scene
 
     /**
      * @param Chapter $chapter
-     *
-     * @return Scene
      */
     public function setChapter(Chapter $chapter = null)
     {
         $this->chapter = $chapter;
-
-        return $this;
     }
 
     /**
@@ -116,7 +110,7 @@ class Scene
     }
 
     /**
-     * @return Book
+     * @return Book|null
      */
     public function getBook()
     {
@@ -130,8 +124,6 @@ class Scene
 
     /**
      * @param Character $character
-     *
-     * @return Scene
      */
     public function addCharacter(Character $character)
     {
@@ -139,8 +131,6 @@ class Scene
             $character->addScene($this);
             $this->characters[] = $character;
         }
-
-        return $this;
     }
 
     /**
@@ -157,5 +147,32 @@ class Scene
     public function getCharacters()
     {
         return $this->characters;
+    }
+
+    /**
+     * @param Location $location
+     */
+    public function addLocation(Location $location)
+    {
+        if (!$this->locations->contains($location)) {
+            $location->addScene($this);
+            $this->locations[] = $location;
+        }
+    }
+
+    /**
+     * @param Location $location
+     */
+    public function removeLocation(Scene $location)
+    {
+        $this->locations->removeElement($location);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getLocations()
+    {
+        return $this->locations;
     }
 }

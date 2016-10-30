@@ -6,10 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 
-/**
- * @author Piotr Szymaszek
- */
-class Character
+class Location
 {
     use Traits\TranslatableTrait;
 
@@ -29,6 +26,11 @@ class Character
      * @var string
      */
     private $description;
+
+    /**
+     * @var Collection
+     */
+    private $translations;
 
     /**
      * @var Collection
@@ -92,7 +94,7 @@ class Character
     public function addScene(Scene $scene)
     {
         if (!$this->scenes->contains($scene)) {
-            $this->scenes[] = $scene;
+            $this->scenes->add($scene);
         }
     }
 
@@ -107,7 +109,7 @@ class Character
     /**
      * @return Collection
      */
-    public function getScene()
+    public function getScenes()
     {
         return $this->scenes;
     }

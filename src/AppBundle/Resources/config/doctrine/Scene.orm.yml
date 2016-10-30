@@ -23,3 +23,7 @@ AppBundle\Entity\Scene:
             targetEntity: AppBundle\Entity\Character
             inversedBy: scenes
             cascade: [persist]
+        locations:
+            targetEntity: AppBundle\Entity\Location
+            inversedBy: scenes
+            cascade: [persist]
