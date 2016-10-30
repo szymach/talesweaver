@@ -55,6 +55,3 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
-
-ivory_ck_editor:
-    input_sync: true

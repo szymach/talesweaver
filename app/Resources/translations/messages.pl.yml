@@ -43,3 +43,6 @@ meta:
 
 menu:
     start: Start
+    scenes:
+        root: Sceny
+        standalone: Niepowiązane

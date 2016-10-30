@@ -3,6 +3,7 @@
 namespace AppBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
+use Knp\Menu\ItemInterface;
 
 /**
  * @author Piotr Szymaszek
@@ -27,7 +28,16 @@ class Builder
         ;
 
         $menu->addChild('menu.start', ['route' => 'app_index']);
+        $this->createSceneMenu($menu);
 
         return $menu;
+    }
+
+    private function createSceneMenu(ItemInterface $menu)
+    {
+        $scenes = $menu->addChild('menu.scenes.root');
+        $scenes->addChild('menu.scenes.standalone', [
+            'route' => 'app_standalone_scene_list'
+        ]);
     }
 }
