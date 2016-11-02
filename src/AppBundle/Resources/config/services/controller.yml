@@ -4,6 +4,7 @@ services:
         class: AppBundle\Controller\DashboardController
         arguments:
             - "@templating"
+            - "@app.repository.scene"
 
     # Scene
     app.controller.scene.standalone:

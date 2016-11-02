@@ -45,6 +45,10 @@ tag:
 home:
     plan: Stwórz plan
     write: Przejdź do pisania
+    dashboard:
+        recently_added: 'Ostatnio dodane:'
+        scenes:
+            standalone: Niepowiązane sceny
 
 meta:
     title: Bajkopisarz

@@ -15,4 +15,14 @@ class SceneRepository extends TranslatableRepository
     {
         return $this->createTranslatableQueryBuilder('s');
     }
+
+    public function findLatestStandalone()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.id', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

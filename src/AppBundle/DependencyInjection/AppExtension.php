@@ -24,6 +24,7 @@ class AppExtension extends Extension
             new FileLocator(__DIR__.'/../Resources/config/services')
         );
         $loader->load('controller.yml');
+        $loader->load('doctrine.yml');
         $loader->load('miscellaneous.yml');
     }
 }

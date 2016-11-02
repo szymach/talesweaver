@@ -1,0 +1,7 @@
+---
+services:
+    # Repository
+    app.repository.scene:
+        class: AppBundle\Entity\Repository\SceneRepository
+        factory: ["@doctrine", getRepository]
+        arguments: [ AppBundle:Scene ]

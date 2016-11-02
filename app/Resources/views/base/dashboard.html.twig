@@ -2,15 +2,20 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-xs-6">
-            <a href="/plan" class="btn btn-success center-block">
+        <div class="col-xs-4">
+            <a href="/plan" class="btn btn-success">
                 {{ 'home.plan' | trans }}
             </a>
-        </div>
-        <div class="col-xs-6">
-            <a href="{{ path('app_standalone_scene_new') }}" class="btn btn-info center-block">
+            <a href="{{ path('app_standalone_scene_new') }}" class="btn btn-info">
                 {{ 'home.write' | trans }}
             </a>
+        </div>
+    </div>
+    <br/>
+    <h2>{{ 'home.dashboard.recently_added' | trans }}</h2>
+    <div class="row">
+        <div class="col-xs-4">
+            {% include 'base/partial/standaloneScenes.html.twig' %}
         </div>
     </div>
 {% endblock %}

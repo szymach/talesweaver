@@ -1,0 +1,15 @@
+<div class="panel panel-info">
+    <div class="panel-heading">{{ 'home.dashboard.scenes.standalone' | trans }}</div>
+    <div class="panel-body">
+        <ul class="list-unstyled">
+        {% for scene in standaloneScenes %}
+            <li>
+                <a href="{{ path('app_standalone_scene_edit', { id: scene.id }) }}">
+                    {{ scene }}
+                    <span class="fa fa-edit"></span>
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
