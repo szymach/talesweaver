@@ -1,7 +1,7 @@
 ---
 services:
-    app.controller.base:
-        class: AppBundle\Controller\BaseController
+    app.controller.dashboard:
+        class: AppBundle\Controller\DashboardController
         arguments:
             - "@templating"
 

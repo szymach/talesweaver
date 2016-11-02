@@ -7,7 +7,7 @@ use Symfony\Component\Templating\EngineInterface;
 /**
  * @author Piotr Szymaszek
  */
-class BaseController
+class DashboardController
 {
     private $templating;
 
@@ -15,9 +15,9 @@ class BaseController
     {
         $this->templating = $templating;
     }
-    
+
     public function indexAction()
     {
-        return $this->templating->renderResponse('base\index.html.twig');
+        return $this->templating->renderResponse('base\dashboard.html.twig');
     }
 }
