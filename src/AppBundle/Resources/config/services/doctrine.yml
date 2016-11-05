@@ -5,3 +5,18 @@ services:
         class: AppBundle\Entity\Repository\SceneRepository
         factory: ["@doctrine", getRepository]
         arguments: [ AppBundle:Scene ]
+
+    app.repository.character:
+        class: AppBundle\Entity\Repository\CharacterRepository
+        factory: ["@doctrine", getRepository]
+        arguments: [ AppBundle:Character ]
+
+    app.repository.item:
+        class: AppBundle\Entity\Repository\ItemRepository
+        factory: ["@doctrine", getRepository]
+        arguments: [ AppBundle:Item ]
+
+    app.repository.location:
+        class: AppBundle\Entity\Repository\LocationRepository
+        factory: ["@doctrine", getRepository]
+        arguments: [ AppBundle:Location ]

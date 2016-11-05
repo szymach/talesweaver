@@ -26,5 +26,6 @@ class AppExtension extends Extension
         $loader->load('controller.yml');
         $loader->load('doctrine.yml');
         $loader->load('miscellaneous.yml');
+        $loader->load('pagination.yml');
     }
 }

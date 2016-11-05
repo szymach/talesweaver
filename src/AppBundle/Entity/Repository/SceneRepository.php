@@ -1,24 +1,17 @@
 <?php
 
-/**
- * (c) FSi sp. z o.o. <info@fsi.pl>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace AppBundle\Entity\Repository;
 
 class SceneRepository extends TranslatableRepository
 {
-    public function createPaginatedQb($page)
+    public function createStandaloneQb()
     {
-        return $this->createTranslatableQueryBuilder('s');
+        return $this->createQueryBuilder('s')->where('s.chapter IS NULL');
     }
 
     public function findLatestStandalone()
     {
-        return $this->createQueryBuilder('s')
+        return $this->createStandaloneQb()
             ->orderBy('s.id', 'DESC')
             ->setMaxResults(5)
             ->getQuery()

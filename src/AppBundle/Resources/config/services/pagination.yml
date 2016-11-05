@@ -1,0 +1,31 @@
+---
+services:
+    # Aggregate
+    app.paginator.aggregate.scene:
+        class: AppBundle\Pagination\Aggregate\SceneAggregate
+        arguments:
+            - "@app.paginator.single.scene.standalone"
+            - "@app.paginator.single.scene.character"
+            - "@app.paginator.single.scene.item"
+            - "@app.paginator.single.scene.location"
+
+    # Single
+    app.paginator.single.scene.standalone:
+        class: AppBundle\Pagination\Scene\StandalonePaginator
+        arguments:
+            - "@app.repository.scene"
+
+    app.paginator.single.scene.character:
+        class: AppBundle\Pagination\Scene\CharacterPaginator
+        arguments:
+            - "@app.repository.character"
+
+    app.paginator.single.scene.item:
+        class: AppBundle\Pagination\Scene\ItemPaginator
+        arguments:
+            - "@app.repository.item"
+
+    app.paginator.single.scene.location:
+        class: AppBundle\Pagination\Scene\LocationPaginator
+        arguments:
+            - "@app.repository.location"
