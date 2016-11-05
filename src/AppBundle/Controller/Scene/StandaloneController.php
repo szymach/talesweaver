@@ -6,6 +6,10 @@ use AppBundle\Entity\Character;
 use AppBundle\Entity\Item;
 use AppBundle\Entity\Location;
 use AppBundle\Entity\Scene;
+use AppBundle\Entity\Repository\CharacterRepository;
+use AppBundle\Entity\Repository\ItemRepository;
+use AppBundle\Entity\Repository\LocationRepository;
+use AppBundle\Entity\Repository\SceneRepository;
 use AppBundle\Form\Scene\NewType;
 use AppBundle\Form\Scene\EditType;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -38,6 +42,26 @@ class StandaloneController
     private $manager;
 
     /**
+     * @var CharacterRepository
+     */
+    private $characterRepository;
+
+    /**
+     * @var ItemRepository
+     */
+    private $itemRepository;
+
+    /**
+     * @var LocationRepository
+     */
+    private $locationRepository;
+
+    /**
+     * @var SceneRepository
+     */
+    private $sceneRepository;
+
+    /**
      * @var RouterInterface
      */
     private $router;
@@ -51,6 +75,10 @@ class StandaloneController
         $this->formFactory = $formFactory;
         $this->templating = $templating;
         $this->manager = $manager;
+        $this->characterRepository = $manager->getRepository(Character::class);
+        $this->itemRepository = $manager->getRepository(Item::class);
+        $this->locationRepository = $manager->getRepository(Location::class);
+        $this->sceneRepository = $manager->getRepository(Scene::class);
         $this->router = $router;
     }
 
@@ -113,19 +141,31 @@ class StandaloneController
         );
     }
 
+    /**
+     * @param Scene $scene
+     * @return Character[]
+     */
     private function getCharacters(Scene $scene)
     {
-        return $this->manager->getRepository(Character::class)->getForScene($scene);
+        return $this->characterRepository->getForScene($scene);
     }
 
+    /**
+     * @param Scene $scene
+     * @return Item[]
+     */
     private function getItems(Scene $scene)
     {
-        return $this->manager->getRepository(Item::class)->getForScene($scene);
+        return $this->itemRepository->getForScene($scene);
     }
 
+    /**
+     * @param Scene $scene
+     * @return Location[]
+     */
     private function getLocations(Scene $scene)
     {
-        return $this->manager->getRepository(Location::class)->getForScene($scene);
+        return $this->locationRepository->getForScene($scene);
     }
 
     /**
@@ -142,7 +182,7 @@ class StandaloneController
      */
     private function getScenes($page)
     {
-        $qb = $this->manager->getRepository(Scene::class)->createPaginatedQb($page);
+        $qb = $this->sceneRepository->createPaginatedQb($page);
         return new Paginator($qb);
     }
 }
