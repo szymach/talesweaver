@@ -20,8 +20,6 @@ class AppKernel extends Kernel
             # Vendor libraries
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
             new FSi\Bundle\DoctrineExtensionsBundle\FSiDoctrineExtensionsBundle(),
-            new FSi\Bundle\DataGridBundle\DataGridBundle(),
-            new FSi\Bundle\DataSourceBundle\DataSourceBundle(),
             new Hautelook\AliceBundle\HautelookAliceBundle(),
 
             # App
