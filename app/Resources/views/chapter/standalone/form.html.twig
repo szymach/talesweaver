@@ -1,0 +1,14 @@
+{% extends 'chapter/base.html.twig' %}
+
+{% block body %}
+    {% include 'chapter/standalone/actions.html.twig' %}
+    <div class="row">
+        <div class="col-xs-12">
+        {{ form_start(form) }}
+            {{ form_rest(form) }}
+            <button class="btn btn-primary">{{ 'crud.save' | trans }}</button>
+        {{ form_end(form) }}
+        </div>
+    </div>
+    {% include 'chapter/scenes/modal.html.twig' %}
+{% endblock %}

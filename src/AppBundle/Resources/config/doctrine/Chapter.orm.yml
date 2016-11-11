@@ -1,7 +1,7 @@
 ---
 AppBundle\Entity\Chapter:
     type: entity
-    repositoryClass: AppBundle\Entity\Repository\TranslatableRepository
+    repositoryClass: AppBundle\Entity\Repository\ChapterRepository
     id:
         id:
             type: integer

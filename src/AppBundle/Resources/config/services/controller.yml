@@ -6,6 +6,16 @@ services:
             - "@templating"
             - "@app.repository.scene"
 
+    # Chapter
+    app.controller.chapter.standalone:
+        class: AppBundle\Controller\Chapter\StandaloneController
+        arguments:
+            - "@templating"
+            - "@form.factory"
+            - "@app.paginator.single.chapter.standalone"
+            - "@doctrine.orm.entity_manager"
+            - "@router"
+
     # Scene
     app.controller.scene.standalone:
         class: AppBundle\Controller\Scene\StandaloneController

@@ -9,7 +9,13 @@ services:
             - "@app.paginator.single.scene.item"
             - "@app.paginator.single.scene.location"
 
-    # Single
+    # Chpater
+    app.paginator.single.chapter.standalone:
+        class: AppBundle\Pagination\Chapter\StandalonePaginator
+        arguments:
+            - "@app.repository.chapter"
+
+    # Scene
     app.paginator.single.scene.standalone:
         class: AppBundle\Pagination\Scene\StandalonePaginator
         arguments:

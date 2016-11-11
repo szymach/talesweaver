@@ -28,9 +28,18 @@ class Builder
         ;
 
         $menu->addChild('menu.start', ['route' => 'app_index']);
+        $this->createChapterMenu($menu);
         $this->createSceneMenu($menu);
 
         return $menu;
+    }
+
+    private function createChapterMenu(ItemInterface $menu)
+    {
+        $scenes = $menu->addChild('menu.chapters.root');
+        $scenes->addChild('menu.chapters.standalone', [
+            'route' => 'app_standalone_chapter_list'
+        ]);
     }
 
     private function createSceneMenu(ItemInterface $menu)

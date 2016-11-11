@@ -55,6 +55,9 @@ meta:
 
 menu:
     start: Start
+    chapters:
+        root: Rozdziały
+        standalone: Niepowiązane
     scenes:
         root: Sceny
         standalone: Niepowiązane

@@ -20,3 +20,8 @@ services:
         class: AppBundle\Entity\Repository\LocationRepository
         factory: ["@doctrine", getRepository]
         arguments: [ AppBundle:Location ]
+
+    app.repository.chapter:
+        class: AppBundle\Entity\Repository\ChapterRepository
+        factory: ["@doctrine", getRepository]
+        arguments: [ AppBundle:Chapter ]
