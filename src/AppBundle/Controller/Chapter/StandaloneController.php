@@ -11,7 +11,7 @@ namespace AppBundle\Controller\Chapter;
 
 use AppBundle\Entity\Chapter;
 use AppBundle\Form\Chapter\ChapterType;
-use AppBundle\Pagination\Chapter\StandalonePaginator;
+use AppBundle\Pagination\Aggregate\ChapterAggregate;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -50,7 +50,7 @@ class StandaloneController
     public function __construct(
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
-        StandalonePaginator $pagination,
+        ChapterAggregate $pagination,
         ObjectManager $manager,
         RouterInterface $router
     ) {
@@ -94,7 +94,8 @@ class StandaloneController
             'chapter/standalone/form.html.twig',
             [
                 'form' => $form->createView(),
-                'chapter' => $chapter
+                'chapter' => $chapter,
+                'scenes' => $this->pagination->getScenesForChapter($chapter)
             ]
         );
     }
@@ -103,7 +104,7 @@ class StandaloneController
     {
         return $this->templating->renderResponse(
             'chapter/standalone/list.html.twig',
-            ['chapters' => $this->pagination->getResults($page)]
+            ['chapters' => $this->pagination->getStandalone($page)]
         );
     }
 

@@ -13,7 +13,7 @@ services:
         arguments:
             - "@templating"
             - "@form.factory"
-            - "@app.paginator.single.chapter.standalone"
+            - "@app.paginator.aggregate.chapter"
             - "@doctrine.orm.entity_manager"
             - "@router"
 

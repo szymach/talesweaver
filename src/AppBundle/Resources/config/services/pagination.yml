@@ -1,6 +1,12 @@
 ---
 services:
     # Aggregate
+    app.paginator.aggregate.chapter:
+        class: AppBundle\Pagination\Aggregate\ChapterAggregate
+        arguments:
+            - "@app.paginator.single.chapter.standalone"
+            - "@app.paginator.single.chapter.scenes"
+
     app.paginator.aggregate.scene:
         class: AppBundle\Pagination\Aggregate\SceneAggregate
         arguments:
@@ -14,6 +20,11 @@ services:
         class: AppBundle\Pagination\Chapter\StandalonePaginator
         arguments:
             - "@app.repository.chapter"
+
+    app.paginator.single.chapter.scenes:
+        class: AppBundle\Pagination\Chapter\ScenePaginator
+        arguments:
+            - "@app.repository.scene"
 
     # Scene
     app.paginator.single.scene.standalone:

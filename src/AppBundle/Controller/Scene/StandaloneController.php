@@ -2,11 +2,13 @@
 
 namespace AppBundle\Controller\Scene;
 
+use AppBundle\Entity\Chapter;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Scene\NewType;
 use AppBundle\Form\Scene\EditType;
 use AppBundle\Pagination\Aggregate\SceneAggregate;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -58,9 +60,15 @@ class StandaloneController
         $this->router = $router;
     }
 
-    public function newAction(Request $request)
+    /**
+     * @ParamConverter("chapter", options={"id" = "chapter_id"})
+     */
+    public function newAction(Request $request, Chapter $chapter = null)
     {
         $scene = new Scene();
+        if ($chapter) {
+            $scene->setChapter($chapter);
+        }
         $form = $this->getForm(NewType::class, $scene);
         $form->handleRequest($request);
         if ($form->isValid()) {

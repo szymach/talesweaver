@@ -10,5 +10,9 @@
         {{ form_end(form) }}
         </div>
     </div>
-    {% include 'chapter/scenes/modal.html.twig' %}
+    <br/>
+    <h2>{{ 'chapter.scenes' | trans }}</h2>
+    {% if scenes is defined %}
+        {% include 'chapter/scenes/list.html.twig' %}
+    {% endif %}
 {% endblock %}

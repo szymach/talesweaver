@@ -1,29 +1,43 @@
 <table class="table">
     <thead>
         <tr>
-            <th>{{ 'location.name'|trans }}</th>
+            <th>{{ 'scene.title'|trans }}</th>
             <th>{{ 'crud.actions'|trans }}</th>
         </tr>
     </thead>
     <tbody>
-    {% for location in locations %}
+    {% for scene in scenes %}
         <tr>
-            <td>{{ location }}</td>
+            <td>{{ scene }}</td>
             <td>
-                <button class="modal-load-edit-form btn btn-primary"
-                    data-edit-form-url="{{ path('app_chapter_scene_edit', { id: location.id }) }}"
-                    title="{{ 'crud.edit' | trans }}"
+                <a class="btn btn-primary"
+                   href="{{ path('app_standalone_scene_edit', { id: scene.id }) }}"
+                   title="{{ 'crud.edit' | trans }}"
                 >
                     <span class="fa fa-edit"></span>
-                </button>
-                <button class="modal-delete btn btn-danger"
-                    data-delete-url="{{ path('app_chapter_scene_delete', { scene_id: scene.id, location_id: location.id }) }}"
-                    title="{{ 'crud.delete' | trans }}"
+                </a>
+                <a class="btn btn-danger delete"
+                   href="{{ path('app_standalone_scene_delete', { id: scene.id }) }}"
+                   title="{{ 'crud.delete' | trans }}"
                 >
                     <span class="fa fa-trash"></span>
-                </button>
+                </a>
             </td>
         </tr>
     {% endfor %}
+        <tfoot>
+            <tr>
+                {% if chapter.id %}
+                    <td colspan="2" class="text-right">
+                        <a class="btn btn-success"
+                           href="{{ path('app_standalone_scene_new', { chapter_id: chapter.id }) }}"
+                           title="{{ 'crud.create' | trans }}"
+                        >
+                            <span class="fa fa-plus"></span>
+                        </a>
+                    </td>
+                {% endif %}
+            </tr>
+        </tfoot>
     </tbody>
 </table>

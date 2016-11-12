@@ -1,7 +1,7 @@
 ---
 app_standalone_scene_new:
-    path: /new
-    defaults: { _controller: app.controller.scene.standalone:newAction }
+    path: /new/{chapter_id}
+    defaults: { _controller: app.controller.scene.standalone:newAction, chapter_id: null }
     methods:  [GET, POST]
 
 app_standalone_scene_edit:
