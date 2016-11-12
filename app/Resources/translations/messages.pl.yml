@@ -47,6 +47,8 @@ home:
     write: Przejdź do pisania
     dashboard:
         recently_added: 'Ostatnio dodane:'
+        chapters:
+            standalone: Niepowiązane rozdziały
         scenes:
             standalone: Niepowiązane sceny
 
