@@ -8,8 +8,8 @@ services:
             - "@app.repository.scene"
 
     # Chapter
-    app.controller.chapter.standalone:
-        class: AppBundle\Controller\Chapter\StandaloneController
+    app.controller.chapter:
+        class: AppBundle\Controller\ChapterController
         arguments:
             - "@templating"
             - "@form.factory"
@@ -18,8 +18,8 @@ services:
             - "@router"
 
     # Scene
-    app.controller.scene.standalone:
-        class: AppBundle\Controller\Scene\StandaloneController
+    app.controller.scene:
+        class: AppBundle\Controller\SceneController
         arguments:
             - "@templating"
             - "@form.factory"
@@ -27,24 +27,24 @@ services:
             - "@doctrine.orm.entity_manager"
             - "@router"
 
-    app.controller.scene.character:
-        class: AppBundle\Controller\Scene\CharacterController
+    app.controller.character:
+        class: AppBundle\Controller\CharacterController
         arguments:
             - "@templating"
             - "@form.factory"
             - "@doctrine.orm.entity_manager"
             - "@router"
 
-    app.controller.scene.item:
-        class: AppBundle\Controller\Scene\ItemController
+    app.controller.item:
+        class: AppBundle\Controller\ItemController
         arguments:
             - "@templating"
             - "@form.factory"
             - "@doctrine.orm.entity_manager"
             - "@router"
 
-    app.controller.scene.location:
-        class: AppBundle\Controller\Scene\LocationController
+    app.controller.location:
+        class: AppBundle\Controller\LocationController
         arguments:
             - "@templating"
             - "@form.factory"

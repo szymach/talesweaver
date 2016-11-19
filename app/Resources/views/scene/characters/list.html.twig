@@ -11,13 +11,13 @@
             <td>{{ character }}</td>
             <td>
                 <button class="modal-load-edit-form btn btn-primary"
-                    data-edit-form-url="{{ path('app_scene_character_edit', { id: character.id }) }}"
+                    data-edit-form-url="{{ path('app_character_edit', { id: character.id }) }}"
                     title="{{ 'crud.edit' | trans }}"
                 >
                     <span class="fa fa-edit"></span>
                 </button>
                 <button class="modal-delete btn btn-danger"
-                    data-delete-url="{{ path('app_scene_character_delete', { scene_id: scene.id, character_id: character.id }) }}"
+                    data-delete-url="{{ path('app_character_delete', { scene_id: scene.id, character_id: character.id }) }}"
                     title="{{ 'crud.delete' | trans }}"
                 >
                     <span class="fa fa-trash"></span>

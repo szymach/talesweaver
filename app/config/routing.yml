@@ -6,33 +6,36 @@ app_base:
     prefix:   /
 
 # Chapter
-app_chapter_standalone:
-    resource: "@AppBundle/Resources/config/routing/chapter/standalone.yml"
-    prefix:   /chapter/standalone
+app_chapter:
+    resource: "@AppBundle/Resources/config/routing/chapter.yml"
+    prefix:   /chapter
     options:
         expose: true
 
 # Scene
 app_scene:
-    resource: "@AppBundle/Resources/config/routing/scene/base.yml"
+    resource: "@AppBundle/Resources/config/routing/scene.yml"
     prefix:   /scene
     options:
         expose: true
 
-app_scene_character:
-    resource: "@AppBundle/Resources/config/routing/scene/character.yml"
+# Character
+app_character:
+    resource: "@AppBundle/Resources/config/routing/character.yml"
     prefix:   /character
     options:
         expose: true
 
-app_scene_item:
-    resource: "@AppBundle/Resources/config/routing/scene/item.yml"
+# Item
+app_item:
+    resource: "@AppBundle/Resources/config/routing/item.yml"
     prefix:   /item
     options:
         expose: true
 
-app_scene_location:
-    resource: "@AppBundle/Resources/config/routing/scene/location.yml"
+# Location
+app_location:
+    resource: "@AppBundle/Resources/config/routing/location.yml"
     prefix:   /location
     options:
         expose: true

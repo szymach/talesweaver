@@ -16,13 +16,13 @@
                         <td>{{ chapter }}</td>
                         <td>
                             <a class="btn btn-primary"
-                               href="{{ path('app_standalone_chapter_edit', { id: chapter.id }) }}"
+                               href="{{ path('app_chapter_edit', { id: chapter.id }) }}"
                                title="{{ 'crud.edit' | trans }}"
                             >
                                 <span class="fa fa-edit"></span>
                             </a>
                             <a class="btn btn-danger delete"
-                               href="{{ path('app_standalone_chapter_delete', { id: chapter.id }) }}"
+                               href="{{ path('app_chapter_delete', { id: chapter.id }) }}"
                                title="{{ 'crud.delete' | trans }}"
                             >
                                 <span class="fa fa-trash"></span>
@@ -35,7 +35,7 @@
                     <tr>
                         <td colspan="2" class="text-right">
                             <a class="btn btn-success"
-                               href="{{ path('app_standalone_chapter_new') }}"
+                               href="{{ path('app_chapter_new') }}"
                                title="{{ 'crud.create' | trans }}"
                             >
                                 <span class="fa fa-plus"></span>

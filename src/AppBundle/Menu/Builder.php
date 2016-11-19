@@ -22,8 +22,7 @@ class Builder
 
     public function createMainMenu()
     {
-        $menu = $this->factory
-            ->createItem('root')
+        $menu = $this->factory->createItem('root')
             ->setChildrenAttribute('class', 'nav navbar-nav')
         ;
 
@@ -38,7 +37,7 @@ class Builder
     {
         $scenes = $menu->addChild('menu.chapters.root');
         $scenes->addChild('menu.chapters.standalone', [
-            'route' => 'app_standalone_chapter_list'
+            'route' => 'app_chapter_list'
         ]);
     }
 

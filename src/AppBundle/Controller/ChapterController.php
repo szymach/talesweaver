@@ -1,14 +1,18 @@
 <?php
 
-namespace AppBundle\Controller\Scene;
+/**
+ * (c) FSi sp. z o.o. <info@fsi.pl>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace AppBundle\Controller;
 
 use AppBundle\Entity\Chapter;
-use AppBundle\Entity\Scene;
-use AppBundle\Form\Scene\NewType;
-use AppBundle\Form\Scene\EditType;
-use AppBundle\Pagination\Aggregate\SceneAggregate;
+use AppBundle\Form\Chapter\ChapterType;
+use AppBundle\Pagination\Aggregate\ChapterAggregate;
 use Doctrine\Common\Persistence\ObjectManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -16,10 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Templating\EngineInterface;
 
-/**
- * @author Piotr Szymaszek
- */
-class StandaloneController
+class ChapterController
 {
     /**
      * @var EngineInterface
@@ -32,7 +33,7 @@ class StandaloneController
     private $formFactory;
 
     /**
-     * @var SceneAggregate
+     * @var StandalonePaginator
      */
     private $pagination;
 
@@ -49,7 +50,7 @@ class StandaloneController
     public function __construct(
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
-        SceneAggregate $pagination,
+        ChapterAggregate $pagination,
         ObjectManager $manager,
         RouterInterface $router
     ) {
@@ -60,16 +61,10 @@ class StandaloneController
         $this->router = $router;
     }
 
-    /**
-     * @ParamConverter("chapter", options={"id" = "chapter_id"})
-     */
-    public function newAction(Request $request, Chapter $chapter = null)
+    public function newAction(Request $request)
     {
-        $scene = new Scene();
-        if ($chapter) {
-            $scene->setChapter($chapter);
-        }
-        $form = $this->getForm(NewType::class, $scene);
+        $chapter = new Chapter();
+        $form = $this->getForm(ChapterType::class, $chapter);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $data = $form->getData();
@@ -77,32 +72,30 @@ class StandaloneController
             $this->manager->flush();
 
             return new RedirectResponse(
-                $this->router->generate('app_standalone_scene_edit', ['id' => $data->getId()])
+                $this->router->generate('app_standalone_chapter_edit', ['id' => $data->getId()])
             );
         }
 
         return $this->templating->renderResponse(
-            'scene/standalone/form.html.twig',
-            ['form' => $form->createView(), 'scene' => $scene]
+            'chapter/standalone/form.html.twig',
+            ['form' => $form->createView(), 'chapter' => $chapter]
         );
     }
 
-    public function editAction(Request $request, Scene $scene)
+    public function editAction(Request $request, Chapter $chapter)
     {
-        $form = $this->getForm(EditType::class, $scene);
+        $form = $this->getForm(ChapterType::class, $chapter);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $this->manager->flush();
         }
 
         return $this->templating->renderResponse(
-            'scene/standalone/form.html.twig',
+            'chapter/standalone/form.html.twig',
             [
                 'form' => $form->createView(),
-                'characters' => $this->pagination->getCharactersForScene($scene),
-                'items' => $this->pagination->getItemsForScene($scene),
-                'locations' => $this->pagination->getLocationsForScene($scene),
-                'scene' => $scene
+                'chapter' => $chapter,
+                'scenes' => $this->pagination->getScenesForChapter($chapter)
             ]
         );
     }
@@ -110,18 +103,18 @@ class StandaloneController
     public function listAction($page)
     {
         return $this->templating->renderResponse(
-            'scene/standalone/list.html.twig',
-            ['scenes' => $this->pagination->getStandalone($page)]
+            'chapter/standalone/list.html.twig',
+            ['chapters' => $this->pagination->getStandalone($page)]
         );
     }
 
-    public function deleteAction(Scene $scene, $page)
+    public function deleteAction(Chapter $chapter, $page)
     {
-        $this->manager->remove($scene);
+        $this->manager->remove($chapter);
         $this->manager->flush();
 
         return new RedirectResponse(
-            $this->router->generate('app_standalone_scene_list', ['page' => $page])
+            $this->router->generate('app_standalone_chapter_list', ['page' => $page])
         );
     }
 

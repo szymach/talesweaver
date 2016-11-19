@@ -1,11 +1,11 @@
 <?php
 
-namespace AppBundle\Controller\Scene;
+namespace AppBundle\Controller;
 
-use AppBundle\Entity\Item;
-use AppBundle\Entity\Repository\ItemRepository;
+use AppBundle\Entity\Character;
+use AppBundle\Entity\Repository\CharacterRepository;
 use AppBundle\Entity\Scene;
-use AppBundle\Form\Item\ItemType;
+use AppBundle\Form\Character\CharacterType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -19,7 +19,7 @@ use Symfony\Component\Templating\EngineInterface;
 /**
  * @author Piotr Szymaszek
  */
-class ItemController
+class CharacterController
 {
     /**
      * @var EngineInterface
@@ -59,36 +59,36 @@ class ItemController
             throw new AccessDeniedHttpException();
         }
 
-        $form = $this->getForm(ItemType::class, null, [
-            'action' => $this->router->generate('app_scene_item_new', [
+        $form = $this->getForm(CharacterType::class, null, [
+            'action' => $this->router->generate('app_character_new', [
                 'id' => $scene->getId()
             ])
         ]);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $data = $form->getData();
-            $scene->addItem($data);
+            $scene->addCharacter($data);
             $this->manager->persist($data);
             $this->manager->flush();
         }
 
         return new JsonResponse([
             'form' => $this->templating->render(
-                'scene\items\form.html.twig',
+                'scene\characters\form.html.twig',
                 ['form' => $form->createView(), 'scene' => $scene]
             )
         ]);
     }
 
-    public function editAction(Request $request, Item $item)
+    public function editAction(Request $request, Character $character)
     {
         if (!$request->isXmlHttpRequest()) {
             throw new AccessDeniedHttpException();
         }
 
-        $form = $this->getForm(ItemType::class, $item, [
-            'action' => $this->router->generate('app_scene_item_edit', [
-                'id' => $item->getId()
+        $form = $this->getForm(CharacterType::class, $character, [
+            'action' => $this->router->generate('app_character_edit', [
+                'id' => $character->getId()
             ])
         ]);
         $form->handleRequest($request);
@@ -98,7 +98,7 @@ class ItemController
 
         return new JsonResponse([
             'form' => $this->templating->render(
-                'scene\items\form.html.twig',
+                'scene\characters\form.html.twig',
                 ['form' => $form->createView()]
             )
         ]);
@@ -112,9 +112,9 @@ class ItemController
 
         return new JsonResponse([
             'list' => $this->templating->render(
-                'scene\items\list.html.twig',
+                'scene\characters\list.html.twig',
                 [
-                    'items' => $this->getRepository()->getForScene($scene),
+                    'characters' => $this->getRepository()->getForScene($scene),
                     'scene' => $scene
                 ]
             )
@@ -123,22 +123,22 @@ class ItemController
 
     /**
      * @ParamConverter("scene", options={"id" = "scene_id"})
-     * @ParamConverter("item", options={"id" = "item_id"})
+     * @ParamConverter("character", options={"id" = "character_id"})
      */
-    public function deleteAction(Request $request, Scene $scene, Item $item)
+    public function deleteAction(Request $request, Scene $scene, Character $character)
     {
         if (!$request->isXmlHttpRequest()) {
             throw new AccessDeniedHttpException();
         }
 
-        $this->manager->remove($item);
+        $this->manager->remove($character);
         $this->manager->flush();
 
         return new JsonResponse([
             'list' => $this->templating->render(
-                'scene\items\list.html.twig',
+                'scene\characters\list.html.twig',
                 [
-                    'items' => $this->getRepository()->getForScene($scene),
+                    'characters' => $this->getRepository()->getForScene($scene),
                     'scene' => $scene
                 ]
             )
@@ -155,10 +155,10 @@ class ItemController
     }
 
     /**
-     * @return ItemRepository
+     * @return CharacterRepository
      */
     private function getRepository()
     {
-        return $this->manager->getRepository(Item::class);
+        return $this->manager->getRepository(Character::class);
     }
 }

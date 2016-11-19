@@ -1,11 +1,11 @@
 <?php
 
-namespace AppBundle\Controller\Scene;
+namespace AppBundle\Controller;
 
-use AppBundle\Entity\Location;
-use AppBundle\Entity\Repository\LocationRepository;
+use AppBundle\Entity\Item;
+use AppBundle\Entity\Repository\ItemRepository;
 use AppBundle\Entity\Scene;
-use AppBundle\Form\Location\LocationType;
+use AppBundle\Form\Item\ItemType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -19,7 +19,7 @@ use Symfony\Component\Templating\EngineInterface;
 /**
  * @author Piotr Szymaszek
  */
-class LocationController
+class ItemController
 {
     /**
      * @var EngineInterface
@@ -59,36 +59,36 @@ class LocationController
             throw new AccessDeniedHttpException();
         }
 
-        $form = $this->getForm(LocationType::class, null, [
-            'action' => $this->router->generate('app_scene_location_new', [
+        $form = $this->getForm(ItemType::class, null, [
+            'action' => $this->router->generate('app_item_new', [
                 'id' => $scene->getId()
             ])
         ]);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $data = $form->getData();
-            $scene->addLocation($data);
+            $scene->addItem($data);
             $this->manager->persist($data);
             $this->manager->flush();
         }
 
         return new JsonResponse([
             'form' => $this->templating->render(
-                'scene\locations\form.html.twig',
+                'scene\items\form.html.twig',
                 ['form' => $form->createView(), 'scene' => $scene]
             )
         ]);
     }
 
-    public function editAction(Request $request, Location $location)
+    public function editAction(Request $request, Item $item)
     {
         if (!$request->isXmlHttpRequest()) {
             throw new AccessDeniedHttpException();
         }
 
-        $form = $this->getForm(LocationType::class, $location, [
-            'action' => $this->router->generate('app_scene_location_edit', [
-                'id' => $location->getId()
+        $form = $this->getForm(ItemType::class, $item, [
+            'action' => $this->router->generate('app_item_edit', [
+                'id' => $item->getId()
             ])
         ]);
         $form->handleRequest($request);
@@ -98,7 +98,7 @@ class LocationController
 
         return new JsonResponse([
             'form' => $this->templating->render(
-                'scene\locations\form.html.twig',
+                'scene\items\form.html.twig',
                 ['form' => $form->createView()]
             )
         ]);
@@ -112,9 +112,9 @@ class LocationController
 
         return new JsonResponse([
             'list' => $this->templating->render(
-                'scene\locations\list.html.twig',
+                'scene\items\list.html.twig',
                 [
-                    'locations' => $this->getRepository()->getForScene($scene),
+                    'items' => $this->getRepository()->getForScene($scene),
                     'scene' => $scene
                 ]
             )
@@ -123,22 +123,22 @@ class LocationController
 
     /**
      * @ParamConverter("scene", options={"id" = "scene_id"})
-     * @ParamConverter("location", options={"id" = "location_id"})
+     * @ParamConverter("item", options={"id" = "item_id"})
      */
-    public function deleteAction(Request $request, Scene $scene, Location $location)
+    public function deleteAction(Request $request, Scene $scene, Item $item)
     {
         if (!$request->isXmlHttpRequest()) {
             throw new AccessDeniedHttpException();
         }
 
-        $this->manager->remove($location);
+        $this->manager->remove($item);
         $this->manager->flush();
 
         return new JsonResponse([
             'list' => $this->templating->render(
-                'scene\locations\list.html.twig',
+                'scene\items\list.html.twig',
                 [
-                    'locations' => $this->getRepository()->getForScene($scene),
+                    'items' => $this->getRepository()->getForScene($scene),
                     'scene' => $scene
                 ]
             )
@@ -155,10 +155,10 @@ class LocationController
     }
 
     /**
-     * @return LocationRepository
+     * @return ItemRepository
      */
     private function getRepository()
     {
-        return $this->manager->getRepository(Location::class);
+        return $this->manager->getRepository(Item::class);
     }
 }

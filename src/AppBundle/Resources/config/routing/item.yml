@@ -1,0 +1,20 @@
+---
+app_item_new:
+    path: /new/{id}
+    defaults: { _controller: app.controller.item:newAction }
+    methods:  [GET, POST]
+
+app_item_edit:
+    path: /edit/{id}
+    defaults: { _controller: app.controller.item:editAction }
+    methods:  [GET, POST]
+
+app_item_list:
+    path: /list/{id}
+    defaults: { _controller: app.controller.item:listAction }
+    methods:  GET
+
+app_item_delete:
+    path: /delete/{scene_id}/{item_id}
+    defaults: { _controller: app.controller.item:deleteAction }
+    methods:  GET

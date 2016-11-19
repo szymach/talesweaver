@@ -1,11 +1,11 @@
 <?php
 
-namespace AppBundle\Controller\Scene;
+namespace AppBundle\Controller;
 
-use AppBundle\Entity\Character;
-use AppBundle\Entity\Repository\CharacterRepository;
+use AppBundle\Entity\Location;
+use AppBundle\Entity\Repository\LocationRepository;
 use AppBundle\Entity\Scene;
-use AppBundle\Form\Character\CharacterType;
+use AppBundle\Form\Location\LocationType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -19,7 +19,7 @@ use Symfony\Component\Templating\EngineInterface;
 /**
  * @author Piotr Szymaszek
  */
-class CharacterController
+class LocationController
 {
     /**
      * @var EngineInterface
@@ -59,36 +59,36 @@ class CharacterController
             throw new AccessDeniedHttpException();
         }
 
-        $form = $this->getForm(CharacterType::class, null, [
-            'action' => $this->router->generate('app_scene_character_new', [
+        $form = $this->getForm(LocationType::class, null, [
+            'action' => $this->router->generate('app_location_new', [
                 'id' => $scene->getId()
             ])
         ]);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $data = $form->getData();
-            $scene->addCharacter($data);
+            $scene->addLocation($data);
             $this->manager->persist($data);
             $this->manager->flush();
         }
 
         return new JsonResponse([
             'form' => $this->templating->render(
-                'scene\characters\form.html.twig',
+                'scene\locations\form.html.twig',
                 ['form' => $form->createView(), 'scene' => $scene]
             )
         ]);
     }
 
-    public function editAction(Request $request, Character $character)
+    public function editAction(Request $request, Location $location)
     {
         if (!$request->isXmlHttpRequest()) {
             throw new AccessDeniedHttpException();
         }
 
-        $form = $this->getForm(CharacterType::class, $character, [
-            'action' => $this->router->generate('app_scene_character_edit', [
-                'id' => $character->getId()
+        $form = $this->getForm(LocationType::class, $location, [
+            'action' => $this->router->generate('app_location_edit', [
+                'id' => $location->getId()
             ])
         ]);
         $form->handleRequest($request);
@@ -98,7 +98,7 @@ class CharacterController
 
         return new JsonResponse([
             'form' => $this->templating->render(
-                'scene\characters\form.html.twig',
+                'scene\locations\form.html.twig',
                 ['form' => $form->createView()]
             )
         ]);
@@ -112,9 +112,9 @@ class CharacterController
 
         return new JsonResponse([
             'list' => $this->templating->render(
-                'scene\characters\list.html.twig',
+                'scene\locations\list.html.twig',
                 [
-                    'characters' => $this->getRepository()->getForScene($scene),
+                    'locations' => $this->getRepository()->getForScene($scene),
                     'scene' => $scene
                 ]
             )
@@ -123,22 +123,22 @@ class CharacterController
 
     /**
      * @ParamConverter("scene", options={"id" = "scene_id"})
-     * @ParamConverter("character", options={"id" = "character_id"})
+     * @ParamConverter("location", options={"id" = "location_id"})
      */
-    public function deleteAction(Request $request, Scene $scene, Character $character)
+    public function deleteAction(Request $request, Scene $scene, Location $location)
     {
         if (!$request->isXmlHttpRequest()) {
             throw new AccessDeniedHttpException();
         }
 
-        $this->manager->remove($character);
+        $this->manager->remove($location);
         $this->manager->flush();
 
         return new JsonResponse([
             'list' => $this->templating->render(
-                'scene\characters\list.html.twig',
+                'scene\locations\list.html.twig',
                 [
-                    'characters' => $this->getRepository()->getForScene($scene),
+                    'locations' => $this->getRepository()->getForScene($scene),
                     'scene' => $scene
                 ]
             )
@@ -155,10 +155,10 @@ class CharacterController
     }
 
     /**
-     * @return CharacterRepository
+     * @return LocationRepository
      */
     private function getRepository()
     {
-        return $this->manager->getRepository(Character::class);
+        return $this->manager->getRepository(Location::class);
     }
 }

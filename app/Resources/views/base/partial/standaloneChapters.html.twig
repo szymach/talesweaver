@@ -4,7 +4,7 @@
         <ul class="list-unstyled">
         {% for chapter in standaloneChapters %}
             <li>
-                <a href="{{ path('app_standalone_chapter_edit', { id: chapter.id }) }}">
+                <a href="{{ path('app_chapter_edit', { id: chapter.id }) }}">
                     {{ chapter }}
                     <span class="fa fa-edit"></span>
                 </a>

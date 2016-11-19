@@ -1,0 +1,20 @@
+---
+app_location_new:
+    path: /new/{id}
+    defaults: { _controller: app.controller.location:newAction }
+    methods:  [GET, POST]
+
+app_location_edit:
+    path: /edit/{id}
+    defaults: { _controller: app.controller.location:editAction }
+    methods:  [GET, POST]
+
+app_location_list:
+    path: /list/{id}
+    defaults: { _controller: app.controller.location:listAction }
+    methods:  GET
+
+app_location_delete:
+    path: /delete/{scene_id}/{location_id}
+    defaults: { _controller: app.controller.location:deleteAction }
+    methods:  GET
