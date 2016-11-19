@@ -27,10 +27,19 @@ class Builder
         ;
 
         $menu->addChild('menu.start', ['route' => 'app_index']);
+        $this->createBookMenu($menu);
         $this->createChapterMenu($menu);
         $this->createSceneMenu($menu);
 
         return $menu;
+    }
+
+    private function createBookMenu(ItemInterface $menu)
+    {
+        $scenes = $menu->addChild('menu.books.root');
+        $scenes->addChild('menu.books.standalone', [
+            'route' => 'app_book_list'
+        ]);
     }
 
     private function createChapterMenu(ItemInterface $menu)

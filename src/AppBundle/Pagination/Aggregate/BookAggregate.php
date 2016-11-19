@@ -2,12 +2,12 @@
 
 namespace AppBundle\Pagination\Aggregate;
 
-use AppBundle\Entity\Chapter;
-use AppBundle\Pagination\Chapter\StandalonePaginator;
-use AppBundle\Pagination\Chapter\ScenePaginator;
+use AppBundle\Entity\Book;
+use AppBundle\Pagination\Book\StandalonePaginator;
+use AppBundle\Pagination\Book\ChapterPaginator;
 use Pagerfanta\Pagerfanta;
 
-class ChapterAggregate
+class BookAggregate
 {
     /**
      * @var StandalonePaginator
@@ -15,16 +15,16 @@ class ChapterAggregate
     private $standalonePaginator;
 
     /**
-     * @var ScenePaginator
+     * @var ChapterPaginator
      */
-    private $scenePaginator;
+    private $chapterPaginator;
 
     public function __construct(
         StandalonePaginator $standalonePaginator,
-        ScenePaginator $scenePaginator
+        ChapterPaginator $chapterPaginator
     ) {
         $this->standalonePaginator = $standalonePaginator;
-        $this->scenePaginator = $scenePaginator;
+        $this->chapterPaginator = $chapterPaginator;
     }
 
     /**
@@ -36,11 +36,11 @@ class ChapterAggregate
     }
 
     /**
-     * @param Chapter $chapter
+     * @param Book $book
      * @return Pagerfanta
      */
-    public function getScenesForChapter(Chapter $chapter)
+    public function getChaptersForBook(Book $book)
     {
-        return $this->scenePaginator->getForChapterResults($chapter);
+        return $this->chapterPaginator->getForBookResults($book);
     }
 }

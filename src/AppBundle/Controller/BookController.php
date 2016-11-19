@@ -3,11 +3,9 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Book;
-use AppBundle\Entity\Chapter;
-use AppBundle\Form\Chapter\ChapterType;
-use AppBundle\Pagination\Aggregate\ChapterAggregate;
+use AppBundle\Form\Book\BookType;
+use AppBundle\Pagination\Aggregate\BookAggregate;
 use Doctrine\Common\Persistence\ObjectManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -15,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Templating\EngineInterface;
 
-class ChapterController
+class BookController
 {
     /**
      * @var EngineInterface
@@ -28,7 +26,7 @@ class ChapterController
     private $formFactory;
 
     /**
-     * @var StandalonePaginator
+     * @var BookAggregate
      */
     private $pagination;
 
@@ -45,7 +43,7 @@ class ChapterController
     public function __construct(
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
-        ChapterAggregate $pagination,
+        BookAggregate $pagination,
         ObjectManager $manager,
         RouterInterface $router
     ) {
@@ -56,16 +54,10 @@ class ChapterController
         $this->router = $router;
     }
 
-    /**
-     * @ParamConverter("book", options={"id" = "book_id"})
-     */
-    public function newAction(Request $request, Book $book = null)
+    public function newAction(Request $request)
     {
-        $chapter = new Chapter();
-        if ($book) {
-            $chapter->setBook($book);
-        }
-        $form = $this->getForm(ChapterType::class, $chapter);
+        $book = new Book();
+        $form = $this->getForm(BookType::class, $book);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $data = $form->getData();
@@ -73,30 +65,30 @@ class ChapterController
             $this->manager->flush();
 
             return new RedirectResponse(
-                $this->router->generate('app_chapter_edit', ['id' => $data->getId()])
+                $this->router->generate('app_book_edit', ['id' => $data->getId()])
             );
         }
 
         return $this->templating->renderResponse(
-            'chapter/form.html.twig',
-            ['form' => $form->createView(), 'chapter' => $chapter]
+            'book/form.html.twig',
+            ['form' => $form->createView(), 'book' => $book]
         );
     }
 
-    public function editAction(Request $request, Chapter $chapter)
+    public function editAction(Request $request, Book $book)
     {
-        $form = $this->getForm(ChapterType::class, $chapter);
+        $form = $this->getForm(BookType::class, $book);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $this->manager->flush();
         }
 
         return $this->templating->renderResponse(
-            'chapter/form.html.twig',
+            'book/form.html.twig',
             [
                 'form' => $form->createView(),
-                'chapter' => $chapter,
-                'scenes' => $this->pagination->getScenesForChapter($chapter)
+                'book' => $book,
+                'chapters' => $this->pagination->getChaptersForBook($book)
             ]
         );
     }
@@ -104,18 +96,18 @@ class ChapterController
     public function listAction($page)
     {
         return $this->templating->renderResponse(
-            'chapter/list.html.twig',
-            ['chapters' => $this->pagination->getStandalone($page)]
+            'book/list.html.twig',
+            ['books' => $this->pagination->getStandalone($page)]
         );
     }
 
-    public function deleteAction(Chapter $chapter, $page)
+    public function deleteAction(Book $book, $page)
     {
-        $this->manager->remove($chapter);
+        $this->manager->remove($book);
         $this->manager->flush();
 
         return new RedirectResponse(
-            $this->router->generate('app_chapter_list', ['page' => $page])
+            $this->router->generate('app_book_list', ['page' => $page])
         );
     }
 

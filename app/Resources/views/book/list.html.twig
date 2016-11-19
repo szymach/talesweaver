@@ -1,0 +1,49 @@
+{% extends 'book/base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>{{ 'book.title'|trans }}</th>
+                        <th>{{ 'crud.actions'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for book in books %}
+                    <tr>
+                        <td>{{ book }}</td>
+                        <td>
+                            <a class="btn btn-primary"
+                               href="{{ path('app_book_edit', { id: book.id }) }}"
+                               title="{{ 'crud.edit' | trans }}"
+                            >
+                                <span class="fa fa-edit"></span>
+                            </a>
+                            <a class="btn btn-danger delete"
+                               href="{{ path('app_book_delete', { id: book.id }) }}"
+                               title="{{ 'crud.delete' | trans }}"
+                            >
+                                <span class="fa fa-trash"></span>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" class="text-right">
+                            <a class="btn btn-success"
+                               href="{{ path('app_book_new') }}"
+                               title="{{ 'crud.create' | trans }}"
+                            >
+                                <span class="fa fa-plus"></span>
+                            </a>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+{% endblock %}

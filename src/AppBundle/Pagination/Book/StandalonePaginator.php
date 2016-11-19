@@ -1,19 +1,19 @@
 <?php
 
-namespace AppBundle\Pagination\Chapter;
+namespace AppBundle\Pagination\Book;
 
-use AppBundle\Entity\Repository\ChapterRepository;
+use AppBundle\Entity\Repository\BookRepository;
 use AppBundle\Pagination\Paginator;
 use Doctrine\ORM\QueryBuilder;
 
 class StandalonePaginator extends Paginator
 {
     /**
-     * @var ChapterRepository
+     * @var BookRepository
      */
     private $repository;
 
-    public function __construct(ChapterRepository $repository)
+    public function __construct(BookRepository $repository)
     {
         $this->repository = $repository;
     }

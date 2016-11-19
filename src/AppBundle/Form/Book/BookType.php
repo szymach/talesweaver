@@ -1,8 +1,8 @@
 <?php
 
-namespace AppBundle\Form\Chapter;
+namespace AppBundle\Form\Book;
 
-use AppBundle\Entity\Chapter;
+use AppBundle\Entity\Book;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * @author Piotr Szymaszek
  */
-class ChapterType extends AbstractType
+class BookType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -20,7 +20,7 @@ class ChapterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title', TextType::class, [
-            'label' => 'chapter.title'
+            'label' => 'book.title'
         ]);
     }
 
@@ -30,7 +30,7 @@ class ChapterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Chapter::class
+            'data_class' => Book::class
         ]);
     }
 }

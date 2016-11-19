@@ -1,7 +1,7 @@
 ---
 app_chapter_new:
-    path: /new
-    defaults: { _controller: app.controller.chapter:newAction }
+    path: /new/{book_id}
+    defaults: { _controller: app.controller.chapter:newAction, book_id: null }
     methods:  [GET, POST]
 
 app_chapter_edit:

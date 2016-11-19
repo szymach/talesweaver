@@ -1,16 +1,16 @@
 <?php
 
-namespace AppBundle\Pagination\Chapter;
+namespace AppBundle\Pagination\Book;
 
-use AppBundle\Entity\Chapter;
-use AppBundle\Entity\Repository\SceneRepository;
+use AppBundle\Entity\Book;
+use AppBundle\Entity\Repository\ChapterRepository;
 use AppBundle\Pagination\Paginator;
 use Doctrine\ORM\QueryBuilder;
 
-class ScenePaginator extends Paginator
+class ChapterPaginator extends Paginator
 {
     /**
-     * @var SceneRepository
+     * @var ChapterRepository
      */
     private $repository;
 
@@ -19,14 +19,14 @@ class ScenePaginator extends Paginator
      */
     private $queryBuilder;
 
-    public function __construct(SceneRepository $repository)
+    public function __construct(ChapterRepository $repository)
     {
         $this->repository = $repository;
     }
 
-    public function getForChapterResults(Chapter $chapter, $page = 1, $maxPerPage = 10)
+    public function getForBookResults(Book $book, $page = 1, $maxPerPage = 10)
     {
-        $this->queryBuilder = $this->repository->createForChapterQb($chapter);
+        $this->queryBuilder = $this->repository->createForBookQb($book);
         return $this->getResults($page, $maxPerPage);
     }
 

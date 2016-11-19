@@ -7,6 +7,16 @@ services:
             - "@app.repository.chapter"
             - "@app.repository.scene"
 
+    # Book
+    app.controller.book:
+        class: AppBundle\Controller\BookController
+        arguments:
+            - "@templating"
+            - "@form.factory"
+            - "@app.paginator.aggregate.book"
+            - "@doctrine.orm.entity_manager"
+            - "@router"
+
     # Chapter
     app.controller.chapter:
         class: AppBundle\Controller\ChapterController

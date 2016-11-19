@@ -1,0 +1,18 @@
+{% extends 'chapter/base.html.twig' %}
+
+{% block body %}
+    {% include 'book/actions.html.twig' %}
+    <div class="row">
+        <div class="col-xs-12">
+        {{ form_start(form) }}
+            {{ form_rest(form) }}
+            <button class="btn btn-primary">{{ 'crud.save' | trans }}</button>
+        {{ form_end(form) }}
+        </div>
+    </div>
+    <br/>
+    {% if chapters is not empty %}
+        <h2>{{ 'book.chapters' | trans }}</h2>
+        {% include 'book/chapters/list.html.twig' %}
+    {% endif %}
+{% endblock %}

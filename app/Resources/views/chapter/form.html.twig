@@ -1,7 +1,7 @@
 {% extends 'chapter/base.html.twig' %}
 
 {% block body %}
-    {% include 'chapter/standalone/actions.html.twig' %}
+    {% include 'chapter/actions.html.twig' %}
     <div class="row">
         <div class="col-xs-12">
         {{ form_start(form) }}
@@ -11,8 +11,8 @@
         </div>
     </div>
     <br/>
-    <h2>{{ 'chapter.scenes' | trans }}</h2>
     {% if scenes is defined %}
+        <h2>{{ 'chapter.scenes' | trans }}</h2>
         {% include 'chapter/scenes/list.html.twig' %}
     {% endif %}
 {% endblock %}

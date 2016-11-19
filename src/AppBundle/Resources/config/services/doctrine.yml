@@ -1,6 +1,11 @@
 ---
 services:
     # Repository
+    app.repository.book:
+        class: AppBundle\Entity\Repository\BookRepository
+        factory: ["@doctrine", getRepository]
+        arguments: [ AppBundle:Book ]
+
     app.repository.scene:
         class: AppBundle\Entity\Repository\SceneRepository
         factory: ["@doctrine", getRepository]

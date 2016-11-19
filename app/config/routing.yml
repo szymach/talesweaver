@@ -5,6 +5,13 @@ app_base:
     resource: "@AppBundle/Resources/config/routing/base.yml"
     prefix:   /
 
+# Book
+app_book:
+    resource: "@AppBundle/Resources/config/routing/book.yml"
+    prefix:   /book
+    options:
+        expose: true
+
 # Chapter
 app_chapter:
     resource: "@AppBundle/Resources/config/routing/chapter.yml"

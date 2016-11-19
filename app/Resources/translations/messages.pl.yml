@@ -57,6 +57,9 @@ meta:
 
 menu:
     start: Start
+    books:
+        root: Książki
+        standalone: Niepowiązane
     chapters:
         root: Rozdziały
         standalone: Niepowiązane
