@@ -46,7 +46,7 @@ class Builder
     {
         $scenes = $menu->addChild('menu.scenes.root');
         $scenes->addChild('menu.scenes.standalone', [
-            'route' => 'app_standalone_scene_list'
+            'route' => 'app_scene_list'
         ]);
     }
 }

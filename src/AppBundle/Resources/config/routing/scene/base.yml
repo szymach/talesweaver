@@ -1,20 +1,20 @@
 ---
-app_standalone_scene_new:
+app_scene_new:
     path: /new/{chapter_id}
     defaults: { _controller: app.controller.scene.standalone:newAction, chapter_id: null }
     methods:  [GET, POST]
 
-app_standalone_scene_edit:
+app_scene_edit:
     path: /edit/{id}
     defaults: { _controller: app.controller.scene.standalone:editAction }
     methods:  [GET, POST]
 
-app_standalone_scene_list:
+app_scene_list:
     path: /list/{page}
     defaults: { _controller: app.controller.scene.standalone:listAction, page: 1 }
     methods:  GET
 
-app_standalone_scene_delete:
+app_scene_delete:
     path: /delete/{id}/{page}
     defaults: { _controller: app.controller.scene.standalone:deleteAction, page: 1 }
     methods:  GET

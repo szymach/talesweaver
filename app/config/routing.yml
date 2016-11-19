@@ -13,9 +13,9 @@ app_chapter_standalone:
         expose: true
 
 # Scene
-app_scene_standalone:
-    resource: "@AppBundle/Resources/config/routing/scene/standalone.yml"
-    prefix:   /scene/standalone
+app_scene:
+    resource: "@AppBundle/Resources/config/routing/scene/base.yml"
+    prefix:   /scene
     options:
         expose: true
 

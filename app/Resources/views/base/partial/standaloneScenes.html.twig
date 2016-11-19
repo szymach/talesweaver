@@ -4,7 +4,7 @@
         <ul class="list-unstyled">
         {% for scene in standaloneScenes %}
             <li>
-                <a href="{{ path('app_standalone_scene_edit', { id: scene.id }) }}">
+                <a href="{{ path('app_scene_edit', { id: scene.id }) }}">
                     {{ scene }}
                     <span class="fa fa-edit"></span>
                 </a>
