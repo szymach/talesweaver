@@ -7,12 +7,27 @@ services:
             - "@app.paginator.single.chapter.standalone"
             - "@app.paginator.single.chapter.scenes"
 
+    app.paginator.aggregate.character:
+        class: AppBundle\Pagination\Aggregate\CharacterAggregate
+        arguments:
+            - "@app.paginator.single.scene.character"
+
+    app.paginator.aggregate.item:
+        class: AppBundle\Pagination\Aggregate\ItemAggregate
+        arguments:
+            - "@app.paginator.single.scene.item"
+
     app.paginator.aggregate.scene:
         class: AppBundle\Pagination\Aggregate\SceneAggregate
         arguments:
             - "@app.paginator.single.scene.standalone"
             - "@app.paginator.single.scene.character"
             - "@app.paginator.single.scene.item"
+            - "@app.paginator.single.scene.location"
+
+    app.paginator.aggregate.location:
+        class: AppBundle\Pagination\Aggregate\LocationAggregate
+        arguments:
             - "@app.paginator.single.scene.location"
 
     # Chpater

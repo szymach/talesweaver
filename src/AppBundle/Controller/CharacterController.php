@@ -3,9 +3,9 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Character;
-use AppBundle\Entity\Repository\CharacterRepository;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Character\CharacterType;
+use AppBundle\Pagination\Aggregate\CharacterAggregate;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -37,6 +37,11 @@ class CharacterController
     private $manager;
 
     /**
+     * @var CharacterAggregate
+     */
+    private $pagination;
+
+    /**
      * @var RouterInterface
      */
     private $router;
@@ -45,11 +50,13 @@ class CharacterController
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
         ObjectManager $manager,
+        CharacterAggregate $pagination,
         RouterInterface $router
     ) {
         $this->formFactory = $formFactory;
         $this->templating = $templating;
         $this->manager = $manager;
+        $this->pagination = $pagination;
         $this->router = $router;
     }
 
@@ -104,7 +111,7 @@ class CharacterController
         ]);
     }
 
-    public function listAction(Request $request, Scene $scene)
+    public function listAction(Request $request, Scene $scene, $page)
     {
         if (!$request->isXmlHttpRequest()) {
             throw new AccessDeniedHttpException();
@@ -114,7 +121,7 @@ class CharacterController
             'list' => $this->templating->render(
                 'scene\characters\list.html.twig',
                 [
-                    'characters' => $this->getRepository()->getForScene($scene),
+                    'characters' => $this->pagination->getForScene($scene),
                     'scene' => $scene
                 ]
             )
@@ -138,7 +145,7 @@ class CharacterController
             'list' => $this->templating->render(
                 'scene\characters\list.html.twig',
                 [
-                    'characters' => $this->getRepository()->getForScene($scene),
+                    'characters' => $this->pagination->getForScene($scene),
                     'scene' => $scene
                 ]
             )
@@ -152,13 +159,5 @@ class CharacterController
     private function getForm($class, $data = null, $options = [])
     {
         return $this->formFactory->create($class, $data, $options);
-    }
-
-    /**
-     * @return CharacterRepository
-     */
-    private function getRepository()
-    {
-        return $this->manager->getRepository(Character::class);
     }
 }

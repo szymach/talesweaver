@@ -33,6 +33,7 @@ services:
             - "@templating"
             - "@form.factory"
             - "@doctrine.orm.entity_manager"
+            - "@app.paginator.aggregate.character"
             - "@router"
 
     app.controller.item:
@@ -41,6 +42,7 @@ services:
             - "@templating"
             - "@form.factory"
             - "@doctrine.orm.entity_manager"
+            - "@app.paginator.aggregate.item"
             - "@router"
 
     app.controller.location:
@@ -49,4 +51,5 @@ services:
             - "@templating"
             - "@form.factory"
             - "@doctrine.orm.entity_manager"
+            - "@app.paginator.aggregate.location"
             - "@router"

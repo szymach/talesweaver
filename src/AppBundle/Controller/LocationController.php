@@ -6,6 +6,7 @@ use AppBundle\Entity\Location;
 use AppBundle\Entity\Repository\LocationRepository;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Location\LocationType;
+use AppBundle\Pagination\Aggregate\LocationAggregate;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -37,6 +38,11 @@ class LocationController
     private $manager;
 
     /**
+     * @var LocationAggregate
+     */
+    private $pagination;
+
+    /**
      * @var RouterInterface
      */
     private $router;
@@ -45,11 +51,13 @@ class LocationController
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
         ObjectManager $manager,
+        LocationAggregate $pagination,
         RouterInterface $router
     ) {
         $this->formFactory = $formFactory;
         $this->templating = $templating;
         $this->manager = $manager;
+        $this->pagination = $pagination;
         $this->router = $router;
     }
 
@@ -114,7 +122,7 @@ class LocationController
             'list' => $this->templating->render(
                 'scene\locations\list.html.twig',
                 [
-                    'locations' => $this->getRepository()->getForScene($scene),
+                    'locations' => $this->pagination->getForScene($scene),
                     'scene' => $scene
                 ]
             )
@@ -138,7 +146,7 @@ class LocationController
             'list' => $this->templating->render(
                 'scene\locations\list.html.twig',
                 [
-                    'locations' => $this->getRepository()->getForScene($scene),
+                    'locations' => $this->pagination->getForScene($scene),
                     'scene' => $scene
                 ]
             )

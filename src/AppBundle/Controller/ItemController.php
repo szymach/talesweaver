@@ -6,6 +6,7 @@ use AppBundle\Entity\Item;
 use AppBundle\Entity\Repository\ItemRepository;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Item\ItemType;
+use AppBundle\Pagination\Aggregate\ItemAggregate;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -37,6 +38,11 @@ class ItemController
     private $manager;
 
     /**
+     * @var ItemAggregate
+     */
+    private $pagination;
+
+    /**
      * @var RouterInterface
      */
     private $router;
@@ -45,11 +51,13 @@ class ItemController
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
         ObjectManager $manager,
+        ItemAggregate $pagination,
         RouterInterface $router
     ) {
         $this->formFactory = $formFactory;
         $this->templating = $templating;
         $this->manager = $manager;
+        $this->pagination = $pagination;
         $this->router = $router;
     }
 
@@ -114,7 +122,7 @@ class ItemController
             'list' => $this->templating->render(
                 'scene\items\list.html.twig',
                 [
-                    'items' => $this->getRepository()->getForScene($scene),
+                    'items' => $this->pagination->getForScene($scene),
                     'scene' => $scene
                 ]
             )
@@ -138,7 +146,7 @@ class ItemController
             'list' => $this->templating->render(
                 'scene\items\list.html.twig',
                 [
-                    'items' => $this->getRepository()->getForScene($scene),
+                    'items' => $this->pagination->getForScene($scene),
                     'scene' => $scene
                 ]
             )
