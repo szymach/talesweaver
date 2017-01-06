@@ -23,6 +23,9 @@ chapter:
     scenes: Sceny
     book: Książka
     add: Nowy rozdział
+    tabs:
+        basic: Podstawowe
+        scenes: Sceny
 
 scene:
     title: Tytuł

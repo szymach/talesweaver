@@ -2,17 +2,35 @@
 
 {% block body %}
     {% include 'partial/backButton.html.twig' %}
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#basic" aria-controls="basic" role="tab" data-toggle="tab">
+                {{ 'chapter.tabs.basic' | trans }}
+            </a>
+        </li>
+        {% if scenes is defined %}
+            <li role="presentation">
+                <a href="#scenes" aria-controls="scenes" role="tab" data-toggle="tab">
+                    {{ 'chapter.tabs.scenes' | trans }}
+                </a>
+            </li>
+        {% endif %}
+    </ul>
     <div class="row">
         <div class="col-xs-12">
-        {{ form_start(form) }}
-            {{ form_rest(form) }}
-            <button class="btn btn-primary">{{ 'crud.save' | trans }}</button>
-        {{ form_end(form) }}
+            {{ form_start(form) }}
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="basic">
+                        {{ form_rest(form) }}
+                        <button class="btn btn-primary">{{ 'crud.save' | trans }}</button>
+                    </div>
+                    {% if scenes is defined %}
+                        <div role="tabpanel" class="tab-pane fade" id="scenes">
+                            {% include 'chapter/scenes/list.html.twig' %}
+                        </div>
+                    {% endif %}
+                </div>
+            {{ form_end(form) }}
         </div>
     </div>
-    <br/>
-    {% if scenes is defined %}
-        <h2>{{ 'chapter.scenes' | trans }}</h2>
-        {% include 'chapter/scenes/list.html.twig' %}
-    {% endif %}
 {% endblock %}
