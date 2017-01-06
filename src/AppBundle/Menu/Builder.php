@@ -36,8 +36,7 @@ class Builder
 
     private function createBookMenu(ItemInterface $menu)
     {
-        $scenes = $menu->addChild('menu.books.root');
-        $scenes->addChild('menu.books.standalone', [
+        $menu->addChild('menu.books.root', [
             'route' => 'app_book_list'
         ]);
     }

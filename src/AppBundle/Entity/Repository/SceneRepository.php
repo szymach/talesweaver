@@ -20,9 +20,9 @@ class SceneRepository extends TranslatableRepository
         ;
     }
 
-    public function findLatestStandalone($limit = 5)
+    public function findLatest($limit = 5)
     {
-        return $this->createStandaloneQb()
+        return $this->createQueryBuilder('s')
             ->orderBy('s.id', 'DESC')
             ->setMaxResults($limit)
             ->getQuery()

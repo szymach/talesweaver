@@ -11,12 +11,21 @@
             </a>
         </div>
     </div>
-    <br/>
-    <h2>{{ 'home.dashboard.recently_added' | trans }}</h2>
-    <div class="row">
-        <div class="col-xs-4">
-            {% include 'base/partial/standaloneChapters.html.twig' %}
-            {% include 'base/partial/standaloneScenes.html.twig' %}
+    {% if books | length or chapters | length or scenes | length %}
+        <br/>
+        <h2>{{ 'home.dashboard.recently_added' | trans }}</h2>
+        <div class="row">
+            <div class="col-xs-4">
+                {% if books | length %}
+                    {% include 'base/partial/books.html.twig' %}
+                {% endif %}
+                {% if chapters | length %}
+                    {% include 'base/partial/chapters.html.twig' %}
+                {% endif %}
+                {% if scenes | length %}
+                    {% include 'base/partial/scenes.html.twig' %}
+                {% endif %}
+            </div>
         </div>
-    </div>
+    {% endif %}
 {% endblock %}

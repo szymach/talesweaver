@@ -20,6 +20,6 @@ class StandalonePaginator extends Paginator
 
     protected function getQueryBuilder() : QueryBuilder
     {
-        return $this->repository->createStandaloneQb();
+        return $this->repository->createQueryBuilder('b');
     }
 }

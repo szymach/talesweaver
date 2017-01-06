@@ -4,6 +4,7 @@ services:
         class: AppBundle\Controller\DashboardController
         arguments:
             - "@templating"
+            - "@app.repository.book"
             - "@app.repository.chapter"
             - "@app.repository.scene"
 

@@ -11,8 +11,13 @@ namespace AppBundle\Entity\Repository;
 
 class BookRepository extends TranslatableRepository
 {
-    public function createStandaloneQb()
+    public function findLatest($limit = 5)
     {
-        return $this->createQueryBuilder('b');
+        return $this->createQueryBuilder('b')
+            ->orderBy('b.id', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }

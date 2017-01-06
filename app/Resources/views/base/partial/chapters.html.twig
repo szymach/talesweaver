@@ -1,11 +1,11 @@
 <div class="panel panel-info">
-    <div class="panel-heading">{{ 'home.dashboard.scenes.standalone' | trans }}</div>
+    <div class="panel-heading">{{ 'home.dashboard.chapters' | trans }}</div>
     <div class="panel-body">
         <ul class="list-unstyled">
-        {% for scene in standaloneScenes %}
+        {% for chapter in chapters %}
             <li>
-                <a href="{{ path('app_scene_edit', { id: scene.id }) }}">
-                    {{ scene }}
+                <a href="{{ path('app_chapter_edit', { id: chapter.id }) }}">
+                    {{ chapter }}
                     <span class="fa fa-edit"></span>
                 </a>
             </li>

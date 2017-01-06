@@ -1,6 +1,0 @@
----
-AppBundle\Entity\Scene:
-    scene_{1..5}:
-        title: Scene <current()>
-        text: A paragraph to test things out. No big deal.
-        locale: en

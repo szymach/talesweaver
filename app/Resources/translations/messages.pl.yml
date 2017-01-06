@@ -52,10 +52,9 @@ home:
     write: Przejdź do pisania
     dashboard:
         recently_added: 'Ostatnio dodane:'
-        chapters:
-            standalone: Niepowiązane rozdziały
-        scenes:
-            standalone: Niepowiązane sceny
+        books: Książki
+        chapters: Rozdziały
+        scenes: Sceny
 
 meta:
     title: Bajkopisarz
@@ -64,7 +63,6 @@ menu:
     start: Start
     books:
         root: Książki
-        standalone: Niepowiązane
     chapters:
         root: Rozdziały
         standalone: Niepowiązane

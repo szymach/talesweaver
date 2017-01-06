@@ -19,11 +19,11 @@ class ChapterRepository extends TranslatableRepository
         ;
     }
 
-    public function findLatestStandalone()
+    public function findLatest($limit = 5)
     {
-        return $this->createStandaloneQb()
+        return $this->createQueryBuilder('c')
             ->orderBy('c.id', 'DESC')
-            ->setMaxResults(5)
+            ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
         ;
