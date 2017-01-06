@@ -11,10 +11,12 @@ crud:
 book:
     title: Tytuł
     description: Opis (publiczny)
-    introduction: Wstęp
-    expansion: Rozwinięcie
-    ending: Zakończenie
-    chapters: Rozdziały
+    tabs:
+        basic: Podstawowe
+        introduction: Wstęp
+        expansion: Rozwinięcie
+        ending: Zakończenie
+        chapters: Rozdziały
 
 chapter:
     title: Tytuł

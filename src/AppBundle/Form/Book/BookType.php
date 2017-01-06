@@ -30,17 +30,17 @@ class BookType extends AbstractType
         ]);
 
         $builder->add('introduction', CKEditorType::class, [
-            'label' => 'book.introduction',
+            'label' =>  false,
             'required' => false
         ]);
 
         $builder->add('expansion', CKEditorType::class, [
-            'label' => 'book.expansion',
+            'label' =>  false,
             'required' => false
         ]);
 
         $builder->add('ending', CKEditorType::class, [
-            'label' => 'book.ending',
+            'label' =>  false,
             'required' => false
         ]);
     }

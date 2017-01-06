@@ -2,17 +2,52 @@
 
 {% block body %}
     {% include 'book/actions.html.twig' %}
+    <div>
+    <ul class="nav nav-tabs" role="tablist">
+        {% for tab in ['basic', 'introduction', 'expansion', 'ending'] %}
+            <li role="presentation"{% if loop.first %} class="active"{% endif %}>
+                <a href="#{{ tab }}" aria-controls="{{ tab }}" role="tab" data-toggle="tab">
+                    {{ ('book.tabs.' ~ tab) | trans }}
+                </a>
+            </li>
+        {% endfor %}
+        {% if chapters is defined %}
+            <li role="presentation">
+                <a href="#chapters" aria-controls="chapters" role="tab" data-toggle="tab">
+                    {{ 'book.tabs.chapters' | trans }}
+                </a>
+            </li>
+        {% endif %}
+    </ul>
     <div class="row">
         <div class="col-xs-12">
-        {{ form_start(form) }}
-            {{ form_rest(form) }}
-            <button class="btn btn-primary">{{ 'crud.save' | trans }}</button>
-        {{ form_end(form) }}
+            {{ form_start(form) }}
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="basic">
+                        {{ form_row(form.title) }}
+                        {{ form_row(form.description) }}
+                        <button class="btn btn-primary">{{ 'crud.save' | trans }}</button>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="introduction">
+                        {{ form_row(form.introduction) }}
+                        <button class="btn btn-primary">{{ 'crud.save' | trans }}</button>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="expansion">
+                        {{ form_row(form.expansion) }}
+                        <button class="btn btn-primary">{{ 'crud.save' | trans }}</button>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="ending">
+                        {{ form_row(form.ending) }}
+                        <button class="btn btn-primary">{{ 'crud.save' | trans }}</button>
+                    </div>
+                    {% if chapters is defined %}
+                        <div role="tabpanel" class="tab-pane fade" id="chapters">
+                            {% include 'book/chapters/list.html.twig' %}
+                        </div>
+                    {% endif %}
+                </div>
+                {{ form_rest(form) }}
+            {{ form_end(form) }}
         </div>
     </div>
-    <br/>
-    {% if chapters is defined and chapters | length %}
-        <h2>{{ 'book.chapters' | trans }}</h2>
-        {% include 'book/chapters/list.html.twig' %}
-    {% endif %}
 {% endblock %}
