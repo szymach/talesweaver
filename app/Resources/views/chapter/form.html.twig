@@ -21,7 +21,7 @@
             {{ form_start(form) }}
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane fade in active" id="basic">
-                        {{ form_rest(form) }}
+                        {{ form_row(form.title) }}
                         <button class="btn btn-primary">{{ 'crud.save' | trans }}</button>
                     </div>
                     {% if scenes is defined %}

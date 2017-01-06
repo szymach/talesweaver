@@ -2,15 +2,62 @@
 
 {% block body %}
     {% include 'scene/standalone/actions.html.twig' %}
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#basic" aria-controls="basic" role="tab" data-toggle="tab">
+                {{ 'scene.tabs.basic' | trans }}
+            </a>
+        </li>
+        {% if characters is defined %}
+            <li role="presentation">
+                <a href="#characters" aria-controls="characters" role="tab" data-toggle="tab">
+                    {{ 'scene.tabs.characters' | trans }}
+                </a>
+            </li>
+        {% endif %}
+        {% if items is defined %}
+            <li role="presentation">
+                <a href="#items" aria-controls="items" role="tab" data-toggle="tab">
+                    {{ 'scene.tabs.items' | trans }}
+                </a>
+            </li>
+        {% endif %}
+        {% if locations is defined %}
+            <li role="presentation">
+                <a href="#locations" aria-controls="locations" role="tab" data-toggle="tab">
+                    {{ 'scene.tabs.locations' | trans }}
+                </a>
+            </li>
+        {% endif %}
+    </ul>
     <div class="row">
         <div class="col-xs-12">
-        {{ form_start(form) }}
-            {{ form_rest(form) }}
-            <button class="btn btn-primary">{{ 'crud.save' | trans }}</button>
-        {{ form_end(form) }}
+            {{ form_start(form) }}
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="basic">
+                        {{ form_row(form.title) }}
+                        {{ form_row(form.text) }}
+                        <button class="btn btn-primary">{{ 'crud.save' | trans }}</button>
+                    </div>
+                    {% if characters is defined %}
+                        <div role="tabpanel" class="tab-pane fade" id="characters">
+                            {% include 'scene/characters/list.html.twig' %}
+                        </div>
+                    {% endif %}
+                    {% if items is defined %}
+                        <div role="tabpanel" class="tab-pane fade" id="items">
+                            {% include 'scene/items/list.html.twig' %}
+                        </div>
+                    {% endif %}
+                    {% if locations is defined %}
+                        <div role="tabpanel" class="tab-pane fade" id="locations">
+                            {% include 'scene/locations/list.html.twig' %}
+                        </div>
+                    {% endif %}
+                    {{ form_rest(form) }}
+                </div>
+            {{ form_end(form) }}
+            <div id="form-container"></div>
         </div>
     </div>
-    {% include 'scene/characters/modal.html.twig' %}
-    {% include 'scene/items/modal.html.twig' %}
-    {% include 'scene/locations/modal.html.twig' %}
 {% endblock %}

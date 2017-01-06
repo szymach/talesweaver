@@ -81,7 +81,7 @@ class CharacterController
 
         return new JsonResponse([
             'form' => $this->templating->render(
-                'scene\characters\form.html.twig',
+                'partial\simpleForm.html.twig',
                 ['form' => $form->createView(), 'scene' => $scene]
             )
         ]);
@@ -105,7 +105,7 @@ class CharacterController
 
         return new JsonResponse([
             'form' => $this->templating->render(
-                'scene\characters\form.html.twig',
+                'partial\simpleForm.html.twig',
                 ['form' => $form->createView()]
             )
         ]);
@@ -121,7 +121,7 @@ class CharacterController
             'list' => $this->templating->render(
                 'scene\characters\list.html.twig',
                 [
-                    'characters' => $this->pagination->getForScene($scene),
+                    'characters' => $this->pagination->getForScene($scene, $page),
                     'scene' => $scene
                 ]
             )
@@ -132,7 +132,7 @@ class CharacterController
      * @ParamConverter("scene", options={"id" = "scene_id"})
      * @ParamConverter("character", options={"id" = "character_id"})
      */
-    public function deleteAction(Request $request, Scene $scene, Character $character)
+    public function deleteAction(Request $request, Scene $scene, Character $character, $page)
     {
         if (!$request->isXmlHttpRequest()) {
             throw new AccessDeniedHttpException();
@@ -145,7 +145,7 @@ class CharacterController
             'list' => $this->templating->render(
                 'scene\characters\list.html.twig',
                 [
-                    'characters' => $this->pagination->getForScene($scene),
+                    'characters' => $this->pagination->getForScene($scene, $page),
                     'scene' => $scene
                 ]
             )

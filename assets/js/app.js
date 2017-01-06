@@ -1,65 +1,45 @@
 var $ = require('jquery');
 
 $(document).ready(function() {
-    // Turn on modal
-    $('.modal-toggle').on('click', function () {
-        $($(this).data('target')).modal();
-    });
-    // Load new form
-    $('.modal').on('click', '.modal-load-new-form', function () {
-        getNewForm(getModal($(this)));
-    });
-    // Load edit form
-    $('.modal').on('click', '.modal-load-edit-form', function () {
+    $('main').on('click', '.js-load-form', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
         var $this = $(this);
-        var $modal = getModal($this);
-        getEditForm($modal, $this.data('edit-form-url'));
+        var $listTable = $this.parents('table').first();
+        var url = $this.hasClass('js-edit-form')
+            ? $this.data('form-url')
+            : $listTable.data('form-url')
+        ;
+        getForm(url, $listTable);
     });
-    // Load list
-    $('.modal').on('click', '.modal-load-list', function () {
-        var $modal = getModal($(this));
-        getList($modal);
-    });
-    // Delete row
-    $('.modal').on('click', '.modal-delete', function () {
-        var $this = $(this);
-        if (window.confirm('Na pewno?')) {
-            deleteRow($this.data('delete-url'), getModal($this));
-        }
-    });
-    $('.delete').on('click', function (event) {
+
+    $('main').on('click', '.delete', function (event) {
         event.preventDefault();
         event.stopPropagation();
         if (window.confirm('Na pewno?')) {
-            window.location.href = $(this).attr('href');
+            var $this = $(this);
+            if ($this.hasClass('js-list-delete')) {
+                $.ajax({
+                    method: "GET",
+                    url: $this.data('delete-url'),
+                    dataType: "json"
+                })
+                .success(function(response) {
+                    $this.parents('table').first().html(response.list);
+                });
+            } else {
+                window.location.href = $(this).attr('href');
+            }
         }
     });
+
     // Back button
     $('#back-button').on('click', function () {
         window.history.back();
     });
 });
 
-function getNewForm($modal)
-{
-    $.ajax({
-        method: "GET",
-        url: $modal.data('new-form-url'),
-        dataType: "json"
-    })
-    .success(function(response) {
-        $modal.find('.modal-body').html(response.form);
-        $modal.on('submit', '.js-form', function (event) {
-            event.preventDefault();
-            event.stopPropagation();
-            submitForm($(this), $modal);
-        });
-        hideCreateButton($modal);
-        showListButton($modal);
-    });
-}
-
-function getEditForm($modal, url)
+function getForm(url, $listTable)
 {
     $.ajax({
         method: "GET",
@@ -67,17 +47,17 @@ function getEditForm($modal, url)
         dataType: "json"
     })
     .success(function(response) {
-        $modal.find('.modal-body').html(response.form);
-        $modal.on('submit', '.js-form', function (event) {
+        var $container = getFormContainer();
+        $container.html(response.form);
+        $container.on('submit', '.js-form', function (event) {
             event.preventDefault();
             event.stopPropagation();
-            submitForm($(this), $modal);
+            submitForm($(this), $container, $listTable);
         });
-        showListButton($modal);
     });
 }
 
-function submitForm($form, $modal)
+function submitForm($form, $container, $listTable)
 {
     $.ajax({
         method: "POST",
@@ -85,23 +65,24 @@ function submitForm($form, $modal)
         dataType: "json",
         data: $form.serialize()
     })
-    .success(function(response) {
-        setModalBody($modal, response.form);
-        getList($modal);
+    .success(function() {
+        $container.html('');
+        refreshList($listTable);
+    })
+    .error(function(response) {
+        $container.html(response.form);
     });
 }
 
-function getList($modal)
+function refreshList($listTable)
 {
     $.ajax({
         method: "GET",
-        url: $modal.data('list-url'),
+        url: $listTable.data('list-url'),
         dataType: "json"
     })
     .success(function(response) {
-        setModalBody($modal, response.list);
-        hideListButton($modal);
-        showCreateButton($modal);
+        $listTable.html(response.list);
     });
 }
 
@@ -117,32 +98,7 @@ function deleteRow(url, $modal)
     });
 }
 
-function getModal($element)
+function getFormContainer()
 {
-    return $element.parents('.modal').first();
-}
-
-function setModalBody($modal, content)
-{
-    $modal.find('.modal-body').html(content);
-}
-
-function hideCreateButton($modal)
-{
-    $modal.find('.modal-load-new-form').first().hide();
-}
-
-function showCreateButton($modal)
-{
-    $modal.find('.modal-load-new-form').first().show();
-}
-
-function hideListButton($modal)
-{
-    $modal.find('.modal-load-list').first().hide();
-}
-
-function showListButton($modal)
-{
-    $modal.find('.modal-load-list').first().show();
+    return $('#form-container');
 }

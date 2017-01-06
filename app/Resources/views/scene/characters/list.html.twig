@@ -1,29 +1,41 @@
-<table class="table">
+<table class="table"
+       data-form-url="{{ path('app_character_new', { id: scene.id }) }}"
+       data-list-url="{{ path('app_character_list', { id: scene.id }) }}"
+>
     <thead>
         <tr>
-            <th>{{ 'character.name'|trans }}</th>
-            <th>{{ 'crud.actions'|trans }}</th>
+            <th>{{ 'character.name' | trans }}</th>
+            <th>{{ 'crud.actions' | trans }}</th>
         </tr>
     </thead>
     <tbody>
-    {% for character in characters %}
+        {% for character in characters %}
+            <tr>
+                <td>{{ character }}</td>
+                <td>
+                    <button class="js-load-form js-edit-form btn btn-primary"
+                        data-form-url="{{ path('app_character_edit', { id: character.id }) }}"
+                        title="{{ 'crud.edit' | trans }}"
+                    >
+                        <span class="fa fa-edit"></span>
+                    </button>
+                    <button class="js-list-delete delete btn btn-danger"
+                        data-delete-url="{{ path('app_character_delete', { scene_id: scene.id, character_id: character.id }) }}"
+                        title="{{ 'crud.delete' | trans }}"
+                    >
+                        <span class="fa fa-trash"></span>
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
         <tr>
-            <td>{{ character }}</td>
-            <td>
-                <button class="modal-load-edit-form btn btn-primary"
-                    data-edit-form-url="{{ path('app_character_edit', { id: character.id }) }}"
-                    title="{{ 'crud.edit' | trans }}"
-                >
-                    <span class="fa fa-edit"></span>
-                </button>
-                <button class="modal-delete btn btn-danger"
-                    data-delete-url="{{ path('app_character_delete', { scene_id: scene.id, character_id: character.id }) }}"
-                    title="{{ 'crud.delete' | trans }}"
-                >
-                    <span class="fa fa-trash"></span>
+            <td colspan="2" class="text-right">
+                <button class="btn btn-success js-load-form" title="{{ 'character.create' | trans }}">
+                    <span class="fa fa-plus"></span>
                 </button>
             </td>
         </tr>
-    {% endfor %}
-    </tbody>
+    </tfoot>
 </table>

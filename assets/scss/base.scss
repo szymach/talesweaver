@@ -13,3 +13,9 @@ ul.dropdown-menu {
 form .tab-pane {
     padding-top: 15px;
 }
+
+table {
+    th:last-child, td:last-child {
+        text-align: right;
+    }
+}

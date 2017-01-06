@@ -1,33 +1,9 @@
-{% include 'partial/backButton.html.twig' %}
-{% if scene.id %}
-    <div class="row">
-        <div class="col-xs-offset-10 col-xs-2 text-right">
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    {{ 'crud.actions' | trans }}
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <button class="btn btn-default modal-toggle" data-target="#character-modal">
-                            {{ 'scene.characters' | trans }}
-                        </button>
-                    </li>
-                    <li>
-                        <button class="btn btn-default modal-toggle" data-target="#location-modal">
-                            {{ 'scene.locations' | trans }}
-                        </button>
-                    </li>
-                    <li>
-                        <button class="btn btn-default modal-toggle" data-target="#item-modal">
-                            {{ 'scene.items' | trans }}
-                        </button>
-                    </li>
-                    <li>
-                        <button class="btn btn-primary tag-add">{{ 'tag.add'|trans }}</button>
-                    </li>
-                </ul>
-            </div>
-        </div>
+<div class="row">
+    <div class="col-xs-12 text-right">
+        <btn id="back-button" class="btn btn-default">{{ 'crud.back' | trans }}</btn>
+        {% if scene.id %}
+            <button class="btn btn-primary tag-add">{{ 'tag.add' | trans }}</button>
+        {% endif %}
     </div>
-{% endif %}
+</div>
+

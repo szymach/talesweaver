@@ -11,6 +11,7 @@ crud:
 book:
     title: Tytuł
     description: Opis (publiczny)
+    chapters: Rozdziały
     tabs:
         basic: Podstawowe
         introduction: Wstęp
@@ -23,6 +24,7 @@ chapter:
     scenes: Sceny
     book: Książka
     add: Nowy rozdział
+    chapters: Rozdziały
     tabs:
         basic: Podstawowe
         scenes: Sceny
@@ -32,21 +34,26 @@ scene:
     text: Treść
     chapter: Rozdział
     book: Książka
-    characters: Postacie
-    locations: Miejsca
-    items: Przedmioty
+    tabs:
+        basic: Treść
+        characters: Postacie
+        locations: Miejsca
+        items: Przedmioty
 
 character:
     name: Imię
     description: Opis
+    create: Nowa postać
 
 item:
     name: Nazwa
     description: Opis
+    create: Nowy przedmiot
 
 location:
     name: Nazwa
     description: Opis
+    create: Nowe miejsce
 
 tag:
     add: Dodaj znacznik

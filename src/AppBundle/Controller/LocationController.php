@@ -82,7 +82,7 @@ class LocationController
 
         return new JsonResponse([
             'form' => $this->templating->render(
-                'scene\locations\form.html.twig',
+                'partial\simpleForm.html.twig',
                 ['form' => $form->createView(), 'scene' => $scene]
             )
         ]);
@@ -106,7 +106,7 @@ class LocationController
 
         return new JsonResponse([
             'form' => $this->templating->render(
-                'scene\locations\form.html.twig',
+                'partial\simpleForm.html.twig',
                 ['form' => $form->createView()]
             )
         ]);
