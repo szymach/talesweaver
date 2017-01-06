@@ -34,6 +34,10 @@ $(document).ready(function() {
             window.location.href = $(this).attr('href');
         }
     });
+    // Back button
+    $('#back-button').on('click', function () {
+        window.history.back();
+    });
 });
 
 function getNewForm($modal)

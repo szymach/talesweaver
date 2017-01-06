@@ -1,8 +1,8 @@
 {% extends 'chapter/base.html.twig' %}
 
 {% block body %}
-    {% include 'book/actions.html.twig' %}
-    <div>
+    {% include 'partial/backButton.html.twig' %}
+    {# Tab menu #}
     <ul class="nav nav-tabs" role="tablist">
         {% for tab in ['basic', 'introduction', 'expansion', 'ending'] %}
             <li role="presentation"{% if loop.first %} class="active"{% endif %}>
@@ -22,6 +22,7 @@
     <div class="row">
         <div class="col-xs-12">
             {{ form_start(form) }}
+                {# Tabs #}
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane fade in active" id="basic">
                         {{ form_row(form.title) }}

@@ -1,12 +1,6 @@
-<div class="row">
-    <div class="col-xs-12 text-right">
-        <a href="{{ path('app_scene_list') }}" class="btn btn-default">
-            {{ 'crud.back' | trans }}
-        </a>
-    </div>
-</div><br/>
-<div class="row">
-    {% if scene.id %}
+{% include 'partial/backButton.html.twig' %}
+{% if scene.id %}
+    <div class="row">
         <div class="col-xs-offset-10 col-xs-2 text-right">
             <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -35,5 +29,5 @@
                 </ul>
             </div>
         </div>
-    {% endif %}
-</div>
+    </div>
+{% endif %}
