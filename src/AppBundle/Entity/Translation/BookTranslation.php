@@ -2,10 +2,9 @@
 
 namespace AppBundle\Entity\Translation;
 
-use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
-
 use AppBundle\Entity\Book;
 use AppBundle\Entity\Traits\LocaleTrait;
+use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 
 class BookTranslation
 {
@@ -24,7 +23,22 @@ class BookTranslation
     /**
      * @var string
      */
-    private $preface;
+    private $description;
+
+    /**
+     * @var string
+     */
+    private $introduction;
+
+    /**
+     * @var string
+     */
+    private $expansion;
+
+    /**
+     * @var string
+     */
+    private $ending;
 
     /**
      * @var Book
@@ -41,14 +55,10 @@ class BookTranslation
 
     /**
      * @param string $title
-     *
-     * @return BookTranslation
      */
     public function setTitle($title)
     {
         $this->title = $title;
-
-        return $this;
     }
 
     /**
@@ -60,35 +70,75 @@ class BookTranslation
     }
 
     /**
-     * @param string $preface
-     *
-     * @return BookTranslation
+     * @param string $description
      */
-    public function setPreface($preface)
+    public function setDescription($description)
     {
-        $this->preface = $preface;
-
-        return $this;
+        $this->description = $description;
     }
 
     /**
      * @return string
      */
-    public function getPreface()
+    public function getDescription()
     {
-        return $this->preface;
+        return $this->description;
+    }
+
+    /**
+     * @param string $introduction
+     */
+    public function setIntroduction($introduction)
+    {
+        $this->introduction = $introduction;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIntroduction()
+    {
+        return $this->introduction;
+    }
+
+    /**
+     * @param string $expansion
+     */
+    public function setExpansion($expansion)
+    {
+        $this->expansion = $expansion;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExpansion()
+    {
+        return $this->expansion;
+    }
+
+    /**
+     * @param string $ending
+     */
+    public function setEnding($ending)
+    {
+        $this->ending = $ending;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEnding()
+    {
+        return $this->ending;
     }
 
     /**
      * @param Book $book
-     *
-     * @return BookTranslation
      */
     public function setBook(Book $book = null)
     {
         $this->book = $book;
-
-        return $this;
     }
 
     /**

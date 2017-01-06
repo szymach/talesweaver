@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Book;
 
 use AppBundle\Entity\Book;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,6 +22,26 @@ class BookType extends AbstractType
     {
         $builder->add('title', TextType::class, [
             'label' => 'book.title'
+        ]);
+
+        $builder->add('description', CKEditorType::class, [
+            'label' => 'book.description',
+            'required' => false
+        ]);
+
+        $builder->add('introduction', CKEditorType::class, [
+            'label' => 'book.introduction',
+            'required' => false
+        ]);
+
+        $builder->add('expansion', CKEditorType::class, [
+            'label' => 'book.expansion',
+            'required' => false
+        ]);
+
+        $builder->add('ending', CKEditorType::class, [
+            'label' => 'book.ending',
+            'required' => false
         ]);
     }
 

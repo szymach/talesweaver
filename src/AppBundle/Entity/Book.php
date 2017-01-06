@@ -22,6 +22,30 @@ class Book
     private $title;
 
     /**
+     * @Translatable\Translatable(mappedBy="translations")
+     * @var string
+     */
+    private $description;
+
+    /**
+     * @Translatable\Translatable(mappedBy="translations")
+     * @var string
+     */
+    private $introduction;
+
+    /**
+     * @Translatable\Translatable(mappedBy="translations")
+     * @var string
+     */
+    private $expansion;
+
+    /**
+     * @Translatable\Translatable(mappedBy="translations")
+     * @var string
+     */
+    private $ending;
+
+    /**
      * @var Collection
      */
     private $chapters;
@@ -63,6 +87,70 @@ class Book
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $introduction
+     */
+    public function setIntroduction($introduction)
+    {
+        $this->introduction = $introduction;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIntroduction()
+    {
+        return $this->introduction;
+    }
+
+    /**
+     * @param string $expansion
+     */
+    public function setExpansion($expansion)
+    {
+        $this->expansion = $expansion;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExpansion()
+    {
+        return $this->expansion;
+    }
+
+    /**
+     * @param string $ending
+     */
+    public function setEnding($ending)
+    {
+        $this->ending = $ending;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEnding()
+    {
+        return $this->ending;
     }
 
     /**

@@ -10,12 +10,17 @@ crud:
 
 book:
     title: Tytuł
+    description: Opis (publiczny)
+    introduction: Wstęp
+    expansion: Rozwinięcie
+    ending: Zakończenie
     chapters: Rozdziały
 
 chapter:
     title: Tytuł
     scenes: Sceny
     book: Książka
+    add: Nowy rozdział
 
 scene:
     title: Tytuł

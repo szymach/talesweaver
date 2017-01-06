@@ -11,7 +11,7 @@
         </div>
     </div>
     <br/>
-    {% if chapters is not empty %}
+    {% if chapters is defined and chapters | length %}
         <h2>{{ 'book.chapters' | trans }}</h2>
         {% include 'book/chapters/list.html.twig' %}
     {% endif %}

@@ -11,6 +11,7 @@ services:
         class: AppBundle\Pagination\Aggregate\ChapterAggregate
         arguments:
             - "@app.paginator.single.chapter.standalone"
+            - "@app.paginator.single.chapter.for_book"
             - "@app.paginator.single.chapter.scenes"
 
     app.paginator.aggregate.character:
@@ -50,6 +51,11 @@ services:
     # Chpater
     app.paginator.single.chapter.standalone:
         class: AppBundle\Pagination\Chapter\StandalonePaginator
+        arguments:
+            - "@app.repository.chapter"
+
+    app.paginator.single.chapter.for_book:
+        class: AppBundle\Pagination\Chapter\ForBookPaginator
         arguments:
             - "@app.repository.chapter"
 

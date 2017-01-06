@@ -10,8 +10,8 @@ app_chapter_edit:
     methods:  [GET, POST]
 
 app_chapter_list:
-    path: /list/{page}
-    defaults: { _controller: app.controller.chapter:listAction, page: 1 }
+    path: /list/{page}/{book_id}
+    defaults: { _controller: app.controller.chapter:listAction, page: 1, book_id: null }
     methods:  GET
 
 app_chapter_delete:

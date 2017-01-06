@@ -8,7 +8,16 @@ AppBundle\Entity\Translation\BookTranslation:
     fields:
         title:
             type: text
-        preface:
+        description:
+            type: text
+            nullable: true
+        introduction:
+            type: text
+            nullable: true
+        expansion:
+            type: text
+            nullable: true
+        ending:
             type: text
             nullable: true
         locale:

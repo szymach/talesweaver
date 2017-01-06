@@ -101,11 +101,18 @@ class ChapterController
         );
     }
 
-    public function listAction($page)
+    /**
+     * @ParamConverter("book", options={"id" = "book_id"})
+     */
+    public function listAction($page, Book $book = null)
     {
+        $chapters = $book
+            ? $this->pagination->getForBook($book, $page)
+            : $this->pagination->getStandalone($page)
+        ;
         return $this->templating->renderResponse(
             'chapter/list.html.twig',
-            ['chapters' => $this->pagination->getStandalone($page)]
+            ['chapters' => $chapters]
         );
     }
 

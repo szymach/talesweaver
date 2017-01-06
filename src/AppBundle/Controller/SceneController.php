@@ -77,7 +77,7 @@ class SceneController
             $this->manager->flush();
 
             return new RedirectResponse(
-                $this->router->generate('app_standalone_scene_edit', ['id' => $data->getId()])
+                $this->router->generate('app_scene_edit', ['id' => $data->getId()])
             );
         }
 
