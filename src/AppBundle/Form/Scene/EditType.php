@@ -4,15 +4,13 @@ namespace AppBundle\Form\Scene;
 
 use AppBundle\Entity\Scene;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * @author Piotr Szymaszek
  */
-class EditType extends AbstractType
+class EditType extends NewType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -20,9 +18,7 @@ class EditType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title', TextType::class, [
-            'label' => 'scene.title'
-        ]);
+        parent::buildForm($builder, $options);
 
         $builder->add('text', CKEditorType::class, [
             'label' => 'scene.text'

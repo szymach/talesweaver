@@ -3,6 +3,8 @@
 namespace AppBundle\Form\Scene;
 
 use AppBundle\Entity\Scene;
+use AppBundle\Entity\Chapter;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,6 +23,12 @@ class NewType extends AbstractType
     {
         $builder->add('title', TextType::class, [
             'label' => 'scene.title'
+        ]);
+
+        $builder->add('chapter', EntityType::class, [
+            'label' => 'scene.chapter',
+            'class' => Chapter::Class,
+            'required' => false
         ]);
     }
 

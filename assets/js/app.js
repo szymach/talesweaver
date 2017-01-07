@@ -11,6 +11,7 @@ $(document).ready(function() {
             : $listTable.data('form-url')
         ;
         getForm(url, $listTable);
+        $('#clear-form').show();
     });
 
     $('main').on('click', '.js-delete', function (event) {
@@ -31,6 +32,10 @@ $(document).ready(function() {
                 window.location.href = $(this).attr('href');
             }
         }
+    });
+    $('#clear-form').on('click', function() {
+        getFormContainer().html('');
+        $('#clear-form').hide();
     });
 });
 

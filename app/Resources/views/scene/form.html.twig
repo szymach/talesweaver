@@ -40,6 +40,7 @@
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane fade in active" id="basic">
                         {{ form_row(form.title) }}
+                        {{ form_row(form.chapter) }}
                         {% if scene.id %}
                             {{ form_row(form.text) }}
                         {% endif %}
@@ -63,6 +64,9 @@
                     {{ form_rest(form) }}
                 </div>
             {{ form_end(form) }}
+            <button id="clear-form" class="btn btn-danger pull-right" style="display: none;">
+                <span class="fa fa-trash"></span>
+            </button>
             <div id="form-container"></div>
         </div>
     </div>
