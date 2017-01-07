@@ -60,10 +60,58 @@ class SceneController
         $this->router = $router;
     }
 
-    /**
-     * @ParamConverter("chapter", options={"id" = "chapter_id"})
-     */
-    public function newAction(Request $request, Chapter $chapter = null)
+    public function newStandaloneAction(Request $request)
+    {
+        return $this->handleSceneCreation($request);
+    }
+
+    public function newAssignedAction(Request $request, Chapter $chapter)
+    {
+        return $this->handleSceneCreation($request, $chapter);
+    }
+
+    public function editAction(Request $request, Scene $scene)
+    {
+        $form = $this->getForm(EditType::class, $scene);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $this->manager->flush();
+        }
+
+        return $this->templating->renderResponse(
+            'scene/form.html.twig',
+            [
+                'form' => $form->createView(),
+                'characters' => $this->pagination->getCharactersForScene($scene),
+                'items' => $this->pagination->getItemsForScene($scene),
+                'locations' => $this->pagination->getLocationsForScene($scene),
+                'scene' => $scene
+            ]
+        );
+    }
+
+    public function listAction($page)
+    {
+        return $this->templating->renderResponse(
+            'scene/list.html.twig',
+            ['scenes' => $this->pagination->getStandalone($page)]
+        );
+    }
+
+    public function deleteAction(Scene $scene, $page)
+    {
+        $this->manager->remove($scene);
+        $this->manager->flush();
+
+        $chapter = $scene->getChapter();
+        return new RedirectResponse(
+            $chapter
+            ? $this->router->generate('app_chapter_edit', ['id' => $chapter->getId()])
+            : $this->router->generate('app_scene_list', ['page' => $page])
+        );
+    }
+
+    private function handleSceneCreation(Request $request, Chapter $chapter = null)
     {
         $scene = new Scene();
         if ($chapter) {
@@ -82,46 +130,8 @@ class SceneController
         }
 
         return $this->templating->renderResponse(
-            'scene/standalone/form.html.twig',
+            'scene/form.html.twig',
             ['form' => $form->createView(), 'scene' => $scene]
-        );
-    }
-
-    public function editAction(Request $request, Scene $scene)
-    {
-        $form = $this->getForm(EditType::class, $scene);
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $this->manager->flush();
-        }
-
-        return $this->templating->renderResponse(
-            'scene/standalone/form.html.twig',
-            [
-                'form' => $form->createView(),
-                'characters' => $this->pagination->getCharactersForScene($scene),
-                'items' => $this->pagination->getItemsForScene($scene),
-                'locations' => $this->pagination->getLocationsForScene($scene),
-                'scene' => $scene
-            ]
-        );
-    }
-
-    public function listAction($page)
-    {
-        return $this->templating->renderResponse(
-            'scene/standalone/list.html.twig',
-            ['scenes' => $this->pagination->getStandalone($page)]
-        );
-    }
-
-    public function deleteAction(Scene $scene, $page)
-    {
-        $this->manager->remove($scene);
-        $this->manager->flush();
-
-        return new RedirectResponse(
-            $this->router->generate('app_standalone_scene_list', ['page' => $page])
         );
     }
 

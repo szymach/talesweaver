@@ -1,7 +1,10 @@
-{% extends 'chapter/base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
-    {% include 'partial/backButton.html.twig' %}
+    {% include 'partial/backButton.html.twig' with {
+        redirectUri: path('app_book_list', { page: page }),
+        label: 'book.back.to_list' | trans
+    } %}
     {# Tab menu #}
     <ul class="nav nav-tabs" role="tablist">
         {% for tab in ['basic', 'introduction', 'expansion', 'ending'] %}

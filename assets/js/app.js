@@ -13,7 +13,7 @@ $(document).ready(function() {
         getForm(url, $listTable);
     });
 
-    $('main').on('click', '.delete', function (event) {
+    $('main').on('click', '.js-delete', function (event) {
         event.preventDefault();
         event.stopPropagation();
         if (window.confirm('Na pewno?')) {
@@ -32,11 +32,6 @@ $(document).ready(function() {
             }
         }
     });
-
-    // Back button
-    $('#back-button').on('click', function () {
-        window.history.back();
-    });
 });
 
 function getForm(url, $listTable)
@@ -49,11 +44,16 @@ function getForm(url, $listTable)
     .success(function(response) {
         var $container = getFormContainer();
         $container.html(response.form);
+        $container.unbind('submit');
         $container.on('submit', '.js-form', function (event) {
             event.preventDefault();
             event.stopPropagation();
             submitForm($(this), $container, $listTable);
         });
+        var $input = $container.find('form input').first();
+        if ($input.length) {
+            $input.focus();
+        }
     });
 }
 
@@ -83,18 +83,6 @@ function refreshList($listTable)
     })
     .success(function(response) {
         $listTable.html(response.list);
-    });
-}
-
-function deleteRow(url, $modal)
-{
-    $.ajax({
-        method: "GET",
-        url: url,
-        dataType: "json"
-    })
-    .success(function(response) {
-        setModalBody($modal, response.list);
     });
 }
 

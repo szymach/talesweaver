@@ -1,4 +1,4 @@
-{% extends 'book/base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
     <div class="row">
@@ -21,20 +21,8 @@
                             >
                                 <span class="fa fa-edit"></span>
                             </a>
-                            <a class="btn btn-success"
-                               href="{{ path('app_chapter_new', { book_id: book.id }) }}"
-                               title="{{ 'chapter.add' | trans }}"
-                            >
-                                <span class="fa fa-plus"></span>
-                            </a>
-                            <a class="btn btn-default"
-                               href="{{ path('app_chapter_list', { book_id: book.id }) }}"
-                               title="{{ 'book.chapters' | trans }}"
-                            >
-                                <span class="fa fa-list"></span>
-                            </a>
-                            <a class="btn btn-danger delete"
-                               href="{{ path('app_book_delete', { id: book.id }) }}"
+                            <a class="btn btn-danger js-delete"
+                               href="{{ path('app_book_delete', { id: book.id, page: page }) }}"
                                title="{{ 'crud.delete' | trans }}"
                             >
                                 <span class="fa fa-trash"></span>

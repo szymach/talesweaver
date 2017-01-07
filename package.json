@@ -19,6 +19,7 @@
     "postcss-loader": "^1.2.1",
     "postcss-smart-import": "^0.5.1",
     "precss": "^1.4.0",
+    "reflect-metadata": "^0.1.9",
     "resolve-url-loader": "^1.6.1",
     "sass-loader": "^3.2.3",
     "style-loader": "^0.13.1",

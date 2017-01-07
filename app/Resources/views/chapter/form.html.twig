@@ -1,7 +1,11 @@
-{% extends 'chapter/base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
-    {% include 'partial/backButton.html.twig' %}
+    {% set book = chapter.book %}
+    {% include 'partial/backButton.html.twig' with {
+        redirectUri: book ? path('app_book_edit', { id: book.id }) : path('app_chapter_list', { page: page|default(1) }),
+        label: book ? 'chapter.back.to_book' | trans : 'chapter.back.to_list' | trans
+    } %}
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
             <a href="#basic" aria-controls="basic" role="tab" data-toggle="tab">

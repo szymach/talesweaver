@@ -7,7 +7,6 @@ use AppBundle\Entity\Chapter;
 use AppBundle\Form\Chapter\ChapterType;
 use AppBundle\Pagination\Aggregate\ChapterAggregate;
 use Doctrine\Common\Persistence\ObjectManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -56,10 +55,57 @@ class ChapterController
         $this->router = $router;
     }
 
-    /**
-     * @ParamConverter("book", options={"id" = "book_id"})
-     */
-    public function newAction(Request $request, Book $book = null)
+    public function newStandaloneAction(Request $request)
+    {
+        return $this->handleChapterCreation($request);
+    }
+
+    public function newAssignedAction(Request $request, Book $book)
+    {
+        return $this->handleChapterCreation($request, $book);
+    }
+
+    public function editAction(Request $request, Chapter $chapter, $page)
+    {
+        $form = $this->getForm(ChapterType::class, $chapter);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $this->manager->flush();
+        }
+
+        return $this->templating->renderResponse(
+            'chapter/form.html.twig',
+            [
+                'form' => $form->createView(),
+                'chapter' => $chapter,
+                'scenes' => $this->pagination->getScenesForChapter($chapter),
+                'page' => $page
+            ]
+        );
+    }
+
+    public function listAction($page)
+    {
+        return $this->templating->renderResponse(
+            'chapter/list.html.twig',
+            ['chapters' => $this->pagination->getStandalone($page), 'page' => $page]
+        );
+    }
+
+    public function deleteAction(Chapter $chapter, $page)
+    {
+        $this->manager->remove($chapter);
+        $this->manager->flush();
+
+        $book = $chapter->getBook();
+        return new RedirectResponse(
+            $book
+            ? $this->router->generate('app_book_edit', ['id' => $book->getId()])
+            : $this->router->generate('app_chapter_list', ['page' => $page])
+        );
+    }
+
+    private function handleChapterCreation(Request $request, Book $book = null)
     {
         $chapter = new Chapter();
         if ($book) {
@@ -80,49 +126,6 @@ class ChapterController
         return $this->templating->renderResponse(
             'chapter/form.html.twig',
             ['form' => $form->createView(), 'chapter' => $chapter]
-        );
-    }
-
-    public function editAction(Request $request, Chapter $chapter)
-    {
-        $form = $this->getForm(ChapterType::class, $chapter);
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $this->manager->flush();
-        }
-
-        return $this->templating->renderResponse(
-            'chapter/form.html.twig',
-            [
-                'form' => $form->createView(),
-                'chapter' => $chapter,
-                'scenes' => $this->pagination->getScenesForChapter($chapter)
-            ]
-        );
-    }
-
-    /**
-     * @ParamConverter("book", options={"id" = "book_id"})
-     */
-    public function listAction($page, Book $book = null)
-    {
-        $chapters = $book
-            ? $this->pagination->getForBook($book, $page)
-            : $this->pagination->getStandalone($page)
-        ;
-        return $this->templating->renderResponse(
-            'chapter/list.html.twig',
-            ['chapters' => $chapters]
-        );
-    }
-
-    public function deleteAction(Chapter $chapter, $page)
-    {
-        $this->manager->remove($chapter);
-        $this->manager->flush();
-
-        return new RedirectResponse(
-            $this->router->generate('app_chapter_list', ['page' => $page])
         );
     }
 

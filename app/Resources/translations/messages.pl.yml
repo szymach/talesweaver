@@ -12,6 +12,8 @@ book:
     title: Tytuł
     description: Opis (publiczny)
     chapters: Rozdziały
+    back:
+        to_list: Wróć do listy
     tabs:
         basic: Podstawowe
         introduction: Wstęp
@@ -25,6 +27,9 @@ chapter:
     book: Książka
     add: Nowy rozdział
     chapters: Rozdziały
+    back:
+        to_book: Wróć do książki
+        to_list: Wróć do listy
     tabs:
         basic: Podstawowe
         scenes: Sceny
@@ -34,6 +39,9 @@ scene:
     text: Treść
     chapter: Rozdział
     book: Książka
+    back:
+        to_chapter: Wróć do rozdziału
+        to_list: Wróć do listy
     tabs:
         basic: Treść
         characters: Postacie

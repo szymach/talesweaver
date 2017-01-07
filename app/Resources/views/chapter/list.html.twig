@@ -1,7 +1,6 @@
-{% extends 'chapter/base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
-    {% include 'partial/backButton.html.twig' %}
     <div class="row">
         <div class="col-xs-12">
             <table class="table">
@@ -17,13 +16,13 @@
                         <td>{{ chapter }}</td>
                         <td>
                             <a class="btn btn-primary"
-                               href="{{ path('app_chapter_edit', { id: chapter.id }) }}"
+                               href="{{ path('app_chapter_edit', { id: chapter.id, page: page }) }}"
                                title="{{ 'crud.edit' | trans }}"
                             >
                                 <span class="fa fa-edit"></span>
                             </a>
-                            <a class="btn btn-danger delete"
-                               href="{{ path('app_chapter_delete', { id: chapter.id }) }}"
+                            <a class="btn btn-danger js-delete"
+                               href="{{ path('app_chapter_delete', { id: chapter.id, page: page }) }}"
                                title="{{ 'crud.delete' | trans }}"
                             >
                                 <span class="fa fa-trash"></span>
@@ -36,7 +35,7 @@
                     <tr>
                         <td colspan="2" class="text-right">
                             <a class="btn btn-success"
-                               href="{{ path('app_chapter_new') }}"
+                               href="{{ path('app_chapter_new_standalone', { page: page }) }}"
                                title="{{ 'crud.create' | trans }}"
                             >
                                 <span class="fa fa-plus"></span>

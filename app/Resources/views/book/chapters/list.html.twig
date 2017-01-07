@@ -16,7 +16,7 @@
                 >
                     <span class="fa fa-edit"></span>
                 </a>
-                <a class="btn btn-danger delete"
+                <a class="btn btn-danger js-delete"
                    href="{{ path('app_chapter_delete', { id: chapter.id }) }}"
                    title="{{ 'crud.delete' | trans }}"
                 >
@@ -30,7 +30,7 @@
                 {% if book.id %}
                     <td colspan="2" class="text-right">
                         <a class="btn btn-success"
-                           href="{{ path('app_chapter_new', { book_id: book.id }) }}"
+                           href="{{ path('app_chapter_new_assigned', { id: book.id }) }}"
                            title="{{ 'crud.create' | trans }}"
                         >
                             <span class="fa fa-plus"></span>

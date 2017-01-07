@@ -1,7 +1,6 @@
-{% extends 'scene/base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
-    {% include 'partial/backButton.html.twig' %}
     <div class="row">
         <div class="col-xs-12">
             <table class="table">
@@ -22,7 +21,7 @@
                             >
                                 <span class="fa fa-edit"></span>
                             </a>
-                            <a class="btn btn-danger delete"
+                            <a class="btn btn-danger js-delete"
                                href="{{ path('app_scene_delete', { id: scene.id }) }}"
                                title="{{ 'crud.delete' | trans }}"
                             >
@@ -36,7 +35,7 @@
                     <tr>
                         <td colspan="2" class="text-right">
                             <a class="btn btn-success"
-                               href="{{ path('app_scene_new') }}"
+                               href="{{ path('app_scene_new_standalone') }}"
                                title="{{ 'crud.create' | trans }}"
                             >
                                 <span class="fa fa-plus"></span>

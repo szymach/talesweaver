@@ -54,7 +54,7 @@ class BookController
         $this->router = $router;
     }
 
-    public function newAction(Request $request)
+    public function newAction(Request $request, $page)
     {
         $book = new Book();
         $form = $this->getForm(BookType::class, $book);
@@ -71,11 +71,11 @@ class BookController
 
         return $this->templating->renderResponse(
             'book/form.html.twig',
-            ['form' => $form->createView(), 'book' => $book]
+            ['form' => $form->createView(), 'book' => $book, 'page' => $page]
         );
     }
 
-    public function editAction(Request $request, Book $book)
+    public function editAction(Request $request, Book $book, $page)
     {
         $form = $this->getForm(BookType::class, $book);
         $form->handleRequest($request);
@@ -88,7 +88,8 @@ class BookController
             [
                 'form' => $form->createView(),
                 'book' => $book,
-                'chapters' => $this->pagination->getChaptersForBook($book)
+                'chapters' => $this->pagination->getChaptersForBook($book),
+                'page' => $page
             ]
         );
     }
@@ -97,7 +98,7 @@ class BookController
     {
         return $this->templating->renderResponse(
             'book/list.html.twig',
-            ['books' => $this->pagination->getStandalone($page)]
+            ['books' => $this->pagination->getStandalone($page), 'page' => $page]
         );
     }
 

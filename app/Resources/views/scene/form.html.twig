@@ -1,7 +1,11 @@
-{% extends 'scene/base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
-    {% include 'scene/standalone/actions.html.twig' %}
+    {% set chapter = scene.chapter %}
+    {% include 'partial/backButton.html.twig' with {
+        redirectUri: chapter ? path('app_chapter_edit', { id: chapter.id }) : path('app_scene_list', { page: page|default(1) }),
+        label: chapter ? 'scene.back.to_chapter' | trans : 'scene.back.to_list' | trans
+    } %}
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
             <a href="#basic" aria-controls="basic" role="tab" data-toggle="tab">
@@ -36,7 +40,9 @@
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane fade in active" id="basic">
                         {{ form_row(form.title) }}
-                        {{ form_row(form.text) }}
+                        {% if scene.id %}
+                            {{ form_row(form.text) }}
+                        {% endif %}
                         <button class="btn btn-primary">{{ 'crud.save' | trans }}</button>
                     </div>
                     {% if characters is defined %}
