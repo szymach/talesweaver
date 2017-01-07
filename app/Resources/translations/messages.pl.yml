@@ -68,8 +68,9 @@ tag:
 
 # Front
 home:
-    plan: Stwórz plan
-    write: Przejdź do pisania
+    write:
+        book: Nowa książka
+        scene: Nowa scena
     dashboard:
         recently_added: 'Ostatnio dodane:'
         books: Książki
@@ -81,11 +82,6 @@ meta:
 
 menu:
     start: Start
-    books:
-        root: Książki
-    chapters:
-        root: Rozdziały
-        standalone: Niepowiązane
-    scenes:
-        root: Sceny
-        standalone: Niepowiązane
+    books: Książki
+    chapters: Rozdziały niepowiązane
+    scenes: Sceny niepowiązane

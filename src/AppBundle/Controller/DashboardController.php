@@ -47,7 +47,7 @@ class DashboardController
     public function indexAction()
     {
         return $this->templating->renderResponse(
-            'base\dashboard.html.twig',
+            'dashboard\index.html.twig',
             [
                 'books' => $this->bookRepository->findLatest(),
                 'chapters' => $this->chapterRepository->findLatest(),

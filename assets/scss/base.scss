@@ -14,7 +14,7 @@ form .tab-pane {
     padding-top: 15px;
 }
 
-table {
+table:not(.dashboard) {
     th:last-child, td:last-child {
         text-align: right;
     }

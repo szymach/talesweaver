@@ -36,24 +36,16 @@ class Builder
 
     private function createBookMenu(ItemInterface $menu)
     {
-        $menu->addChild('menu.books.root', [
-            'route' => 'app_book_list'
-        ]);
+        $menu->addChild('menu.books', ['route' => 'app_book_list']);
     }
 
     private function createChapterMenu(ItemInterface $menu)
     {
-        $scenes = $menu->addChild('menu.chapters.root');
-        $scenes->addChild('menu.chapters.standalone', [
-            'route' => 'app_chapter_list'
-        ]);
+        $menu->addChild('menu.chapters', ['route' => 'app_chapter_list']);
     }
 
     private function createSceneMenu(ItemInterface $menu)
     {
-        $scenes = $menu->addChild('menu.scenes.root');
-        $scenes->addChild('menu.scenes.standalone', [
-            'route' => 'app_scene_list'
-        ]);
+        $menu->addChild('menu.scenes', ['route' => 'app_scene_list']);
     }
 }
