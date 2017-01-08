@@ -29,5 +29,10 @@ module.exports = {
             { test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/, loader: 'file-loader' },
             { test: /bootstrap-sass\/assets\/javascripts\//, loader: 'imports-loader?jQuery=jquery' }
         ]
+    },
+    performance: { hints: false },
+    watchOptions: {
+        aggregateTimeout: 300,
+        poll: 1000
     }
 };
