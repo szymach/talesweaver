@@ -1,5 +1,13 @@
 var $ = require('jquery');
 
+$(document).on('ajaxStart', function() {
+    $('html').css('cursor', 'wait');
+    $('#backdrop').addClass('active');
+}).on('ajaxComplete', function() {
+    $('html').css('cursor', 'default');
+    $('#backdrop').removeClass('active');
+});
+
 $(document).ready(function() {
     $('main').on('click', '.js-load-form', function(event) {
         event.preventDefault();
@@ -17,8 +25,11 @@ $(document).ready(function() {
     $('main').on('click', '.js-delete', function (event) {
         event.preventDefault();
         event.stopPropagation();
-        if (window.confirm('Na pewno?')) {
-            var $this = $(this);
+
+        var $this = $(this);
+        $('#modal-delete').modal();
+        $('#modal-confirm').unbind('click').on('click', function() {
+            $('#modal-delete').modal('hide');
             if ($this.hasClass('js-list-delete')) {
                 $.ajax({
                     method: "GET",
@@ -29,10 +40,11 @@ $(document).ready(function() {
                     $this.parents('table').first().html(response.list);
                 });
             } else {
-                window.location.href = $(this).attr('href');
+                window.location.href = $this.attr('href');
             }
-        }
+        });
     });
+
     $('#clear-form').on('click', function() {
         getFormContainer().html('');
         $('#clear-form').hide();

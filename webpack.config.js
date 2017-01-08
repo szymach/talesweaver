@@ -3,23 +3,22 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-    entry: {
-        main: [
-            "./assets/scss/base.scss",
-            "./assets/js/app.js",
-            "./assets/js/tags.js"
-        ],
-        vendor: ['font-awesome-sass-loader', "bootstrap-loader"]
-    },
+    entry: [
+        "font-awesome-sass-loader",
+        "bootstrap-loader",
+        "./assets/scss/base.scss",
+        "./assets/js/app.js",
+        "./assets/js/tags.js"
+    ],
     output: {
         path: 'web/public',
-        filename: '[name].js'
+        filename: 'scripts.js'
     },
     resolve: {
         extensions: [ '.js' ]
     },
     plugins: [
-        new ExtractTextPlugin({ filename: '[name].css', allChunks: true }),
+        new ExtractTextPlugin({ filename: 'styles.css', allChunks: true }),
         new OptimizeCssAssetsPlugin(),
         new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false }, mangle: false })
     ],

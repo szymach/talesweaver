@@ -85,3 +85,11 @@ menu:
     books: Książki
     chapters: Rozdziały niepowiązane
     scenes: Sceny niepowiązane
+
+modal:
+    action_confirmation: Potwierdzenie akcji
+    deletion_confirmation: Czy na pewno chcesz usunąć wybrany element?
+    close: Zamknij
+
+yes: Tak
+no: Nie
