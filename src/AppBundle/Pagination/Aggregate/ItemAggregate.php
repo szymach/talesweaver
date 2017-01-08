@@ -21,8 +21,8 @@ class ItemAggregate
      * @param Scene $forScene
      * @return Pagerfanta
      */
-    public function getForScene(Scene $forScene)
+    public function getForScene(Scene $scene, $page)
     {
-        return $this->forScenePaginator->getForSceneResults($forScene);
+        return $this->forScenePaginator->getForSceneResults($scene, $page);
     }
 }

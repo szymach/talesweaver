@@ -63,10 +63,6 @@ class LocationController
 
     public function newAction(Request $request, Scene $scene)
     {
-        if (!$request->isXmlHttpRequest()) {
-            throw new AccessDeniedHttpException();
-        }
-
         $form = $this->getForm(LocationType::class, null, [
             'action' => $this->router->generate('app_location_new', [
                 'id' => $scene->getId()
@@ -90,10 +86,6 @@ class LocationController
 
     public function editAction(Request $request, Location $location)
     {
-        if (!$request->isXmlHttpRequest()) {
-            throw new AccessDeniedHttpException();
-        }
-
         $form = $this->getForm(LocationType::class, $location, [
             'action' => $this->router->generate('app_location_edit', [
                 'id' => $location->getId()
@@ -112,17 +104,13 @@ class LocationController
         ]);
     }
 
-    public function listAction(Request $request, Scene $scene)
+    public function listAction(Scene $scene, $page)
     {
-        if (!$request->isXmlHttpRequest()) {
-            throw new AccessDeniedHttpException();
-        }
-
         return new JsonResponse([
             'list' => $this->templating->render(
                 'scene\locations\list.html.twig',
                 [
-                    'locations' => $this->pagination->getForScene($scene),
+                    'locations' => $this->pagination->getForScene($scene, $page),
                     'scene' => $scene
                 ]
             )
@@ -133,12 +121,8 @@ class LocationController
      * @ParamConverter("scene", options={"id" = "scene_id"})
      * @ParamConverter("location", options={"id" = "location_id"})
      */
-    public function deleteAction(Request $request, Scene $scene, Location $location)
+    public function deleteAction(Scene $scene, Location $location, $page)
     {
-        if (!$request->isXmlHttpRequest()) {
-            throw new AccessDeniedHttpException();
-        }
-
         $this->manager->remove($location);
         $this->manager->flush();
 
@@ -146,7 +130,7 @@ class LocationController
             'list' => $this->templating->render(
                 'scene\locations\list.html.twig',
                 [
-                    'locations' => $this->pagination->getForScene($scene),
+                    'locations' => $this->pagination->getForScene($scene, $page),
                     'scene' => $scene
                 ]
             )

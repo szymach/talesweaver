@@ -10,11 +10,11 @@ app_item_edit:
     methods:  [GET, POST]
 
 app_item_list:
-    path: /list/{id}
-    defaults: { _controller: app.controller.item:listAction }
+    path: /list/{id}/{page}
+    defaults: { _controller: app.controller.item:listAction, page: 1 }
     methods:  GET
 
 app_item_delete:
-    path: /delete/{scene_id}/{item_id}
-    defaults: { _controller: app.controller.item:deleteAction }
+    path: /delete/{scene_id}/{item_id}/{page}
+    defaults: { _controller: app.controller.item:deleteAction, page: 1 }
     methods:  GET

@@ -30,6 +30,7 @@ app_scene:
 app_character:
     resource: "@AppBundle/Resources/config/routing/character.yml"
     prefix:   /character
+    condition: "request.isXmlHttpRequest()"
     options:
         expose: true
 
@@ -37,6 +38,7 @@ app_character:
 app_item:
     resource: "@AppBundle/Resources/config/routing/item.yml"
     prefix:   /item
+    condition: "request.isXmlHttpRequest()"
     options:
         expose: true
 
@@ -44,5 +46,6 @@ app_item:
 app_location:
     resource: "@AppBundle/Resources/config/routing/location.yml"
     prefix:   /location
+    condition: "request.isXmlHttpRequest()"
     options:
         expose: true

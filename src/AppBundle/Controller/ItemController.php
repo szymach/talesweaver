@@ -8,12 +8,10 @@ use AppBundle\Entity\Scene;
 use AppBundle\Form\Item\ItemType;
 use AppBundle\Pagination\Aggregate\ItemAggregate;
 use Doctrine\Common\Persistence\ObjectManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Templating\EngineInterface;
 
@@ -63,10 +61,6 @@ class ItemController
 
     public function newAction(Request $request, Scene $scene)
     {
-        if (!$request->isXmlHttpRequest()) {
-            throw new AccessDeniedHttpException();
-        }
-
         $form = $this->getForm(ItemType::class, null, [
             'action' => $this->router->generate('app_item_new', [
                 'id' => $scene->getId()
@@ -90,10 +84,6 @@ class ItemController
 
     public function editAction(Request $request, Item $item)
     {
-        if (!$request->isXmlHttpRequest()) {
-            throw new AccessDeniedHttpException();
-        }
-
         $form = $this->getForm(ItemType::class, $item, [
             'action' => $this->router->generate('app_item_edit', [
                 'id' => $item->getId()
@@ -112,33 +102,21 @@ class ItemController
         ]);
     }
 
-    public function listAction(Request $request, Scene $scene)
+    public function listAction(Scene $scene, $page)
     {
-        if (!$request->isXmlHttpRequest()) {
-            throw new AccessDeniedHttpException();
-        }
-
         return new JsonResponse([
             'list' => $this->templating->render(
                 'scene\items\list.html.twig',
                 [
-                    'items' => $this->pagination->getForScene($scene),
+                    'items' => $this->pagination->getForScene($scene, $page),
                     'scene' => $scene
                 ]
             )
         ]);
     }
 
-    /**
-     * @ParamConverter("scene", options={"id" = "scene_id"})
-     * @ParamConverter("item", options={"id" = "item_id"})
-     */
-    public function deleteAction(Request $request, Scene $scene, Item $item)
+    public function deleteAction(Scene $scene, Item $item, $page)
     {
-        if (!$request->isXmlHttpRequest()) {
-            throw new AccessDeniedHttpException();
-        }
-
         $this->manager->remove($item);
         $this->manager->flush();
 
@@ -146,7 +124,7 @@ class ItemController
             'list' => $this->templating->render(
                 'scene\items\list.html.twig',
                 [
-                    'items' => $this->pagination->getForScene($scene),
+                    'items' => $this->pagination->getForScene($scene, $page),
                     'scene' => $scene
                 ]
             )

@@ -10,11 +10,11 @@ app_location_edit:
     methods:  [GET, POST]
 
 app_location_list:
-    path: /list/{id}
-    defaults: { _controller: app.controller.location:listAction }
+    path: /list/{id}/{page}
+    defaults: { _controller: app.controller.location:listAction, page: 1 }
     methods:  GET
 
 app_location_delete:
-    path: /delete/{scene_id}/{location_id}
-    defaults: { _controller: app.controller.location:deleteAction }
+    path: /delete/{scene_id}/{location_id}/{page}
+    defaults: { _controller: app.controller.location:deleteAction, page: 1 }
     methods:  GET

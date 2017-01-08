@@ -12,7 +12,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Templating\EngineInterface;
 
@@ -62,10 +61,6 @@ class CharacterController
 
     public function newAction(Request $request, Scene $scene)
     {
-        if (!$request->isXmlHttpRequest()) {
-            throw new AccessDeniedHttpException();
-        }
-
         $form = $this->getForm(CharacterType::class, null, [
             'action' => $this->router->generate('app_character_new', [
                 'id' => $scene->getId()
@@ -89,10 +84,6 @@ class CharacterController
 
     public function editAction(Request $request, Character $character)
     {
-        if (!$request->isXmlHttpRequest()) {
-            throw new AccessDeniedHttpException();
-        }
-
         $form = $this->getForm(CharacterType::class, $character, [
             'action' => $this->router->generate('app_character_edit', [
                 'id' => $character->getId()
@@ -111,12 +102,8 @@ class CharacterController
         ]);
     }
 
-    public function listAction(Request $request, Scene $scene, $page)
+    public function listAction(Scene $scene, $page)
     {
-        if (!$request->isXmlHttpRequest()) {
-            throw new AccessDeniedHttpException();
-        }
-
         return new JsonResponse([
             'list' => $this->templating->render(
                 'scene\characters\list.html.twig',
@@ -132,12 +119,8 @@ class CharacterController
      * @ParamConverter("scene", options={"id" = "scene_id"})
      * @ParamConverter("character", options={"id" = "character_id"})
      */
-    public function deleteAction(Request $request, Scene $scene, Character $character, $page)
+    public function deleteAction(Scene $scene, Character $character, $page)
     {
-        if (!$request->isXmlHttpRequest()) {
-            throw new AccessDeniedHttpException();
-        }
-
         $this->manager->remove($character);
         $this->manager->flush();
 

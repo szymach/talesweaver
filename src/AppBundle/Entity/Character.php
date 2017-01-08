@@ -107,7 +107,7 @@ class Character
     /**
      * @return Collection
      */
-    public function getScene()
+    public function getScenes()
     {
         return $this->scenes;
     }
