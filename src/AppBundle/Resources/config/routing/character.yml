@@ -18,3 +18,8 @@ app_character_delete:
     path: /delete/{scene_id}/{character_id}/{page}
     defaults: { _controller: app.controller.character:deleteAction, page: 1 }
     methods:  GET
+
+app_character_display:
+    path: /display/{id}
+    defaults: { _controller: app.controller.character:displayAction }
+    methods:  GET

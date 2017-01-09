@@ -7,6 +7,7 @@ crud:
     list: Lista
     create: Nowy
     delete: Usuń
+    display: Podgląd
 
 book:
     title: Tytuł
@@ -52,16 +53,22 @@ character:
     name: Imię
     description: Opis
     create: Nowa postać
+    display:
+        title: '%name% - Karta postaci'
 
 item:
     name: Nazwa
     description: Opis
     create: Nowy przedmiot
+    display:
+        title: '%name% - Karta przedmiotu'
 
 location:
     name: Nazwa
     description: Opis
     create: Nowe miejsce
+    display:
+        title: '%name% - Karta miejsca'
 
 tag:
     add: Dodaj znacznik

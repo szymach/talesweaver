@@ -1,11 +1,9 @@
 var $ = require('jquery');
 
 $(document).on('ajaxStart', function() {
-    $('html').css('cursor', 'wait');
-    $('#backdrop').addClass('active');
+    showBackdrop();
 }).on('ajaxComplete', function() {
-    $('html').css('cursor', 'default');
-    $('#backdrop').removeClass('active');
+    hideBackdrop();
 });
 
 $(document).ready(function() {
@@ -20,6 +18,9 @@ $(document).ready(function() {
         ;
         getForm(url, $listTable);
         $('#clear-form').show();
+        $('html, body').animate({
+            scrollTop: $("#clear-form").offset().top
+        }, 2000);
     });
 
     $('main').on('click', '.js-delete', function (event) {
@@ -45,9 +46,29 @@ $(document).ready(function() {
         });
     });
 
+    $('main').on('click', '.js-display', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        var $this = $(this);
+        $.ajax({
+            method: "GET",
+            url: $this.data('display-url'),
+            dataType: "json"
+        })
+        .success(function(response) {
+            $('#modal-display').find('.modal-content').html(response.display);
+            $('#modal-display').modal();
+        });
+    });
+
     $('#clear-form').on('click', function() {
-        getFormContainer().html('');
-        $('#clear-form').hide();
+        showBackdrop();
+        $('html, body').animate({ scrollTop: $("main").offset().top }, 500, function () {
+            getFormContainer().html('');
+            $('#clear-form').hide();
+            hideBackdrop();
+        });
     });
 });
 
@@ -106,4 +127,16 @@ function refreshList($listTable)
 function getFormContainer()
 {
     return $('#form-container');
+}
+
+function showBackdrop()
+{
+    $('html').css('cursor', 'wait');
+    $('#backdrop').addClass('active');
+}
+
+function hideBackdrop()
+{
+    $('html').css('cursor', 'default');
+    $('#backdrop').removeClass('active');
 }

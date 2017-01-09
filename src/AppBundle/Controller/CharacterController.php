@@ -135,6 +135,16 @@ class CharacterController
         ]);
     }
 
+    public function displayAction(Character $character)
+    {
+        return new JsonResponse([
+            'display' => $this->templating->render(
+                'scene\characters\display.html.twig',
+                ['character' => $character]
+            )
+        ]);
+    }
+
     /**
      * @param string $class
      * @return FormInterface

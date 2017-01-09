@@ -19,6 +19,12 @@
                     >
                         <span class="fa fa-edit"></span>
                     </button>
+                    <button class="js-display btn btn-default"
+                        data-display-url="{{ path('app_character_display', { id: character.id }) }}"
+                        title="{{ 'crud.display' | trans }}"
+                    >
+                        <span class="fa fa-eye"></span>
+                    </button>
                     <button class="js-list-delete js-delete btn btn-danger"
                         data-delete-url="{{ path('app_character_delete', { scene_id: scene.id, character_id: character.id }) }}"
                         title="{{ 'crud.delete' | trans }}"

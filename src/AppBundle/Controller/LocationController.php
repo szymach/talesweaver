@@ -13,7 +13,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Templating\EngineInterface;
 
@@ -133,6 +132,16 @@ class LocationController
                     'locations' => $this->pagination->getForScene($scene, $page),
                     'scene' => $scene
                 ]
+            )
+        ]);
+    }
+
+    public function displayAction(Location $location)
+    {
+        return new JsonResponse([
+            'display' => $this->templating->render(
+                'scene\locations\display.html.twig',
+                ['location' => $location]
             )
         ]);
     }

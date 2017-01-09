@@ -18,3 +18,8 @@ app_location_delete:
     path: /delete/{scene_id}/{location_id}/{page}
     defaults: { _controller: app.controller.location:deleteAction, page: 1 }
     methods:  GET
+
+app_location_display:
+    path: /display/{id}
+    defaults: { _controller: app.controller.location:displayAction }
+    methods:  GET

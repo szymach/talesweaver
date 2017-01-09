@@ -131,6 +131,16 @@ class ItemController
         ]);
     }
 
+    public function displayAction(Item $item)
+    {
+        return new JsonResponse([
+            'display' => $this->templating->render(
+                'scene\items\display.html.twig',
+                ['item' => $item]
+            )
+        ]);
+    }
+
     /**
      * @param string $class
      * @return FormInterface

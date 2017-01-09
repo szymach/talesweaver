@@ -44,7 +44,7 @@
                         {% if scene.id %}
                             {{ form_row(form.text) }}
                         {% endif %}
-                        <button class="btn btn-primary">{{ 'crud.save' | trans }}</button>
+                        <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
                     </div>
                     {% if characters is defined %}
                         <div role="tabpanel" class="tab-pane fade" id="characters">
@@ -70,4 +70,8 @@
             <div id="form-container"></div>
         </div>
     </div>
+{% endblock %}
+
+{% block modals %}
+    {% include 'partial/displayModal.html.twig' %}
 {% endblock %}
