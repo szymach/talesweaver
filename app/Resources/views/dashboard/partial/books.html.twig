@@ -1,5 +1,10 @@
-<section class="col-xs-12 col-md-8">
-    <h2>{{ 'home.dashboard.books' | trans }}</h2>
+<section class="col-xs-12 col-md-8 col-md-offset-4">
+    <h2>
+        {{ 'dashboard.books' | trans }}
+        <a href="{{ path('app_book_new') }}" class="btn btn-success pull-right" title="{{ 'book.create' | trans }}">
+            <span class="fa fa-plus"></span>
+        </a>
+    </h2>
     <table class="table dashboard">
         <thead>
             <tr>

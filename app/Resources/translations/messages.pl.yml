@@ -13,6 +13,7 @@ book:
     title: Tytuł
     description: Opis (publiczny)
     chapters: Rozdziały
+    create: Nowa
     back:
         to_list: Wróć do listy
     tabs:
@@ -28,6 +29,7 @@ chapter:
     book: Książka
     add: Nowy rozdział
     chapters: Rozdziały
+    create: Nowy
     back:
         to_book: Wróć do książki
         to_list: Wróć do listy
@@ -40,6 +42,7 @@ scene:
     text: Treść
     chapter: Rozdział
     book: Książka
+    create: Nowa
     back:
         to_chapter: Wróć do rozdziału
         to_list: Wróć do listy
@@ -74,15 +77,11 @@ tag:
     add: Dodaj znacznik
 
 # Front
-home:
-    write:
-        book: Nowa książka
-        scene: Nowa scena
-    dashboard:
-        recently_added: 'Ostatnio dodane:'
-        books: Książki
-        chapters: Rozdziały
-        scenes: Sceny
+dashboard:
+    recently_added: 'Ostatnio dodane:'
+    books: Książki
+    chapters: Rozdziały
+    scenes: Sceny
 
 meta:
     title: Bajkopisarz

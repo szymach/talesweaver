@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <h1>{{ 'dashboard.recently_added' | trans }}</h1>
     <div class="row">
         {% include 'dashboard/partial/books.html.twig' %}
         {% include 'dashboard/partial/chapters.html.twig' %}
