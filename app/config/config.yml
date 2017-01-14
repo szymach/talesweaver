@@ -5,7 +5,6 @@ imports:
     - { resource: app_config.yml }
 
 framework:
-    #esi:             ~
     translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:

@@ -16,10 +16,11 @@ $(document).ready(function() {
             ? $this.data('form-url')
             : $listTable.data('form-url')
         ;
+        clearSublist();
         getForm(url, $listTable);
-        $('#clear-form').show();
+        showClearButton();
         $('html, body').animate({
-            scrollTop: $("#clear-form").offset().top
+            scrollTop: $("#clear-ajax").offset().top
         }, 2000);
     });
 
@@ -32,6 +33,8 @@ $(document).ready(function() {
         $('#modal-confirm').unbind('click').on('click', function() {
             $('#modal-delete').modal('hide');
             if ($this.hasClass('js-list-delete')) {
+                clearAjaxForm();
+                clearSublist();
                 $.ajax({
                     method: "GET",
                     url: $this.data('delete-url'),
@@ -62,11 +65,45 @@ $(document).ready(function() {
         });
     });
 
-    $('#clear-form').on('click', function() {
+    $('main').on('click', '.js-load-sublist', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        var $this = $(this);
+        $.ajax({
+            method: "GET",
+            url: $this.data('list-url'),
+            dataType: "json"
+        })
+        .success(function(response) {
+            clearAjaxForm();
+            showClearButton();
+            $('#sublist-container').html(response.list);
+        });
+    });
+
+    $('main').on('click', '.js-list-action', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        var $this = $(this);
+        $.ajax({
+            method: "GET",
+            url: $this.data('action-url'),
+            dataType: "json"
+        })
+        .success(function(response) {
+            clearAjaxForm();
+            clearSublist();
+            $($this.data('list-id')).replaceWith(response.list);
+        });
+    });
+
+    $('#clear-ajax').on('click', function() {
         showBackdrop();
         $('html, body').animate({ scrollTop: $("main").offset().top }, 500, function () {
-            getFormContainer().html('');
-            $('#clear-form').hide();
+            clearAjaxForm();
+            clearSublist();
             hideBackdrop();
         });
     });
@@ -107,7 +144,7 @@ function submitForm($form, $container, $listTable)
     .success(function() {
         $container.html('');
         refreshList($listTable);
-        $('#clear-form').hide();
+        hideClearButton();
     })
     .error(function(response) {
         $container.html(response.form);
@@ -131,6 +168,11 @@ function getFormContainer()
     return $('#form-container');
 }
 
+function getSublistContainer()
+{
+    return $('#sublist-container');
+}
+
 function showBackdrop()
 {
     $('html').css('cursor', 'wait');
@@ -141,4 +183,26 @@ function hideBackdrop()
 {
     $('html').css('cursor', 'default');
     $('#backdrop').removeClass('active');
+}
+
+function clearAjaxForm()
+{
+    getFormContainer().html('');
+    hideClearButton();
+}
+
+function clearSublist()
+{
+    getSublistContainer().html('');
+    hideClearButton();
+}
+
+function showClearButton()
+{
+    $('#clear-ajax').show();
+}
+
+function hideClearButton()
+{
+    $('#clear-ajax').hide();
 }

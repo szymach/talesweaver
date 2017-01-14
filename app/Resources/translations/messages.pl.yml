@@ -56,6 +56,8 @@ character:
     name: Imię
     description: Opis
     create: Nowa postać
+    existing: Dodaj postać z innej sceny
+    add_to_scene: 'Dodaj do sceny "%scene%"'
     avatar: Zdjęcie
     display:
         title: '%name% - Karta postaci'
@@ -64,6 +66,8 @@ item:
     name: Nazwa
     description: Opis
     create: Nowy przedmiot
+    existing: Dodaj miejsce z innej sceny
+    add_to_scene: 'Dodaj do sceny "%scene%"'
     avatar: Zdjęcie
     display:
         title: '%name% - Karta przedmiotu'
@@ -72,6 +76,8 @@ location:
     name: Nazwa
     description: Opis
     create: Nowe miejsce
+    existing: Dodaj postać z innej sceny
+    add_to_scene: 'Dodaj do sceny "%scene%"'
     avatar: Zdjęcie
     display:
         title: '%name% - Karta miejsca'

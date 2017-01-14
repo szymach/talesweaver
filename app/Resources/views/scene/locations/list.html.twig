@@ -1,6 +1,7 @@
 <table class="table"
        data-form-url="{{ path('app_location_new', { id: scene.id }) }}"
        data-list-url="{{ path('app_location_list', { id: scene.id }) }}"
+       id="location-list"
 >
     <thead>
         <tr>
@@ -41,6 +42,14 @@
                 <button class="btn btn-success js-load-form" title="{{ 'location.create' | trans }}">
                     <span class="fa fa-plus"></span>
                 </button>
+                {% if scene.chapter %}
+                    <button class="btn btn-default js-load-sublist"
+                            title="{{ 'location.existing' | trans }}"
+                            data-list-url="{{ path('app_location_related', { id: scene.id }) }}"
+                    >
+                        <span class="fa fa-user-o"></span>
+                    </button>
+                {% endif %}
             </td>
         </tr>
     </tfoot>

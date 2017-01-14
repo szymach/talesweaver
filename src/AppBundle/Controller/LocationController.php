@@ -146,6 +146,46 @@ class LocationController
         ]);
     }
 
+    public function relatedAction(Scene $scene, $page)
+    {
+        return new JsonResponse([
+            'list' => $this->templating->render(
+                'scene\locations\relatedList.html.twig',
+                [
+                    'locations' => $this->pagination->getRelated($scene, $page),
+                    'scene' => $scene
+                ]
+            )
+        ]);
+    }
+
+    /**
+     * @ParamConverter("scene", options={"id" = "scene_id"})
+     * @ParamConverter("location", options={"id" = "location_id"})
+     */
+    public function addToSceneAction(Scene $scene, Location $location)
+    {
+        $scene->addLocation($location);
+        $this->manager->flush();
+        return new JsonResponse(['list' => $this->renderForSceneList($scene, 1)]);
+    }
+
+    /**
+     * @param Scene $scene
+     * @param type $page
+     * @return string
+     */
+    private function renderForSceneList(Scene $scene, $page) : string
+    {
+        return $this->templating->render(
+            'scene\locations\list.html.twig',
+            [
+                'locations' => $this->pagination->getForScene($scene, $page),
+                'scene' => $scene
+            ]
+        );
+    }
+
     /**
      * @param string $class
      * @return FormInterface

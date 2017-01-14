@@ -1,6 +1,7 @@
 <table class="table"
        data-form-url="{{ path('app_character_new', { id: scene.id }) }}"
        data-list-url="{{ path('app_character_list', { id: scene.id }) }}"
+       id="character-list"
 >
     <thead>
         <tr>
@@ -41,6 +42,14 @@
                 <button class="btn btn-success js-load-form" title="{{ 'character.create' | trans }}">
                     <span class="fa fa-plus"></span>
                 </button>
+                {% if scene.chapter %}
+                    <button class="btn btn-default js-load-sublist"
+                            title="{{ 'character.existing' | trans }}"
+                            data-list-url="{{ path('app_character_related', { id: scene.id }) }}"
+                    >
+                        <span class="fa fa-user-o"></span>
+                    </button>
+                {% endif %}
             </td>
         </tr>
     </tfoot>

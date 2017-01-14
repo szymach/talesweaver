@@ -8,6 +8,7 @@ use AppBundle\Entity\Scene;
 use AppBundle\Form\Item\ItemType;
 use AppBundle\Pagination\Aggregate\ItemAggregate;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -115,6 +116,10 @@ class ItemController
         ]);
     }
 
+    /**
+     * @ParamConverter("scene", options={"id" = "scene_id"})
+     * @ParamConverter("item", options={"id" = "item_id"})
+     */
     public function deleteAction(Scene $scene, Item $item, $page)
     {
         $this->manager->remove($item);
@@ -139,6 +144,46 @@ class ItemController
                 ['item' => $item]
             )
         ]);
+    }
+
+    public function relatedAction(Scene $scene, $page)
+    {
+        return new JsonResponse([
+            'list' => $this->templating->render(
+                'scene\items\relatedList.html.twig',
+                [
+                    'items' => $this->pagination->getRelated($scene, $page),
+                    'scene' => $scene
+                ]
+            )
+        ]);
+    }
+
+    /**
+     * @ParamConverter("scene", options={"id" = "scene_id"})
+     * @ParamConverter("item", options={"id" = "item_id"})
+     */
+    public function addToSceneAction(Scene $scene, Item $item)
+    {
+        $scene->addItem($item);
+        $this->manager->flush();
+        return new JsonResponse(['list' => $this->renderForSceneList($scene, 1)]);
+    }
+
+    /**
+     * @param Scene $scene
+     * @param type $page
+     * @return string
+     */
+    private function renderForSceneList(Scene $scene, $page) : string
+    {
+        return $this->templating->render(
+            'scene\items\list.html.twig',
+            [
+                'items' => $this->pagination->getForScene($scene, $page),
+                'scene' => $scene
+            ]
+        );
     }
 
     /**

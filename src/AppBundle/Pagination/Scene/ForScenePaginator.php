@@ -25,6 +25,12 @@ abstract class ForScenePaginator extends Paginator implements ForScenePaginatorI
         return $this->getResults($page, $maxPerPage);
     }
 
+    public function getRelatedResults(Scene $scene, $page = 1, $maxPerPage = 10)
+    {
+        $this->queryBuilder = $this->repository->createRelatedQueryBuilder($scene);
+        return $this->getResults($page, $maxPerPage);
+    }
+
     protected function getQueryBuilder() : QueryBuilder
     {
         return $this->queryBuilder;
