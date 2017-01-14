@@ -1,7 +1,7 @@
 ---
-AppBundle\Entity\Character:
+AppBundle\Entity\Item:
     properties:
         avatar:
             - FSi\Bundle\DoctrineExtensionsBundle\Validator\Constraints\Image: ~
-        name:
+        title:
             - NotBlank: ~

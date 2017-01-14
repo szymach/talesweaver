@@ -56,6 +56,7 @@ character:
     name: Imię
     description: Opis
     create: Nowa postać
+    avatar: Zdjęcie
     display:
         title: '%name% - Karta postaci'
 
@@ -63,6 +64,7 @@ item:
     name: Nazwa
     description: Opis
     create: Nowy przedmiot
+    avatar: Zdjęcie
     display:
         title: '%name% - Karta przedmiotu'
 
@@ -70,6 +72,7 @@ location:
     name: Nazwa
     description: Opis
     create: Nowe miejsce
+    avatar: Zdjęcie
     display:
         title: '%name% - Karta miejsca'
 

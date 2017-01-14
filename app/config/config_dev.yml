@@ -37,3 +37,7 @@ monolog:
 doctrine:
     dbal:
         dbname: %database_name%-dev
+
+fsi_doctrine_extensions:
+    default_filesystem_path: '%kernel.root_dir%/../web/uploaded_dev'
+    default_filesystem_base_url: '/uploaded_dev'

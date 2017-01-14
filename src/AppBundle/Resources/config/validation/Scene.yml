@@ -1,5 +1,5 @@
 ---
-AppBundle\Entity\Section:
+AppBundle\Entity\Scene:
     properties:
         title:
             - NotBlank: ~

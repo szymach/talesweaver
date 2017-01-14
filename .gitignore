@@ -20,7 +20,8 @@
 /assets/vendor/
 /node_modules/
 /web/bundles/
-/web/uploads/
+/web/uploaded/
+/web/uploaded_dev/
 /web/public/
 
 # PHPUnit

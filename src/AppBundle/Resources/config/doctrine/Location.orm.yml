@@ -6,6 +6,11 @@ AppBundle\Entity\Location:
         id:
             type: integer
             generator: { strategy: AUTO }
+    fields:
+        avatarKey:
+            type: text
+            nullable: true
+            fsi: { uploadable: { targetField: avatar } }
     oneToMany:
         translations:
             targetEntity: AppBundle\Entity\Translation\LocationTranslation

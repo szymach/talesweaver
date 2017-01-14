@@ -22,3 +22,7 @@ doctrine:
 # testing should be done in english
 parameters:
     locale: en
+
+fsi_doctrine_extensions:
+    default_filesystem_path: '%kernel.root_dir%/../web/uploaded_test'
+    default_filesystem_base_url: '/uploaded_test'

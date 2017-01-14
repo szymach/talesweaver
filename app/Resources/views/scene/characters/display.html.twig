@@ -5,7 +5,20 @@
     <h4 class="modal-title">{{ 'character.display.title' | trans({ '%name%': character.name }) }}</h4>
 </div>
 <div class="modal-body">
-    {{ character.description|raw }}
+    {% if character.avatar %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <img class="img-responsive center-block" width="300" src="{{ fsi_file_url(character.avatar) }}" />
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    {{ character.description|raw }}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        {{ character.description|raw }}
+    {% endif %}
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">

@@ -100,12 +100,14 @@ function submitForm($form, $container, $listTable)
     $.ajax({
         method: "POST",
         url: $form.attr('action'),
-        dataType: "json",
-        data: $form.serialize()
+        processData: false,
+        contentType: false,
+        data: new FormData($form[0])
     })
     .success(function() {
         $container.html('');
         refreshList($listTable);
+        $('#clear-form').hide();
     })
     .error(function(response) {
         $container.html(response.form);
