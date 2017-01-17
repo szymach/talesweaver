@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\Traits;
 
+use DateTimeImmutable;
 use DateTimeInterface;
 
 trait TimestampableTrait
@@ -40,5 +41,10 @@ trait TimestampableTrait
     public function setUpdatedAt(DateTimeInterface $updatedAt)
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    private function update()
+    {
+        $this->updatedAt = new DateTimeImmutable();
     }
 }

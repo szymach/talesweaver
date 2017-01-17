@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
@@ -54,6 +55,7 @@ class Book
     {
         $this->chapters = new ArrayCollection();
         $this->translations = new ArrayCollection();
+        $this->createdAt = new DateTimeImmutable();
     }
 
     public function __toString()
@@ -71,14 +73,11 @@ class Book
 
     /**
      * @param string $title
-     *
-     * @return Book
      */
     public function setTitle($title)
     {
         $this->title = $title;
-
-        return $this;
+        $this->update();
     }
 
     /**
@@ -95,6 +94,7 @@ class Book
     public function setDescription($description)
     {
         $this->description = $description;
+        $this->update();
     }
 
     /**
@@ -111,6 +111,7 @@ class Book
     public function setIntroduction($introduction)
     {
         $this->introduction = $introduction;
+        $this->update();
     }
 
     /**
@@ -127,6 +128,7 @@ class Book
     public function setExpansion($expansion)
     {
         $this->expansion = $expansion;
+        $this->update();
     }
 
     /**
@@ -143,6 +145,7 @@ class Book
     public function setEnding($ending)
     {
         $this->ending = $ending;
+        $this->update();
     }
 
     /**
@@ -155,17 +158,14 @@ class Book
 
     /**
      * @param Chapter $chapter
-     *
-     * @return Book
      */
     public function addChapter(Chapter $chapter)
     {
         if (!$this->chapters->contains($chapter)) {
             $this->chapters->add($chapter);
             $chapter->setBook($this);
+            $this->update();
         }
-
-        return $this;
     }
 
     /**
@@ -175,6 +175,7 @@ class Book
     {
         $this->chapters->removeElement($chapter);
         $chapter->setBook(null);
+        $this->update();
     }
 
     /**

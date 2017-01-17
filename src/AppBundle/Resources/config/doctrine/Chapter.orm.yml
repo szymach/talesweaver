@@ -9,11 +9,9 @@ AppBundle\Entity\Chapter:
     fields:
         createdAt:
             type: datetime
-            gedmo: { timestampable: { on: create } }
         updatedAt:
             type: datetime
             nullable: true
-            gedmo: { timestampable: { on: create } }
     oneToMany:
         scenes:
             targetEntity: AppBundle\Entity\Scene

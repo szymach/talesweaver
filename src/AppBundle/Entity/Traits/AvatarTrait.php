@@ -35,5 +35,9 @@ trait AvatarTrait
     public function setAvatarKey($avatarKey)
     {
         $this->avatarKey = $avatarKey;
+
+        if (method_exists($this, 'update')) {
+            $this->update();
+        }
     }
 }

@@ -60,12 +60,6 @@ fsi_doctrine_extensions:
             translatable: true
             uploadable: true
 
-stof_doctrine_extensions:
-    default_locale: '%locale%'
-    orm:
-        default:
-            timestampable: true
-
 knp_menu:
     twig:
         template: menu\knp_dropdown.html.twig

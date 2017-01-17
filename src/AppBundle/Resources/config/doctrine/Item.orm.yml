@@ -13,11 +13,9 @@ AppBundle\Entity\Item:
             fsi: { uploadable: { targetField: avatar } }
         createdAt:
             type: datetime
-            gedmo: { timestampable: { on: create } }
         updatedAt:
             type: datetime
             nullable: true
-            gedmo: { timestampable: { on: update } }
     oneToMany:
         translations:
             targetEntity: AppBundle\Entity\Translation\ItemTranslation

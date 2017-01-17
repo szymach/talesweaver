@@ -16,7 +16,6 @@ $(document).ready(function() {
             ? $this.data('form-url')
             : $listTable.data('form-url')
         ;
-        clearSublist();
         getForm(url, $listTable);
         showClearButton();
         $('html, body').animate({
@@ -33,8 +32,7 @@ $(document).ready(function() {
         $('#modal-confirm').unbind('click').on('click', function() {
             $('#modal-delete').modal('hide');
             if ($this.hasClass('js-list-delete')) {
-                clearAjaxForm();
-                clearSublist();
+                clearAjaxContainer();
                 $.ajax({
                     method: "GET",
                     url: $this.data('delete-url'),
@@ -76,9 +74,9 @@ $(document).ready(function() {
             dataType: "json"
         })
         .success(function(response) {
-            clearAjaxForm();
+            clearAjaxContainer();
             showClearButton();
-            $('#sublist-container').html(response.list);
+            getAjaxContainer().html(response.list);
         });
     });
 
@@ -93,8 +91,7 @@ $(document).ready(function() {
             dataType: "json"
         })
         .success(function(response) {
-            clearAjaxForm();
-            clearSublist();
+            clearAjaxContainer();
             $($this.data('list-id')).replaceWith(response.list);
         });
     });
@@ -102,8 +99,7 @@ $(document).ready(function() {
     $('#clear-ajax').on('click', function() {
         showBackdrop();
         $('html, body').animate({ scrollTop: $("main").offset().top }, 500, function () {
-            clearAjaxForm();
-            clearSublist();
+            clearAjaxContainer();
             hideBackdrop();
         });
     });
@@ -117,7 +113,7 @@ function getForm(url, $listTable)
         dataType: "json"
     })
     .success(function(response) {
-        var $container = getFormContainer();
+        var $container = getAjaxContainer();
         $container.html(response.form);
         $container.unbind('submit');
         $container.on('submit', '.js-form', function (event) {
@@ -163,14 +159,15 @@ function refreshList($listTable)
     });
 }
 
-function getFormContainer()
+function getAjaxContainer()
 {
-    return $('#form-container');
+    return $('#ajax-container');
 }
 
-function getSublistContainer()
+function clearAjaxContainer()
 {
-    return $('#sublist-container');
+    getAjaxContainer().html('');
+    hideClearButton();
 }
 
 function showBackdrop()
@@ -183,18 +180,6 @@ function hideBackdrop()
 {
     $('html').css('cursor', 'default');
     $('#backdrop').removeClass('active');
-}
-
-function clearAjaxForm()
-{
-    getFormContainer().html('');
-    hideClearButton();
-}
-
-function clearSublist()
-{
-    getSublistContainer().html('');
-    hideClearButton();
 }
 
 function showClearButton()

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
@@ -41,6 +42,7 @@ class Item
     {
         $this->translations = new ArrayCollection();
         $this->scenes = new ArrayCollection();
+        $this->createdAt = new DateTimeImmutable();
     }
 
     public function __toString()
@@ -62,6 +64,7 @@ class Item
     public function setName($name)
     {
         $this->name = $name;
+        $this->update();
     }
 
     /**
@@ -78,6 +81,7 @@ class Item
     public function setDescription($description)
     {
         $this->description = $description;
+        $this->update();
     }
 
     /**
@@ -89,14 +93,6 @@ class Item
     }
 
     /**
-     * @return Collection
-     */
-    public function getTranslations()
-    {
-        return $this->translations;
-    }
-
-    /**
      * @param Scene $scene
      *
      * @return Item
@@ -105,6 +101,7 @@ class Item
     {
         if (!$this->scenes->contains($scene)) {
             $this->scenes[] = $scene;
+            $this->update();
         }
     }
 
@@ -114,6 +111,7 @@ class Item
     public function removeScene(Scene $scene)
     {
         $this->scenes->removeElement($scene);
+        $this->update();
     }
 
     /**

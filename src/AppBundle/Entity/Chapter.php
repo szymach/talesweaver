@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
@@ -35,6 +36,7 @@ class Chapter
     {
         $this->scenes = new ArrayCollection();
         $this->translations = new ArrayCollection();
+        $this->createdAt = new DateTimeImmutable();
     }
 
     public function __toString()
@@ -52,14 +54,11 @@ class Chapter
 
     /**
      * @param string $title
-     *
-     * @return Chapter
      */
     public function setTitle($title)
     {
         $this->title = $title;
-
-        return $this;
+        $this->update();
     }
 
     /**
@@ -80,9 +79,8 @@ class Chapter
         if (!$this->scenes->contains($scene)) {
             $scene->setChapter($this);
             $this->scenes->add($scene);
+            $this->update();
         }
-
-        return $this;
     }
 
     /**
@@ -92,6 +90,7 @@ class Chapter
     {
         $this->scenes->removeElement($scene);
         $scene->setChapter(null);
+        $this->update();
     }
 
     /**
@@ -104,14 +103,10 @@ class Chapter
 
     /**
      * @param Book $book
-     *
-     * @return Chapter
      */
     public function setBook(Book $book = null)
     {
         $this->book = $book;
-
-        return $this;
     }
 
     /**
