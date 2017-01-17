@@ -115,7 +115,7 @@ class CharacterController
      * @ParamConverter("scene", options={"id" = "scene_id"})
      * @ParamConverter("character", options={"id" = "character_id"})
      */
-    public function deleteAction(Character $character, $page)
+    public function deleteAction(Character $character, Scene $scene, $page)
     {
         $this->manager->remove($character);
         $this->manager->flush();

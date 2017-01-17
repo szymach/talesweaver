@@ -124,3 +124,7 @@ modal:
 
 yes: Tak
 no: Nie
+
+alert:
+    success: Operacja wykonana pomyślnie!
+    error: Nastąpił błąd podczas wykonywania operacji!

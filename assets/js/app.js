@@ -17,7 +17,6 @@ $(document).ready(function() {
             : $listTable.data('form-url')
         ;
         getForm(url, $listTable);
-        showClearButton();
         $('html, body').animate({
             scrollTop: $("#clear-ajax").offset().top
         }, 2000);
@@ -40,6 +39,7 @@ $(document).ready(function() {
                 })
                 .success(function(response) {
                     $this.parents('table').first().html(response.list);
+                    displaySuccessAlert();
                 });
             } else {
                 window.location.href = $this.attr('href');
@@ -75,8 +75,7 @@ $(document).ready(function() {
         })
         .success(function(response) {
             clearAjaxContainer();
-            showClearButton();
-            getAjaxContainer().html(response.list);
+            displayAjaxContainerWithContent(response.list);
         });
     });
 
@@ -93,6 +92,7 @@ $(document).ready(function() {
         .success(function(response) {
             clearAjaxContainer();
             $($this.data('list-id')).replaceWith(response.list);
+            displaySuccessAlert();
         });
     });
 
@@ -113,13 +113,13 @@ function getForm(url, $listTable)
         dataType: "json"
     })
     .success(function(response) {
+        displayAjaxContainerWithContent(response.form);
         var $container = getAjaxContainer();
-        $container.html(response.form);
         $container.unbind('submit');
         $container.on('submit', '.js-form', function (event) {
             event.preventDefault();
             event.stopPropagation();
-            submitForm($(this), $container, $listTable);
+            submitForm($(this), $listTable);
         });
         var $input = $container.find('form input').first();
         if ($input.length) {
@@ -128,7 +128,7 @@ function getForm(url, $listTable)
     });
 }
 
-function submitForm($form, $container, $listTable)
+function submitForm($form, $listTable)
 {
     $.ajax({
         method: "POST",
@@ -138,12 +138,13 @@ function submitForm($form, $container, $listTable)
         data: new FormData($form[0])
     })
     .success(function() {
-        $container.html('');
+        clearAjaxContainer();
         refreshList($listTable);
-        hideClearButton();
+        displaySuccessAlert();
     })
     .error(function(response) {
-        $container.html(response.form);
+        displayAjaxContainerWithContent(response.form);
+        displayErrorAlert();
     });
 }
 
@@ -159,15 +160,37 @@ function refreshList($listTable)
     });
 }
 
+function displayAjaxContainerWithContent($content)
+{
+    var $container = getAjaxContainer();
+    $container.html($content);
+    getAjaxClearButton().show();
+    $container.addClass('active');
+}
+
+function clearAjaxContainer()
+{
+    var $container = getAjaxContainer();
+    getAjaxClearButton().hide();
+    $container.html('');
+    $container.removeClass('active');
+}
+
 function getAjaxContainer()
 {
     return $('#ajax-container');
 }
 
-function clearAjaxContainer()
+function displaySuccessAlert()
 {
-    getAjaxContainer().html('');
-    hideClearButton();
+    var $alert = $('#success-alert');
+    $alert.show();
+    window.setTimeout(function() { $alert.fadeOut(800, function () { $alert.alert('close') }); }, 5000);
+}
+
+function displayErrorAlert()
+{
+    $('#error-alert').show();
 }
 
 function showBackdrop()
@@ -182,12 +205,7 @@ function hideBackdrop()
     $('#backdrop').removeClass('active');
 }
 
-function showClearButton()
+function getAjaxClearButton()
 {
-    $('#clear-ajax').show();
-}
-
-function hideClearButton()
-{
-    $('#clear-ajax').hide();
+    return $('#clear-ajax');
 }

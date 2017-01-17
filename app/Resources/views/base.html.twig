@@ -15,7 +15,10 @@
         <nav class="navbar navbar-default">
             <div class="container">{% block menu knp_menu_render('main') %}</div>
         </nav>
-        <main class="container">{% block body '' %}</main>
+        <main class="container">
+            {% include 'partial/alerts.html.twig' %}
+            {% block body '' %}
+        </main>
         <footer>{% block footer '' %}</footer>
         {% include 'partial/confirmationModal.html.twig' %}
         {% block modals '' %}
