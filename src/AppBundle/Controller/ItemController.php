@@ -67,24 +67,30 @@ class ItemController
                 'id' => $scene->getId()
             ])
         ]);
+        $result = true;
         $form->handleRequest($request);
         if ($form->isValid()) {
             $data = $form->getData();
             $scene->addItem($data);
             $this->manager->persist($data);
             $this->manager->flush();
+        } elseif ($form->isSubmitted()) {
+            $result = false;
         }
 
-        return new JsonResponse([
-            'form' => $this->templating->render(
-                'partial\simpleForm.html.twig',
-                [
-                    'form' => $form->createView(),
-                    'scene' => $scene,
-                    'h2Title' => 'item.header.new'
-                ]
-            )
-        ]);
+        return new JsonResponse(
+            [
+                'form' => $this->templating->render(
+                    'partial\simpleForm.html.twig',
+                    [
+                        'form' => $form->createView(),
+                        'scene' => $scene,
+                        'h2Title' => 'item.header.new'
+                    ]
+                )
+            ],
+            $result ? 200 : 400
+        );
     }
 
     public function editAction(Request $request, Item $item)
@@ -94,17 +100,23 @@ class ItemController
                 'id' => $item->getId()
             ])
         ]);
+        $result = true;
         $form->handleRequest($request);
         if ($form->isValid()) {
             $this->manager->flush();
+        } elseif ($form->isSubmitted()) {
+            $result = false;
         }
 
-        return new JsonResponse([
-            'form' => $this->templating->render(
-                'partial\simpleForm.html.twig',
-                ['form' => $form->createView(), 'h2Title' => 'item.header.edit']
-            )
-        ]);
+        return new JsonResponse(
+            [
+                'form' => $this->templating->render(
+                    'partial\simpleForm.html.twig',
+                    ['form' => $form->createView(), 'h2Title' => 'item.header.edit']
+                )
+            ],
+            $result ? 200 : 400
+        );
     }
 
     public function listAction(Scene $scene, $page)

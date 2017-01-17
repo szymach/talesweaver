@@ -114,17 +114,7 @@ function getForm(url, $listTable)
     })
     .success(function(response) {
         displayAjaxContainerWithContent(response.form);
-        var $container = getAjaxContainer();
-        $container.unbind('submit');
-        $container.on('submit', '.js-form', function (event) {
-            event.preventDefault();
-            event.stopPropagation();
-            submitForm($(this), $listTable);
-        });
-        var $input = $container.find('form input').first();
-        if ($input.length) {
-            $input.focus();
-        }
+        bindAjaxForm($listTable);
     });
 }
 
@@ -142,8 +132,13 @@ function submitForm($form, $listTable)
         refreshList($listTable);
         displaySuccessAlert();
     })
-    .error(function(response) {
-        displayAjaxContainerWithContent(response.form);
+    .error(function(xhr) {
+        clearAjaxContainer();
+        var response = JSON.parse(xhr.responseText);
+        if (typeof response.form !== 'undefined') {
+            displayAjaxContainerWithContent(response.form);
+            bindAjaxForm($listTable);
+        }
         displayErrorAlert();
     });
 }
@@ -168,6 +163,21 @@ function displayAjaxContainerWithContent($content)
     $container.addClass('active');
 }
 
+function bindAjaxForm($listTable)
+{
+    var $container = getAjaxContainer();
+    $container.unbind('submit');
+    $container.on('submit', '.js-form', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        submitForm($(this), $listTable);
+        var $input = $container.find('form input').first();
+        if ($input.length) {
+            $input.focus();
+        }
+    });
+}
+
 function clearAjaxContainer()
 {
     var $container = getAjaxContainer();
@@ -183,6 +193,7 @@ function getAjaxContainer()
 
 function displaySuccessAlert()
 {
+    $('#error-alert').hide();
     var $alert = $('#success-alert');
     $alert.show();
     window.setTimeout(function() { $alert.fadeOut(800, function () { $alert.alert('close') }); }, 5000);

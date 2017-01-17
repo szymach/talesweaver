@@ -40,7 +40,7 @@ table:not(.dashboard) {
 
     #ajax-container {
         display: none;
-        background-color: white;
+        background-color: $body-bg;
         position: absolute;
         top: 0;
         left: 15px;

@@ -66,24 +66,30 @@ class CharacterController
                 'id' => $scene->getId()
             ])
         ]);
+        $result = true;
         $form->handleRequest($request);
         if ($form->isValid()) {
             $data = $form->getData();
             $scene->addCharacter($data);
             $this->manager->persist($data);
             $this->manager->flush();
+        } elseif ($form->isSubmitted()) {
+            $result = false;
         }
 
-        return new JsonResponse([
-            'form' => $this->templating->render(
-                'partial\simpleForm.html.twig',
-                [
-                    'form' => $form->createView(),
-                    'scene' => $scene,
-                    'h2Title' => 'character.header.new'
-                ]
-            )
-        ]);
+        return new JsonResponse(
+            [
+                'form' => $this->templating->render(
+                    'partial\simpleForm.html.twig',
+                    [
+                        'form' => $form->createView(),
+                        'scene' => $scene,
+                        'h2Title' => 'character.header.new'
+                    ]
+                )
+            ],
+            $result ? 200 : 400
+        );
     }
 
     public function editAction(Request $request, Character $character)
@@ -93,17 +99,23 @@ class CharacterController
                 'id' => $character->getId()
             ])
         ]);
+        $result = true;
         $form->handleRequest($request);
         if ($form->isValid()) {
             $this->manager->flush();
+        } elseif ($form->isSubmitted()) {
+            $result = false;
         }
 
-        return new JsonResponse([
-            'form' => $this->templating->render(
-                'partial\simpleForm.html.twig',
-                ['form' => $form->createView(), 'h2Title' => 'character.header.edit']
-            )
-        ]);
+        return new JsonResponse(
+            [
+                'form' => $this->templating->render(
+                    'partial\simpleForm.html.twig',
+                    ['form' => $form->createView(), 'h2Title' => 'character.header.edit']
+                )
+            ],
+            $result ? 200 : 400
+        );
     }
 
     public function listAction(Scene $scene, $page)
