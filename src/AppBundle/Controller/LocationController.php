@@ -78,7 +78,11 @@ class LocationController
         return new JsonResponse([
             'form' => $this->templating->render(
                 'partial\simpleForm.html.twig',
-                ['form' => $form->createView(), 'scene' => $scene]
+                [
+                    'form' => $form->createView(),
+                    'scene' => $scene,
+                    'h2Title' => 'location.header.new'
+                ]
             )
         ]);
     }
@@ -98,7 +102,7 @@ class LocationController
         return new JsonResponse([
             'form' => $this->templating->render(
                 'partial\simpleForm.html.twig',
-                ['form' => $form->createView()]
+                ['form' => $form->createView(), 'h2Title' => 'location.header.edit']
             )
         ]);
     }

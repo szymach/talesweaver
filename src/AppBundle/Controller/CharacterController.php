@@ -77,7 +77,11 @@ class CharacterController
         return new JsonResponse([
             'form' => $this->templating->render(
                 'partial\simpleForm.html.twig',
-                ['form' => $form->createView(), 'scene' => $scene]
+                [
+                    'form' => $form->createView(),
+                    'scene' => $scene,
+                    'h2Title' => 'character.header.new'
+                ]
             )
         ]);
     }
@@ -97,7 +101,7 @@ class CharacterController
         return new JsonResponse([
             'form' => $this->templating->render(
                 'partial\simpleForm.html.twig',
-                ['form' => $form->createView()]
+                ['form' => $form->createView(), 'h2Title' => 'character.header.edit']
             )
         ]);
     }

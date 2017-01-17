@@ -6,6 +6,13 @@
         redirectUri: book ? path('app_book_edit', { id: book.id }) : path('app_chapter_list', { page: page|default(1) }),
         label: book ? 'chapter.back.to_book' | trans : 'chapter.back.to_list' | trans
     } %}
+    <h1>
+        {%- if chapter.title -%}
+            {{- chapter.title }}
+        {%- else -%}
+           {{ 'chapter.header.new' | trans }}
+        {%- endif -%}
+    </h1>
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
             <a href="#basic" aria-controls="basic" role="tab" data-toggle="tab">

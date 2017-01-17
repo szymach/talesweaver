@@ -78,7 +78,11 @@ class ItemController
         return new JsonResponse([
             'form' => $this->templating->render(
                 'partial\simpleForm.html.twig',
-                ['form' => $form->createView(), 'scene' => $scene]
+                [
+                    'form' => $form->createView(),
+                    'scene' => $scene,
+                    'h2Title' => 'item.header.new'
+                ]
             )
         ]);
     }
@@ -98,7 +102,7 @@ class ItemController
         return new JsonResponse([
             'form' => $this->templating->render(
                 'partial\simpleForm.html.twig',
-                ['form' => $form->createView()]
+                ['form' => $form->createView(), 'h2Title' => 'item.header.edit']
             )
         ]);
     }

@@ -14,6 +14,8 @@ book:
     description: Opis (publiczny)
     chapters: Rozdziały
     create: Nowa
+    header:
+        new: Nowa książka
     back:
         to_list: Wróć do listy
     tabs:
@@ -30,6 +32,8 @@ chapter:
     add: Nowy rozdział
     chapters: Rozdziały
     create: Nowy
+    header:
+        new: Nowy rozdział
     back:
         to_book: Wróć do książki
         to_list: Wróć do listy
@@ -43,6 +47,8 @@ scene:
     chapter: Rozdział
     book: Książka
     create: Nowa
+    header:
+        new: Nowa scena
     back:
         to_chapter: Wróć do rozdziału
         to_list: Wróć do listy
@@ -55,30 +61,42 @@ scene:
 character:
     name: Imię
     description: Opis
+    avatar: Zdjęcie
+    add_to_scene: 'Dodaj do sceny "%scene%"'
     create: Nowa postać
     existing: Dodaj postać z innej sceny
-    add_to_scene: 'Dodaj do sceny "%scene%"'
-    avatar: Zdjęcie
+    header:
+        new: Nowa postać
+        edit: Edycja postaci
+        related: Dodawanie istniejącej postaci
     display:
         title: '%name% - Karta postaci'
 
 item:
     name: Nazwa
     description: Opis
+    avatar: Zdjęcie
     create: Nowy przedmiot
     existing: Dodaj miejsce z innej sceny
     add_to_scene: 'Dodaj do sceny "%scene%"'
-    avatar: Zdjęcie
+    header:
+        new: Nowy przedmiot
+        edit: Edycja przedmiotu
+        related: Dodawanie istniejącego przedmiotu
     display:
         title: '%name% - Karta przedmiotu'
 
 location:
     name: Nazwa
     description: Opis
+    avatar: Zdjęcie
     create: Nowe miejsce
     existing: Dodaj postać z innej sceny
     add_to_scene: 'Dodaj do sceny "%scene%"'
-    avatar: Zdjęcie
+    header:
+        new: Nowe miejsce
+        edit: Edycja miejsca
+        related: Dodawanie istniejącej miejsca
     display:
         title: '%name% - Karta miejsca'
 
