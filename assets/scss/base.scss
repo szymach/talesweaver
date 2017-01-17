@@ -1,3 +1,9 @@
+@import '_variables';
+
+.navbar-default .navbar-nav > li.current > a {
+    color: $brand-primary;
+}
+
 ul.dropdown-menu {
     border-radius: 0;
     border: none;
