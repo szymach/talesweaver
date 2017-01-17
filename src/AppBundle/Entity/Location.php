@@ -8,7 +8,7 @@ use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 
 class Location
 {
-    use Traits\AvatarTrait, Traits\TranslatableTrait;
+    use Traits\AvatarTrait, Traits\TimestampableTrait, Traits\TranslatableTrait;
 
     /**
      * @var integer

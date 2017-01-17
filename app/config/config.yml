@@ -2,7 +2,6 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
-    - { resource: app_config.yml }
 
 framework:
     translator:      { fallbacks: ["%locale%"] }
@@ -54,3 +53,27 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+fsi_doctrine_extensions:
+    orm:
+        default:
+            translatable: true
+            uploadable: true
+
+stof_doctrine_extensions:
+    default_locale: '%locale%'
+    orm:
+        default:
+            timestampable: true
+
+knp_menu:
+    twig:
+        template: menu\knp_dropdown.html.twig
+
+jms_i18n_routing:
+    default_locale: '%locale%'
+    locales: [pl, en]
+    strategy: prefix
+
+ivory_ck_editor:
+    input_sync: true

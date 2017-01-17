@@ -8,7 +8,7 @@ use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 
 class Chapter
 {
-    use Traits\TranslatableTrait;
+    use Traits\TimestampableTrait, Traits\TranslatableTrait;
 
     /**
      * @var integer

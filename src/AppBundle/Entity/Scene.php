@@ -7,7 +7,7 @@ use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 
 class Scene
 {
-    use Traits\TranslatableTrait;
+    use Traits\TimestampableTrait, Traits\TranslatableTrait;
 
     /**
      * @var integer

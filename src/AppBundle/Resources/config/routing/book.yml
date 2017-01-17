@@ -1,12 +1,12 @@
 ---
 app_book_new:
-    path: /new
-    defaults: { _controller: app.controller.book:newAction }
+    path: /new/{page}
+    defaults: { _controller: app.controller.book:newAction, page: 1 }
     methods:  [GET, POST]
 
 app_book_edit:
-    path: /edit/{id}
-    defaults: { _controller: app.controller.book:editAction }
+    path: /edit/{id}/{page}
+    defaults: { _controller: app.controller.book:editAction, page: 1 }
     methods:  [GET, POST]
 
 app_book_list:

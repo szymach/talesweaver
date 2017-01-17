@@ -6,6 +6,14 @@ AppBundle\Entity\Scene:
         id:
             type: integer
             generator: { strategy: AUTO }
+    fields:
+        createdAt:
+            type: datetime
+            gedmo: { timestampable: { on: create } }
+        updatedAt:
+            type: datetime
+            nullable: true
+            gedmo: { timestampable: { on: update } }
     oneToMany:
         translations:
             targetEntity: AppBundle\Entity\Translation\SceneTranslation
@@ -17,7 +25,7 @@ AppBundle\Entity\Scene:
             targetEntity: AppBundle\Entity\Chapter
             inversedBy: scenes
             joinColumn:
-                onDelete: "SET NULL"
+                onDelete: "CASCADE"
     manyToMany:
         characters:
             targetEntity: AppBundle\Entity\Character

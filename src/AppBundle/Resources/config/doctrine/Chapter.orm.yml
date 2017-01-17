@@ -6,6 +6,14 @@ AppBundle\Entity\Chapter:
         id:
             type: integer
             generator: { strategy: AUTO }
+    fields:
+        createdAt:
+            type: datetime
+            gedmo: { timestampable: { on: create } }
+        updatedAt:
+            type: datetime
+            nullable: true
+            gedmo: { timestampable: { on: create } }
     oneToMany:
         scenes:
             targetEntity: AppBundle\Entity\Scene
@@ -21,4 +29,4 @@ AppBundle\Entity\Chapter:
             targetEntity: AppBundle\Entity\Book
             inversedBy: chapters
             joinColumn:
-                onDelete: "SET NULL"
+                onDelete: "CASCADE"
