@@ -87,7 +87,7 @@ tag:
 
 # Front
 dashboard:
-    recently_added: 'Ostatnio dodane:'
+    header: Bajkopisarz
     books: Książki
     chapters: Rozdziały
     scenes: Sceny
