@@ -13,7 +13,8 @@ book:
     title: Tytuł
     description: Opis (publiczny)
     chapters: Rozdziały
-    create: Nowa
+    actions:
+        create: Nowa
     header:
         new: Nowa książka
     back:
@@ -29,9 +30,8 @@ chapter:
     title: Tytuł
     scenes: Sceny
     book: Książka
-    add: Nowy rozdział
-    chapters: Rozdziały
-    create: Nowy
+    actions:
+        create: Nowy
     header:
         new: Nowy rozdział
     back:
@@ -46,7 +46,8 @@ scene:
     text: Treść
     chapter: Rozdział
     book: Książka
-    create: Nowa
+    actions:
+        create: Nowa
     header:
         new: Nowa scena
     back:
@@ -62,43 +63,40 @@ character:
     name: Imię
     description: Opis
     avatar: Zdjęcie
-    add_to_scene: 'Dodaj do sceny "%scene%"'
-    create: Nowa postać
-    existing: Dodaj postać z innej sceny
+    actions:
+        add_to_scene: 'Dodaj do sceny "%scene%"'
+        create: Nowa postać
+        add_existing: Dodaj postać z innej sceny
     header:
         new: Nowa postać
         edit: Edycja postaci
         related: Dodawanie istniejącej postaci
-    display:
-        title: '%name% - Karta postaci'
 
 item:
     name: Nazwa
     description: Opis
     avatar: Zdjęcie
-    create: Nowy przedmiot
-    existing: Dodaj miejsce z innej sceny
-    add_to_scene: 'Dodaj do sceny "%scene%"'
+    actions:
+        create: Nowy przedmiot
+        add_existing: Dodaj przedmiot z innej sceny
+        add_to_scene: 'Dodaj do sceny "%scene%"'
     header:
         new: Nowy przedmiot
         edit: Edycja przedmiotu
         related: Dodawanie istniejącego przedmiotu
-    display:
-        title: '%name% - Karta przedmiotu'
 
 location:
     name: Nazwa
     description: Opis
     avatar: Zdjęcie
-    create: Nowe miejsce
-    existing: Dodaj postać z innej sceny
-    add_to_scene: 'Dodaj do sceny "%scene%"'
+    actions:
+        create: Nowe miejsce
+        add_existing: Dodaj miejsce z innej sceny
+        add_to_scene: 'Dodaj do sceny "%scene%"'
     header:
         new: Nowe miejsce
         edit: Edycja miejsca
         related: Dodawanie istniejącej miejsca
-    display:
-        title: '%name% - Karta miejsca'
 
 tag:
     add: Dodaj znacznik

@@ -39,12 +39,12 @@
     <tfoot>
         <tr>
             <td colspan="2" class="text-right">
-                <button class="btn btn-success js-load-form" title="{{ 'character.create' | trans }}">
+                <button class="btn btn-success js-load-form" title="{{ 'character.actions.create' | trans }}">
                     <span class="fa fa-plus"></span>
                 </button>
                 {% if scene.chapter %}
                     <button class="btn btn-default js-load-sublist"
-                            title="{{ 'character.existing' | trans }}"
+                            title="{{ 'character.actions.add_existing' | trans }}"
                             data-list-url="{{ path('app_character_related', { id: scene.id }) }}"
                     >
                         <span class="fa fa-user-o"></span>
