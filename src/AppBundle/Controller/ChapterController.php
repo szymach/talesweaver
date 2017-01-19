@@ -9,6 +9,7 @@ use AppBundle\Pagination\Aggregate\ChapterAggregate;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -78,7 +79,7 @@ class ChapterController
             [
                 'form' => $form->createView(),
                 'chapter' => $chapter,
-                'scenes' => $this->pagination->getScenesForChapter($chapter),
+                'scenes' => $this->pagination->getScenesForChapter($chapter, $page),
                 'page' => $page
             ]
         );
@@ -94,15 +95,29 @@ class ChapterController
 
     public function deleteAction(Chapter $chapter, $page)
     {
+        $bookId = $chapter->getBook() ? $chapter->getBook()->getId() : null;
         $this->manager->remove($chapter);
         $this->manager->flush();
 
-        $book = $chapter->getBook();
         return new RedirectResponse(
-            $book
-            ? $this->router->generate('app_book_edit', ['id' => $book->getId()])
+            $bookId
+            ? $this->router->generate('app_book_edit', ['id' => $bookId])
             : $this->router->generate('app_chapter_list', ['page' => $page])
         );
+    }
+
+    public function scenesListAction(Chapter $chapter, $page)
+    {
+        return new JsonResponse([
+            'list' => $this->templating->render(
+                'chapter/scenes/list.html.twig',
+                [
+                    'chapter' => $chapter,
+                    'scenes' => $this->pagination->getScenesForChapter($chapter, $page),
+                    'page' => $page
+                ]
+            )
+        ]);
     }
 
     private function handleChapterCreation(Request $request, Book $book = null)

@@ -111,7 +111,10 @@ class CharacterController
             [
                 'form' => $this->templating->render(
                     'partial\simpleForm.html.twig',
-                    ['form' => $form->createView(), 'h2Title' => 'character.header.edit']
+                    [
+                        'form' => $form->createView(),
+                        'h2Title' => 'character.header.edit'
+                    ]
                 )
             ],
             $result ? 200 : 400
@@ -120,7 +123,10 @@ class CharacterController
 
     public function listAction(Scene $scene, $page)
     {
-        return new JsonResponse(['list' => $this->renderForSceneList($scene, $page)]);
+        return new JsonResponse([
+            'list' => $this->renderForSceneList($scene, $page),
+            'page' => $page
+        ]);
     }
 
     /**

@@ -56,8 +56,8 @@ class ChapterAggregate
      * @param Chapter $chapter
      * @return Pagerfanta
      */
-    public function getScenesForChapter(Chapter $chapter)
+    public function getScenesForChapter(Chapter $chapter, $page)
     {
-        return $this->scenePaginator->getForChapterResults($chapter);
+        return $this->scenePaginator->getForChapterResults($chapter, $page);
     }
 }

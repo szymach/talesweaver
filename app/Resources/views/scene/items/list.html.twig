@@ -1,7 +1,17 @@
+<div class="row">
+    <div class="col-xs-12 text-right js-ajax-pagination" data-container="#items">
+        {% include 'partial/pagination.html.twig' with {
+            paginator: items,
+            route: 'app_item_list',
+            parameters: { id: scene.id } }
+        %}
+    </div>
+</div>
 <table class="table"
        data-form-url="{{ path('app_item_new', { id: scene.id }) }}"
        data-list-url="{{ path('app_item_list', { id: scene.id }) }}"
        id="item-list"
+       data-container="#items"
 >
     <thead>
         <tr>

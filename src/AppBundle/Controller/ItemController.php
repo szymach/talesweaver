@@ -126,7 +126,8 @@ class ItemController
                 'scene\items\list.html.twig',
                 [
                     'items' => $this->pagination->getForScene($scene, $page),
-                    'scene' => $scene
+                    'scene' => $scene,
+                    'page' => $page
                 ]
             )
         ]);

@@ -8,7 +8,6 @@ use AppBundle\Form\Scene\NewType;
 use AppBundle\Form\Scene\EditType;
 use AppBundle\Pagination\Aggregate\SceneAggregate;
 use Doctrine\Common\Persistence\ObjectManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -82,9 +81,9 @@ class SceneController
             'scene/form.html.twig',
             [
                 'form' => $form->createView(),
-                'characters' => $this->pagination->getCharactersForScene($scene),
-                'items' => $this->pagination->getItemsForScene($scene),
-                'locations' => $this->pagination->getLocationsForScene($scene),
+                'characters' => $this->pagination->getCharactersForScene($scene, 1),
+                'items' => $this->pagination->getItemsForScene($scene, 1),
+                'locations' => $this->pagination->getLocationsForScene($scene, 1),
                 'scene' => $scene
             ]
         );
@@ -100,13 +99,13 @@ class SceneController
 
     public function deleteAction(Scene $scene, $page)
     {
+        $chapterId = $scene->getChapter() ? $scene->getChapter()->getId() : null;
         $this->manager->remove($scene);
         $this->manager->flush();
 
-        $chapter = $scene->getChapter();
         return new RedirectResponse(
-            $chapter
-            ? $this->router->generate('app_chapter_edit', ['id' => $chapter->getId()])
+            $chapterId
+            ? $this->router->generate('app_chapter_edit', ['id' => $chapterId])
             : $this->router->generate('app_scene_list', ['page' => $page])
         );
     }

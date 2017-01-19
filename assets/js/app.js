@@ -38,7 +38,8 @@ $(document).ready(function() {
                     dataType: "json"
                 })
                 .success(function(response) {
-                    $this.parents('table').first().html(response.list);
+                    var $container = $($this.parents('table').first().data('container'));
+                    $container.html(response.list);
                     displaySuccessAlert();
                 });
             } else {
@@ -79,6 +80,23 @@ $(document).ready(function() {
         });
     });
 
+    $('main').on('click', '.js-ajax-pagination a', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        var $this = $(this);
+        $.ajax({
+            method: "GET",
+            url: $this.attr('href'),
+            dataType: "json"
+        })
+        .success(function(response) {
+            var $container = $($this.parents('.js-ajax-pagination').first().data('container'));
+            clearAjaxContainer();
+            $container.html(response.list);
+        });
+    });
+
     $('main').on('click', '.js-list-action', function (event) {
         event.preventDefault();
         event.stopPropagation();
@@ -91,7 +109,7 @@ $(document).ready(function() {
         })
         .success(function(response) {
             clearAjaxContainer();
-            $($this.data('list-id')).replaceWith(response.list);
+            $($this.data('list-id')).html(response.list);
             displaySuccessAlert();
         });
     });
@@ -118,31 +136,6 @@ function getForm(url, $listTable)
     });
 }
 
-function submitForm($form, $listTable)
-{
-    $.ajax({
-        method: "POST",
-        url: $form.attr('action'),
-        processData: false,
-        contentType: false,
-        data: new FormData($form[0])
-    })
-    .success(function() {
-        clearAjaxContainer();
-        refreshList($listTable);
-        displaySuccessAlert();
-    })
-    .error(function(xhr) {
-        clearAjaxContainer();
-        var response = JSON.parse(xhr.responseText);
-        if (typeof response.form !== 'undefined') {
-            displayAjaxContainerWithContent(response.form);
-            bindAjaxForm($listTable);
-        }
-        displayErrorAlert();
-    });
-}
-
 function refreshList($listTable)
 {
     $.ajax({
@@ -151,7 +144,8 @@ function refreshList($listTable)
         dataType: "json"
     })
     .success(function(response) {
-        $listTable.html(response.list);
+        var $container = $($listTable.data('container'));
+        $container.html(response.list);
     });
 }
 
@@ -175,6 +169,31 @@ function bindAjaxForm($listTable)
         if ($input.length) {
             $input.focus();
         }
+    });
+}
+
+function submitForm($form, $listTable)
+{
+    $.ajax({
+        method: "POST",
+        url: $form.attr('action'),
+        processData: false,
+        contentType: false,
+        data: new FormData($form[0])
+    })
+    .success(function() {
+        clearAjaxContainer();
+        refreshList($listTable);
+        displaySuccessAlert();
+    })
+    .error(function(xhr) {
+        clearAjaxContainer();
+        var response = JSON.parse(xhr.responseText);
+        if (typeof response.form !== 'undefined') {
+            displayAjaxContainerWithContent(response.form);
+            bindAjaxForm($listTable);
+        }
+        displayErrorAlert();
     });
 }
 

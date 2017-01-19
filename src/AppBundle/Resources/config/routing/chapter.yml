@@ -23,3 +23,9 @@ app_chapter_delete:
     path: /delete/{id}/{page}
     defaults: { _controller: app.controller.chapter:deleteAction, page: 1 }
     methods:  GET
+
+app_chapter_scenes_list:
+    path: /scenes/{id}/{page}
+    defaults: { _controller: app.controller.chapter:scenesListAction, page: 1 }
+    condition: "request.isXmlHttpRequest()"
+    methods:  GET
