@@ -6,6 +6,12 @@ AppBundle\Entity\Chapter:
         id:
             type: integer
             generator: { strategy: AUTO }
+    fields:
+        createdAt:
+            type: datetime
+        updatedAt:
+            type: datetime
+            nullable: true
     oneToMany:
         scenes:
             targetEntity: AppBundle\Entity\Scene
@@ -21,4 +27,4 @@ AppBundle\Entity\Chapter:
             targetEntity: AppBundle\Entity\Book
             inversedBy: chapters
             joinColumn:
-                onDelete: "SET NULL"
+                onDelete: "CASCADE"

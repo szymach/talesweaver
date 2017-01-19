@@ -46,35 +46,35 @@ class SceneAggregate
     /**
      * @return Pagerfanta
      */
-    public function getStandalone()
+    public function getStandalone($page)
     {
-        return $this->standalonePaginator->getResults();
+        return $this->standalonePaginator->getResults($page);
     }
 
     /**
      * @param Scene $scene
      * @return Pagerfanta
      */
-    public function getCharactersForScene(Scene $scene)
+    public function getCharactersForScene(Scene $scene, $page)
     {
-        return $this->characterPaginator->getForSceneResults($scene);
+        return $this->characterPaginator->getForSceneResults($scene, $page);
     }
 
     /**
      * @param Scene $scene
      * @return Pagerfanta
      */
-    public function getItemsForScene(Scene $scene)
+    public function getItemsForScene(Scene $scene, $page)
     {
-        return $this->itemPaginator->getForSceneResults($scene);
+        return $this->itemPaginator->getForSceneResults($scene, $page);
     }
 
     /**
      * @param Scene $scene
      * @return Pagerfanta
      */
-    public function getLocationsForScene(Scene $scene)
+    public function getLocationsForScene(Scene $scene, $page)
     {
-        return $this->locationPaginator->getForSceneResults($scene);
+        return $this->locationPaginator->getForSceneResults($scene, $page);
     }
 }

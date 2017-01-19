@@ -1,0 +1,8 @@
+{% if paginator.nbPages > 1 %}
+{{ pagerfanta(paginator, 'twitter_bootstrap3', {
+    prev_message: 'pagination.previous' | trans,
+    next_message: 'pagination.next' | trans,
+    routeName: route,
+    routeParams: parameters
+}) }}
+{% endif %}

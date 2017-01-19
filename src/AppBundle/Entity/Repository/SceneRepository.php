@@ -23,7 +23,8 @@ class SceneRepository extends TranslatableRepository
     public function findLatest($limit = 5)
     {
         return $this->createQueryBuilder('s')
-            ->orderBy('s.id', 'DESC')
+            ->orderBy('s.updatedAt', 'DESC')
+            ->addOrderBy('s.createdAt', 'DESC')
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult()

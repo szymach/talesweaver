@@ -1,6 +1,17 @@
+<div class="row">
+    <div class="col-xs-12 text-right js-ajax-pagination" data-container="#items">
+        {% include 'partial/pagination.html.twig' with {
+            paginator: items,
+            route: 'app_item_list',
+            parameters: { id: scene.id } }
+        %}
+    </div>
+</div>
 <table class="table"
        data-form-url="{{ path('app_item_new', { id: scene.id }) }}"
        data-list-url="{{ path('app_item_list', { id: scene.id }) }}"
+       id="item-list"
+       data-container="#items"
 >
     <thead>
         <tr>
@@ -38,9 +49,17 @@
     <tfoot>
         <tr>
             <td colspan="2" class="text-right">
-                <button class="btn btn-success js-load-form" title="{{ 'item.create' | trans }}">
+                <button class="btn btn-success js-load-form" title="{{ 'item.actions.create' | trans }}">
                     <span class="fa fa-plus"></span>
                 </button>
+                {% if scene.chapter %}
+                    <button class="btn btn-default js-load-sublist"
+                            title="{{ 'item.actions.add_existing' | trans }}"
+                            data-list-url="{{ path('app_item_related', { id: scene.id }) }}"
+                    >
+                        <span class="fa fa-user-o"></span>
+                    </button>
+                {% endif %}
             </td>
         </tr>
     </tfoot>

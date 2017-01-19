@@ -23,3 +23,13 @@ app_location_display:
     path: /display/{id}
     defaults: { _controller: app.controller.location:displayAction }
     methods:  GET
+
+app_location_related:
+    path: /related/{id}/{page}
+    defaults: { _controller: app.controller.location:relatedAction, page: 1 }
+    methods:  GET
+
+app_location_add_to_scene:
+    path: /add-to-scene/{scene_id}/{location_id}
+    defaults: { _controller: app.controller.location:addToSceneAction }
+    methods:  GET

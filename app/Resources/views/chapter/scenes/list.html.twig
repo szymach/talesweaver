@@ -1,3 +1,12 @@
+<div class="row">
+    <div class="col-xs-12 text-right js-ajax-pagination" data-container="#scenes">
+        {% include 'partial/pagination.html.twig' with {
+            paginator: scenes,
+            route: 'app_chapter_scenes_list',
+            parameters: { id: chapter.id, page: page } }
+        %}
+    </div>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -31,7 +40,7 @@
                     <td colspan="2" class="text-right">
                         <a class="btn btn-success"
                            href="{{ path('app_scene_new_assigned', { id: chapter.id }) }}"
-                           title="{{ 'crud.create' | trans }}"
+                           title="{{ 'scene.actions.create' | trans }}"
                         >
                             <span class="fa fa-plus"></span>
                         </a>

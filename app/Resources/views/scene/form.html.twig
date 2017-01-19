@@ -6,36 +6,43 @@
         redirectUri: chapter ? path('app_chapter_edit', { id: chapter.id }) : path('app_scene_list', { page: page|default(1) }),
         label: chapter ? 'scene.back.to_chapter' | trans : 'scene.back.to_list' | trans
     } %}
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active">
-            <a href="#basic" aria-controls="basic" role="tab" data-toggle="tab">
-                {{ 'scene.tabs.basic' | trans }}
-            </a>
-        </li>
-        {% if characters is defined %}
-            <li role="presentation">
-                <a href="#characters" aria-controls="characters" role="tab" data-toggle="tab">
-                    {{ 'scene.tabs.characters' | trans }}
-                </a>
-            </li>
-        {% endif %}
-        {% if items is defined %}
-            <li role="presentation">
-                <a href="#items" aria-controls="items" role="tab" data-toggle="tab">
-                    {{ 'scene.tabs.items' | trans }}
-                </a>
-            </li>
-        {% endif %}
-        {% if locations is defined %}
-            <li role="presentation">
-                <a href="#locations" aria-controls="locations" role="tab" data-toggle="tab">
-                    {{ 'scene.tabs.locations' | trans }}
-                </a>
-            </li>
-        {% endif %}
-    </ul>
+    <h1>
+        {%- if scene.title -%}
+            {{- scene.title }}
+        {%- else -%}
+           {{ 'scene.header.new' | trans }}
+        {%- endif -%}
+    </h1>
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-12 content-container">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#basic" aria-controls="basic" role="tab" data-toggle="tab">
+                        {{ 'scene.tabs.basic' | trans }}
+                    </a>
+                </li>
+                {% if characters is defined %}
+                    <li role="presentation">
+                        <a href="#characters" aria-controls="characters" role="tab" data-toggle="tab">
+                            {{ 'scene.tabs.characters' | trans }}
+                        </a>
+                    </li>
+                {% endif %}
+                {% if items is defined %}
+                    <li role="presentation">
+                        <a href="#items" aria-controls="items" role="tab" data-toggle="tab">
+                            {{ 'scene.tabs.items' | trans }}
+                        </a>
+                    </li>
+                {% endif %}
+                {% if locations is defined %}
+                    <li role="presentation">
+                        <a href="#locations" aria-controls="locations" role="tab" data-toggle="tab">
+                            {{ 'scene.tabs.locations' | trans }}
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
             {{ form_start(form) }}
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane fade in active" id="basic">
@@ -64,10 +71,10 @@
                     {{ form_rest(form) }}
                 </div>
             {{ form_end(form) }}
-            <button id="clear-form" class="btn btn-danger pull-right" style="display: none;">
+            <div id="ajax-container"></div>
+            <button id="clear-ajax" class="btn btn-danger pull-right" style="display: none;">
                 <span class="fa fa-close"></span>
             </button>
-            <div id="form-container"></div>
         </div>
     </div>
 {% endblock %}

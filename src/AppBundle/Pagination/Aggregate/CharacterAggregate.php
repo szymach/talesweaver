@@ -21,8 +21,17 @@ class CharacterAggregate
      * @param Scene $forScene
      * @return Pagerfanta
      */
-    public function getForScene(Scene $forScene, $page)
+    public function getForScene(Scene $scene, $page)
     {
-        return $this->forScenePaginator->getForSceneResults($forScene, $page);
+        return $this->forScenePaginator->getForSceneResults($scene, $page);
+    }
+
+    /**
+     * @param Scene $forScene
+     * @return Pagerfanta
+     */
+    public function getRelated(Scene $scene, $page)
+    {
+        return $this->forScenePaginator->getRelatedResults($scene, $page);
     }
 }

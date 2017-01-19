@@ -2,12 +2,13 @@
 
 namespace AppBundle\Entity;
 
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 
 class Scene
 {
-    use Traits\TranslatableTrait;
+    use Traits\TimestampableTrait, Traits\TranslatableTrait;
 
     /**
      * @var integer
@@ -52,6 +53,7 @@ class Scene
         $this->items = new ArrayCollection();
         $this->locations = new ArrayCollection();
         $this->translations = new ArrayCollection();
+        $this->createdAt = new DateTimeImmutable();
     }
 
     public function __toString()
@@ -73,6 +75,7 @@ class Scene
     public function setTitle($title)
     {
         $this->title = $title;
+        $this->update();
     }
 
     /**
@@ -89,6 +92,7 @@ class Scene
     public function setText($text)
     {
         $this->text = $text;
+        $this->update();
     }
 
     /**
@@ -105,6 +109,7 @@ class Scene
     public function setChapter(Chapter $chapter = null)
     {
         $this->chapter = $chapter;
+        $this->update();
     }
 
     /**
@@ -136,6 +141,7 @@ class Scene
         if (!$this->characters->contains($character)) {
             $character->addScene($this);
             $this->characters[] = $character;
+            $this->update();
         }
     }
 
@@ -145,6 +151,7 @@ class Scene
     public function removeCharacter(Scene $character)
     {
         $this->characters->removeElement($character);
+        $this->update();
     }
 
     /**
@@ -163,6 +170,7 @@ class Scene
         if (!$this->locations->contains($location)) {
             $location->addScene($this);
             $this->locations[] = $location;
+            $this->update();
         }
     }
 
@@ -172,6 +180,7 @@ class Scene
     public function removeLocation(Scene $location)
     {
         $this->locations->removeElement($location);
+        $this->update();
     }
 
     /**
@@ -190,6 +199,7 @@ class Scene
         if (!$this->items->contains($item)) {
             $item->addScene($this);
             $this->items[] = $item;
+            $this->update();
         }
     }
 
@@ -199,6 +209,7 @@ class Scene
     public function removeItem(Scene $item)
     {
         $this->items->removeElement($item);
+        $this->update();
     }
 
     /**

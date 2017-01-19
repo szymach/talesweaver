@@ -13,7 +13,10 @@ book:
     title: Tytuł
     description: Opis (publiczny)
     chapters: Rozdziały
-    create: Nowa
+    actions:
+        create: Nowa
+    header:
+        new: Nowa książka
     back:
         to_list: Wróć do listy
     tabs:
@@ -27,9 +30,10 @@ chapter:
     title: Tytuł
     scenes: Sceny
     book: Książka
-    add: Nowy rozdział
-    chapters: Rozdziały
-    create: Nowy
+    actions:
+        create: Nowy
+    header:
+        new: Nowy rozdział
     back:
         to_book: Wróć do książki
         to_list: Wróć do listy
@@ -42,7 +46,10 @@ scene:
     text: Treść
     chapter: Rozdział
     book: Książka
-    create: Nowa
+    actions:
+        create: Nowa
+    header:
+        new: Nowa scena
     back:
         to_chapter: Wróć do rozdziału
         to_list: Wróć do listy
@@ -55,33 +62,48 @@ scene:
 character:
     name: Imię
     description: Opis
-    create: Nowa postać
     avatar: Zdjęcie
-    display:
-        title: '%name% - Karta postaci'
+    actions:
+        add_to_scene: 'Dodaj do sceny "%scene%"'
+        create: Nowa postać
+        add_existing: Dodaj postać z innej sceny
+    header:
+        new: Nowa postać
+        edit: Edycja postaci
+        related: Dodawanie istniejącej postaci
 
 item:
     name: Nazwa
     description: Opis
-    create: Nowy przedmiot
     avatar: Zdjęcie
-    display:
-        title: '%name% - Karta przedmiotu'
+    actions:
+        create: Nowy przedmiot
+        add_existing: Dodaj przedmiot z innej sceny
+        add_to_scene: 'Dodaj do sceny "%scene%"'
+    header:
+        new: Nowy przedmiot
+        edit: Edycja przedmiotu
+        related: Dodawanie istniejącego przedmiotu
 
 location:
     name: Nazwa
     description: Opis
-    create: Nowe miejsce
     avatar: Zdjęcie
-    display:
-        title: '%name% - Karta miejsca'
+    actions:
+        create: Nowe miejsce
+        add_existing: Dodaj miejsce z innej sceny
+        add_to_scene: 'Dodaj do sceny "%scene%"'
+    header:
+        new: Nowe miejsce
+        edit: Edycja miejsca
+        related: Dodawanie istniejącej miejsca
 
 tag:
     add: Dodaj znacznik
 
 # Front
 dashboard:
-    recently_added: 'Ostatnio dodane:'
+    header: Bajkopisarz
     books: Książki
     chapters: Rozdziały
     scenes: Sceny
@@ -102,3 +124,11 @@ modal:
 
 yes: Tak
 no: Nie
+
+alert:
+    success: Operacja wykonana pomyślnie!
+    error: Nastąpił błąd podczas wykonywania operacji!
+
+pagination:
+    previous: Poprzednia
+    next: Następna

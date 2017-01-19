@@ -18,11 +18,20 @@ class LocationAggregate
     }
 
     /**
+     * @param Scene $scene
+     * @return Pagerfanta
+     */
+    public function getForScene(Scene $scene, $page)
+    {
+        return $this->forScenePaginator->getForSceneResults($scene, $page);
+    }
+
+    /**
      * @param Scene $forScene
      * @return Pagerfanta
      */
-    public function getForScene(Scene $scene)
+    public function getRelated(Scene $scene, $page)
     {
-        return $this->forScenePaginator->getForSceneResults($scene, $page);
+        return $this->forScenePaginator->getRelatedResults($scene, $page);
     }
 }

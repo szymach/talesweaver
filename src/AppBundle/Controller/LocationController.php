@@ -67,20 +67,30 @@ class LocationController
                 'id' => $scene->getId()
             ])
         ]);
+        $result = true;
         $form->handleRequest($request);
         if ($form->isValid()) {
             $data = $form->getData();
             $scene->addLocation($data);
             $this->manager->persist($data);
             $this->manager->flush();
+        } elseif ($form->isSubmitted()) {
+            $result = false;
         }
 
-        return new JsonResponse([
-            'form' => $this->templating->render(
-                'partial\simpleForm.html.twig',
-                ['form' => $form->createView(), 'scene' => $scene]
-            )
-        ]);
+        return new JsonResponse(
+            [
+                'form' => $this->templating->render(
+                    'partial\simpleForm.html.twig',
+                    [
+                        'form' => $form->createView(),
+                        'scene' => $scene,
+                        'h2Title' => 'location.header.new'
+                    ]
+                )
+            ],
+            $result ? 200 : 400
+        );
     }
 
     public function editAction(Request $request, Location $location)
@@ -90,17 +100,23 @@ class LocationController
                 'id' => $location->getId()
             ])
         ]);
+        $result = true;
         $form->handleRequest($request);
         if ($form->isValid()) {
             $this->manager->flush();
+        } elseif ($form->isSubmitted()) {
+            $result = false;
         }
 
-        return new JsonResponse([
-            'form' => $this->templating->render(
-                'partial\simpleForm.html.twig',
-                ['form' => $form->createView()]
-            )
-        ]);
+        return new JsonResponse(
+            [
+                'form' => $this->templating->render(
+                    'partial\simpleForm.html.twig',
+                    ['form' => $form->createView(), 'h2Title' => 'location.header.edit']
+                )
+            ],
+            $result ? 200 : 400
+        );
     }
 
     public function listAction(Scene $scene, $page)
@@ -144,6 +160,46 @@ class LocationController
                 ['location' => $location]
             )
         ]);
+    }
+
+    public function relatedAction(Scene $scene, $page)
+    {
+        return new JsonResponse([
+            'list' => $this->templating->render(
+                'scene\locations\relatedList.html.twig',
+                [
+                    'locations' => $this->pagination->getRelated($scene, $page),
+                    'scene' => $scene
+                ]
+            )
+        ]);
+    }
+
+    /**
+     * @ParamConverter("scene", options={"id" = "scene_id"})
+     * @ParamConverter("location", options={"id" = "location_id"})
+     */
+    public function addToSceneAction(Scene $scene, Location $location)
+    {
+        $scene->addLocation($location);
+        $this->manager->flush();
+        return new JsonResponse(['list' => $this->renderForSceneList($scene, 1)]);
+    }
+
+    /**
+     * @param Scene $scene
+     * @param type $page
+     * @return string
+     */
+    private function renderForSceneList(Scene $scene, $page) : string
+    {
+        return $this->templating->render(
+            'scene\locations\list.html.twig',
+            [
+                'locations' => $this->pagination->getForScene($scene, $page),
+                'scene' => $scene
+            ]
+        );
     }
 
     /**

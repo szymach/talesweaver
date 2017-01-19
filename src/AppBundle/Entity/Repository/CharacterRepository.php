@@ -14,4 +14,14 @@ class CharacterRepository extends TranslatableRepository implements ForSceneRepo
             ->setParameter('scene', $scene)
         ;
     }
+
+    public function createRelatedQueryBuilder(Scene $scene) : QueryBuilder
+    {
+        return $this->createTranslatableQueryBuilder('c')
+            ->join('c.scenes', 's')
+            ->join('s.chapter', 'ch')
+            ->andWhere(':scene NOT MEMBER OF c.scenes')
+            ->setParameter('scene', $scene)
+        ;
+    }
 }

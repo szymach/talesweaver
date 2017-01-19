@@ -8,6 +8,7 @@ use AppBundle\Pagination\Aggregate\BookAggregate;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -88,7 +89,7 @@ class BookController
             [
                 'form' => $form->createView(),
                 'book' => $book,
-                'chapters' => $this->pagination->getChaptersForBook($book),
+                'chapters' => $this->pagination->getChaptersForBook($book, $page),
                 'page' => $page
             ]
         );
@@ -110,6 +111,20 @@ class BookController
         return new RedirectResponse(
             $this->router->generate('app_book_list', ['page' => $page])
         );
+    }
+
+    public function chapterListAction(Book $book, $page)
+    {
+        return new JsonResponse([
+            'list' => $this->templating->render(
+                'book/chapters/list.html.twig',
+                [
+                    'book' => $book,
+                    'chapters' => $this->pagination->getChaptersForBook($book, $page),
+                    'page' => $page
+                ]
+            )
+        ]);
     }
 
     /**

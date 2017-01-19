@@ -11,6 +11,11 @@ AppBundle\Entity\Location:
             type: text
             nullable: true
             fsi: { uploadable: { targetField: avatar } }
+        createdAt:
+            type: datetime
+        updatedAt:
+            type: datetime
+            nullable: true
     oneToMany:
         translations:
             targetEntity: AppBundle\Entity\Translation\LocationTranslation

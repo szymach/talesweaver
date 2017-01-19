@@ -6,6 +6,12 @@ AppBundle\Entity\Book:
         id:
             type: integer
             generator: { strategy: AUTO }
+    fields:
+        createdAt:
+            type: datetime
+        updatedAt:
+            type: datetime
+            nullable: true
     oneToMany:
         chapters:
             targetEntity: AppBundle\Entity\Chapter

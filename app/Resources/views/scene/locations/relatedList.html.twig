@@ -1,0 +1,25 @@
+<h2>{{ 'location.header.related' | trans }}</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>{{ 'location.name' | trans }}</th>
+            <th>{{ 'crud.actions' | trans }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for location in locations %}
+            <tr>
+                <td>{{ location }}</td>
+                <td>
+                    <button class="btn btn-success js-list-action"
+                        data-action-url="{{ path('app_location_add_to_scene', { scene_id: scene.id, location_id: location.id }) }}"
+                        data-list-id="#locations"
+                        title="{{ 'location.actions.add_to_scene' | trans({ '%scene%': scene }) }}"
+                    >
+                        <span class="fa fa-plus"></span>
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

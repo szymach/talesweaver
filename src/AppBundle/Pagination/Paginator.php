@@ -16,8 +16,8 @@ abstract class Paginator implements PaginatorInterface
     public function getResults(int $page = 1, int $maxPerPage = 10) : Pagerfanta
     {
         $pager = new Pagerfanta(new DoctrineORMAdapter($this->getQueryBuilder()));
-        $pager->setCurrentPage($page);
         $pager->setMaxPerPage($maxPerPage);
+        $pager->setCurrentPage($page);
 
         return $pager;
     }

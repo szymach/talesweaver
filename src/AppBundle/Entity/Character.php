@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
@@ -11,7 +12,7 @@ use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
  */
 class Character
 {
-    use Traits\AvatarTrait, Traits\TranslatableTrait;
+    use Traits\AvatarTrait, Traits\TimestampableTrait, Traits\TranslatableTrait;
 
     /**
      * @var integer
@@ -39,6 +40,7 @@ class Character
     {
         $this->translations = new ArrayCollection();
         $this->scenes = new ArrayCollection();
+        $this->createdAt = new DateTimeImmutable();
     }
 
     public function __toString()
@@ -60,6 +62,7 @@ class Character
     public function setName($name)
     {
         $this->name = $name;
+        $this->update();
     }
 
     /**
@@ -76,6 +79,7 @@ class Character
     public function setDescription($description)
     {
         $this->description = $description;
+        $this->update();
     }
 
     /**
@@ -93,6 +97,7 @@ class Character
     {
         if (!$this->scenes->contains($scene)) {
             $this->scenes[] = $scene;
+            $this->update();
         }
     }
 
@@ -102,6 +107,7 @@ class Character
     public function removeScene(Scene $scene)
     {
         $this->scenes->removeElement($scene);
+        $this->update();
     }
 
     /**

@@ -22,7 +22,8 @@ class ChapterRepository extends TranslatableRepository
     public function findLatest($limit = 5)
     {
         return $this->createQueryBuilder('c')
-            ->orderBy('c.id', 'DESC')
+            ->orderBy('c.updatedAt', 'DESC')
+            ->addOrderBy('c.createdAt', 'DESC')
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult()

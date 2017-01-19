@@ -66,20 +66,30 @@ class CharacterController
                 'id' => $scene->getId()
             ])
         ]);
+        $result = true;
         $form->handleRequest($request);
         if ($form->isValid()) {
             $data = $form->getData();
             $scene->addCharacter($data);
             $this->manager->persist($data);
             $this->manager->flush();
+        } elseif ($form->isSubmitted()) {
+            $result = false;
         }
 
-        return new JsonResponse([
-            'form' => $this->templating->render(
-                'partial\simpleForm.html.twig',
-                ['form' => $form->createView(), 'scene' => $scene]
-            )
-        ]);
+        return new JsonResponse(
+            [
+                'form' => $this->templating->render(
+                    'partial\simpleForm.html.twig',
+                    [
+                        'form' => $form->createView(),
+                        'scene' => $scene,
+                        'h2Title' => 'character.header.new'
+                    ]
+                )
+            ],
+            $result ? 200 : 400
+        );
     }
 
     public function editAction(Request $request, Character $character)
@@ -89,29 +99,33 @@ class CharacterController
                 'id' => $character->getId()
             ])
         ]);
+        $result = true;
         $form->handleRequest($request);
         if ($form->isValid()) {
             $this->manager->flush();
+        } elseif ($form->isSubmitted()) {
+            $result = false;
         }
 
-        return new JsonResponse([
-            'form' => $this->templating->render(
-                'partial\simpleForm.html.twig',
-                ['form' => $form->createView()]
-            )
-        ]);
+        return new JsonResponse(
+            [
+                'form' => $this->templating->render(
+                    'partial\simpleForm.html.twig',
+                    [
+                        'form' => $form->createView(),
+                        'h2Title' => 'character.header.edit'
+                    ]
+                )
+            ],
+            $result ? 200 : 400
+        );
     }
 
     public function listAction(Scene $scene, $page)
     {
         return new JsonResponse([
-            'list' => $this->templating->render(
-                'scene\characters\list.html.twig',
-                [
-                    'characters' => $this->pagination->getForScene($scene, $page),
-                    'scene' => $scene
-                ]
-            )
+            'list' => $this->renderForSceneList($scene, $page),
+            'page' => $page
         ]);
     }
 
@@ -119,20 +133,12 @@ class CharacterController
      * @ParamConverter("scene", options={"id" = "scene_id"})
      * @ParamConverter("character", options={"id" = "character_id"})
      */
-    public function deleteAction(Scene $scene, Character $character, $page)
+    public function deleteAction(Character $character, Scene $scene, $page)
     {
         $this->manager->remove($character);
         $this->manager->flush();
 
-        return new JsonResponse([
-            'list' => $this->templating->render(
-                'scene\characters\list.html.twig',
-                [
-                    'characters' => $this->pagination->getForScene($scene, $page),
-                    'scene' => $scene
-                ]
-            )
-        ]);
+        return new JsonResponse(['list' => $this->renderForSceneList($scene, $page)]);
     }
 
     public function displayAction(Character $character)
@@ -143,6 +149,46 @@ class CharacterController
                 ['character' => $character]
             )
         ]);
+    }
+
+    public function relatedAction(Scene $scene, $page)
+    {
+        return new JsonResponse([
+            'list' => $this->templating->render(
+                'scene\characters\relatedList.html.twig',
+                [
+                    'characters' => $this->pagination->getRelated($scene, $page),
+                    'scene' => $scene
+                ]
+            )
+        ]);
+    }
+
+    /**
+     * @ParamConverter("scene", options={"id" = "scene_id"})
+     * @ParamConverter("character", options={"id" = "character_id"})
+     */
+    public function addToSceneAction(Scene $scene, Character $character)
+    {
+        $scene->addCharacter($character);
+        $this->manager->flush();
+        return new JsonResponse(['list' => $this->renderForSceneList($scene, 1)]);
+    }
+
+    /**
+     * @param Scene $scene
+     * @param type $page
+     * @return string
+     */
+    private function renderForSceneList(Scene $scene, $page) : string
+    {
+        return $this->templating->render(
+            'scene\characters\list.html.twig',
+            [
+                'characters' => $this->pagination->getForScene($scene, $page),
+                'scene' => $scene
+            ]
+        );
     }
 
     /**

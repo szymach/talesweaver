@@ -25,4 +25,13 @@ class ItemAggregate
     {
         return $this->forScenePaginator->getForSceneResults($scene, $page);
     }
+
+    /**
+     * @param Scene $forScene
+     * @return Pagerfanta
+     */
+    public function getRelated(Scene $scene, $page)
+    {
+        return $this->forScenePaginator->getRelatedResults($scene, $page);
+    }
 }

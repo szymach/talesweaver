@@ -1,12 +1,12 @@
 ---
 app_book_new:
-    path: /new
-    defaults: { _controller: app.controller.book:newAction }
+    path: /new/{page}
+    defaults: { _controller: app.controller.book:newAction, page: 1 }
     methods:  [GET, POST]
 
 app_book_edit:
-    path: /edit/{id}
-    defaults: { _controller: app.controller.book:editAction }
+    path: /edit/{id}/{page}
+    defaults: { _controller: app.controller.book:editAction, page: 1 }
     methods:  [GET, POST]
 
 app_book_list:
@@ -17,4 +17,10 @@ app_book_list:
 app_book_delete:
     path: /delete/{id}/{page}
     defaults: { _controller: app.controller.book:deleteAction, page: 1 }
+    methods:  GET
+
+app_book_chapter_list:
+    path: /chapters/{id}/{page}
+    defaults: { _controller: app.controller.book:chapterListAction, page: 1 }
+    condition: "request.isXmlHttpRequest()"
     methods:  GET

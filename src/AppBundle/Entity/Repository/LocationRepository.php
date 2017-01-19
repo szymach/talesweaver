@@ -14,4 +14,14 @@ class LocationRepository extends TranslatableRepository implements ForSceneRepos
             ->setParameter('scene', $scene)
         ;
     }
+
+    public function createRelatedQueryBuilder(Scene $scene) : QueryBuilder
+    {
+        return $this->createTranslatableQueryBuilder('l')
+            ->join('l.scenes', 's')
+            ->join('s.chapter', 'c')
+            ->andWhere(':scene NOT MEMBER OF l.scenes')
+            ->setParameter('scene', $scene)
+        ;
+    }
 }

@@ -1,0 +1,25 @@
+<h2>{{ 'item.header.related' | trans }}</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>{{ 'item.name' | trans }}</th>
+            <th>{{ 'crud.actions' | trans }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+            <tr>
+                <td>{{ item }}</td>
+                <td>
+                    <button class="btn btn-success js-list-action"
+                        data-action-url="{{ path('app_item_add_to_scene', { scene_id: scene.id, item_id: item.id }) }}"
+                        data-list-id="#items"
+                        title="{{ 'item.actions.add_to_scene' | trans({ '%scene%': scene }) }}"
+                    >
+                        <span class="fa fa-plus"></span>
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

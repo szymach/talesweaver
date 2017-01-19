@@ -39,8 +39,8 @@ class BookAggregate
      * @param Book $book
      * @return Pagerfanta
      */
-    public function getChaptersForBook(Book $book)
+    public function getChaptersForBook(Book $book, $page)
     {
-        return $this->chapterPaginator->getForBookResults($book);
+        return $this->chapterPaginator->getForBookResults($book, $page);
     }
 }

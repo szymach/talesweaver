@@ -1,3 +1,9 @@
+@import '_variables';
+
+.navbar-default .navbar-nav > li.current > a {
+    color: $brand-primary;
+}
+
 ul.dropdown-menu {
     border-radius: 0;
     border: none;
@@ -27,4 +33,30 @@ table:not(.dashboard) {
     right: 0;
     bottom: 0;
     z-index: 10000;
+}
+
+.content-container {
+    position: relative;
+
+    #ajax-container {
+        display: none;
+        background-color: $body-bg;
+        position: absolute;
+        top: 0;
+        left: 15px;
+        right: 15px;
+        min-height: 400px;
+        z-index: 10;
+
+        &.active {
+            display: block;
+        }
+    }
+
+    #clear-ajax {
+        position: absolute;
+        top: 25px;
+        right: 15px;
+        z-index: 11;
+    }
 }

@@ -3,5 +3,5 @@ AppBundle\Entity\Location:
     properties:
         avatar:
             - FSi\Bundle\DoctrineExtensionsBundle\Validator\Constraints\Image: ~
-        title:
+        name:
             - NotBlank: ~

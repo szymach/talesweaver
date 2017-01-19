@@ -2,6 +2,11 @@
 
 {% block body %}
     <div class="row">
+        <div class="col-xs-12 text-right">
+            {% include 'partial/pagination.html.twig' with { paginator: chapters } %}
+        </div>
+    </div>
+    <div class="row">
         <div class="col-xs-12">
             <table class="table">
                 <thead>
