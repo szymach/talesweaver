@@ -6,7 +6,7 @@ use AppBundle\Entity\Location;
 use AppBundle\Entity\Repository\LocationRepository;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Location\LocationType;
-use AppBundle\Pagination\Aggregate\LocationAggregate;
+use AppBundle\Pagination\LocationPaginator;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -37,7 +37,7 @@ class LocationController
     private $manager;
 
     /**
-     * @var LocationAggregate
+     * @var LocationPaginator
      */
     private $pagination;
 
@@ -50,7 +50,7 @@ class LocationController
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
         ObjectManager $manager,
-        LocationAggregate $pagination,
+        LocationPaginator $pagination,
         RouterInterface $router
     ) {
         $this->formFactory = $formFactory;

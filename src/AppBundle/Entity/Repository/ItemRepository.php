@@ -5,7 +5,7 @@ namespace AppBundle\Entity\Repository;
 use AppBundle\Entity\Scene;
 use Doctrine\ORM\QueryBuilder;
 
-class ItemRepository extends TranslatableRepository implements ForSceneRepositoryInterface
+class ItemRepository extends TranslatableRepository
 {
     public function createForSceneQueryBuilder(Scene $scene) : QueryBuilder
     {

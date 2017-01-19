@@ -6,7 +6,7 @@ use AppBundle\Entity\Chapter;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Scene\NewType;
 use AppBundle\Form\Scene\EditType;
-use AppBundle\Pagination\Aggregate\SceneAggregate;
+use AppBundle\Pagination\Scene\SceneAggregate;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;

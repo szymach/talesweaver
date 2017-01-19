@@ -6,7 +6,7 @@ use AppBundle\Entity\Item;
 use AppBundle\Entity\Repository\ItemRepository;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Item\ItemType;
-use AppBundle\Pagination\Aggregate\ItemAggregate;
+use AppBundle\Pagination\ItemPaginator;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -37,7 +37,7 @@ class ItemController
     private $manager;
 
     /**
-     * @var ItemAggregate
+     * @var ItemPaginator
      */
     private $pagination;
 
@@ -50,7 +50,7 @@ class ItemController
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
         ObjectManager $manager,
-        ItemAggregate $pagination,
+        ItemPaginator $pagination,
         RouterInterface $router
     ) {
         $this->formFactory = $formFactory;

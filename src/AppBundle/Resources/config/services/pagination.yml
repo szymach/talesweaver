@@ -1,86 +1,55 @@
 ---
 services:
-    # Aggregate
-    app.paginator.aggregate.book:
-        class: AppBundle\Pagination\Aggregate\BookAggregate
-        arguments:
-            - "@app.paginator.single.book.standalone"
-            - "@app.paginator.single.book.chapters"
-
-    app.paginator.aggregate.chapter:
-        class: AppBundle\Pagination\Aggregate\ChapterAggregate
-        arguments:
-            - "@app.paginator.single.chapter.standalone"
-            - "@app.paginator.single.chapter.for_book"
-            - "@app.paginator.single.chapter.scenes"
-
-    app.paginator.aggregate.character:
-        class: AppBundle\Pagination\Aggregate\CharacterAggregate
-        arguments:
-            - "@app.paginator.single.scene.character"
-
-    app.paginator.aggregate.item:
-        class: AppBundle\Pagination\Aggregate\ItemAggregate
-        arguments:
-            - "@app.paginator.single.scene.item"
-
-    app.paginator.aggregate.scene:
-        class: AppBundle\Pagination\Aggregate\SceneAggregate
-        arguments:
-            - "@app.paginator.single.scene.standalone"
-            - "@app.paginator.single.scene.character"
-            - "@app.paginator.single.scene.item"
-            - "@app.paginator.single.scene.location"
-
-    app.paginator.aggregate.location:
-        class: AppBundle\Pagination\Aggregate\LocationAggregate
-        arguments:
-            - "@app.paginator.single.scene.location"
-
     # Book
-    app.paginator.single.book.standalone:
-        class: AppBundle\Pagination\Book\StandalonePaginator
+    app.paginator.aggregate.book:
+        class: AppBundle\Pagination\Book\BookAggregate
+        arguments:
+            - "@app.paginator.book"
+            - "@app.paginator.chapter"
+
+    app.paginator.book:
+        class: AppBundle\Pagination\Book\BookPaginator
         arguments:
             - "@app.repository.book"
 
-    app.paginator.single.book.chapters:
-        class: AppBundle\Pagination\Book\ChapterPaginator
+    # Chapter
+    app.paginator.aggregate.chapter:
+        class: AppBundle\Pagination\Chapter\ChapterAggregate
+        arguments:
+            - "@app.paginator.chapter"
+            - "@app.paginator.scene"
+
+    app.paginator.chapter:
+        class: AppBundle\Pagination\Chapter\ChapterPaginator
         arguments:
             - "@app.repository.chapter"
-
-    # Chpater
-    app.paginator.single.chapter.standalone:
-        class: AppBundle\Pagination\Chapter\StandalonePaginator
-        arguments:
-            - "@app.repository.chapter"
-
-    app.paginator.single.chapter.for_book:
-        class: AppBundle\Pagination\Chapter\ForBookPaginator
-        arguments:
-            - "@app.repository.chapter"
-
-    app.paginator.single.chapter.scenes:
-        class: AppBundle\Pagination\Chapter\ScenePaginator
-        arguments:
-            - "@app.repository.scene"
 
     # Scene
-    app.paginator.single.scene.standalone:
-        class: AppBundle\Pagination\Scene\StandalonePaginator
+    app.paginator.aggregate.scene:
+        class: AppBundle\Pagination\Scene\SceneAggregate
+        arguments:
+            - "@app.paginator.scene"
+            - "@app.paginator.character"
+            - "@app.paginator.item"
+            - "@app.paginator.location"
+
+    app.paginator.scene:
+        class: AppBundle\Pagination\Scene\ScenePaginator
         arguments:
             - "@app.repository.scene"
 
-    app.paginator.single.scene.character:
-        class: AppBundle\Pagination\Scene\CharacterPaginator
+    # Character, Item, Location
+    app.paginator.character:
+        class: AppBundle\Pagination\CharacterPaginator
         arguments:
             - "@app.repository.character"
 
-    app.paginator.single.scene.item:
-        class: AppBundle\Pagination\Scene\ItemPaginator
+    app.paginator.item:
+        class: AppBundle\Pagination\ItemPaginator
         arguments:
             - "@app.repository.item"
 
-    app.paginator.single.scene.location:
-        class: AppBundle\Pagination\Scene\LocationPaginator
+    app.paginator.location:
+        class: AppBundle\Pagination\LocationPaginator
         arguments:
             - "@app.repository.location"

@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Character;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Character\CharacterType;
-use AppBundle\Pagination\Aggregate\CharacterAggregate;
+use AppBundle\Pagination\CharacterPaginator;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -36,7 +36,7 @@ class CharacterController
     private $manager;
 
     /**
-     * @var CharacterAggregate
+     * @var CharacterPaginator
      */
     private $pagination;
 
@@ -49,7 +49,7 @@ class CharacterController
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
         ObjectManager $manager,
-        CharacterAggregate $pagination,
+        CharacterPaginator $pagination,
         RouterInterface $router
     ) {
         $this->formFactory = $formFactory;

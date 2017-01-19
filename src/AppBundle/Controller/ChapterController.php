@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Book;
 use AppBundle\Entity\Chapter;
 use AppBundle\Form\Chapter\ChapterType;
-use AppBundle\Pagination\Aggregate\ChapterAggregate;
+use AppBundle\Pagination\Chapter\ChapterAggregate;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
