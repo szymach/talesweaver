@@ -17,11 +17,18 @@ class LocationRepository extends TranslatableRepository
 
     public function createRelatedQueryBuilder(Scene $scene) : QueryBuilder
     {
-        return $this->createTranslatableQueryBuilder('l')
-            ->join('l.scenes', 's')
-            ->join('s.chapter', 'c')
+        $qb = $this->createTranslatableQueryBuilder('l');
+        return $qb->leftJoin('l.scenes', 's')
+            ->andWhere(
+                $qb->expr()->andX(
+                    ':scene NOT MEMBER OF l.scenes',
+                    's.chapter = :chapter'
+                )
+            )
             ->andWhere(':scene NOT MEMBER OF l.scenes')
+            ->orWhere('s.id IS NULL')
             ->setParameter('scene', $scene)
+            ->setParameter('chapter', $scene->getChapter())
         ;
     }
 }

@@ -17,11 +17,18 @@ class ItemRepository extends TranslatableRepository
 
     public function createRelatedQueryBuilder(Scene $scene) : QueryBuilder
     {
-        return $this->createTranslatableQueryBuilder('i')
-            ->join('i.scenes', 's')
-            ->join('s.chapter', 'c')
+        $qb = $this->createTranslatableQueryBuilder('i');
+        return $qb->leftJoin('i.scenes', 's')
+            ->andWhere(
+                $qb->expr()->andX(
+                    ':scene NOT MEMBER OF i.scenes',
+                    's.chapter = :chapter'
+                )
+            )
             ->andWhere(':scene NOT MEMBER OF i.scenes')
+            ->orWhere('s.id IS NULL')
             ->setParameter('scene', $scene)
+            ->setParameter('chapter', $scene->getChapter())
         ;
     }
 }

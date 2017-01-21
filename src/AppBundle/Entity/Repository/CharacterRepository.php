@@ -17,11 +17,17 @@ class CharacterRepository extends TranslatableRepository
 
     public function createRelatedQueryBuilder(Scene $scene) : QueryBuilder
     {
-        return $this->createTranslatableQueryBuilder('c')
-            ->join('c.scenes', 's')
-            ->join('s.chapter', 'ch')
-            ->andWhere(':scene NOT MEMBER OF c.scenes')
+        $qb = $this->createTranslatableQueryBuilder('c');
+        return $qb->leftJoin('c.scenes', 's')
+            ->andWhere(
+                $qb->expr()->andX(
+                    ':scene NOT MEMBER OF c.scenes',
+                    's.chapter = :chapter'
+                )
+            )
+            ->orWhere('s.id IS NULL')
             ->setParameter('scene', $scene)
+            ->setParameter('chapter', $scene->getChapter())
         ;
     }
 }
