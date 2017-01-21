@@ -36,8 +36,14 @@
                     >
                         <span class="fa fa-eye"></span>
                     </button>
+                    <button class="js-list-delete js-delete btn btn-warning"
+                        data-delete-url="{{ path('app_character_remove_from_scene', { scene_id: scene.id, character_id: character.id, page: characters.currentPage }) }}"
+                        title="{{ 'crud.remove_from_scene' | trans }}"
+                    >
+                        <span class="fa fa-scissors"></span>
+                    </button>
                     <button class="js-list-delete js-delete btn btn-danger"
-                        data-delete-url="{{ path('app_character_delete', { scene_id: scene.id, character_id: character.id }) }}"
+                        data-delete-url="{{ path('app_character_delete', { scene_id: scene.id, character_id: character.id, page: characters.currentPage }) }}"
                         title="{{ 'crud.delete' | trans }}"
                     >
                         <span class="fa fa-trash"></span>

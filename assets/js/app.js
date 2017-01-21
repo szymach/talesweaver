@@ -215,7 +215,7 @@ function displaySuccessAlert()
     $('#error-alert').hide();
     var $alert = $('#success-alert');
     $alert.show();
-    window.setTimeout(function() { $alert.fadeOut(800, function () { $alert.alert('close') }); }, 5000);
+    window.setTimeout(function() { $alert.fadeOut(800); }, 5000);
 }
 
 function displayErrorAlert()

@@ -33,3 +33,8 @@ app_location_add_to_scene:
     path: /add-to-scene/{scene_id}/{location_id}
     defaults: { _controller: app.controller.location:addToSceneAction }
     methods:  GET
+
+app_location_remove_from_scene:
+    path: /remove-from-scene/{scene_id}/{location_id}/{page}
+    defaults: { _controller: app.controller.location:removeFromSceneAction }
+    methods:  GET

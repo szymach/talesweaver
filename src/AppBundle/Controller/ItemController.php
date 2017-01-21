@@ -153,6 +153,26 @@ class ItemController
         ]);
     }
 
+    /**
+     * @ParamConverter("scene", options={"id" = "scene_id"})
+     * @ParamConverter("item", options={"id" = "item_id"})
+     */
+    public function removeFromSceneAction(Scene $scene, Item $item, $page)
+    {
+        $scene->removeItem($item);
+        $this->manager->flush();
+
+        return new JsonResponse([
+            'list' => $this->templating->render(
+                'scene\items\list.html.twig',
+                [
+                    'items' => $this->pagination->getForScene($scene, $page),
+                    'scene' => $scene
+                ]
+            )
+        ]);
+    }
+
     public function displayAction(Item $item)
     {
         return new JsonResponse([

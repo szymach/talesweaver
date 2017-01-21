@@ -148,7 +148,7 @@ class Scene
     /**
      * @param Character $character
      */
-    public function removeCharacter(Scene $character)
+    public function removeCharacter(Character $character)
     {
         $this->characters->removeElement($character);
         $this->update();
@@ -177,7 +177,7 @@ class Scene
     /**
      * @param Location $location
      */
-    public function removeLocation(Scene $location)
+    public function removeLocation(Location $location)
     {
         $this->locations->removeElement($location);
         $this->update();
@@ -206,7 +206,7 @@ class Scene
     /**
      * @param Item $item
      */
-    public function removeItem(Scene $item)
+    public function removeItem(Item $item)
     {
         $this->items->removeElement($item);
         $this->update();

@@ -176,6 +176,26 @@ class CharacterController
     }
 
     /**
+     * @ParamConverter("scene", options={"id" = "scene_id"})
+     * @ParamConverter("character", options={"id" = "character_id"})
+     */
+    public function removeFromSceneAction(Scene $scene, Character $character, $page)
+    {
+        $scene->removeCharacter($character);
+        $this->manager->flush();
+
+        return new JsonResponse([
+            'list' => $this->templating->render(
+                'scene\characters\list.html.twig',
+                [
+                    'characters' => $this->pagination->getForScene($scene, $page),
+                    'scene' => $scene
+                ]
+            )
+        ]);
+    }
+
+    /**
      * @param Scene $scene
      * @param type $page
      * @return string

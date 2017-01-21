@@ -8,6 +8,7 @@ crud:
     create: Nowy
     delete: Usuń
     display: Podgląd
+    remove_from_scene: Usuń ze sceny
 
 book:
     title: Tytuł
