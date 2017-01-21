@@ -5,20 +5,44 @@
     <h4 class="modal-title">{{ character.name }}</h4>
 </div>
 <div class="modal-body">
-    {% if character.avatar %}
-        <div class="container-fluid">
-            <div class="row">
+    <div class="container-fluid">
+        <div class="row">
+            {% if character.avatar %}
                 <div class="col-xs-12 col-md-6">
                     <img class="img-responsive center-block" width="300" src="{{ fsi_file_url(character.avatar) }}" />
                 </div>
-                <div class="col-xs-12 col-md-6">
-                    {{ character.description|raw }}
-                </div>
+            {% endif %}
+            <div class="col-xs-12{% if character.avatar %} col-md-6{% endif %}">
+                {{ character.description|raw }}
             </div>
         </div>
-    {% else %}
-        {{ character.description|raw }}
-    {% endif %}
+        {% if character.items | length or character.locations | length %}
+            <div class="row">
+                {% if character.items | length %}
+                    <div class="col-xs-4">
+                        <h5>{{ 'character.items' | trans }}</h5>
+                        <hr/>
+                        <ul class="list-unstyled">
+                            {% for item in character.items %}
+                                <li>{{ item.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                {% if character.locations | length %}
+                    <div class="col-xs-4">
+                        <h5>{{ 'character.locations' | trans }}</h5>
+                        <hr/>
+                        <ul class="list-unstyled">
+                            {% for location in character.locations %}
+                                <li>{{ location.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">

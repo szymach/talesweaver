@@ -5,20 +5,44 @@
     <h4 class="modal-title">{{ item.name }}</h4>
 </div>
 <div class="modal-body">
-    {% if item.avatar %}
-        <div class="container-fluid">
-            <div class="row">
+    <div class="container-fluid">
+        <div class="row">
+            {% if item.avatar %}
                 <div class="col-xs-12 col-md-6">
                     <img class="img-responsive center-block" width="300" src="{{ fsi_file_url(item.avatar) }}" />
                 </div>
-                <div class="col-xs-12 col-md-6">
-                    {{ item.description|raw }}
-                </div>
+            {% endif %}
+            <div class="col-xs-12{% if item.avatar %} col-md-6{% endif %}">
+                {{ item.description|raw }}
             </div>
         </div>
-    {% else %}
-        {{ item.description|raw }}
-    {% endif %}
+        {% if item.characters | length %}
+            <div class="row">
+                {% if item.characters | length %}
+                    <div class="col-xs-4">
+                        <h5>{{ 'item.characters' | trans }}</h5>
+                        <hr/>
+                        <ul class="list-unstyled">
+                            {% for item in item.characters %}
+                                <li>{{ item.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                {% if item.locations | length %}
+                    <div class="col-xs-4">
+                        <h5>{{ 'item.locations' | trans }}</h5>
+                        <hr/>
+                        <ul class="list-unstyled">
+                            {% for location in item.locations %}
+                                <li>{{ location.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">

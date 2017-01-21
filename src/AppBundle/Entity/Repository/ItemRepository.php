@@ -31,4 +31,13 @@ class ItemRepository extends TranslatableRepository
             ->setParameter('chapter', $scene->getChapter())
         ;
     }
+
+    public function createRelatedToScenesQueryBuilder(array $scenes) : QueryBuilder
+    {
+        return $this->createTranslatableQueryBuilder('i')
+            ->join('i.scenes', 's')
+            ->andWhere(':scenes MEMBER OF i.scenes')
+            ->setParameter('scenes', $scenes)
+        ;
+    }
 }

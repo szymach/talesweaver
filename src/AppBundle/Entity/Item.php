@@ -38,10 +38,22 @@ class Item
      */
     private $scenes;
 
+    /**
+     * @var Collection
+     */
+    private $characters;
+
+    /**
+     * @var Collection
+     */
+    private $locations;
+
     public function __construct()
     {
         $this->translations = new ArrayCollection();
         $this->scenes = new ArrayCollection();
+        $this->characters = new ArrayCollection();
+        $this->locations = new ArrayCollection();
         $this->createdAt = new DateTimeImmutable();
     }
 
@@ -120,5 +132,21 @@ class Item
     public function getScenes()
     {
         return $this->scenes;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCharacters()
+    {
+        return $this->characters;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getLocations()
+    {
+        return $this->locations;
     }
 }

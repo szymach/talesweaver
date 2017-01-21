@@ -36,10 +36,22 @@ class Character
      */
     private $scenes;
 
+    /**
+     * @var Collection
+     */
+    private $items;
+
+    /**
+     * @var Collection
+     */
+    private $locations;
+
     public function __construct()
     {
         $this->translations = new ArrayCollection();
         $this->scenes = new ArrayCollection();
+        $this->items = new ArrayCollection();
+        $this->locations = new ArrayCollection();
         $this->createdAt = new DateTimeImmutable();
     }
 
@@ -116,5 +128,61 @@ class Character
     public function getScenes()
     {
         return $this->scenes;
+    }
+
+    /**
+     * @param Item $item
+     */
+    public function addItem(Item $item)
+    {
+        if (!$this->items->contains($item)) {
+            $this->items[] = $item;
+            $this->update();
+        }
+    }
+
+    /**
+     * @param Item $item
+     */
+    public function removeItem(Item $item)
+    {
+        $this->items->removeElement($item);
+        $this->update();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     * @param Location $location
+     */
+    public function addLocation(Location $location)
+    {
+        if (!$this->locations->contains($location)) {
+            $this->locations[] = $location;
+            $this->update();
+        }
+    }
+
+    /**
+     * @param Location $location
+     */
+    public function removeLocation(Location $location)
+    {
+        $this->locations->removeElement($location);
+        $this->update();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getLocations()
+    {
+        return $this->locations;
     }
 }

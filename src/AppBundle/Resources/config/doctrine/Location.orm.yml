@@ -26,3 +26,9 @@ AppBundle\Entity\Location:
         scenes:
             targetEntity: AppBundle\Entity\Scene
             mappedBy: locations
+        characters:
+            targetEntity: AppBundle\Entity\Character
+            mappedBy: locations
+        items:
+            targetEntity: AppBundle\Entity\Item
+            inversedBy: locations

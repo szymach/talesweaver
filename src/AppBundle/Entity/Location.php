@@ -38,10 +38,21 @@ class Location
      */
     private $scenes;
 
+    /**
+     * @var Collection
+     */
+    private $characters;
+
+    /**
+     * @var Collection
+     */
+    private $items;
+
     public function __construct()
     {
         $this->translations = new ArrayCollection();
         $this->scenes = new ArrayCollection();
+        $this->items = new ArrayCollection();
         $this->createdAt = new DateTimeImmutable();
     }
 
@@ -118,5 +129,41 @@ class Location
     public function getScenes()
     {
         return $this->scenes;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCharacters()
+    {
+        return $this->characters;
+    }
+
+    /**
+     * @param Item $item
+     */
+    public function addItem(Item $item)
+    {
+        if (!$this->items->contains($item)) {
+            $this->items[] = $item;
+            $this->update();
+        }
+    }
+
+    /**
+     * @param Item $item
+     */
+    public function removeItem(Item $item)
+    {
+        $this->items->removeElement($item);
+        $this->update();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getItems()
+    {
+        return $this->items;
     }
 }
