@@ -4,6 +4,7 @@ cache:
   directories:
     - bin
     - vendor
+    - node_modules
 
 sudo: false
 
@@ -17,7 +18,7 @@ before_script:
   - chmod +x bin/console
 
 script:
-  - bin/phpcs --standard=PSR2 --encoding=UTF-8 src/
+  - bin/phpcs
   - bin/console doctrine:database:create --env=test
   - bin/console doctrine:schema:create --env=test
   - bin/console doctrine:schema:validate --env=test -n
