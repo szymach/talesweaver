@@ -29,3 +29,6 @@ AppBundle\Entity\Item:
         characters:
             targetEntity: AppBundle\Entity\Character
             mappedBy: items
+        locations:
+            targetEntity: AppBundle\Entity\Location
+            mappedBy: items
