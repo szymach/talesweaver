@@ -71,3 +71,21 @@ jms_i18n_routing:
 
 ivory_ck_editor:
     input_sync: true
+    default_config: my_config
+    configs:
+        my_config:
+            height: 1000
+            extraPlugins: "autosave,button,notification,toolbar"
+    plugins:
+        autosave:
+            path: "/ckeditor/plugins/autosave/"
+            filename: "plugin.js"
+        button:
+            path: "/ckeditor/plugins/button/"
+            filename: "plugin.js"
+        toolbar:
+            path: "/ckeditor/plugins/toolbar/"
+            filename: "plugin.js"
+        notification:
+            path: "/ckeditor/plugins/notification/"
+            filename: "plugin.js"
