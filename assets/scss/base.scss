@@ -62,3 +62,11 @@ table:not(.dashboard) {
         z-index: 11;
     }
 }
+
+.display {
+    text-align: justify;
+
+    & > p {
+        text-indent: 25px;
+    }
+}

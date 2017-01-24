@@ -64,3 +64,9 @@ services:
             - "@doctrine.orm.entity_manager"
             - "@app.paginator.location"
             - "@router"
+
+    # Display
+    app.controller.display:
+        class: AppBundle\Controller\DisplayController
+        arguments:
+            - "@templating"

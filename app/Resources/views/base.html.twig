@@ -12,9 +12,11 @@
         <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     </head>
     <body>
-        <nav class="navbar navbar-default">
-            <div class="container">{% block menu knp_menu_render('main') %}</div>
-        </nav>
+        {% block menuContainer %}
+            <nav class="navbar navbar-default">
+                <div class="container">{% block menu knp_menu_render('main') %}</div>
+            </nav>
+        {% endblock %}
         <main class="container">
             {% include 'partial/alerts.html.twig' %}
             {% block body '' %}

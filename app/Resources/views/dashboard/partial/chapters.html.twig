@@ -22,10 +22,12 @@
                         </a>
                     </td>
                     <td>
-                        <a href="{{ path('app_book_edit', { id: chapter.book.id }) }}">
-                            {{ chapter.book }}
-                            <span class="fa fa-edit"></span>
-                        </a>
+                        {% if chapter.book %}
+                            <a href="{{ path('app_book_edit', { id: chapter.book.id }) }}">
+                                {{ chapter.book }}
+                                <span class="fa fa-edit"></span>
+                            </a>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

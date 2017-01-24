@@ -2,17 +2,11 @@
 
 {% block body %}
     {% set chapter = scene.chapter %}
-    {% include 'partial/backButton.html.twig' with {
+    {% include 'scene/actions.html.twig' with {
         redirectUri: chapter ? path('app_chapter_edit', { id: chapter.id }) : path('app_scene_list', { page: page|default(1) }),
         label: chapter ? 'scene.back.to_chapter' | trans : 'scene.back.to_list' | trans
     } %}
-    <h1>
-        {%- if scene.title -%}
-            {{- scene.title }}
-        {%- else -%}
-           {{ 'scene.header.new' | trans }}
-        {%- endif -%}
-    </h1>
+    <h1>{{ scene.title ? scene.title : ('scene.header.new' | trans) }}</h1>
     <div class="row">
         <div class="col-xs-12 content-container">
             <ul class="nav nav-tabs" role="tablist">

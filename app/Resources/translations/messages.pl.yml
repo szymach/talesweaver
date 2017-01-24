@@ -138,3 +138,7 @@ alert:
 pagination:
     previous: Poprzednia
     next: Następna
+
+display:
+    go_to: Przejdź do strony z podglądem
+    label: Podgląd
