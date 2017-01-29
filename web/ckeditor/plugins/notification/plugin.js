@@ -610,21 +610,25 @@ Area.prototype = {
      */
     _layout: function () {
         var area = this.element,
-                editor = this.editor,
-                contentsRect = editor.ui.contentsElement.getClientRect(),
-                contentsPos = editor.ui.contentsElement.getDocumentPosition(),
-                top = editor.ui.space('top'),
-                topRect = top.getClientRect(),
-                areaRect = area.getClientRect(),
-                notification,
-                notificationWidth = this._notificationWidth,
-                notificationMargin = this._notificationMargin,
-                win = CKEDITOR.document.getWindow(),
-                scrollPos = win.getScrollPosition(),
-                viewRect = win.getViewPaneSize(),
-                body = CKEDITOR.document.getBody(),
-                bodyPos = body.getDocumentPosition(),
-                cssLength = CKEDITOR.tools.cssLength;
+            editor = this.editor,
+            contentsRect = editor.ui.contentsElement.getClientRect(),
+            contentsPos = editor.ui.contentsElement.getDocumentPosition(),
+            top = editor.ui.space('top')
+        ;
+        if (typeof top === 'undefined') {
+            return;
+        }
+        var topRect = top.getClientRect(),
+            areaRect = area.getClientRect(),
+            notification,
+            notificationWidth = this._notificationWidth,
+            notificationMargin = this._notificationMargin,
+            win = CKEDITOR.document.getWindow(),
+            scrollPos = win.getScrollPosition(),
+            viewRect = win.getViewPaneSize(),
+            body = CKEDITOR.document.getBody(),
+            bodyPos = body.getDocumentPosition(),
+            cssLength = CKEDITOR.tools.cssLength;
 
         // Cache for optimization
         if (!notificationWidth || !notificationMargin) {

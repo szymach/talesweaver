@@ -74,7 +74,7 @@ ivory_ck_editor:
     default_config: my_config
     configs:
         my_config:
-            height: 1000
+            height: 800
             extraPlugins: "autosave,button,notification,toolbar"
     plugins:
         autosave:

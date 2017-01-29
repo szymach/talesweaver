@@ -37,8 +37,13 @@ class LocationType extends AbstractType
         ]);
 
         $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
+            $data = $event->getData();
+            if (!$data) {
+                return;
+            }
+
             /* @var $scenes Collection */
-            $scenes = $event->getData()->getScenes();
+            $scenes = $data->getScenes();
             if (!count($scenes)) {
                 return;
             }
