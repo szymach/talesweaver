@@ -29,3 +29,8 @@ app_chapter_scenes_list:
     defaults: { _controller: app.controller.chapter:scenesListAction, page: 1 }
     condition: "request.isXmlHttpRequest()"
     methods:  GET
+
+app_chapter_display:
+    path: /display/{id}
+    defaults: { _controller: app.controller.display:chapterAction }
+    methods:  GET

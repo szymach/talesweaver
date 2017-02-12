@@ -10,13 +10,13 @@
     }
 
     CKEDITOR.plugins.add("autosave", {
-        lang: 'en,pl', // %REMOVE_LINE_CORE%
+        lang: 'pl,en', // %REMOVE_LINE_CORE%
         requires: 'notification',
         version: "0.17.1",
         init: function (editor) {
             // Default Config
             var defaultConfig = {
-                delay: 10,
+                delay: 50,
                 messageType: "notification",
                 saveDetectionSelectors: "a[href^='javascript:__doPostBack'][id*='Save'],a[id*='Cancel']",
                 saveOnDestroy: false,

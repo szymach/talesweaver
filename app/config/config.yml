@@ -74,7 +74,8 @@ ivory_ck_editor:
     default_config: my_config
     configs:
         my_config:
-            height: 800
+            disableNativeSpellChecker: false
+            height: 600
             extraPlugins: "autosave,button,notification,toolbar"
     plugins:
         autosave:

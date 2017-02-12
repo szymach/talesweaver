@@ -1,4 +1,14 @@
-@import '_variables';
+@import 'paper/_variables';
+@import 'sidemenu';
+
+body {
+    position: relative;
+    min-height: 900px;
+}
+
+main {
+    padding-bottom: 200px;
+}
 
 .navbar-default .navbar-nav > li.current > a {
     color: $brand-primary;
@@ -69,4 +79,8 @@ table:not(.dashboard) {
     & > p {
         text-indent: 25px;
     }
+}
+
+nav.navbar {
+    z-index: 100;
 }

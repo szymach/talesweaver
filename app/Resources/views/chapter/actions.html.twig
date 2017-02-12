@@ -1,0 +1,10 @@
+{% extends 'partial/backButton.html.twig' %}
+{% block additionalActions %}
+    {% if chapter.id %}
+        <a href="{{ path('app_chapter_display', { id: chapter.id }) }}" class="btn btn-default" target="_blank" title="{{ 'display.go_to' | trans }}">
+            <span class="fa fa-eye"></span>
+            {{ 'display.label' | trans }}
+        </a>
+    {% endif %}
+{% endblock %}
+

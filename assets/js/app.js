@@ -114,6 +114,10 @@ $(document).ready(function() {
         });
     });
 
+    $('main').on('click', '.side-menu', function () {
+        $('.side-menu').toggleClass('expanded');
+    });
+
     $('#clear-ajax').on('click', function() {
         showBackdrop();
         $('html, body').animate({ scrollTop: $("main").offset().top }, 500, function () {

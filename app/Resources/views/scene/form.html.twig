@@ -71,6 +71,32 @@
             </button>
         </div>
     </div>
+    <nav class="side-menu">
+        <ul>
+            {% if scene.chapter and scene.chapter.scenes | length %}
+                <li>
+                    <span class="fa fa-book"></span>
+                    <span class="h4">{{ chapter }}</span>
+                    <ul>
+                        {% for scene in scene.chapter.scenes %}
+                            <li><a href="{{ path('app_scene_edit', { id: scene.id }) }}">{{ scene }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endif %}
+            {% if scene.characters | length %}
+                <li>
+                    <span class="fa fa-user-o"></span>
+                    <span class="h4">Postacie</span>
+                    <ul>
+                        {% for character in scene.characters %}
+                            <li>{{ character }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
 {% endblock %}
 
 {% block modals %}

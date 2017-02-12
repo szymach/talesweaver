@@ -25,7 +25,6 @@ class CharacterRepository extends TranslatableRepository
                     's.chapter = :chapter'
                 )
             )
-            ->orWhere('s.id IS NULL')
             ->setParameter('scene', $scene)
             ->setParameter('chapter', $scene->getChapter())
         ;

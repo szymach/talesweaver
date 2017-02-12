@@ -2,7 +2,7 @@
 
 {% block body %}
     {% set book = chapter.book %}
-    {% include 'partial/backButton.html.twig' with {
+    {% include 'chapter/actions.html.twig' with {
         redirectUri: book ? path('app_book_edit', { id: book.id }) : path('app_chapter_list', { page: page|default(1) }),
         label: book ? 'chapter.back.to_book' | trans : 'chapter.back.to_list' | trans
     } %}
