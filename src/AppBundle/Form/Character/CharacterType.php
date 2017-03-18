@@ -35,6 +35,7 @@ class CharacterType extends AbstractType
 
         $builder->add('description', CKEditorType::class, [
             'label' => 'character.description',
+            'config_name' => 'small_size',
             'required' => false
         ]);
 

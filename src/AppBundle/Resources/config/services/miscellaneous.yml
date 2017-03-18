@@ -12,3 +12,9 @@ services:
         scope: request
         tags:
             - { name: knp_menu.menu, alias: main }
+
+    # Twig
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }

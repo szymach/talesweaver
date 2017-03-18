@@ -8,6 +8,7 @@ module.exports = {
         "bootstrap-loader",
         "./assets/scss/base.scss",
         "./assets/js/app.js",
+        "./assets/js/sidemenu.js",
         "./assets/js/tags.js"
     ],
     output: {

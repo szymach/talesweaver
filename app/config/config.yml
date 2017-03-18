@@ -71,8 +71,11 @@ jms_i18n_routing:
 
 ivory_ck_editor:
     input_sync: true
-    default_config: my_config
+    default_config: full_size
     configs:
-        my_config:
+        full_size:
             disableNativeSpellChecker: false
             height: 600
+        small_size:
+            disableNativeSpellChecker: false
+            height: 250

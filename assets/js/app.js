@@ -11,7 +11,7 @@ $(document).ready(function() {
         event.preventDefault();
         event.stopPropagation();
         var $this = $(this);
-        var $listTable = $this.parents('table').first();
+        var $listTable = $this.parents('.js-list').first();
         var url = $this.hasClass('js-edit-form')
             ? $this.data('form-url')
             : $listTable.data('form-url')
@@ -38,8 +38,7 @@ $(document).ready(function() {
                     dataType: "json"
                 })
                 .success(function(response) {
-                    var $container = $($this.parents('table').first().data('container'));
-                    $container.html(response.list);
+                    $this.parents('.js-list').first().replaceWith(response.list);
                     displaySuccessAlert();
                 });
             } else {
@@ -114,10 +113,6 @@ $(document).ready(function() {
         });
     });
 
-    $('main').on('click', '.side-menu', function () {
-        $('.side-menu').toggleClass('expanded');
-    });
-
     $('#clear-ajax').on('click', function() {
         showBackdrop();
         $('html, body').animate({ scrollTop: $("main").offset().top }, 500, function () {
@@ -148,8 +143,7 @@ function refreshList($listTable)
         dataType: "json"
     })
     .success(function(response) {
-        var $container = $($listTable.data('container'));
-        $container.html(response.list);
+        $listTable.replaceWith(response.list);
     });
 }
 
