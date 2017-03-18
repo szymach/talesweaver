@@ -24,7 +24,7 @@ module.exports = {
     ],
     module: {
         loaders: [
-            { test: /\.scss$/, loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader!postcss-loader!sass-loader'}) },
+            { test: /\.scss$/, loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader!postcss-loader!sass-loader'}) },
             { test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader" },
             { test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/, loader: 'file-loader' },
             { test: /bootstrap-sass\/assets\/javascripts\//, loader: 'imports-loader?jQuery=jquery' }

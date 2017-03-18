@@ -76,17 +76,3 @@ ivory_ck_editor:
         my_config:
             disableNativeSpellChecker: false
             height: 600
-            extraPlugins: "autosave,button,notification,toolbar"
-    plugins:
-        autosave:
-            path: "/ckeditor/plugins/autosave/"
-            filename: "plugin.js"
-        button:
-            path: "/ckeditor/plugins/button/"
-            filename: "plugin.js"
-        toolbar:
-            path: "/ckeditor/plugins/toolbar/"
-            filename: "plugin.js"
-        notification:
-            path: "/ckeditor/plugins/notification/"
-            filename: "plugin.js"
