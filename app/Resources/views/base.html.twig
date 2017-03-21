@@ -17,8 +17,10 @@
                 <div class="container">{% block menu knp_menu_render('main') %}</div>
             </nav>
         {% endblock %}
-        <main class="container">
+        <div class="container" style="position: relative;">
             {% include 'partial/alerts.html.twig' %}
+        </div>
+        <main class="container">
             {% block body '' %}
         </main>
         <footer>{% block footer '' %}</footer>
