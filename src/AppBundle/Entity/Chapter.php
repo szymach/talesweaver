@@ -32,8 +32,14 @@ class Chapter
      */
     private $scenes;
 
+    /**
+     * @var Collection
+     */
+    private $characters;
+
     public function __construct()
     {
+        $this->characters = new ArrayCollection();
         $this->scenes = new ArrayCollection();
         $this->translations = new ArrayCollection();
         $this->createdAt = new DateTimeImmutable();
@@ -99,6 +105,34 @@ class Chapter
     public function getScenes()
     {
         return $this->scenes;
+    }
+
+    /**
+     * @param Character $character
+     */
+    public function addCharacter(Character $character)
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters[] = $character;
+            $this->update();
+        }
+    }
+
+    /**
+     * @param Character $character
+     */
+    public function removeCharacter(Character $character)
+    {
+        $this->characters->removeElement($character);
+        $this->update();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCharacters()
+    {
+        return $this->characters;
     }
 
     /**

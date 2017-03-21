@@ -108,7 +108,7 @@ $(document).ready(function() {
         })
         .success(function(response) {
             clearAjaxContainer();
-            $($this.data('list-id')).html(response.list);
+            $($this.data('list-id')).replaceWith(response.list);
             displaySuccessAlert();
         });
     });

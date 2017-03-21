@@ -23,7 +23,13 @@ AppBundle\Entity\Character:
             mappedBy: character
             indexBy: locale
             cascade: [persist, remove]
+    manyToOne:
+        book:
+            targetEntity: AppBundle\Entity\Book
     manyToMany:
+        chapters:
+            targetEntity: AppBundle\Entity\Chapter
+            mappedBy: characters
         scenes:
             targetEntity: AppBundle\Entity\Scene
             mappedBy: characters

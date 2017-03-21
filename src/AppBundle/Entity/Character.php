@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use DomainException;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 
 /**
@@ -39,6 +40,16 @@ class Character
     /**
      * @var Collection
      */
+    private $chapters;
+
+    /**
+     * @var Book
+     */
+    private $book;
+
+    /**
+     * @var Collection
+     */
     private $items;
 
     /**
@@ -50,6 +61,7 @@ class Character
     {
         $this->translations = new ArrayCollection();
         $this->scenes = new ArrayCollection();
+        $this->chapters = new ArrayCollection();
         $this->items = new ArrayCollection();
         $this->locations = new ArrayCollection();
         $this->createdAt = new DateTimeImmutable();
@@ -108,7 +120,11 @@ class Character
     public function addScene(Scene $scene)
     {
         if (!$this->scenes->contains($scene)) {
+            $this->assertSceneForTheSameBook($scene);
             $this->scenes[] = $scene;
+            if ($scene->getChapter()) {
+                $this->addChapter($scene->getChapter());
+            }
             $this->update();
         }
     }
@@ -128,6 +144,49 @@ class Character
     public function getScenes()
     {
         return $this->scenes;
+    }
+
+    public function addChapter(Chapter $chapter)
+    {
+        if (!$this->chapters->contains($chapter)) {
+            $this->assertChapterFromTheSameBook($chapter);
+            $chapter->addCharacter($this);
+            $this->chapters[] = $chapter;
+            if ($chapter->getBook()) {
+                $this->setBook($chapter->getBook());
+            }
+            $this->update();
+        }
+    }
+
+    public function removeChapter(Chapter $chapter)
+    {
+        $this->chapters->removeElement($chapter);
+        $this->update();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getChapters()
+    {
+        return $this->chapters;
+    }
+
+    /**
+     * @return Book
+     */
+    public function getBook()
+    {
+        return $this->book;
+    }
+
+    /**
+     * @param Book $book
+     */
+    public function setBook(Book $book = null)
+    {
+        $this->book = $book;
     }
 
     /**
@@ -184,5 +243,50 @@ class Character
     public function getLocations()
     {
         return $this->locations;
+    }
+
+    private function assertSceneForTheSameBook(Scene $scene)
+    {
+        if (empty($this->scenes)) {
+            return;
+        }
+
+        $callback = function (Scene $currentScene) use ($scene) {
+            if ($currentScene->getChapter() && !$scene->getChapter()) {
+                throw new DomainException(sprintf(
+                    'Tried to assign scene "%s" without a chapter to character "%s"'
+                ));
+            }
+
+            if (!$currentScene->getChapter() && $scene->getChapter()) {
+                throw new DomainException(sprintf(
+                    'Tried to assign scene "%s" with a chapter to character "%s"'
+                ));
+            }
+        };
+
+        $this->scenes->map($callback);
+    }
+
+    private function assertChapterFromTheSameBook(Chapter $chapter)
+    {
+        if (!$this->book && !$chapter->getBook()) {
+            // No book to check
+            return;
+        }
+
+        if (!$this->book && $chapter->getBook()) {
+            // New book
+            return;
+        }
+
+        if ($this->book !== $chapter->getBook()) {
+            throw new DomainException(sprintf(
+                'Character "%s" is already assigned to book "%s", but tried to assign it to book "%s"',
+                $this->id,
+                $this->book->getId(),
+                $chapter->getBook()->getId()
+            ));
+        }
     }
 }

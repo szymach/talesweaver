@@ -22,6 +22,10 @@ AppBundle\Entity\Chapter:
             mappedBy: chapter
             indexBy: locale
             cascade: [persist, remove]
+    manyToMany:
+        characters:
+            targetEntity: AppBundle\Entity\Character
+            inversedBy: chapters
     manyToOne:
         book:
             targetEntity: AppBundle\Entity\Book

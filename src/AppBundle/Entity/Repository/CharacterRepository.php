@@ -25,6 +25,12 @@ class CharacterRepository extends TranslatableRepository
                     's.chapter = :chapter'
                 )
             )
+            ->orWhere(
+                $qb->expr()->andX(
+                    ':scene NOT MEMBER OF c.scenes',
+                    ':chapter MEMBER OF c.chapters'
+                )
+            )
             ->setParameter('scene', $scene)
             ->setParameter('chapter', $scene->getChapter())
         ;
