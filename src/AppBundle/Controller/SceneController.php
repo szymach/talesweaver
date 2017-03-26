@@ -73,7 +73,7 @@ class SceneController
     {
         $form = $this->getForm(EditType::class, $scene);
         $form->handleRequest($request);
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->manager->flush();
         }
 

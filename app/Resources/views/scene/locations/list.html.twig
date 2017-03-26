@@ -1,72 +1,54 @@
-<div class="row">
-    <div class="col-xs-12 text-right js-ajax-pagination" data-container="#locations">
-        {% include 'partial/pagination.html.twig' with {
-            paginator: locations,
-            route: 'app_location_list',
-            parameters: { id: scene.id } }
-        %}
-    </div>
-</div>
-<table class="table"
-       data-form-url="{{ path('app_location_new', { id: scene.id }) }}"
-       data-list-url="{{ path('app_location_list', { id: scene.id }) }}"
-       id="location-list"
-       data-container="#locations"
->
-    <thead>
-        <tr>
-            <th>{{ 'location.name' | trans }}</th>
-            <th>{{ 'crud.actions' | trans }}</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for location in locations %}
-            <tr>
-                <td>{{ location }}</td>
-                <td>
-                    <button class="js-load-form js-edit-form btn btn-primary"
+{% if scene.id %}
+    <li class="locations js-list"
+        data-form-url="{{ path('app_location_new', { id: scene.id }) }}"
+        data-list-url="{{ path('app_location_list', { id: scene.id }) }}"
+    >
+        <span class="fa fa-map logo-icon"></span>
+        <span class="h4">
+            {{ 'scene.tabs.locations' | trans }}
+            <button class="btn btn-sm btn-success js-load-form" title="{{ 'location.actions.create' | trans }}">
+                <span class="fa fa-plus"></span>
+            </button>
+            {% if scene.chapter %}
+                <button class="btn btn-sm btn-default js-load-sublist"
+                        title="{{ 'location.actions.add_existing' | trans }}"
+                        data-list-url="{{ path('app_location_related', { id: scene.id }) }}"
+                >
+                    <span class="fa fa-link"></span>
+                </button>
+            {% endif %}
+        </span>
+        <ul>
+            {% for location in scene.locations -%}
+                <li>
+                    <span class="sublist-label">{{ location | trim(15) }}</span>
+                    <button class="js-load-form js-edit-form btn btn-xs btn-primary"
                         data-form-url="{{ path('app_location_edit', { id: location.id }) }}"
                         title="{{ 'crud.edit' | trans }}"
                     >
                         <span class="fa fa-edit"></span>
                     </button>
-                    <button class="js-display btn btn-default"
+                    <button class="js-display btn btn-xs btn-default"
                         data-display-url="{{ path('app_location_display', { id: location.id }) }}"
                         title="{{ 'crud.display' | trans }}"
                     >
                         <span class="fa fa-eye"></span>
                     </button>
-                    <button class="js-list-delete js-delete btn btn-warning"
+                    <button class="js-list-delete js-delete btn btn-xs btn-warning"
                         data-delete-url="{{ path('app_location_remove_from_scene', { scene_id: scene.id, location_id: location.id, page: locations.currentPage }) }}"
                         title="{{ 'crud.remove_from_scene' | trans }}"
                     >
                         <span class="fa fa-scissors"></span>
                     </button>
-                    <button class="js-list-delete js-delete btn btn-danger"
+                    <button class="js-list-delete js-delete btn btn-xs btn-danger"
                         data-delete-url="{{ path('app_location_delete', { scene_id: scene.id, location_id: location.id, page: locations.currentPage }) }}"
                         title="{{ 'crud.delete' | trans }}"
                     >
                         <span class="fa fa-trash"></span>
                     </button>
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="2" class="text-right">
-                <button class="btn btn-success js-load-form" title="{{ 'location.actions.create' | trans }}">
-                    <span class="fa fa-plus"></span>
-                </button>
-                {% if scene.chapter %}
-                    <button class="btn btn-default js-load-sublist"
-                            title="{{ 'location.actions.add_existing' | trans }}"
-                            data-list-url="{{ path('app_location_related', { id: scene.id }) }}"
-                    >
-                        <span class="fa fa-user-o"></span>
-                    </button>
-                {% endif %}
-            </td>
-        </tr>
-    </tfoot>
-</table>
+
+                </li>
+            {%- endfor %}
+        </ul>
+    </li>
+{% endif %}
