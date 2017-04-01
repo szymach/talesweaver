@@ -21,7 +21,7 @@
         <ul>
             {% for character in scene.characters -%}
                 <li>
-                    <span class="sublist-label">{{ character | trim(15) }}</span>
+                    <span class="sublist-label">{{ character | truncate(15) }}</span>
                     <button class="js-load-form js-edit-form btn btn-xs btn-primary"
                         data-form-url="{{ path('app_character_edit', { id: character.id }) }}"
                         title="{{ 'crud.edit' | trans }}"

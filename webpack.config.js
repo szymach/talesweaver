@@ -9,6 +9,7 @@ module.exports = {
         "./assets/scss/base.scss",
         "./assets/js/app.js",
         "./assets/js/sidemenu.js",
+        "./assets/js/autosave.js",
         "./assets/js/tags.js"
     ],
     output: {

@@ -10,6 +10,7 @@ use AppBundle\Pagination\Scene\SceneAggregate;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -75,6 +76,17 @@ class SceneController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->manager->flush();
+        }
+
+        if ($request->isXmlHttpRequest()) {
+            return new JsonResponse(
+                [
+                    'form' => $this->templating->render(
+                        'partial/simpleForm.html.twig',
+                        ['form' => $form->createView()]
+                    )
+                ]
+            );
         }
 
         return $this->templating->renderResponse(

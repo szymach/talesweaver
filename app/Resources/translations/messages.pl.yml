@@ -133,7 +133,9 @@ no: Nie
 
 alert:
     success: Operacja wykonana pomyślnie!
+    autosave_success: Pomyślnie dokonano operacji autozapisu!
     error: Nastąpił błąd podczas wykonywania operacji!
+    close: Zamknij
 
 pagination:
     previous: Poprzednia
