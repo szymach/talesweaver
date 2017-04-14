@@ -1623,7 +1623,7 @@
                     "email": "stof@notk.org"
                 },
                 {
-                    "name": "KnpLabs",
+                    "name": "Knplabs",
                     "homepage": "http://knplabs.com"
                 },
                 {
@@ -4524,7 +4524,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2017-04-04T05:02:50+00:00"
+            "time": "2017-04-04 05:02:50"
         },
         {
             "name": "webmozart/assert",
