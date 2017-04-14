@@ -120,8 +120,8 @@ meta:
 menu:
     start: Start
     books: Książki
-    chapters: Rozdziały niepowiązane
-    scenes: Sceny niepowiązane
+    chapters: Opowiadania
+    scenes: Sceny
 
 modal:
     action_confirmation: Potwierdzenie akcji

@@ -7,10 +7,8 @@
     <div class="row">
         <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
             <div class="display scene">
-                {% for scene in chapter.scenes %}
-                    <h2 style="margin-bottom: 30px;">
-                        {{ scene.title }}
-                    </h2>
+                {% for scene in chapter.scenes if scene.text | length %}
+                    <h2 style="margin-bottom: 30px;" class="text-center">{{ scene.title }}</h2>
                     {{ scene.text | raw }}
                 {% endfor %}
             </div>
