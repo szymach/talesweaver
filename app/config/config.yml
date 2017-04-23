@@ -79,3 +79,8 @@ ivory_ck_editor:
         small_size:
             disableNativeSpellChecker: false
             height: 250
+
+knp_snappy:
+    pdf:
+        enabled: true
+        binary: /usr/bin/wkhtmltopdf

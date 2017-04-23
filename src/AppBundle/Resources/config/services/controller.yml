@@ -70,3 +70,10 @@ services:
         class: AppBundle\Controller\DisplayController
         arguments:
             - "@templating"
+
+    # PDF
+    app.controller.pdf:
+        class: AppBundle\Controller\PDFController
+        arguments:
+            - "@templating"
+            - "@knp_snappy.pdf"

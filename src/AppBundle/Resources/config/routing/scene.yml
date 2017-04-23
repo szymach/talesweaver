@@ -28,3 +28,8 @@ app_scene_display:
     path: /display/{id}
     defaults: { _controller: app.controller.display:sceneAction }
     methods:  GET
+
+app_scene_pdf:
+    path: /pdf/{id}
+    defaults: { _controller: app.controller.pdf:sceneAction }
+    methods:  GET

@@ -144,3 +144,7 @@ pagination:
 display:
     go_to: Przejdź do strony z podglądem
     label: Podgląd
+
+pdf:
+    label: PDF
+    render: Pobierz w formacie PDF

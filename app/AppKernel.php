@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new FSi\Bundle\DoctrineExtensionsBundle\FSiDoctrineExtensionsBundle(),
             new Hautelook\AliceBundle\HautelookAliceBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
+            new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
 
             # App
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),

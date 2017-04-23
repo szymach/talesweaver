@@ -5,6 +5,10 @@
             <span class="fa fa-eye"></span>
             {{ 'display.label' | trans }}
         </a>
+        <a href="{{ path('app_chapter_pdf', { id: chapter.id }) }}" class="btn btn-default" target="_blank" title="{{ 'pdf.render' | trans }}">
+            <span class="fa fa-file-pdf-o"></span>
+            {{ 'pdf.label' | trans }}
+        </a>
     {% endif %}
 {% endblock %}
 

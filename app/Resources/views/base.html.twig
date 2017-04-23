@@ -6,17 +6,15 @@
         <meta name="description" content="{% block seo_description '' %}">
         <meta name="keywords" content="{% block seo_keywords '' %}">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <link rel="stylesheet" href="{{ asset('public/styles.css') }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('public/styles.css')) }}">
         {% block stylesheets '' %}
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
         <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     </head>
     <body>
-        {% block menuContainer %}
-            <nav class="navbar navbar-default">
-                <div class="container">{% block menu knp_menu_render('main') %}</div>
-            </nav>
-        {% endblock %}
+        <nav class="navbar navbar-default">
+            <div class="container">{% block menu knp_menu_render('main') %}</div>
+        </nav>
         <div class="container" style="position: relative;">
             {% include 'partial/alerts.html.twig' %}
         </div>
@@ -26,9 +24,9 @@
         <footer>{% block footer '' %}</footer>
         {% include 'partial/confirmationModal.html.twig' %}
         {% block modals '' %}
-        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-        <script src="{{ asset('public/scripts.js') }}"></script>
+        <script src="{{ absolute_url(asset('bundles/fosjsrouting/js/router.js')) }}"></script>
+        <script src="{{ absolute_url(path('fos_js_routing_js', { callback: 'fos.Router.setData' })) }}"></script>
+        <script src="{{ absolute_url(asset('public/scripts.js')) }}"></script>
         {% block javascripts '' %}
         <div id="backdrop"></div>
     </body>
