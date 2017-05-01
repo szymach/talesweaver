@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Event;
 
 use AppBundle\Entity\Character;
+use AppBundle\Entity\Item;
 use AppBundle\Entity\Location;
 use AppBundle\Entity\Repository\CharacterRepository;
 use AppBundle\Entity\Repository\ItemRepository;
@@ -22,6 +23,7 @@ class MeetingType extends AbstractType
 
         $builder->add('root', EntityType::class, [
             'class' => Character::class,
+            'label' => $this->getTranslationKey('root'),
             'query_builder' => function (CharacterRepository $repository) use ($scene) {
                 return $repository->createForSceneQueryBuilder($scene);
             }
@@ -29,20 +31,15 @@ class MeetingType extends AbstractType
 
         $builder->add('location', EntityType::class, [
             'class' => Location::class,
+            'label' => $this->getTranslationKey('location'),
             'query_builder' => function (LocationRepository $repository) use ($scene) {
-                return $repository->createForSceneQueryBuilder($scene);
-            }
-        ]);
-
-        $builder->add('item', EntityType::class, [
-            'class' => Item::class,
-            'query_builder' => function (ItemRepository $repository) use ($scene) {
                 return $repository->createForSceneQueryBuilder($scene);
             }
         ]);
 
         $builder->add('relation', EntityType::class, [
             'class' => Character::class,
+            'label' => $this->getTranslationKey('relation'),
             'query_builder' => function (CharacterRepository $repository) use ($scene) {
                 return $repository->createForSceneQueryBuilder($scene);
             }
@@ -55,5 +52,10 @@ class MeetingType extends AbstractType
         $resolver->setDefault('scene', null);
         $resolver->setAllowedTypes('scene', [Scene::class]);
         $resolver->setRequired(['scene']);
+    }
+
+    private function getTranslationKey($field)
+    {
+        return sprintf('event.%s.fields.%s', Meeting::class, $field);
     }
 }

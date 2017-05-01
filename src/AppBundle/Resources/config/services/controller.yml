@@ -65,6 +65,14 @@ services:
             - "@app.paginator.location"
             - "@router"
 
+    app.controller.event:
+        class: AppBundle\Controller\EventController
+        arguments:
+            - "@templating"
+            - "@form.factory"
+            - "@doctrine.orm.entity_manager"
+            - "@router"
+
     # Display
     app.controller.display:
         class: AppBundle\Controller\DisplayController

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 use JsonSerializable;
 
 class Event
@@ -19,6 +20,7 @@ class Event
     private $model;
 
     /**
+     * @Translatable\Translatable(mappedBy="translations")
      * @var string
      */
     private $name;
@@ -27,6 +29,11 @@ class Event
      * @var Scene
      */
     private $scene;
+
+    public function __construct(Scene $scene)
+    {
+        $this->scene = $scene;
+    }
 
     public function getId()
     {
@@ -53,13 +60,8 @@ class Event
         $this->model = $model;
     }
 
-    public function getScene()
+    public function getScene(): ?Scene
     {
         return $this->scene;
-    }
-
-    public function setScene(Scene $scene = null)
-    {
-        $this->scene = $scene;
     }
 }

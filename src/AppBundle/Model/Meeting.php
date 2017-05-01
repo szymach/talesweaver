@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Event;
+namespace AppBundle\Model;
 
 use AppBundle\Entity\Character;
 use AppBundle\Entity\Item;
@@ -15,7 +15,7 @@ use AppBundle\Entity\Location;
 use InvalidArgumentException;
 use JsonSerializable;
 
-class CharacterEvent implements JsonSerializable
+class Meeting implements JsonSerializable
 {
     /**
      * @var Character
@@ -43,7 +43,7 @@ class CharacterEvent implements JsonSerializable
             'root' => $this->root ? [Character::class =>  $this->root->getId()] : null,
             'location' => $this->location ? [Location::class => $this->location->getId()] : null,
             'item' => $this->item ? [Item::class => $this->item->getId()] : null,
-            'relations' => $this->relation ? [Character::class => $this->relation->getId()] : null,
+            'relation' => $this->relation ? [Character::class => $this->relation->getId()] : null,
         ];
     }
 

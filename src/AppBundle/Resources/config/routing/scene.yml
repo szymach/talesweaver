@@ -33,3 +33,10 @@ app_scene_pdf:
     path: /pdf/{id}
     defaults: { _controller: app.controller.pdf:sceneAction }
     methods:  GET
+
+app_scene_event:
+    path: /event/{id}/{model}
+    defaults: { _controller: app.controller.event:formAction }
+    methods:  [GET, POST]
+    requirements:
+        model: .+

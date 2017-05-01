@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Chapter;
 use AppBundle\Entity\Scene;
+use AppBundle\Enum\SceneEvents;
 use AppBundle\Form\Scene\NewType;
 use AppBundle\Form\Scene\EditType;
 use AppBundle\Pagination\Scene\SceneAggregate;
@@ -96,7 +97,8 @@ class SceneController
                 'characters' => $this->pagination->getCharactersForScene($scene, 1),
                 'items' => $this->pagination->getItemsForScene($scene, 1),
                 'locations' => $this->pagination->getLocationsForScene($scene, 1),
-                'scene' => $scene
+                'scene' => $scene,
+                'events' => SceneEvents::getAllEvents()
             ]
         );
     }

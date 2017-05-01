@@ -3,9 +3,8 @@
 namespace AppBundle\Form\Event;
 
 use AppBundle\Entity\Event;
-use AppBundle\Form\Event\MeetingType;
+use AppBundle\Entity\Scene;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,16 +17,22 @@ class EventType extends AbstractType
             'label' => 'event.name'
         ]);
 
-        $builder->add('model', ChoiceType::class, [
-            'label' => 'event.model',
-            'choices' => [MeetingType::class]
+        $builder->add('model', $options['model'], [
+            'label' => false,
+            'scene' => $options['scene']
         ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Event::class
+            'data_class' => Event::class,
+            'model' => null,
+            'scene' => null,
+            'attr' => ['class' => 'js-form']
         ]);
+        $resolver->setAllowedTypes('scene', [Scene::class]);
+        $resolver->setAllowedTypes('model', ['string']);
+        $resolver->setRequired(['scene', 'model']);
     }
 }

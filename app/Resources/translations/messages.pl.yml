@@ -60,6 +60,16 @@ scene:
         locations: Miejsca
         items: Przedmioty
 
+event:
+    name: Nazwa
+    'AppBundle\Model\Meeting':
+        name: Spotkanie
+        fields:
+            root: Pierwsza osoba
+            relation: Druga osoba
+            location: Miejsce
+
+
 character:
     name: Imię
     description: Opis

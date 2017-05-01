@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity\Traits;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @author Piotr Szymaszek
@@ -12,7 +12,7 @@ trait TranslatableTrait
     use LocaleTrait;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      */
     private $translations;
 
