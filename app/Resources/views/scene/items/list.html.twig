@@ -21,7 +21,7 @@
         <ul>
             {% for item in scene.items -%}
                 <li>
-                    <span class="sublist-label">{{ item | trim(15) }}</span>
+                    <span class="sublist-label">{{ item | truncate(15) }}</span>
                     <button class="js-load-form js-edit-form btn btn-xs btn-primary"
                         data-form-url="{{ path('app_item_edit', { id: item.id }) }}"
                         title="{{ 'crud.edit' | trans }}"

@@ -78,7 +78,8 @@ ivory_ck_editor:
             height: 600
         small_size:
             disableNativeSpellChecker: false
-            height: 250
+            height: 150
+            toolbar: basic
 
 knp_snappy:
     pdf:

@@ -27,6 +27,7 @@ class ItemType extends AbstractType
 
         $builder->add('description', CKEditorType::class, [
             'label' => 'location.description',
+            'config_name' => 'small_size',
             'required' => false
         ]);
     }

@@ -1,0 +1,19 @@
+---
+AppBundle\Entity\Translation\EventTranslation:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+        locale:
+            type: string
+            length: 2
+    manyToOne:
+        event:
+            targetEntity: AppBundle\Entity\Event
+            inversedBy: translations
+            joinColumn:
+                onDelete: "CASCADE"

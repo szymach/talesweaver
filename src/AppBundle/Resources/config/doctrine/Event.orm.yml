@@ -1,0 +1,21 @@
+---
+AppBundle\Entity\Event:
+    type: entity
+    table: event_entity
+    repositoryClass: AppBundle\Entity\Repository\EventRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        model:
+            type: json_array
+    oneToMany:
+        translations:
+            targetEntity: AppBundle\Entity\Translation\EventTranslation
+            mappedBy: event
+            indexBy: locale
+            cascade: [persist, remove]
+    manyToOne:
+        scene:
+            targetEntity: AppBundle\Entity\Scene

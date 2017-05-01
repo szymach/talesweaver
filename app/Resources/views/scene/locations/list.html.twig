@@ -21,7 +21,7 @@
         <ul>
             {% for location in scene.locations -%}
                 <li>
-                    <span class="sublist-label">{{ location | trim(15) }}</span>
+                    <span class="sublist-label">{{ location | truncate(15) }}</span>
                     <button class="js-load-form js-edit-form btn btn-xs btn-primary"
                         data-form-url="{{ path('app_location_edit', { id: location.id }) }}"
                         title="{{ 'crud.edit' | trans }}"
