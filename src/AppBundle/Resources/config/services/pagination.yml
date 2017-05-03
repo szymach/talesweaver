@@ -32,13 +32,14 @@ services:
             - "@app.paginator.character"
             - "@app.paginator.item"
             - "@app.paginator.location"
+            - "@app.paginator.event"
 
     app.paginator.scene:
         class: AppBundle\Pagination\Scene\ScenePaginator
         arguments:
             - "@app.repository.scene"
 
-    # Character, Item, Location
+    # Character, Item, Location, Event
     app.paginator.character:
         class: AppBundle\Pagination\CharacterPaginator
         arguments:
@@ -53,3 +54,8 @@ services:
         class: AppBundle\Pagination\LocationPaginator
         arguments:
             - "@app.repository.location"
+
+    app.paginator.event:
+        class: AppBundle\Pagination\EventPaginator
+        arguments:
+            - "@app.repository.event"

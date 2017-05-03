@@ -1,12 +1,5 @@
 <?php
 
-/**
- * (c) FSi sp. z o.o. <info@fsi.pl>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace AppBundle\Model;
 
 use AppBundle\Entity\Character;
@@ -40,10 +33,12 @@ class Meeting implements JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'root' => $this->root ? [Character::class =>  $this->root->getId()] : null,
-            'location' => $this->location ? [Location::class => $this->location->getId()] : null,
-            'item' => $this->item ? [Item::class => $this->item->getId()] : null,
-            'relation' => $this->relation ? [Character::class => $this->relation->getId()] : null,
+            self::class => [
+                'root' => $this->root ? [Character::class =>  $this->root->getId()] : null,
+                'location' => $this->location ? [Location::class => $this->location->getId()] : null,
+                'item' => $this->item ? [Item::class => $this->item->getId()] : null,
+                'relation' => $this->relation ? [Character::class => $this->relation->getId()] : null,
+            ]
         ];
     }
 

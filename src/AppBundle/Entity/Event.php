@@ -50,7 +50,7 @@ class Event
         $this->name = $name;
     }
 
-    public function getModel(): ?JsonSerializable
+    public function getModel()
     {
         return $this->model;
     }

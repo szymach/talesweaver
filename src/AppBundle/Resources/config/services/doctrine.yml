@@ -30,3 +30,8 @@ services:
         class: AppBundle\Entity\Repository\ChapterRepository
         factory: ["@doctrine", getRepository]
         arguments: [ AppBundle:Chapter ]
+
+    app.repository.event:
+        class: AppBundle\Entity\Repository\EventRepository
+        factory: ["@doctrine", getRepository]
+        arguments: [ AppBundle:Event ]

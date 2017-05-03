@@ -1,15 +1,8 @@
 <?php
 
-/**
- * (c) FSi sp. z o.o. <info@fsi.pl>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace AppBundle\Enum;
 
-use AppBundle\Event\Meeting;
+use AppBundle\Model\Meeting;
 use AppBundle\Form\Event\MeetingType;
 use InvalidArgumentException;
 
@@ -24,7 +17,7 @@ final class SceneEvents
         }
     }
 
-    public function getAllEvents()
+    public static function getAllEvents()
     {
         return array_keys(self::getAllForms());
     }

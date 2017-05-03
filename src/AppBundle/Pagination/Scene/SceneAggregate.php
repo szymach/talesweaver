@@ -4,6 +4,7 @@ namespace AppBundle\Pagination\Scene;
 
 use AppBundle\Entity\Scene;
 use AppBundle\Pagination\CharacterPaginator;
+use AppBundle\Pagination\EventPaginator;
 use AppBundle\Pagination\ItemPaginator;
 use AppBundle\Pagination\LocationPaginator;
 use AppBundle\Pagination\Scene\ScenePaginator;
@@ -31,16 +32,23 @@ class SceneAggregate
      */
     private $locationPaginator;
 
+    /**
+     * @var EventPaginator
+     */
+    private $eventPaginator;
+
     public function __construct(
         ScenePaginator $scenePaginator,
         CharacterPaginator $characterPaginator,
         ItemPaginator $itemPaginator,
-        LocationPaginator $locationPaginator
+        LocationPaginator $locationPaginator,
+        EventPaginator $eventPaginator
     ) {
         $this->scenePaginator = $scenePaginator;
         $this->characterPaginator = $characterPaginator;
         $this->itemPaginator = $itemPaginator;
         $this->locationPaginator = $locationPaginator;
+        $this->eventPaginator = $eventPaginator;
     }
 
     /**
@@ -80,5 +88,15 @@ class SceneAggregate
     public function getLocationsForScene(Scene $scene, int $page)
     {
         return $this->locationPaginator->getForScene($scene, $page);
+    }
+
+    /**
+     * @param Scene $scene
+     * @param int $page
+     * @return Pagerfanta
+     */
+    public function getEventsForScene(Scene $scene, int $page)
+    {
+        return $this->eventPaginator->getForScene($scene, $page);
     }
 }

@@ -5,9 +5,9 @@
             <span class="fa fa-eye"></span>
             {{ 'display.label' | trans }}
         </a>
-        {% for event in events %}
+        {% for event in eventModels %}
             <button data-form-url="{{ path('app_scene_event', { id: scene.id, model: event }) }}" class="js-load-form js-edit-form  btn btn-default">
-                {{ ('scene.events.' ~ event) | trans }}
+                {{ ('event.' ~ event ~ '.name') | trans }}
             </button>
         {% endfor %}
     {% endif %}

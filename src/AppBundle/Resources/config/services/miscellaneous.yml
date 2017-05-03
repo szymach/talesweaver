@@ -13,7 +13,21 @@ services:
         tags:
             - { name: knp_menu.menu, alias: main }
 
+    # JSON
+    app.json.event_parser:
+        class: AppBundle\JSON\EventParser
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@property_accessor"
+
     # Twig
+    twig.extension.app:
+        class: AppBundle\Twig\AppExtension
+        arguments:
+            - "@app.json.event_parser"
+        tags:
+            - { name: twig.extension }
+
     twig.extension.text:
         class: Twig_Extensions_Extension_Text
         tags:

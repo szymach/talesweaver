@@ -59,11 +59,15 @@ scene:
         characters: Postacie
         locations: Miejsca
         items: Przedmioty
+        events: Wydarzenia
 
 event:
     name: Nazwa
+    actions:
+        create: Nowe wydarzenie
     'AppBundle\Model\Meeting':
         name: Spotkanie
+        description: '%root% spotkał %relation% w %location%'
         fields:
             root: Pierwsza osoba
             relation: Druga osoba

@@ -98,7 +98,8 @@ class SceneController
                 'items' => $this->pagination->getItemsForScene($scene, 1),
                 'locations' => $this->pagination->getLocationsForScene($scene, 1),
                 'scene' => $scene,
-                'events' => SceneEvents::getAllEvents()
+                'eventModels' => SceneEvents::getAllEvents(),
+                'events' => $this->pagination->getEventsForScene($scene, 1)
             ]
         );
     }
