@@ -167,6 +167,7 @@ function bindAjaxForm($listTable)
         if ($input.length) {
             $input.focus();
         }
+        return false;
     });
 }
 

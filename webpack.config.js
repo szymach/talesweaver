@@ -1,6 +1,7 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
     entry: [
@@ -13,7 +14,7 @@ module.exports = {
         "./assets/js/tags.js"
     ],
     output: {
-        path: 'web/public',
+        path: path.resolve(__dirname, 'web/public'),
         filename: 'scripts.js'
     },
     resolve: {

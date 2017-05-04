@@ -57,7 +57,11 @@ class EventController
                 'scene' => $scene,
                 'model' => SceneEvents::getEventForm($model),
                 'attr' => [
-                    'action' => $this->router->generate('app_scene_event', ['id' => $scene->getId(), 'model' => $model])
+                    'action' => $this->router->generate(
+                        'app_scene_event',
+                        ['id' => $scene->getId(), 'model' => $model]
+                    ),
+                    'class' => 'js-form'
                 ]
             ]
         );

@@ -3,10 +3,8 @@
 namespace AppBundle\Form\Event;
 
 use AppBundle\Entity\Character;
-use AppBundle\Entity\Item;
 use AppBundle\Entity\Location;
 use AppBundle\Entity\Repository\CharacterRepository;
-use AppBundle\Entity\Repository\ItemRepository;
 use AppBundle\Entity\Repository\LocationRepository;
 use AppBundle\Entity\Scene;
 use AppBundle\Model\Meeting;

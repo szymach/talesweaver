@@ -1,0 +1,19 @@
+---
+AppBundle\Entity\Event:
+    properties:
+        name:
+            - NotBlank: ~
+        model:
+            - NotBlank: ~
+            - Valid: ~
+        scene:
+            - NotBlank: ~
+
+AppBundle\Model\Meeting:
+    properties:
+        root:
+            - NotBlank: ~
+        location:
+            - NotBlank: ~
+        relation:
+            - NotBlank: ~

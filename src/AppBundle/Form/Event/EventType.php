@@ -28,8 +28,7 @@ class EventType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Event::class,
             'model' => null,
-            'scene' => null,
-            'attr' => ['class' => 'js-form']
+            'scene' => null
         ]);
         $resolver->setAllowedTypes('scene', [Scene::class]);
         $resolver->setAllowedTypes('model', ['string']);
