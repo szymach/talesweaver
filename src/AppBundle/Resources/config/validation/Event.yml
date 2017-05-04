@@ -10,6 +10,8 @@ AppBundle\Entity\Event:
             - NotBlank: ~
 
 AppBundle\Model\Meeting:
+    constraints:
+        - AppBundle\Validation\Constraints\Meeting: ~
     properties:
         root:
             - NotBlank: ~

@@ -79,12 +79,6 @@ class Meeting implements JsonSerializable
 
     public function setRelation(?Character $relation)
     {
-        if ($this->root && $relation && ($this->root === $relation)) {
-            throw new InvalidArgumentException(
-                sprintf('Character %s cannot meet itself', $this->root->getId())
-            );
-        }
-
         $this->relation = $relation;
     }
 }

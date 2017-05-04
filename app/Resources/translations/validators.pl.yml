@@ -1,0 +1,4 @@
+---
+event:
+    meeting:
+        cannot_meet_itself: Postać nie może spotkać samej siebie.
