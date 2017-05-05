@@ -49,3 +49,11 @@ app_location:
     condition: "request.isXmlHttpRequest()"
     options:
         expose: true
+
+# Event
+app_event:
+    resource: "@AppBundle/Resources/config/routing/event.yml"
+    prefix:   /event
+    condition: "request.isXmlHttpRequest()"
+    options:
+        expose: true

@@ -1,0 +1,17 @@
+---
+app_event_list:
+    path: /list/{id}/{page}
+    defaults: { _controller: app.controller.event:listAction, page: 1 }
+    methods:  GET
+
+app_event_add:
+    path: /event/{id}/{model}
+    defaults: { _controller: app.controller.event:formAction }
+    methods:  [GET, POST]
+    requirements:
+        model: .+
+
+app_event_delete:
+    path: /delete/{event_id}/{page}
+    defaults: { _controller: app.controller.event:deleteAction, page: 1 }
+    methods:  GET

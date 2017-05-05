@@ -68,8 +68,7 @@ class ItemController
             ])
         ]);
         $result = true;
-        $form->handleRequest($request);
-        if ($form->isValid()) {
+        if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $scene->addItem($data);
             $this->manager->persist($data);
