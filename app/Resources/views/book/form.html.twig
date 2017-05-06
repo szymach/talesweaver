@@ -5,13 +5,7 @@
         redirectUri: path('app_book_list', { page: page }),
         label: 'book.back.to_list' | trans
     } %}
-    <h1>
-        {%- if book.title -%}
-            {{- book.title }}
-        {%- else -%}
-           {{ 'book.header.new' | trans }}
-        {%- endif -%}
-    </h1>
+    <h1>{{ book.title ? book.title : 'book.header.new' | trans }}</h1>
     <ul class="nav nav-tabs" role="tablist">
         {% for tab in ['basic', 'introduction', 'expansion', 'ending'] %}
             <li role="presentation"{% if loop.first %} class="active"{% endif %}>
