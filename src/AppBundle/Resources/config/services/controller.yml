@@ -98,14 +98,41 @@ services:
             - "@doctrine.orm.entity_manager"
             - "@router"
 
-    app.controller.character:
-        class: AppBundle\Controller\CharacterController
+    # Character
+    app.controller.character.create:
+        class: AppBundle\Controller\Character\CreateController
+        arguments:
+            - "@templating"
+            - "@form.factory"
+            - "@doctrine.orm.entity_manager"
+            - "@router"
+
+    app.controller.character.edit:
+        class: AppBundle\Controller\Character\EditController
         arguments:
             - "@templating"
             - "@form.factory"
             - "@doctrine.orm.entity_manager"
             - "@app.paginator.character"
             - "@router"
+
+    app.controller.character.list:
+        class: AppBundle\Controller\Character\ListController
+        arguments:
+            - "@templating"
+            - "@app.paginator.character"
+
+    app.controller.character.delete:
+        class: AppBundle\Controller\Character\DeleteController
+        arguments:
+            - "@templating"
+            - "@doctrine.orm.entity_manager"
+            - "@app.paginator.character"
+
+    app.controller.character.display:
+        class: AppBundle\Controller\Character\DisplayController
+        arguments:
+            - "@templating"
 
     app.controller.item:
         class: AppBundle\Controller\ItemController
