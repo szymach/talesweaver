@@ -39,12 +39,32 @@ services:
             - "@router"
 
     # Chapter
-    app.controller.chapter:
-        class: AppBundle\Controller\ChapterController
+    app.controller.chapter.create:
+        class: AppBundle\Controller\Chapter\CreateController
+        arguments:
+            - "@templating"
+            - "@form.factory"
+            - "@doctrine.orm.entity_manager"
+            - "@router"
+
+    app.controller.chapter.edit:
+        class: AppBundle\Controller\Chapter\EditController
         arguments:
             - "@templating"
             - "@form.factory"
             - "@app.paginator.aggregate.chapter"
+            - "@doctrine.orm.entity_manager"
+            - "@router"
+
+    app.controller.chapter.list:
+        class: AppBundle\Controller\Chapter\ListController
+        arguments:
+            - "@templating"
+            - "@app.paginator.aggregate.chapter"
+
+    app.controller.chapter.delete:
+        class: AppBundle\Controller\Chapter\DeleteController
+        arguments:
             - "@doctrine.orm.entity_manager"
             - "@router"
 

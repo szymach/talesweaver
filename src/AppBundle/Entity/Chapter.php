@@ -138,7 +138,7 @@ class Chapter
     /**
      * @param Book $book
      */
-    public function setBook(Book $book = null)
+    public function setBook(?Book $book)
     {
         $this->book = $book;
     }
