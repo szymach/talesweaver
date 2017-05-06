@@ -1,27 +1,27 @@
 ---
 app_scene_new_standalone:
     path: /new-standalone/{page}
-    defaults: { _controller: app.controller.scene:newStandaloneAction, page: 1 }
+    defaults: { _controller: app.controller.scene.create:standaloneAction, page: 1 }
     methods:  [GET, POST]
 
 app_scene_new_assigned:
     path: /new-assigned/{id}
-    defaults: { _controller: app.controller.scene:newAssignedAction }
+    defaults: { _controller: app.controller.scene.create:assignedAction }
     methods:  [GET, POST]
 
 app_scene_edit:
     path: /edit/{id}
-    defaults: { _controller: app.controller.scene:editAction }
+    defaults: { _controller: app.controller.scene.edit:editAction }
     methods:  [GET, POST]
 
 app_scene_list:
     path: /list/{page}
-    defaults: { _controller: app.controller.scene:listAction, page: 1 }
+    defaults: { _controller: app.controller.scene.list:listAction, page: 1 }
     methods:  GET
 
 app_scene_delete:
     path: /delete/{id}/{page}
-    defaults: { _controller: app.controller.scene:deleteAction, page: 1 }
+    defaults: { _controller: app.controller.scene.delete:deleteAction, page: 1 }
     methods:  GET
 
 app_scene_display:

@@ -69,12 +69,32 @@ services:
             - "@router"
 
     # Scene
-    app.controller.scene:
-        class: AppBundle\Controller\SceneController
+    app.controller.scene.create:
+        class: AppBundle\Controller\Scene\CreateController
+        arguments:
+            - "@templating"
+            - "@form.factory"
+            - "@doctrine.orm.entity_manager"
+            - "@router"
+
+    app.controller.scene.edit:
+        class: AppBundle\Controller\Scene\EditController
         arguments:
             - "@templating"
             - "@form.factory"
             - "@app.paginator.aggregate.scene"
+            - "@doctrine.orm.entity_manager"
+            - "@router"
+
+    app.controller.scene.list:
+        class: AppBundle\Controller\Scene\ListController
+        arguments:
+            - "@templating"
+            - "@app.paginator.aggregate.scene"
+
+    app.controller.scene.delete:
+        class: AppBundle\Controller\Scene\DeleteController
+        arguments:
             - "@doctrine.orm.entity_manager"
             - "@router"
 
