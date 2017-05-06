@@ -134,14 +134,41 @@ services:
         arguments:
             - "@templating"
 
-    app.controller.item:
-        class: AppBundle\Controller\ItemController
+    # Item
+    app.controller.item.create:
+        class: AppBundle\Controller\Item\CreateController
+        arguments:
+            - "@templating"
+            - "@form.factory"
+            - "@doctrine.orm.entity_manager"
+            - "@router"
+
+    app.controller.item.edit:
+        class: AppBundle\Controller\Item\EditController
         arguments:
             - "@templating"
             - "@form.factory"
             - "@doctrine.orm.entity_manager"
             - "@app.paginator.item"
             - "@router"
+
+    app.controller.item.list:
+        class: AppBundle\Controller\Item\ListController
+        arguments:
+            - "@templating"
+            - "@app.paginator.item"
+
+    app.controller.item.delete:
+        class: AppBundle\Controller\Item\DeleteController
+        arguments:
+            - "@templating"
+            - "@doctrine.orm.entity_manager"
+            - "@app.paginator.item"
+
+    app.controller.item.display:
+        class: AppBundle\Controller\Item\DisplayController
+        arguments:
+            - "@templating"
 
     app.controller.location:
         class: AppBundle\Controller\LocationController

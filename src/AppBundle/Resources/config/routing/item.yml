@@ -1,22 +1,22 @@
 ---
 app_item_new:
     path: /new/{id}
-    defaults: { _controller: app.controller.item:newAction }
+    defaults: { _controller: app.controller.item.create:createAction }
     methods:  [GET, POST]
 
 app_item_edit:
     path: /edit/{id}
-    defaults: { _controller: app.controller.item:editAction }
+    defaults: { _controller: app.controller.item.edit:editAction }
     methods:  [GET, POST]
 
 app_item_list:
     path: /list/{id}/{page}
-    defaults: { _controller: app.controller.item:listAction, page: 1 }
+    defaults: { _controller: app.controller.item.list:listAction, page: 1 }
     methods:  GET
 
 app_item_delete:
     path: /delete/{scene_id}/{item_id}/{page}
-    defaults: { _controller: app.controller.item:deleteAction, page: 1 }
+    defaults: { _controller: app.controller.item.delete:deleteAction, page: 1 }
     methods:  GET
 
 app_item_display:
@@ -26,15 +26,15 @@ app_item_display:
 
 app_item_related:
     path: /related/{id}/{page}
-    defaults: { _controller: app.controller.item:relatedAction, page: 1 }
+    defaults: { _controller: app.controller.item.list:relatedAction, page: 1 }
     methods:  GET
 
 app_item_add_to_scene:
     path: /add-to-scene/{scene_id}/{item_id}
-    defaults: { _controller: app.controller.item:addToSceneAction }
+    defaults: { _controller: app.controller.item.edit:addToSceneAction }
     methods:  GET
 
 app_item_remove_from_scene:
     path: /remove-from-scene/{scene_id}/{item_id}/{page}
-    defaults: { _controller: app.controller.item:removeFromSceneAction }
+    defaults: { _controller: app.controller.item.delete:removeFromSceneAction }
     methods:  GET
