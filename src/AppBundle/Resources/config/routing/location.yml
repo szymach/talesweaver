@@ -1,40 +1,40 @@
 ---
 app_location_new:
     path: /new/{id}
-    defaults: { _controller: app.controller.location:newAction }
+    defaults: { _controller: app.controller.location.create:createAction }
     methods:  [GET, POST]
 
 app_location_edit:
     path: /edit/{id}
-    defaults: { _controller: app.controller.location:editAction }
+    defaults: { _controller: app.controller.location.edit:editAction }
     methods:  [GET, POST]
 
 app_location_list:
     path: /list/{id}/{page}
-    defaults: { _controller: app.controller.location:listAction, page: 1 }
+    defaults: { _controller: app.controller.location.list:listAction, page: 1 }
     methods:  GET
 
 app_location_delete:
     path: /delete/{scene_id}/{location_id}/{page}
-    defaults: { _controller: app.controller.location:deleteAction, page: 1 }
+    defaults: { _controller: app.controller.location.delete:deleteAction, page: 1 }
     methods:  GET
 
 app_location_display:
     path: /display/{id}
-    defaults: { _controller: app.controller.location:displayAction }
+    defaults: { _controller: app.controller.location.display:displayAction }
     methods:  GET
 
 app_location_related:
     path: /related/{id}/{page}
-    defaults: { _controller: app.controller.location:relatedAction, page: 1 }
+    defaults: { _controller: app.controller.location.list:relatedAction, page: 1 }
     methods:  GET
 
 app_location_add_to_scene:
     path: /add-to-scene/{scene_id}/{location_id}
-    defaults: { _controller: app.controller.location:addToSceneAction }
+    defaults: { _controller: app.controller.location.edit:addToSceneAction }
     methods:  GET
 
 app_location_remove_from_scene:
     path: /remove-from-scene/{scene_id}/{location_id}/{page}
-    defaults: { _controller: app.controller.location:removeFromSceneAction }
+    defaults: { _controller: app.controller.location.delete:removeFromSceneAction }
     methods:  GET

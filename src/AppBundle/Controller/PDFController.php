@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 class PDFController
 {
     /**
-     * @var GeneratorInterface $pdfGenerator
+     * @var GeneratorInterface
      */
     private $pdfGenerator;
 

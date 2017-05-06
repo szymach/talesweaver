@@ -1,9 +1,8 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Chapter;
 
 use AppBundle\Entity\Chapter;
-use AppBundle\Entity\Scene;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
 class DisplayController
@@ -18,15 +17,7 @@ class DisplayController
         $this->templating = $templating;
     }
 
-    public function sceneAction(Scene $scene)
-    {
-        return $this->templating->renderResponse(
-            'scene/display.html.twig',
-            ['scene' => $scene]
-        );
-    }
-
-    public function chapterAction(Chapter $chapter)
+    public function displayAction(Chapter $chapter)
     {
         return $this->templating->renderResponse(
             'chapter/display.html.twig',

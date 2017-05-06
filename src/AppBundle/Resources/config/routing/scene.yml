@@ -26,7 +26,7 @@ app_scene_delete:
 
 app_scene_display:
     path: /display/{id}
-    defaults: { _controller: app.controller.display:sceneAction }
+    defaults: { _controller: app.controller.scene.display:displayAction }
     methods:  GET
 
 app_scene_pdf:
