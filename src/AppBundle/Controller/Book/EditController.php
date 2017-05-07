@@ -4,7 +4,6 @@ namespace AppBundle\Controller\Book;
 
 use AppBundle\Entity\Book;
 use AppBundle\Form\Book\BookType;
-use AppBundle\Pagination\Book\BookAggregate;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,11 +23,6 @@ class EditController
     private $formFactory;
 
     /**
-     * @var BookAggregate
-     */
-    private $pagination;
-
-    /**
      * @var ObjectManager
      */
     private $manager;
@@ -42,14 +36,12 @@ class EditController
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
         ObjectManager $manager,
-        RouterInterface $router,
-        BookAggregate $pagination
+        RouterInterface $router
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
         $this->manager = $manager;
         $this->router = $router;
-        $this->pagination = $pagination;
     }
 
     public function editAction(Request $request, Book $book, $page)
@@ -61,12 +53,7 @@ class EditController
 
         return $this->templating->renderResponse(
             'book/form.html.twig',
-            [
-                'form' => $form->createView(),
-                'book' => $book,
-                'chapters' => $this->pagination->getChaptersForBook($book, $page),
-                'page' => $page
-            ]
+            ['form' => $form->createView(), 'page' => $page]
         );
     }
 }

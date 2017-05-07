@@ -4,7 +4,6 @@ namespace AppBundle\Controller\Chapter;
 
 use AppBundle\Entity\Chapter;
 use AppBundle\Form\Chapter\ChapterType;
-use AppBundle\Pagination\Chapter\ChapterAggregate;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,11 +23,6 @@ class EditController
     private $formFactory;
 
     /**
-     * @var StandalonePaginator
-     */
-    private $pagination;
-
-    /**
      * @var ObjectManager
      */
     private $manager;
@@ -42,14 +36,12 @@ class EditController
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
         ObjectManager $manager,
-        RouterInterface $router,
-        ChapterAggregate $pagination
+        RouterInterface $router
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
         $this->manager = $manager;
         $this->router = $router;
-        $this->pagination = $pagination;
     }
 
     public function editAction(Request $request, Chapter $chapter, $page)
@@ -61,12 +53,7 @@ class EditController
 
         return $this->templating->renderResponse(
             'chapter/form.html.twig',
-            [
-                'form' => $form->createView(),
-                'chapter' => $chapter,
-                'scenes' => $this->pagination->getScenesForChapter($chapter, $page),
-                'page' => $page
-            ]
+            ['form' => $form->createView(), 'page' => $page]
         );
     }
 }

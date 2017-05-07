@@ -5,7 +5,6 @@ namespace AppBundle\Controller\Location;
 use AppBundle\Entity\Location;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Location\LocationType;
-use AppBundle\Pagination\LocationPaginator;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -31,11 +30,6 @@ class CreateController
     private $manager;
 
     /**
-     * @var LocationPaginator
-     */
-    private $pagination;
-
-    /**
      * @var RouterInterface
      */
     private $router;
@@ -44,13 +38,11 @@ class CreateController
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
         ObjectManager $manager,
-        LocationPaginator $pagination,
         RouterInterface $router
     ) {
         $this->formFactory = $formFactory;
         $this->templating = $templating;
         $this->manager = $manager;
-        $this->pagination = $pagination;
         $this->router = $router;
     }
 

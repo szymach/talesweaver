@@ -55,7 +55,7 @@ class CreateController
     {
         $scene = new Scene();
         $scene->setChapter($chapter);
-        return $this->handleSceneCreation($request, $chapter);
+        return $this->handleSceneCreation($request, $scene);
     }
 
     private function handleSceneCreation(Request $request, Scene $scene)

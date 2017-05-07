@@ -5,7 +5,6 @@ namespace AppBundle\Controller\Scene;
 use AppBundle\Entity\Scene;
 use AppBundle\Enum\SceneEvents;
 use AppBundle\Form\Scene\EditType;
-use AppBundle\Pagination\Scene\SceneAggregate;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,11 +24,6 @@ class EditController
     private $formFactory;
 
     /**
-     * @var SceneAggregate
-     */
-    private $pagination;
-
-    /**
      * @var ObjectManager
      */
     private $manager;
@@ -43,14 +37,12 @@ class EditController
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
         ObjectManager $manager,
-        RouterInterface $router,
-        SceneAggregate $pagination
+        RouterInterface $router
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
         $this->manager = $manager;
         $this->router = $router;
-        $this->pagination = $pagination;
     }
 
     public function editAction(Request $request, Scene $scene)
@@ -62,15 +54,7 @@ class EditController
 
         return $this->templating->renderResponse(
             'scene/form.html.twig',
-            [
-                'form' => $form->createView(),
-                'characters' => $this->pagination->getCharactersForScene($scene, 1),
-                'items' => $this->pagination->getItemsForScene($scene, 1),
-                'locations' => $this->pagination->getLocationsForScene($scene, 1),
-                'scene' => $scene,
-                'eventModels' => SceneEvents::getAllEvents(),
-                'events' => $this->pagination->getEventsForScene($scene, 1)
-            ]
+            ['form' => $form->createView()]
         );
     }
 }

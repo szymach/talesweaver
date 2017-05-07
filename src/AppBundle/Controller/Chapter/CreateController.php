@@ -55,7 +55,7 @@ class CreateController
     {
         $chapter = new Chapter();
         $chapter->setBook($book);
-        return $this->handleChapterCreation($request, $book);
+        return $this->handleChapterCreation($request, $chapter);
     }
 
     private function handleChapterCreation(Request $request, Chapter $chapter)

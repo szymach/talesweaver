@@ -21,14 +21,31 @@ services:
             - "@property_accessor"
 
     # Twig
-    twig.extension.app:
-        class: AppBundle\Twig\AppExtension
-        arguments:
-            - "@app.json.event_parser"
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
         tags:
             - { name: twig.extension }
 
-    twig.extension.text:
-        class: Twig_Extensions_Extension_Text
+    twig.extension.events:
+        class: AppBundle\Twig\EventsExtension
+        arguments: ["@app.json.event_parser"]
+        tags:
+            - { name: twig.extension }
+
+    twig.extension.book:
+        class: AppBundle\Twig\BookExtension
+        arguments: ["@app.paginator.aggregate.book"]
+        tags:
+            - { name: twig.extension }
+
+    twig.extension.chapter:
+        class: AppBundle\Twig\ChapterExtension
+        arguments: ["@app.paginator.aggregate.chapter"]
+        tags:
+            - { name: twig.extension }
+
+    twig.extension.scene:
+        class: AppBundle\Twig\SceneExtension
+        arguments: ["@app.paginator.aggregate.scene"]
         tags:
             - { name: twig.extension }

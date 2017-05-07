@@ -3,13 +3,14 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Entity\Event;
+use AppBundle\Enum\SceneEvents;
 use AppBundle\JSON\EventParser;
 use JsonSerializable;
 use Twig_Extension;
 use Twig_SimpleFilter;
 use Twig_SimpleFunction;
 
-class AppExtension extends Twig_Extension
+class EventsExtension extends Twig_Extension
 {
     /**
      * @var EventParser
@@ -24,7 +25,8 @@ class AppExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('eventModel', [$this, 'getEventModelFunction'])
+            new Twig_SimpleFunction('eventModel', [$this, 'getEventModelFunction']),
+            new Twig_SimpleFunction('eventModels', [$this, 'getEventModelsFunction'])
         ];
     }
 
@@ -38,6 +40,11 @@ class AppExtension extends Twig_Extension
     public function getEventModelFunction(Event $event)
     {
         return $this->eventParser->parse($event);
+    }
+
+    public function getEventModelsFunction()
+    {
+        return SceneEvents::getAllEvents();
     }
 
     public function getEventTemplateNameFilter(JsonSerializable $model)

@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
+{% set book = form.vars.data %}
+
 {% block body %}
     {% include 'partial/backButton.html.twig' with {
         redirectUri: path('app_book_list', { page: page }),
         label: 'book.back.to_list' | trans
     } %}
-    <h1>{{ book.title ? book.title : 'book.header.new' | trans }}</h1>
+    <h1>{{ book.id and book.title ? book.title : 'book.header.new' | trans }}</h1>
     <ul class="nav nav-tabs" role="tablist">
         {% for tab in ['basic', 'introduction', 'expansion', 'ending'] %}
             <li role="presentation"{% if loop.first %} class="active"{% endif %}>
@@ -14,7 +16,7 @@
                 </a>
             </li>
         {% endfor %}
-        {% if chapters is defined %}
+        {% if book.id %}
             <li role="presentation">
                 <a href="#chapters" aria-controls="chapters" role="tab" data-toggle="tab">
                     {{ 'book.tabs.chapters' | trans }}
@@ -44,9 +46,9 @@
                         {{ form_row(form.ending) }}
                         <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
                     </div>
-                    {% if chapters is defined %}
+                    {% if book.id %}
                         <div role="tabpanel" class="tab-pane fade" id="chapters">
-                            {% include 'book/chapters/list.html.twig' %}
+                            {% include 'book/chapters/list.html.twig' with { book: book, chapters: bookChapters(book, page) } only %}
                         </div>
                     {% endif %}
                 </div>
