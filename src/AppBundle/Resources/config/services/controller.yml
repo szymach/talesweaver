@@ -137,7 +137,6 @@ services:
         arguments:
             - "@templating"
             - "@doctrine.orm.entity_manager"
-            - "@app.paginator.character"
 
     app.controller.character.display:
         class: AppBundle\Controller\Character\DisplayController
@@ -173,7 +172,6 @@ services:
         arguments:
             - "@templating"
             - "@doctrine.orm.entity_manager"
-            - "@app.paginator.item"
 
     app.controller.item.display:
         class: AppBundle\Controller\Item\DisplayController
@@ -210,7 +208,6 @@ services:
         arguments:
             - "@templating"
             - "@doctrine.orm.entity_manager"
-            - "@app.paginator.location"
 
     app.controller.location.display:
         class: AppBundle\Controller\Location\DisplayController
@@ -238,7 +235,6 @@ services:
         arguments:
             - "@templating"
             - "@doctrine.orm.entity_manager"
-            - "@app.paginator.event"
 
     # PDF
     app.controller.pdf:

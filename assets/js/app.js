@@ -37,9 +37,12 @@ $(document).ready(function() {
                     url: $this.data('delete-url'),
                     dataType: "json"
                 })
-                .success(function(response) {
-                    $this.parents('.js-list').first().replaceWith(response.list);
+                .success(function() {
+                    refreshList($this.parents('.js-list'));
                     displaySuccessAlert();
+                })
+                .error(function() {
+                    displayErrorAlert();
                 });
             } else {
                 window.location.href = $this.attr('href');

@@ -15,8 +15,8 @@ app_location_list:
     methods:  GET
 
 app_location_delete:
-    path: /delete/{scene_id}/{location_id}/{page}
-    defaults: { _controller: app.controller.location.delete:deleteAction, page: 1 }
+    path: /delete/{id}
+    defaults: { _controller: app.controller.location.delete:deleteAction }
     methods:  GET
 
 app_location_display:
@@ -35,6 +35,6 @@ app_location_add_to_scene:
     methods:  GET
 
 app_location_remove_from_scene:
-    path: /remove-from-scene/{scene_id}/{location_id}/{page}
+    path: /remove-from-scene/{scene_id}/{location_id}
     defaults: { _controller: app.controller.location.delete:removeFromSceneAction }
     methods:  GET

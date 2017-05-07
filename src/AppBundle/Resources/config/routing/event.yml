@@ -12,6 +12,6 @@ app_event_add:
         model: .+
 
 app_event_delete:
-    path: /delete/{event_id}/{page}
-    defaults: { _controller: app.controller.event.delete:deleteAction, page: 1 }
+    path: /delete/{id}
+    defaults: { _controller: app.controller.event.delete:deleteAction }
     methods:  GET

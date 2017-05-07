@@ -1,7 +1,7 @@
 {% if scene.id %}
     <li class="items js-list"
         data-form-url="{{ path('app_item_new', { id: scene.id }) }}"
-        data-list-url="{{ path('app_item_list', { id: scene.id }) }}"
+        data-list-url="{{ path('app_item_list', { id: scene.id, page: items.currentPage }) }}"
     >
         <span class="fa fa-key logo-icon"></span>
         <span class="h4">
@@ -35,13 +35,13 @@
                         <span class="fa fa-eye"></span>
                     </button>
                     <button class="js-list-delete js-delete btn btn-xs btn-warning"
-                        data-delete-url="{{ path('app_item_remove_from_scene', { scene_id: scene.id, item_id: item.id, page: items.currentPage }) }}"
+                        data-delete-url="{{ path('app_item_remove_from_scene', { scene_id: scene.id, item_id: item.id }) }}"
                         title="{{ 'crud.remove_from_scene' | trans }}"
                     >
                         <span class="fa fa-scissors"></span>
                     </button>
                     <button class="js-list-delete js-delete btn btn-xs btn-danger"
-                        data-delete-url="{{ path('app_item_delete', { scene_id: scene.id, item_id: item.id, page: items.currentPage }) }}"
+                        data-delete-url="{{ path('app_item_delete', { id: item.id }) }}"
                         title="{{ 'crud.delete' | trans }}"
                     >
                         <span class="fa fa-trash"></span>

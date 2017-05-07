@@ -15,8 +15,8 @@ app_character_list:
     methods:  GET
 
 app_character_delete:
-    path: /delete/{scene_id}/{character_id}/{page}
-    defaults: { _controller: app.controller.character.delete:deleteAction, page: 1 }
+    path: /delete/{id}
+    defaults: { _controller: app.controller.character.delete:deleteAction }
     methods:  GET
 
 app_character_display:
@@ -35,6 +35,6 @@ app_character_add_to_scene:
     methods:  GET
 
 app_character_remove_from_scene:
-    path: /remove-from-scene/{scene_id}/{character_id}/{page}
+    path: /remove-from-scene/{scene_id}/{character_id}
     defaults: { _controller: app.controller.character.delete:removeFromSceneAction }
     methods:  GET

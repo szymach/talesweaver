@@ -15,8 +15,8 @@ app_item_list:
     methods:  GET
 
 app_item_delete:
-    path: /delete/{scene_id}/{item_id}/{page}
-    defaults: { _controller: app.controller.item.delete:deleteAction, page: 1 }
+    path: /delete/{id}
+    defaults: { _controller: app.controller.item.delete:deleteAction }
     methods:  GET
 
 app_item_display:
@@ -35,6 +35,6 @@ app_item_add_to_scene:
     methods:  GET
 
 app_item_remove_from_scene:
-    path: /remove-from-scene/{scene_id}/{item_id}/{page}
+    path: /remove-from-scene/{scene_id}/{item_id}
     defaults: { _controller: app.controller.item.delete:removeFromSceneAction }
     methods:  GET
