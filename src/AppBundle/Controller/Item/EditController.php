@@ -60,8 +60,8 @@ class EditController
         $form = $this->formFactory->create(
             ItemType::class,
             $item,
-            ['action' => $this->router->generate('app_item_edit', ['id' => $item->getId()])
-        ]);
+            ['action' => $this->router->generate('app_item_edit', ['id' => $item->getId()])]
+        );
 
         $result = true;
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
@@ -99,5 +99,4 @@ class EditController
             )
         ]);
     }
-
 }

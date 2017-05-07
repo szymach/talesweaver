@@ -60,8 +60,8 @@ class EditController
         $form = $this->formFactory->create(
             LocationType::class,
             $location,
-            ['action' => $this->router->generate('app_location_edit', ['id' => $location->getId()])
-        ]);
+            ['action' => $this->router->generate('app_location_edit', ['id' => $location->getId()])]
+        );
 
         $result = true;
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {

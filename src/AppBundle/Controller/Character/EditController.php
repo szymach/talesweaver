@@ -60,8 +60,8 @@ class EditController
         $form = $this->formFactory->create(
             CharacterType::class,
             $character,
-            ['action' => $this->router->generate('app_character_edit', ['id' => $character->getId()])
-        ]);
+            ['action' => $this->router->generate('app_character_edit', ['id' => $character->getId()])]
+        );
 
         $result = true;
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {

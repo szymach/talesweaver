@@ -78,5 +78,4 @@ class CreateController
             $result ? 200 : 400
         );
     }
-
 }

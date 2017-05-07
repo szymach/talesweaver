@@ -52,8 +52,9 @@ class CreateController
         $form = $this->formFactory->create(
             ItemType::class,
             $item,
-            ['action' => $this->router->generate('app_item_new', ['id' => $scene->getId()])
-        ]);
+            ['action' => $this->router->generate('app_item_new', ['id' => $scene->getId()])]
+        );
+
         $result = true;
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $scene->addItem($item);

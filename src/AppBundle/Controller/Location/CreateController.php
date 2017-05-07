@@ -60,8 +60,8 @@ class CreateController
         $form = $this->formFactory->create(
             LocationType::class,
             $location,
-            ['action' => $this->router->generate('app_location_new', ['id' => $scene->getId()])
-        ]);
+            ['action' => $this->router->generate('app_location_new', ['id' => $scene->getId()])]
+        );
 
         $result = true;
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
@@ -86,5 +86,4 @@ class CreateController
             $result ? 200 : 400
         );
     }
-
 }
