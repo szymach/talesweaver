@@ -4,22 +4,18 @@ cache:
   directories:
     - bin
     - vendor
-    - node_modules
 
 sudo: false
 
 php:
-  - 7.0
+  - 7.1
 
 before_script:
   - composer self-update -n
   - composer install -n --prefer-dist -v
-#  - nohup php -S localhost:8080 -t features/fixtures/web > server.log 2>&1 &
-  - chmod +x bin/console
 
 script:
   - bin/phpcs
   - bin/console doctrine:database:create --env=test
   - bin/console doctrine:schema:create --env=test
   - bin/console doctrine:schema:validate --env=test -n
-#  - bin/behat --no-snippets --verbose --profile=travis -vvv
