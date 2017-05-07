@@ -59,6 +59,7 @@ class CreateController
             $scene->addItem($item);
             $this->manager->persist($item);
             $this->manager->flush();
+            return new JsonResponse(['success' => true]);
         }
 
         return new JsonResponse([

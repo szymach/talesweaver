@@ -67,6 +67,7 @@ class CreateController
             $scene->addLocation($location);
             $this->manager->persist($location);
             $this->manager->flush();
+            return new JsonResponse(['success' => true]);
         }
 
         return new JsonResponse([

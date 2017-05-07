@@ -57,6 +57,7 @@ class EditController
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->manager->flush();
+            return new JsonResponse(['success' => true]);
         }
 
         return new JsonResponse([
