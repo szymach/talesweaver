@@ -5,7 +5,6 @@ namespace AppBundle\Controller\Character;
 use AppBundle\Entity\Character;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Character\CharacterType;
-use AppBundle\Pagination\CharacterPaginator;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -32,11 +31,6 @@ class EditController
     private $manager;
 
     /**
-     * @var CharacterPaginator
-     */
-    private $pagination;
-
-    /**
      * @var RouterInterface
      */
     private $router;
@@ -45,13 +39,11 @@ class EditController
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
         ObjectManager $manager,
-        CharacterPaginator $pagination,
         RouterInterface $router
     ) {
         $this->formFactory = $formFactory;
         $this->templating = $templating;
         $this->manager = $manager;
-        $this->pagination = $pagination;
         $this->router = $router;
     }
 
@@ -83,14 +75,6 @@ class EditController
     {
         $scene->addCharacter($character);
         $this->manager->flush();
-        return new JsonResponse([
-            'list' => $this->templating->render(
-                'scene\characters\list.html.twig',
-                [
-                    'characters' => $this->pagination->getForScene($scene, 1),
-                    'scene' => $scene
-                ]
-            )
-        ]);
+        return new JsonResponse(['success' => true]);
     }
 }

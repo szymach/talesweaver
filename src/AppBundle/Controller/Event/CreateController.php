@@ -6,7 +6,6 @@ use AppBundle\Entity\Event;
 use AppBundle\Entity\Scene;
 use AppBundle\Enum\SceneEvents;
 use AppBundle\Form\Event\EventType;
-use AppBundle\Pagination\EventPaginator;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -36,26 +35,19 @@ class CreateController
      */
     private $router;
 
-    /**
-     * @var EventPaginator
-     */
-    private $pagination;
-
     public function __construct(
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
         ObjectManager $manager,
-        RouterInterface $router,
-        EventPaginator $pagination
+        RouterInterface $router
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
         $this->manager = $manager;
         $this->router = $router;
-        $this->pagination = $pagination;
     }
 
-    public function createAction(Request $request, Scene $scene, $model)
+    public function createAction(Request $request, Scene $scene, string $model)
     {
         $event = new Event($scene);
         $form = $this->formFactory->create(
@@ -79,16 +71,7 @@ class CreateController
             $this->manager->flush();
             $this->manager->refresh($event);
 
-            return new JsonResponse([
-                'list' => $this->templating->render(
-                    'scene\events\list.html.twig',
-                    [
-                        'events' => $this->pagination->getForScene($scene, 1),
-                        'eventModels' => SceneEvents::getAllEvents(),
-                        'scene' => $scene
-                    ]
-                )
-            ]);
+            return new JsonResponse(['success' => true]);
         }
 
         return new JsonResponse([

@@ -5,7 +5,6 @@ namespace AppBundle\Controller\Location;
 use AppBundle\Entity\Location;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Location\LocationType;
-use AppBundle\Pagination\LocationPaginator;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -32,11 +31,6 @@ class EditController
     private $manager;
 
     /**
-     * @var LocationPaginator
-     */
-    private $pagination;
-
-    /**
      * @var RouterInterface
      */
     private $router;
@@ -45,13 +39,11 @@ class EditController
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
         ObjectManager $manager,
-        LocationPaginator $pagination,
         RouterInterface $router
     ) {
         $this->formFactory = $formFactory;
         $this->templating = $templating;
         $this->manager = $manager;
-        $this->pagination = $pagination;
         $this->router = $router;
     }
 
@@ -83,14 +75,7 @@ class EditController
     {
         $scene->addLocation($location);
         $this->manager->flush();
-        return new JsonResponse([
-            'list' => $this->templating->render(
-                'scene\locations\list.html.twig',
-                [
-                    'locations' => $this->pagination->getForScene($scene, 1),
-                    'scene' => $scene
-                ]
-            )]
-        );
+
+        return new JsonResponse(['success' => true]);
     }
 }

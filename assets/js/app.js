@@ -109,14 +109,14 @@ $(document).ready(function() {
             url: $this.data('action-url'),
             dataType: "json"
         })
-        .success(function(response) {
+        .success(function() {
             clearAjaxContainer();
-            $($this.data('list-id')).replaceWith(response.list);
+            refreshList($($this.data('list-id')));
             displaySuccessAlert();
         });
     });
 
-    $('#clear-ajax').on('click', function() {
+    getAjaxClearButton().on('click', function() {
         showBackdrop();
         $('html, body').animate({ scrollTop: $("main").offset().top }, 500, function () {
             clearAjaxContainer();

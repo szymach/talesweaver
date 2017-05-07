@@ -123,7 +123,6 @@ services:
             - "@templating"
             - "@form.factory"
             - "@doctrine.orm.entity_manager"
-            - "@app.paginator.character"
             - "@router"
 
     app.controller.character.list:
@@ -158,7 +157,6 @@ services:
             - "@templating"
             - "@form.factory"
             - "@doctrine.orm.entity_manager"
-            - "@app.paginator.item"
             - "@router"
 
     app.controller.item.list:
@@ -185,7 +183,6 @@ services:
             - "@templating"
             - "@form.factory"
             - "@doctrine.orm.entity_manager"
-            - "@app.paginator.location"
             - "@router"
 
     app.controller.location.edit:
@@ -222,7 +219,6 @@ services:
             - "@form.factory"
             - "@doctrine.orm.entity_manager"
             - "@router"
-            - "@app.paginator.event"
 
     app.controller.event.list:
         class: AppBundle\Controller\Event\ListController

@@ -5,7 +5,6 @@ namespace AppBundle\Controller\Item;
 use AppBundle\Entity\Item;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Item\ItemType;
-use AppBundle\Pagination\ItemPaginator;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -32,11 +31,6 @@ class EditController
     private $manager;
 
     /**
-     * @var ItemPaginator
-     */
-    private $pagination;
-
-    /**
      * @var RouterInterface
      */
     private $router;
@@ -45,13 +39,11 @@ class EditController
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
         ObjectManager $manager,
-        ItemPaginator $pagination,
         RouterInterface $router
     ) {
         $this->formFactory = $formFactory;
         $this->templating = $templating;
         $this->manager = $manager;
-        $this->pagination = $pagination;
         $this->router = $router;
     }
 
@@ -83,14 +75,7 @@ class EditController
     {
         $scene->addItem($item);
         $this->manager->flush();
-        return new JsonResponse([
-            'list' => $this->templating->render(
-                'scene\items\list.html.twig',
-                [
-                    'items' => $this->pagination->getForScene($scene, 1),
-                    'scene' => $scene
-                ]
-            )
-        ]);
+
+        return new JsonResponse(['success' => true]);
     }
 }
