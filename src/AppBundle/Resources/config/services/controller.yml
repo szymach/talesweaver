@@ -207,13 +207,27 @@ services:
         arguments:
             - "@templating"
 
-    app.controller.event:
-        class: AppBundle\Controller\EventController
+    # Event
+    app.controller.event.create:
+        class: AppBundle\Controller\Event\CreateController
         arguments:
             - "@templating"
             - "@form.factory"
             - "@doctrine.orm.entity_manager"
             - "@router"
+            - "@app.paginator.event"
+
+    app.controller.event.list:
+        class: AppBundle\Controller\Event\ListController
+        arguments:
+            - "@templating"
+            - "@app.paginator.event"
+
+    app.controller.event.delete:
+        class: AppBundle\Controller\Event\DeleteController
+        arguments:
+            - "@templating"
+            - "@doctrine.orm.entity_manager"
             - "@app.paginator.event"
 
     # Display

@@ -1,21 +1,20 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Event;
 
 use AppBundle\Entity\Event;
 use AppBundle\Entity\Scene;
 use AppBundle\Enum\SceneEvents;
 use AppBundle\Form\Event\EventType;
 use AppBundle\Pagination\EventPaginator;
-use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 
-class EventController
+class CreateController
 {
     /**
      * @var EngineInterface
@@ -28,7 +27,7 @@ class EventController
     private $formFactory;
 
     /**
-     * @var EntityManagerInterface
+     * @var ObjectManager
      */
     private $manager;
 
@@ -45,7 +44,7 @@ class EventController
     public function __construct(
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
-        EntityManagerInterface $manager,
+        ObjectManager $manager,
         RouterInterface $router,
         EventPaginator $pagination
     ) {
@@ -56,11 +55,12 @@ class EventController
         $this->pagination = $pagination;
     }
 
-    public function formAction(Request $request, Scene $scene, $model)
+    public function createAction(Request $request, Scene $scene, $model)
     {
+        $event = new Event($scene);
         $form = $this->formFactory->create(
             EventType::class,
-            new Event($scene),
+            $event,
             [
                 'scene' => $scene,
                 'model' => SceneEvents::getEventForm($model),
@@ -75,7 +75,6 @@ class EventController
         );
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $event = $form->getData();
             $this->manager->persist($event);
             $this->manager->flush();
             $this->manager->refresh($event);
@@ -98,41 +97,5 @@ class EventController
                 ['form' => $form->createView()]
             )
         ], !$form->isSubmitted() || $form->isValid() ? 200 : 400);
-    }
-
-    public function listAction(Scene $scene, $page)
-    {
-        return new JsonResponse([
-            'list' => $this->templating->render(
-                'scene\events\list.html.twig',
-                [
-                    'events' => $this->pagination->getForScene($scene, $page),
-                    'scene' => $scene,
-                    'eventModels' => SceneEvents::getAllEvents(),
-                    'page' => $page
-                ]
-            )
-        ]);
-    }
-
-    /**
-     * @ParamConverter("event", options={"id" = "event_id"})
-     */
-    public function deleteAction(Event $event, $page)
-    {
-        $scene = $event->getScene();
-        $this->manager->remove($event);
-        $this->manager->flush();
-
-        return new JsonResponse([
-            'list' => $this->templating->render(
-                'scene\events\list.html.twig',
-                [
-                    'events' => $this->pagination->getForScene($scene, $page),
-                    'eventModels' => SceneEvents::getAllEvents(),
-                    'scene' => $scene
-                ]
-            )
-        ]);
     }
 }
