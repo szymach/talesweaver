@@ -1,13 +1,13 @@
 {% if scene.id %}
     <li class="events js-list"
-        data-list-url="{{ path('app_event_list', { id: scene.id }) }}"
+        data-list-url="{{ path('app_event_list', { id: scene.id, page: events.currentPage }) }}"
     >
         <span class="fa fa-bookmark logo-icon" title="{{ 'scene.tabs.events' | trans }}"></span>
         <span class="h4">{{ 'scene.tabs.events' | trans }}</span>
         <ul>
             {% for event in eventModels %}
                 <li>
-                    <button data-form-url="{{ path('app_event_add', { id: scene.id, model: event }) }}" class="js-load-form js-edit-form  btn btn-default">
+                    <button data-form-url="{{ path('app_event_add', { id: scene.id, model: event }) }}" class="js-load-form js-edit-form btn btn-default">
                         {{ ('event.' ~ event ~ '.name') | trans }}
                     </button>
                 </li>
@@ -19,7 +19,7 @@
                 <li title="{% include "scene/events/%s.html.twig" | format(model | eventTemplateName) with { model: model } only %}">
                     {{ event.name }}
                     <button class="js-list-delete js-delete btn btn-xs btn-danger"
-                        data-delete-url="{{ path('app_event_delete', { event_id: event.id, page: events.currentPage }) }}"
+                        data-delete-url="{{ path('app_event_delete', { id: event.id }) }}"
                         title="{{ 'crud.delete' | trans }}"
                     >
                         <span class="fa fa-trash"></span>

@@ -8,233 +8,184 @@ services:
             - "@app.repository.chapter"
             - "@app.repository.scene"
 
+    # Abstract
+    app.controller.abstract.form:
+        abstract: true
+        arguments:
+            - "@templating"
+            - "@form.factory"
+            - "@doctrine.orm.entity_manager"
+            - "@router"
+
+    app.controller.abstract.templating:
+        abstract: true
+        arguments: ["@templating"]
+
+    app.controller.abstract.delete:
+        abstract: true
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@router"
+
     # Book
     app.controller.book.create:
         class: AppBundle\Controller\Book\CreateController
-        arguments:
-            - "@templating"
-            - "@form.factory"
-            - "@doctrine.orm.entity_manager"
-            - "@router"
+        parent: app.controller.abstract.form
 
     app.controller.book.edit:
         class: AppBundle\Controller\Book\EditController
+        parent: app.controller.abstract.form
         arguments:
-            - "@templating"
-            - "@form.factory"
             - "@app.paginator.aggregate.book"
-            - "@doctrine.orm.entity_manager"
-            - "@router"
 
     app.controller.book.list:
         class: AppBundle\Controller\Book\ListController
+        parent: app.controller.abstract.templating
         arguments:
-            - "@templating"
             - "@app.paginator.aggregate.book"
 
     app.controller.book.delete:
         class: AppBundle\Controller\Book\DeleteController
-        arguments:
-            - "@doctrine.orm.entity_manager"
-            - "@router"
+        parent: app.controller.abstract.delete
 
     # Chapter
     app.controller.chapter.create:
         class: AppBundle\Controller\Chapter\CreateController
-        arguments:
-            - "@templating"
-            - "@form.factory"
-            - "@doctrine.orm.entity_manager"
-            - "@router"
+        parent: app.controller.abstract.form
 
     app.controller.chapter.edit:
         class: AppBundle\Controller\Chapter\EditController
+        parent: app.controller.abstract.form
         arguments:
-            - "@templating"
-            - "@form.factory"
             - "@app.paginator.aggregate.chapter"
-            - "@doctrine.orm.entity_manager"
-            - "@router"
 
     app.controller.chapter.list:
         class: AppBundle\Controller\Chapter\ListController
+        parent: app.controller.abstract.templating
         arguments:
-            - "@templating"
             - "@app.paginator.aggregate.chapter"
 
     app.controller.chapter.delete:
         class: AppBundle\Controller\Chapter\DeleteController
-        arguments:
-            - "@doctrine.orm.entity_manager"
-            - "@router"
+        parent: app.controller.abstract.delete
 
     app.controller.chapter.display:
         class: AppBundle\Controller\Chapter\DisplayController
-        arguments:
-            - "@templating"
+        parent: app.controller.abstract.templating
 
     # Scene
     app.controller.scene.create:
         class: AppBundle\Controller\Scene\CreateController
-        arguments:
-            - "@templating"
-            - "@form.factory"
-            - "@doctrine.orm.entity_manager"
-            - "@router"
+        parent: app.controller.abstract.form
 
     app.controller.scene.edit:
         class: AppBundle\Controller\Scene\EditController
+        parent: app.controller.abstract.form
         arguments:
-            - "@templating"
-            - "@form.factory"
             - "@app.paginator.aggregate.scene"
-            - "@doctrine.orm.entity_manager"
-            - "@router"
 
     app.controller.scene.list:
         class: AppBundle\Controller\Scene\ListController
+        parent: app.controller.abstract.templating
         arguments:
-            - "@templating"
             - "@app.paginator.aggregate.scene"
 
     app.controller.scene.delete:
         class: AppBundle\Controller\Scene\DeleteController
-        arguments:
-            - "@doctrine.orm.entity_manager"
-            - "@router"
+        parent: app.controller.abstract.delete
 
     app.controller.scene.display:
         class: AppBundle\Controller\Scene\DisplayController
-        arguments:
-            - "@templating"
+        parent: app.controller.abstract.templating
 
     # Character
     app.controller.character.create:
         class: AppBundle\Controller\Character\CreateController
-        arguments:
-            - "@templating"
-            - "@form.factory"
-            - "@doctrine.orm.entity_manager"
-            - "@router"
+        parent: app.controller.abstract.form
 
     app.controller.character.edit:
         class: AppBundle\Controller\Character\EditController
-        arguments:
-            - "@templating"
-            - "@form.factory"
-            - "@doctrine.orm.entity_manager"
-            - "@router"
+        parent: app.controller.abstract.form
 
     app.controller.character.list:
         class: AppBundle\Controller\Character\ListController
+        parent: app.controller.abstract.templating
         arguments:
-            - "@templating"
             - "@app.paginator.character"
 
     app.controller.character.delete:
         class: AppBundle\Controller\Character\DeleteController
-        arguments:
-            - "@templating"
-            - "@doctrine.orm.entity_manager"
+        parent: app.controller.abstract.delete
 
     app.controller.character.display:
         class: AppBundle\Controller\Character\DisplayController
-        arguments:
-            - "@templating"
+        parent: app.controller.abstract.templating
 
     # Item
     app.controller.item.create:
         class: AppBundle\Controller\Item\CreateController
-        arguments:
-            - "@templating"
-            - "@form.factory"
-            - "@doctrine.orm.entity_manager"
-            - "@router"
+        parent: app.controller.abstract.form
 
     app.controller.item.edit:
         class: AppBundle\Controller\Item\EditController
-        arguments:
-            - "@templating"
-            - "@form.factory"
-            - "@doctrine.orm.entity_manager"
-            - "@router"
+        parent: app.controller.abstract.form
 
     app.controller.item.list:
         class: AppBundle\Controller\Item\ListController
+        parent: app.controller.abstract.templating
         arguments:
-            - "@templating"
             - "@app.paginator.item"
 
     app.controller.item.delete:
         class: AppBundle\Controller\Item\DeleteController
-        arguments:
-            - "@templating"
-            - "@doctrine.orm.entity_manager"
+        parent: app.controller.abstract.delete
 
     app.controller.item.display:
         class: AppBundle\Controller\Item\DisplayController
-        arguments:
-            - "@templating"
+        parent: app.controller.abstract.templating
 
     # Location
     app.controller.location.create:
         class: AppBundle\Controller\Location\CreateController
-        arguments:
-            - "@templating"
-            - "@form.factory"
-            - "@doctrine.orm.entity_manager"
-            - "@router"
+        parent: app.controller.abstract.form
 
     app.controller.location.edit:
         class: AppBundle\Controller\Location\EditController
-        arguments:
-            - "@templating"
-            - "@form.factory"
-            - "@doctrine.orm.entity_manager"
-            - "@app.paginator.location"
-            - "@router"
+        parent: app.controller.abstract.form
 
     app.controller.location.list:
         class: AppBundle\Controller\Location\ListController
+        parent: app.controller.abstract.templating
         arguments:
-            - "@templating"
             - "@app.paginator.location"
 
     app.controller.location.delete:
         class: AppBundle\Controller\Location\DeleteController
-        arguments:
-            - "@templating"
-            - "@doctrine.orm.entity_manager"
+        parent: app.controller.abstract.delete
 
     app.controller.location.display:
         class: AppBundle\Controller\Location\DisplayController
-        arguments:
-            - "@templating"
+        parent: app.controller.abstract.templating
 
     # Event
     app.controller.event.create:
         class: AppBundle\Controller\Event\CreateController
-        arguments:
-            - "@templating"
-            - "@form.factory"
-            - "@doctrine.orm.entity_manager"
-            - "@router"
+        parent: app.controller.abstract.form
 
     app.controller.event.list:
         class: AppBundle\Controller\Event\ListController
+        parent: app.controller.abstract.templating
         arguments:
-            - "@templating"
             - "@app.paginator.event"
 
     app.controller.event.delete:
         class: AppBundle\Controller\Event\DeleteController
-        arguments:
-            - "@templating"
-            - "@doctrine.orm.entity_manager"
+        parent: app.controller.abstract.delete
 
     # PDF
     app.controller.pdf:
         class: AppBundle\Controller\PDFController
+        parent: app.controller.abstract.templating
         arguments:
             - "@templating"
             - "@knp_snappy.pdf"

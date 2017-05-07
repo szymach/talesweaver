@@ -8,7 +8,6 @@ use AppBundle\Form\Scene\EditType;
 use AppBundle\Pagination\Scene\SceneAggregate;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Templating\EngineInterface;
@@ -43,15 +42,15 @@ class EditController
     public function __construct(
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
-        SceneAggregate $pagination,
         ObjectManager $manager,
-        RouterInterface $router
+        RouterInterface $router,
+        SceneAggregate $pagination
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
-        $this->pagination = $pagination;
         $this->manager = $manager;
         $this->router = $router;
+        $this->pagination = $pagination;
     }
 
     public function editAction(Request $request, Scene $scene)

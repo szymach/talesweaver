@@ -41,15 +41,15 @@ class EditController
     public function __construct(
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
-        BookAggregate $pagination,
         ObjectManager $manager,
-        RouterInterface $router
+        RouterInterface $router,
+        BookAggregate $pagination
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
-        $this->pagination = $pagination;
         $this->manager = $manager;
         $this->router = $router;
+        $this->pagination = $pagination;
     }
 
     public function editAction(Request $request, Book $book, $page)
