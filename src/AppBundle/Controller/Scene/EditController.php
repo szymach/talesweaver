@@ -61,15 +61,6 @@ class EditController
             $this->manager->flush();
         }
 
-        if ($request->isXmlHttpRequest()) {
-            return new JsonResponse([
-                'form' => $this->templating->render(
-                    'partial/simpleForm.html.twig',
-                    ['form' => $form->createView()]
-                )
-            ]);
-        }
-
         return $this->templating->renderResponse(
             'scene/form.html.twig',
             [

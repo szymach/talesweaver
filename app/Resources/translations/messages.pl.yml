@@ -63,8 +63,8 @@ scene:
 
 event:
     name: Nazwa
-    actions:
-        create: Nowe wydarzenie
+    header:
+        new: Nowe wydarzenie
     'AppBundle\Model\Meeting':
         name: Spotkanie
         description: '%root% spotkał %relation% w %location%'

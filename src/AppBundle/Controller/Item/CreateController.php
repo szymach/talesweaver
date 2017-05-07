@@ -55,27 +55,17 @@ class CreateController
             ['action' => $this->router->generate('app_item_new', ['id' => $scene->getId()])]
         );
 
-        $result = true;
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $scene->addItem($item);
             $this->manager->persist($item);
             $this->manager->flush();
-        } elseif ($form->isSubmitted()) {
-            $result = false;
         }
 
-        return new JsonResponse(
-            [
-                'form' => $this->templating->render(
-                    'partial\simpleForm.html.twig',
-                    [
-                        'form' => $form->createView(),
-                        'scene' => $scene,
-                        'h2Title' => 'item.header.new'
-                    ]
-                )
-            ],
-            $result ? 200 : 400
-        );
+        return new JsonResponse([
+            'form' => $this->templating->render(
+                'partial\simpleForm.html.twig',
+                ['form' => $form->createView(), 'title' => 'item.header.new']
+            )
+        ], !$form->isSubmitted() || $form->isValid()? 200 : 400);
     }
 }

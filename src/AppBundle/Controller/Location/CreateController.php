@@ -63,27 +63,17 @@ class CreateController
             ['action' => $this->router->generate('app_location_new', ['id' => $scene->getId()])]
         );
 
-        $result = true;
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $scene->addLocation($location);
             $this->manager->persist($location);
             $this->manager->flush();
-        } elseif ($form->isSubmitted()) {
-            $result = false;
         }
 
-        return new JsonResponse(
-            [
-                'form' => $this->templating->render(
-                    'partial\simpleForm.html.twig',
-                    [
-                        'form' => $form->createView(),
-                        'scene' => $scene,
-                        'h2Title' => 'location.header.new'
-                    ]
-                )
-            ],
-            $result ? 200 : 400
-        );
+        return new JsonResponse([
+            'form' => $this->templating->render(
+                'partial\simpleForm.html.twig',
+                ['form' => $form->createView(), 'title' => 'location.header.new']
+            )
+        ], !$form->isSubmitted() || $form->isValid()? 200 : 400);
     }
 }

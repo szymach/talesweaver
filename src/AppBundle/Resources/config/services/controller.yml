@@ -68,6 +68,11 @@ services:
             - "@doctrine.orm.entity_manager"
             - "@router"
 
+    app.controller.chapter.display:
+        class: AppBundle\Controller\Chapter\DisplayController
+        arguments:
+            - "@templating"
+
     # Scene
     app.controller.scene.create:
         class: AppBundle\Controller\Scene\CreateController
@@ -97,6 +102,11 @@ services:
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@router"
+
+    app.controller.scene.display:
+        class: AppBundle\Controller\Scene\DisplayController
+        arguments:
+            - "@templating"
 
     # Character
     app.controller.character.create:
@@ -229,12 +239,6 @@ services:
             - "@templating"
             - "@doctrine.orm.entity_manager"
             - "@app.paginator.event"
-
-    # Display
-    app.controller.display:
-        class: AppBundle\Controller\DisplayController
-        arguments:
-            - "@templating"
 
     # PDF
     app.controller.pdf:

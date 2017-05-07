@@ -94,7 +94,7 @@ class CreateController
         return new JsonResponse([
             'form' => $this->templating->render(
                 'partial/simpleForm.html.twig',
-                ['form' => $form->createView()]
+                ['form' => $form->createView(), 'title' => 'event.header.new']
             )
         ], !$form->isSubmitted() || $form->isValid() ? 200 : 400);
     }

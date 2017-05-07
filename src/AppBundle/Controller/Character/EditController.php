@@ -63,25 +63,16 @@ class EditController
             ['action' => $this->router->generate('app_character_edit', ['id' => $character->getId()])]
         );
 
-        $result = true;
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->manager->flush();
-        } elseif ($form->isSubmitted()) {
-            $result = false;
         }
 
-        return new JsonResponse(
-            [
-                'form' => $this->templating->render(
-                    'partial\simpleForm.html.twig',
-                    [
-                        'form' => $form->createView(),
-                        'h2Title' => 'character.header.edit'
-                    ]
-                )
-            ],
-            $result ? 200 : 400
-        );
+        return new JsonResponse([
+            'form' => $this->templating->render(
+                'partial\simpleForm.html.twig',
+                ['form' => $form->createView(), 'title' => 'character.header.edit']
+            )
+        ], !$form->isSubmitted() || $form->isValid() ? 200 : 400);
     }
 
     /**

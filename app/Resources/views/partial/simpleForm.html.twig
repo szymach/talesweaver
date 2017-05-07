@@ -2,9 +2,7 @@
 
 <div class="row">
     <div class="col-xs-12">
-    {% if h2Title is defined %}
-        <h2>{{ h2Title | trans }}</h2>
-    {% endif %}
+    {% if title is defined %}<h2>{{ title | trans }}</h2>{% endif %}
     {{ form_start(form) }}
         {{ form_rest(form) }}
         <div class="form-group text-right">
