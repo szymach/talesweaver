@@ -23,6 +23,8 @@ class AppKernel extends Kernel
             new Hautelook\AliceBundle\HautelookAliceBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            new SimpleBus\SymfonyBridge\SimpleBusCommandBusBundle(),
+            new SimpleBus\SymfonyBridge\SimpleBusEventBusBundle(),
 
             # App
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),

@@ -75,7 +75,8 @@ ivory_ck_editor:
     configs:
         full_size:
             disableNativeSpellChecker: false
-            height: 600
+            height: 500
+            toolbar: standard
         small_size:
             disableNativeSpellChecker: false
             height: 150
@@ -85,3 +86,6 @@ knp_snappy:
     pdf:
         enabled: true
         binary: /usr/bin/wkhtmltopdf
+
+event_bus:
+    logging: ~
