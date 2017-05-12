@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Chapter;
 
+use AppBundle\Entity\Book;
 use AppBundle\Entity\Chapter;
 use AppBundle\Form\Chapter\ChapterType;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -11,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Templating\EngineInterface;
 
-class CreateController
+class CreateAssignedController
 {
     /**
      * @var EngineInterface
@@ -45,9 +46,10 @@ class CreateController
         $this->router = $router;
     }
 
-    public function createAction(Request $request)
+    public function createAction(Request $request, Book $book)
     {
         $chapter = new Chapter();
+        $chapter->setBook($book);
         $form = $this->formFactory->create(ChapterType::class, $chapter);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->manager->persist($chapter);

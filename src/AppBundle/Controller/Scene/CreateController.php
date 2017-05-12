@@ -46,20 +46,9 @@ class CreateController
         $this->router = $router;
     }
 
-    public function standaloneAction(Request $request)
-    {
-        return $this->handleSceneCreation($request, new Scene());
-    }
-
-    public function assignedAction(Request $request, Chapter $chapter)
+    public function createAction(Request $request)
     {
         $scene = new Scene();
-        $scene->setChapter($chapter);
-        return $this->handleSceneCreation($request, $scene);
-    }
-
-    private function handleSceneCreation(Request $request, Scene $scene)
-    {
         $form = $this->formFactory->create(NewType::class, $scene);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->manager->persist($scene);
@@ -72,7 +61,7 @@ class CreateController
 
         return $this->templating->renderResponse(
             'scene/form.html.twig',
-            ['form' => $form->createView(), 'scene' => $scene]
+            ['form' => $form->createView()]
         );
     }
 }

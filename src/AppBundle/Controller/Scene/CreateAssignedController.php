@@ -1,9 +1,10 @@
 <?php
 
-namespace AppBundle\Controller\Chapter;
+namespace AppBundle\Controller\Scene;
 
 use AppBundle\Entity\Chapter;
-use AppBundle\Form\Chapter\ChapterType;
+use AppBundle\Entity\Scene;
+use AppBundle\Form\Scene\NewType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -11,8 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Templating\EngineInterface;
 
-class CreateController
+class CreateAssignedController
 {
+
     /**
      * @var EngineInterface
      */
@@ -45,22 +47,23 @@ class CreateController
         $this->router = $router;
     }
 
-    public function createAction(Request $request)
+    public function createAction(Request $request, Chapter $chapter)
     {
-        $chapter = new Chapter();
-        $form = $this->formFactory->create(ChapterType::class, $chapter);
+        $scene = new Scene();
+        $scene->setChapter($chapter);
+        $form = $this->formFactory->create(NewType::class, $scene);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->manager->persist($chapter);
+            $this->manager->persist($scene);
             $this->manager->flush();
 
             return new RedirectResponse(
-                $this->router->generate('app_chapter_edit', ['id' => $chapter->getId()])
+                $this->router->generate('app_scene_edit', ['id' => $scene->getId()])
             );
         }
 
         return $this->templating->renderResponse(
-            'chapter/form.html.twig',
-            ['form' => $form->createView(), 'chapter' => $chapter]
+            'scene/form.html.twig',
+            ['form' => $form->createView()]
         );
     }
 }

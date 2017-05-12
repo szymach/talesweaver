@@ -1,12 +1,12 @@
 ---
 app_scene_new_standalone:
     path: /new-standalone/{page}
-    defaults: { _controller: app.controller.scene.create:standaloneAction, page: 1 }
+    defaults: { _controller: app.controller.scene.create:createAction, page: 1 }
     methods:  [GET, POST]
 
 app_scene_new_assigned:
     path: /new-assigned/{id}
-    defaults: { _controller: app.controller.scene.create:assignedAction }
+    defaults: { _controller: app.controller.scene.create_assigned:createAction }
     methods:  [GET, POST]
 
 app_scene_edit:
