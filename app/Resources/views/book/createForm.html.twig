@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% set book = form.vars.data %}
+{% if book is not defined %}
+    {% set book = form.vars.data %}
+{% endif %}
 
 {% block body %}
     {% include 'partial/backButton.html.twig' with {
@@ -16,13 +18,7 @@
                 </a>
             </li>
         {% endfor %}
-        {% if book.id %}
-            <li role="presentation">
-                <a href="#chapters" aria-controls="chapters" role="tab" data-toggle="tab">
-                    {{ 'book.tabs.chapters' | trans }}
-                </a>
-            </li>
-        {% endif %}
+        {% block afterTabsButtons '' %}
     </ul>
     <div class="row">
         <div class="col-xs-12">
@@ -46,11 +42,7 @@
                         {{ form_row(form.ending) }}
                         <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
                     </div>
-                    {% if book.id %}
-                        <div role="tabpanel" class="tab-pane fade" id="chapters">
-                            {% include 'book/chapters/list.html.twig' with { book: book, chapters: bookChapters(book, page) } only %}
-                        </div>
-                    {% endif %}
+                    {% block afterTabsContent '' %}
                 </div>
                 {{ form_rest(form) }}
             {{ form_end(form) }}

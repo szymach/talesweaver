@@ -1,0 +1,15 @@
+{% extends 'book/createForm.html.twig' %}
+
+{% block afterTabsButtons %}
+    <li role="presentation">
+        <a href="#chapters" aria-controls="chapters" role="tab" data-toggle="tab">
+            {{ 'book.tabs.chapters' | trans }}
+        </a>
+    </li>
+{% endblock %}
+
+{% block afterTabsContent %}
+    <div role="tabpanel" class="tab-pane fade" id="chapters">
+        {% include 'book/chapters/list.html.twig' with { book: book, chapters: bookChapters(book, page) } only %}
+    </div>
+{% endblock %}

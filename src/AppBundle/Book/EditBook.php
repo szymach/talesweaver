@@ -1,48 +1,40 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Book;
 
-use AppBundle\Book\EditBook;
-use DateTimeImmutable;
+use AppBundle\Entity\Book;
+use AppBundle\Entity\Chapter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 
-class Book
+class EditBook
 {
-    use Traits\TimestampableTrait, Traits\TranslatableTrait;
-
     /**
-     * @var integer
+     * @var Book
      */
-    private $id;
+    private $book;
 
     /**
-     * @Translatable\Translatable(mappedBy="translations")
      * @var string
      */
     private $title;
 
     /**
-     * @Translatable\Translatable(mappedBy="translations")
      * @var string
      */
     private $description;
 
     /**
-     * @Translatable\Translatable(mappedBy="translations")
      * @var string
      */
     private $introduction;
 
     /**
-     * @Translatable\Translatable(mappedBy="translations")
      * @var string
      */
     private $expansion;
 
     /**
-     * @Translatable\Translatable(mappedBy="translations")
      * @var string
      */
     private $ending;
@@ -52,41 +44,26 @@ class Book
      */
     private $chapters;
 
-    public function __construct($title)
+    public function __construct(Book $book)
     {
-        $this->title = $title;
+        $this->book = $book;
+        $this->id = $book->getId();
+        $this->title = $book->getTitle();
+        $this->description = $book->getDescription();
+        $this->introduction = $book->getIntroduction();
+        $this->expansion = $book->getExpansion();
+        $this->ending = $book->getEnding();
         $this->chapters = new ArrayCollection();
-        $this->translations = new ArrayCollection();
-        $this->createdAt = new DateTimeImmutable();
-    }
-
-    public function __toString()
-    {
-        return $this->title;
-    }
-
-    public function edit(EditBook $event)
-    {
-        $this->title = $event->getTitle();
-        $this->description = $event->getDescription();
-        $this->introduction = $event->getIntroduction();
-        $this->expansion = $event->getExpansion();
-        $this->ending = $event->getEnding();
-        $this->chapters = new ArrayCollection();
-
-        $currentChapters = $this->chapters;
-        $newChapters = $event->getChapters();
-        foreach ($event->getChapters() as $chapter) {
+        foreach ($book->getChapters() as $chapter) {
             $this->addChapter($chapter);
         }
-        foreach ($currentChapters as $chapterToCheck) {
-            if (!$newChapters->contains($chapterToCheck)) {
-                $this->removeChapter($chapterToCheck);
-            }
-        }
-
-        $this->update();
     }
+
+    public function edit()
+    {
+        $this->book->edit($this);
+    }
+
     /**
      * @return integer
      */
@@ -101,7 +78,6 @@ class Book
     public function setTitle($title)
     {
         $this->title = $title;
-        $this->update();
     }
 
     /**
@@ -118,7 +94,6 @@ class Book
     public function setDescription($description)
     {
         $this->description = $description;
-        $this->update();
     }
 
     /**
@@ -135,7 +110,6 @@ class Book
     public function setIntroduction($introduction)
     {
         $this->introduction = $introduction;
-        $this->update();
     }
 
     /**
@@ -152,7 +126,6 @@ class Book
     public function setExpansion($expansion)
     {
         $this->expansion = $expansion;
-        $this->update();
     }
 
     /**
@@ -169,7 +142,6 @@ class Book
     public function setEnding($ending)
     {
         $this->ending = $ending;
-        $this->update();
     }
 
     /**
@@ -181,6 +153,14 @@ class Book
     }
 
     /**
+     * @return Chapter[]|Collection
+     */
+    public function getChapters()
+    {
+        return $this->chapters;
+    }
+
+    /**
      * @param Chapter $chapter
      */
     public function addChapter(Chapter $chapter)
@@ -188,7 +168,6 @@ class Book
         if (!$this->chapters->contains($chapter)) {
             $this->chapters->add($chapter);
             $chapter->setBook($this);
-            $this->update();
         }
     }
 
@@ -199,14 +178,5 @@ class Book
     {
         $this->chapters->removeElement($chapter);
         $chapter->setBook(null);
-        $this->update();
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getChapters()
-    {
-        return $this->chapters;
     }
 }

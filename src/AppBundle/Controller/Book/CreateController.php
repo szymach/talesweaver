@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Book;
 
-use AppBundle\Entity\Book;
+use AppBundle\Book\CreateBook;
 use AppBundle\Form\Book\BookType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -47,9 +47,10 @@ class CreateController
 
     public function createAction(Request $request, $page)
     {
-        $book = new Book();
-        $form = $this->formFactory->create(BookType::class, $book);
+        $createBook = new CreateBook();
+        $form = $this->formFactory->create(BookType::class, $createBook);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
+            $book = $createBook->createBook();
             $this->manager->persist($book);
             $this->manager->flush();
 
@@ -59,7 +60,7 @@ class CreateController
         }
 
         return $this->templating->renderResponse(
-            'book/form.html.twig',
+            'book/createForm.html.twig',
             ['form' => $form->createView(), 'book' => $book, 'page' => $page]
         );
     }

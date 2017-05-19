@@ -2,8 +2,9 @@
 
 namespace AppBundle\Controller\Book;
 
+use AppBundle\Book\EditBook;
 use AppBundle\Entity\Book;
-use AppBundle\Form\Book\BookType;
+use AppBundle\Form\Book\EditType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,14 +47,16 @@ class EditController
 
     public function editAction(Request $request, Book $book, $page)
     {
-        $form = $this->formFactory->create(BookType::class, $book);
+        $editBook = new EditBook($book);
+        $form = $this->formFactory->create(EditType::class, $editBook);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
+            $editBook->edit();
             $this->manager->flush();
         }
 
         return $this->templating->renderResponse(
-            'book/form.html.twig',
-            ['form' => $form->createView(), 'page' => $page]
+            'book/editForm.html.twig',
+            ['form' => $form->createView(), 'book' => $book, 'page' => $page]
         );
     }
 }
