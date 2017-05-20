@@ -4,8 +4,12 @@ services:
         class: AppBundle\Book\Create\EventHandler
         arguments:
             - "@doctrine.orm.entity_manager"
+            - "@app.event_recorder.created"
         tags:
             - { name: event_subscriber, subscribes_to: AppBundle\Book\Create\Event }
+
+    app.event_recorder.created:
+        class: AppBundle\Book\Created\EventRecorder
 
     app.event.book.edit:
         class: AppBundle\Book\Edit\EventHandler

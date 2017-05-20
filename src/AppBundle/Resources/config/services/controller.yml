@@ -32,6 +32,7 @@ services:
             - "@templating"
             - "@form.factory"
             - "@event_bus"
+            - "@app.event_recorder.created"
             - "@router"
 
     app.controller.book.edit:

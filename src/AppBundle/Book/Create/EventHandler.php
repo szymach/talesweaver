@@ -2,6 +2,9 @@
 
 namespace AppBundle\Book\Create;
 
+use AppBundle\Book\Create\Event as CreateEvent;
+use AppBundle\Book\Created\Event as CreatedEvent;
+use AppBundle\Book\Created\EventRecorder;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class EventHandler
@@ -11,14 +14,22 @@ class EventHandler
      */
     private $manager;
 
-    public function __construct(ObjectManager $manager)
+    /**
+     * @var EventRecorder
+     */
+    private $recorder;
+
+    public function __construct(ObjectManager $manager, EventRecorder $recorder)
     {
         $this->manager = $manager;
+        $this->recorder = $recorder;
     }
 
-    public function handle(Event $event)
+    public function handle(CreateEvent $event)
     {
-        $this->manager->persist($event->getData());
+        $book = $event->getData();
+        $this->manager->persist($book);
         $this->manager->flush();
+        $this->recorder->record(new CreatedEvent($book->getId()));
     }
 }
