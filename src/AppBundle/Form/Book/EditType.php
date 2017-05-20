@@ -2,11 +2,12 @@
 
 namespace AppBundle\Form\Book;
 
-use AppBundle\Book\EditBook;
+use AppBundle\Book\Edit\DTO;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EditType extends AbstractType
@@ -39,7 +40,8 @@ class EditType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => EditBook::class
+            'data_class' => DTO::class,
+            'method' => Request::METHOD_POST
         ]);
     }
 }

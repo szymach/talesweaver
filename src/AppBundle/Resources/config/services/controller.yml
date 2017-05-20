@@ -28,11 +28,19 @@ services:
     # Book
     app.controller.book.create:
         class: AppBundle\Controller\Book\CreateController
-        parent: app.controller.abstract.form
+        arguments:
+            - "@templating"
+            - "@form.factory"
+            - "@event_bus"
+            - "@router"
 
     app.controller.book.edit:
         class: AppBundle\Controller\Book\EditController
-        parent: app.controller.abstract.form
+        arguments:
+            - "@templating"
+            - "@form.factory"
+            - "@event_bus"
+            - "@router"
 
     app.controller.book.list:
         class: AppBundle\Controller\Book\ListController

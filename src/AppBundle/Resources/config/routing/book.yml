@@ -1,6 +1,6 @@
 ---
-app_book_new:
-    path: /new/{page}
+app_book_create:
+    path: /create/{page}
     defaults: { _controller: app.controller.book.create:createAction, page: 1 }
     methods:  [GET, POST]
 

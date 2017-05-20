@@ -1,19 +1,14 @@
 <?php
 
-namespace AppBundle\Book;
+namespace AppBundle\Book\Edit;
 
 use AppBundle\Entity\Book;
 use AppBundle\Entity\Chapter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-class EditBook
+class DTO
 {
-    /**
-     * @var Book
-     */
-    private $book;
-
     /**
      * @var string
      */
@@ -46,8 +41,6 @@ class EditBook
 
     public function __construct(Book $book)
     {
-        $this->book = $book;
-        $this->id = $book->getId();
         $this->title = $book->getTitle();
         $this->description = $book->getDescription();
         $this->introduction = $book->getIntroduction();
@@ -57,19 +50,6 @@ class EditBook
         foreach ($book->getChapters() as $chapter) {
             $this->addChapter($chapter);
         }
-    }
-
-    public function edit()
-    {
-        $this->book->edit($this);
-    }
-
-    /**
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

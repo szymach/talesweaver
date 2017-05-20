@@ -1,49 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% if book is not defined %}
-    {% set book = form.vars.data %}
-{% endif %}
-
 {% block body %}
     {% include 'partial/backButton.html.twig' with {
         redirectUri: path('app_book_list', { page: page }),
         label: 'book.back.to_list' | trans
     } %}
-    <h1>{{ book.id and book.title ? book.title : 'book.header.new' | trans }}</h1>
-    <ul class="nav nav-tabs" role="tablist">
-        {% for tab in ['basic', 'introduction', 'expansion', 'ending'] %}
-            <li role="presentation"{% if loop.first %} class="active"{% endif %}>
-                <a href="#{{ tab }}" aria-controls="{{ tab }}" role="tab" data-toggle="tab">
-                    {{ ('book.tabs.' ~ tab) | trans }}
-                </a>
-            </li>
-        {% endfor %}
-        {% block afterTabsButtons '' %}
-    </ul>
+    <h1>{{ 'book.header.new' | trans }}</h1>
     <div class="row">
         <div class="col-xs-12">
             {{ form_start(form) }}
                 {# Tabs #}
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade in active" id="basic">
-                        {{ form_row(form.title) }}
-                        {{ form_row(form.description) }}
-                        <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
-                    </div>
-                    <div role="tabpanel" class="tab-pane fade" id="introduction">
-                        {{ form_row(form.introduction) }}
-                        <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
-                    </div>
-                    <div role="tabpanel" class="tab-pane fade" id="expansion">
-                        {{ form_row(form.expansion) }}
-                        <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
-                    </div>
-                    <div role="tabpanel" class="tab-pane fade" id="ending">
-                        {{ form_row(form.ending) }}
-                        <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
-                    </div>
-                    {% block afterTabsContent '' %}
-                </div>
+                {{ form_row(form.title) }}
+                <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
                 {{ form_rest(form) }}
             {{ form_end(form) }}
         </div>

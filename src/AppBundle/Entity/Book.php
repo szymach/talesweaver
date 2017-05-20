@@ -2,10 +2,11 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Book\EditBook;
+use AppBundle\Book\Edit\DTO;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use DomainException;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 
 class Book
@@ -54,6 +55,10 @@ class Book
 
     public function __construct($title)
     {
+        if (!$title) {
+            throw new DomainException('Cannot create book without a title!');
+        }
+
         $this->title = $title;
         $this->chapters = new ArrayCollection();
         $this->translations = new ArrayCollection();
@@ -65,18 +70,18 @@ class Book
         return $this->title;
     }
 
-    public function edit(EditBook $event)
+    public function edit(DTO $dto)
     {
-        $this->title = $event->getTitle();
-        $this->description = $event->getDescription();
-        $this->introduction = $event->getIntroduction();
-        $this->expansion = $event->getExpansion();
-        $this->ending = $event->getEnding();
+        $this->title = $dto->getTitle();
+        $this->description = $dto->getDescription();
+        $this->introduction = $dto->getIntroduction();
+        $this->expansion = $dto->getExpansion();
+        $this->ending = $dto->getEnding();
+        $currentChapters = $this->chapters;
         $this->chapters = new ArrayCollection();
 
-        $currentChapters = $this->chapters;
-        $newChapters = $event->getChapters();
-        foreach ($event->getChapters() as $chapter) {
+        $newChapters = $dto->getChapters();
+        foreach ($dto->getChapters() as $chapter) {
             $this->addChapter($chapter);
         }
         foreach ($currentChapters as $chapterToCheck) {

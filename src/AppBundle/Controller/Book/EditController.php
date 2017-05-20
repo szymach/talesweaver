@@ -2,11 +2,13 @@
 
 namespace AppBundle\Controller\Book;
 
-use AppBundle\Book\EditBook;
+use AppBundle\Book\Edit\DTO;
+use AppBundle\Book\Edit\Event;
 use AppBundle\Entity\Book;
 use AppBundle\Form\Book\EditType;
-use Doctrine\Common\Persistence\ObjectManager;
+use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Templating\EngineInterface;
@@ -24,34 +26,32 @@ class EditController
     private $formFactory;
 
     /**
-     * @var ObjectManager
+     * @var MessageBus
      */
-    private $manager;
-
-    /**
-     * @var RouterInterface
-     */
-    private $router;
+    private $eventBus;
 
     public function __construct(
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
-        ObjectManager $manager,
+        MessageBus $eventBus,
         RouterInterface $router
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
-        $this->manager = $manager;
+        $this->eventBus = $eventBus;
         $this->router = $router;
     }
 
     public function editAction(Request $request, Book $book, $page)
     {
-        $editBook = new EditBook($book);
-        $form = $this->formFactory->create(EditType::class, $editBook);
+        $dto = new DTO($book);
+        $form = $this->formFactory->create(EditType::class, $dto);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $editBook->edit();
-            $this->manager->flush();
+            $this->eventBus->handle(new Event($dto, $book));
+
+            return new RedirectResponse(
+                $this->router->generate('app_book_edit', ['id' => $book->getId()])
+            );
         }
 
         return $this->templating->renderResponse(

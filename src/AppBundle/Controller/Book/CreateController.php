@@ -2,9 +2,10 @@
 
 namespace AppBundle\Controller\Book;
 
-use AppBundle\Book\CreateBook;
-use AppBundle\Form\Book\BookType;
-use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Book\Create\DTO;
+use AppBundle\Book\Create\Event;
+use AppBundle\Form\Book\CreateType;
+use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,45 +24,33 @@ class CreateController
      */
     private $formFactory;
 
-    /**
-     * @var ObjectManager
-     */
-    private $manager;
-
-    /**
-     * @var RouterInterface
-     */
-    private $router;
-
     public function __construct(
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
-        ObjectManager $manager,
+        MessageBus $eventBus,
         RouterInterface $router
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
-        $this->manager = $manager;
+        $this->eventBus = $eventBus;
         $this->router = $router;
     }
 
     public function createAction(Request $request, $page)
     {
-        $createBook = new CreateBook();
-        $form = $this->formFactory->create(BookType::class, $createBook);
+        $dto = new DTO();
+        $form = $this->formFactory->create(CreateType::class, $dto);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $book = $createBook->createBook();
-            $this->manager->persist($book);
-            $this->manager->flush();
+            $this->eventBus->handle(new Event($dto));
 
             return new RedirectResponse(
-                $this->router->generate('app_book_edit', ['id' => $book->getId()])
+                $this->router->generate('app_book_create')
             );
         }
 
         return $this->templating->renderResponse(
             'book/createForm.html.twig',
-            ['form' => $form->createView(), 'book' => $book, 'page' => $page]
+            ['form' => $form->createView(), 'page' => $page]
         );
     }
 }
