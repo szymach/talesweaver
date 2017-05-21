@@ -1,5 +1,10 @@
 ---
 services:
+    # Recorder
+    app.event_recorder:
+        class: AppBundle\Event\Recorder
+
+    # Book handlers
     app.event.book.create:
         class: AppBundle\Book\Create\EventHandler
         arguments:
@@ -8,12 +13,16 @@ services:
         tags:
             - { name: event_subscriber, subscribes_to: AppBundle\Book\Create\Event }
 
-    app.event_recorder:
-        class: AppBundle\Event\Recorder
-
     app.event.book.edit:
         class: AppBundle\Book\Edit\EventHandler
         arguments:
             - "@doctrine.orm.entity_manager"
         tags:
             - { name: event_subscriber, subscribes_to: AppBundle\Book\Edit\Event }
+
+    app.command.book.delete:
+        class: AppBundle\Book\Delete\CommandHandler
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: command_handler, handles: AppBundle\Book\Delete\Command }

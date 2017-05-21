@@ -50,8 +50,9 @@ services:
 
     app.controller.book.delete:
         class: AppBundle\Controller\Book\DeleteController
-        parent: app.controller.abstract.delete
-        arguments: ["@router"]
+        arguments:
+            - "@command_bus"
+            - "@router"
 
     # Chapter
     app.controller.chapter.create:

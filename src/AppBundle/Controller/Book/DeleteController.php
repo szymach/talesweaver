@@ -2,33 +2,33 @@
 
 namespace AppBundle\Controller\Book;
 
+use AppBundle\Book\Delete\Command;
 use AppBundle\Entity\Book;
-use Doctrine\Common\Persistence\ObjectManager;
+use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
 
 class DeleteController
 {
     /**
-     * @var ObjectManager
+     * @var MessageBus
      */
-    private $manager;
+    private $commandBus;
 
     /**
      * @var RouterInterface
      */
     private $router;
 
-    public function __construct(ObjectManager $manager, RouterInterface $router)
+    public function __construct(MessageBus $commandBus, RouterInterface $router)
     {
-        $this->manager = $manager;
+        $this->commandBus = $commandBus;
         $this->router = $router;
     }
 
     public function deleteAction(Book $book, $page)
     {
-        $this->manager->remove($book);
-        $this->manager->flush();
+        $this->commandBus->handle(new Command($book));
 
         return new RedirectResponse(
             $this->router->generate('app_book_list', ['page' => $page])
