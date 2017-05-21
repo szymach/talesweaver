@@ -29,7 +29,7 @@ class ChapterPaginator extends Paginator
     /**
      * @param Book $book
      * @param int $page
-     * @return QueryBuilder
+     * @return Pagerfanta
      */
     public function getForBook(Book $book, int $page) : Pagerfanta
     {

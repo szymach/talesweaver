@@ -3,7 +3,7 @@
         {% include 'partial/pagination.html.twig' with {
             paginator: chapters,
             route: 'app_book_chapter_list',
-            parameters: { id: book.id } }
+            parameters: { id: bookId } }
         %}
     </div>
 </div>
@@ -17,7 +17,7 @@
     <tbody>
     {% for chapter in chapters %}
         <tr>
-            <td>{{ chapter }}</td>
+            <td>{{ chapter.title }}</td>
             <td>
                 <a class="btn btn-primary"
                    href="{{ path('app_chapter_edit', { id: chapter.id }) }}"
@@ -36,16 +36,14 @@
     {% endfor %}
         <tfoot>
             <tr>
-                {% if book.id %}
-                    <td colspan="2" class="text-right">
-                        <a class="btn btn-success"
-                           href="{{ path('app_chapter_new_assigned', { id: book.id }) }}"
-                           title="{{ 'crud.create' | trans }}"
-                        >
-                            <span class="fa fa-plus"></span>
-                        </a>
-                    </td>
-                {% endif %}
+                <td colspan="2" class="text-right">
+                    <a class="btn btn-success"
+                       href="{{ path('app_chapter_new_assigned', { id: bookId }) }}"
+                       title="{{ 'crud.create' | trans }}"
+                    >
+                        <span class="fa fa-plus"></span>
+                    </a>
+                </td>
             </tr>
         </tfoot>
     </tbody>

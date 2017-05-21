@@ -147,7 +147,6 @@ class DTO
     {
         if (!$this->chapters->contains($chapter)) {
             $this->chapters->add($chapter);
-            $chapter->setBook($this);
         }
     }
 
@@ -157,6 +156,5 @@ class DTO
     public function removeChapter(Chapter $chapter)
     {
         $this->chapters->removeElement($chapter);
-        $chapter->setBook(null);
     }
 }

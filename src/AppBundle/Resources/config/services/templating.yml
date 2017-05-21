@@ -4,3 +4,9 @@ services:
         class: AppBundle\Templating\Book\CreateView
         arguments:
             - "@templating"
+
+    app.templating.book.edit_form:
+        class: AppBundle\Templating\Book\EditView
+        arguments:
+            - "@templating"
+            - "@app.paginator.aggregate.book"

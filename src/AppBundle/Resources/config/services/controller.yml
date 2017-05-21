@@ -37,7 +37,7 @@ services:
     app.controller.book.edit:
         class: AppBundle\Controller\Book\EditController
         arguments:
-            - "@templating"
+            - "@app.templating.book.edit_form"
             - "@form.factory"
             - "@event_bus"
             - "@router"

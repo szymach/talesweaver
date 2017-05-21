@@ -5,7 +5,7 @@
         redirectUri: path('app_book_list', { page: page }),
         label: 'book.back.to_list' | trans
     } %}
-    <h1>{{ book.title ? book.title : 'book.header.new' | trans }}</h1>
+    <h1>{{ title }}</h1>
     <ul class="nav nav-tabs" role="tablist">
         {% for tab in ['basic', 'introduction', 'expansion', 'ending', 'chapters'] %}
             <li role="presentation"{% if loop.first %} class="active"{% endif %}>
@@ -38,7 +38,7 @@
                         <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="chapters">
-                        {% include 'book/chapters/list.html.twig' with { book: book, chapters: bookChapters(book, page) } only %}
+                        {% include 'book/chapters/list.html.twig' with { bookId: bookId, chapters: chapters } only %}
                     </div>
                 </div>
                 {{ form_rest(form) }}

@@ -6,17 +6,17 @@ use AppBundle\Book\Edit\DTO;
 use AppBundle\Book\Edit\Event;
 use AppBundle\Entity\Book;
 use AppBundle\Form\Book\EditType;
+use AppBundle\Templating\Book\EditView;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Templating\EngineInterface;
 
 class EditController
 {
     /**
-     * @var EngineInterface
+     * @var EditView
      */
     private $templating;
 
@@ -31,7 +31,7 @@ class EditController
     private $eventBus;
 
     public function __construct(
-        EngineInterface $templating,
+        EditView $templating,
         FormFactoryInterface $formFactory,
         MessageBus $eventBus,
         RouterInterface $router
@@ -54,9 +54,6 @@ class EditController
             );
         }
 
-        return $this->templating->renderResponse(
-            'book/editForm.html.twig',
-            ['form' => $form->createView(), 'book' => $book, 'page' => $page]
-        );
+        return $this->templating->createView($form, $book, $page);
     }
 }
