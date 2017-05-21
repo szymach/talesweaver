@@ -3,19 +3,17 @@
 namespace AppBundle\Controller\Book;
 
 use AppBundle\Book\Create\Event;
-use AppBundle\Book\Created\EventRecorder;
 use AppBundle\Form\Book\CreateType;
+use AppBundle\Routing\Book\RedirectToEdit;
+use AppBundle\Templating\Book\CreateView;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Templating\EngineInterface;
 
 class CreateController
 {
     /**
-     * @var EngineInterface
+     * @var CreateView
      */
     private $templating;
 
@@ -30,27 +28,20 @@ class CreateController
     private $eventBus;
 
     /**
-     * @var EventRecorder
+     * @var RedirectToEdit
      */
-    private $recorder;
-
-    /**
-     * @var RouterInterface
-     */
-    private $router;
+    private $redirector;
 
     public function __construct(
-        EngineInterface $templating,
+        CreateView $templating,
         FormFactoryInterface $formFactory,
         MessageBus $eventBus,
-        EventRecorder $recorder,
-        RouterInterface $router
+        RedirectToEdit $redirector
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
         $this->eventBus = $eventBus;
-        $this->recorder = $recorder;
-        $this->router = $router;
+        $this->redirector = $redirector;
     }
 
     public function createAction(Request $request, $page)
@@ -59,17 +50,9 @@ class CreateController
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->eventBus->handle(new Event($form->getData()));
 
-            return new RedirectResponse(
-                $this->router->generate(
-                    'app_book_edit',
-                    ['id' => array_values($this->recorder->recordedMessages())[0]->getId()]
-                )
-            );
+            return $this->redirector->createResponse();
         }
 
-        return $this->templating->renderResponse(
-            'book/createForm.html.twig',
-            ['form' => $form->createView(), 'page' => $page]
-        );
+        return $this->templating->createView($form, $page);
     }
 }

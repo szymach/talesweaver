@@ -28,5 +28,7 @@ class AppExtension extends Extension
         $loader->load('event.yml');
         $loader->load('miscellaneous.yml');
         $loader->load('pagination.yml');
+        $loader->load('routing.yml');
+        $loader->load('templating.yml');
     }
 }

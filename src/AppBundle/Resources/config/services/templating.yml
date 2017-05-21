@@ -1,0 +1,6 @@
+---
+services:
+    app.templating.book.create_form:
+        class: AppBundle\Templating\Book\CreateView
+        arguments:
+            - "@templating"

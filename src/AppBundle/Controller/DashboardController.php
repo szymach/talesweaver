@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Repository\BookRepository;
+use AppBundle\Entity\Repository\BookRepository;
 use AppBundle\Entity\Repository\ChapterRepository;
 use AppBundle\Entity\Repository\SceneRepository;
 use Symfony\Component\Templating\EngineInterface;

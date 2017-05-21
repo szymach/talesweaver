@@ -1,11 +1,10 @@
 <?php
 
-namespace AppBundle\Book\Created;
+namespace AppBundle\Event;
 
-use InvalidArgumentException;
 use SimpleBus\Message\Recorder\RecordsMessages;
 
-class EventRecorder implements RecordsMessages
+class Recorder implements RecordsMessages
 {
     /**
      * @var Event[]
@@ -14,23 +13,19 @@ class EventRecorder implements RecordsMessages
 
     /**
      * @param Event $message
-     * @throws InvalidArgumentException
      */
     public function record($message)
     {
-        if (!($message instanceof Event)) {
-            throw new InvalidArgumentException(sprintf(
-                'Expected message of class "%s", got "%s"',
-                self::class,
-                is_object($message) ? get_class($message) : gettype($message)
-            ));
-        }
-
         if (in_array($message, $this->messages, true)) {
             return;
         }
 
-        $this->messages[] = $message;
+        $this->messages[get_class($message)][] = $message;
+    }
+
+    public function recordedMessagesOfClass($class)
+    {
+        return isset($this->messages[$class]) ? $this->messages[$class] : [];
     }
 
     /**

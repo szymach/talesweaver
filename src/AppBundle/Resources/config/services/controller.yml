@@ -29,11 +29,10 @@ services:
     app.controller.book.create:
         class: AppBundle\Controller\Book\CreateController
         arguments:
-            - "@templating"
+            - "@app.templating.book.create_form"
             - "@form.factory"
             - "@event_bus"
-            - "@app.event_recorder.created"
-            - "@router"
+            - "@app.router.book.to_edit"
 
     app.controller.book.edit:
         class: AppBundle\Controller\Book\EditController
