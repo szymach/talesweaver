@@ -5,20 +5,20 @@ services:
         class: AppBundle\Event\Recorder
 
     # Book handlers
-    app.event.book.create:
-        class: AppBundle\Book\Create\EventHandler
+    app.command.book.create:
+        class: AppBundle\Book\Create\CommandHandler
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@app.event_recorder"
         tags:
-            - { name: event_subscriber, subscribes_to: AppBundle\Book\Create\Event }
+            - { name: command_handler, handles: AppBundle\Book\Create\Command }
 
-    app.event.book.edit:
-        class: AppBundle\Book\Edit\EventHandler
+    app.command.book.edit:
+        class: AppBundle\Book\Edit\CommandHandler
         arguments:
             - "@doctrine.orm.entity_manager"
         tags:
-            - { name: event_subscriber, subscribes_to: AppBundle\Book\Edit\Event }
+            - { name: command_handler, handles: AppBundle\Book\Edit\Command }
 
     app.command.book.delete:
         class: AppBundle\Book\Delete\CommandHandler

@@ -2,12 +2,13 @@
 
 namespace AppBundle\Book\Create;
 
-use AppBundle\Book\Create\Event as CreateEvent;
+use AppBundle\Book\Create\Command;
 use AppBundle\Book\Created\Event as CreatedEvent;
+use AppBundle\Entity\Book;
 use AppBundle\Event\Recorder;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class EventHandler
+class CommandHandler
 {
     /**
      * @var ObjectManager
@@ -25,9 +26,9 @@ class EventHandler
         $this->recorder = $recorder;
     }
 
-    public function handle(CreateEvent $event)
+    public function handle(Command $command)
     {
-        $book = $event->getData();
+        $book = new Book($command->getData()->getTitle());
         $this->manager->persist($book);
         $this->manager->flush();
         $this->recorder->record(new CreatedEvent($book->getId()));

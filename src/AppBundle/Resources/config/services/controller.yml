@@ -31,7 +31,7 @@ services:
         arguments:
             - "@app.templating.book.create_form"
             - "@form.factory"
-            - "@event_bus"
+            - "@command_bus"
             - "@app.router.book.to_edit"
 
     app.controller.book.edit:
@@ -39,7 +39,7 @@ services:
         arguments:
             - "@app.templating.book.edit_form"
             - "@form.factory"
-            - "@event_bus"
+            - "@command_bus"
             - "@router"
 
     app.controller.book.list:

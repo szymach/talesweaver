@@ -2,9 +2,7 @@
 
 namespace AppBundle\Book\Create;
 
-use AppBundle\Entity\Book;
-
-class Event
+class Command
 {
     /**
      * @var DTO
@@ -16,8 +14,8 @@ class Event
         $this->dto = $dto;
     }
 
-    public function getData(): Book
+    public function getData(): DTO
     {
-        return new Book($this->dto->getTitle());
+        return $this->dto;
     }
 }

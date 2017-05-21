@@ -4,7 +4,7 @@ namespace AppBundle\Book\Edit;
 
 use Doctrine\Common\Persistence\ObjectManager;
 
-class EventHandler
+class CommandHandler
 {
     /**
      * @var ObjectManager
@@ -16,9 +16,8 @@ class EventHandler
         $this->manager = $manager;
     }
 
-    public function handle(Event $event)
+    public function handle(Command $command)
     {
         $this->manager->flush();
-        $this->manager->refresh($event->getData());
     }
 }

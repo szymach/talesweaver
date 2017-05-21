@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Book;
 
-use AppBundle\Book\Create\Event;
+use AppBundle\Book\Create\Command;
 use AppBundle\Form\Book\CreateType;
 use AppBundle\Routing\Book\RedirectToEdit;
 use AppBundle\Templating\Book\CreateView;
@@ -25,7 +25,7 @@ class CreateController
     /**
      * @var MessageBus
      */
-    private $eventBus;
+    private $commandBus;
 
     /**
      * @var RedirectToEdit
@@ -35,12 +35,12 @@ class CreateController
     public function __construct(
         CreateView $templating,
         FormFactoryInterface $formFactory,
-        MessageBus $eventBus,
+        MessageBus $commandBus,
         RedirectToEdit $redirector
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
-        $this->eventBus = $eventBus;
+        $this->commandBus = $commandBus;
         $this->redirector = $redirector;
     }
 
@@ -48,7 +48,7 @@ class CreateController
     {
         $form = $this->formFactory->create(CreateType::class);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->eventBus->handle(new Event($form->getData()));
+            $this->commandBus->handle(new Command($form->getData()));
 
             return $this->redirector->createResponse();
         }

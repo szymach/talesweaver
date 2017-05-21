@@ -2,8 +2,8 @@
 
 namespace AppBundle\Controller\Book;
 
+use AppBundle\Book\Edit\Command;
 use AppBundle\Book\Edit\DTO;
-use AppBundle\Book\Edit\Event;
 use AppBundle\Entity\Book;
 use AppBundle\Form\Book\EditType;
 use AppBundle\Templating\Book\EditView;
@@ -28,17 +28,17 @@ class EditController
     /**
      * @var MessageBus
      */
-    private $eventBus;
+    private $commandBus;
 
     public function __construct(
         EditView $templating,
         FormFactoryInterface $formFactory,
-        MessageBus $eventBus,
+        MessageBus $commandBus,
         RouterInterface $router
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
-        $this->eventBus = $eventBus;
+        $this->commandBus = $commandBus;
         $this->router = $router;
     }
 
@@ -47,7 +47,7 @@ class EditController
         $dto = new DTO($book);
         $form = $this->formFactory->create(EditType::class, $dto);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->eventBus->handle(new Event($dto, $book));
+            $this->commandBus->handle(new Command($dto, $book));
 
             return new RedirectResponse(
                 $this->router->generate('app_book_edit', ['id' => $book->getId()])
