@@ -27,7 +27,9 @@ class RedirectToEdit
 
     public function createResponse(): RedirectResponse
     {
-        $reducer = function($initial, Event $event) { return $event->getId(); };
+        $reducer = function ($initial, Event $event) {
+            return $event->getId();
+        };
 
         return new RedirectResponse(
             $this->router->generate(
