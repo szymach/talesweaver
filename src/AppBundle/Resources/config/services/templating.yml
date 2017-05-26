@@ -9,4 +9,16 @@ services:
         class: AppBundle\Templating\Book\EditView
         arguments:
             - "@templating"
-            - "@app.paginator.aggregate.book"
+            - "@app.paginator.book.chapters"
+
+    app.templating.book.list:
+        class: AppBundle\Templating\Book\ListView
+        arguments:
+            - "@templating"
+            - "@app.paginator.book"
+
+    app.templating.book.chapters_list:
+        class: AppBundle\Templating\Book\ChaptersListView
+        arguments:
+            - "@templating"
+            - "@app.paginator.book.chapters"

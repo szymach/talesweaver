@@ -21,6 +21,6 @@ app_book_delete:
 
 app_book_chapter_list:
     path: /chapters/{id}/{page}
-    defaults: { _controller: app.controller.book.list:chaptersAction, page: 1 }
+    defaults: { _controller: app.controller.book.chapters_list:chaptersAction, page: 1 }
     condition: "request.isXmlHttpRequest()"
     methods:  GET

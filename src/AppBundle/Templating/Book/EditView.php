@@ -3,8 +3,7 @@
 namespace AppBundle\Templating\Book;
 
 use AppBundle\Entity\Book;
-use AppBundle\Entity\Chapter;
-use AppBundle\Pagination\Book\BookAggregate;
+use AppBundle\Pagination\Book\ChapterPaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,11 +16,11 @@ class EditView
     private $templating;
 
     /**
-     * @var BookAggregate
+     * @var ChapterPaginator
      */
     private $pagination;
 
-    public function __construct(EngineInterface $templating, BookAggregate $pagination)
+    public function __construct(EngineInterface $templating, ChapterPaginator $pagination)
     {
         $this->templating = $templating;
         $this->pagination = $pagination;
@@ -33,7 +32,7 @@ class EditView
             'book/editForm.html.twig',
             [
                 'form' => $form->createView(),
-                'chapters' => $this->pagination->getChaptersForBook($book, $page),
+                'chapters' => $this->pagination->getResults($book, $page),
                 'page' => $page,
                 'bookId' => $book->getId(),
                 'title' => $book->getTitle()

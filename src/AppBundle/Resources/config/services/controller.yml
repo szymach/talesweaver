@@ -44,9 +44,13 @@ services:
 
     app.controller.book.list:
         class: AppBundle\Controller\Book\ListController
-        parent: app.controller.abstract.templating
         arguments:
-            - "@app.paginator.aggregate.book"
+            - "@app.templating.book.list"
+
+    app.controller.book.chapters_list:
+        class: AppBundle\Controller\Book\ChaptersListController
+        arguments:
+            - "@app.templating.book.chapters_list"
 
     app.controller.book.delete:
         class: AppBundle\Controller\Book\DeleteController

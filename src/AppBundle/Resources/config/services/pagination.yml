@@ -1,16 +1,15 @@
 ---
 services:
     # Book
-    app.paginator.aggregate.book:
-        class: AppBundle\Pagination\Book\BookAggregate
-        arguments:
-            - "@app.paginator.book"
-            - "@app.paginator.chapter"
-
     app.paginator.book:
         class: AppBundle\Pagination\Book\BookPaginator
         arguments:
             - "@app.repository.book"
+
+    app.paginator.book.chapters:
+        class: AppBundle\Pagination\Book\ChapterPaginator
+        arguments:
+            - "@app.repository.chapter"
 
     # Chapter
     app.paginator.aggregate.chapter:
