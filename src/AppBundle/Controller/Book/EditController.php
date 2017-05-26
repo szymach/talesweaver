@@ -42,7 +42,7 @@ class EditController
         $this->router = $router;
     }
 
-    public function editAction(Request $request, Book $book, $page)
+    public function __invoke(Request $request, Book $book, $page)
     {
         $dto = new DTO($book);
         $form = $this->formFactory->create(EditType::class, $dto);

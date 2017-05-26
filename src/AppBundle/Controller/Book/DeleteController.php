@@ -26,7 +26,7 @@ class DeleteController
         $this->router = $router;
     }
 
-    public function deleteAction(Book $book, $page)
+    public function __invoke(Book $book, $page)
     {
         $this->commandBus->handle(new Command($book));
 
