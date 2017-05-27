@@ -42,7 +42,7 @@ class EditController
         $this->router = $router;
     }
 
-    public function __invoke(Request $request, Book $book, $page)
+    public function __invoke(Request $request, Book $book)
     {
         $dto = new DTO($book);
         $form = $this->formFactory->create(EditType::class, $dto);
@@ -54,6 +54,6 @@ class EditController
             );
         }
 
-        return $this->templating->createView($form, $book, $page);
+        return $this->templating->createView($form, $book);
     }
 }

@@ -18,11 +18,11 @@ class CreateView
         $this->templating = $templating;
     }
 
-    public function createView(FormInterface $form, int $page): Response
+    public function createView(FormInterface $form): Response
     {
         return $this->templating->renderResponse(
             'book/createForm.html.twig',
-            ['form' => $form->createView(), 'page' => $page]
+            ['form' => $form->createView()]
         );
     }
 }

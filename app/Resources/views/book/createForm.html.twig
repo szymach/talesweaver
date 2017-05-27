@@ -2,7 +2,7 @@
 
 {% block body %}
     {% include 'partial/backButton.html.twig' with {
-        redirectUri: path('app_book_list', { page: page }),
+        redirectUri: path('app_book_list', { page: app.request.get('page', 1) }),
         label: 'book.back.to_list' | trans
     } %}
     <h1>{{ 'book.header.new' | trans }}</h1>

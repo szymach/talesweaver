@@ -44,7 +44,7 @@ class CreateController
         $this->redirector = $redirector;
     }
 
-    public function __invoke(Request $request, $page)
+    public function __invoke(Request $request)
     {
         $form = $this->formFactory->create(CreateType::class);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
@@ -53,6 +53,6 @@ class CreateController
             return $this->redirector->createResponse();
         }
 
-        return $this->templating->createView($form, $page);
+        return $this->templating->createView($form);
     }
 }
