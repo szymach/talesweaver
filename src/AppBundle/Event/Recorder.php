@@ -20,12 +20,7 @@ class Recorder implements RecordsMessages
             return;
         }
 
-        $this->messages[get_class($message)][] = $message;
-    }
-
-    public function recordedMessagesOfClass($class)
-    {
-        return isset($this->messages[$class]) ? $this->messages[$class] : [];
+        $this->messages[] = $message;
     }
 
     /**

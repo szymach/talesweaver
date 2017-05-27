@@ -27,6 +27,9 @@ class RedirectToEdit
 
     public function createResponse(): RedirectResponse
     {
+        $filter = function($event) {
+            return $event instanceof Event;
+        };
         $reducer = function ($initial, Event $event) {
             return $event->getId();
         };
@@ -34,7 +37,12 @@ class RedirectToEdit
         return new RedirectResponse(
             $this->router->generate(
                 'app_book_edit',
-                ['id' => array_reduce($this->recorder->recordedMessagesOfClass(Event::class), $reducer)]
+                [
+                    'id' => array_reduce(
+                        array_filter($this->recorder->recordedMessages(), $filter),
+                        $reducer
+                    )
+                ]
             )
         );
     }

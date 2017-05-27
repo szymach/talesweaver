@@ -26,14 +26,13 @@ class EditView
         $this->pagination = $pagination;
     }
 
-    public function createView(FormInterface $form, Book $book, int $page): Response
+    public function createView(FormInterface $form, Book $book): Response
     {
         return $this->templating->renderResponse(
             'book/editForm.html.twig',
             [
                 'form' => $form->createView(),
-                'chapters' => $this->pagination->getResults($book, $page),
-                'page' => $page,
+                'chapters' => $this->pagination->getResults($book, 1),
                 'bookId' => $book->getId(),
                 'title' => $book->getTitle()
             ]
