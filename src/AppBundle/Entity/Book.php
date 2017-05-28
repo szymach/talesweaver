@@ -3,11 +3,12 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Book\Edit\DTO;
+use Assert\Assert;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use DomainException;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
+use Ramsey\Uuid\Uuid;
 
 class Book
 {
@@ -53,12 +54,11 @@ class Book
      */
     private $chapters;
 
-    public function __construct($title)
+    public function __construct(Uuid $id, string $title)
     {
-        if (!$title) {
-            throw new DomainException('Cannot create book without a title!');
-        }
+        Assert::that($title)->notBlank('Cannot create book without a title!');
 
+        $this->id = $id;
         $this->title = $title;
         $this->chapters = new ArrayCollection();
         $this->translations = new ArrayCollection();

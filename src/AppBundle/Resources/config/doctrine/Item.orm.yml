@@ -4,8 +4,8 @@ AppBundle\Entity\Item:
     repositoryClass: AppBundle\Entity\Repository\ItemRepository
     id:
         id:
-            type: integer
-            generator: { strategy: AUTO }
+            type: uuid
+            generator: { strategy: NONE }
     fields:
         avatarKey:
             type: text

@@ -4,8 +4,8 @@ AppBundle\Entity\Chapter:
     repositoryClass: AppBundle\Entity\Repository\ChapterRepository
     id:
         id:
-            type: integer
-            generator: { strategy: AUTO }
+            type: uuid
+            generator: { strategy: NONE }
     fields:
         createdAt:
             type: datetime

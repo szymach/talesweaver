@@ -62,7 +62,7 @@ class CreateAssignedController
 
         return $this->templating->renderResponse(
             'chapter/form.html.twig',
-            ['form' => $form->createView(), 'chapter' => $chapter]
+            ['form' => $form->createView()]
         );
     }
 }

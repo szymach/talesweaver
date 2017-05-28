@@ -5,8 +5,8 @@ AppBundle\Entity\Event:
     repositoryClass: AppBundle\Entity\Repository\EventRepository
     id:
         id:
-            type: integer
-            generator: { strategy: AUTO }
+            type: uuid
+            generator: { strategy: NONE }
     fields:
         model:
             type: json_array

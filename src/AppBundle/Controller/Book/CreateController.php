@@ -6,6 +6,7 @@ use AppBundle\Book\Create\Command;
 use AppBundle\Form\Book\CreateType;
 use AppBundle\Routing\Book\RedirectToEdit;
 use AppBundle\Templating\Book\CreateView;
+use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,9 +49,10 @@ class CreateController
     {
         $form = $this->formFactory->create(CreateType::class);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->commandBus->handle(new Command($form->getData()));
+            $bookId = Uuid::uuid4();
+            $this->commandBus->handle(new Command($bookId, $form->getData()));
 
-            return $this->redirector->createResponse();
+            return $this->redirector->createResponse($bookId);
         }
 
         return $this->templating->createView($form);

@@ -5,8 +5,8 @@ AppBundle\Entity\Character:
     repositoryClass: AppBundle\Entity\Repository\CharacterRepository
     id:
         id:
-            type: integer
-            generator: { strategy: AUTO }
+            type: uuid
+            generator: { strategy: NONE }
     fields:
         avatarKey:
             type: text

@@ -41,6 +41,8 @@ doctrine:
         password: "%database_password%"
         charset:  UTF8
         server_version: 5.7
+        types:
+            uuid:  Ramsey\Uuid\Doctrine\UuidType
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"

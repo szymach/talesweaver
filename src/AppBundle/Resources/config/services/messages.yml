@@ -1,15 +1,10 @@
 ---
 services:
-    # Recorder
-    app.event_recorder:
-        class: AppBundle\Event\Recorder
-
     # Book handlers
     app.command.book.create:
         class: AppBundle\Book\Create\CommandHandler
         arguments:
             - "@doctrine.orm.entity_manager"
-            - "@app.event_recorder"
         tags:
             - { name: command_handler, handles: AppBundle\Book\Create\Command }
 

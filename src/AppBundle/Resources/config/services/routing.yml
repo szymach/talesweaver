@@ -4,4 +4,3 @@ services:
         class: AppBundle\Routing\Book\RedirectToEdit
         arguments:
             - "@router"
-            - "@app.event_recorder"
