@@ -46,7 +46,7 @@ class CreateAssignedController
         $this->router = $router;
     }
 
-    public function createAction(Request $request, Book $book)
+    public function __invoke(Request $request, Book $book)
     {
         $chapter = new Chapter();
         $chapter->setBook($book);

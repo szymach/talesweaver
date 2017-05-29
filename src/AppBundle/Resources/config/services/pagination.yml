@@ -12,16 +12,15 @@ services:
             - "@app.repository.chapter"
 
     # Chapter
-    app.paginator.aggregate.chapter:
-        class: AppBundle\Pagination\Chapter\ChapterAggregate
-        arguments:
-            - "@app.paginator.chapter"
-            - "@app.paginator.scene"
-
     app.paginator.chapter:
         class: AppBundle\Pagination\Chapter\ChapterPaginator
         arguments:
             - "@app.repository.chapter"
+
+    app.paginator.chapter.scenes:
+        class: AppBundle\Pagination\Chapter\ScenePaginator
+        arguments:
+            - "@app.repository.scene"
 
     # Scene
     app.paginator.aggregate.scene:

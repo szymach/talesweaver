@@ -25,7 +25,7 @@ class DeleteController
         $this->router = $router;
     }
 
-    public function deleteAction(Chapter $chapter, $page)
+    public function __invoke(Chapter $chapter, $page)
     {
         $bookId = $chapter->getBook() ? $chapter->getBook()->getId() : null;
         $this->manager->remove($chapter);

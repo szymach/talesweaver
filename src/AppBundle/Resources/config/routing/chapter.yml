@@ -1,38 +1,38 @@
 ---
 app_chapter_new_standalone:
     path: /new_standalone/{page}
-    defaults: { _controller: app.controller.chapter.create:createAction, page: 1 }
+    defaults: { _controller: app.controller.chapter.create }
     methods:  [GET, POST]
 
 app_chapter_new_assigned:
     path: /new_assigned/{id}
-    defaults: { _controller: app.controller.chapter.create_assigned:createAction }
+    defaults: { _controller: app.controller.chapter.create_assigned }
     methods:  [GET, POST]
 
 app_chapter_edit:
     path: /edit/{id}/{page}
-    defaults: { _controller: app.controller.chapter.edit:editAction, page: 1 }
+    defaults: { _controller: app.controller.chapter.edit }
     methods:  [GET, POST]
 
 app_chapter_list:
     path: /list/{page}
-    defaults: { _controller: app.controller.chapter.list:listAction, page: 1 }
-    methods:  GET
-
-app_chapter_delete:
-    path: /delete/{id}/{page}
-    defaults: { _controller: app.controller.chapter.delete:deleteAction, page: 1 }
+    defaults: { _controller: app.controller.chapter.list, page: 1 }
     methods:  GET
 
 app_chapter_scenes_list:
     path: /scenes/{id}/{page}
-    defaults: { _controller: app.controller.chapter.list:scenesListAction, page: 1 }
+    defaults: { _controller: app.controller.chapter.scenes_list, page: 1 }
     condition: "request.isXmlHttpRequest()"
+    methods:  GET
+
+app_chapter_delete:
+    path: /delete/{id}/{page}
+    defaults: { _controller: app.controller.chapter.delete, page: 1 }
     methods:  GET
 
 app_chapter_display:
     path: /display/{id}
-    defaults: { _controller: app.controller.chapter.display:displayAction }
+    defaults: { _controller: app.controller.chapter.display }
     methods:  GET
 
 app_chapter_pdf:

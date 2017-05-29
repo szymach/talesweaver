@@ -70,14 +70,18 @@ services:
     app.controller.chapter.edit:
         class: AppBundle\Controller\Chapter\EditController
         parent: app.controller.abstract.form
-        arguments:
-            - "@app.paginator.aggregate.chapter"
 
     app.controller.chapter.list:
         class: AppBundle\Controller\Chapter\ListController
         parent: app.controller.abstract.templating
         arguments:
-            - "@app.paginator.aggregate.chapter"
+            - "@app.paginator.chapter"
+
+    app.controller.chapter.scenes_list:
+        class: AppBundle\Controller\Chapter\ScenesListController
+        parent: app.controller.abstract.templating
+        arguments:
+            - "@app.paginator.chapter.scenes"
 
     app.controller.chapter.delete:
         class: AppBundle\Controller\Chapter\DeleteController

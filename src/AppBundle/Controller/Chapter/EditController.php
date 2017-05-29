@@ -44,7 +44,7 @@ class EditController
         $this->router = $router;
     }
 
-    public function editAction(Request $request, Chapter $chapter, $page)
+    public function __invoke(Request $request, Chapter $chapter, $page)
     {
         $form = $this->formFactory->create(ChapterType::class, $chapter);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {

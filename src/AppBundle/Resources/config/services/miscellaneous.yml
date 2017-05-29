@@ -32,12 +32,6 @@ services:
         tags:
             - { name: twig.extension }
 
-    twig.extension.chapter:
-        class: AppBundle\Twig\ChapterExtension
-        arguments: ["@app.paginator.aggregate.chapter"]
-        tags:
-            - { name: twig.extension }
-
     twig.extension.scene:
         class: AppBundle\Twig\SceneExtension
         arguments: ["@app.paginator.aggregate.scene"]

@@ -45,7 +45,7 @@ class CreateController
         $this->router = $router;
     }
 
-    public function createAction(Request $request)
+    public function __invoke(Request $request)
     {
         $chapter = new Chapter();
         $form = $this->formFactory->create(ChapterType::class, $chapter);
