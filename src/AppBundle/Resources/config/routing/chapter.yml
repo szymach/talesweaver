@@ -1,17 +1,12 @@
 ---
-app_chapter_new_standalone:
-    path: /new_standalone/{page}
-    defaults: { _controller: app.controller.chapter.create }
-    methods:  [GET, POST]
-
-app_chapter_new_assigned:
-    path: /new_assigned/{id}
-    defaults: { _controller: app.controller.chapter.create_assigned }
+app_chapter_create:
+    path: /create/{page}
+    defaults: { _controller: app.controller.chapter.create, page: 1 }
     methods:  [GET, POST]
 
 app_chapter_edit:
     path: /edit/{id}/{page}
-    defaults: { _controller: app.controller.chapter.edit }
+    defaults: { _controller: app.controller.chapter.edit, page: 1 }
     methods:  [GET, POST]
 
 app_chapter_list:

@@ -30,6 +30,11 @@ class EditController
      */
     private $commandBus;
 
+    /**
+     * @var RouterInterface
+     */
+    private $router;
+
     public function __construct(
         EditView $templating,
         FormFactoryInterface $formFactory,

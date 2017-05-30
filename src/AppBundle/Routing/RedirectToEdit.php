@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Routing\Book;
+namespace AppBundle\Routing;
 
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -18,10 +18,10 @@ class RedirectToEdit
         $this->router = $router;
     }
 
-    public function createResponse(Uuid $id): RedirectResponse
+    public function createResponse(Uuid $id, $route): RedirectResponse
     {
         return new RedirectResponse(
-            $this->router->generate('app_book_edit', ['id' => $id])
+            $this->router->generate($route, ['id' => $id])
         );
     }
 }

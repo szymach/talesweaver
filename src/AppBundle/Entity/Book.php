@@ -15,7 +15,7 @@ class Book
     use Traits\TimestampableTrait, Traits\TranslatableTrait;
 
     /**
-     * @var integer
+     * @var Uuid
      */
     private $id;
 
@@ -93,7 +93,7 @@ class Book
         $this->update();
     }
     /**
-     * @return integer
+     * @return Uuid
      */
     public function getId()
     {

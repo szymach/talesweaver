@@ -2,34 +2,22 @@
 
 namespace AppBundle\Controller\Chapter;
 
-use AppBundle\Pagination\Chapter\ChapterPaginator;
-use Symfony\Component\Templating\EngineInterface;
+use AppBundle\Templating\Chapter\ListView;
 
 class ListController
 {
     /**
-     * @var EngineInterface
+     * @var ListView
      */
     private $templating;
 
-    /**
-     * @var ChapterPaginator
-     */
-    private $pagination;
-
-    public function __construct(
-        EngineInterface $templating,
-        ChapterPaginator $pagination
-    ) {
+    public function __construct(ListView $templating)
+    {
         $this->templating = $templating;
-        $this->pagination = $pagination;
     }
 
     public function __invoke($page)
     {
-        return $this->templating->renderResponse(
-            'chapter/list.html.twig',
-            ['chapters' => $this->pagination->getStandalone($page), 'page' => $page]
-        );
+        return $this->templating->createView($page);
     }
 }

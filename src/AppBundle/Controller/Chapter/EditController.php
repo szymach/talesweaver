@@ -2,18 +2,21 @@
 
 namespace AppBundle\Controller\Chapter;
 
+use AppBundle\Chapter\Edit\Command;
+use AppBundle\Chapter\Edit\DTO;
 use AppBundle\Entity\Chapter;
-use AppBundle\Form\Chapter\ChapterType;
-use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Form\Chapter\EditType;
+use AppBundle\Templating\Chapter\EditView;
+use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Templating\EngineInterface;
 
 class EditController
 {
     /**
-     * @var EngineInterface
+     * @var EditView
      */
     private $templating;
 
@@ -23,9 +26,9 @@ class EditController
     private $formFactory;
 
     /**
-     * @var ObjectManager
+     * @var MessageBus
      */
-    private $manager;
+    private $commandBus;
 
     /**
      * @var RouterInterface
@@ -33,27 +36,29 @@ class EditController
     private $router;
 
     public function __construct(
-        EngineInterface $templating,
+        EditView $templating,
         FormFactoryInterface $formFactory,
-        ObjectManager $manager,
+        MessageBus $commandBus,
         RouterInterface $router
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
-        $this->manager = $manager;
+        $this->commandBus = $commandBus;
         $this->router = $router;
     }
 
-    public function __invoke(Request $request, Chapter $chapter, $page)
+    public function __invoke(Request $request, Chapter $chapter)
     {
-        $form = $this->formFactory->create(ChapterType::class, $chapter);
+        $dto = new DTO($chapter);
+        $form = $this->formFactory->create(EditType::class, $dto);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->manager->flush();
+            $this->commandBus->handle(new Command($dto, $chapter));
+
+            return new RedirectResponse(
+                $this->router->generate('app_chapter_edit', ['id' => $chapter->getId()])
+            );
         }
 
-        return $this->templating->renderResponse(
-            'chapter/form.html.twig',
-            ['form' => $form->createView(), 'page' => $page]
-        );
+        return $this->templating->createView($form, $chapter);
     }
 }

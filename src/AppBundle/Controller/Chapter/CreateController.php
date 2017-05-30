@@ -2,19 +2,20 @@
 
 namespace AppBundle\Controller\Chapter;
 
-use AppBundle\Entity\Chapter;
-use AppBundle\Form\Chapter\ChapterType;
-use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Chapter\Create\Command;
+use AppBundle\Chapter\Create\DTO;
+use AppBundle\Form\Chapter\CreateType;
+use AppBundle\Routing\RedirectToEdit;
+use AppBundle\Templating\SimpleFormView;
+use Ramsey\Uuid\Uuid;
+use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Templating\EngineInterface;
 
 class CreateController
 {
     /**
-     * @var EngineInterface
+     * @var SimpleFormView
      */
     private $templating;
 
@@ -24,43 +25,38 @@ class CreateController
     private $formFactory;
 
     /**
-     * @var ObjectManager
+     * @var MessageBus
      */
-    private $manager;
+    private $commandBus;
 
     /**
-     * @var RouterInterface
+     * @var RedirectToEdit
      */
-    private $router;
+    private $redirector;
 
     public function __construct(
-        EngineInterface $templating,
+        SimpleFormView $templating,
         FormFactoryInterface $formFactory,
-        ObjectManager $manager,
-        RouterInterface $router
+        MessageBus $commandBus,
+        RedirectToEdit $redirector
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
-        $this->manager = $manager;
-        $this->router = $router;
+        $this->commandBus = $commandBus;
+        $this->redirector = $redirector;
     }
 
     public function __invoke(Request $request)
     {
-        $chapter = new Chapter();
-        $form = $this->formFactory->create(ChapterType::class, $chapter);
+        $dto = new DTO();
+        $form = $this->formFactory->create(CreateType::class, $dto);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->manager->persist($chapter);
-            $this->manager->flush();
+            $chapterId = Uuid::uuid4();
+            $this->commandBus->handle(new Command($chapterId, $form->getData()));
 
-            return new RedirectResponse(
-                $this->router->generate('app_chapter_edit', ['id' => $chapter->getId()])
-            );
+            return $this->redirector->createResponse($chapterId, 'app_chapter_edit');
         }
 
-        return $this->templating->renderResponse(
-            'chapter/form.html.twig',
-            ['form' => $form->createView()]
-        );
+        return $this->templating->createView($form, 'chapter/createForm.html.twig');
     }
 }

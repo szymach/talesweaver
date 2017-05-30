@@ -2,39 +2,36 @@
 
 namespace AppBundle\Controller\Chapter;
 
+use AppBundle\Chapter\Delete\Command;
 use AppBundle\Entity\Chapter;
-use Doctrine\Common\Persistence\ObjectManager;
+use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
 
 class DeleteController
 {
     /**
-     * @var ObjectManager
+     * @var MessageBus
      */
-    private $manager;
+    private $commandBus;
 
     /**
      * @var RouterInterface
      */
     private $router;
 
-    public function __construct(ObjectManager $manager, RouterInterface $router)
+    public function __construct(MessageBus $commandBus, RouterInterface $router)
     {
-        $this->manager = $manager;
+        $this->commandBus = $commandBus;
         $this->router = $router;
     }
 
-    public function __invoke(Chapter $chapter, $page)
+    public function __invoke(Chapter $book, $page)
     {
-        $bookId = $chapter->getBook() ? $chapter->getBook()->getId() : null;
-        $this->manager->remove($chapter);
-        $this->manager->flush();
+        $this->commandBus->handle(new Command($book));
 
         return new RedirectResponse(
-            $bookId
-            ? $this->router->generate('app_book_edit', ['id' => $bookId])
-            : $this->router->generate('app_chapter_list', ['page' => $page])
+            $this->router->generate('app_chapter_list', ['page' => $page])
         );
     }
 }

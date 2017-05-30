@@ -1,10 +1,11 @@
 ---
 services:
-    app.templating.book.create_form:
-        class: AppBundle\Templating\Book\CreateView
+    app.templating.simple_form:
+        class: AppBundle\Templating\SimpleFormView
         arguments:
             - "@templating"
 
+    # Book
     app.templating.book.edit_form:
         class: AppBundle\Templating\Book\EditView
         arguments:
@@ -22,3 +23,16 @@ services:
         arguments:
             - "@templating"
             - "@app.paginator.book.chapters"
+
+    # Chapters
+    app.templating.chapter.edit_form:
+        class: AppBundle\Templating\Chapter\EditView
+        arguments:
+            - "@templating"
+            - "@app.paginator.chapter.scenes"
+
+    app.templating.chapter.list:
+        class: AppBundle\Templating\Chapter\ListView
+        arguments:
+            - "@templating"
+            - "@app.paginator.chapter"

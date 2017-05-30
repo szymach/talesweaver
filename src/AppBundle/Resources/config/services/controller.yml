@@ -29,10 +29,10 @@ services:
     app.controller.book.create:
         class: AppBundle\Controller\Book\CreateController
         arguments:
-            - "@app.templating.book.create_form"
+            - "@app.templating.simple_form"
             - "@form.factory"
             - "@command_bus"
-            - "@app.router.book.to_edit"
+            - "@app.router.redirect_to_edit"
 
     app.controller.book.edit:
         class: AppBundle\Controller\Book\EditController
@@ -61,21 +61,24 @@ services:
     # Chapter
     app.controller.chapter.create:
         class: AppBundle\Controller\Chapter\CreateController
-        parent: app.controller.abstract.form
-
-    app.controller.chapter.create_assigned:
-        class: AppBundle\Controller\Chapter\CreateAssignedController
-        parent: app.controller.abstract.form
+        arguments:
+            - "@app.templating.simple_form"
+            - "@form.factory"
+            - "@command_bus"
+            - "@app.router.redirect_to_edit"
 
     app.controller.chapter.edit:
         class: AppBundle\Controller\Chapter\EditController
-        parent: app.controller.abstract.form
+        arguments:
+            - "@app.templating.chapter.edit_form"
+            - "@form.factory"
+            - "@command_bus"
+            - "@router"
 
     app.controller.chapter.list:
         class: AppBundle\Controller\Chapter\ListController
-        parent: app.controller.abstract.templating
         arguments:
-            - "@app.paginator.chapter"
+            - "@app.templating.chapter.list"
 
     app.controller.chapter.scenes_list:
         class: AppBundle\Controller\Chapter\ScenesListController
@@ -85,8 +88,9 @@ services:
 
     app.controller.chapter.delete:
         class: AppBundle\Controller\Chapter\DeleteController
-        parent: app.controller.abstract.delete
-        arguments: ["@router"]
+        arguments:
+            - "@command_bus"
+            - "@router"
 
     app.controller.chapter.display:
         class: AppBundle\Controller\Chapter\DisplayController

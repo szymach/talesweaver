@@ -1,6 +1,6 @@
 ---
 services:
-    app.router.book.to_edit:
-        class: AppBundle\Routing\Book\RedirectToEdit
+    app.router.redirect_to_edit:
+        class: AppBundle\Routing\RedirectToEdit
         arguments:
             - "@router"

@@ -4,11 +4,11 @@
 
 {% block body %}
     {% set book = chapter.book %}
-    {% include 'chapter/actions.html.twig' with {
+    {% include 'partial/backButton.html.twig' with {
         redirectUri: book ? path('app_book_edit', { id: book.id }) : path('app_chapter_list'),
         label: book ? 'chapter.back.to_book' | trans : 'chapter.back.to_list' | trans
     } %}
-    <h1>{{ chapter.id and chapter.title ? chapter.title : 'chapter.header.new' | trans }}</h1>
+    <h1>{{ 'chapter.header.new' | trans }}</h1>
     <div class="row">
         <div class="col-xs-12">
             {{ form_start(form) }}
@@ -22,12 +22,4 @@
             {{ form_end(form) }}
         </div>
     </div>
-    {% if chapter.id %}
-        <h2>{{ 'chapter.scenes' | trans }}</h2>
-        <div class="row">
-            <div class="col-xs-12">
-                {% include 'chapter/scenes/list.html.twig' with { chapter: chapter, scenes: chapter.scenes } only %}
-            </div>
-        </div>
-    {% endif %}
 {% endblock %}

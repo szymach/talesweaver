@@ -1,8 +1,8 @@
 <?php
 
-namespace AppBundle\Book\Delete;
+namespace AppBundle\Chapter\Delete;
 
-use AppBundle\Entity\Book;
+use AppBundle\Entity\Chapter;
 use Ramsey\Uuid\Uuid;
 
 class Command
@@ -12,9 +12,9 @@ class Command
      */
     private $id;
 
-    public function __construct(Book $book)
+    public function __construct(Chapter $chapter)
     {
-        $this->id = $book->getId();
+        $this->id = $chapter->getId();
     }
 
     public function getId(): Uuid

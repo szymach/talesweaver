@@ -2,17 +2,19 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Chapter\Edit\DTO;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
+use Ramsey\Uuid\Uuid;
 
 class Chapter
 {
     use Traits\TimestampableTrait, Traits\TranslatableTrait;
 
     /**
-     * @var integer
+     * @var Uuid
      */
     private $id;
 
@@ -37,8 +39,13 @@ class Chapter
      */
     private $characters;
 
-    public function __construct()
+    public function __construct(Uuid $id, string $title, ?Book $book)
     {
+        $this->id = $id;
+        $this->title = $title;
+        if ($book) {
+            $this->book = $book;
+        }
         $this->characters = new ArrayCollection();
         $this->scenes = new ArrayCollection();
         $this->translations = new ArrayCollection();
@@ -50,8 +57,27 @@ class Chapter
         return $this->title;
     }
 
+    public function edit(DTO $dto)
+    {
+        $this->title = $dto->getTitle();
+        $currentScenes = $this->scenes;
+        $this->scenes = new ArrayCollection();
+
+        $newScenes = $dto->getScenes();
+        foreach ($dto->getScenes() as $scene) {
+            $this->addScene($scene);
+        }
+        foreach ($currentScenes as $sceneToCheck) {
+            if (!$newScenes->contains($sceneToCheck)) {
+                $this->removeScene($sceneToCheck);
+            }
+        }
+
+        $this->update();
+    }
+
     /**
-     * @return integer
+     * @return Uuid
      */
     public function getId()
     {
@@ -77,8 +103,6 @@ class Chapter
 
     /**
      * @param Scene $scene
-     *
-     * @return Chapter
      */
     public function addScene(Scene $scene)
     {

@@ -1,12 +1,12 @@
 <?php
 
-namespace AppBundle\Templating\Book;
+namespace AppBundle\Templating;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class CreateView
+class SimpleFormView
 {
     /**
      * @var EngineInterface
@@ -18,11 +18,8 @@ class CreateView
         $this->templating = $templating;
     }
 
-    public function createView(FormInterface $form): Response
+    public function createView(FormInterface $form, $template): Response
     {
-        return $this->templating->renderResponse(
-            'book/createForm.html.twig',
-            ['form' => $form->createView()]
-        );
+        return $this->templating->renderResponse($template, ['form' => $form->createView()]);
     }
 }

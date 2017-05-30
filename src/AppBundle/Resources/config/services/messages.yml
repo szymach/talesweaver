@@ -21,3 +21,25 @@ services:
             - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Book\Delete\Command }
+
+    # Chapter handles
+    app.command.chapter.create:
+        class: AppBundle\Chapter\Create\CommandHandler
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: command_handler, handles: AppBundle\Chapter\Create\Command }
+
+    app.command.chapter.edit:
+        class: AppBundle\Chapter\Edit\CommandHandler
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: command_handler, handles: AppBundle\Chapter\Edit\Command }
+
+    app.command.chapter.delete:
+        class: AppBundle\Chapter\Delete\CommandHandler
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: command_handler, handles: AppBundle\Chapter\Delete\Command }

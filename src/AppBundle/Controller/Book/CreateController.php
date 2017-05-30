@@ -4,8 +4,8 @@ namespace AppBundle\Controller\Book;
 
 use AppBundle\Book\Create\Command;
 use AppBundle\Form\Book\CreateType;
-use AppBundle\Routing\Book\RedirectToEdit;
-use AppBundle\Templating\Book\CreateView;
+use AppBundle\Routing\RedirectToEdit;
+use AppBundle\Templating\SimpleFormView;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 class CreateController
 {
     /**
-     * @var CreateView
+     * @var SimpleFormView
      */
     private $templating;
 
@@ -34,7 +34,7 @@ class CreateController
     private $redirector;
 
     public function __construct(
-        CreateView $templating,
+        SimpleFormView $templating,
         FormFactoryInterface $formFactory,
         MessageBus $commandBus,
         RedirectToEdit $redirector

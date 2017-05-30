@@ -3,7 +3,7 @@
         {% include 'partial/pagination.html.twig' with {
             paginator: scenes,
             route: 'app_chapter_scenes_list',
-            parameters: { id: chapter.id } }
+            parameters: { id: chapterId } }
         %}
     </div>
 </div>
@@ -36,16 +36,14 @@
     {% endfor %}
         <tfoot>
             <tr>
-                {% if chapter.id %}
-                    <td colspan="2" class="text-right">
-                        <a class="btn btn-success"
-                           href="{{ path('app_scene_new_assigned', { id: chapter.id }) }}"
-                           title="{{ 'scene.actions.create' | trans }}"
-                        >
-                            <span class="fa fa-plus"></span>
-                        </a>
-                    </td>
-                {% endif %}
+                <td colspan="2" class="text-right">
+                    <a class="btn btn-success"
+                       href="{{ path('app_scene_new_assigned', { id: chapterId }) }}"
+                       title="{{ 'scene.actions.create' | trans }}"
+                    >
+                        <span class="fa fa-plus"></span>
+                    </a>
+                </td>
             </tr>
         </tfoot>
     </tbody>
