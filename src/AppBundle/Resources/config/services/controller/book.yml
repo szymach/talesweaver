@@ -1,0 +1,10 @@
+---
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    SimpleBus\Message\Bus\MessageBus: "@command_bus"
+
+    AppBundle\Controller\Book\:
+        resource: "../../../../Controller/Book/*"

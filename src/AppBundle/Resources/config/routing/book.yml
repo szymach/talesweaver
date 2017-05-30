@@ -1,22 +1,22 @@
 ---
 app_book_create:
     path: /create/{page}
-    defaults: { _controller: app.controller.book.create, page: 1 }
+    defaults: { _controller: AppBundle\Controller\Book\CreateController, page: 1 }
     methods:  [GET, POST]
 
 app_book_edit:
     path: /edit/{id}/{page}
-    defaults: { _controller: app.controller.book.edit, page: 1 }
+    defaults: { _controller: AppBundle\Controller\Book\EditController, page: 1 }
     methods:  [GET, POST]
 
 app_book_list:
     path: /list/{page}
-    defaults: { _controller: app.controller.book.list, page: 1 }
+    defaults: { _controller: AppBundle\Controller\Book\ListController, page: 1 }
     methods:  GET
 
 app_book_delete:
     path: /delete/{id}/{page}
-    defaults: { _controller: app.controller.book.delete, page: 1 }
+    defaults: { _controller: AppBundle\Controller\Book\ChaptersListController, page: 1 }
     methods:  GET
 
 app_book_chapter_list:

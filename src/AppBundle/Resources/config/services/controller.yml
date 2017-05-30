@@ -25,39 +25,6 @@ services:
         abstract: true
         arguments: ["@doctrine.orm.entity_manager"]
 
-    # Book
-    app.controller.book.create:
-        class: AppBundle\Controller\Book\CreateController
-        arguments:
-            - "@app.templating.simple_form"
-            - "@form.factory"
-            - "@command_bus"
-            - "@app.router.redirect_to_edit"
-
-    app.controller.book.edit:
-        class: AppBundle\Controller\Book\EditController
-        arguments:
-            - "@app.templating.book.edit_form"
-            - "@form.factory"
-            - "@command_bus"
-            - "@router"
-
-    app.controller.book.list:
-        class: AppBundle\Controller\Book\ListController
-        arguments:
-            - "@app.templating.book.list"
-
-    app.controller.book.chapters_list:
-        class: AppBundle\Controller\Book\ChaptersListController
-        arguments:
-            - "@app.templating.book.chapters_list"
-
-    app.controller.book.delete:
-        class: AppBundle\Controller\Book\DeleteController
-        arguments:
-            - "@command_bus"
-            - "@router"
-
     # Chapter
     app.controller.chapter.create:
         class: AppBundle\Controller\Chapter\CreateController
