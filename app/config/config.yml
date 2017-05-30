@@ -15,7 +15,6 @@ framework:
         engines: ['twig']
     default_locale:  "%locale%"
     trusted_hosts:   ~
-    trusted_proxies: ~
     session:
         handler_id:  ~
         save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"

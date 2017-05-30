@@ -9,7 +9,6 @@ services:
     app.menu.main:
         class: Knp\Menu\MenuItem
         factory: ["@app.menu.builder", createMainMenu]
-        scope: request
         tags:
             - { name: knp_menu.menu, alias: main }
 
