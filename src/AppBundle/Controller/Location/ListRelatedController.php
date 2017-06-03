@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Location;
 
 use AppBundle\Entity\Scene;
-use AppBundle\Pagination\LocationPaginator;
+use AppBundle\Pagination\Location\RelatedPaginator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Templating\EngineInterface;
 
@@ -19,7 +19,7 @@ class ListRelatedController
      */
     private $pagination;
 
-    public function __construct(EngineInterface $templating, LocationPaginator $pagination)
+    public function __construct(EngineInterface $templating, RelatedPaginator $pagination)
     {
         $this->templating = $templating;
         $this->pagination = $pagination;
@@ -31,7 +31,7 @@ class ListRelatedController
             'list' => $this->templating->render(
                 'scene\locations\relatedList.html.twig',
                 [
-                    'locations' => $this->pagination->getRelated($scene, $page),
+                    'locations' => $this->pagination->getResults($scene, $page),
                     'scene' => $scene
                 ]
             )

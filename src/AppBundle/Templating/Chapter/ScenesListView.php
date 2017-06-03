@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Templating\Book;
+namespace AppBundle\Templating\Chapter;
 
 use AppBundle\Entity\Chapter;
 use AppBundle\Pagination\Chapter\ScenePaginator;

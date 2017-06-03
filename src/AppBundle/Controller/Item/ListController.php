@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Item;
 
 use AppBundle\Entity\Scene;
-use AppBundle\Pagination\ItemPaginator;
+use AppBundle\Pagination\Item\ItemPaginator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Templating\EngineInterface;
 
@@ -31,7 +31,7 @@ class ListController
             'list' => $this->templating->render(
                 'scene\items\list.html.twig',
                 [
-                    'items' => $this->pagination->getForScene($scene, $page),
+                    'items' => $this->pagination->getResults($scene, $page),
                     'scene' => $scene,
                     'page' => $page
                 ]

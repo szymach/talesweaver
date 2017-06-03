@@ -1,19 +1,20 @@
 <?php
 
-namespace AppBundle\Pagination;
+namespace AppBundle\Pagination\Item;
 
-use AppBundle\Entity\Repository\EventRepository;
+use AppBundle\Entity\Repository\ItemRepository;
 use AppBundle\Entity\Scene;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 
-class EventPaginator
+class ItemPaginator
 {
     /**
-     * @var EventRepository
+     * @var ItemRepository
      */
     private $repository;
 
-    public function __construct(EventRepository $repository)
+    public function __construct(ItemRepository $repository)
     {
         $this->repository = $repository;
     }

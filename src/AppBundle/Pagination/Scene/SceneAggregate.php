@@ -3,10 +3,10 @@
 namespace AppBundle\Pagination\Scene;
 
 use AppBundle\Entity\Scene;
-use AppBundle\Pagination\CharacterPaginator;
+use AppBundle\Pagination\Character\CharacterPaginator;
 use AppBundle\Pagination\EventPaginator;
-use AppBundle\Pagination\ItemPaginator;
-use AppBundle\Pagination\LocationPaginator;
+use AppBundle\Pagination\Item\ItemPaginator;
+use AppBundle\Pagination\Location\LocationPaginator;
 use AppBundle\Pagination\Scene\ScenePaginator;
 use Pagerfanta\Pagerfanta;
 

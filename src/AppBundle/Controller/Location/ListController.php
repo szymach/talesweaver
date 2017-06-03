@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Location;
 
 use AppBundle\Entity\Scene;
-use AppBundle\Pagination\LocationPaginator;
+use AppBundle\Pagination\Location\LocationPaginator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Templating\EngineInterface;
 
@@ -31,7 +31,7 @@ class ListController
             'list' => $this->templating->render(
                 'scene\locations\list.html.twig',
                 [
-                    'locations' => $this->pagination->getForScene($scene, $page),
+                    'locations' => $this->pagination->getResults($scene, $page),
                     'scene' => $scene
                 ]
             )

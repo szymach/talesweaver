@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Character;
 
 use AppBundle\Entity\Scene;
-use AppBundle\Pagination\CharacterPaginator;
+use AppBundle\Pagination\Character\RelatedPaginator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Templating\EngineInterface;
 
@@ -19,7 +19,7 @@ class ListRelatedController
      */
     private $pagination;
 
-    public function __construct(EngineInterface $templating, CharacterPaginator $pagination)
+    public function __construct(EngineInterface $templating, RelatedPaginator $pagination)
     {
         $this->templating = $templating;
         $this->pagination = $pagination;

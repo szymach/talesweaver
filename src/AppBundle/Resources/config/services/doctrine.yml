@@ -1,5 +1,9 @@
 ---
 services:
+    _defaults:
+        autowire: false
+        autoconfigure: false
+
     # Repository
     app.repository.book:
         class: AppBundle\Entity\Repository\BookRepository

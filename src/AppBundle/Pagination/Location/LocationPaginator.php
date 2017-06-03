@@ -1,19 +1,20 @@
 <?php
 
-namespace AppBundle\Pagination;
+namespace AppBundle\Pagination\Location;
 
-use AppBundle\Entity\Repository\EventRepository;
+use AppBundle\Entity\Repository\LocationRepository;
 use AppBundle\Entity\Scene;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 
-class EventPaginator
+class LocationPaginator
 {
     /**
-     * @var EventRepository
+     * @var LocationRepository
      */
     private $repository;
 
-    public function __construct(EventRepository $repository)
+    public function __construct(LocationRepository $repository)
     {
         $this->repository = $repository;
     }

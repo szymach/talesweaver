@@ -3,25 +3,27 @@
 namespace AppBundle\Pagination\Book;
 
 use AppBundle\Entity\Repository\BookRepository;
-use AppBundle\Pagination\Paginator;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 
-/**
- * @property BookRepository $repository
- */
-class BookPaginator extends Paginator
+class BookPaginator
 {
+    /**
+     * @var BookRepository
+     */
+    private $repository;
+
     public function __construct(BookRepository $repository)
     {
         $this->repository = $repository;
     }
 
-    /**
-     * @param int $page
-     * @return Pagerfanta
-     */
-    public function getStandalone(int $page) : Pagerfanta
+    public function getResults(int $page = 1, int $maxPerPage = 10) : Pagerfanta
     {
-        return $this->getResults($this->repository->createQueryBuilder('b'), $page);
+        $pager = new Pagerfanta(new DoctrineORMAdapter($this->repository->createQueryBuilder('b')));
+        $pager->setMaxPerPage($maxPerPage);
+        $pager->setCurrentPage($page);
+
+        return $pager;
     }
 }

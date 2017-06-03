@@ -1,5 +1,9 @@
 ---
 services:
+    _defaults:
+        autowire: false
+        autoconfigure: false
+
     # Book handlers
     app.command.book.create:
         class: AppBundle\Book\Create\CommandHandler

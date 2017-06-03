@@ -3,18 +3,22 @@
 namespace AppBundle\Pagination\Scene;
 
 use AppBundle\Entity\Repository\SceneRepository;
-use AppBundle\Pagination\Paginator;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 
-class ScenePaginator extends Paginator
+class ScenePaginator
 {
+    /**
+     * @var SceneRepository
+     */
+    private $repository;
+
     public function __construct(SceneRepository $repository)
     {
         $this->repository = $repository;
     }
 
-    public function getStandalone(int $page = 1, int $maxPerPage = 10) : Pagerfanta
+    public function getResults(int $page = 1, int $maxPerPage = 10) : Pagerfanta
     {
         $pager = new Pagerfanta(new DoctrineORMAdapter($this->repository->createStandaloneQb()));
         $pager->setMaxPerPage($maxPerPage);

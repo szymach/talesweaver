@@ -1,6 +1,14 @@
 ---
 services:
-    # Menu
+    _defaults:
+        autowire: false
+        autoconfigure: false
+
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
+
     app.menu.builder:
         class: AppBundle\Menu\Builder
         arguments:
@@ -11,28 +19,3 @@ services:
         factory: ["@app.menu.builder", createMainMenu]
         tags:
             - { name: knp_menu.menu, alias: main }
-
-    # JSON
-    app.json.event_parser:
-        class: AppBundle\JSON\EventParser
-        arguments:
-            - "@doctrine.orm.entity_manager"
-            - "@property_accessor"
-
-    # Twig
-    twig.extension.text:
-        class: Twig_Extensions_Extension_Text
-        tags:
-            - { name: twig.extension }
-
-    twig.extension.events:
-        class: AppBundle\Twig\EventsExtension
-        arguments: ["@app.json.event_parser"]
-        tags:
-            - { name: twig.extension }
-
-    twig.extension.scene:
-        class: AppBundle\Twig\SceneExtension
-        arguments: ["@app.paginator.aggregate.scene"]
-        tags:
-            - { name: twig.extension }
