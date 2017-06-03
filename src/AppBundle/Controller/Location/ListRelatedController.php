@@ -7,7 +7,7 @@ use AppBundle\Pagination\LocationPaginator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Templating\EngineInterface;
 
-class ListController
+class ListRelatedController
 {
     /**
      * @var EngineInterface
@@ -29,9 +29,9 @@ class ListController
     {
         return new JsonResponse([
             'list' => $this->templating->render(
-                'scene\locations\list.html.twig',
+                'scene\locations\relatedList.html.twig',
                 [
-                    'locations' => $this->pagination->getForScene($scene, $page),
+                    'locations' => $this->pagination->getRelated($scene, $page),
                     'scene' => $scene
                 ]
             )

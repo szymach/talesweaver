@@ -3,10 +3,12 @@
 namespace AppBundle\Controller\Location;
 
 use AppBundle\Entity\Location;
+use AppBundle\Entity\Scene;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class DeleteController
+class RemoveFromSceneController
 {
     /**
      * @var ObjectManager
@@ -18,9 +20,13 @@ class DeleteController
         $this->manager = $manager;
     }
 
-    public function __invoke(Location $location)
+    /**
+     * @ParamConverter("scene", options={"id" = "scene_id"})
+     * @ParamConverter("location", options={"id" = "location_id"})
+     */
+    public function __invoke(Scene $scene, Location $location)
     {
-        $this->manager->remove($location);
+        $scene->removeLocation($location);
         $this->manager->flush();
 
         return new JsonResponse(['success' => true]);

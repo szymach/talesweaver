@@ -1,12 +1,12 @@
 <?php
 
-namespace AppBundle\Controller\Character;
+namespace AppBundle\Controller\Location;
 
-use AppBundle\Entity\Character;
+use AppBundle\Entity\Location;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class DeleteController
+class AddToSceneController
 {
     /**
      * @var ObjectManager
@@ -18,11 +18,16 @@ class DeleteController
         $this->manager = $manager;
     }
 
-    public function __invoke(Character $character)
+    /**
+     * @ParamConverter("scene", options={"id" = "scene_id"})
+     * @ParamConverter("location", options={"id" = "location_id"})
+     */
+    public function addToSceneAction(Scene $scene, Location $location)
     {
-        $this->manager->remove($character);
+        $scene->addLocation($location);
         $this->manager->flush();
 
         return new JsonResponse(['success' => true]);
     }
+
 }

@@ -6,17 +6,17 @@ app_character_new:
 
 app_character_edit:
     path: /edit/{id}
-    defaults: { _controller: AppBundle\Controller\Character\EditController:editAction }
+    defaults: { _controller: AppBundle\Controller\Character\EditController }
     methods:  [GET, POST]
 
 app_character_list:
     path: /list/{id}/{page}
-    defaults: { _controller: AppBundle\Controller\Character\ListController:listAction, page: 1 }
+    defaults: { _controller: AppBundle\Controller\Character\ListController, page: 1 }
     methods:  GET
 
 app_character_delete:
     path: /delete/{id}
-    defaults: { _controller: AppBundle\Controller\Character\DeleteController:deleteAction }
+    defaults: { _controller: AppBundle\Controller\Character\DeleteController }
     methods:  GET
 
 app_character_display:
@@ -26,15 +26,15 @@ app_character_display:
 
 app_character_related:
     path: /related/{id}/{page}
-    defaults: { _controller: AppBundle\Controller\Character\ListController:relatedAction, page: 1 }
+    defaults: { _controller: AppBundle\Controller\Character\ListController, page: 1 }
     methods:  GET
 
 app_character_add_to_scene:
     path: /add-to-scene/{scene_id}/{character_id}
-    defaults: { _controller: AppBundle\Controller\Character\EditController:addToSceneAction }
+    defaults: { _controller: AppBundle\Controller\Character\AddToSceneController }
     methods:  GET
 
 app_character_remove_from_scene:
     path: /remove-from-scene/{scene_id}/{character_id}
-    defaults: { _controller: AppBundle\Controller\Character\DeleteController:removeFromSceneAction }
+    defaults: { _controller: AppBundle\Controller\Character\RemoveFromSceneController }
     methods:  GET

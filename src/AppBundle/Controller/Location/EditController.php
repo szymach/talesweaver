@@ -3,10 +3,8 @@
 namespace AppBundle\Controller\Location;
 
 use AppBundle\Entity\Location;
-use AppBundle\Entity\Scene;
 use AppBundle\Form\Location\LocationType;
 use Doctrine\Common\Persistence\ObjectManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -66,17 +64,5 @@ class EditController
                 ['form' => $form->createView(), 'title' => 'location.header.edit']
             )
         ], !$form->isSubmitted() || $form->isValid() ? 200 : 400);
-    }
-
-    /**
-     * @ParamConverter("scene", options={"id" = "scene_id"})
-     * @ParamConverter("location", options={"id" = "location_id"})
-     */
-    public function addToSceneAction(Scene $scene, Location $location)
-    {
-        $scene->addLocation($location);
-        $this->manager->flush();
-
-        return new JsonResponse(['success' => true]);
     }
 }

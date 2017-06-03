@@ -3,10 +3,8 @@
 namespace AppBundle\Controller\Character;
 
 use AppBundle\Entity\Character;
-use AppBundle\Entity\Scene;
 use AppBundle\Form\Character\CharacterType;
 use Doctrine\Common\Persistence\ObjectManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,7 +45,7 @@ class EditController
         $this->router = $router;
     }
 
-    public function editAction(Request $request, Character $character)
+    public function __invoke(Request $request, Character $character)
     {
         $form = $this->formFactory->create(
             CharacterType::class,
@@ -66,16 +64,5 @@ class EditController
                 ['form' => $form->createView(), 'title' => 'character.header.edit']
             )
         ], !$form->isSubmitted() || $form->isValid() ? 200 : 400);
-    }
-
-    /**
-     * @ParamConverter("scene", options={"id" = "scene_id"})
-     * @ParamConverter("character", options={"id" = "character_id"})
-     */
-    public function addToSceneAction(Scene $scene, Character $character)
-    {
-        $scene->addCharacter($character);
-        $this->manager->flush();
-        return new JsonResponse(['success' => true]);
     }
 }

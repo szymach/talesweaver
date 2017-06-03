@@ -3,10 +3,8 @@
 namespace AppBundle\Controller\Item;
 
 use AppBundle\Entity\Item;
-use AppBundle\Entity\Scene;
 use AppBundle\Form\Item\ItemType;
 use Doctrine\Common\Persistence\ObjectManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,7 +45,7 @@ class EditController
         $this->router = $router;
     }
 
-    public function editAction(Request $request, Item $item)
+    public function __invoke(Request $request, Item $item)
     {
         $form = $this->formFactory->create(
             ItemType::class,
@@ -66,17 +64,5 @@ class EditController
                 ['form' => $form->createView(), 'title' => 'item.header.edit']
             )
         ], !$form->isSubmitted() || $form->isValid()? 200 : 400);
-    }
-
-    /**
-     * @ParamConverter("scene", options={"id" = "scene_id"})
-     * @ParamConverter("item", options={"id" = "item_id"})
-     */
-    public function addToSceneAction(Scene $scene, Item $item)
-    {
-        $scene->addItem($item);
-        $this->manager->flush();
-
-        return new JsonResponse(['success' => true]);
     }
 }

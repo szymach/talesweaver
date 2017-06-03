@@ -3,10 +3,12 @@
 namespace AppBundle\Controller\Item;
 
 use AppBundle\Entity\Item;
+use AppBundle\Entity\Scene;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class DeleteController
+class RemoveFromSceneController
 {
     /**
      * @var ObjectManager
@@ -18,9 +20,13 @@ class DeleteController
         $this->manager = $manager;
     }
 
-    public function __invoke(Item $item)
+    /**
+     * @ParamConverter("scene", options={"id" = "scene_id"})
+     * @ParamConverter("item", options={"id" = "item_id"})
+     */
+    public function __invoke(Scene $scene, Item $item)
     {
-        $this->manager->remove($item);
+        $scene->removeItem($item);
         $this->manager->flush();
 
         return new JsonResponse(['success' => true]);

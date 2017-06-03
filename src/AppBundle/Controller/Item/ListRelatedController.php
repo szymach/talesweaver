@@ -1,13 +1,13 @@
 <?php
 
-namespace AppBundle\Controller\Location;
+namespace AppBundle\Controller\Item;
 
 use AppBundle\Entity\Scene;
-use AppBundle\Pagination\LocationPaginator;
+use AppBundle\Pagination\ItemPaginator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Templating\EngineInterface;
 
-class ListController
+class ListRelatedController
 {
     /**
      * @var EngineInterface
@@ -15,11 +15,11 @@ class ListController
     private $templating;
 
     /**
-     * @var LocationPaginator
+     * @var ItemPaginator
      */
     private $pagination;
 
-    public function __construct(EngineInterface $templating, LocationPaginator $pagination)
+    public function __construct(EngineInterface $templating, ItemPaginator $pagination)
     {
         $this->templating = $templating;
         $this->pagination = $pagination;
@@ -29,9 +29,9 @@ class ListController
     {
         return new JsonResponse([
             'list' => $this->templating->render(
-                'scene\locations\list.html.twig',
+                'scene\items\relatedList.html.twig',
                 [
-                    'locations' => $this->pagination->getForScene($scene, $page),
+                    'items' => $this->pagination->getRelated($scene, $page),
                     'scene' => $scene
                 ]
             )

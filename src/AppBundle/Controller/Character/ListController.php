@@ -25,7 +25,7 @@ class ListController
         $this->pagination = $pagination;
     }
 
-    public function listAction(Scene $scene, $page)
+    public function __invoke(Scene $scene, $page)
     {
         return new JsonResponse([
             'list' => $this->templating->render(
@@ -36,19 +36,6 @@ class ListController
                 ]
             ),
             'page' => $page
-        ]);
-    }
-
-    public function relatedAction(Scene $scene, $page)
-    {
-        return new JsonResponse([
-            'list' => $this->templating->render(
-                'scene\characters\relatedList.html.twig',
-                [
-                    'characters' => $this->pagination->getRelated($scene, $page),
-                    'scene' => $scene
-                ]
-            )
         ]);
     }
 }

@@ -6,17 +6,17 @@ app_location_new:
 
 app_location_edit:
     path: /edit/{id}
-    defaults: { _controller: AppBundle\Controller\Location\EditController:editAction }
+    defaults: { _controller: AppBundle\Controller\Location\EditController }
     methods:  [GET, POST]
 
 app_location_list:
     path: /list/{id}/{page}
-    defaults: { _controller: AppBundle\Controller\Location\ListController:listAction, page: 1 }
+    defaults: { _controller: AppBundle\Controller\Location\ListController, page: 1 }
     methods:  GET
 
 app_location_delete:
     path: /delete/{id}
-    defaults: { _controller: AppBundle\Controller\Location\DeleteController:deleteAction }
+    defaults: { _controller: AppBundle\Controller\Location\DeleteController }
     methods:  GET
 
 app_location_display:
@@ -26,15 +26,15 @@ app_location_display:
 
 app_location_related:
     path: /related/{id}/{page}
-    defaults: { _controller: AppBundle\Controller\Location\ListController:relatedAction, page: 1 }
+    defaults: { _controller: AppBundle\Controller\Location\ListController, page: 1 }
     methods:  GET
 
 app_location_add_to_scene:
     path: /add-to-scene/{scene_id}/{location_id}
-    defaults: { _controller: AppBundle\Controller\Location\EditController:addToSceneAction }
+    defaults: { _controller: AppBundle\Controller\Location\AddToSceneController }
     methods:  GET
 
 app_location_remove_from_scene:
     path: /remove-from-scene/{scene_id}/{location_id}
-    defaults: { _controller: AppBundle\Controller\Location\DeleteController:removeFromSceneAction }
+    defaults: { _controller: AppBundle\Controller\Location\RemoveFromSceneController }
     methods:  GET
