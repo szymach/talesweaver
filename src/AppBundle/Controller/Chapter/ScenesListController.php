@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Chapter;
 
 use AppBundle\Entity\Chapter;
 use AppBundle\Pagination\Chapter\ScenePaginator;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ScenesListController

@@ -18,7 +18,7 @@ class DeleteController
         $this->manager = $manager;
     }
 
-    public function deleteAction(Event $event)
+    public function __invoke(Event $event)
     {
         $this->manager->remove($event);
         $this->manager->flush();

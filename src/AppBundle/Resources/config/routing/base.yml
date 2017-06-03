@@ -1,5 +1,5 @@
 ---
 app_index:
     path: /
-    defaults: { _controller: app.controller.dashboard:indexAction }
+    defaults: { _controller: AppBundle\Controller\DashboardController }
     methods:  GET

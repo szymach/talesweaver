@@ -1,35 +1,35 @@
 ---
 app_scene_new_standalone:
     path: /new-standalone/{page}
-    defaults: { _controller: app.controller.scene.create:createAction, page: 1 }
+    defaults: { _controller: AppBundle\Controller\Scene\CreateController, page: 1 }
     methods:  [GET, POST]
 
 app_scene_new_assigned:
     path: /new-assigned/{id}
-    defaults: { _controller: app.controller.scene.create_assigned:createAction }
+    defaults: { _controller: AppBundle\Controller\Scene\CreateAssignedController }
     methods:  [GET, POST]
 
 app_scene_edit:
     path: /edit/{id}
-    defaults: { _controller: app.controller.scene.edit:editAction }
+    defaults: { _controller: AppBundle\Controller\Scene\EditController }
     methods:  [GET, POST]
 
 app_scene_list:
     path: /list/{page}
-    defaults: { _controller: app.controller.scene.list:listAction, page: 1 }
+    defaults: { _controller: AppBundle\Controller\Scene\ListController, page: 1 }
     methods:  GET
 
 app_scene_delete:
     path: /delete/{id}/{page}
-    defaults: { _controller: app.controller.scene.delete:deleteAction, page: 1 }
+    defaults: { _controller: AppBundle\Controller\Scene\DeleteController, page: 1 }
     methods:  GET
 
 app_scene_display:
     path: /display/{id}
-    defaults: { _controller: app.controller.scene.display:displayAction }
+    defaults: { _controller: AppBundle\Controller\Scene\DisplayController }
     methods:  GET
 
 app_scene_pdf:
     path: /pdf/{id}
-    defaults: { _controller: app.controller.pdf:sceneAction }
+    defaults: { _controller: AppBundle\Controller\PDFController:sceneAction }
     methods:  GET

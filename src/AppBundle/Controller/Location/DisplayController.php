@@ -18,7 +18,7 @@ class DisplayController
         $this->templating = $templating;
     }
 
-    public function displayAction(Location $location)
+    public function __invoke(Location $location)
     {
         return new JsonResponse([
             'display' => $this->templating->render(

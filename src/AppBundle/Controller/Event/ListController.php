@@ -26,7 +26,7 @@ class ListController
         $this->pagination = $pagination;
     }
 
-    public function listAction(Scene $scene, $page)
+    public function __invoke(Scene $scene, $page)
     {
         return new JsonResponse([
             'list' => $this->templating->render(

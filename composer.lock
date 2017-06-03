@@ -1190,12 +1190,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fsi-open/doctrine-extensions-bundle.git",
-                "reference": "f5d965b731be6d91ec628e82d16c3fb99b4c86be"
+                "reference": "c15153a9ba546f9a59f0afdd0fef2566a6b0c11c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fsi-open/doctrine-extensions-bundle/zipball/f5d965b731be6d91ec628e82d16c3fb99b4c86be",
-                "reference": "f5d965b731be6d91ec628e82d16c3fb99b4c86be",
+                "url": "https://api.github.com/repos/fsi-open/doctrine-extensions-bundle/zipball/c15153a9ba546f9a59f0afdd0fef2566a6b0c11c",
+                "reference": "c15153a9ba546f9a59f0afdd0fef2566a6b0c11c",
                 "shasum": ""
             },
             "require": {
@@ -1250,7 +1250,7 @@
                 "extensions",
                 "fsi"
             ],
-            "time": "2017-01-30 08:49:03"
+            "time": "2017-05-31 12:10:58"
         },
         {
             "name": "fsi/metadata",
@@ -4522,16 +4522,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "6.1.4",
+            "version": "6.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "42b7f394a8e009516582331b1e03a1aba40175d1"
+                "reference": "16999a1e9a8a25d68f0ab8cc8ab818b043ad5374"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/42b7f394a8e009516582331b1e03a1aba40175d1",
-                "reference": "42b7f394a8e009516582331b1e03a1aba40175d1",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/16999a1e9a8a25d68f0ab8cc8ab818b043ad5374",
+                "reference": "16999a1e9a8a25d68f0ab8cc8ab818b043ad5374",
                 "shasum": ""
             },
             "require": {
@@ -4576,7 +4576,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "6.1.x-dev"
+                    "dev-master": "6.2.x-dev"
                 }
             },
             "autoload": {
@@ -4602,7 +4602,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-05-22 07:45:30"
+            "time": "2017-06-02 12:24:37"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

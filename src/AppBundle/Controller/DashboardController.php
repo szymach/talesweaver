@@ -7,9 +7,6 @@ use AppBundle\Entity\Repository\ChapterRepository;
 use AppBundle\Entity\Repository\SceneRepository;
 use Symfony\Component\Templating\EngineInterface;
 
-/**
- * @author Piotr Szymaszek
- */
 class DashboardController
 {
     /**
@@ -44,7 +41,7 @@ class DashboardController
         $this->sceneRepository = $sceneRepository;
     }
 
-    public function indexAction()
+    public function __invoke()
     {
         return $this->templating->renderResponse(
             'dashboard\index.html.twig',

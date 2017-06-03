@@ -17,7 +17,7 @@ class DisplayController
         $this->templating = $templating;
     }
 
-    public function displayAction(Scene $scene)
+    public function __invoke(Scene $scene)
     {
         return $this->templating->renderResponse(
             'scene/display.html.twig',

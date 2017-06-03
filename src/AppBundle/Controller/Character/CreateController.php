@@ -46,7 +46,7 @@ class CreateController
         $this->router = $router;
     }
 
-    public function newAction(Request $request, Scene $scene)
+    public function __invoke(Request $request, Scene $scene)
     {
         $character = new Character();
         $form = $this->formFactory->create(

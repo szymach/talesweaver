@@ -1,17 +1,17 @@
 ---
 app_event_list:
     path: /list/{id}/{page}
-    defaults: { _controller: app.controller.event.list:listAction, page: 1 }
+    defaults: { _controller: AppBundle\Controller\Event\ListController, page: 1 }
     methods:  GET
 
 app_event_add:
     path: /event/{id}/{model}
-    defaults: { _controller: app.controller.event.create:createAction }
+    defaults: { _controller: AppBundle\Controller\Event\CreateController }
     methods:  [GET, POST]
     requirements:
         model: .+
 
 app_event_delete:
     path: /delete/{id}
-    defaults: { _controller: app.controller.event.delete:deleteAction }
+    defaults: { _controller: AppBundle\Controller\Event\DeleteController }
     methods:  GET
