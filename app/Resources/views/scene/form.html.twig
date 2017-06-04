@@ -27,8 +27,8 @@
             </button>
         </div>
     </div>
-    <nav class="side-menu">
-        <ul>
+    {% embed 'partial/sideMenu.html.twig' %}
+        {% block listContent %}
             {% if scene.chapter and scene.chapter.scenes | length %}
                 <li>
                     <span class="fa fa-book logo-icon"></span>
@@ -46,8 +46,8 @@
                 {% include 'scene/locations/list.html.twig' with { scene: scene, locations: sceneLocations(scene, 1) } only %}
                 {% include 'scene/events/list.html.twig' with { scene: scene, events: sceneEvents(scene, 1) } only %}
             {% endif %}
-        </ul>
-    </nav>
+        {% endblock %}
+    {% endembed %}
 {% endblock %}
 
 {% block modals %}

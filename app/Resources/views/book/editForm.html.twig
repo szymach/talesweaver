@@ -7,7 +7,8 @@
     } %}
     <h1>{{ title }}</h1>
     <ul class="nav nav-tabs" role="tablist">
-        {% for tab in ['basic', 'introduction', 'expansion', 'ending', 'chapters'] %}
+        {#{% for tab in ['basic', 'introduction', 'expansion', 'ending', 'chapters'] %}#}
+        {% for tab in ['basic', 'chapters'] %}
             <li role="presentation"{% if loop.first %} class="active"{% endif %}>
                 <a href="#{{ tab }}" aria-controls="{{ tab }}" role="tab" data-toggle="tab">
                     {{ ('book.tabs.' ~ tab) | trans }}
@@ -25,7 +26,7 @@
                         {{ form_row(form.description) }}
                         <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
                     </div>
-                    <div role="tabpanel" class="tab-pane fade" id="introduction">
+                    {#<div role="tabpanel" class="tab-pane fade" id="introduction">
                         {{ form_row(form.introduction) }}
                         <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
                     </div>
@@ -36,7 +37,7 @@
                     <div role="tabpanel" class="tab-pane fade" id="ending">
                         {{ form_row(form.ending) }}
                         <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
-                    </div>
+                    </div>#}
                     <div role="tabpanel" class="tab-pane fade" id="chapters">
                         {% include 'book/chapters/list.html.twig' with { bookId: bookId, chapters: chapters } only %}
                     </div>
@@ -45,4 +46,18 @@
             {{ form_end(form) }}
         </div>
     </div>
+    {% embed 'partial/sideMenu.html.twig' %}
+        {% block listContent %}
+            <li>
+                <span class="fa fa-plus logo-icon" title="{{ 'book.actions.add_chapter' | trans }}"></span>
+                <span class="h4">{{ 'book.actions.add_chapter' | trans }}</span>
+                {{ form_start(chapterForm) }}
+                    {{ form_row(chapterForm.title) }}
+                    <div style="display: none;">{{ form_row(chapterForm.book) }}</div>
+                    {{ form_rest(chapterForm) }}
+                    <button class="btn btn-primary btn-sm">{{ 'crud.save' | trans }}</button>
+                {{ form_end(chapterForm) }}
+            </li>
+        {% endblock %}
+    {% endembed %}
 {% endblock %}

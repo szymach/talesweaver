@@ -18,23 +18,24 @@ class EditType extends AbstractType
 
         $builder->add('description', CKEditorType::class, [
             'label' => 'book.description',
-            'required' => false
+            'required' => false,
+            'config_name' => 'small_size'
         ]);
 
-        $builder->add('introduction', CKEditorType::class, [
-            'label' =>  false,
-            'required' => false
-        ]);
-
-        $builder->add('expansion', CKEditorType::class, [
-            'label' =>  false,
-            'required' => false
-        ]);
-
-        $builder->add('ending', CKEditorType::class, [
-            'label' =>  false,
-            'required' => false
-        ]);
+//        $builder->add('introduction', CKEditorType::class, [
+//            'label' =>  false,
+//            'required' => false
+//        ]);
+//
+//        $builder->add('expansion', CKEditorType::class, [
+//            'label' =>  false,
+//            'required' => false
+//        ]);
+//
+//        $builder->add('ending', CKEditorType::class, [
+//            'label' =>  false,
+//            'required' => false
+//        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

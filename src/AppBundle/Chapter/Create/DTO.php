@@ -12,9 +12,14 @@ class DTO
     private $title;
 
     /**
-     * @var Book
+     * @var Book|null
      */
     private $book;
+
+    public function __construct(Book $book = null)
+    {
+        $this->book = $book;
+    }
 
     public function setTitle(?string $title)
     {

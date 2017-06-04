@@ -15,36 +15,24 @@
         </tr>
     </thead>
     <tbody>
-    {% for chapter in chapters %}
-        <tr>
-            <td>{{ chapter.title }}</td>
-            <td>
-                <a class="btn btn-primary"
-                   href="{{ path('app_chapter_edit', { id: chapter.id }) }}"
-                   title="{{ 'crud.edit' | trans }}"
-                >
-                    <span class="fa fa-edit"></span>
-                </a>
-                <a class="btn btn-danger js-delete"
-                   href="{{ path('app_chapter_delete', { id: chapter.id }) }}"
-                   title="{{ 'crud.delete' | trans }}"
-                >
-                    <span class="fa fa-trash"></span>
-                </a>
-            </td>
-        </tr>
-    {% endfor %}
-        <tfoot>
+        {% for chapter in chapters %}
             <tr>
-                <td colspan="2" class="text-right">
-                    <a class="btn btn-success"
-                       href="{{ path('app_chapter_create', { id: bookId }) }}"
-                       title="{{ 'crud.create' | trans }}"
+                <td>{{ chapter.title }}</td>
+                <td>
+                    <a class="btn btn-primary"
+                       href="{{ path('app_chapter_edit', { id: chapter.id }) }}"
+                       title="{{ 'crud.edit' | trans }}"
                     >
-                        <span class="fa fa-plus"></span>
+                        <span class="fa fa-edit"></span>
+                    </a>
+                    <a class="btn btn-danger js-delete"
+                       href="{{ path('app_chapter_delete', { id: chapter.id }) }}"
+                       title="{{ 'crud.delete' | trans }}"
+                    >
+                        <span class="fa fa-trash"></span>
                     </a>
                 </td>
             </tr>
-        </tfoot>
+        {% endfor %}
     </tbody>
 </table>

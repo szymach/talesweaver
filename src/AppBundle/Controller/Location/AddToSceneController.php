@@ -29,5 +29,4 @@ class AddToSceneController
 
         return new JsonResponse(['success' => true]);
     }
-
 }

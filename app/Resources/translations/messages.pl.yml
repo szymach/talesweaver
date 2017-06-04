@@ -16,6 +16,7 @@ book:
     chapters: Rozdziały
     actions:
         create: Nowa
+        add_chapter: Nowy rozdział
     header:
         new: Nowa książka
     back:

@@ -27,7 +27,7 @@
                                 <span class="fa fa-edit"></span>
                             </a>
                             <a class="btn btn-danger js-delete"
-                               href="{{ path('app_book_delete', { id: book.id, page: page }) }}"
+                               href="{{ path('app_book_delete', { id: book.id, page: app.request.get('page') }) }}"
                                title="{{ 'crud.delete' | trans }}"
                             >
                                 <span class="fa fa-trash"></span>

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Chapter\Edit;
 
+use AppBundle\Entity\Book;
 use AppBundle\Entity\Chapter;
 use AppBundle\Entity\Scene;
 use Doctrine\Common\Collections\ArrayCollection;

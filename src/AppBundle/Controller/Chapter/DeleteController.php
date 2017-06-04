@@ -26,12 +26,15 @@ class DeleteController
         $this->router = $router;
     }
 
-    public function __invoke(Chapter $book, $page)
+    public function __invoke(Chapter $chapter, $page)
     {
-        $this->commandBus->handle(new Command($book));
+        $bookId = $chapter->getBook() ? $chapter->getBook()->getId() : null;
+        $this->commandBus->handle(new Command($chapter));
 
         return new RedirectResponse(
-            $this->router->generate('app_chapter_list', ['page' => $page])
+            $bookId
+            ? $this->router->generate('app_book_edit', ['id' => $bookId])
+            : $this->router->generate('app_chapter_list', ['page' => $page])
         );
     }
 }

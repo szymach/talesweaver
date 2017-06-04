@@ -22,11 +22,20 @@
         vertical-align: middle;
         font-size: 20px;
         line-height: 26px;
+
+        &:last-child {
+            bottom: 0;
+        }
+    }
+
+    .fa.logo-icon.switch {
+       width: 100%;
     }
 
     ul {
         margin: 7px 0;
         padding-left: 15px;
+        display: block;
 
         li {
             position: relative;
@@ -51,6 +60,10 @@
             .sublist-label {
                 display: inline-block;
                 min-width: 100px;
+            }
+
+            form {
+                max-width: 220px;
             }
         }
     }
