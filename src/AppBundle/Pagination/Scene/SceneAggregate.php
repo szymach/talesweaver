@@ -57,7 +57,7 @@ class SceneAggregate
      */
     public function getStandalone(int $page)
     {
-        return $this->scenePaginator->getStandalone($page);
+        return $this->scenePaginator->getResults($page);
     }
 
     /**
@@ -67,7 +67,7 @@ class SceneAggregate
      */
     public function getCharactersForScene(Scene $scene, int $page)
     {
-        return $this->characterPaginator->getForScene($scene, $page);
+        return $this->characterPaginator->getResults($scene, $page);
     }
 
     /**
@@ -77,7 +77,7 @@ class SceneAggregate
      */
     public function getItemsForScene(Scene $scene, int $page)
     {
-        return $this->itemPaginator->getForScene($scene, $page);
+        return $this->itemPaginator->getResults($scene, $page);
     }
 
     /**
@@ -87,7 +87,7 @@ class SceneAggregate
      */
     public function getLocationsForScene(Scene $scene, int $page)
     {
-        return $this->locationPaginator->getForScene($scene, $page);
+        return $this->locationPaginator->getResults($scene, $page);
     }
 
     /**
@@ -97,6 +97,6 @@ class SceneAggregate
      */
     public function getEventsForScene(Scene $scene, int $page)
     {
-        return $this->eventPaginator->getForScene($scene, $page);
+        return $this->eventPaginator->getResults($scene, $page);
     }
 }

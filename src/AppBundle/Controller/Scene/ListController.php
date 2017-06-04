@@ -2,32 +2,22 @@
 
 namespace AppBundle\Controller\Scene;
 
-use AppBundle\Pagination\Scene\SceneAggregate;
-use Symfony\Component\Templating\EngineInterface;
+use AppBundle\Templating\Scene\ListView;
 
 class ListController
 {
     /**
-     * @var EngineInterface
+     * @var ListView
      */
     private $templating;
 
-    /**
-     * @var SceneAggregate
-     */
-    private $pagination;
-
-    public function __construct(EngineInterface $templating, SceneAggregate $pagination)
+    public function __construct(ListView $templating)
     {
         $this->templating = $templating;
-        $this->pagination = $pagination;
     }
 
-    public function listAction($page)
+    public function __invoke($page)
     {
-        return $this->templating->renderResponse(
-            'scene/list.html.twig',
-            ['scenes' => $this->pagination->getStandalone($page)]
-        );
+        return $this->templating->createView($page);
     }
 }
