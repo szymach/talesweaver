@@ -2,15 +2,17 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Event\DTO;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 use JsonSerializable;
+use Ramsey\Uuid\UuidInterface;
 
 class Event
 {
     use Traits\TranslatableTrait;
 
     /**
-     * @var integer
+     * @var UuidInterface
      */
     private $id;
 
@@ -30,9 +32,12 @@ class Event
      */
     private $scene;
 
-    public function __construct(Scene $scene)
+    public function __construct(UuidInterface $id, DTO $dto)
     {
-        $this->scene = $scene;
+        $this->id = $id;
+        $this->name = $dto->getName();
+        $this->model = $dto->getModel();
+        $this->scene = $dto->getScene();
     }
 
     public function getId()
@@ -55,12 +60,7 @@ class Event
         return $this->model;
     }
 
-    public function setModel(?JsonSerializable $model)
-    {
-        $this->model = $model;
-    }
-
-    public function getScene(): ?Scene
+    public function getScene() : Scene
     {
         return $this->scene;
     }

@@ -69,3 +69,18 @@ services:
             - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Scene\Delete\Command }
+
+    # Event handlers
+    app.command.event.create:
+        class: AppBundle\Event\Create\CommandHandler
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: command_handler, handles: AppBundle\Event\Create\Command }
+
+    app.command.event.delete:
+        class: AppBundle\Event\Delete\CommandHandler
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: command_handler, handles: AppBundle\Event\Delete\Command }

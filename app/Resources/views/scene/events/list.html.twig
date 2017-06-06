@@ -4,10 +4,10 @@
     <span class="fa fa-bookmark logo-icon" title="{{ 'scene.tabs.events' | trans }}"></span>
     <span class="h4">{{ 'scene.tabs.events' | trans }}</span>
     <ul>
-        {% for event in eventModels %}
+        {% for model in eventModels %}
             <li>
-                <button data-form-url="{{ path('app_event_add', { id: sceneId, model: event }) }}" class="js-load-form js-edit-form btn btn-default">
-                    {{ ('event.' ~ event ~ '.name') | trans }}
+                <button data-form-url="{{ path('app_event_add', { id: sceneId, model: model }) }}" class="js-load-form js-edit-form btn btn-default">
+                    {{ ('event.' ~ model ~ '.name') | trans }}
                 </button>
             </li>
         {% endfor %}
