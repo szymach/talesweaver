@@ -16,11 +16,11 @@ app_book_list:
 
 app_book_delete:
     path: /delete/{id}/{page}
-    defaults: { _controller: AppBundle\Controller\Book\ChaptersListController, page: 1 }
+    defaults: { _controller: AppBundle\Controller\Book\DeleteController, page: 1 }
     methods:  GET
 
 app_book_chapter_list:
     path: /chapters/{id}/{page}
-    defaults: { _controller: app.controller.book.chapters_list, page: 1 }
+    defaults: { _controller: AppBundle\Controller\Book\ChaptersListController, page: 1 }
     condition: "request.isXmlHttpRequest()"
     methods:  GET

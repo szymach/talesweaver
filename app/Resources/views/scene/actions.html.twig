@@ -1,9 +1,7 @@
 {% extends 'partial/backButton.html.twig' %}
 {% block additionalActions %}
-    {% if scene.id %}
-        <a href="{{ path('app_scene_display', { id: scene.id }) }}" class="btn btn-default" target="_blank" title="{{ 'display.go_to' | trans }}">
-            <span class="fa fa-eye"></span>
-            {{ 'display.label' | trans }}
-        </a>
-    {% endif %}
+    <a href="{{ path('app_scene_display', { id: sceneId }) }}" class="btn btn-default" target="_blank" title="{{ 'display.go_to' | trans }}">
+        <span class="fa fa-eye"></span>
+        {{ 'display.label' | trans }}
+    </a>
 {% endblock %}

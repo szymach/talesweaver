@@ -3,25 +3,22 @@
 namespace AppBundle\Controller\Chapter;
 
 use AppBundle\Entity\Chapter;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use AppBundle\Templating\Chapter\DisplayView;
 
 class DisplayController
 {
     /**
-     * @var EngineInterface
+     * @var DisplayView
      */
     private $templating;
 
-    public function __construct(EngineInterface $templating)
+    public function __construct(DisplayView $templating)
     {
         $this->templating = $templating;
     }
 
     public function __invoke(Chapter $chapter)
     {
-        return $this->templating->renderResponse(
-            'chapter/display.html.twig',
-            ['chapter' => $chapter]
-        );
+        return $this->templating->createView($chapter);
     }
 }

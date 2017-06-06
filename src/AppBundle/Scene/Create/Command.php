@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Chapter\Create;
+namespace AppBundle\Scene\Create;
 
 use Ramsey\Uuid\UuidInterface;
 
@@ -16,7 +16,7 @@ class Command
      */
     private $dto;
 
-    public function __construct(Uuid $id, DTO $dto)
+    public function __construct(UuidInterface $id, DTO $dto)
     {
         $this->id = $id;
         $this->dto = $dto;

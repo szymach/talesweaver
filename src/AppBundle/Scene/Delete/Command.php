@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Chapter\Delete;
+namespace AppBundle\Scene\Delete;
 
 use Ramsey\Uuid\UuidInterface;
 

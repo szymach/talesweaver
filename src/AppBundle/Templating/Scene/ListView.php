@@ -28,7 +28,7 @@ class ListView
     {
         return $this->templating->renderResponse(
             'scene/list.html.twig',
-            ['scenes' => $this->pagination->getStandalone($page)]
+            ['scenes' => $this->pagination->getResults($page)]
         );
     }
 }

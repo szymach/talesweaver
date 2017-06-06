@@ -47,3 +47,25 @@ services:
             - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Chapter\Delete\Command }
+
+    # Scene handles
+    app.command.scene.create:
+        class: AppBundle\Scene\Create\CommandHandler
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: command_handler, handles: AppBundle\Scene\Create\Command }
+
+    app.command.scene.edit:
+        class: AppBundle\Scene\Edit\CommandHandler
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: command_handler, handles: AppBundle\Scene\Edit\Command }
+
+    app.command.scene.delete:
+        class: AppBundle\Scene\Delete\CommandHandler
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: command_handler, handles: AppBundle\Scene\Delete\Command }

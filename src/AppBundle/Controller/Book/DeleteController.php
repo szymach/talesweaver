@@ -4,9 +4,8 @@ namespace AppBundle\Controller\Book;
 
 use AppBundle\Book\Delete\Command;
 use AppBundle\Entity\Book;
+use AppBundle\Routing\RedirectToList;
 use SimpleBus\Message\Bus\MessageBus;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Routing\RouterInterface;
 
 class DeleteController
 {
@@ -16,22 +15,20 @@ class DeleteController
     private $commandBus;
 
     /**
-     * @var RouterInterface
+     * @var RedirectToList
      */
-    private $router;
+    private $redirector;
 
-    public function __construct(MessageBus $commandBus, RouterInterface $router)
+    public function __construct(MessageBus $commandBus, RedirectToList $redirector)
     {
         $this->commandBus = $commandBus;
-        $this->router = $router;
+        $this->redirector = $redirector;
     }
 
     public function __invoke(Book $book, $page)
     {
         $this->commandBus->handle(new Command($book));
 
-        return new RedirectResponse(
-            $this->router->generate('app_book_list', ['page' => $page])
-        );
+        return $this->redirector->createResponse('app_book_list', $page);
     }
 }

@@ -3,7 +3,7 @@
 namespace AppBundle\Book\Delete;
 
 use AppBundle\Entity\Book;
-use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class Command
 {
@@ -17,7 +17,7 @@ class Command
         $this->id = $book->getId();
     }
 
-    public function getId(): Uuid
+    public function getId(): UuidInterface
     {
         return $this->id;
     }

@@ -2,12 +2,12 @@
 
 namespace AppBundle\Book\Create;
 
-use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class Command
 {
     /**
-     * @var type
+     * @var UuidInterface
      */
     private $id;
 
@@ -16,13 +16,13 @@ class Command
      */
     private $dto;
 
-    public function __construct(Uuid $id, DTO $dto)
+    public function __construct(UuidInterface $id, DTO $dto)
     {
         $this->id = $id;
         $this->dto = $dto;
     }
 
-    public function getId(): Uuid
+    public function getId(): UuidInterface
     {
         return $this->id;
     }

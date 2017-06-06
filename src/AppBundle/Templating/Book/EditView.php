@@ -63,7 +63,7 @@ class EditView
     private function createChapterForm(Book $book): FormInterface
     {
         return $this->formFactory->create(CreateType::class, new DTO($book), [
-            'action' => $this->router->generate('app_chapter_create', ['id' => $book->getId()])
+            'action' => $this->router->generate('app_chapter_create')
         ]);
     }
 }

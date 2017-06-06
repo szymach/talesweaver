@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% include 'scene/actions.html.twig' with {
+        redirectUri: chapterId ? path('app_chapter_edit', { id: chapterId }) : path('app_scene_list', { page: app.request.get('page') }),
+        label: (chapterId ? 'scene.back.to_chapter' : 'scene.back.to_list') | trans
+    } %}
+    <h1>{{ title }}</h1>
+    <div class="row">
+        <div class="col-xs-12 content-container">
+            {{ form_start(form) }}
+                {{ form_row(form.title) }}
+                {{ form_row(form.chapter) }}
+                {{ form_row(form.text) }}
+                <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
+                {{ form_rest(form) }}
+            {{ form_end(form) }}
+            <div id="ajax-container"></div>
+            <div id="form-backdrop"></div>
+            <button id="clear-ajax" class="btn btn-danger pull-right" style="display: none;">
+                <span class="fa fa-close"></span>
+            </button>
+        </div>
+    </div>
+    {% embed 'partial/sideMenu.html.twig' %}
+        {% block listContent %}
+            {% if chapterTitle and relatedScenes | length %}
+                <li>
+                    <span class="fa fa-book logo-icon"></span>
+                    <span class="h4">{{ chapterTitle }}</span>
+                    <ul>
+                        {% for relatedScene in relatedScenes %}
+                            <li><a href="{{ path('app_scene_edit', { id: relatedsceneId }) }}">{{ relatedScene.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endif %}
+            {% include 'scene/characters/list.html.twig' with { sceneId: sceneId, chapterId: chapterId, characters: characters } only %}
+            {% include 'scene/items/list.html.twig' with { sceneId: sceneId, chapterId: chapterId, items: items } only %}
+            {% include 'scene/locations/list.html.twig' with { sceneId: sceneId, chapterId: chapterId, locations: locations } only %}
+            {% include 'scene/events/list.html.twig' with { sceneId: sceneId, chapterId: chapterId, events: events, eventModels: eventModels } only %}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block modals %}
+    {% include 'partial/displayModal.html.twig' %}
+{% endblock %}

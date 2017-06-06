@@ -1,12 +1,7 @@
 ---
-app_scene_new_standalone:
-    path: /new-standalone/{page}
+app_scene_create:
+    path: /create/{page}
     defaults: { _controller: AppBundle\Controller\Scene\CreateController, page: 1 }
-    methods:  [GET, POST]
-
-app_scene_new_assigned:
-    path: /new-assigned/{id}
-    defaults: { _controller: AppBundle\Controller\Scene\CreateAssignedController }
     methods:  [GET, POST]
 
 app_scene_edit:

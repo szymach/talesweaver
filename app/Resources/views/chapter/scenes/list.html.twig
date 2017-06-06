@@ -15,36 +15,24 @@
         </tr>
     </thead>
     <tbody>
-    {% for scene in scenes %}
-        <tr>
-            <td>{{ scene }}</td>
-            <td>
-                <a class="btn btn-primary"
-                   href="{{ path('app_scene_edit', { id: scene.id }) }}"
-                   title="{{ 'crud.edit' | trans }}"
-                >
-                    <span class="fa fa-edit"></span>
-                </a>
-                <a class="btn btn-danger js-delete"
-                   href="{{ path('app_scene_delete', { id: scene.id }) }}"
-                   title="{{ 'crud.delete' | trans }}"
-                >
-                    <span class="fa fa-trash"></span>
-                </a>
-            </td>
-        </tr>
-    {% endfor %}
-        <tfoot>
+        {% for scene in scenes %}
             <tr>
-                <td colspan="2" class="text-right">
-                    <a class="btn btn-success"
-                       href="{{ path('app_scene_new_assigned', { id: chapterId }) }}"
-                       title="{{ 'scene.actions.create' | trans }}"
+                <td>{{ scene }}</td>
+                <td>
+                    <a class="btn btn-primary"
+                       href="{{ path('app_scene_edit', { id: scene.id }) }}"
+                       title="{{ 'crud.edit' | trans }}"
                     >
-                        <span class="fa fa-plus"></span>
+                        <span class="fa fa-edit"></span>
+                    </a>
+                    <a class="btn btn-danger js-delete"
+                       href="{{ path('app_scene_delete', { id: scene.id }) }}"
+                       title="{{ 'crud.delete' | trans }}"
+                    >
+                        <span class="fa fa-trash"></span>
                     </a>
                 </td>
             </tr>
-        </tfoot>
+        {% endfor %}
     </tbody>
 </table>

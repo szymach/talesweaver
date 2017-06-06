@@ -3,25 +3,22 @@
 namespace AppBundle\Controller\Scene;
 
 use AppBundle\Entity\Scene;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use AppBundle\Templating\Scene\DisplayView;
 
 class DisplayController
 {
     /**
-     * @var EngineInterface
+     * @var DisplayView
      */
     private $templating;
 
-    public function __construct(EngineInterface $templating)
+    public function __construct(DisplayView $templating)
     {
         $this->templating = $templating;
     }
 
     public function __invoke(Scene $scene)
     {
-        return $this->templating->renderResponse(
-            'scene/display.html.twig',
-            ['scene' => $scene]
-        );
+        return $this->templating->createView($scene);
     }
 }

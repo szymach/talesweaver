@@ -3,38 +3,46 @@
 namespace AppBundle\Controller\Scene;
 
 use AppBundle\Entity\Scene;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Routing\RouterInterface;
+use AppBundle\Routing\RedirectToEdit;
+use AppBundle\Routing\RedirectToList;
+use AppBundle\Scene\Delete\Command;
+use SimpleBus\Message\Bus\MessageBus;
 
 class DeleteController
 {
     /**
-     * @var ObjectManager
+     * @var MessageBus
      */
-    private $manager;
+    private $commandBus;
 
     /**
-     * @var RouterInterface
+     * @var RedirectToEdit
      */
-    private $router;
+    private $editRedirector;
 
-    public function __construct(ObjectManager $manager, RouterInterface $router)
-    {
-        $this->manager = $manager;
-        $this->router = $router;
+    /**
+     * @var RedirectToList
+     */
+    private $listRedirector;
+
+    public function __construct(
+        MessageBus $commandBus,
+        RedirectToEdit $editRedirector,
+        RedirectToList $listRedirector
+    ) {
+        $this->commandBus = $commandBus;
+        $this->editRedirector = $editRedirector;
+        $this->listRedirector = $listRedirector;
     }
 
-    public function deleteAction(Scene $scene, $page)
+    public function __invoke(Scene $scene, $page)
     {
         $chapterId = $scene->getChapter() ? $scene->getChapter()->getId() : null;
-        $this->manager->remove($scene);
-        $this->manager->flush();
+        $this->commandBus->handle(new Command($scene->getId()));
 
-        return new RedirectResponse(
-            $chapterId
-            ? $this->router->generate('app_chapter_edit', ['id' => $chapterId])
-            : $this->router->generate('app_scene_list', ['page' => $page])
-        );
+        return $chapterId
+            ? $this->editRedirector->createResponse('app_chapter_edit', $chapterId)
+            : $this->listRedirector->createResponse('app_scene_list', $page)
+        ;
     }
 }

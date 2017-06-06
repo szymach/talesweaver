@@ -60,18 +60,7 @@ class Chapter
     public function edit(DTO $dto)
     {
         $this->title = $dto->getTitle();
-        $currentScenes = $this->scenes;
-        $this->scenes = new ArrayCollection();
-
-        $newScenes = $dto->getScenes();
-        foreach ($dto->getScenes() as $scene) {
-            $this->addScene($scene);
-        }
-        foreach ($currentScenes as $sceneToCheck) {
-            if (!$newScenes->contains($sceneToCheck)) {
-                $this->removeScene($sceneToCheck);
-            }
-        }
+        $this->book = $dto->getBook();
 
         $this->update();
     }
@@ -102,29 +91,7 @@ class Chapter
     }
 
     /**
-     * @param Scene $scene
-     */
-    public function addScene(Scene $scene)
-    {
-        if (!$this->scenes->contains($scene)) {
-            $scene->setChapter($this);
-            $this->scenes->add($scene);
-            $this->update();
-        }
-    }
-
-    /**
-     * @param Scene $scene
-     */
-    public function removeScene(Scene $scene)
-    {
-        $this->scenes->removeElement($scene);
-        $scene->setChapter(null);
-        $this->update();
-    }
-
-    /**
-     * @return Collection
+     * @return Scene[]
      */
     public function getScenes()
     {

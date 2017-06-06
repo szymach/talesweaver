@@ -2,20 +2,20 @@
 
 namespace AppBundle\Controller\Scene;
 
-use AppBundle\Entity\Chapter;
-use AppBundle\Entity\Scene;
 use AppBundle\Form\Scene\NewType;
-use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Routing\RedirectToEdit;
+use AppBundle\Scene\Create\Command;
+use AppBundle\Scene\Create\DTO;
+use AppBundle\Templating\SimpleFormView;
+use Ramsey\Uuid\Uuid;
+use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Templating\EngineInterface;
 
 class CreateController
 {
     /**
-     * @var EngineInterface
+     * @var SimpleFormView
      */
     private $templating;
 
@@ -25,43 +25,37 @@ class CreateController
     private $formFactory;
 
     /**
-     * @var ObjectManager
+     * @var MessageBus
      */
-    private $manager;
+    private $commandBus;
 
     /**
-     * @var RouterInterface
+     * @var RedirectToEdit
      */
-    private $router;
+    private $redirector;
 
     public function __construct(
-        EngineInterface $templating,
+        SimpleFormView $templating,
         FormFactoryInterface $formFactory,
-        ObjectManager $manager,
-        RouterInterface $router
+        MessageBus $commandBus,
+        RedirectToEdit $redirector
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
-        $this->manager = $manager;
-        $this->router = $router;
+        $this->commandBus = $commandBus;
+        $this->redirector = $redirector;
     }
 
     public function __invoke(Request $request)
     {
-        $scene = new Scene();
-        $form = $this->formFactory->create(NewType::class, $scene);
+        $form = $this->formFactory->create(NewType::class, new DTO());
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->manager->persist($scene);
-            $this->manager->flush();
+            $sceneId = Uuid::uuid4();
+            $this->commandBus->handle(new Command($sceneId, $form->getData()));
 
-            return new RedirectResponse(
-                $this->router->generate('app_scene_edit', ['id' => $scene->getId()])
-            );
+            return $this->redirector->createResponse('app_scene_edit', $sceneId);
         }
 
-        return $this->templating->renderResponse(
-            'scene/form.html.twig',
-            ['form' => $form->createView()]
-        );
+        return $this->templating->createView($form, 'scene/createForm.html.twig');
     }
 }

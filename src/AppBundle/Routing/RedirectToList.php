@@ -2,11 +2,10 @@
 
 namespace AppBundle\Routing;
 
-use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
 
-class RedirectToEdit
+class RedirectToList
 {
     /**
      * @var RouterInterface
@@ -18,8 +17,8 @@ class RedirectToEdit
         $this->router = $router;
     }
 
-    public function createResponse(string $route, UuidInterface $id) : RedirectResponse
+    public function createResponse(string $route, int $page): RedirectResponse
     {
-        return new RedirectResponse($this->router->generate($route, ['id' => $id]));
+        return new RedirectResponse($this->router->generate($route, ['page' => $page]));
     }
 }

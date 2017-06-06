@@ -2,9 +2,12 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Scene\Edit\DTO;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
+use Ramsey\Uuid\UuidInterface;
 
 class Scene
 {
@@ -47,8 +50,13 @@ class Scene
      */
     private $locations;
 
-    public function __construct()
+    public function __construct(UuidInterface $id, string $title, Chapter $chapter = null)
     {
+        $this->id = $id;
+        $this->title = $title;
+        if ($chapter) {
+            $this->chapter = $chapter;
+        }
         $this->characters = new ArrayCollection();
         $this->items = new ArrayCollection();
         $this->locations = new ArrayCollection();
@@ -59,6 +67,13 @@ class Scene
     public function __toString()
     {
         return $this->title;
+    }
+
+    public function edit(DTO $dto)
+    {
+        $this->title = $dto->getTitle();
+        $this->text = $dto->getText();
+        $this->chapter = $dto->getChapter();
     }
 
     /**

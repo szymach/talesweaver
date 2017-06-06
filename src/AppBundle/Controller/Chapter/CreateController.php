@@ -54,7 +54,7 @@ class CreateController
             $chapterId = Uuid::uuid4();
             $this->commandBus->handle(new Command($chapterId, $form->getData()));
 
-            return $this->redirector->createResponse($chapterId, 'app_chapter_edit');
+            return $this->redirector->createResponse('app_chapter_edit', $chapterId);
         }
 
         return $this->templating->createView($form, 'chapter/createForm.html.twig');

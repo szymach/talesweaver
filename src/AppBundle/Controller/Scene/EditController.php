@@ -3,18 +3,19 @@
 namespace AppBundle\Controller\Scene;
 
 use AppBundle\Entity\Scene;
-use AppBundle\Enum\SceneEvents;
 use AppBundle\Form\Scene\EditType;
-use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Routing\RedirectToEdit;
+use AppBundle\Scene\Edit\Command;
+use AppBundle\Scene\Edit\DTO;
+use AppBundle\Templating\Scene\EditView;
+use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Templating\EngineInterface;
 
 class EditController
 {
     /**
-     * @var EngineInterface
+     * @var EditView
      */
     private $templating;
 
@@ -24,37 +25,37 @@ class EditController
     private $formFactory;
 
     /**
-     * @var ObjectManager
+     * @var MessageBus
      */
-    private $manager;
+    private $commandBus;
 
     /**
-     * @var RouterInterface
+     * @var RedirectToEdit
      */
-    private $router;
+    private $redirector;
 
     public function __construct(
-        EngineInterface $templating,
+        EditView $templating,
         FormFactoryInterface $formFactory,
-        ObjectManager $manager,
-        RouterInterface $router
+        MessageBus $commandBus,
+        RedirectToEdit $redirector
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
-        $this->manager = $manager;
-        $this->router = $router;
+        $this->commandBus = $commandBus;
+        $this->redirector = $redirector;
     }
 
-    public function editAction(Request $request, Scene $scene)
+    public function __invoke(Request $request, Scene $scene)
     {
-        $form = $this->formFactory->create(EditType::class, $scene);
+        $dto = new DTO($scene);
+        $form = $this->formFactory->create(EditType::class, $dto);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->manager->flush();
+            $this->commandBus->handle(new Command($dto, $scene));
+
+            return $this->redirector->createResponse('app_scene_edit', $scene->getId());
         }
 
-        return $this->templating->renderResponse(
-            'scene/form.html.twig',
-            ['form' => $form->createView()]
-        );
+        return $this->templating->createView($form, $scene);
     }
 }

@@ -6,12 +6,11 @@ use AppBundle\Book\Edit\Command;
 use AppBundle\Book\Edit\DTO;
 use AppBundle\Entity\Book;
 use AppBundle\Form\Book\EditType;
+use AppBundle\Routing\RedirectToEdit;
 use AppBundle\Templating\Book\EditView;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\RouterInterface;
 
 class EditController
 {
@@ -31,20 +30,20 @@ class EditController
     private $commandBus;
 
     /**
-     * @var RouterInterface
+     * @var RedirectToEdit
      */
-    private $router;
+    private $redirector;
 
     public function __construct(
         EditView $templating,
         FormFactoryInterface $formFactory,
         MessageBus $commandBus,
-        RouterInterface $router
+        RedirectToEdit $redirector
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
-        $this->router = $router;
+        $this->redirector = $redirector;
     }
 
     public function __invoke(Request $request, Book $book)
@@ -54,9 +53,7 @@ class EditController
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->commandBus->handle(new Command($dto, $book));
 
-            return new RedirectResponse(
-                $this->router->generate('app_book_edit', ['id' => $book->getId()])
-            );
+            return $this->redirector->createResponse('app_book_edit', $book->getId());
         }
 
         return $this->templating->createView($form, $book);
