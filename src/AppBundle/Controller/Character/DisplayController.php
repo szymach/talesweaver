@@ -3,28 +3,22 @@
 namespace AppBundle\Controller\Character;
 
 use AppBundle\Entity\Character;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Templating\EngineInterface;
+use AppBundle\Templating\Character\DisplayView;
 
 class DisplayController
 {
     /**
-     * @var EngineInterface
+     * @var DisplayView
      */
     private $templating;
 
-    public function __construct(EngineInterface $templating)
+    public function __construct(DisplayView $templating)
     {
         $this->templating = $templating;
     }
 
     public function __invoke(Character $character)
     {
-        return new JsonResponse([
-            'display' => $this->templating->render(
-                'scene\characters\display.html.twig',
-                ['character' => $character]
-            )
-        ]);
+        return $this->templating->createView($character);
     }
 }

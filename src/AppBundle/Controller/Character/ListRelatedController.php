@@ -3,38 +3,22 @@
 namespace AppBundle\Controller\Character;
 
 use AppBundle\Entity\Scene;
-use AppBundle\Pagination\Character\RelatedPaginator;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Templating\EngineInterface;
+use AppBundle\Templating\Character\RelatedListView;
 
 class ListRelatedController
 {
     /**
-     * @var EngineInterface
+     * @var RelatedListView
      */
     private $templating;
 
-    /**
-     * @var CharacterPaginator
-     */
-    private $pagination;
-
-    public function __construct(EngineInterface $templating, RelatedPaginator $pagination)
+    public function __construct(RelatedListView $templating)
     {
         $this->templating = $templating;
-        $this->pagination = $pagination;
     }
 
     public function __invoke(Scene $scene, $page)
     {
-        return new JsonResponse([
-            'list' => $this->templating->render(
-                'scene\characters\relatedList.html.twig',
-                [
-                    'characters' => $this->pagination->getRelated($scene, $page),
-                    'scene' => $scene
-                ]
-            )
-        ]);
+        return $this->templating->createView($scene, $page);
     }
 }

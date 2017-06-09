@@ -2,21 +2,21 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Character\Create\DTO as CreateDTO;
+use AppBundle\Character\Edit\DTO as EditDTO;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use DomainException;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
+use Ramsey\Uuid\UuidInterface;
 
-/**
- * @author Piotr Szymaszek
- */
 class Character
 {
     use Traits\AvatarTrait, Traits\TimestampableTrait, Traits\TranslatableTrait;
 
     /**
-     * @var integer
+     * @var UuidInterface
      */
     private $id;
 
@@ -57,14 +57,20 @@ class Character
      */
     private $locations;
 
-    public function __construct()
+    public function __construct(UuidInterface $id, CreateDTO $dto)
     {
+        $this->id = $id;
+        $this->name = $dto->getName();
+        $this->description = $dto->getDescription();
+
         $this->translations = new ArrayCollection();
         $this->scenes = new ArrayCollection();
         $this->chapters = new ArrayCollection();
         $this->items = new ArrayCollection();
         $this->locations = new ArrayCollection();
         $this->createdAt = new DateTimeImmutable();
+
+        $dto->getScene()->addCharacter($this);
     }
 
     public function __toString()
@@ -72,10 +78,16 @@ class Character
         return (string) $this->name;
     }
 
+    public function edit(EditDTO $dto)
+    {
+        $this->name = $dto->getName();
+        $this->description = $dto->getDescription;
+    }
+
     /**
-     * @return integer
+     * @return UuidInterface
      */
-    public function getId()
+    public function getId() : UuidInterface
     {
         return $this->id;
     }

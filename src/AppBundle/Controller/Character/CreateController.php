@@ -2,20 +2,22 @@
 
 namespace AppBundle\Controller\Character;
 
-use AppBundle\Entity\Character;
+use AppBundle\Character\Create\Command;
+use AppBundle\Character\Create\DTO;
 use AppBundle\Entity\Scene;
-use AppBundle\Form\Character\CharacterType;
-use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Form\Character\CreateType;
+use AppBundle\Templating\Character\FormView;
+use Ramsey\Uuid\Uuid;
+use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Templating\EngineInterface;
 
 class CreateController
 {
     /**
-     * @var EngineInterface
+     * @var FormView
      */
     private $templating;
 
@@ -25,9 +27,9 @@ class CreateController
     private $formFactory;
 
     /**
-     * @var ObjectManager
+     * @var MessageBus
      */
-    private $manager;
+    private $commandBus;
 
     /**
      * @var RouterInterface
@@ -35,38 +37,31 @@ class CreateController
     private $router;
 
     public function __construct(
-        EngineInterface $templating,
+        FormView $templating,
         FormFactoryInterface $formFactory,
-        ObjectManager $manager,
+        MessageBus $commandBus,
         RouterInterface $router
     ) {
         $this->formFactory = $formFactory;
         $this->templating = $templating;
-        $this->manager = $manager;
+        $this->commandBus = $commandBus;
         $this->router = $router;
     }
 
     public function __invoke(Request $request, Scene $scene)
     {
-        $character = new Character();
         $form = $this->formFactory->create(
-            CharacterType::class,
-            $character,
+            CreateType::class,
+            new DTO($scene),
             ['action' => $this->router->generate('app_character_new', ['id' => $scene->getId()])]
         );
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $scene->addCharacter($character);
-            $this->manager->persist($character);
-            $this->manager->flush();
+            $this->commandBus->handle(new Command(Uuid::uuid4(), $form->getData()));
+
             return new JsonResponse(['success' => true]);
         }
 
-        return new JsonResponse([
-            'form' => $this->templating->render(
-                'partial\simpleForm.html.twig',
-                ['form' => $form->createView(), 'title' => 'character.header.new']
-            )
-        ], !$form->isSubmitted() || $form->isValid() ? 200 : 400);
+        return $this->templating->createView($form, 'character.header.new');
     }
 }
