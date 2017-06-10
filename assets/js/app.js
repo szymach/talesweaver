@@ -1,10 +1,8 @@
 var $ = require('jquery');
 
-$(document).on('ajaxStart', function() {
-    showBackdrop();
-}).on('ajaxComplete', function() {
-    hideBackdrop();
-});
+$(document).on('ajaxStart', showBackdrop);
+$(document).on('ajaxComplete', hideBackdrop);
+$(document).on('ajaxError', hideBackdrop);
 
 $(document).ready(function() {
     $('main').on('click', '.js-load-form', function(event) {
