@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Character;
 
+use AppBundle\Character\RemoveFromScene\Command;
 use AppBundle\Entity\Character;
 use AppBundle\Entity\Scene;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;

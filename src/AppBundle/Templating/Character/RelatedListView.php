@@ -31,8 +31,9 @@ class RelatedListView
             'list' => $this->templating->render(
                 'scene\characters\relatedList.html.twig',
                 [
-                    'characters' => $this->pagination->getRelated($scene, $page),
+                    'characters' => $this->pagination->getResults($scene, $page),
                     'sceneId' => $scene->getId(),
+                    'sceneTitle' => $scene->getTitle(),
                     'chapterId' => $scene->getChapter() ? $scene->getChapter()->getId() : null
                 ]
             )

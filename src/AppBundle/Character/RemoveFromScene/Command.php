@@ -17,10 +17,10 @@ class Command
      */
     private $scene;
 
-    public function __construct(Character $character, Scene $scene)
+    public function __construct(Scene $scene, Character $character)
     {
-        $this->character = $character;
         $this->scene = $scene;
+        $this->character = $character;
     }
 
     public function perform()
