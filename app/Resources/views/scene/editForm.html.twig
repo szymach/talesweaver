@@ -30,7 +30,7 @@
                     <span class="h4">{{ chapterTitle }}</span>
                     <ul>
                         {% for relatedScene in relatedScenes %}
-                            <li><a href="{{ path('app_scene_edit', { id: relatedsceneId }) }}">{{ relatedScene.title }}</a></li>
+                            <li><a href="{{ path('app_scene_edit', { id: relatedScene.id }) }}">{{ relatedScene.title }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
