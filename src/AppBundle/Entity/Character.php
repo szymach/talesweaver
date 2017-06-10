@@ -81,7 +81,7 @@ class Character
     public function edit(EditDTO $dto)
     {
         $this->name = $dto->getName();
-        $this->description = $dto->getDescription;
+        $this->description = $dto->getDescription();
     }
 
     /**

@@ -2,20 +2,22 @@
 
 namespace AppBundle\Controller\Item;
 
-use AppBundle\Entity\Item;
 use AppBundle\Entity\Scene;
-use AppBundle\Form\Item\ItemType;
-use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Form\Item\CreateType;
+use AppBundle\Item\Create\Command;
+use AppBundle\Item\Create\DTO;
+use AppBundle\Templating\Item\FormView;
+use Ramsey\Uuid\Uuid;
+use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Templating\EngineInterface;
 
 class CreateController
 {
     /**
-     * @var EngineInterface
+     * @var FormView
      */
     private $templating;
 
@@ -25,9 +27,9 @@ class CreateController
     private $formFactory;
 
     /**
-     * @var ObjectManager
+     * @var MessageBus
      */
-    private $manager;
+    private $commandBus;
 
     /**
      * @var RouterInterface
@@ -35,38 +37,31 @@ class CreateController
     private $router;
 
     public function __construct(
-        EngineInterface $templating,
+        FormView $templating,
         FormFactoryInterface $formFactory,
-        ObjectManager $manager,
+        MessageBus $commandBus,
         RouterInterface $router
     ) {
         $this->formFactory = $formFactory;
         $this->templating = $templating;
-        $this->manager = $manager;
+        $this->commandBus = $commandBus;
         $this->router = $router;
     }
 
     public function __invoke(Request $request, Scene $scene)
     {
-        $item = new Item();
         $form = $this->formFactory->create(
-            ItemType::class,
-            $item,
+            CreateType::class,
+            new DTO($scene),
             ['action' => $this->router->generate('app_item_new', ['id' => $scene->getId()])]
         );
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $scene->addItem($item);
-            $this->manager->persist($item);
-            $this->manager->flush();
+            $this->commandBus->handle(new Command(Uuid::uuid4(), $form->getData()));
+
             return new JsonResponse(['success' => true]);
         }
 
-        return new JsonResponse([
-            'form' => $this->templating->render(
-                'partial\simpleForm.html.twig',
-                ['form' => $form->createView(), 'title' => 'item.header.new']
-            )
-        ], !$form->isSubmitted() || $form->isValid()? 200 : 400);
+        return $this->templating->createView($form, 'item.header.new');
     }
 }

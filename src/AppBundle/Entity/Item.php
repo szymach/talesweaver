@@ -2,10 +2,13 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Item\Create\DTO as CreateDTO;
+use AppBundle\Item\Edit\DTO as EditDTO;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
+use Ramsey\Uuid\UuidInterface;
 
 class Item
 {
@@ -48,18 +51,30 @@ class Item
      */
     private $locations;
 
-    public function __construct()
+    public function __construct(UuidInterface $id, CreateDTO $dto)
     {
+        $this->id = $id;
+        $this->name = $dto->getName();
+        $this->description = $dto->getDescription();
+
         $this->translations = new ArrayCollection();
         $this->scenes = new ArrayCollection();
         $this->characters = new ArrayCollection();
         $this->locations = new ArrayCollection();
         $this->createdAt = new DateTimeImmutable();
+
+        $dto->getScene()->addItem($this);
     }
 
     public function __toString()
     {
         return (string) $this->name;
+    }
+
+    public function edit(EditDTO $dto)
+    {
+        $this->name = $dto->getName();
+        $this->description = $dto->getDescription();
     }
 
     /**

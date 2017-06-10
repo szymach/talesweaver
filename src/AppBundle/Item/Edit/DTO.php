@@ -1,8 +1,8 @@
 <?php
 
-namespace AppBundle\Character\Edit;
+namespace AppBundle\Item\Edit;
 
-use AppBundle\Entity\Character;
+use AppBundle\Entity\Item;
 
 class DTO
 {
@@ -16,10 +16,10 @@ class DTO
      */
     private $description;
 
-    public function __construct(Character $character)
+    public function __construct(Item $item)
     {
-        $this->name = $character->getName();
-        $this->description = $character->getDescription();
+        $this->name = $item->getName();
+        $this->description = $item->getDescription();
     }
 
     public function getName() : ?string

@@ -3,28 +3,22 @@
 namespace AppBundle\Controller\Item;
 
 use AppBundle\Entity\Item;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Templating\EngineInterface;
+use AppBundle\Templating\Item\DisplayView;
 
 class DisplayController
 {
     /**
-     * @var EngineInterface
+     * @var DisplayView
      */
     private $templating;
 
-    public function __construct(EngineInterface $templating)
+    public function __construct(DisplayView $templating)
     {
         $this->templating = $templating;
     }
 
     public function __invoke(Item $item)
     {
-        return new JsonResponse([
-            'display' => $this->templating->render(
-                'scene\items\display.html.twig',
-                ['item' => $item]
-            )
-        ]);
+        return $this->templating->createView($item);
     }
 }

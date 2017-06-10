@@ -26,15 +26,15 @@ app_item_display:
 
 app_item_related:
     path: /related/{id}/{page}
-    defaults: { _controller: AppBundle\Controller\Item\ListController, page: 1 }
+    defaults: { _controller: AppBundle\Controller\Item\ListRelatedController, page: 1 }
     methods:  GET
 
 app_item_add_to_scene:
     path: /add-to-scene/{scene_id}/{item_id}
-    defaults: { _controller: AppBundle\Controller\Item\EditController }
+    defaults: { _controller: AppBundle\Controller\Item\AddToSceneController }
     methods:  GET
 
 app_item_remove_from_scene:
     path: /remove-from-scene/{scene_id}/{item_id}
-    defaults: { _controller: AppBundle\Controller\Item\DeleteController }
+    defaults: { _controller: AppBundle\Controller\Item\RemoveFromSceneController }
     methods:  GET

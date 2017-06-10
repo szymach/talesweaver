@@ -4,20 +4,21 @@ namespace AppBundle\Controller\Item;
 
 use AppBundle\Entity\Item;
 use AppBundle\Entity\Scene;
-use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Item\AddToScene\Command;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AddToSceneController
 {
     /**
-     * @var ObjectManager
+     * @var MessageBus
      */
-    private $manager;
+    private $commandBus;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(MessageBus $commandBus)
     {
-        $this->manager = $manager;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -26,8 +27,7 @@ class AddToSceneController
      */
     public function __invoke(Scene $scene, Item $item)
     {
-        $scene->addItem($item);
-        $this->manager->flush();
+        $this->commandBus->handle(new Command($scene, $item));
 
         return new JsonResponse(['success' => true]);
     }

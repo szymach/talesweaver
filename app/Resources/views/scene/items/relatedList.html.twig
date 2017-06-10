@@ -14,7 +14,7 @@
                     <button class="btn btn-success js-list-action"
                         data-action-url="{{ path('app_item_add_to_scene', { scene_id: sceneId, item_id: item.id }) }}"
                         data-list-id=".items.js-list"
-                        title="{{ 'item.actions.add_to_scene' | trans({ '%scene%': scene }) }}"
+                        title="{{ 'item.actions.add_to_scene' | trans({ '%scene%': sceneTitle }) }}"
                     >
                         <span class="fa fa-plus"></span>
                     </button>

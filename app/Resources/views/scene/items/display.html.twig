@@ -16,14 +16,14 @@
                 {{ item.description|raw }}
             </div>
         </div>
-        {% if item.characters | length %}
+        {% if item.items | length or item.locations | length %}
             <div class="row">
-                {% if item.characters | length %}
+                {% if item.items | length %}
                     <div class="col-xs-4">
-                        <h5>{{ 'item.characters' | trans }}</h5>
+                        <h5>{{ 'item.items' | trans }}</h5>
                         <hr/>
                         <ul class="list-unstyled">
-                            {% for item in item.characters %}
+                            {% for item in item.items %}
                                 <li>{{ item.name }}</li>
                             {% endfor %}
                         </ul>

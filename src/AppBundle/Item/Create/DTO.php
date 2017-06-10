@@ -1,8 +1,8 @@
 <?php
 
-namespace AppBundle\Character\Edit;
+namespace AppBundle\Item\Create;
 
-use AppBundle\Entity\Character;
+use AppBundle\Entity\Scene;
 
 class DTO
 {
@@ -16,10 +16,14 @@ class DTO
      */
     private $description;
 
-    public function __construct(Character $character)
+    /**
+     * @var Scene
+     */
+    private $scene;
+
+    public function __construct(Scene $scene)
     {
-        $this->name = $character->getName();
-        $this->description = $character->getDescription();
+        $this->scene = $scene;
     }
 
     public function getName() : ?string
@@ -40,5 +44,10 @@ class DTO
     public function setDescription(?string $description)
     {
         $this->description = $description;
+    }
+
+    public function getScene() : Scene
+    {
+        return $this->scene;
     }
 }

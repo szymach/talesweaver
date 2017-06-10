@@ -56,7 +56,7 @@ class EditController
         );
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->commmandBus->handle(new Command($form->getData()));
+            $this->commmandBus->handle(new Command($form->getData(), $character));
 
             return new JsonResponse(['success' => true]);
         }
