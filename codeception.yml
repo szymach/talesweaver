@@ -1,6 +1,11 @@
 actor_suffix: Tester
 coverage:
     enabled: true
+    c3_url: 'http://127.0.0.1:8000/app_test.php'
+    include:
+        - src/*
+    exclude:
+        - var/cache/*
 paths:
     tests: tests
     output: tests/_output
