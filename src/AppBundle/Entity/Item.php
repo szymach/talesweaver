@@ -15,7 +15,7 @@ class Item
     use Traits\AvatarTrait, Traits\TimestampableTrait, Traits\TranslatableTrait;
 
     /**
-     * @var integer
+     * @var UuidInterface
      */
     private $id;
 
@@ -77,10 +77,7 @@ class Item
         $this->description = $dto->getDescription();
     }
 
-    /**
-     * @return integer
-     */
-    public function getId()
+    public function getId() : UuidInterface
     {
         return $this->id;
     }

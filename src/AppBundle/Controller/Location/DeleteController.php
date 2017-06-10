@@ -2,26 +2,26 @@
 
 namespace AppBundle\Controller\Location;
 
+use AppBundle\Location\Delete\Command;
 use AppBundle\Entity\Location;
-use Doctrine\Common\Persistence\ObjectManager;
+use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DeleteController
 {
     /**
-     * @var ObjectManager
+     * @var MessageBus
      */
-    private $manager;
+    private $commandBus;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(MessageBus $commandBus)
     {
-        $this->manager = $manager;
+        $this->commandBus = $commandBus;
     }
 
     public function __invoke(Location $location)
     {
-        $this->manager->remove($location);
-        $this->manager->flush();
+        $this->commandBus->handle(new Command($location->getId()));
 
         return new JsonResponse(['success' => true]);
     }

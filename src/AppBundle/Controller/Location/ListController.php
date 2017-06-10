@@ -3,38 +3,22 @@
 namespace AppBundle\Controller\Location;
 
 use AppBundle\Entity\Scene;
-use AppBundle\Pagination\Location\LocationPaginator;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Templating\EngineInterface;
+use AppBundle\Templating\Location\ListView;
 
 class ListController
 {
     /**
-     * @var EngineInterface
+     * @var ListView
      */
     private $templating;
 
-    /**
-     * @var LocationPaginator
-     */
-    private $pagination;
-
-    public function __construct(EngineInterface $templating, LocationPaginator $pagination)
+    public function __construct(ListView $templating)
     {
         $this->templating = $templating;
-        $this->pagination = $pagination;
     }
 
     public function __invoke(Scene $scene, $page)
     {
-        return new JsonResponse([
-            'list' => $this->templating->render(
-                'scene\locations\list.html.twig',
-                [
-                    'locations' => $this->pagination->getResults($scene, $page),
-                    'scene' => $scene
-                ]
-            )
-        ]);
+        return $this->templating->createView($scene, $page);
     }
 }

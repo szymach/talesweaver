@@ -2,17 +2,20 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Location\Create\DTO as CreateDTO;
+use AppBundle\Location\Edit\DTO as EditDTO;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
+use Ramsey\Uuid\UuidInterface;
 
 class Location
 {
     use Traits\AvatarTrait, Traits\TimestampableTrait, Traits\TranslatableTrait;
 
     /**
-     * @var integer
+     * @var UuidInterface
      */
     private $id;
 
@@ -48,12 +51,18 @@ class Location
      */
     private $items;
 
-    public function __construct()
+    public function __construct(UuidInterface $id, CreateDTO $dto)
     {
+        $this->id = $id;
+        $this->name = $dto->getName();
+        $this->description = $dto->getDescription();
+
         $this->translations = new ArrayCollection();
         $this->scenes = new ArrayCollection();
         $this->items = new ArrayCollection();
         $this->createdAt = new DateTimeImmutable();
+
+        $dto->getScene()->addLocation($this);
     }
 
     public function __toString()
@@ -61,10 +70,13 @@ class Location
         return (string) $this->name;
     }
 
-    /**
-     * @return integer
-     */
-    public function getId()
+    public function edit(EditDTO $dto)
+    {
+        $this->name = $dto->getName();
+        $this->description = $dto->getDescription();
+    }
+
+    public function getId() : UuidInterface
     {
         return $this->id;
     }

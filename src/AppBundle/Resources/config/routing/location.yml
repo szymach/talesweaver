@@ -26,7 +26,7 @@ app_location_display:
 
 app_location_related:
     path: /related/{id}/{page}
-    defaults: { _controller: AppBundle\Controller\Location\ListController, page: 1 }
+    defaults: { _controller: AppBundle\Controller\Location\ListRelatedController, page: 1 }
     methods:  GET
 
 app_location_add_to_scene:

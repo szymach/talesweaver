@@ -3,29 +3,31 @@
 namespace AppBundle\Controller\Location;
 
 use AppBundle\Entity\Location;
-use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Entity\Scene;
+use AppBundle\Location\AddToScene\Command;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AddToSceneController
 {
     /**
-     * @var ObjectManager
+     * @var MessageBus
      */
-    private $manager;
+    private $commandBus;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(MessageBus $commandBus)
     {
-        $this->manager = $manager;
+        $this->commandBus = $commandBus;
     }
 
     /**
      * @ParamConverter("scene", options={"id" = "scene_id"})
      * @ParamConverter("location", options={"id" = "location_id"})
      */
-    public function addToSceneAction(Scene $scene, Location $location)
+    public function __invoke(Scene $scene, Location $location)
     {
-        $scene->addLocation($location);
-        $this->manager->flush();
+        $this->commandBus->handle(new Command($scene, $location));
 
         return new JsonResponse(['success' => true]);
     }

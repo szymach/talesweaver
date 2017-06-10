@@ -3,28 +3,22 @@
 namespace AppBundle\Controller\Location;
 
 use AppBundle\Entity\Location;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Templating\EngineInterface;
+use AppBundle\Templating\Location\DisplayView;
 
 class DisplayController
 {
     /**
-     * @var EngineInterface
+     * @var DisplayView
      */
     private $templating;
 
-    public function __construct(EngineInterface $templating)
+    public function __construct(DisplayView $templating)
     {
         $this->templating = $templating;
     }
 
     public function __invoke(Location $location)
     {
-        return new JsonResponse([
-            'display' => $this->templating->render(
-                'scene\locations\display.html.twig',
-                ['location' => $location]
-            )
-        ]);
+        return $this->templating->createView($location);
     }
 }

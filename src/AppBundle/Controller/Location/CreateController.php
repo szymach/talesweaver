@@ -2,20 +2,22 @@
 
 namespace AppBundle\Controller\Location;
 
-use AppBundle\Entity\Location;
 use AppBundle\Entity\Scene;
-use AppBundle\Form\Location\LocationType;
-use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Form\Location\CreateType;
+use AppBundle\Location\Create\Command;
+use AppBundle\Location\Create\DTO;
+use AppBundle\Templating\Location\FormView;
+use Ramsey\Uuid\Uuid;
+use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Templating\EngineInterface;
 
 class CreateController
 {
     /**
-     * @var EngineInterface
+     * @var FormView
      */
     private $templating;
 
@@ -25,9 +27,9 @@ class CreateController
     private $formFactory;
 
     /**
-     * @var ObjectManager
+     * @var MessageBus
      */
-    private $manager;
+    private $commandBus;
 
     /**
      * @var RouterInterface
@@ -35,38 +37,31 @@ class CreateController
     private $router;
 
     public function __construct(
-        EngineInterface $templating,
+        FormView $templating,
         FormFactoryInterface $formFactory,
-        ObjectManager $manager,
+        MessageBus $commandBus,
         RouterInterface $router
     ) {
         $this->formFactory = $formFactory;
         $this->templating = $templating;
-        $this->manager = $manager;
+        $this->commandBus = $commandBus;
         $this->router = $router;
     }
 
     public function __invoke(Request $request, Scene $scene)
     {
-        $location = new Location();
         $form = $this->formFactory->create(
-            LocationType::class,
-            $location,
+            CreateType::class,
+            new DTO($scene),
             ['action' => $this->router->generate('app_location_new', ['id' => $scene->getId()])]
         );
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $scene->addLocation($location);
-            $this->manager->persist($location);
-            $this->manager->flush();
+            $this->commandBus->handle(new Command(Uuid::uuid4(), $form->getData()));
+
             return new JsonResponse(['success' => true]);
         }
 
-        return new JsonResponse([
-            'form' => $this->templating->render(
-                'partial\simpleForm.html.twig',
-                ['form' => $form->createView(), 'title' => 'location.header.new']
-            )
-        ], !$form->isSubmitted() || $form->isValid()? 200 : 400);
+        return $this->templating->createView($form, 'location.header.new');
     }
 }

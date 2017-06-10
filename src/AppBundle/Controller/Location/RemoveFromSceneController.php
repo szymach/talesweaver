@@ -4,20 +4,21 @@ namespace AppBundle\Controller\Location;
 
 use AppBundle\Entity\Location;
 use AppBundle\Entity\Scene;
-use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Location\RemoveFromScene\Command;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class RemoveFromSceneController
 {
     /**
-     * @var ObjectManager
+     * @var MessageBus
      */
-    private $manager;
+    private $commandBus;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(MessageBus $commandBus)
     {
-        $this->manager = $manager;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -26,8 +27,7 @@ class RemoveFromSceneController
      */
     public function __invoke(Scene $scene, Location $location)
     {
-        $scene->removeLocation($location);
-        $this->manager->flush();
+        $this->commandBus->handle(new Command($scene, $location));
 
         return new JsonResponse(['success' => true]);
     }

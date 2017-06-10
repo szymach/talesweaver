@@ -156,3 +156,39 @@ services:
             - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Item\RemoveFromScene\Command }
+
+    #  Location handlers
+    app.command.location.create:
+        class: AppBundle\Location\Create\CommandHandler
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: command_handler, handles: AppBundle\Location\Create\Command }
+
+    app.command.location.add_to_scene:
+        class: AppBundle\Location\AddToScene\CommandHandler
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: command_handler, handles: AppBundle\Location\AddToScene\Command }
+
+    app.command.location.edit:
+        class: AppBundle\Location\Edit\CommandHandler
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: command_handler, handles: AppBundle\Location\Edit\Command }
+
+    app.command.location.delete:
+        class: AppBundle\Location\Delete\CommandHandler
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: command_handler, handles: AppBundle\Location\Delete\Command }
+
+    app.command.location.remove_from_scene:
+        class: AppBundle\Location\RemoveFromScene\CommandHandler
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: command_handler, handles: AppBundle\Location\RemoveFromScene\Command }

@@ -3,18 +3,20 @@
 namespace AppBundle\Controller\Location;
 
 use AppBundle\Entity\Location;
-use AppBundle\Form\Location\LocationType;
-use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Form\Location\EditType;
+use AppBundle\Location\Edit\Command;
+use AppBundle\Location\Edit\DTO;
+use AppBundle\Templating\Location\FormView;
+use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Templating\EngineInterface;
 
 class EditController
 {
     /**
-     * @var EngineInterface
+     * @var FormView
      */
     private $templating;
 
@@ -24,9 +26,9 @@ class EditController
     private $formFactory;
 
     /**
-     * @var ObjectManager
+     * @var MessageBus
      */
-    private $manager;
+    private $commmandBus;
 
     /**
      * @var RouterInterface
@@ -34,35 +36,31 @@ class EditController
     private $router;
 
     public function __construct(
-        EngineInterface $templating,
+        FormView $templating,
         FormFactoryInterface $formFactory,
-        ObjectManager $manager,
+        MessageBus $commmandBus,
         RouterInterface $router
     ) {
         $this->formFactory = $formFactory;
         $this->templating = $templating;
-        $this->manager = $manager;
+        $this->commmandBus = $commmandBus;
         $this->router = $router;
     }
 
-    public function editAction(Request $request, Location $location)
+    public function __invoke(Request $request, Location $location)
     {
         $form = $this->formFactory->create(
-            LocationType::class,
-            $location,
+            EditType::class,
+            new DTO($location),
             ['action' => $this->router->generate('app_location_edit', ['id' => $location->getId()])]
         );
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->manager->flush();
+            $this->commmandBus->handle(new Command($form->getData(), $location));
+
             return new JsonResponse(['success' => true]);
         }
 
-        return new JsonResponse([
-            'form' => $this->templating->render(
-                'partial\simpleForm.html.twig',
-                ['form' => $form->createView(), 'title' => 'location.header.edit']
-            )
-        ], !$form->isSubmitted() || $form->isValid() ? 200 : 400);
+        return $this->templating->createView($form, 'location.header.edit');
     }
 }

@@ -23,8 +23,8 @@
                         <h5>{{ 'location.characters' | trans }}</h5>
                         <hr/>
                         <ul class="list-unstyled">
-                            {% for item in location.characters %}
-                                <li>{{ location.name }}</li>
+                            {% for character in location.characters %}
+                                <li>{{ character.name }}</li>
                             {% endfor %}
                         </ul>
                     </div>
