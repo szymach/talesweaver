@@ -1,5 +1,10 @@
 ---
-AppBundle\Entity\Scene:
+AppBundle\Scene\Create\DTO:
+    properties:
+        title:
+            - NotBlank: ~
+
+AppBundle\Scene\Edit\DTO:
     properties:
         title:
             - NotBlank: ~

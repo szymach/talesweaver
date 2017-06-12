@@ -1,5 +1,5 @@
 ---
-AppBundle\Entity\Event:
+AppBundle\Event\DTO:
     properties:
         name:
             - NotBlank: ~

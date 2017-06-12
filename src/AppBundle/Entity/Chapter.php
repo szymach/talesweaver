@@ -2,19 +2,20 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Chapter\Edit\DTO;
+use AppBundle\Chapter\Create;
+use AppBundle\Chapter\Edit;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
-use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class Chapter
 {
     use Traits\TimestampableTrait, Traits\TranslatableTrait;
 
     /**
-     * @var Uuid
+     * @var UuidInterface
      */
     private $id;
 
@@ -30,7 +31,7 @@ class Chapter
     private $book;
 
     /**
-     * @var Collection
+     * @var Scene[]|Collection
      */
     private $scenes;
 
@@ -39,10 +40,14 @@ class Chapter
      */
     private $characters;
 
-    public function __construct(Uuid $id, string $title, ?Book $book)
+    /**
+     * @param UuidInterface $id
+     * @param \AppBundle\Chapter\Create\DTO $dto
+     */
+    public function __construct(UuidInterface $id, Create\DTO $dto)
     {
         $this->id = $id;
-        $this->title = $title;
+        $this->title = $dto->getTitle();
         if ($book) {
             $this->book = $book;
         }
@@ -57,7 +62,10 @@ class Chapter
         return $this->title;
     }
 
-    public function edit(DTO $dto)
+    /**
+     * @param \AppBundle\Chapter\Edit\DTO $dto
+     */
+    public function edit(Edit\DTO $dto)
     {
         $this->title = $dto->getTitle();
         $this->book = $dto->getBook();
@@ -66,9 +74,9 @@ class Chapter
     }
 
     /**
-     * @return Uuid
+     * @return UuidInterface
      */
-    public function getId()
+    public function getId() : UuidInterface
     {
         return $this->id;
     }
@@ -76,7 +84,7 @@ class Chapter
     /**
      * @param string $title
      */
-    public function setTitle($title)
+    public function setTitle(string $title)
     {
         $this->title = $title;
         $this->update();
@@ -85,15 +93,15 @@ class Chapter
     /**
      * @return string
      */
-    public function getTitle()
+    public function getTitle() : string
     {
         return $this->title;
     }
 
     /**
-     * @return Scene[]
+     * @return Scene[]|Collection
      */
-    public function getScenes()
+    public function getScenes() : Collection
     {
         return $this->scenes;
     }
@@ -119,9 +127,9 @@ class Chapter
     }
 
     /**
-     * @return Collection
+     * @return Character[]|Collection
      */
-    public function getCharacters()
+    public function getCharacters() : Collection
     {
         return $this->characters;
     }
@@ -137,7 +145,7 @@ class Chapter
     /**
      * @return Book
      */
-    public function getBook()
+    public function getBook() : ?Book
     {
         return $this->book;
     }

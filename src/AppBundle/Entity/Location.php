@@ -37,20 +37,24 @@ class Location
     private $translations;
 
     /**
-     * @var Collection
+     * @var Scene[]|Collection
      */
     private $scenes;
 
     /**
-     * @var Collection
+     * @var Character[]|Collection
      */
     private $characters;
 
     /**
-     * @var Collection
+     * @var Item[]|Collection
      */
     private $items;
 
+    /**
+     * @param UuidInterface $id
+     * @param \AppBundle\Location\Create\DTO $dto
+     */
     public function __construct(UuidInterface $id, CreateDTO $dto)
     {
         $this->id = $id;
@@ -70,12 +74,18 @@ class Location
         return (string) $this->name;
     }
 
+    /**
+     * @param \AppBundle\Location\Edit\DTO $dto
+     */
     public function edit(EditDTO $dto)
     {
         $this->name = $dto->getName();
         $this->description = $dto->getDescription();
     }
 
+    /**
+     * @return UuidInterface
+     */
     public function getId() : UuidInterface
     {
         return $this->id;
@@ -84,7 +94,7 @@ class Location
     /**
      * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
         $this->update();
@@ -93,7 +103,7 @@ class Location
     /**
      * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
@@ -101,7 +111,7 @@ class Location
     /**
      * @param string $description
      */
-    public function setDescription($description)
+    public function setDescription(?string $description)
     {
         $this->description = $description;
         $this->update();
@@ -110,7 +120,7 @@ class Location
     /**
      * @return string
      */
-    public function getDescription()
+    public function getDescription() : ?string
     {
         return $this->description;
     }
@@ -136,39 +146,19 @@ class Location
     }
 
     /**
-     * @return Collection
+     * @return Scene[]|Collection
      */
-    public function getScenes()
+    public function getScenes() : Collection
     {
         return $this->scenes;
     }
 
     /**
-     * @return Collection
+     * @return Character[]|Collection
      */
     public function getCharacters()
     {
         return $this->characters;
-    }
-
-    /**
-     * @param Item $item
-     */
-    public function addItem(Item $item)
-    {
-        if (!$this->items->contains($item)) {
-            $this->items[] = $item;
-            $this->update();
-        }
-    }
-
-    /**
-     * @param Item $item
-     */
-    public function removeItem(Item $item)
-    {
-        $this->items->removeElement($item);
-        $this->update();
     }
 
     /**

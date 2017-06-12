@@ -3,6 +3,8 @@
 namespace AppBundle\Form\Item;
 
 use AppBundle\Item\Edit\DTO;
+use FSi\Bundle\DoctrineExtensionsBundle\Form\Type\FSi\ImageType;
+use FSi\Bundle\DoctrineExtensionsBundle\Form\Type\FSi\RemovableFileType;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -16,6 +18,12 @@ class EditType extends AbstractType
     {
         $builder->add('name', TextType::class, [
             'label' => 'location.name'
+        ]);
+
+        $builder->add('avatar', RemovableFileType::class, [
+            'label' => 'item.avatar',
+            'file_type' => ImageType::class,
+            'required' => false
         ]);
 
         $builder->add('description', CKEditorType::class, [

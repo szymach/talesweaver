@@ -3,6 +3,8 @@
 namespace AppBundle\Location\Edit;
 
 use AppBundle\Entity\Location;
+use FSi\DoctrineExtensions\Uploadable\File;
+use SplFileInfo;
 
 class DTO
 {
@@ -16,10 +18,16 @@ class DTO
      */
     private $description;
 
+    /**
+     * @var File|SplFileInfo
+     */
+    private $avatar;
+
     public function __construct(Location $location)
     {
         $this->name = $location->getName();
         $this->description = $location->getDescription();
+        $this->avatar = $location->getAvatar();
     }
 
     public function getName() : ?string
@@ -40,5 +48,15 @@ class DTO
     public function setDescription(?string $description)
     {
         $this->description = $description;
+    }
+
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
     }
 }

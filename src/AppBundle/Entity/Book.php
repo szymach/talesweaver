@@ -8,14 +8,14 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
-use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class Book
 {
     use Traits\TimestampableTrait, Traits\TranslatableTrait;
 
     /**
-     * @var Uuid
+     * @var UuidInterface
      */
     private $id;
 
@@ -32,31 +32,13 @@ class Book
     private $description;
 
     /**
-     * @Translatable\Translatable(mappedBy="translations")
-     * @var string
-     */
-    private $introduction;
-
-    /**
-     * @Translatable\Translatable(mappedBy="translations")
-     * @var string
-     */
-    private $expansion;
-
-    /**
-     * @Translatable\Translatable(mappedBy="translations")
-     * @var string
-     */
-    private $ending;
-
-    /**
-     * @var Collection
+     * @var Chapter[]|Collection
      */
     private $chapters;
 
-    public function __construct(Uuid $id, string $title)
+    public function __construct(UuidInterface $id, string $title)
     {
-        Assert::that($title)->notBlank('Cannot create book without a title!');
+        Assert::that($title)->notBlank('Cannot create a book without a title!');
 
         $this->id = $id;
         $this->title = $title;
@@ -93,9 +75,9 @@ class Book
         $this->update();
     }
     /**
-     * @return Uuid
+     * @return UuidInterface
      */
-    public function getId()
+    public function getId() : UuidInterface
     {
         return $this->id;
     }
@@ -103,7 +85,7 @@ class Book
     /**
      * @param string $title
      */
-    public function setTitle($title)
+    public function setTitle(string $title)
     {
         $this->title = $title;
         $this->update();
@@ -112,7 +94,7 @@ class Book
     /**
      * @return string
      */
-    public function getTitle()
+    public function getTitle() : string
     {
         return $this->title;
     }
@@ -120,7 +102,7 @@ class Book
     /**
      * @param string $description
      */
-    public function setDescription($description)
+    public function setDescription(?string $description)
     {
         $this->description = $description;
         $this->update();
@@ -129,60 +111,9 @@ class Book
     /**
      * @return string
      */
-    public function getDescription()
+    public function getDescription() : ?string
     {
         return $this->description;
-    }
-
-    /**
-     * @param string $introduction
-     */
-    public function setIntroduction($introduction)
-    {
-        $this->introduction = $introduction;
-        $this->update();
-    }
-
-    /**
-     * @return string
-     */
-    public function getIntroduction()
-    {
-        return $this->introduction;
-    }
-
-    /**
-     * @param string $expansion
-     */
-    public function setExpansion($expansion)
-    {
-        $this->expansion = $expansion;
-        $this->update();
-    }
-
-    /**
-     * @return string
-     */
-    public function getExpansion()
-    {
-        return $this->expansion;
-    }
-
-    /**
-     * @param string $ending
-     */
-    public function setEnding($ending)
-    {
-        $this->ending = $ending;
-        $this->update();
-    }
-
-    /**
-     * @return string
-     */
-    public function getEnding()
-    {
-        return $this->ending;
     }
 
     /**
@@ -208,9 +139,9 @@ class Book
     }
 
     /**
-     * @return Collection
+     * @return Chapter[]|Collection
      */
-    public function getChapters()
+    public function getChapters() : Collection
     {
         return $this->chapters;
     }

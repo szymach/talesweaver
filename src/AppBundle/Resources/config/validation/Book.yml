@@ -1,5 +1,10 @@
 ---
-AppBundle\Entity\Book:
+AppBundle\Book\Create\DTO:
+    properties:
+        title:
+            - NotBlank: ~
+
+AppBundle\Book\Edit\DTO:
     properties:
         title:
             - NotBlank: ~

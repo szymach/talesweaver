@@ -22,11 +22,7 @@ class CommandHandler
     {
         $this->manager->beginTransaction();
         try {
-            $chapter = new Chapter(
-                $command->getId(),
-                $command->getData()->getTitle(),
-                $command->getData()->getBook()
-            );
+            $chapter = new Chapter($command->getId(), $command->getData());
             $this->manager->persist($chapter);
             $this->manager->flush();
             $this->manager->commit();

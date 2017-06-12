@@ -2,8 +2,8 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Character\Create\DTO as CreateDTO;
-use AppBundle\Character\Edit\DTO as EditDTO;
+use AppBundle\Character\Create;
+use AppBundle\Character\Edit;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -33,31 +33,35 @@ class Character
     private $description;
 
     /**
-     * @var Collection
-     */
-    private $scenes;
-
-    /**
-     * @var Collection
-     */
-    private $chapters;
-
-    /**
      * @var Book
      */
     private $book;
 
     /**
-     * @var Collection
+     * @var Scene[]|Collection
+     */
+    private $scenes;
+
+    /**
+     * @var Chapter[]|Collection
+     */
+    private $chapters;
+
+    /**
+     * @var Item[]|Collection
      */
     private $items;
 
     /**
-     * @var Collection
+     * @var Location[]|Collection
      */
     private $locations;
 
-    public function __construct(UuidInterface $id, CreateDTO $dto)
+    /**
+     * @param UuidInterface $id
+     * @param \AppBundle\Character\Create\DTO $dto
+     */
+    public function __construct(UuidInterface $id, Create\DTO $dto)
     {
         $this->id = $id;
         $this->name = $dto->getName();
@@ -78,10 +82,14 @@ class Character
         return (string) $this->name;
     }
 
-    public function edit(EditDTO $dto)
+    /**
+     * @param \AppBundle\Character\Edit\DTO $dto
+     */
+    public function edit(Edit\DTO $dto)
     {
         $this->name = $dto->getName();
         $this->description = $dto->getDescription();
+        $this->avatar = $dto->getAvatar();
     }
 
     /**
@@ -95,7 +103,7 @@ class Character
     /**
      * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
         $this->update();
@@ -104,7 +112,7 @@ class Character
     /**
      * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
@@ -112,7 +120,7 @@ class Character
     /**
      * @param string $description
      */
-    public function setDescription($description)
+    public function setDescription(?string $description)
     {
         $this->description = $description;
         $this->update();
@@ -121,9 +129,25 @@ class Character
     /**
      * @return string
      */
-    public function getDescription()
+    public function getDescription() : ?string
     {
         return $this->description;
+    }
+
+    /**
+     * @return Book
+     */
+    public function getBook() : ?Book
+    {
+        return $this->book;
+    }
+
+    /**
+     * @param Book $book
+     */
+    public function setBook(?Book $book)
+    {
+        $this->book = $book;
     }
 
     /**
@@ -151,9 +175,9 @@ class Character
     }
 
     /**
-     * @return Collection
+     * @return Scene[]Collection
      */
-    public function getScenes()
+    public function getScenes() : Collection
     {
         return $this->scenes;
     }
@@ -178,27 +202,11 @@ class Character
     }
 
     /**
-     * @return Collection
+     * @return Chapter[]|Collection
      */
-    public function getChapters()
+    public function getChapters() : Collection
     {
         return $this->chapters;
-    }
-
-    /**
-     * @return Book
-     */
-    public function getBook()
-    {
-        return $this->book;
-    }
-
-    /**
-     * @param Book $book
-     */
-    public function setBook(Book $book = null)
-    {
-        $this->book = $book;
     }
 
     /**
@@ -222,9 +230,9 @@ class Character
     }
 
     /**
-     * @return Collection
+     * @return Item[]|Collection
      */
-    public function getItems()
+    public function getItems() : Collection
     {
         return $this->items;
     }
@@ -250,13 +258,16 @@ class Character
     }
 
     /**
-     * @return Collection
+     * @return Location[]|Collection
      */
-    public function getLocations()
+    public function getLocations() : Collection
     {
         return $this->locations;
     }
 
+    /**
+     * @param Scene $scene
+     */
     private function assertSceneForTheSameBook(Scene $scene)
     {
         if (empty($this->scenes)) {
@@ -280,6 +291,10 @@ class Character
         $this->scenes->map($callback);
     }
 
+    /**
+     * @param Chapter $chapter
+     * @throws DomainException
+     */
     private function assertChapterFromTheSameBook(Chapter $chapter)
     {
         if (!$this->book && !$chapter->getBook()) {

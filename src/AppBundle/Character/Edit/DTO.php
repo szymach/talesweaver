@@ -3,6 +3,8 @@
 namespace AppBundle\Character\Edit;
 
 use AppBundle\Entity\Character;
+use FSi\DoctrineExtensions\Uploadable\File;
+use SplFileInfo;
 
 class DTO
 {
@@ -16,9 +18,15 @@ class DTO
      */
     private $description;
 
+    /**
+     * @var File|SplFileInfo
+     */
+    private $avatar;
+
     public function __construct(Character $character)
     {
         $this->name = $character->getName();
+        $this->avatar = $character->getAvatar();
         $this->description = $character->getDescription();
     }
 
@@ -40,5 +48,15 @@ class DTO
     public function setDescription(?string $description)
     {
         $this->description = $description;
+    }
+
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
     }
 }

@@ -3,6 +3,8 @@
 namespace AppBundle\Character\Create;
 
 use AppBundle\Entity\Scene;
+use FSi\DoctrineExtensions\Uploadable\File;
+use SplFileInfo;
 
 class DTO
 {
@@ -15,6 +17,11 @@ class DTO
      * @var string
      */
     private $description;
+
+    /**
+     * @var File|SplFileInfo
+     */
+    private $avatar;
 
     /**
      * @var Scene
@@ -49,5 +56,15 @@ class DTO
     public function getScene() : Scene
     {
         return $this->scene;
+    }
+
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
     }
 }

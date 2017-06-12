@@ -2,7 +2,8 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Scene\Edit\DTO;
+use AppBundle\Scene\Create;
+use AppBundle\Scene\Edit;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -14,7 +15,7 @@ class Scene
     use Traits\TimestampableTrait, Traits\TranslatableTrait;
 
     /**
-     * @var integer
+     * @var UuidInterface
      */
     private $id;
 
@@ -36,27 +37,28 @@ class Scene
     private $chapter;
 
     /**
-     * @var Collection
+     * @var Character[]|Collection
      */
     private $characters;
 
     /**
-     * @var Collection
+     * @var Item[]|Collection
      */
     private $items;
 
     /**
-     * @var Collection
+     * @var Location[]|Collection
      */
     private $locations;
 
-    public function __construct(UuidInterface $id, string $title, Chapter $chapter = null)
+    public function __construct(UuidInterface $id, Create\DTO $dto)
     {
         $this->id = $id;
-        $this->title = $title;
-        if ($chapter) {
-            $this->chapter = $chapter;
+        $this->title = $dto->getTitle();
+        if ($dto->getChapter()) {
+            $this->chapter = $dto->getChapter();
         }
+
         $this->characters = new ArrayCollection();
         $this->items = new ArrayCollection();
         $this->locations = new ArrayCollection();
@@ -69,7 +71,7 @@ class Scene
         return $this->title;
     }
 
-    public function edit(DTO $dto)
+    public function edit(Edit\DTO $dto)
     {
         $this->title = $dto->getTitle();
         $this->text = $dto->getText();
@@ -77,9 +79,9 @@ class Scene
     }
 
     /**
-     * @return integer
+     * @return UuidInterface
      */
-    public function getId()
+    public function getId() : UuidInterface
     {
         return $this->id;
     }
@@ -87,7 +89,7 @@ class Scene
     /**
      * @param string $title
      */
-    public function setTitle($title)
+    public function setTitle(string $title)
     {
         $this->title = $title;
         $this->update();
@@ -96,7 +98,7 @@ class Scene
     /**
      * @return string
      */
-    public function getTitle()
+    public function getTitle() : string
     {
         return $this->title;
     }
@@ -104,7 +106,7 @@ class Scene
     /**
      * @param string $text
      */
-    public function setText($text)
+    public function setText(?string $text)
     {
         $this->text = $text;
         $this->update();
@@ -113,24 +115,24 @@ class Scene
     /**
      * @return string
      */
-    public function getText()
+    public function getText() : ?string
     {
         return $this->text;
     }
 
     /**
-     * @param Chapter $chapter
+     * @param Chapter|null $chapter
      */
-    public function setChapter(Chapter $chapter = null)
+    public function setChapter(?Chapter $chapter)
     {
         $this->chapter = $chapter;
         $this->update();
     }
 
     /**
-     * @return Chapter
+     * @return Chapter|null
      */
-    public function getChapter()
+    public function getChapter() : ?Chapter
     {
         return $this->chapter;
     }
@@ -138,7 +140,7 @@ class Scene
     /**
      * @return Book|null
      */
-    public function getBook()
+    public function getBook() : ?Book
     {
         $book = null;
         if ($this->chapter && $this->chapter->getBook()) {
@@ -170,9 +172,9 @@ class Scene
     }
 
     /**
-     * @return Collection
+     * @return Character[]|Collection
      */
-    public function getCharacters()
+    public function getCharacters() : Collection
     {
         return $this->characters;
     }
@@ -199,9 +201,9 @@ class Scene
     }
 
     /**
-     * @return Collection
+     * @return Location[]|Collection
      */
-    public function getLocations()
+    public function getLocations() : Collection
     {
         return $this->locations;
     }
@@ -228,9 +230,9 @@ class Scene
     }
 
     /**
-     * @return Collection
+     * @return Item[]|Collection
      */
-    public function getItems()
+    public function getItems() : Collection
     {
         return $this->items;
     }

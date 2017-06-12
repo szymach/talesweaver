@@ -20,7 +20,7 @@ trait TimestampableTrait
     /**
      * @return DateTimeInterface
      */
-    public function getCreatedAt()
+    public function getCreatedAt() : DateTimeInterface
     {
         return $this->createdAt;
     }
@@ -33,7 +33,7 @@ trait TimestampableTrait
     /**
      * @return DateTimeInterface
      */
-    public function getUpdatedAt()
+    public function getUpdatedAt() : ?DateTimeInterface
     {
         return $this->updatedAt;
     }

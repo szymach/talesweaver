@@ -2,9 +2,6 @@
 
 namespace AppBundle\Entity\Traits;
 
-/**
- * @author Piotr Szymaszek
- */
 trait LocaleTrait
 {
     /**

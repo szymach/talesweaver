@@ -1,5 +1,12 @@
 ---
-AppBundle\Entity\Item:
+AppBundle\Item\Create\DTO:
+    properties:
+        avatar:
+            - FSi\Bundle\DoctrineExtensionsBundle\Validator\Constraints\Image: ~
+        name:
+            - NotBlank: ~
+
+AppBundle\Item\Create\DTO:
     properties:
         avatar:
             - FSi\Bundle\DoctrineExtensionsBundle\Validator\Constraints\Image: ~

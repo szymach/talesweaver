@@ -40,22 +40,22 @@ class Event
         $this->scene = $dto->getScene();
     }
 
-    public function getId()
+    public function getId() : UuidInterface
     {
         return $this->id;
     }
 
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
 
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
 
-    public function getModel()
+    public function getModel() : JsonSerializable
     {
         return $this->model;
     }

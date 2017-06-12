@@ -68,7 +68,7 @@ class Item
 
     public function __toString()
     {
-        return (string) $this->name;
+        return $this->name;
     }
 
     public function edit(EditDTO $dto)
@@ -77,6 +77,9 @@ class Item
         $this->description = $dto->getDescription();
     }
 
+    /**
+     * @return UuidInterface
+     */
     public function getId() : UuidInterface
     {
         return $this->id;
@@ -94,7 +97,7 @@ class Item
     /**
      * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
@@ -102,7 +105,7 @@ class Item
     /**
      * @param string $description
      */
-    public function setDescription($description)
+    public function setDescription(?string $description)
     {
         $this->description = $description;
         $this->update();
@@ -111,15 +114,13 @@ class Item
     /**
      * @return string
      */
-    public function getDescription()
+    public function getDescription() : ?string
     {
         return $this->description;
     }
 
     /**
      * @param Scene $scene
-     *
-     * @return Item
      */
     public function addScene(Scene $scene)
     {
@@ -139,25 +140,25 @@ class Item
     }
 
     /**
-     * @return Collection
+     * @return Scene[]|Collection
      */
-    public function getScenes()
+    public function getScenes() : Collection
     {
         return $this->scenes;
     }
 
     /**
-     * @return Collection
+     * @return Character[]|Collection
      */
-    public function getCharacters()
+    public function getCharacters() : Collection
     {
         return $this->characters;
     }
 
     /**
-     * @return Collection
+     * @return Location[]|Collection
      */
-    public function getLocations()
+    public function getLocations() : Collection
     {
         return $this->locations;
     }

@@ -21,21 +21,6 @@ class EditType extends AbstractType
             'required' => false,
             'config_name' => 'small_size'
         ]);
-
-//        $builder->add('introduction', CKEditorType::class, [
-//            'label' =>  false,
-//            'required' => false
-//        ]);
-//
-//        $builder->add('expansion', CKEditorType::class, [
-//            'label' =>  false,
-//            'required' => false
-//        ]);
-//
-//        $builder->add('ending', CKEditorType::class, [
-//            'label' =>  false,
-//            'required' => false
-//        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
