@@ -6,7 +6,6 @@
 
 # Parameters
 /app/config/parameters.yml
-/app/config/parameters.ini
 
 # Managed by Composer
 /app/bootstrap.php.cache
@@ -22,7 +21,10 @@
 /web/bundles/
 /web/uploaded/
 /web/uploaded_dev/
+/web/uploaded_tst/
 /web/public/
 
 # Composer PHAR
 /composer.phar
+
+c3.php
