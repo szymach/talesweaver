@@ -56,9 +56,6 @@ class Book
     {
         $this->title = $dto->getTitle();
         $this->description = $dto->getDescription();
-        $this->introduction = $dto->getIntroduction();
-        $this->expansion = $dto->getExpansion();
-        $this->ending = $dto->getEnding();
         $currentChapters = $this->chapters;
         $this->chapters = new ArrayCollection();
 

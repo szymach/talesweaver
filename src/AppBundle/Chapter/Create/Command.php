@@ -7,7 +7,7 @@ use Ramsey\Uuid\UuidInterface;
 class Command
 {
     /**
-     * @var type
+     * @var UuidInterface
      */
     private $id;
 
@@ -16,7 +16,7 @@ class Command
      */
     private $dto;
 
-    public function __construct(Uuid $id, DTO $dto)
+    public function __construct(UuidInterface $id, DTO $dto)
     {
         $this->id = $id;
         $this->dto = $dto;

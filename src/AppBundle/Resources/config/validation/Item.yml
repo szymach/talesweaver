@@ -6,7 +6,7 @@ AppBundle\Item\Create\DTO:
         name:
             - NotBlank: ~
 
-AppBundle\Item\Create\DTO:
+AppBundle\Item\Edit\DTO:
     properties:
         avatar:
             - FSi\Bundle\DoctrineExtensionsBundle\Validator\Constraints\Image: ~

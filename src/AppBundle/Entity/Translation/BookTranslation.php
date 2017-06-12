@@ -26,21 +26,6 @@ class BookTranslation
     private $description;
 
     /**
-     * @var string
-     */
-    private $introduction;
-
-    /**
-     * @var string
-     */
-    private $expansion;
-
-    /**
-     * @var string
-     */
-    private $ending;
-
-    /**
      * @var Book
      */
     private $book;
@@ -83,54 +68,6 @@ class BookTranslation
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * @param string $introduction
-     */
-    public function setIntroduction($introduction)
-    {
-        $this->introduction = $introduction;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIntroduction()
-    {
-        return $this->introduction;
-    }
-
-    /**
-     * @param string $expansion
-     */
-    public function setExpansion($expansion)
-    {
-        $this->expansion = $expansion;
-    }
-
-    /**
-     * @return string
-     */
-    public function getExpansion()
-    {
-        return $this->expansion;
-    }
-
-    /**
-     * @param string $ending
-     */
-    public function setEnding($ending)
-    {
-        $this->ending = $ending;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEnding()
-    {
-        return $this->ending;
     }
 
     /**

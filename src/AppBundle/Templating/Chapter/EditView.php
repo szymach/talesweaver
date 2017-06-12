@@ -3,7 +3,7 @@
 namespace AppBundle\Templating\Chapter;
 
 use AppBundle\Entity\Chapter;
-use AppBundle\Form\Scene\NewType;
+use AppBundle\Form\Scene\CreateType;
 use AppBundle\Pagination\Chapter\ScenePaginator;
 use AppBundle\Scene\Create\DTO;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -62,7 +62,7 @@ class EditView
 
     private function createSceneForm(Chapter $chapter) : FormInterface
     {
-        return $this->formFactory->create(NewType::class, new DTO($chapter), [
+        return $this->formFactory->create(CreateType::class, new DTO($chapter), [
             'action' => $this->router->generate('app_scene_create')
         ]);
     }

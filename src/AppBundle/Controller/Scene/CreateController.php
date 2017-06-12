@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Scene;
 
-use AppBundle\Form\Scene\NewType;
+use AppBundle\Form\Scene\CreateType;
 use AppBundle\Routing\RedirectToEdit;
 use AppBundle\Scene\Create\Command;
 use AppBundle\Scene\Create\DTO;
@@ -48,7 +48,7 @@ class CreateController
 
     public function __invoke(Request $request)
     {
-        $form = $this->formFactory->create(NewType::class, new DTO());
+        $form = $this->formFactory->create(CreateType::class, new DTO());
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $sceneId = Uuid::uuid4();
             $this->commandBus->handle(new Command($sceneId, $form->getData()));

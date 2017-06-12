@@ -11,15 +11,6 @@ AppBundle\Entity\Translation\BookTranslation:
         description:
             type: text
             nullable: true
-        introduction:
-            type: text
-            nullable: true
-        expansion:
-            type: text
-            nullable: true
-        ending:
-            type: text
-            nullable: true
         locale:
             type: string
             length: 2

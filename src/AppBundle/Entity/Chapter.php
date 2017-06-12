@@ -48,8 +48,8 @@ class Chapter
     {
         $this->id = $id;
         $this->title = $dto->getTitle();
-        if ($book) {
-            $this->book = $book;
+        if ($dto->getBook()) {
+            $this->book = $dto->getBook();
         }
         $this->characters = new ArrayCollection();
         $this->scenes = new ArrayCollection();
