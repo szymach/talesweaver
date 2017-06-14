@@ -3,7 +3,7 @@
 {% block body %}
     <div class="row">
         <div class="col-xs-12 text-right">
-            {% include 'partial/pagination.html.twig' with { paginator: books } %}
+            {% include 'partial/pagination.html.twig' with { paginator: books } only %}
         </div>
     </div>
     <div class="row">

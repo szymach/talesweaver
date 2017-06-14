@@ -6,5 +6,5 @@ modules:
             var_path: 'var'
             environment: 'test'
         - Doctrine2:
-            depends: Symfony2
+            depends: Symfony
         - \Helper\Functional

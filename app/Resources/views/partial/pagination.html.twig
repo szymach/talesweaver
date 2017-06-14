@@ -2,7 +2,7 @@
 {{ pagerfanta(paginator, 'twitter_bootstrap3', {
     prev_message: 'pagination.previous' | trans,
     next_message: 'pagination.next' | trans,
-    routeName: route,
-    routeParams: parameters
+    routeName: route | default(app.request.get('_route')),
+    routeParams: parameters | default(app.request.get('_route_params'))
 }) }}
 {% endif %}

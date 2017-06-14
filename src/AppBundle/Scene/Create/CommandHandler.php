@@ -22,11 +22,7 @@ class CommandHandler
     {
         $this->manager->beginTransaction();
         try {
-            $scene = new Scene(
-                $command->getId(),
-                $command->getData()->getTitle(),
-                $command->getData()->getChapter()
-            );
+            $scene = new Scene($command->getId(), $command->getData());
             $this->manager->persist($scene);
             $this->manager->flush();
             $this->manager->commit();
