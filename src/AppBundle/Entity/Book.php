@@ -56,21 +56,10 @@ class Book
     {
         $this->title = $dto->getTitle();
         $this->description = $dto->getDescription();
-        $currentChapters = $this->chapters;
-        $this->chapters = new ArrayCollection();
-
-        $newChapters = $dto->getChapters();
-        foreach ($dto->getChapters() as $chapter) {
-            $this->addChapter($chapter);
-        }
-        foreach ($currentChapters as $chapterToCheck) {
-            if (!$newChapters->contains($chapterToCheck)) {
-                $this->removeChapter($chapterToCheck);
-            }
-        }
 
         $this->update();
     }
+
     /**
      * @return UuidInterface
      */
