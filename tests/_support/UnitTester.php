@@ -1,5 +1,7 @@
 <?php
 
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Inherited Methods
@@ -20,7 +22,27 @@ class UnitTester extends \Codeception\Actor
 {
     use _generated\UnitTesterActions;
 
-   /**
-    * Define custom actions here
-    */
+    public function createForm($class, $data = null)
+    {
+        return $this->getFormFactory()->create($class, $data, ['csrf_protection' => false]);
+    }
+
+    /**
+     * @return FormFactoryInterface
+     */
+    public function getFormFactory()
+    {
+        return $this->grabService('form.factory');
+    }
+
+    /**
+     * @param array $postData
+     * @return Request
+     */
+    public function getRequest(array $postData)
+    {
+        $request = new Request([], $postData);
+        $request->setMethod(Request::METHOD_POST);
+        return $request;
+    }
 }

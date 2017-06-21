@@ -3,3 +3,7 @@ modules:
     enabled:
         - Asserts
         - \Helper\Unit
+        - Symfony:
+            app_path: 'app'
+            var_path: 'var'
+            environment: 'test'
