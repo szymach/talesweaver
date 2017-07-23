@@ -5,9 +5,9 @@ namespace AppBundle\Controller\Event;
 use AppBundle\Entity\Scene;
 use AppBundle\Enum\SceneEvents;
 use AppBundle\Event\Create\Command;
-use AppBundle\Event\DTO;
-use AppBundle\Form\Event\EventType;
-use AppBundle\Templating\Event\CreateView;
+use AppBundle\Event\Create\DTO;
+use AppBundle\Form\Event\CreateType;
+use AppBundle\Templating\Event\FormView;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -18,7 +18,7 @@ use Symfony\Component\Routing\RouterInterface;
 class CreateController
 {
     /**
-     * @var CreateView
+     * @var FormView
      */
     private $templating;
 
@@ -38,7 +38,7 @@ class CreateController
     private $router;
 
     public function __construct(
-        CreateView $templating,
+        FormView $templating,
         FormFactoryInterface $formFactory,
         MessageBus $commandBus,
         RouterInterface $router
@@ -53,7 +53,7 @@ class CreateController
     {
         $event = new DTO($scene);
         $form = $this->formFactory->create(
-            EventType::class,
+            CreateType::class,
             $event,
             [
                 'scene' => $scene,

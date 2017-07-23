@@ -14,8 +14,9 @@
     </ul>
     <ul>
         {% for event in events %}
+            {% set model = eventModel(event) %}
             <li>
-                {{ event.name }}
+                <span title="{% include ('scene/events/'~ model|eventTemplateName ~ '.html.twig') with { model: model } only %}">{{ event.name }}</span>
                 <button class="js-list-delete js-delete btn btn-xs btn-danger"
                     data-delete-url="{{ path('app_event_delete', { id: event.id }) }}"
                     title="{{ 'crud.delete' | trans }}"

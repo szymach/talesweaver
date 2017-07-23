@@ -2,7 +2,6 @@
 
 namespace AppBundle\Event\Create;
 
-use AppBundle\Event\DTO;
 use Ramsey\Uuid\UuidInterface;
 
 class Command

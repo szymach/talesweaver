@@ -5,37 +5,30 @@ services:
         autoconfigure: false
 
     # Repository
-    app.repository.book:
-        class: AppBundle\Entity\Repository\BookRepository
+    AppBundle\Entity\Repository\BookRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ AppBundle:Book ]
 
-    app.repository.scene:
-        class: AppBundle\Entity\Repository\SceneRepository
+    AppBundle\Entity\Repository\SceneRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ AppBundle:Scene ]
 
-    app.repository.character:
-        class: AppBundle\Entity\Repository\CharacterRepository
+    AppBundle\Entity\Repository\CharacterRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ AppBundle:Character ]
 
-    app.repository.item:
-        class: AppBundle\Entity\Repository\ItemRepository
+    AppBundle\Entity\Repository\ItemRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ AppBundle:Item ]
 
-    app.repository.location:
-        class: AppBundle\Entity\Repository\LocationRepository
+    AppBundle\Entity\Repository\LocationRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ AppBundle:Location ]
 
-    app.repository.chapter:
-        class: AppBundle\Entity\Repository\ChapterRepository
+    AppBundle\Entity\Repository\ChapterRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ AppBundle:Chapter ]
 
-    app.repository.event:
-        class: AppBundle\Entity\Repository\EventRepository
+    AppBundle\Entity\Repository\EventRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ AppBundle:Event ]

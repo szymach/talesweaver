@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Event\DTO;
+use AppBundle\Event\Create\DTO;
 use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 use JsonSerializable;
 use Ramsey\Uuid\UuidInterface;
@@ -55,7 +55,7 @@ class Event
         $this->name = $name;
     }
 
-    public function getModel() : JsonSerializable
+    public function getModel()
     {
         return $this->model;
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Event;
+namespace AppBundle\Event\Create;
 
 use AppBundle\Entity\Scene;
 use JsonSerializable;

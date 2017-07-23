@@ -1,11 +1,14 @@
 ---
 services:
-    _defaults:
-        autowire: false
-        autoconfigure: false
 
     twig.extension.text:
         class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
+
+    twig.extension.event:
+        class: AppBundle\Twig\EventsExtension
+        autowire: true
         tags:
             - { name: twig.extension }
 

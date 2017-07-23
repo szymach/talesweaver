@@ -5,7 +5,7 @@ namespace AppBundle\JSON;
 use AppBundle\Entity\Event;
 use Doctrine\ORM\EntityManagerInterface;
 use JsonSerializable;
-use Symfony\Component\PropertyAccess\PropertyAccessor;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 class EventParser
 {
@@ -15,13 +15,13 @@ class EventParser
     private $manager;
 
     /**
-     * @var PropertyAccessor
+     * @var PropertyAccessorInterface
      */
     private $propertAccessor;
 
     public function __construct(
         EntityManagerInterface $manager,
-        PropertyAccessor $propertAccessor
+        PropertyAccessorInterface $propertAccessor
     ) {
         $this->manager = $manager;
         $this->propertAccessor = $propertAccessor;
@@ -50,7 +50,7 @@ class EventParser
         }
     }
 
-    private function setField(JsonSerializable $model, string $fieldName, string $entityClass, ?int $id)
+    private function setField(JsonSerializable $model, string $fieldName, string $entityClass, ?string $id)
     {
         if (is_null($id)) {
             return;

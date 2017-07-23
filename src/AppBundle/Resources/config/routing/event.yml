@@ -7,7 +7,7 @@ app_event_list:
 app_event_add:
     path: /add/{id}/{model}
     defaults: { _controller: AppBundle\Controller\Event\CreateController }
-    methods:  [GET, POST]
+    methods:  GET|POST
     requirements:
         model: .+
 

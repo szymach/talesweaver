@@ -1,194 +1,142 @@
 ---
 services:
     _defaults:
-        autowire: false
+        autowire: true
         autoconfigure: false
 
     # Book handlers
     app.command.book.create:
         class: AppBundle\Book\Create\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Book\Create\Command }
 
     app.command.book.edit:
         class: AppBundle\Book\Edit\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Book\Edit\Command }
 
     app.command.book.delete:
         class: AppBundle\Book\Delete\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Book\Delete\Command }
 
     # Chapter handles
     app.command.chapter.create:
         class: AppBundle\Chapter\Create\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Chapter\Create\Command }
 
     app.command.chapter.edit:
         class: AppBundle\Chapter\Edit\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Chapter\Edit\Command }
 
     app.command.chapter.delete:
         class: AppBundle\Chapter\Delete\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Chapter\Delete\Command }
 
     # Scene handles
     app.command.scene.create:
         class: AppBundle\Scene\Create\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Scene\Create\Command }
 
     app.command.scene.edit:
         class: AppBundle\Scene\Edit\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Scene\Edit\Command }
 
     app.command.scene.delete:
         class: AppBundle\Scene\Delete\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Scene\Delete\Command }
 
     # Event handlers
     app.command.event.create:
         class: AppBundle\Event\Create\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Event\Create\Command }
 
     app.command.event.delete:
         class: AppBundle\Event\Delete\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Event\Delete\Command }
 
     # Character handlers
     app.command.character.create:
         class: AppBundle\Character\Create\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Character\Create\Command }
 
     app.command.character.add_to_scene:
         class: AppBundle\Character\AddToScene\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Character\AddToScene\Command }
 
     app.command.character.edit:
         class: AppBundle\Character\Edit\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Character\Edit\Command }
 
     app.command.character.delete:
         class: AppBundle\Character\Delete\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Character\Delete\Command }
 
     app.command.character.remove_from_scene:
         class: AppBundle\Character\RemoveFromScene\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Character\RemoveFromScene\Command }
 
     #  Item handlers
     app.command.item.create:
         class: AppBundle\Item\Create\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Item\Create\Command }
 
     app.command.item.add_to_scene:
         class: AppBundle\Item\AddToScene\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Item\AddToScene\Command }
 
     app.command.item.edit:
         class: AppBundle\Item\Edit\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Item\Edit\Command }
 
     app.command.item.delete:
         class: AppBundle\Item\Delete\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Item\Delete\Command }
 
     app.command.item.remove_from_scene:
         class: AppBundle\Item\RemoveFromScene\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Item\RemoveFromScene\Command }
 
     #  Location handlers
     app.command.location.create:
         class: AppBundle\Location\Create\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Location\Create\Command }
 
     app.command.location.add_to_scene:
         class: AppBundle\Location\AddToScene\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Location\AddToScene\Command }
 
     app.command.location.edit:
         class: AppBundle\Location\Edit\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Location\Edit\Command }
 
     app.command.location.delete:
         class: AppBundle\Location\Delete\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Location\Delete\Command }
 
     app.command.location.remove_from_scene:
         class: AppBundle\Location\RemoveFromScene\CommandHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_handler, handles: AppBundle\Location\RemoveFromScene\Command }

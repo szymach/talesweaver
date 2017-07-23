@@ -25,8 +25,7 @@ class EventsExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('eventModel', [$this, 'getEventModelFunction']),
-            new Twig_SimpleFunction('eventModels', [$this, 'getEventModelsFunction'])
+            new Twig_SimpleFunction('eventModel', [$this, 'getEventModelFunction'])
         ];
     }
 
@@ -40,11 +39,6 @@ class EventsExtension extends Twig_Extension
     public function getEventModelFunction(Event $event)
     {
         return $this->eventParser->parse($event);
-    }
-
-    public function getEventModelsFunction()
-    {
-        return SceneEvents::getAllEvents();
     }
 
     public function getEventTemplateNameFilter(JsonSerializable $model)

@@ -3,13 +3,13 @@
 namespace AppBundle\Form\Event;
 
 use AppBundle\Entity\Scene;
-use AppBundle\Event\DTO;
+use AppBundle\Event\Create\DTO;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EventType extends AbstractType
+class CreateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
