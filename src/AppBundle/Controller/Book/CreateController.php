@@ -50,7 +50,7 @@ class CreateController
         $form = $this->formFactory->create(CreateType::class);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $bookId = Uuid::uuid4();
-            $this->commandBus->handle(new Command($bookId, $form->getData()));
+            $this->commandBus->handle(new Command($bookId, $form->getData()->getTitle()));
 
             return $this->redirector->createResponse('app_book_edit', $bookId);
         }

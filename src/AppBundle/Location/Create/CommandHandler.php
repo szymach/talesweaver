@@ -4,7 +4,6 @@ namespace AppBundle\Location\Create;
 
 use AppBundle\Entity\Location;
 use Doctrine\Common\Persistence\ObjectManager;
-use Throwable;
 
 class CommandHandler
 {
@@ -20,15 +19,6 @@ class CommandHandler
 
     public function handle(Command $command)
     {
-        $this->manager->beginTransaction();
-        try {
-            $location = new Location($command->getId(), $command->getData());
-            $this->manager->persist($location);
-            $this->manager->flush();
-            $this->manager->commit();
-        } catch (Throwable $exception) {
-            $this->manager->rollback();
-            throw $exception;
-        }
+        $this->manager->persist(new Location($command->getId(), $command->getData()));
     }
 }

@@ -3,7 +3,7 @@ services:
         autowire: true
         autoconfigure: true
 
-    SimpleBus\Message\Bus\MessageBus: "@command_bus"
+    SimpleBus\Message\Bus\MessageBus: "@transaction_wrapped_command_bus"
     Knp\Snappy\GeneratorInterface: "@knp_snappy.pdf"
 
     AppBundle\Controller\:
@@ -17,3 +17,9 @@ services:
 
     AppBundle\Templating\:
         resource: "../../src/AppBundle/Templating/*"
+
+    transaction_wrapped_command_bus:
+        class:     AppBundle\Bus\TransactionWrappedBus
+        decorates: command_bus
+        arguments: ['@transaction_wrapped_command_bus.inner']
+        public:    false

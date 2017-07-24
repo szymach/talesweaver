@@ -35,7 +35,9 @@ class FormControllerCest
             'create[description]' => self::DESCRIPTION_PL
         ]);
 
-        $book = $I->grabEntityFromRepository(Book::class);
+        $book = $I->grabEntityFromRepository(Book::class, [
+            'translations' => ['title' => self::TITLE_PL]
+        ]);
         $I->seeElement(self::EDIT_FORM);
         $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $book->getId()));
 

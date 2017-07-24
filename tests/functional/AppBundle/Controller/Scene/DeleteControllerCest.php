@@ -14,8 +14,6 @@ class DeleteControllerCest
 
     public function delete(FunctionalTester $I)
     {
-        $I->amOnPage(self::LIST_URL);
-
         $id = Uuid::uuid4();
         $dto = new DTO();
         $dto->setTitle(self::TITLE_PL);

@@ -3,32 +3,22 @@
 namespace AppBundle\Scene\Create;
 
 use AppBundle\Entity\Scene;
-use Doctrine\ORM\EntityManagerInterface;
-use Throwable;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class CommandHandler
 {
     /**
-     * @var EntityManagerInterface
+     * @var ObjectManager
      */
     private $manager;
 
-    public function __construct(EntityManagerInterface $manager)
+    public function __construct(ObjectManager $manager)
     {
         $this->manager = $manager;
     }
 
     public function handle(Command $command)
     {
-        $this->manager->beginTransaction();
-        try {
-            $scene = new Scene($command->getId(), $command->getData());
-            $this->manager->persist($scene);
-            $this->manager->flush();
-            $this->manager->commit();
-        } catch (Throwable $exception) {
-            $this->manager->rollback();
-            throw $exception;
-        }
+        $this->manager->persist(new Scene($command->getId(), $command->getData()));
     }
 }

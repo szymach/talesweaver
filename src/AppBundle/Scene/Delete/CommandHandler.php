@@ -22,6 +22,5 @@ class CommandHandler
         $this->manager->remove(
             $this->manager->getRepository(Scene::class)->find($command->getId())
         );
-        $this->manager->flush();
     }
 }

@@ -3,32 +3,22 @@
 namespace AppBundle\Chapter\Create;
 
 use AppBundle\Entity\Chapter;
-use Doctrine\ORM\EntityManagerInterface;
-use Throwable;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class CommandHandler
 {
     /**
-     * @var EntityManagerInterface
+     * @var ObjectManager
      */
     private $manager;
 
-    public function __construct(EntityManagerInterface $manager)
+    public function __construct(ObjectManager $manager)
     {
         $this->manager = $manager;
     }
 
     public function handle(Command $command)
     {
-        $this->manager->beginTransaction();
-        try {
-            $chapter = new Chapter($command->getId(), $command->getData());
-            $this->manager->persist($chapter);
-            $this->manager->flush();
-            $this->manager->commit();
-        } catch (Throwable $exception) {
-            $this->manager->rollback();
-            throw $exception;
-        }
+        $this->manager->persist(new Chapter($command->getId(), $command->getData()));
     }
 }

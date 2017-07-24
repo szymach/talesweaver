@@ -13,7 +13,6 @@ class DeleteControllerCest
 
     public function delete(FunctionalTester $I)
     {
-        $I->amOnPage(self::LIST_URL);
         $id = Uuid::uuid4();
         $I->persistEntity(new Book($id, self::TITLE_PL));
         $I->seeInRepository(Book::class, ['id' => $id]);

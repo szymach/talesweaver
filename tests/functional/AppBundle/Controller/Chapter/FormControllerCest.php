@@ -33,7 +33,9 @@ class FormControllerCest
         $I->amOnPage(self::CREATE_URL);
         $I->submitForm(self::CREATE_FORM, ['create[title]' => self::TITLE_PL]);
 
-        $chapter = $I->grabEntityFromRepository(Chapter::class);
+        $chapter = $I->grabEntityFromRepository(Chapter::class, [
+            'translations' => ['title' => self::TITLE_PL]
+        ]);
         $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $chapter->getId()));
         $I->seeElement(self::EDIT_FORM);
         $I->canSee(self::TITLE_PL, 'h1');

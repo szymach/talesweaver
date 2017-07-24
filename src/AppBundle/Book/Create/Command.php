@@ -12,14 +12,14 @@ class Command
     private $id;
 
     /**
-     * @var DTO
+     * @var string
      */
-    private $dto;
+    private $title;
 
-    public function __construct(UuidInterface $id, DTO $dto)
+    public function __construct(UuidInterface $id, string $title)
     {
         $this->id = $id;
-        $this->dto = $dto;
+        $this->title = $title;
     }
 
     public function getId(): UuidInterface
@@ -27,8 +27,8 @@ class Command
         return $this->id;
     }
 
-    public function getData(): DTO
+    public function getTitle(): string
     {
-        return $this->dto;
+        return $this->title;
     }
 }

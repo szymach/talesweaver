@@ -2,31 +2,23 @@
 
 namespace AppBundle\Event\Create;
 
-use AppBundle\Entity\Event;
-use Doctrine\ORM\EntityManagerInterface;
-use Throwable;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Workflow\Event\Event;
 
 class CommandHandler
 {
     /**
-     * @var EntityManagerInterface
+     * @var ObjectManager
      */
     private $manager;
 
-    public function __construct(EntityManagerInterface $manager)
+    public function __construct(ObjectManager $manager)
     {
         $this->manager = $manager;
     }
 
     public function handle(Command $command)
     {
-        $this->manager->beginTransaction();
-        try {
-            $this->manager->persist(new Event($command->getId(), $command->getData()));
-            $this->manager->flush();
-        } catch (Throwable $ex) {
-            $this->manager->rollback();
-            throw $ex;
-        }
+        $this->manager->persist(new Event($command->getId(), $command->getData()));
     }
 }
