@@ -3,7 +3,6 @@
 namespace AppBundle\Entity\Translation;
 
 use AppBundle\Entity\Traits\LocaleTrait;
-use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 
 class EventTranslation
 {

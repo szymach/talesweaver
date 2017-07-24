@@ -6,6 +6,16 @@ AppBundle\Entity\Scene:
         id:
             type: uuid
             generator: { strategy: NONE }
+    fsi:
+        translatable:
+            locale: locale
+            fields:
+                title:
+                    mappedBy: translations
+                    targetField: title
+                text:
+                    mappedBy: translations
+                    targetField: text
     fields:
         createdAt:
             type: datetime

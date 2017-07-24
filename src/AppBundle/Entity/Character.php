@@ -8,7 +8,6 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use DomainException;
-use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 use Ramsey\Uuid\UuidInterface;
 
 class Character
@@ -21,13 +20,11 @@ class Character
     private $id;
 
     /**
-     * @Translatable\Translatable(mappedBy="translations")
      * @var string
      */
     private $name;
 
     /**
-     * @Translatable\Translatable(mappedBy="translations")
      * @var string
      */
     private $description;

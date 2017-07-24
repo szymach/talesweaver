@@ -11,6 +11,9 @@ AppBundle\Entity\Translation\EventTranslation:
         locale:
             type: string
             length: 2
+            fsi:
+                translatable:
+                    locale: ~
     manyToOne:
         event:
             targetEntity: AppBundle\Entity\Event

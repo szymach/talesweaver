@@ -2,8 +2,6 @@
 
 namespace AppBundle\Entity\Translation;
 
-use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
-
 use AppBundle\Entity\Chapter;
 use AppBundle\Entity\Traits\LocaleTrait;
 

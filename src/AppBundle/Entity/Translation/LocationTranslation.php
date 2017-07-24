@@ -4,7 +4,6 @@ namespace AppBundle\Entity\Translation;
 
 use AppBundle\Entity\Location;
 use AppBundle\Entity\Traits\LocaleTrait;
-use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 
 class LocationTranslation
 {
@@ -29,7 +28,6 @@ class LocationTranslation
      * @var Location
      */
     private $location;
-
 
     /**
      * @return integer

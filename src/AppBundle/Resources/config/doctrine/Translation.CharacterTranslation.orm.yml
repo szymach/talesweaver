@@ -15,6 +15,9 @@ AppBundle\Entity\Translation\CharacterTranslation:
         locale:
             type: string
             length: 2
+            fsi:
+                translatable:
+                    locale: ~
     manyToOne:
         character:
             targetEntity: AppBundle\Entity\Character

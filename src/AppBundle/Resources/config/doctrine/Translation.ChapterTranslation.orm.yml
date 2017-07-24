@@ -11,6 +11,9 @@ AppBundle\Entity\Translation\ChapterTranslation:
         locale:
             type: string
             length: 2
+            fsi:
+                translatable:
+                    locale: ~
     manyToOne:
         chapter:
             targetEntity: AppBundle\Entity\Chapter

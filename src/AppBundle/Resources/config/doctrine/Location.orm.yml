@@ -6,6 +6,16 @@ AppBundle\Entity\Location:
         id:
             type: uuid
             generator: { strategy: NONE }
+    fsi:
+        translatable:
+            locale: locale
+            fields:
+                name:
+                    mappedBy: translations
+                    targetField: name
+                description:
+                    mappedBy: translations
+                    targetField: description
     fields:
         avatarKey:
             type: text

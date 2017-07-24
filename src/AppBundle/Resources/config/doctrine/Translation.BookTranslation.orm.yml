@@ -14,6 +14,9 @@ AppBundle\Entity\Translation\BookTranslation:
         locale:
             type: string
             length: 2
+            fsi:
+                translatable:
+                    locale: ~
     manyToOne:
         book:
             targetEntity: AppBundle\Entity\Book

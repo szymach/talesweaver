@@ -5,7 +5,7 @@ namespace AppBundle\Entity\Traits;
 trait LocaleTrait
 {
     /**
-     * @Translatable\Locale
+     * @var string
      */
     private $locale;
 

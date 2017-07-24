@@ -14,6 +14,9 @@ AppBundle\Entity\Translation\ItemTranslation:
         locale:
             type: string
             length: 2
+            fsi:
+                translatable:
+                    locale: ~
     manyToOne:
         item:
             targetEntity: AppBundle\Entity\Item

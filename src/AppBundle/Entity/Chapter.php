@@ -7,7 +7,6 @@ use AppBundle\Chapter\Edit;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 use Ramsey\Uuid\UuidInterface;
 
 class Chapter
@@ -20,7 +19,6 @@ class Chapter
     private $id;
 
     /**
-     * @Translatable\Translatable(mappedBy="translations")
      * @var string
      */
     private $title;

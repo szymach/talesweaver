@@ -6,6 +6,16 @@ AppBundle\Entity\Book:
         id:
             type: uuid
             generator: { strategy: NONE }
+    fsi:
+        translatable:
+            locale: locale
+            fields:
+                title:
+                    mappedBy: translations
+                    targetField: title
+                description:
+                    mappedBy: translations
+                    targetField: description
     fields:
         createdAt:
             type: datetime

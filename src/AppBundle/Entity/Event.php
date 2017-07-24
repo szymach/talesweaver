@@ -3,7 +3,6 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Event\Create\DTO;
-use FSi\DoctrineExtensions\Translatable\Mapping\Annotation as Translatable;
 use JsonSerializable;
 use Ramsey\Uuid\UuidInterface;
 
@@ -22,7 +21,6 @@ class Event
     private $model;
 
     /**
-     * @Translatable\Translatable(mappedBy="translations")
      * @var string
      */
     private $name;
