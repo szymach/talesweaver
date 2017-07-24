@@ -22,10 +22,8 @@ class CommandHandler
     {
         $this->manager->beginTransaction();
         try {
-            $event = new Event($command->getId(), $command->getData());
-            $this->manager->persist($event);
+            $this->manager->persist(new Event($command->getId(), $command->getData()));
             $this->manager->flush();
-            $this->manager->refresh($event);
         } catch (Throwable $ex) {
             $this->manager->rollback();
             throw $ex;
