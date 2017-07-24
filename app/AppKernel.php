@@ -20,17 +20,14 @@ class AppKernel extends Kernel
             # Vendor libraries
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
             new FSi\Bundle\DoctrineExtensionsBundle\FSiDoctrineExtensionsBundle(),
-            new Hautelook\AliceBundle\HautelookAliceBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new SimpleBus\SymfonyBridge\SimpleBusCommandBusBundle(),
-            new SimpleBus\SymfonyBridge\SimpleBusEventBusBundle(),
 
             # App
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new AppBundle\AppBundle(),
         ];
 

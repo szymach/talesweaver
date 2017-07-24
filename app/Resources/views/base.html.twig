@@ -24,8 +24,6 @@
         <footer>{% block footer '' %}</footer>
         {% include 'partial/confirmationModal.html.twig' %}
         {% block modals '' %}
-        <script src="{{ absolute_url(asset('bundles/fosjsrouting/js/router.js')) }}"></script>
-        <script src="{{ absolute_url(path('fos_js_routing_js', { callback: 'fos.Router.setData' })) }}"></script>
         <script src="{{ absolute_url(asset('public/scripts.js')) }}"></script>
         {% block javascripts '' %}
         <div id="backdrop"></div>
