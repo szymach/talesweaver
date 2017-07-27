@@ -2,8 +2,8 @@
 
 namespace AppBundle\Event\Create;
 
+use AppBundle\Entity\Event;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Workflow\Event\Event;
 
 class CommandHandler
 {

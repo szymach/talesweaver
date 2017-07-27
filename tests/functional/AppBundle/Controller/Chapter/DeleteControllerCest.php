@@ -20,6 +20,7 @@ class DeleteControllerCest
         $I->persistEntity(new Chapter($id, $dto));
         $I->seeInRepository(Chapter::class, ['id' => $id]);
         $I->amOnPage(self::LIST_URL);
+        $I->canSeeNumberOfElements('tbody > tr', 1);
         $I->click('a[title="Usuń"]');
         $I->canSeeCurrentUrlEquals(self::LIST_URL);
         $I->dontSeeInRepository(Chapter::class, ['id' => $id]);
