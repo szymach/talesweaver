@@ -43,6 +43,7 @@ chapter:
         add_scene: Dodaj
     header:
         create: Nowy rozdział
+        edit: '%title% - edycja'
     back:
         to_book: Wróć do książki
         to_list: Wróć do listy
@@ -60,7 +61,8 @@ scene:
     actions:
         create: Nowa
     header:
-        new: Nowa scena
+        create: Nowa scena
+        edit: '%title% - edycja'
     back:
         to_chapter: Wróć do rozdziału
         to_list: Wróć do listy

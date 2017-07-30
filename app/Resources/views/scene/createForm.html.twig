@@ -1,16 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% block seo_title 'scene.header.create' | trans %}
 
-{% set scene = form.vars.data %}
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block top_menu_right %}
+    {% include 'partial/topMenu/actions.html.twig' with {
+        returnUrl: chapterId ? path('app_chapter_edit', { id: chapterId }) : path('app_scene_list', { page: app.request.get('page') }),
+        returnLabel: chapterId ? 'scene.back.to_chapter' : 'scene.back.to_list' | trans
+    } %}
+{% endblock %}
 
 {% block body %}
-    {% set chapter = scene.chapter %}
-    {% include 'partial/backButton.html.twig' with {
-        redirectUri: chapter ? path('app_chapter_edit', { id: chapter.id }) : path('app_scene_list', { page: app.request.get('page') }),
-        label: (chapter ? 'scene.back.to_chapter' : 'scene.back.to_list') | trans
-    } %}
-    <h1>{{ 'scene.header.new' | trans }}</h1>
     <div class="row">
         <div class="col-xs-12 content-container">
             {{ form_start(form) }}

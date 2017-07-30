@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block seo_title 'chapter.header.edit' | trans({ '%title%': title }) %}
+
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 
 {% block top_menu_right %}

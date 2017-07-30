@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Scene;
 
+use AppBundle\Entity\Chapter;
 use AppBundle\Form\Scene\CreateType;
 use AppBundle\Routing\RedirectToEdit;
 use AppBundle\Scene\Create\Command;
@@ -56,6 +57,12 @@ class CreateController
             return $this->redirector->createResponse('app_scene_edit', $sceneId);
         }
 
-        return $this->templating->createView($form, 'scene/createForm.html.twig');
+        /* @var $chapter Chapter */
+        $chapter = $form->get('chapter')->getData();
+        return $this->templating->createView(
+            $form,
+            'scene/createForm.html.twig',
+            ['chapterId' => $chapter ? $chapter->getId() : null]
+        );
     }
 }
