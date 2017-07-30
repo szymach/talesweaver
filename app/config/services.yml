@@ -4,6 +4,7 @@ services:
         autoconfigure: true
 
     SimpleBus\Message\Bus\MessageBus: "@transaction_wrapped_command_bus"
+    Knp\Menu\FactoryInterface: "@knp_menu.factory"
     Knp\Snappy\GeneratorInterface: "@knp_snappy.pdf"
 
     AppBundle\Controller\:
@@ -18,6 +19,33 @@ services:
     AppBundle\Templating\:
         resource: "../../src/AppBundle/Templating/*"
 
+    # Twig
+    AppBundle\Twig\:
+        resource: "../../src/AppBundle/Twig/*"
+        autowire: true
+        tags:
+            - { name: twig.extension }
+
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
+
+    # Menu
+    app.menu.builder:
+        class: AppBundle\Menu\Builder
+        autowire: true
+
+    app.menu.main:
+        class: Knp\Menu\MenuItem
+        factory: ["@app.menu.builder", createMainMenu]
+        tags:
+            - { name: knp_menu.menu, alias: main }
+
+    AppBundle\JSON\EventParser:
+        autowire: true
+
+    # Bus
     transaction_wrapped_command_bus:
         class:     AppBundle\Bus\TransactionWrappedBus
         decorates: command_bus

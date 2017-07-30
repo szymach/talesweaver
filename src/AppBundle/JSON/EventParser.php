@@ -2,29 +2,40 @@
 
 namespace AppBundle\JSON;
 
+use AppBundle\Entity\Character;
 use AppBundle\Entity\Event;
-use Doctrine\ORM\EntityManagerInterface;
+use AppBundle\Entity\Item;
+use AppBundle\Entity\Location;
+use AppBundle\Entity\Repository\CharacterRepository;
+use AppBundle\Entity\Repository\ItemRepository;
+use AppBundle\Entity\Repository\LocationRepository;
 use JsonSerializable;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 class EventParser
 {
     /**
-     * @var EntityManagerInterface
-     */
-    private $manager;
-
-    /**
      * @var PropertyAccessorInterface
      */
     private $propertAccessor;
 
+    /**
+     * @var array
+     */
+    private $repositories;
+
     public function __construct(
-        EntityManagerInterface $manager,
-        PropertyAccessorInterface $propertAccessor
+        PropertyAccessorInterface $propertAccessor,
+        CharacterRepository $characterRepository,
+        ItemRepository $itemRepository,
+        LocationRepository $locationRepository
     ) {
-        $this->manager = $manager;
         $this->propertAccessor = $propertAccessor;
+        $this->repositories = [
+            Character::class => $characterRepository,
+            Item::class => $itemRepository,
+            Location::class => $locationRepository
+        ];
     }
 
     public function parse(Event $event) : JsonSerializable
@@ -59,7 +70,7 @@ class EventParser
         $this->propertAccessor->setValue(
             $model,
             $fieldName,
-            $this->manager->getRepository($entityClass)->find($id)
+            $this->repositories[$entityClass]->find($id)
         );
     }
 }

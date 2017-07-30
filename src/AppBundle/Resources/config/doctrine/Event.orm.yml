@@ -3,6 +3,8 @@ AppBundle\Entity\Event:
     type: entity
     table: event_entity
     repositoryClass: AppBundle\Entity\Repository\EventRepository
+    entityListeners:
+        AppBundle\Event\ModelParserListener: ~
     id:
         id:
             type: uuid

@@ -4,6 +4,13 @@ services:
         autowire: false
         autoconfigure: false
 
+    # Entity listeners
+    entity_listener.event:
+        class: AppBundle\Event\ModelParserListener
+        autowire: true
+        tags:
+            - { name: doctrine.orm.entity_listener }
+
     # Repository
     AppBundle\Entity\Repository\BookRepository:
         factory: ["@doctrine", getRepository]

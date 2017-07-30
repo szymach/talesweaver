@@ -2,6 +2,7 @@
 
 namespace AppBundle\Event\Edit;
 
+use AppBundle\Entity\Event;
 use JsonSerializable;
 
 class DTO
@@ -16,10 +17,10 @@ class DTO
      */
     private $model;
 
-    public function __construct(string $name, JsonSerializable $model)
+    public function __construct(Event $event)
     {
-        $this->name = $name;
-        $this->model = $model;
+        $this->name = $event->getName();
+        $this->model = $event->getModel();
     }
 
     public function getName() : ?string

@@ -2,14 +2,16 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\TranslatableTrait;
 use AppBundle\Event\Create;
 use AppBundle\Event\Edit;
+use AppBundle\JSON\EventParser;
 use JsonSerializable;
 use Ramsey\Uuid\UuidInterface;
 
 class Event
 {
-    use Traits\TranslatableTrait;
+    use TranslatableTrait;
 
     /**
      * @var UuidInterface
@@ -43,6 +45,11 @@ class Event
     {
         $this->name = $dto->getName();
         $this->model = $dto->getModel();
+    }
+
+    public function parseModel(EventParser $parser) : void
+    {
+        $this->model = $parser->parse($this);
     }
 
     public function getId() : UuidInterface
