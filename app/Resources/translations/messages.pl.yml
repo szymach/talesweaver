@@ -12,13 +12,16 @@ crud:
 
 book:
     title: Tytuł
-    description: Opis (publiczny)
+    description: Opis
+    placeholder:
+        title: Podaj tytuł książki
     chapters: Rozdziały
     actions:
         create: Nowa
-        add_chapter: Nowy rozdział
+        add_chapter: Dodaj
     header:
-        new: Nowa książka
+        create: Nowa książka
+        edit: '%title% - edycja'
     back:
         to_list: Powrót do listy
     tabs:
@@ -30,6 +33,8 @@ book:
 
 chapter:
     title: Tytuł
+    placeholder:
+        title: Tytuł nowego rozdziału
     scenes: Sceny
     book: Książka
     actions:

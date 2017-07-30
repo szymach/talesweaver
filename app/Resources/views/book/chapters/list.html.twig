@@ -1,38 +1,30 @@
-<div class="row">
-    <div class="col-xs-12 text-right js-ajax-pagination" data-container="#chapters">
-        {% include 'partial/pagination.html.twig' with {
-            paginator: chapters,
-            route: 'app_book_chapter_list',
-            parameters: { id: bookId } }
-        %}
-    </div>
-</div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>{{ 'chapter.title' | trans }}</th>
-            <th>{{ 'crud.actions' | trans }}</th>
-        </tr>
-    </thead>
-    <tbody>
+<li class="chapters js-list" data-list-url="{{ path('app_book_chapter_list', { id: bookId }) }}">
+    <span class="fa fa-book logo-icon"></span>
+    <span class="h4">{{ 'book.chapters'|trans }}</span>
+    <ul>
         {% for chapter in chapters %}
-            <tr>
-                <td>{{ chapter.title }}</td>
-                <td>
-                    <a class="btn btn-primary"
-                       href="{{ path('app_chapter_edit', { id: chapter.id }) }}"
-                       title="{{ 'crud.edit' | trans }}"
-                    >
-                        <span class="fa fa-edit"></span>
-                    </a>
-                    <a class="btn btn-danger js-delete"
-                       href="{{ path('app_chapter_delete', { id: chapter.id }) }}"
-                       title="{{ 'crud.delete' | trans }}"
-                    >
-                        <span class="fa fa-trash"></span>
-                    </a>
-                </td>
-            </tr>
+            <li>
+                <span class="sublist-label">{{ chapter.title }}</span>
+                <button class="js-load-form js-edit-form btn btn-xs btn-primary"
+                    data-form-url="{{ path('app_chapter_edit', { id: chapter.id }) }}"
+                    title="{{ 'crud.edit' | trans }}"
+                >
+                    <span class="fa fa-edit"></span>
+                </button>
+                <button class="js-list-delete js-delete btn btn-xs btn-danger"
+                    data-delete-url="{{ path('app_chapter_delete', { id: chapter.id }) }}"
+                    title="{{ 'crud.delete' | trans }}"
+                >
+                    <span class="fa fa-trash"></span>
+                </button>
+            </li>
         {% endfor %}
-    </tbody>
-</table>
+    </ul>
+    {% form_theme chapterForm 'bootstrap_3_layout.html.twig' %}
+    {{ form_start(chapterForm) }}
+        {{ form_row(chapterForm.title, { label: false }) }}
+        <div style="display: none;">{{ form_row(chapterForm.book) }}</div>
+        {{ form_rest(chapterForm) }}
+        <button style="display: block; width: 100%; margin-top: 10px;" class="btn btn-primary btn-sm">{{ 'book.actions.add_chapter' | trans }}</button>
+    {{ form_end(chapterForm) }}
+</li>

@@ -14,7 +14,10 @@ class CreateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title', TextType::class, ['label' => 'book.title']);
+        $builder->add('title', TextType::class, [
+            'label' => 'book.title',
+            'attr' => ['placeholder' => 'book.placeholder.title']
+        ]);
 
         $builder->add('description', CKEditorType::class, [
             'label' => 'book.description',

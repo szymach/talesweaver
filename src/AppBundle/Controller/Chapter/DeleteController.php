@@ -7,6 +7,8 @@ use AppBundle\Entity\Chapter;
 use AppBundle\Routing\RedirectToEdit;
 use AppBundle\Routing\RedirectToList;
 use SimpleBus\Message\Bus\MessageBus;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class DeleteController
 {
@@ -35,10 +37,14 @@ class DeleteController
         $this->listRedirector = $listRedirector;
     }
 
-    public function __invoke(Chapter $chapter, $page)
+    public function __invoke(Request $request, Chapter $chapter, $page)
     {
         $bookId = $chapter->getBook() ? $chapter->getBook()->getId() : null;
         $this->commandBus->handle(new Command($chapter->getId()));
+
+        if ($request->isXmlHttpRequest()) {
+            return new JsonResponse(['success' => true]);
+        }
 
         return $bookId
             ? $this->editRedirector->createResponse('app_book_edit', $bookId)

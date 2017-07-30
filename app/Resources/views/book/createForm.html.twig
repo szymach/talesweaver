@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% block seo_title 'book.header.create' | trans %}
+
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 
 {% block top_menu_right %}
     <ul class="nav navbar-nav pull-right">
@@ -14,7 +16,6 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'book.header.new' | trans }}</h1>
     <div class="row">
         <div class="col-xs-12">
             {{ form_start(form) }}
