@@ -17,7 +17,7 @@ class RedirectToList
         $this->router = $router;
     }
 
-    public function createResponse(string $route, int $page): RedirectResponse
+    public function createResponse(string $route, int $page) : RedirectResponse
     {
         return new RedirectResponse($this->router->generate($route, ['page' => $page]));
     }

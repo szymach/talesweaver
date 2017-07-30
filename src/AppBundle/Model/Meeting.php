@@ -42,7 +42,7 @@ class Meeting implements JsonSerializable
         ];
     }
 
-    public function getRoot(): ?Character
+    public function getRoot() : ?Character
     {
         return $this->root;
     }
@@ -52,7 +52,7 @@ class Meeting implements JsonSerializable
         $this->root = $root;
     }
 
-    public function getItem(): ?Item
+    public function getItem() : ?Item
     {
         return $this->item;
     }
@@ -62,7 +62,7 @@ class Meeting implements JsonSerializable
         $this->item = $item;
     }
 
-    public function getLocation(): ?Location
+    public function getLocation() : ?Location
     {
         return $this->location;
     }
@@ -72,7 +72,7 @@ class Meeting implements JsonSerializable
         $this->location = $location;
     }
 
-    public function getRelation(): ?Character
+    public function getRelation() : ?Character
     {
         return $this->relation;
     }

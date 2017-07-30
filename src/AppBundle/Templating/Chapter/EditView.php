@@ -46,7 +46,7 @@ class EditView
         $this->router = $router;
     }
 
-    public function createView(FormInterface $form, ?Chapter $chapter): Response
+    public function createView(FormInterface $form, ?Chapter $chapter) : Response
     {
         return $this->templating->renderResponse(
             'chapter/editForm.html.twig',

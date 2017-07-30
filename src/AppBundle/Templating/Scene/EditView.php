@@ -56,7 +56,7 @@ class EditView
         $this->eventPaginator = $eventPaginator;
     }
 
-    public function createView(FormInterface $form, Scene $scene): Response
+    public function createView(FormInterface $form, Scene $scene) : Response
     {
         $parameters = [
             'form' => $form->createView(),

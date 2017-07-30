@@ -22,7 +22,7 @@ class Command
         $this->book = $book;
     }
 
-    public function perform(): void
+    public function perform() : void
     {
         $this->book->edit($this->dto);
     }

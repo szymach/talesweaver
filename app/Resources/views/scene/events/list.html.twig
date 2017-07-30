@@ -17,6 +17,12 @@
             {% set model = eventModel(event) %}
             <li>
                 <span title="{% include ('scene/events/'~ model|eventTemplateName ~ '.html.twig') with { model: model } only %}">{{ event.name }}</span>
+                <button class="js-load-form js-edit-form btn btn-xs btn-primary"
+                    data-form-url="{{ path('app_event_edit', { id: event.id }) }}"
+                    title="{{ 'crud.edit' | trans }}"
+                >
+                    <span class="fa fa-edit"></span>
+                </button>
                 <button class="js-list-delete js-delete btn btn-xs btn-danger"
                     data-delete-url="{{ path('app_event_delete', { id: event.id }) }}"
                     title="{{ 'crud.delete' | trans }}"

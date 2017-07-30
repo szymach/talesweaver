@@ -58,6 +58,11 @@ services:
         tags:
             - { name: command_handler, handles: AppBundle\Event\Create\Command }
 
+    app.command.event.edit:
+        class: AppBundle\Event\Edit\CommandHandler
+        tags:
+            - { name: command_handler, handles: AppBundle\Event\Edit\Command }
+
     app.command.event.delete:
         class: AppBundle\Event\Delete\CommandHandler
         tags:

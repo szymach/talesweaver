@@ -18,7 +18,7 @@ class ChapterPaginator
         $this->repository = $repository;
     }
 
-    public function getResults(int $page, int $maxPerPage = 10): Pagerfanta
+    public function getResults(int $page, int $maxPerPage = 10) : Pagerfanta
     {
         $pager = new Pagerfanta(new DoctrineORMAdapter($this->repository->createQueryBuilder('c')));
         $pager->setMaxPerPage($maxPerPage);

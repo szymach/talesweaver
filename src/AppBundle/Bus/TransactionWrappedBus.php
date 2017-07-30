@@ -24,7 +24,7 @@ class TransactionWrappedBus implements MessageBus
         $this->manager = $manager;
     }
 
-    public function handle($message): void
+    public function handle($message) : void
     {
         $this->manager->beginTransaction();
         try {

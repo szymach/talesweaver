@@ -27,7 +27,7 @@ class EventParser
         $this->propertAccessor = $propertAccessor;
     }
 
-    public function parse(Event $event): JsonSerializable
+    public function parse(Event $event) : JsonSerializable
     {
         $modelData = $event->getModel();
         $modelClass = key($modelData);

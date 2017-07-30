@@ -7,28 +7,28 @@ services:
     # Repository
     AppBundle\Entity\Repository\BookRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ AppBundle:Book ]
+        arguments: [ AppBundle\Entity\Book ]
 
     AppBundle\Entity\Repository\SceneRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ AppBundle:Scene ]
+        arguments: [ AppBundle\Entity\Scene ]
 
     AppBundle\Entity\Repository\CharacterRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ AppBundle:Character ]
+        arguments: [ AppBundle\Entity\Character ]
 
     AppBundle\Entity\Repository\ItemRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ AppBundle:Item ]
+        arguments: [ AppBundle\Entity\Item ]
 
     AppBundle\Entity\Repository\LocationRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ AppBundle:Location ]
+        arguments: [ AppBundle\Entity\Location ]
 
     AppBundle\Entity\Repository\ChapterRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ AppBundle:Chapter ]
+        arguments: [ AppBundle\Entity\Chapter ]
 
     AppBundle\Entity\Repository\EventRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ AppBundle:Event ]
+        arguments: [ AppBundle\Entity\Event ]

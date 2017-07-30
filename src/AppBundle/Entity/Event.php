@@ -2,7 +2,8 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Event\Create\DTO;
+use AppBundle\Event\Create;
+use AppBundle\Event\Edit;
 use JsonSerializable;
 use Ramsey\Uuid\UuidInterface;
 
@@ -30,12 +31,18 @@ class Event
      */
     private $scene;
 
-    public function __construct(UuidInterface $id, DTO $dto)
+    public function __construct(UuidInterface $id, Create\DTO $dto)
     {
         $this->id = $id;
         $this->name = $dto->getName();
         $this->model = $dto->getModel();
         $this->scene = $dto->getScene();
+    }
+
+    public function edit(Edit\DTO $dto) : void
+    {
+        $this->name = $dto->getName();
+        $this->model = $dto->getModel();
     }
 
     public function getId() : UuidInterface

@@ -26,12 +26,12 @@ class DTO
         $this->title = $title;
     }
 
-    public function getTitle(): ?string
+    public function getTitle() : ?string
     {
         return $this->title;
     }
 
-    public function getBook(): ?Book
+    public function getBook() : ?Book
     {
         return $this->book;
     }

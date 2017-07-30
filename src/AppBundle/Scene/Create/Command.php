@@ -22,12 +22,12 @@ class Command
         $this->dto = $dto;
     }
 
-    public function getId(): UuidInterface
+    public function getId() : UuidInterface
     {
         return $this->id;
     }
 
-    public function getData(): DTO
+    public function getData() : DTO
     {
         return $this->dto;
     }
