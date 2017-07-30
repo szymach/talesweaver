@@ -20,7 +20,7 @@ book:
     header:
         new: Nowa książka
     back:
-        to_list: Wróć do listy
+        to_list: Powrót do listy
     tabs:
         basic: Podstawowe
         introduction: Wstęp

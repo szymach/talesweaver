@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
 {% block body %}
     {% include 'partial/backButton.html.twig' with {
         redirectUri: path('app_book_list', { page: app.request.get('page', 1) }),
@@ -26,18 +28,6 @@
                         {{ form_row(form.description) }}
                         <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
                     </div>
-                    {#<div role="tabpanel" class="tab-pane fade" id="introduction">
-                        {{ form_row(form.introduction) }}
-                        <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
-                    </div>
-                    <div role="tabpanel" class="tab-pane fade" id="expansion">
-                        {{ form_row(form.expansion) }}
-                        <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
-                    </div>
-                    <div role="tabpanel" class="tab-pane fade" id="ending">
-                        {{ form_row(form.ending) }}
-                        <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
-                    </div>#}
                     <div role="tabpanel" class="tab-pane fade" id="chapters">
                         {% include 'book/chapters/list.html.twig' with { bookId: bookId, chapters: chapters } only %}
                     </div>
