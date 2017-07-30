@@ -5,11 +5,11 @@
     <span class="fa fa-key logo-icon"></span>
     <span class="h4">
         {{ 'scene.tabs.items' | trans }}
-        <button class="btn btn-sm btn-success js-load-form" title="{{ 'item.actions.create' | trans }}">
+        <button class="btn btn-xs btn-success js-load-form" title="{{ 'item.actions.create' | trans }}">
             <span class="fa fa-plus"></span>
         </button>
         {% if chapterId %}
-            <button class="btn btn-sm btn-default js-load-sublist"
+            <button class="btn btn-xs btn-default js-load-sublist"
                     title="{{ 'item.actions.add_existing' | trans }}"
                     data-list-url="{{ path('app_item_related', { id: sceneId }) }}"
             >
@@ -21,31 +21,32 @@
         {% for item in items -%}
             <li>
                 <span class="sublist-label">{{ item | truncate(15) }}</span>
-                <button class="js-load-form js-edit-form btn btn-xs btn-primary"
-                    data-form-url="{{ path('app_item_edit', { id: item.id }) }}"
-                    title="{{ 'crud.edit' | trans }}"
-                >
-                    <span class="fa fa-edit"></span>
-                </button>
-                <button class="js-display btn btn-xs btn-default"
-                    data-display-url="{{ path('app_item_display', { id: item.id }) }}"
-                    title="{{ 'crud.display' | trans }}"
-                >
-                    <span class="fa fa-eye"></span>
-                </button>
-                <button class="js-list-delete js-delete btn btn-xs btn-warning"
-                    data-delete-url="{{ path('app_item_remove_from_scene', { scene_id: sceneId, item_id: item.id }) }}"
-                    title="{{ 'crud.remove_from_scene' | trans }}"
-                >
-                    <span class="fa fa-scissors"></span>
-                </button>
-                <button class="js-list-delete js-delete btn btn-xs btn-danger"
-                    data-delete-url="{{ path('app_item_delete', { id: item.id }) }}"
-                    title="{{ 'crud.delete' | trans }}"
-                >
-                    <span class="fa fa-trash"></span>
-                </button>
-
+                <span class="list-actions">
+                    <button class="js-load-form js-edit-form btn btn-xs btn-primary"
+                        data-form-url="{{ path('app_item_edit', { id: item.id }) }}"
+                        title="{{ 'crud.edit' | trans }}"
+                    >
+                        <span class="fa fa-edit"></span>
+                    </button>
+                    <button class="js-display btn btn-xs btn-default"
+                        data-display-url="{{ path('app_item_display', { id: item.id }) }}"
+                        title="{{ 'crud.display' | trans }}"
+                    >
+                        <span class="fa fa-eye"></span>
+                    </button>
+                    <button class="js-list-delete js-delete btn btn-xs btn-warning"
+                        data-delete-url="{{ path('app_item_remove_from_scene', { scene_id: sceneId, item_id: item.id }) }}"
+                        title="{{ 'crud.remove_from_scene' | trans }}"
+                    >
+                        <span class="fa fa-scissors"></span>
+                    </button>
+                    <button class="js-list-delete js-delete btn btn-xs btn-danger"
+                        data-delete-url="{{ path('app_item_delete', { id: item.id }) }}"
+                        title="{{ 'crud.delete' | trans }}"
+                    >
+                        <span class="fa fa-trash"></span>
+                    </button>
+                </span>
             </li>
         {%- endfor %}
     </ul>

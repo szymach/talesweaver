@@ -5,18 +5,20 @@
         {% for scene in scenes %}
             <li>
                 <span class="sublist-label">{{ scene }}</span>
-                <button class="js-load-form js-edit-form btn btn-xs btn-primary"
-                    data-form-url="{{ path('app_scene_edit', { id: scene.id }) }}"
-                    title="{{ 'crud.edit' | trans }}"
-                >
-                    <span class="fa fa-edit"></span>
-                </button>
-                <button class="js-list-delete js-delete btn btn-xs btn-danger"
-                    data-delete-url="{{ path('app_scene_delete', { id: scene.id }) }}"
-                    title="{{ 'crud.delete' | trans }}"
-                >
-                    <span class="fa fa-trash"></span>
-                </button>
+                <span class="pull-right" style="padding-right: 5px;">
+                    <a class="btn btn-xs btn-primary"
+                        href="{{ path('app_scene_edit', { id: scene.id }) }}"
+                        title="{{ 'crud.edit' | trans }}"
+                    >
+                        <span class="fa fa-edit"></span>
+                    </a>
+                    <button class="js-list-delete js-delete btn btn-xs btn-danger"
+                        data-delete-url="{{ path('app_scene_delete', { id: scene.id }) }}"
+                        title="{{ 'crud.delete' | trans }}"
+                    >
+                        <span class="fa fa-trash"></span>
+                    </button>
+                </span>
             </li>
         {% endfor %}
     </ul>

@@ -11,14 +11,11 @@ class EventsExtension extends Twig_Extension
     public function getFilters()
     {
         return [
-            new Twig_SimpleFilter('eventTemplateName', [$this, 'getEventTemplateNameFilter'])
+            new Twig_SimpleFilter('eventTemplateName', function (JsonSerializable $model) {
+                $fqcn = explode('\\', get_class($model));
+
+                return sprintf('scene/events/%s.html.twig', mb_strtolower(end($fqcn)));
+            })
         ];
-    }
-
-    public function getEventTemplateNameFilter(JsonSerializable $model)
-    {
-        $fqcn = explode('\\', get_class($model));
-
-        return mb_strtolower(end($fqcn));
     }
 }
