@@ -18,8 +18,9 @@ class SimpleFormView
         $this->templating = $templating;
     }
 
-    public function createView(FormInterface $form, $template) : Response
+    public function createView(FormInterface $form, $template, array $fields = []) : Response
     {
-        return $this->templating->renderResponse($template, ['form' => $form->createView()]);
+        $fields['form'] = $form->createView();
+        return $this->templating->renderResponse($template, $fields);
     }
 }

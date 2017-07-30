@@ -1,46 +1,32 @@
-<div class="row">
-    <div class="col-xs-12 col-sm-offset-6 col-sm-6">
-        {{ form_start(sceneForm) }}
-            {{ form_rest(sceneForm) }}
-            <button class="btn btn-primary">{{ 'crud.save' | trans }}</button>
-        {{ form_end(sceneForm) }}
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-12 text-right js-ajax-pagination" data-container="#scenes">
-        {% include 'partial/pagination.html.twig' with {
-            paginator: scenes,
-            route: 'app_chapter_scenes_list',
-            parameters: { id: chapterId } }
-        %}
-    </div>
-</div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>{{ 'scene.title' | trans }}</th>
-            <th>{{ 'crud.actions' | trans }}</th>
-        </tr>
-    </thead>
-    <tbody>
+<li class="chapters js-list" data-list-url="{{ path('app_chapter_scenes_list', { id: chapterId }) }}">
+    <span class="fa fa-book logo-icon"></span>
+    <span class="h4">{{ 'chapter.scenes'|trans }}</span>
+    <ul>
         {% for scene in scenes %}
-            <tr>
-                <td>{{ scene }}</td>
-                <td>
-                    <a class="btn btn-primary"
-                       href="{{ path('app_scene_edit', { id: scene.id }) }}"
-                       title="{{ 'crud.edit' | trans }}"
-                    >
-                        <span class="fa fa-edit"></span>
-                    </a>
-                    <a class="btn btn-danger js-delete"
-                       href="{{ path('app_scene_delete', { id: scene.id }) }}"
-                       title="{{ 'crud.delete' | trans }}"
-                    >
-                        <span class="fa fa-trash"></span>
-                    </a>
-                </td>
-            </tr>
+            <li>
+                <span class="sublist-label">{{ scene }}</span>
+                <button class="js-load-form js-edit-form btn btn-xs btn-primary"
+                    data-form-url="{{ path('app_scene_edit', { id: scene.id }) }}"
+                    title="{{ 'crud.edit' | trans }}"
+                >
+                    <span class="fa fa-edit"></span>
+                </button>
+                <button class="js-list-delete js-delete btn btn-xs btn-danger"
+                    data-delete-url="{{ path('app_scene_delete', { id: scene.id }) }}"
+                    title="{{ 'crud.delete' | trans }}"
+                >
+                    <span class="fa fa-trash"></span>
+                </button>
+            </li>
         {% endfor %}
-    </tbody>
-</table>
+    </ul>
+    {% form_theme sceneForm 'bootstrap_3_layout.html.twig' %}
+    {{ form_start(sceneForm) }}
+        {{ form_row(sceneForm.title, { label: false }) }}
+        <div style="display: none;">{{ form_row(sceneForm.chapter) }}</div>
+        {{ form_rest(sceneForm) }}
+        <button style="display: block; width: 100%; margin-top: 10px;"class="btn btn-primary btn-sm">
+            {{- 'chapter.actions.add_scene' | trans -}}
+        </button>
+    {{ form_end(sceneForm) }}
+</li>

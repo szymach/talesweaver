@@ -35,12 +35,14 @@ chapter:
     title: Tytuł
     placeholder:
         title: Tytuł nowego rozdziału
+        book: Wybierz ...
     scenes: Sceny
     book: Książka
     actions:
         create: Nowy
+        add_scene: Dodaj
     header:
-        new: Nowy rozdział
+        create: Nowy rozdział
     back:
         to_book: Wróć do książki
         to_list: Wróć do listy
@@ -51,6 +53,8 @@ chapter:
 scene:
     title: Tytuł
     text: Treść
+    placeholder:
+        title: Tytuł nowej sceny
     chapter: Rozdział
     book: Książka
     actions:

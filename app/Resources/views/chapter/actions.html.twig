@@ -1,12 +1,17 @@
-{% extends 'partial/backButton.html.twig' %}
+{% extends 'partial/topMenu/actions.html.twig' %}
+
 {% block additionalActions %}
-    <a href="{{ path('app_chapter_display', { id: chapterId }) }}" class="btn btn-default" target="_blank" title="{{ 'display.go_to' | trans }}">
-        <span class="fa fa-eye"></span>
-        {{ 'display.label' | trans }}
-    </a>
-    <a href="{{ path('app_chapter_pdf', { id: chapterId }) }}" class="btn btn-default" target="_blank" title="{{ 'pdf.render' | trans }}">
-        <span class="fa fa-file-pdf-o"></span>
-        {{ 'pdf.label' | trans }}
-    </a>
+    <li>
+        <a href="{{ path('app_chapter_display', { id: chapterId }) }}" target="_blank" title="{{ 'display.go_to' | trans }}">
+            <span class="fa fa-eye"></span>
+            {{ 'display.label' | trans }}
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('app_chapter_pdf', { id: chapterId }) }}" target="_blank" title="{{ 'pdf.render' | trans }}">
+            <span class="fa fa-file-pdf-o"></span>
+            {{ 'pdf.label' | trans }}
+        </a>
+    </li>
 {% endblock %}
 

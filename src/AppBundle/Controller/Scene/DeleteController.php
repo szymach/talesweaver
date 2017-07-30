@@ -7,6 +7,8 @@ use AppBundle\Routing\RedirectToEdit;
 use AppBundle\Routing\RedirectToList;
 use AppBundle\Scene\Delete\Command;
 use SimpleBus\Message\Bus\MessageBus;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class DeleteController
 {
@@ -35,10 +37,14 @@ class DeleteController
         $this->listRedirector = $listRedirector;
     }
 
-    public function __invoke(Scene $scene, $page)
+    public function __invoke(Request $request, Scene $scene, $page)
     {
         $chapterId = $scene->getChapter() ? $scene->getChapter()->getId() : null;
         $this->commandBus->handle(new Command($scene->getId()));
+
+        if ($request->isXmlHttpRequest()) {
+            return new JsonResponse(['success' => true]);
+        }
 
         return $chapterId
             ? $this->editRedirector->createResponse('app_chapter_edit', $chapterId)

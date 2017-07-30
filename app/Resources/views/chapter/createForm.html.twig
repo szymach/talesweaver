@@ -1,16 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% block seo_title 'chapter.header.create' | trans %}
 
-{% set chapter = form.vars.data %}
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block top_menu_right %}
+    {% include 'partial/topMenu/actions.html.twig' with {
+        returnUrl: bookId ? path('app_book_edit', { id: bookId }) : path('app_chapter_list'),
+        returnLabel: bookId ? 'chapter.back.to_book' | trans : 'chapter.back.to_list' | trans
+    } %}
+{% endblock %}
 
 {% block body %}
-    {% set book = chapter.book %}
-    {% include 'partial/backButton.html.twig' with {
-        redirectUri: book ? path('app_book_edit', { id: book.id }) : path('app_chapter_list'),
-        label: book ? 'chapter.back.to_book' | trans : 'chapter.back.to_list' | trans
-    } %}
-    <h1>{{ 'chapter.header.new' | trans }}</h1>
     <div class="row">
         <div class="col-xs-12">
             {{ form_start(form) }}

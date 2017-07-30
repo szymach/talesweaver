@@ -22,6 +22,7 @@ class CreateType extends AbstractType
 
         $builder->add('book', EntityType::class, [
             'label' => 'chapter.book',
+            'placeholder' => 'chapter.placeholder.book',
             'class' => Book::Class,
             'required' => false
         ]);

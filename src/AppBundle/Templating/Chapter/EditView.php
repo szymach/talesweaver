@@ -54,6 +54,7 @@ class EditView
                 'form' => $form->createView(),
                 'scenes' => $this->pagination->getResults($chapter, 1),
                 'chapterId' => $chapter->getId(),
+                'bookId' => $chapter->getBook() ? $chapter->getBook()->getId() : null,
                 'title' => $chapter->getTitle($chapter),
                 'sceneForm' => $this->createSceneForm($chapter)->createView()
             ]

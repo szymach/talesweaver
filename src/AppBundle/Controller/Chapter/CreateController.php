@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Chapter;
 
 use AppBundle\Chapter\Create\Command;
 use AppBundle\Chapter\Create\DTO;
+use AppBundle\Entity\Book;
 use AppBundle\Form\Chapter\CreateType;
 use AppBundle\Routing\RedirectToEdit;
 use AppBundle\Templating\SimpleFormView;
@@ -48,8 +49,7 @@ class CreateController
 
     public function __invoke(Request $request)
     {
-        $dto = new DTO();
-        $form = $this->formFactory->create(CreateType::class, $dto);
+        $form = $this->formFactory->create(CreateType::class, new DTO());
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $chapterId = Uuid::uuid4();
             $this->commandBus->handle(new Command($chapterId, $form->getData()));
@@ -57,6 +57,12 @@ class CreateController
             return $this->redirector->createResponse('app_chapter_edit', $chapterId);
         }
 
-        return $this->templating->createView($form, 'chapter/createForm.html.twig');
+        /* @var $book Book */
+        $book = $form->get('book')->getData();
+        return $this->templating->createView(
+            $form,
+            'chapter/createForm.html.twig',
+            ['bookId' => $book ? $book->getId() : null]
+        );
     }
 }
