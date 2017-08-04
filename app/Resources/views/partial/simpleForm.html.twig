@@ -1,12 +1,14 @@
-{% form_theme form 'form/form_theme.html.twig' %}
+{% form_theme form 'form/simple_form_theme.html.twig' %}
 
 <div class="row">
     <div class="col-xs-12">
     {% if title is defined %}<h2>{{ title | trans }}</h2>{% endif %}
     {{ form_start(form) }}
         {{ form_rest(form) }}
-        <div class="form-group text-right">
-            <button class="btn btn-primary">{{ 'crud.save' | trans }}</button>
+        <div class="form-group">
+            <div class="col-xs-12 text-right">
+                <button class="btn btn-primary">{{ 'crud.save' | trans }}</button>
+            </div>
         </div>
     {{ form_end(form) }}
     </div>
