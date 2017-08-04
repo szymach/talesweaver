@@ -154,6 +154,9 @@ modal:
     deletion_confirmation: Czy na pewno chcesz usunąć wybrany element?
     close: Zamknij
 
+side_menu:
+    toggle_navigation: Pokaż/ukryj menu
+
 yes: Tak
 no: Nie
 
