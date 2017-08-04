@@ -1,0 +1,13 @@
+{% extends 'bootstrap_3_layout.html.twig' %}
+
+{% block form_row -%}
+    {% set row_class = 'form_group ' ~ (row_class ?? '') %}
+    {% if (not compound or force_error|default(false)) and not valid %}
+        {% set row_class = row_class ~ ' has-error'%}
+    {% endif %}
+    <div class="{{ row_class }}" style="margin-bottom: 10px;">
+        {{- form_label(form) -}}
+        {{- form_widget(form) -}}
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock form_row %}
