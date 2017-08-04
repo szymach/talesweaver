@@ -21,7 +21,7 @@ class FormControllerCest
     public function renderView(FunctionalTester $I)
     {
         $I->amOnPage(self::CREATE_URL);
-        $I->see('Nowa scena', 'h1');
+        $I->seeInTitle('Nowa scena');
         $I->seeElement(self::CREATE_FORM);
         $I->see('Tytuł', 'label[for="create_title"]');
         $I->see('Rozdział', 'label[for="create_chapter"]');
@@ -38,7 +38,7 @@ class FormControllerCest
         ]);
         $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $scene->getId()));
         $I->seeElement(self::EDIT_FORM);
-        $I->see(self::TITLE_PL, 'h1');
+        $I->seeInTitle(self::TITLE_PL);
         $I->see('Podgląd', 'a');
         $I->see('Wróć do listy', 'a');
         $I->seeElement('nav.side-menu');
@@ -52,6 +52,6 @@ class FormControllerCest
             'edit[text]' => self::NEW_CONTENT_PL
         ]);
         $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $scene->getId()));
-        $I->see(self::NEW_TITLE_PL, 'h1');
+        $I->seeInTitle(self::NEW_TITLE_PL);
     }
 }

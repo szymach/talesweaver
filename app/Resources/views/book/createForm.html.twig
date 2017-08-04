@@ -5,7 +5,7 @@
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 
 {% block top_menu_right %}
-    {% include 'partial/topMenu/actions.htmt.twig' with {
+    {% include 'partial/topMenu/actions.html.twig' with {
         returnUrl: path('app_book_list', { page: app.request.get('page', 1) }),
         returnLabel: 'book.back.to_list' | trans
     } %}

@@ -21,10 +21,10 @@ class FormControllerCest
     public function renderView(FunctionalTester $I)
     {
         $I->amOnPage(self::CREATE_URL);
-        $I->see('Nowa książka', 'h1');
+        $I->seeInTitle('Nowa książka');
         $I->seeElement(self::CREATE_FORM);
         $I->see('Tytuł', 'label[for="create_title"]');
-        $I->see('Opis (publiczny)', 'label[for="create_description"]');
+        $I->see('Opis', 'label[for="create_description"]');
     }
 
     public function submitForms(FunctionalTester $I)
@@ -42,13 +42,13 @@ class FormControllerCest
         $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $book->getId()));
 
         $I->seeElement(self::EDIT_FORM);
-        $I->see(self::TITLE_PL, 'h1');
+        $I->seeInTitle(self::TITLE_PL);
         $I->submitForm(self::EDIT_FORM, [
             'edit[title]' => self::NEW_TITLE_PL,
             'edit[description]' => self::NEW_DESCRIPTION_PL
         ]);
 
         $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $book->getId()));
-        $I->see(self::NEW_TITLE_PL, 'h1');
+        $I->seeInTitle(self::NEW_TITLE_PL);
     }
 }

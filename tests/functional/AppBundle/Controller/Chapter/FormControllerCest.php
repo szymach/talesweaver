@@ -23,7 +23,7 @@ class FormControllerCest
     public function renderView(FunctionalTester $I)
     {
         $I->amOnPage(self::CREATE_URL);
-        $I->see('Nowy rozdział', 'h1');
+        $I->seeInTitle('Nowy rozdział');
         $I->seeElement(self::CREATE_FORM);
         $I->see('Tytuł', 'label[for="create_title"]');
     }
@@ -38,19 +38,17 @@ class FormControllerCest
         ]);
         $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $chapter->getId()));
         $I->seeElement(self::EDIT_FORM);
-        $I->canSee(self::TITLE_PL, 'h1');
-        $I->canSee('Sceny', 'h2');
+        $I->seeInTitle(self::TITLE_PL);
         $I->seeElement(self::SCENE_CREATE_FORM);
-        $I->seeElement('table');
 
         $I->submitForm(self::EDIT_FORM, ['edit[title]' => self::NEW_TITLE_PL]);
 
         $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $chapter->getId()));
-        $I->see(self::NEW_TITLE_PL, 'h1');
+        $I->seeInTitle(self::NEW_TITLE_PL);
 
         $I->submitForm(self::SCENE_CREATE_FORM, ['create[title]' => self::SCENE_TITLE_PL]);
         $scene = $I->grabEntityFromRepository(Scene::class);
         $I->seeCurrentUrlEquals(sprintf(self::SCENE_EDIT_URL, $scene->getId()));
-        $I->canSee(self::SCENE_TITLE_PL, 'h1');
+        $I->seeInTitle(self::SCENE_TITLE_PL);
     }
 }
