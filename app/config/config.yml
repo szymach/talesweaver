@@ -75,7 +75,7 @@ ivory_ck_editor:
     configs:
         full_size:
             disableNativeSpellChecker: false
-            height: 500
+            height: 650
             toolbar: standard
         small_size:
             disableNativeSpellChecker: false

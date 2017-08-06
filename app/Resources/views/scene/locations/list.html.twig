@@ -34,12 +34,14 @@
                     >
                         <span class="fa fa-eye"></span>
                     </button>
-                    <button class="js-list-delete js-delete btn btn-xs btn-warning"
-                        data-delete-url="{{ path('app_location_remove_from_scene', { scene_id: sceneId, location_id: location.id }) }}"
-                        title="{{ 'crud.remove_from_scene' | trans }}"
-                    >
-                        <span class="fa fa-scissors"></span>
-                    </button>
+                    {% if chapterId %}
+                        <button class="js-list-delete js-delete btn btn-xs btn-warning"
+                            data-delete-url="{{ path('app_location_remove_from_scene', { scene_id: sceneId, location_id: location.id }) }}"
+                            title="{{ 'crud.remove_from_scene' | trans }}"
+                        >
+                            <span class="fa fa-scissors"></span>
+                        </button>
+                    {% endif %}
                     <button class="js-list-delete js-delete btn btn-xs btn-danger"
                         data-delete-url="{{ path('app_location_delete', { id: location.id }) }}"
                         title="{{ 'crud.delete' | trans }}"
