@@ -3,11 +3,14 @@
 namespace AppBundle\Location\Edit;
 
 use AppBundle\Entity\Location;
+use AppBundle\Traits\IdentityTrait;
 use FSi\DoctrineExtensions\Uploadable\File;
 use SplFileInfo;
 
 class DTO
 {
+    use IdentityTrait;
+
     /**
      * @var string
      */
@@ -25,6 +28,7 @@ class DTO
 
     public function __construct(Location $location)
     {
+        $this->id = $location->getId();
         $this->name = $location->getName();
         $this->description = $location->getDescription();
         $this->avatar = $location->getAvatar();

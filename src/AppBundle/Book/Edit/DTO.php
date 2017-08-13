@@ -3,9 +3,12 @@
 namespace AppBundle\Book\Edit;
 
 use AppBundle\Entity\Book;
+use AppBundle\Traits\IdentityTrait;
 
 class DTO
 {
+    use IdentityTrait;
+
     /**
      * @var string
      */
@@ -18,37 +21,26 @@ class DTO
 
     public function __construct(Book $book)
     {
+        $this->id = $book->getId();
         $this->title = $book->getTitle();
         $this->description = $book->getDescription();
     }
 
-    /**
-     * @param string $title
-     */
     public function setTitle(?string $title)
     {
         $this->title = $title;
     }
 
-    /**
-     * @return string
-     */
     public function getTitle() : ?string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $description
-     */
     public function setDescription(?string $description)
     {
         $this->description = $description;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription() : ?string
     {
         return $this->description;

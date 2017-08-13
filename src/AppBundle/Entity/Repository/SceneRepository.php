@@ -3,10 +3,13 @@
 namespace AppBundle\Entity\Repository;
 
 use AppBundle\Entity\Chapter;
+use AppBundle\Entity\Repository\Traits\ValidationTrait;
 use Doctrine\ORM\QueryBuilder;
 
 class SceneRepository extends TranslatableRepository
 {
+    use ValidationTrait;
+
     public function createStandaloneQb() : QueryBuilder
     {
         return $this->createQueryBuilder('s')->where('s.chapter IS NULL');

@@ -3,9 +3,12 @@
 namespace AppBundle\Entity\Repository;
 
 use AppBundle\Entity\Book;
+use AppBundle\Entity\Repository\Traits\ValidationTrait;
 
 class ChapterRepository extends TranslatableRepository
 {
+    use ValidationTrait;
+
     public function createStandaloneQb()
     {
         return $this->createQueryBuilder('c')->where('c.book IS NULL');
@@ -29,4 +32,5 @@ class ChapterRepository extends TranslatableRepository
             ->getResult()
         ;
     }
+
 }

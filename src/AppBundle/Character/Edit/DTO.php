@@ -3,11 +3,14 @@
 namespace AppBundle\Character\Edit;
 
 use AppBundle\Entity\Character;
+use AppBundle\Traits\IdentityTrait;
 use FSi\DoctrineExtensions\Uploadable\File;
 use SplFileInfo;
 
 class DTO
 {
+    use IdentityTrait;
+
     /**
      * @var string
      */
@@ -25,6 +28,7 @@ class DTO
 
     public function __construct(Character $character)
     {
+        $this->id = $character->getId();
         $this->name = $character->getName();
         $this->avatar = $character->getAvatar();
         $this->description = $character->getDescription();

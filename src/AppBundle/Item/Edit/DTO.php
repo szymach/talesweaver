@@ -3,11 +3,14 @@
 namespace AppBundle\Item\Edit;
 
 use AppBundle\Entity\Item;
+use AppBundle\Traits\IdentityTrait;
 use FSi\DoctrineExtensions\Uploadable\File;
 use SplFileInfo;
 
 class DTO
 {
+    use IdentityTrait;
+
     /**
      * @var string
      */
@@ -25,6 +28,7 @@ class DTO
 
     public function __construct(Item $item)
     {
+        $this->id = $item->getId();
         $this->name = $item->getName();
         $this->description = $item->getDescription();
         $this->avatar = $item->getAvatar();

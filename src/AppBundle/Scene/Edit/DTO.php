@@ -4,9 +4,12 @@ namespace AppBundle\Scene\Edit;
 
 use AppBundle\Entity\Chapter;
 use AppBundle\Entity\Scene;
+use AppBundle\Traits\IdentityTrait;
 
 class DTO
 {
+    use IdentityTrait;
+
     /**
      * @var string
      */
@@ -24,6 +27,7 @@ class DTO
 
     public function __construct(Scene $scene)
     {
+        $this->id = $scene->getId();
         $this->title = $scene->getTitle();
         $this->text = $scene->getText();
         $this->chapter = $scene->getChapter();

@@ -1,4 +1,26 @@
 ---
 event:
+    exists: Wydarzenie o danej nazwie już istnieje!
     meeting:
         cannot_meet_itself: Postać nie może spotkać samej siebie.
+
+unqiue_dto:
+    exists: Podana wartość jest już używana!
+
+book:
+    exists: Książka o danym tytule już istnieje!
+
+chapter:
+    exists: Rozdział o podanym tytule już istnieje!
+
+scene:
+    exists: Scena o podanym tytule już istnieje!
+
+character:
+    exists: Postać o danym imieniu już istnieje!
+
+item:
+    exists: Przedmiot o tej nazwie już istnieje!
+
+location:
+    exists: Miejsce o danej nazwie już istnieje!

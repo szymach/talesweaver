@@ -4,9 +4,12 @@ namespace AppBundle\Chapter\Edit;
 
 use AppBundle\Entity\Book;
 use AppBundle\Entity\Chapter;
+use AppBundle\Traits\IdentityTrait;
 
 class DTO
 {
+    use IdentityTrait;
+
     /**
      * @var string
      */
@@ -19,6 +22,7 @@ class DTO
 
     public function __construct(Chapter $chapter)
     {
+        $this->id = $chapter->getId();
         $this->title = $chapter->getTitle();
         $this->book = $chapter->getBook();
     }

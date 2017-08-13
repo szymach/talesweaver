@@ -19,6 +19,9 @@ services:
     AppBundle\Templating\:
         resource: "../../src/AppBundle/Templating/*"
 
+    AppBundle\Validation\Constraints\:
+        resource: "../../src/AppBundle/Validation/Constraints/*"
+
     # Twig
     AppBundle\Twig\:
         resource: "../../src/AppBundle/Twig/*"

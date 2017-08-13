@@ -1,5 +1,12 @@
 ---
 AppBundle\Event\Create\DTO:
+    constraints:
+        - AppBundle\Validation\Constraints\UniqueDTO:
+            fields: { name: 't.name', scene: 'e.scene' }
+            repositoryMethod: entityExists
+            path: name
+            entityClass: AppBundle\Entity\Event
+            message: event.exists
     properties:
         name:
             - NotBlank: ~

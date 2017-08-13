@@ -1,10 +1,25 @@
 ---
 AppBundle\Chapter\Create\DTO:
+    constraints:
+        - AppBundle\Validation\Constraints\UniqueDTO:
+            fields: { title: 't.title', book: 'e.book' }
+            repositoryMethod: entityExists
+            path: title
+            entityClass: AppBundle\Entity\Chapter
+            message: chapter.exists
     properties:
         title:
             - NotBlank: ~
 
 AppBundle\Chapter\Edit\DTO:
+    constraints:
+        - AppBundle\Validation\Constraints\UniqueDTO:
+            fields: { title: 't.title', book: 'e.book' }
+            id: id
+            repositoryMethod: entityExists
+            path: title
+            entityClass: AppBundle\Entity\Chapter
+            message: chapter.exists
     properties:
         title:
             - NotBlank: ~

@@ -1,5 +1,12 @@
 ---
 AppBundle\Character\Create\DTO:
+    constraints:
+        - AppBundle\Validation\Constraints\UniqueDTO:
+            fields: { name: 't.name', scene: 'e.scenes' }
+            repositoryMethod: entityExists
+            path: name
+            entityClass: AppBundle\Entity\Character
+            message: character.exists
     properties:
         avatar:
             - FSi\Bundle\DoctrineExtensionsBundle\Validator\Constraints\Image: ~
@@ -7,6 +14,14 @@ AppBundle\Character\Create\DTO:
             - NotBlank: ~
 
 AppBundle\Character\Edit\DTO:
+    constraints:
+        - AppBundle\Validation\Constraints\UniqueDTO:
+            fields: { name: 't.name', scenes: 'e.scenes' }
+            id: id
+            repositoryMethod: entityExists
+            path: name
+            entityClass: AppBundle\Entity\Character
+            message: character.exists
     properties:
         avatar:
             - FSi\Bundle\DoctrineExtensionsBundle\Validator\Constraints\Image: ~
