@@ -42,6 +42,13 @@
                 {% endif %}
             </div>
         {% endif %}
+        <div class="row">
+            {% for name, event in timeline %}
+                <div class="col-xs-12">
+                    <b><i class="{{ event|keys|first }}"></i> {{ name|trans }}</b> {{ event|first }}
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 <div class="modal-footer">

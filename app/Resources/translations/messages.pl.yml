@@ -100,6 +100,8 @@ character:
         new: Nowa postać
         edit: Edycja postaci
         related: Dodawanie istniejącej postaci
+    timeline:
+        creation: 'Pojawił się w scene:'
 
 item:
     name: Nazwa

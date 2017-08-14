@@ -2,6 +2,7 @@
 
 namespace AppBundle\Templating\Character;
 
+use AppBundle\Character\TimelineFormatter;
 use AppBundle\Entity\Character;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -13,9 +14,17 @@ class DisplayView
      */
     private $templating;
 
-    public function __construct(EngineInterface $templating)
-    {
+    /**
+     * @var TimelineFormatter
+     */
+    private $timeline;
+
+    public function __construct(
+        EngineInterface $templating,
+        TimelineFormatter $timeline
+    ) {
         $this->templating = $templating;
+        $this->timeline = $timeline;
     }
 
     public function createView(Character $character) : JsonResponse
@@ -23,7 +32,10 @@ class DisplayView
         return new JsonResponse([
             'display' => $this->templating->render(
                 'scene\characters\display.html.twig',
-                ['character' => $character]
+                [
+                    'character' => $character,
+                    'timeline' => $this->timeline->getTimeline($character)
+                ]
             )
         ]);
     }

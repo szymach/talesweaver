@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\Repository;
 
 use AppBundle\Entity\Chapter;
+use AppBundle\Entity\Character;
 use AppBundle\Entity\Repository\Traits\ValidationTrait;
 use Doctrine\ORM\QueryBuilder;
 
@@ -31,6 +32,20 @@ class SceneRepository extends TranslatableRepository
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
+        ;
+    }
+
+    public function firstCharacterOccurence(Character $character): string
+    {
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('st.title')
+            ->from($this->getEntityName(), 's')
+            ->join('s.translations', 'st')
+            ->where(':character MEMBER OF s.characters')
+            ->setParameter('character', $character)
+            ->getQuery()
+            ->getSingleScalarResult()
         ;
     }
 }
