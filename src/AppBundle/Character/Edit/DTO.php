@@ -3,7 +3,9 @@
 namespace AppBundle\Character\Edit;
 
 use AppBundle\Entity\Character;
+use AppBundle\Entity\Scene;
 use AppBundle\Traits\IdentityTrait;
+use Doctrine\Common\Collections\Collection;
 use FSi\DoctrineExtensions\Uploadable\File;
 use SplFileInfo;
 
@@ -26,12 +28,18 @@ class DTO
      */
     private $avatar;
 
+    /**
+     * @var Scene[]|Collection
+     */
+    private $scenes;
+
     public function __construct(Character $character)
     {
         $this->id = $character->getId();
         $this->name = $character->getName();
         $this->avatar = $character->getAvatar();
         $this->description = $character->getDescription();
+        $this->scenes = $character->getScenes();
     }
 
     public function getName() : ?string
@@ -62,5 +70,10 @@ class DTO
     public function setAvatar($avatar)
     {
         $this->avatar = $avatar;
+    }
+
+    public function getScenes(): Collection
+    {
+        return $this->scenes;
     }
 }

@@ -37,7 +37,7 @@
             {% if chapterTitle and relatedScenes | length %}
                 <li>
                     <span class="fa fa-book logo-icon"></span>
-                    <span class="h4">{{ chapterTitle }}</span>
+                    <span class="h4">{{ chapterTitle | truncate(10) }}</span>
                     <ul>
                         {% for relatedScene in relatedScenes %}
                             <li><a href="{{ path('app_scene_edit', { id: relatedScene.id }) }}">{{ relatedScene.title }}</a></li>
