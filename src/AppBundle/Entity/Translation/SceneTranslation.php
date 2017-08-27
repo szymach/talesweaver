@@ -29,70 +29,37 @@ class SceneTranslation
      */
     private $scene;
 
-    /**
-     * @return integer
-     */
-    public function getId()
+    public function getId() : ?int
     {
         return $this->id;
     }
 
-    /**
-     * @param string $title
-     *
-     * @return SceneTranslation
-     */
-    public function setTitle($title)
+    public function setTitle(?string $title)
     {
         $this->title = $title;
-
-        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle() : ?string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $text
-     *
-     * @return SceneTranslation
-     */
-    public function setText($text)
+    public function setText(?string $text) : void
     {
         $this->text = $text;
-
-        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getText()
+    public function getText() : ?string
     {
         return $this->text;
     }
 
-    /**
-     * @param Scene $scene
-     *
-     * @return SceneTranslation
-     */
-    public function setScene(Scene $scene)
+    public function setScene(?Scene $scene) : void
     {
         $this->scene = $scene;
-
-        return $this;
     }
 
-    /**
-     * @return Scene
-     */
-    public function getScene()
+    public function getScene() : ?Scene
     {
         return $this->scene;
     }

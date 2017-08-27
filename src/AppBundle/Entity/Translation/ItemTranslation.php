@@ -29,58 +29,37 @@ class ItemTranslation
      */
     private $item;
 
-    /**
-     * @return integer
-     */
-    public function getId()
+    public function getId() : int
     {
         return $this->id;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName($name)
+    public function setName($name) : void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName() : ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $description
-     */
-    public function setDescription($description)
+    public function setDescription($description) : void
     {
         $this->description = $description;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription() : ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param Item $item
-     */
-    public function setItem(Item $item = null)
+    public function setItem(?Item $item) : void
     {
         $this->item = $item;
     }
 
-    /**
-     * @return Item
-     */
-    public function getItem()
+    public function getItem() : ?Item
     {
         return $this->item;
     }

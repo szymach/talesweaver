@@ -79,7 +79,7 @@ event:
         new: Nowe wydarzenie
     'AppBundle\Model\Meeting':
         name: Spotkanie
-        description: '%root% spotkał %relation% w %location%'
+        description: '<span class="underline">%root%</span> spotkał <span class="underline">%relation%</span> w <span class="underline">%location%</span>'
         fields:
             root: Pierwsza osoba
             relation: Druga osoba

@@ -65,7 +65,7 @@ class Item
 
     public function __toString()
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     public function edit(EditDTO $dto)
@@ -74,52 +74,34 @@ class Item
         $this->description = $dto->getDescription();
     }
 
-    /**
-     * @return UuidInterface
-     */
     public function getId() : UuidInterface
     {
         return $this->id;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName($name)
+    public function setName(?string $name) : void
     {
         $this->name = $name;
         $this->update();
     }
 
-    /**
-     * @return string
-     */
-    public function getName() : string
+    public function getName() : ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $description
-     */
-    public function setDescription(?string $description)
+    public function setDescription(?string $description) : void
     {
         $this->description = $description;
         $this->update();
     }
 
-    /**
-     * @return string
-     */
     public function getDescription() : ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param Scene $scene
-     */
-    public function addScene(Scene $scene)
+    public function addScene(Scene $scene) : void
     {
         if (!$this->scenes->contains($scene)) {
             $this->scenes[] = $scene;
@@ -127,34 +109,22 @@ class Item
         }
     }
 
-    /**
-     * @param Scene $scene
-     */
-    public function removeScene(Scene $scene)
+    public function removeScene(Scene $scene) : void
     {
         $this->scenes->removeElement($scene);
         $this->update();
     }
 
-    /**
-     * @return Scene[]|Collection
-     */
     public function getScenes() : Collection
     {
         return $this->scenes;
     }
 
-    /**
-     * @return Character[]|Collection
-     */
     public function getCharacters() : Collection
     {
         return $this->characters;
     }
 
-    /**
-     * @return Location[]|Collection
-     */
     public function getLocations() : Collection
     {
         return $this->locations;

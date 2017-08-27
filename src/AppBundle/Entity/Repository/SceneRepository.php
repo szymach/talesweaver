@@ -35,7 +35,7 @@ class SceneRepository extends TranslatableRepository
         ;
     }
 
-    public function firstCharacterOccurence(Character $character): string
+    public function firstCharacterOccurence(Character $character) : string
     {
         return $this->getEntityManager()
             ->createQueryBuilder()

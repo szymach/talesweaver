@@ -29,70 +29,37 @@ class CharacterTranslation
      */
     private $character;
 
-    /**
-     * @return integer
-     */
-    public function getId()
+    public function getId() : ?int
     {
         return $this->id;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return CharacterTranslation
-     */
-    public function setName($name)
+    public function setName(?string $name)
     {
         $this->name = $name;
-
-        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName() : ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $description
-     *
-     * @return CharacterTranslation
-     */
-    public function setDescription($description)
+    public function setDescription(?string $description)
     {
         $this->description = $description;
-
-        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription() : ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param Character $character
-     *
-     * @return CharacterTranslation
-     */
-    public function setCharacter(Character $character = null)
+    public function setCharacter(?Character $character)
     {
         $this->character = $character;
-
-        return $this;
     }
 
-    /**
-     * @return Character
-     */
-    public function getCharacter()
+    public function getCharacter() : ?Character
     {
         return $this->character;
     }

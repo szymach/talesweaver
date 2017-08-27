@@ -29,58 +29,37 @@ class BookTranslation
      */
     private $book;
 
-    /**
-     * @return integer
-     */
-    public function getId()
+    public function getId() : ?int
     {
         return $this->id;
     }
 
-    /**
-     * @param string $title
-     */
-    public function setTitle($title)
+    public function setTitle(?string $title) : void
     {
         $this->title = $title;
     }
 
-    /**
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle() : ?string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $description
-     */
-    public function setDescription($description)
+    public function setDescription(?string $description) : void
     {
         $this->description = $description;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription() : ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param Book $book
-     */
-    public function setBook(Book $book = null)
+    public function setBook(?Book $book) : void
     {
         $this->book = $book;
     }
 
-    /**
-     * @return Book
-     */
-    public function getBook()
+    public function getBook() : ?Book
     {
         return $this->book;
     }

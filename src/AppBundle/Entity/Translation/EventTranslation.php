@@ -28,37 +28,37 @@ class EventTranslation
      */
     private $event;
 
-    public function getId()
+    public function getId() : ?int
     {
         return $this->id;
     }
 
-    public function getName()
+    public function getName() : ?string
     {
         return $this->name;
     }
 
-    public function setName($name)
+    public function setName(?string $name)
     {
         $this->name = $name;
     }
 
-    public function getDescription()
+    public function getDescription() : ?string
     {
         return $this->description;
     }
 
-    public function setDescription($description)
+    public function setDescription(?string $description) : void
     {
         $this->description = $description;
     }
 
-    public function getEvent()
+    public function getEvent() : ?Event
     {
         return $this->event;
     }
 
-    public function setEvent(Event $event = null)
+    public function setEvent(?Event $event) : void
     {
         $this->event = $event;
     }

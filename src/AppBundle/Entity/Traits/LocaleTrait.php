@@ -9,12 +9,12 @@ trait LocaleTrait
      */
     private $locale;
 
-    public function getLocale()
+    public function getLocale() : ?string
     {
         return $this->locale;
     }
 
-    public function setLocale($locale)
+    public function setLocale(?string $locale) : void
     {
         $this->locale = $locale;
     }

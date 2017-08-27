@@ -24,50 +24,27 @@ class ChapterTranslation
      */
     private $chapter;
 
-    /**
-     * @return integer
-     */
-    public function getId()
+    public function getId() : ?int
     {
         return $this->id;
     }
 
-    /**
-     * @param string $title
-     *
-     * @return ChapterTranslation
-     */
-    public function setTitle($title)
+    public function setTitle(?string $title) : void
     {
         $this->title = $title;
-
-        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle() : ?string
     {
         return $this->title;
     }
 
-    /**
-     * @param Chapter $chapter
-     *
-     * @return ChapterTranslation
-     */
-    public function setChapter(Chapter $chapter = null)
+    public function setChapter(?Chapter $chapter) : void
     {
         $this->chapter = $chapter;
-
-        return $this;
     }
 
-    /**
-     * @return Chapter
-     */
-    public function getChapter()
+    public function getChapter() : ?Chapter
     {
         return $this->chapter;
     }

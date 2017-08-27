@@ -65,78 +65,54 @@ class Scene
 
     public function __toString()
     {
-        return $this->title;
+        return (string) $this->title;
     }
 
-    public function edit(Edit\DTO $dto)
+    public function edit(Edit\DTO $dto) : void
     {
         $this->title = $dto->getTitle();
         $this->text = $dto->getText();
         $this->chapter = $dto->getChapter();
     }
 
-    /**
-     * @return UuidInterface
-     */
     public function getId() : UuidInterface
     {
         return $this->id;
     }
 
-    /**
-     * @param string $title
-     */
-    public function setTitle(string $title)
+    public function setTitle(?string $title) : void
     {
         $this->title = $title;
         $this->update();
     }
 
-    /**
-     * @return string
-     */
-    public function getTitle() : string
+    public function getTitle() : ?string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $text
-     */
-    public function setText(?string $text)
+    public function setText(?string $text) : void
     {
         $this->text = $text;
         $this->update();
     }
 
-    /**
-     * @return string
-     */
     public function getText() : ?string
     {
         return $this->text;
     }
 
-    /**
-     * @param Chapter|null $chapter
-     */
-    public function setChapter(?Chapter $chapter)
+    public function setChapter(?Chapter $chapter) : void
     {
         $this->chapter = $chapter;
         $this->update();
     }
 
-    /**
-     * @return Chapter|null
-     */
     public function getChapter() : ?Chapter
     {
         return $this->chapter;
     }
 
-    /**
-     * @return Book|null
-     */
     public function getBook() : ?Book
     {
         $book = null;
@@ -147,10 +123,7 @@ class Scene
         return $book;
     }
 
-    /**
-     * @param Character $character
-     */
-    public function addCharacter(Character $character)
+    public function addCharacter(Character $character) : void
     {
         if (!$this->characters->contains($character)) {
             $character->addScene($this);
@@ -159,27 +132,18 @@ class Scene
         }
     }
 
-    /**
-     * @param Character $character
-     */
-    public function removeCharacter(Character $character)
+    public function removeCharacter(Character $character) : void
     {
         $this->characters->removeElement($character);
         $this->update();
     }
 
-    /**
-     * @return Character[]|Collection
-     */
     public function getCharacters() : Collection
     {
         return $this->characters;
     }
 
-    /**
-     * @param Location $location
-     */
-    public function addLocation(Location $location)
+    public function addLocation(Location $location) : void
     {
         if (!$this->locations->contains($location)) {
             $location->addScene($this);
@@ -188,27 +152,18 @@ class Scene
         }
     }
 
-    /**
-     * @param Location $location
-     */
-    public function removeLocation(Location $location)
+    public function removeLocation(Location $location) : void
     {
         $this->locations->removeElement($location);
         $this->update();
     }
 
-    /**
-     * @return Location[]|Collection
-     */
     public function getLocations() : Collection
     {
         return $this->locations;
     }
 
-    /**
-     * @param Item $item
-     */
-    public function addItem(Item $item)
+    public function addItem(Item $item) : void
     {
         if (!$this->items->contains($item)) {
             $item->addScene($this);
@@ -217,18 +172,12 @@ class Scene
         }
     }
 
-    /**
-     * @param Item $item
-     */
-    public function removeItem(Item $item)
+    public function removeItem(Item $item) : void
     {
         $this->items->removeElement($item);
         $this->update();
     }
 
-    /**
-     * @return Item[]|Collection
-     */
     public function getItems() : Collection
     {
         return $this->items;

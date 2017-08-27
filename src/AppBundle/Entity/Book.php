@@ -49,7 +49,7 @@ class Book
         return $this->title;
     }
 
-    public function edit(DTO $dto)
+    public function edit(DTO $dto) : void
     {
         $this->title = $dto->getTitle();
         $this->description = $dto->getDescription();
@@ -57,52 +57,34 @@ class Book
         $this->update();
     }
 
-    /**
-     * @return UuidInterface
-     */
     public function getId() : UuidInterface
     {
         return $this->id;
     }
 
-    /**
-     * @param string $title
-     */
-    public function setTitle(string $title)
+    public function setTitle(?string $title) : void
     {
         $this->title = $title;
         $this->update();
     }
 
-    /**
-     * @return string
-     */
-    public function getTitle() : string
+    public function getTitle() : ?string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $description
-     */
-    public function setDescription(?string $description)
+    public function setDescription(?string $description) : void
     {
         $this->description = $description;
         $this->update();
     }
 
-    /**
-     * @return string
-     */
     public function getDescription() : ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param Chapter $chapter
-     */
-    public function addChapter(Chapter $chapter)
+    public function addChapter(Chapter $chapter) : void
     {
         if (!$this->chapters->contains($chapter)) {
             $this->chapters->add($chapter);
@@ -111,19 +93,13 @@ class Book
         }
     }
 
-    /**
-     * @param Chapter $chapter
-     */
-    public function removeChapter(Chapter $chapter)
+    public function removeChapter(Chapter $chapter) : void
     {
         $this->chapters->removeElement($chapter);
         $chapter->setBook(null);
         $this->update();
     }
 
-    /**
-     * @return Chapter[]|Collection
-     */
     public function getChapters() : Collection
     {
         return $this->chapters;

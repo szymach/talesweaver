@@ -57,13 +57,13 @@ class Chapter
 
     public function __toString()
     {
-        return $this->title;
+        return (string) $this->title;
     }
 
     /**
      * @param \AppBundle\Chapter\Edit\DTO $dto
      */
-    public function edit(Edit\DTO $dto)
+    public function edit(Edit\DTO $dto) : void
     {
         $this->title = $dto->getTitle();
         $this->book = $dto->getBook();
@@ -71,43 +71,28 @@ class Chapter
         $this->update();
     }
 
-    /**
-     * @return UuidInterface
-     */
     public function getId() : UuidInterface
     {
         return $this->id;
     }
 
-    /**
-     * @param string $title
-     */
-    public function setTitle(string $title)
+    public function setTitle(?string $title) : void
     {
         $this->title = $title;
         $this->update();
     }
 
-    /**
-     * @return string
-     */
-    public function getTitle() : string
+    public function getTitle() : ?string
     {
         return $this->title;
     }
 
-    /**
-     * @return Scene[]|Collection
-     */
     public function getScenes() : Collection
     {
         return $this->scenes;
     }
 
-    /**
-     * @param Character $character
-     */
-    public function addCharacter(Character $character)
+    public function addCharacter(Character $character) : void
     {
         if (!$this->characters->contains($character)) {
             $this->characters[] = $character;
@@ -115,34 +100,22 @@ class Chapter
         }
     }
 
-    /**
-     * @param Character $character
-     */
-    public function removeCharacter(Character $character)
+    public function removeCharacter(Character $character) : void
     {
         $this->characters->removeElement($character);
         $this->update();
     }
 
-    /**
-     * @return Character[]|Collection
-     */
     public function getCharacters() : Collection
     {
         return $this->characters;
     }
 
-    /**
-     * @param Book $book
-     */
-    public function setBook(?Book $book)
+    public function setBook(?Book $book) : void
     {
         $this->book = $book;
     }
 
-    /**
-     * @return Book
-     */
     public function getBook() : ?Book
     {
         return $this->book;

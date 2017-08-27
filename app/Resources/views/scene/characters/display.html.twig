@@ -16,36 +16,10 @@
                 {{ character.description|raw }}
             </div>
         </div>
-        {% if character.items | length or character.locations | length %}
-            <div class="row">
-                {% if character.items | length %}
-                    <div class="col-xs-4">
-                        <h5>{{ 'character.items' | trans }}</h5>
-                        <hr/>
-                        <ul class="list-unstyled">
-                            {% for item in character.items %}
-                                <li>{{ item.name }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-                {% if character.locations | length %}
-                    <div class="col-xs-4">
-                        <h5>{{ 'character.locations' | trans }}</h5>
-                        <hr/>
-                        <ul class="list-unstyled">
-                            {% for location in character.locations %}
-                                <li>{{ location.name }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-            </div>
-        {% endif %}
         <div class="row">
             {% for name, event in timeline %}
                 <div class="col-xs-12">
-                    <b><i class="{{ event|keys|first }}"></i> {{ name|trans }}</b> {{ event|first }}
+                    <b><i class="{{ event|keys|first }}"></i> {{ name|trans }}</b> {{ event|first|raw }}
                 </div>
             {% endfor %}
         </div>

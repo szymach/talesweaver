@@ -89,68 +89,44 @@ class Character
         $this->avatar = $dto->getAvatar();
     }
 
-    /**
-     * @return UuidInterface
-     */
     public function getId() : UuidInterface
     {
         return $this->id;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName(string $name)
+    public function setName(?string $name)
     {
         $this->name = $name;
         $this->update();
     }
 
-    /**
-     * @return string
-     */
-    public function getName() : string
+    public function getName() : ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $description
-     */
     public function setDescription(?string $description)
     {
         $this->description = $description;
         $this->update();
     }
 
-    /**
-     * @return string
-     */
     public function getDescription() : ?string
     {
         return $this->description;
     }
 
-    /**
-     * @return Book
-     */
     public function getBook() : ?Book
     {
         return $this->book;
     }
 
-    /**
-     * @param Book $book
-     */
-    public function setBook(?Book $book)
+    public function setBook(?Book $book) : void
     {
         $this->book = $book;
     }
 
-    /**
-     * @param Scene $scene
-     */
-    public function addScene(Scene $scene)
+    public function addScene(Scene $scene) : void
     {
         if (!$this->scenes->contains($scene)) {
             $this->assertSceneForTheSameBook($scene);
@@ -162,24 +138,18 @@ class Character
         }
     }
 
-    /**
-     * @param Scene $scene
-     */
-    public function removeScene(Scene $scene)
+    public function removeScene(Scene $scene) : void
     {
         $this->scenes->removeElement($scene);
         $this->update();
     }
 
-    /**
-     * @return Scene[]Collection
-     */
     public function getScenes() : Collection
     {
         return $this->scenes;
     }
 
-    public function addChapter(Chapter $chapter)
+    public function addChapter(Chapter $chapter) : void
     {
         if (!$this->chapters->contains($chapter)) {
             $this->assertChapterFromTheSameBook($chapter);
@@ -192,24 +162,18 @@ class Character
         }
     }
 
-    public function removeChapter(Chapter $chapter)
+    public function removeChapter(Chapter $chapter) : void
     {
         $this->chapters->removeElement($chapter);
         $this->update();
     }
 
-    /**
-     * @return Chapter[]|Collection
-     */
     public function getChapters() : Collection
     {
         return $this->chapters;
     }
 
-    /**
-     * @param Item $item
-     */
-    public function addItem(Item $item)
+    public function addItem(Item $item) : void
     {
         if (!$this->items->contains($item)) {
             $this->items[] = $item;
@@ -217,27 +181,18 @@ class Character
         }
     }
 
-    /**
-     * @param Item $item
-     */
-    public function removeItem(Item $item)
+    public function removeItem(Item $item) : void
     {
         $this->items->removeElement($item);
         $this->update();
     }
 
-    /**
-     * @return Item[]|Collection
-     */
     public function getItems() : Collection
     {
         return $this->items;
     }
 
-    /**
-     * @param Location $location
-     */
-    public function addLocation(Location $location)
+    public function addLocation(Location $location) : void
     {
         if (!$this->locations->contains($location)) {
             $this->locations[] = $location;
@@ -245,26 +200,17 @@ class Character
         }
     }
 
-    /**
-     * @param Location $location
-     */
-    public function removeLocation(Location $location)
+    public function removeLocation(Location $location) : void
     {
         $this->locations->removeElement($location);
         $this->update();
     }
 
-    /**
-     * @return Location[]|Collection
-     */
     public function getLocations() : Collection
     {
         return $this->locations;
     }
 
-    /**
-     * @param Scene $scene
-     */
     private function assertSceneForTheSameBook(Scene $scene)
     {
         if (empty($this->scenes)) {
@@ -288,10 +234,6 @@ class Character
         $this->scenes->map($callback);
     }
 
-    /**
-     * @param Chapter $chapter
-     * @throws DomainException
-     */
     private function assertChapterFromTheSameBook(Chapter $chapter)
     {
         if (!$this->book && !$chapter->getBook()) {

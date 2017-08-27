@@ -74,58 +74,40 @@ class Location
     /**
      * @param \AppBundle\Location\Edit\DTO $dto
      */
-    public function edit(EditDTO $dto)
+    public function edit(EditDTO $dto) : void
     {
         $this->name = $dto->getName();
         $this->description = $dto->getDescription();
     }
 
-    /**
-     * @return UuidInterface
-     */
     public function getId() : UuidInterface
     {
         return $this->id;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName(string $name)
+    public function setName(?string $name) : void
     {
         $this->name = $name;
         $this->update();
     }
 
-    /**
-     * @return string
-     */
-    public function getName() : string
+    public function getName() : ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $description
-     */
-    public function setDescription(?string $description)
+    public function setDescription(?string $description) : void
     {
         $this->description = $description;
         $this->update();
     }
 
-    /**
-     * @return string
-     */
     public function getDescription() : ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param Scene $scene
-     */
-    public function addScene(Scene $scene)
+    public function addScene(Scene $scene) : void
     {
         if (!$this->scenes->contains($scene)) {
             $this->scenes->add($scene);
@@ -133,35 +115,23 @@ class Location
         }
     }
 
-    /**
-     * @param Scene $scene
-     */
-    public function removeScene(Scene $scene)
+    public function removeScene(Scene $scene) : void
     {
         $this->scenes->removeElement($scene);
         $this->update();
     }
 
-    /**
-     * @return Scene[]|Collection
-     */
     public function getScenes() : Collection
     {
         return $this->scenes;
     }
 
-    /**
-     * @return Character[]|Collection
-     */
-    public function getCharacters()
+    public function getCharacters() : Colllection
     {
         return $this->characters;
     }
 
-    /**
-     * @return Collection
-     */
-    public function getItems()
+    public function getItems() : Colllection
     {
         return $this->items;
     }
