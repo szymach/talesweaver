@@ -6,7 +6,9 @@ use AppBundle\Entity\Character;
 use AppBundle\Entity\Event;
 use AppBundle\Entity\Repository\EventRepository;
 use AppBundle\Entity\Repository\SceneRepository;
+use AppBundle\Model\Meeting;
 use Symfony\Component\Templating\EngineInterface;
+use function mb_strtolower;
 
 class TimelineFormatter
 {
@@ -24,6 +26,13 @@ class TimelineFormatter
      * @var EngineInterface
      */
     private $templating;
+
+    /**
+     * @var array
+     */
+    private $icons = [
+        Meeting::class => 'fa fa-users'
+    ];
 
     public function __construct(
         SceneRepository $sceneRepository,
@@ -52,14 +61,11 @@ class TimelineFormatter
     {
         return array_reduce($events, function (array $initial, Event $event) {
             $model = $event->getModel();
-            $fqcn = explode('\\', get_class($model));
-            $template = sprintf(
-                'scene/events/%s.html.twig',
-                mb_strtolower(end($fqcn))
-            );
-            $label = sprintf('event.%s.name', get_class($model));
-            $initial[$label] = [
-                'fa fa-users' => $this->templating->render($template, ['model' => $model])
+            $modelClass = get_class($model);
+            $fqcn = explode('\\', $modelClass);
+            $template = sprintf('scene/events/%s.html.twig', mb_strtolower(end($fqcn)));
+            $initial[sprintf('event.%s.name', $modelClass)] = [
+                $this->icons[$modelClass] => $this->templating->render($template, ['model' => $model])
             ];
 
             return $initial;
