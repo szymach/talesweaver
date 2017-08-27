@@ -1,16 +1,15 @@
 <?php
 
-namespace AppBundle\Character;
+namespace AppBundle\Event;
 
-use AppBundle\Entity\Character;
 use AppBundle\Entity\Event;
 use AppBundle\Entity\Repository\EventRepository;
 use AppBundle\Entity\Repository\SceneRepository;
 use AppBundle\Model\Meeting;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Templating\EngineInterface;
-use function mb_strtolower;
 
-class TimelineFormatter
+abstract class TimelineFormatter
 {
     /**
      * @var SceneRepository
@@ -30,7 +29,7 @@ class TimelineFormatter
     /**
      * @var array
      */
-    private $icons = [
+    private $eventIcons = [
         Meeting::class => 'fa fa-users'
     ];
 
@@ -44,28 +43,27 @@ class TimelineFormatter
         $this->templating = $templating;
     }
 
-    public function getTimeline(Character $character)
+    public function getTimeline(UuidInterface $id, string $class) : array
     {
-        $creation = $this->sceneRepository->firstCharacterOccurence($character);
-
         return array_merge(
-            ['character.timeline.creation' => ['fa fa-user-plus' => $creation]],
-            $this->formatEvents($this->eventRepository->findForCharacter($character))
+            [sprintf('event.timeline.creation.%s', $class) => $this->getCreation($this->sceneRepository, $id)],
+            $this->formatEvents($this->eventRepository->findInEventsById($id))
         );
     }
 
-    /**
-     * @param Event[] $events
-     */
-    private function formatEvents(array $events)
+    protected abstract function getCreation(SceneRepository $sceneRepository, UuidInterface $id) : array;
+
+    private function formatEvents(array $events) : array
     {
-        return array_reduce($events, function (array $initial, Event $event) {
+        return array_reduce($events, function (array $initial, Event $event) : array {
             $model = $event->getModel();
             $modelClass = get_class($model);
             $fqcn = explode('\\', $modelClass);
-            $template = sprintf('scene/events/%s.html.twig', mb_strtolower(end($fqcn)));
             $initial[sprintf('event.%s.name', $modelClass)] = [
-                $this->icons[$modelClass] => $this->templating->render($template, ['model' => $model])
+                $this->eventIcons[$modelClass] => $this->templating->render(
+                    sprintf('scene/events/%s.html.twig', mb_strtolower(end($fqcn))),
+                    ['model' => $model]
+                )
             ];
 
             return $initial;

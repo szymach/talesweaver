@@ -2,10 +2,10 @@
 
 namespace AppBundle\Entity\Repository;
 
-use AppBundle\Entity\Character;
 use AppBundle\Entity\Repository\Traits\ValidationTrait;
 use AppBundle\Entity\Scene;
 use Doctrine\ORM\QueryBuilder;
+use Ramsey\Uuid\UuidInterface;
 
 class EventRepository extends TranslatableRepository
 {
@@ -19,11 +19,11 @@ class EventRepository extends TranslatableRepository
         ;
     }
 
-    public function findForCharacter(Character $character) : array
+    public function findInEventsById(UuidInterface $id) : array
     {
         return $this->createQueryBuilder('e')
-            ->where("e.model LIKE :character")
-            ->setParameter('character', sprintf('%%"%s"%%', $character->getId()))
+            ->where('e.model LIKE :id')
+            ->setParameter('id', sprintf('%%"%s"%%', $id))
             ->getQuery()
             ->getResult()
         ;

@@ -3,6 +3,7 @@
 namespace AppBundle\Templating\Item;
 
 use AppBundle\Entity\Item;
+use AppBundle\Item\ItemTimeline;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -13,9 +14,17 @@ class DisplayView
      */
     private $templating;
 
-    public function __construct(EngineInterface $templating)
-    {
+    /**
+     * @var ItemTimeline
+     */
+    private $timeline;
+
+    public function __construct(
+        EngineInterface $templating,
+        ItemTimeline $timeline
+    ) {
         $this->templating = $templating;
+        $this->timeline = $timeline;
     }
 
     public function createView(Item $item) : JsonResponse
@@ -23,7 +32,10 @@ class DisplayView
         return new JsonResponse([
             'display' => $this->templating->render(
                 'scene\items\display.html.twig',
-                ['item' => $item]
+                [
+                    'item' => $item,
+                    'timeline' => $this->timeline->getTimeline($item->getId(), Item::class)
+                ]
             )
         ]);
     }

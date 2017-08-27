@@ -84,7 +84,11 @@ event:
             root: Pierwsza osoba
             relation: Druga osoba
             location: Miejsce
-
+    timeline:
+        creation:
+            'AppBundle\Entity\Character': 'Pojawił się w scene:'
+            'AppBundle\Entity\Item': 'Pojawił się w scene:'
+            'AppBundle\Entity\Location': 'Pojawiło się w scene:'
 
 character:
     name: Imię
@@ -100,8 +104,6 @@ character:
         new: Nowa postać
         edit: Edycja postaci
         related: Dodawanie istniejącej postaci
-    timeline:
-        creation: 'Pojawił się w scene:'
 
 item:
     name: Nazwa
