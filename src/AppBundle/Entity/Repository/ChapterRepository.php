@@ -32,5 +32,4 @@ class ChapterRepository extends TranslatableRepository
             ->getResult()
         ;
     }
-
 }

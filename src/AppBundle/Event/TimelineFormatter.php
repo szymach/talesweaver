@@ -51,7 +51,7 @@ abstract class TimelineFormatter
         );
     }
 
-    protected abstract function getCreation(SceneRepository $sceneRepository, UuidInterface $id) : array;
+    abstract protected function getCreation(SceneRepository $sceneRepository, UuidInterface $id) : array;
 
     private function formatEvents(array $events) : array
     {

@@ -18,6 +18,6 @@ before_script:
 script:
   - bin/phpcs
   - bin/console doctrine:database:create --env=test
-  - bin/console doctrine:schema:create --env=test
+  - bin/console doctrine:schema:update --force --env=test
   - bin/console doctrine:schema:validate --env=test -n
   - bin/codecept run
