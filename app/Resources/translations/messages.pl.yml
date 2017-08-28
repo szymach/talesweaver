@@ -139,10 +139,18 @@ tag:
 
 # Front
 dashboard:
-    header: Bajkopisarz
-    books: Książki
-    chapters: Rozdziały
-    scenes: Sceny
+    header: |
+        Witaj w aplikacji Bajkopisarz!
+
+        Wybierz jedną z pozycji u góry by rozpocząć pracę.
+    timeline: Ostatnie zmiany
+    type:
+        'AppBundle\Entity\Book': Książka
+        'AppBundle\Entity\Chapter': Rozdział
+        'AppBundle\Entity\Scene': Scena
+    updated:
+        0: Dodano
+        1: Zaktualizowano
 
 meta:
     title: Bajkopisarz
@@ -150,7 +158,7 @@ meta:
 menu:
     start: Start
     books: Książki
-    chapters: Opowiadania
+    chapters: Rozdziały
     scenes: Sceny
 
 modal:

@@ -3,11 +3,13 @@
 namespace AppBundle\Entity\Repository;
 
 use AppBundle\Entity\Book;
+use AppBundle\Entity\Repository\Interfaces\LatestChangesAwareRepository;
+use AppBundle\Entity\Repository\Traits\LatestResultsTrait;
 use AppBundle\Entity\Repository\Traits\ValidationTrait;
 
-class ChapterRepository extends TranslatableRepository
+class ChapterRepository extends TranslatableRepository implements LatestChangesAwareRepository
 {
-    use ValidationTrait;
+    use LatestResultsTrait, ValidationTrait;
 
     public function createStandaloneQb()
     {
@@ -19,17 +21,6 @@ class ChapterRepository extends TranslatableRepository
         return $this->createQueryBuilder('c')
             ->where('c.book = :book')
             ->setParameter('book', $book)
-        ;
-    }
-
-    public function findLatest($limit = 5)
-    {
-        return $this->createQueryBuilder('c')
-            ->orderBy('c.updatedAt', 'DESC')
-            ->addOrderBy('c.createdAt', 'DESC')
-            ->setMaxResults($limit)
-            ->getQuery()
-            ->getResult()
         ;
     }
 }

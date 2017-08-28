@@ -111,3 +111,15 @@ nav.navbar {
 .underline {
     text-decoration: underline;
 }
+
+.dashboard-timeline {
+    border: 14px solid rgba(0, 0, 0, 0.1);
+
+    h3 {
+        margin-top: 12px;
+    }
+
+    i {
+        width: 22px;
+    }
+}
