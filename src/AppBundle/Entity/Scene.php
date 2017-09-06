@@ -73,6 +73,7 @@ class Scene
         $this->title = $dto->getTitle();
         $this->text = $dto->getText();
         $this->chapter = $dto->getChapter();
+        $this->update();
     }
 
     public function getId() : UuidInterface
@@ -80,32 +81,14 @@ class Scene
         return $this->id;
     }
 
-    public function setTitle(?string $title) : void
-    {
-        $this->title = $title;
-        $this->update();
-    }
-
     public function getTitle() : ?string
     {
         return $this->title;
     }
 
-    public function setText(?string $text) : void
-    {
-        $this->text = $text;
-        $this->update();
-    }
-
     public function getText() : ?string
     {
         return $this->text;
-    }
-
-    public function setChapter(?Chapter $chapter) : void
-    {
-        $this->chapter = $chapter;
-        $this->update();
     }
 
     public function getChapter() : ?Chapter

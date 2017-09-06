@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use AppBundle\Chapter\Create;
 use AppBundle\Chapter\Edit;
+use AppBundle\Entity\Traits\TimestampableTrait;
+use AppBundle\Entity\Traits\TranslatableTrait;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,7 +13,7 @@ use Ramsey\Uuid\UuidInterface;
 
 class Chapter
 {
-    use Traits\TimestampableTrait, Traits\TranslatableTrait;
+    use TimestampableTrait, TranslatableTrait;
 
     /**
      * @var UuidInterface
@@ -74,12 +76,6 @@ class Chapter
     public function getId() : UuidInterface
     {
         return $this->id;
-    }
-
-    public function setTitle(?string $title) : void
-    {
-        $this->title = $title;
-        $this->update();
     }
 
     public function getTitle() : ?string

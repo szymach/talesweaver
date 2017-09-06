@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\TimestampableTrait;
 use AppBundle\Entity\Traits\TranslatableTrait;
 use AppBundle\Event\Create;
 use AppBundle\Event\Edit;
@@ -11,7 +12,7 @@ use Ramsey\Uuid\UuidInterface;
 
 class Event
 {
-    use TranslatableTrait;
+    use TimestampableTrait, TranslatableTrait;
 
     /**
      * @var UuidInterface
@@ -45,6 +46,7 @@ class Event
     {
         $this->name = $dto->getName();
         $this->model = $dto->getModel();
+        $this->update();
     }
 
     public function parseModel(EventParser $parser) : void
@@ -60,11 +62,6 @@ class Event
     public function getName() : ?string
     {
         return $this->name;
-    }
-
-    public function setName(?string $name) : void
-    {
-        $this->name = $name;
     }
 
     public function getModel()

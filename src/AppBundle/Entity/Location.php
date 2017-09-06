@@ -78,6 +78,7 @@ class Location
     {
         $this->name = $dto->getName();
         $this->description = $dto->getDescription();
+        $this->update();
     }
 
     public function getId() : UuidInterface
@@ -85,21 +86,9 @@ class Location
         return $this->id;
     }
 
-    public function setName(?string $name) : void
-    {
-        $this->name = $name;
-        $this->update();
-    }
-
     public function getName() : ?string
     {
         return $this->name;
-    }
-
-    public function setDescription(?string $description) : void
-    {
-        $this->description = $description;
-        $this->update();
     }
 
     public function getDescription() : ?string

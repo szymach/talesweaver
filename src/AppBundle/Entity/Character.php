@@ -2,9 +2,9 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Character\Create;
-use AppBundle\Character\Edit;
-use DateTimeImmutable;
+use AppBundle\Entity\Traits\AvatarTrait;
+use AppBundle\Entity\Traits\TimestampableTrait;
+use AppBundle\Entity\Traits\TranslatableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use DomainException;
@@ -12,7 +12,7 @@ use Ramsey\Uuid\UuidInterface;
 
 class Character
 {
-    use Traits\AvatarTrait, Traits\TimestampableTrait, Traits\TranslatableTrait;
+    use AvatarTrait, TimestampableTrait, TranslatableTrait;
 
     /**
      * @var UuidInterface
@@ -87,6 +87,7 @@ class Character
         $this->name = $dto->getName();
         $this->description = $dto->getDescription();
         $this->avatar = $dto->getAvatar();
+        $this->update();
     }
 
     public function getId() : UuidInterface
@@ -94,21 +95,9 @@ class Character
         return $this->id;
     }
 
-    public function setName(?string $name)
-    {
-        $this->name = $name;
-        $this->update();
-    }
-
     public function getName() : ?string
     {
         return $this->name;
-    }
-
-    public function setDescription(?string $description)
-    {
-        $this->description = $description;
-        $this->update();
     }
 
     public function getDescription() : ?string

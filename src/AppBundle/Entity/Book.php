@@ -62,21 +62,9 @@ class Book
         return $this->id;
     }
 
-    public function setTitle(?string $title) : void
-    {
-        $this->title = $title;
-        $this->update();
-    }
-
     public function getTitle() : ?string
     {
         return $this->title;
-    }
-
-    public function setDescription(?string $description) : void
-    {
-        $this->description = $description;
-        $this->update();
     }
 
     public function getDescription() : ?string

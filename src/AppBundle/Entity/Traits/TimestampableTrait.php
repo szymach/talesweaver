@@ -17,33 +17,17 @@ trait TimestampableTrait
      */
     private $updatedAt;
 
-    /**
-     * @return DateTimeInterface
-     */
     public function getCreatedAt() : DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(DateTimeInterface $createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
-     * @return DateTimeInterface
-     */
     public function getUpdatedAt() : ?DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(DateTimeInterface $updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-    }
-
-    private function update()
+    private function update() : void
     {
         $this->updatedAt = new DateTimeImmutable();
     }

@@ -17,6 +17,11 @@ AppBundle\Entity\Event:
                     mappedBy: translations
                     targetField: name
     fields:
+        createdAt:
+            type: datetime
+        updatedAt:
+            type: datetime
+            nullable: true
         model:
             type: json_array
     oneToMany:
