@@ -10,7 +10,5 @@ class ListControllerCest
     {
         $I->amOnPage('/pl/chapter/list');
         $I->seeElement('table');
-        $I->see('Tytuł', ['css' => 'th']);
-        $I->see('Akcje', 'th');
     }
 }
