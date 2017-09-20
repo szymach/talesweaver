@@ -1,0 +1,5 @@
+---
+login:
+    path: /login
+    defaults: { _controller: AppBundle\Controller\Security\LoginController }
+    methods:  GET|POST

@@ -95,7 +95,7 @@ nav.navbar {
     z-index: 100;
 }
 
-.alert {
+.alert:not(.alert-form) {
     position: fixed;
     text-align: center;
     z-index: 100;

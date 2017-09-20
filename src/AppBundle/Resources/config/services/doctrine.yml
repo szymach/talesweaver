@@ -39,3 +39,7 @@ services:
     AppBundle\Entity\Repository\EventRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ AppBundle\Entity\Event ]
+
+    AppBundle\Entity\Repository\UserRepository:
+        factory: ["@doctrine", getRepository]
+        arguments: [ AppBundle\Entity\User ]

@@ -10,6 +10,15 @@ crud:
     display: Podgląd
     remove_from_scene: Usuń ze sceny
 
+security:
+    username:
+        label: Email
+        placeholder: Podaj swój adres email
+    password:
+        label: Hasło
+        placeholder: Podaj swoje hasło
+    submit: Zaloguj
+
 book:
     title: Tytuł
     description: Opis

@@ -1,30 +1,35 @@
-app_base:
+base:
     resource: "@AppBundle/Resources/config/routing/base.yml"
     prefix:   /
 
+# Security
+security:
+    resource: "@AppBundle/Resources/config/routing/security.yml"
+    prefix:   /
+
 # Book
-app_book:
+book:
     resource: "@AppBundle/Resources/config/routing/book.yml"
     prefix:   /book
     options:
         expose: true
 
 # Chapter
-app_chapter:
+chapter:
     resource: "@AppBundle/Resources/config/routing/chapter.yml"
     prefix:   /chapter
     options:
         expose: true
 
 # Scene
-app_scene:
+scene:
     resource: "@AppBundle/Resources/config/routing/scene.yml"
     prefix:   /scene
     options:
         expose: true
 
 # Character
-app_character:
+character:
     resource: "@AppBundle/Resources/config/routing/character.yml"
     prefix:   /character
     condition: "request.isXmlHttpRequest()"
@@ -32,7 +37,7 @@ app_character:
         expose: true
 
 # Item
-app_item:
+item:
     resource: "@AppBundle/Resources/config/routing/item.yml"
     prefix:   /item
     condition: "request.isXmlHttpRequest()"
@@ -40,7 +45,7 @@ app_item:
         expose: true
 
 # Location
-app_location:
+location:
     resource: "@AppBundle/Resources/config/routing/location.yml"
     prefix:   /location
     condition: "request.isXmlHttpRequest()"
@@ -48,7 +53,7 @@ app_location:
         expose: true
 
 # Event
-app_event:
+event:
     resource: "@AppBundle/Resources/config/routing/event.yml"
     prefix:   /event
     condition: "request.isXmlHttpRequest()"

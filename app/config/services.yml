@@ -3,9 +3,10 @@ services:
         autowire: true
         autoconfigure: true
 
-    SimpleBus\Message\Bus\MessageBus: "@transaction_wrapped_command_bus"
     Knp\Menu\FactoryInterface: "@knp_menu.factory"
     Knp\Snappy\GeneratorInterface: "@knp_snappy.pdf"
+    SimpleBus\Message\Bus\MessageBus: "@transaction_wrapped_command_bus"
+    Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface: '@security.user_password_encoder.generic'
 
     AppBundle\Controller\:
         resource: "../../src/AppBundle/Controller/*"
@@ -54,3 +55,8 @@ services:
         decorates: command_bus
         arguments: ['@transaction_wrapped_command_bus.inner']
         public:    false
+
+    # Security
+    app.security.login_form_authenticator:
+        class: AppBundle\Security\LoginFormAuthenticator
+        autowire: true
