@@ -17,7 +17,11 @@ security:
     password:
         label: Hasło
         placeholder: Podaj swoje hasło
+    password_repeat:
+        label: Powtórz hasło
     submit: Zaloguj
+    register: Rejestracja
+    do_register: Zarejestruj
 
 book:
     title: Tytuł
@@ -169,6 +173,7 @@ menu:
     books: Książki
     chapters: Rozdziały
     scenes: Sceny
+    logout: Wyloguj
 
 modal:
     action_confirmation: Potwierdzenie akcji

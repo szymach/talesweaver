@@ -5,9 +5,6 @@ namespace AppBundle\Menu;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 
-/**
- * @author Piotr Szymaszek
- */
 class Builder
 {
     /**
@@ -30,6 +27,7 @@ class Builder
         $this->createBookMenu($menu);
         $this->createChapterMenu($menu);
         $this->createSceneMenu($menu);
+        $menu->addChild('menu.logout', ['route' => 'logout']);
 
         return $menu;
     }

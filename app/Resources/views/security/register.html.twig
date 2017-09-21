@@ -1,0 +1,16 @@
+{% extends 'security/base.html.twig' %}
+
+{% form_theme form 'form/form_theme.html.twig' %}
+
+{% block body %}
+    {{ form_start(form) }}
+        {{ form_row(form.username) }}
+        {{ form_row(form.password) }}
+        <div class="form-group">
+            <div class="col-xs-12 text-right">
+                <button class="btn btn-success">{{ 'security.do_register' | trans }}</button>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    {{ form_end(form) }}
+{% endblock %}

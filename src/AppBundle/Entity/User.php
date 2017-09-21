@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Assert\Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -24,11 +25,6 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @var string
-     */
-    private $salt;
-
-    /**
      * @var UserRole[]|Collection
      */
     private $roles;
@@ -36,14 +32,14 @@ class User implements UserInterface
     /**
      * @param string $username
      * @param string $password
-     * @param string $salt
      * @param UserRole[] $roles
      */
-    public function __construct(string $username, string $password, string $salt, array $roles)
+    public function __construct(string $username, string $password, array $roles)
     {
+        Assert::thatAll($roles)->isInstanceOf(UserRole::class);
+
         $this->username = $username;
         $this->password = $password;
-        $this->salt = $salt;
         $this->roles = new ArrayCollection($roles);
     }
 
@@ -62,19 +58,17 @@ class User implements UserInterface
         return $this->password;
     }
 
-    public function getSalt(): string
-    {
-        return $this->salt;
-    }
-
     public function getRoles(): array
     {
-        return $this->roles;
+        return $this->roles->toArray();
     }
 
-    public function eraseCredentials()
+    public function getSalt(): ?string
     {
-        $this->username = null;
-        $this->password = null;
+        return null;
+    }
+
+    public function eraseCredentials(): void
+    {
     }
 }

@@ -6,6 +6,8 @@ use Symfony\Component\Security\Core\Role\Role;
 
 class UserRole extends Role
 {
+    const USER = 'ROLE_USER';
+
     /**
      * @var string
      */

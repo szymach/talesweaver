@@ -8,9 +8,9 @@ AppBundle\Entity\User:
             type: integer
             generator: { strategy: AUTO }
     fields:
-        username: ~
+        username:
+            unique: true
         password: ~
-        salt: ~
     manyToMany:
         roles:
             targetEntity: AppBundle\Entity\UserRole
@@ -19,6 +19,7 @@ AppBundle\Entity\User:
                 joinColumns:
                     user_id:
                         referencedColumnName: id
+                        onDelete: CASCADE
                 inverseJoinColumns:
                     role_id:
                         referencedColumnName: role

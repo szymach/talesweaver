@@ -3,3 +3,13 @@ login:
     path: /login
     defaults: { _controller: AppBundle\Controller\Security\LoginController }
     methods:  GET|POST
+
+register:
+    path: /registration
+    defaults: { _controller: AppBundle\Controller\Security\RegisterController }
+    methods:  GET|POST
+
+logout:
+    path: /logout
+    methods:  GET
+    options: { i18n: false }

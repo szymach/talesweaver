@@ -24,3 +24,6 @@ item:
 
 location:
     exists: Miejsce o danej nazwie już istnieje!
+
+security:
+    username_taken: Podana nazwa użytkownika już istnieje!
