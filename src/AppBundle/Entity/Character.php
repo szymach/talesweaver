@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Character\Create;
 use AppBundle\Entity\Traits\AvatarTrait;
+use AppBundle\Entity\Traits\CreatedByTrait;
 use AppBundle\Entity\Traits\TimestampableTrait;
 use AppBundle\Entity\Traits\TranslatableTrait;
 use DateTimeImmutable;
@@ -14,7 +15,7 @@ use Ramsey\Uuid\UuidInterface;
 
 class Character
 {
-    use AvatarTrait, TimestampableTrait, TranslatableTrait;
+    use AvatarTrait, CreatedByTrait, TimestampableTrait, TranslatableTrait;
 
     /**
      * @var UuidInterface
@@ -59,8 +60,9 @@ class Character
     /**
      * @param UuidInterface $id
      * @param \AppBundle\Character\Create\DTO $dto
+     * @param User $author
      */
-    public function __construct(UuidInterface $id, Create\DTO $dto)
+    public function __construct(UuidInterface $id, Create\DTO $dto, User $author)
     {
         $this->id = $id;
         $this->name = $dto->getName();
@@ -71,6 +73,7 @@ class Character
         $this->chapters = new ArrayCollection();
         $this->items = new ArrayCollection();
         $this->locations = new ArrayCollection();
+        $this->createdBy = $author;
         $this->createdAt = new DateTimeImmutable();
 
         $dto->getScene()->addCharacter($this);

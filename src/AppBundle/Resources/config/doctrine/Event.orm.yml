@@ -33,3 +33,5 @@ AppBundle\Entity\Event:
     manyToOne:
         scene:
             targetEntity: AppBundle\Entity\Scene
+        createdBy:
+            targetEntity:  AppBundle\Entity\User

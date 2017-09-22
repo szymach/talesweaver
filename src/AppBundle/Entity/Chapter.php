@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Chapter\Create;
 use AppBundle\Chapter\Edit;
+use AppBundle\Entity\Traits\CreatedByTrait;
 use AppBundle\Entity\Traits\TimestampableTrait;
 use AppBundle\Entity\Traits\TranslatableTrait;
 use DateTimeImmutable;
@@ -13,7 +14,7 @@ use Ramsey\Uuid\UuidInterface;
 
 class Chapter
 {
-    use TimestampableTrait, TranslatableTrait;
+    use CreatedByTrait, TimestampableTrait, TranslatableTrait;
 
     /**
      * @var UuidInterface
@@ -43,8 +44,9 @@ class Chapter
     /**
      * @param UuidInterface $id
      * @param \AppBundle\Chapter\Create\DTO $dto
+     * @param User $author
      */
-    public function __construct(UuidInterface $id, Create\DTO $dto)
+    public function __construct(UuidInterface $id, Create\DTO $dto, User $author)
     {
         $this->id = $id;
         $this->title = $dto->getTitle();
@@ -54,6 +56,7 @@ class Chapter
         $this->characters = new ArrayCollection();
         $this->scenes = new ArrayCollection();
         $this->translations = new ArrayCollection();
+        $this->createdBy = $author;
         $this->createdAt = new DateTimeImmutable();
     }
 

@@ -36,6 +36,8 @@ AppBundle\Entity\Character:
     manyToOne:
         book:
             targetEntity: AppBundle\Entity\Book
+        createdBy:
+            targetEntity:  AppBundle\Entity\User
     manyToMany:
         chapters:
             targetEntity: AppBundle\Entity\Chapter

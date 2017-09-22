@@ -32,3 +32,6 @@ AppBundle\Entity\Book:
             mappedBy: book
             indexBy: locale
             cascade: [persist, remove]
+    manyToOne:
+        createdBy:
+            targetEntity:  AppBundle\Entity\User

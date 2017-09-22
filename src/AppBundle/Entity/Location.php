@@ -2,6 +2,10 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\AvatarTrait;
+use AppBundle\Entity\Traits\CreatedByTrait;
+use AppBundle\Entity\Traits\TimestampableTrait;
+use AppBundle\Entity\Traits\TranslatableTrait;
 use AppBundle\Location\Create\DTO as CreateDTO;
 use AppBundle\Location\Edit\DTO as EditDTO;
 use DateTimeImmutable;
@@ -11,7 +15,7 @@ use Ramsey\Uuid\UuidInterface;
 
 class Location
 {
-    use Traits\AvatarTrait, Traits\TimestampableTrait, Traits\TranslatableTrait;
+    use AvatarTrait, CreatedByTrait, TimestampableTrait, TranslatableTrait;
 
     /**
      * @var UuidInterface
@@ -51,8 +55,9 @@ class Location
     /**
      * @param UuidInterface $id
      * @param \AppBundle\Location\Create\DTO $dto
+     * @param User $author
      */
-    public function __construct(UuidInterface $id, CreateDTO $dto)
+    public function __construct(UuidInterface $id, CreateDTO $dto, User $author)
     {
         $this->id = $id;
         $this->name = $dto->getName();
@@ -61,6 +66,7 @@ class Location
         $this->translations = new ArrayCollection();
         $this->scenes = new ArrayCollection();
         $this->items = new ArrayCollection();
+        $this->createdBy = $author;
         $this->createdAt = new DateTimeImmutable();
 
         $dto->getScene()->addLocation($this);

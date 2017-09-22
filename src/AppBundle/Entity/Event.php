@@ -2,17 +2,19 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\CreatedByTrait;
 use AppBundle\Entity\Traits\TimestampableTrait;
 use AppBundle\Entity\Traits\TranslatableTrait;
 use AppBundle\Event\Create;
 use AppBundle\Event\Edit;
 use AppBundle\JSON\EventParser;
+use DateTimeImmutable;
 use JsonSerializable;
 use Ramsey\Uuid\UuidInterface;
 
 class Event
 {
-    use TimestampableTrait, TranslatableTrait;
+    use CreatedByTrait, TimestampableTrait, TranslatableTrait;
 
     /**
      * @var UuidInterface
@@ -34,12 +36,19 @@ class Event
      */
     private $scene;
 
-    public function __construct(UuidInterface $id, Create\DTO $dto)
+    /**
+     * @param UuidInterface $id
+     * @param \AppBundle\Event\Create\DTO $dto
+     * @param User $author
+     */
+    public function __construct(UuidInterface $id, Create\DTO $dto, User $author)
     {
         $this->id = $id;
         $this->name = $dto->getName();
         $this->model = $dto->getModel();
         $this->scene = $dto->getScene();
+        $this->createdAt = new DateTimeImmutable();
+        $this->createdBy = $author;
     }
 
     public function edit(Edit\DTO $dto) : void

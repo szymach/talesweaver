@@ -2,6 +2,9 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\CreatedByTrait;
+use AppBundle\Entity\Traits\TimestampableTrait;
+use AppBundle\Entity\Traits\TranslatableTrait;
 use AppBundle\Scene\Create;
 use AppBundle\Scene\Edit;
 use DateTimeImmutable;
@@ -11,7 +14,7 @@ use Ramsey\Uuid\UuidInterface;
 
 class Scene
 {
-    use Traits\TimestampableTrait, Traits\TranslatableTrait;
+    use CreatedByTrait, TimestampableTrait, TranslatableTrait;
 
     /**
      * @var UuidInterface
@@ -48,7 +51,12 @@ class Scene
      */
     private $locations;
 
-    public function __construct(UuidInterface $id, Create\DTO $dto)
+    /**
+     * @param UuidInterface $id
+     * @param \AppBundle\Scene\Create\DTO $dto
+     * @param User $author
+     */
+    public function __construct(UuidInterface $id, Create\DTO $dto, User $author)
     {
         $this->id = $id;
         $this->title = $dto->getTitle();
@@ -60,6 +68,7 @@ class Scene
         $this->items = new ArrayCollection();
         $this->locations = new ArrayCollection();
         $this->translations = new ArrayCollection();
+        $this->createdBy = $author;
         $this->createdAt = new DateTimeImmutable();
     }
 

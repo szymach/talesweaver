@@ -34,6 +34,8 @@ AppBundle\Entity\Scene:
             inversedBy: scenes
             joinColumn:
                 onDelete: "CASCADE"
+        createdBy:
+            targetEntity:  AppBundle\Entity\User
     manyToMany:
         characters:
             targetEntity: AppBundle\Entity\Character

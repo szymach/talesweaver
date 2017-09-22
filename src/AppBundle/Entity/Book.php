@@ -3,6 +3,9 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Book\Edit\DTO;
+use AppBundle\Entity\Traits\CreatedByTrait;
+use AppBundle\Entity\Traits\TimestampableTrait;
+use AppBundle\Entity\Traits\TranslatableTrait;
 use Assert\Assert;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,7 +14,7 @@ use Ramsey\Uuid\UuidInterface;
 
 class Book
 {
-    use Traits\TimestampableTrait, Traits\TranslatableTrait;
+    use CreatedByTrait, TimestampableTrait, TranslatableTrait;
 
     /**
      * @var UuidInterface
@@ -33,7 +36,12 @@ class Book
      */
     private $chapters;
 
-    public function __construct(UuidInterface $id, string $title)
+    /**
+     * @param UuidInterface $id
+     * @param string $title
+     * @param User $author
+     */
+    public function __construct(UuidInterface $id, string $title, User $author)
     {
         Assert::that($title)->notBlank('Cannot create a book without a title!');
 
@@ -41,6 +49,7 @@ class Book
         $this->title = $title;
         $this->chapters = new ArrayCollection();
         $this->translations = new ArrayCollection();
+        $this->createdBy = $author;
         $this->createdAt = new DateTimeImmutable();
     }
 

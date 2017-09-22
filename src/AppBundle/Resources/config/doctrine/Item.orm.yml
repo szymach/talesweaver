@@ -32,6 +32,9 @@ AppBundle\Entity\Item:
             mappedBy: item
             indexBy: locale
             cascade: [persist, remove]
+    manyToOne:
+        createdBy:
+            targetEntity:  AppBundle\Entity\User
     manyToMany:
         scenes:
             targetEntity: AppBundle\Entity\Scene

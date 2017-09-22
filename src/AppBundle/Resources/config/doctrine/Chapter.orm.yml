@@ -39,3 +39,5 @@ AppBundle\Entity\Chapter:
             inversedBy: chapters
             joinColumn:
                 onDelete: "CASCADE"
+        createdBy:
+            targetEntity:  AppBundle\Entity\User
