@@ -3,8 +3,10 @@
 namespace AppBundle\Item\Edit;
 
 use AppBundle\Entity\Item;
+use AppBundle\Entity\User;
+use AppBundle\Security\UserAccessInterface;
 
-class Command
+class Command implements UserAccessInterface
 {
     /**
      * @var DTO
@@ -22,8 +24,13 @@ class Command
         $this->item = $item;
     }
 
-    public function perform()
+    public function perform() : void
     {
         $this->item->edit($this->dto);
+    }
+
+    public function isAllowed(User $user) : bool
+    {
+        return $user->getId() === $this->item->getCreatedBy()->getId();
     }
 }

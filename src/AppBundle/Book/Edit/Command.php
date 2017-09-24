@@ -3,8 +3,10 @@
 namespace AppBundle\Book\Edit;
 
 use AppBundle\Entity\Book;
+use AppBundle\Entity\User;
+use AppBundle\Security\UserAccessInterface;
 
-class Command
+class Command implements UserAccessInterface
 {
     /**
      * @var Book
@@ -25,5 +27,10 @@ class Command
     public function perform() : void
     {
         $this->book->edit($this->dto);
+    }
+
+    public function isAllowed(User $user) : bool
+    {
+        return $user->getId() === $this->book->getCreatedBy()->getId();
     }
 }

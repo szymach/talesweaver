@@ -36,8 +36,12 @@ AppBundle\Entity\Character:
     manyToOne:
         book:
             targetEntity: AppBundle\Entity\Book
+            joinColumn:
+                onDelete: CASCADE
         createdBy:
             targetEntity:  AppBundle\Entity\User
+            joinColumn:
+                onDelete: CASCADE
     manyToMany:
         chapters:
             targetEntity: AppBundle\Entity\Chapter

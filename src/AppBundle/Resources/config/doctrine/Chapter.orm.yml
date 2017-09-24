@@ -41,3 +41,5 @@ AppBundle\Entity\Chapter:
                 onDelete: "CASCADE"
         createdBy:
             targetEntity:  AppBundle\Entity\User
+            joinColumn:
+                onDelete: CASCADE

@@ -62,6 +62,12 @@ services:
         arguments: ['@user_aware_command_bus.inner']
         public:    false
 
+    user_access_command_bus:
+        class:     AppBundle\Bus\UserAccessBus
+        decorates: user_aware_command_bus
+        arguments: ['@user_access_command_bus.inner']
+        public:    false
+
     # Security
     app.security.login_form_authenticator:
         class: AppBundle\Security\LoginFormAuthenticator

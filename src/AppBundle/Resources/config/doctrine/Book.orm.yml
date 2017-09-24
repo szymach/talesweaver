@@ -26,7 +26,7 @@ AppBundle\Entity\Book:
         chapters:
             targetEntity: AppBundle\Entity\Chapter
             mappedBy: book
-            cascade: [persist]
+            cascade: [persist, remove]
         translations:
             targetEntity: AppBundle\Entity\Translation\BookTranslation
             mappedBy: book

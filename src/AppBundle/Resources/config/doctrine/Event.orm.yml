@@ -33,5 +33,9 @@ AppBundle\Entity\Event:
     manyToOne:
         scene:
             targetEntity: AppBundle\Entity\Scene
+            joinColumn:
+                onDelete: CASCADE
         createdBy:
             targetEntity:  AppBundle\Entity\User
+            joinColumn:
+                onDelete: CASCADE

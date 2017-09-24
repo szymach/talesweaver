@@ -35,6 +35,8 @@ AppBundle\Entity\Location:
     manyToOne:
         createdBy:
             targetEntity:  AppBundle\Entity\User
+            joinColumn:
+                onDelete: CASCADE
     manyToMany:
         scenes:
             targetEntity: AppBundle\Entity\Scene

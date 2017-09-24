@@ -3,8 +3,10 @@
 namespace AppBundle\Location\Edit;
 
 use AppBundle\Entity\Location;
+use AppBundle\Entity\User;
+use AppBundle\Security\UserAccessInterface;
 
-class Command
+class Command implements UserAccessInterface
 {
     /**
      * @var DTO
@@ -22,8 +24,13 @@ class Command
         $this->location = $location;
     }
 
-    public function perform()
+    public function perform() : void
     {
         $this->location->edit($this->dto);
+    }
+
+    public function isAllowed(User $user) : bool
+    {
+        return $this->location->getCreatedBy()->getId() === $user->getId();
     }
 }

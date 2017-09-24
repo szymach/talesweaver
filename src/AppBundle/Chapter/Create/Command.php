@@ -2,11 +2,13 @@
 
 namespace AppBundle\Chapter\Create;
 
+use AppBundle\Entity\User;
 use AppBundle\Security\Traits\UserAwareTrait;
+use AppBundle\Security\UserAccessInterface;
 use AppBundle\Security\UserAwareInterface;
 use Ramsey\Uuid\UuidInterface;
 
-class Command implements UserAwareInterface
+class Command implements UserAccessInterface, UserAwareInterface
 {
     use UserAwareTrait;
 
@@ -34,5 +36,10 @@ class Command implements UserAwareInterface
     public function getData() : DTO
     {
         return $this->dto;
+    }
+
+    public function isAllowed(User $user) : bool
+    {
+        return $this->dto->getBook()->getCreatedBy()->getId() === $user->getId();
     }
 }

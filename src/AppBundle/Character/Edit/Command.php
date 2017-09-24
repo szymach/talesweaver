@@ -3,8 +3,10 @@
 namespace AppBundle\Character\Edit;
 
 use AppBundle\Entity\Character;
+use AppBundle\Entity\User;
+use AppBundle\Security\UserAccessInterface;
 
-class Command
+class Command implements UserAccessInterface
 {
     /**
      * @var DTO
@@ -16,14 +18,19 @@ class Command
      */
     private $character;
 
-    public function __construct(DTO $dto, Character $Character)
+    public function __construct(DTO $dto, Character $character)
     {
         $this->dto = $dto;
-        $this->character = $Character;
+        $this->character = $character;
     }
 
-    public function perform()
+    public function perform() : void
     {
         $this->character->edit($this->dto);
+    }
+
+    public function isAllowed(User $user) : bool
+    {
+        return $user->getId() === $this->character->getCreatedBy()->getId();
     }
 }

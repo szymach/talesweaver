@@ -4,8 +4,10 @@ namespace AppBundle\Item\AddToScene;
 
 use AppBundle\Entity\Item;
 use AppBundle\Entity\Scene;
+use AppBundle\Entity\User;
+use AppBundle\Security\UserAccessInterface;
 
-class Command
+class Command implements UserAccessInterface
 {
     /**
      * @var Scene
@@ -23,8 +25,15 @@ class Command
         $this->item = $item;
     }
 
-    public function perform()
+    public function perform() : void
     {
         $this->scene->addItem($this->item);
+    }
+
+    public function isAllowed(User $user) : bool
+    {
+        return $this->scene->getCreatedBy()->getId() === $this->item->getCreatedBy()->getId()
+            && $user->getId() === $this->item->getCreatedBy()->getId()
+        ;
     }
 }

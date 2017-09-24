@@ -36,6 +36,8 @@ AppBundle\Entity\Scene:
                 onDelete: "CASCADE"
         createdBy:
             targetEntity:  AppBundle\Entity\User
+            joinColumn:
+                onDelete: CASCADE
     manyToMany:
         characters:
             targetEntity: AppBundle\Entity\Character

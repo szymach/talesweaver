@@ -3,8 +3,10 @@
 namespace AppBundle\Chapter\Edit;
 
 use AppBundle\Entity\Chapter;
+use AppBundle\Entity\User;
+use AppBundle\Security\UserAccessInterface;
 
-class Command
+class Command implements UserAccessInterface
 {
     /**
      * @var DTO
@@ -22,8 +24,13 @@ class Command
         $this->chapter = $chapter;
     }
 
-    public function perform()
+    public function perform() : void
     {
         $this->chapter->edit($this->dto);
+    }
+
+    public function isAllowed(User $user) : bool
+    {
+        return $user->getId() === $this->chapter->getCreatedBy()->getId();
     }
 }

@@ -21,7 +21,7 @@ class DeleteController
 
     public function __invoke(Item $item)
     {
-        $this->commandBus->handle(new Command($item->getId()));
+        $this->commandBus->handle(new Command($item));
 
         return new JsonResponse(['success' => true]);
     }

@@ -2,22 +2,36 @@
 
 namespace AppBundle\Chapter\Delete;
 
+use AppBundle\Entity\Chapter;
+use AppBundle\Entity\User;
+use AppBundle\Security\UserAccessInterface;
 use Ramsey\Uuid\UuidInterface;
 
-class Command
+class Command implements UserAccessInterface
 {
     /**
      * @var UuidInterface
      */
     private $id;
 
-    public function __construct(UuidInterface $id)
+    /**
+     * @var int
+     */
+    private $createdBy;
+
+    public function __construct(Chapter $chapter)
     {
-        $this->id = $id;
+        $this->id = $chapter->getId();
+        $this->createdBy = $chapter->getCreatedBy()->getId();
     }
 
     public function getId() : UuidInterface
     {
         return $this->id;
+    }
+
+    public function isAllowed(User $user) : bool
+    {
+        return $user->getId() === $this->createdBy;
     }
 }

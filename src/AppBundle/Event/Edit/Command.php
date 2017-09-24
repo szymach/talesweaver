@@ -3,8 +3,10 @@
 namespace AppBundle\Event\Edit;
 
 use AppBundle\Entity\Event;
+use AppBundle\Entity\User;
+use AppBundle\Security\UserAccessInterface;
 
-class Command
+class Command implements UserAccessInterface
 {
     /**
      * @var Event
@@ -25,5 +27,10 @@ class Command
     public function perform() : void
     {
         $this->event->edit($this->dto);
+    }
+
+    public function isAllowed(User $user): bool
+    {
+        return $this->event->getCreatedBy()->getId() === $user->getId();
     }
 }
