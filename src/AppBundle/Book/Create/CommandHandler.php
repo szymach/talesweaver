@@ -19,6 +19,8 @@ class CommandHandler
 
     public function handle(Command $command)
     {
-        $this->manager->persist(new Book($command->getId(), $command->getTitle()));
+        $this->manager->persist(
+            new Book($command->getId(), $command->getTitle(), $command->getUser())
+        );
     }
 }

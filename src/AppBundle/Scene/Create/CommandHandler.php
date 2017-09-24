@@ -19,6 +19,8 @@ class CommandHandler
 
     public function handle(Command $command)
     {
-        $this->manager->persist(new Scene($command->getId(), $command->getData()));
+        $this->manager->persist(
+            new Scene($command->getId(), $command->getData(), $command->getUser())
+        );
     }
 }

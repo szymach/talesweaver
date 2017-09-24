@@ -2,10 +2,14 @@
 
 namespace AppBundle\Event\Create;
 
+use AppBundle\Security\Traits\UserAwareTrait;
+use AppBundle\Security\UserAwareInterface;
 use Ramsey\Uuid\UuidInterface;
 
-class Command
+class Command implements UserAwareInterface
 {
+    use UserAwareTrait;
+
     /**
      * @var UuidInterface
      */

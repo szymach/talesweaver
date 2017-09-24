@@ -4,7 +4,6 @@ namespace AppBundle\Item\Create;
 
 use AppBundle\Entity\Item;
 use Doctrine\Common\Persistence\ObjectManager;
-use Throwable;
 
 class CommandHandler
 {
@@ -20,15 +19,8 @@ class CommandHandler
 
     public function handle(Command $command)
     {
-        $this->manager->beginTransaction();
-        try {
-            $item = new Item($command->getId(), $command->getData());
-            $this->manager->persist($item);
-            $this->manager->flush();
-            $this->manager->commit();
-        } catch (Throwable $exception) {
-            $this->manager->rollback();
-            throw $exception;
-        }
+        $this->manager->persist(
+            new Item($command->getId(), $command->getData(), $command->getUser())
+        );
     }
 }
