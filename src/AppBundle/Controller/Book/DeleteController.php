@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Book;
 
-use AppBundle\Book\Delete\Command;
+use Domain\Book\Delete\Command;
 use AppBundle\Entity\Book;
 use AppBundle\Routing\RedirectToList;
 use SimpleBus\Message\Bus\MessageBus;

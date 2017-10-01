@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Chapter;
 
-use AppBundle\Chapter\Delete\Command;
+use Domain\Chapter\Delete\Command;
 use AppBundle\Entity\Chapter;
 use AppBundle\Routing\RedirectToEdit;
 use AppBundle\Routing\RedirectToList;

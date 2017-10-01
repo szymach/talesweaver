@@ -2,8 +2,8 @@
 
 namespace AppBundle\Controller\Chapter;
 
-use AppBundle\Chapter\Edit\Command;
-use AppBundle\Chapter\Edit\DTO;
+use Domain\Chapter\Edit\Command;
+use Domain\Chapter\Edit\DTO;
 use AppBundle\Entity\Chapter;
 use AppBundle\Form\Chapter\EditType;
 use AppBundle\Routing\RedirectToEdit;

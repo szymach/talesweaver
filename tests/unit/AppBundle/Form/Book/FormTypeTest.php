@@ -2,8 +2,8 @@
 
 namespace Tests\AppBundle\Form\Book;
 
-use AppBundle\Book\Create;
-use AppBundle\Book\Edit;
+use Domain\Book\Create;
+use Domain\Book\Edit;
 use AppBundle\Entity\Book;
 use AppBundle\Form\Book\CreateType;
 use AppBundle\Form\Book\EditType;

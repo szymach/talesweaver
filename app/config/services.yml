@@ -17,6 +17,9 @@ services:
     AppBundle\Routing\:
         resource: "../../src/AppBundle/Routing/*"
 
+    AppBundle\Timeline\:
+        resource: "../../src/AppBundle/Timeline/*"
+
     AppBundle\Templating\:
         resource: "../../src/AppBundle/Templating/*"
 

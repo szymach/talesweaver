@@ -5,7 +5,7 @@ namespace AppBundle\Controller\Scene;
 use AppBundle\Entity\Scene;
 use AppBundle\Routing\RedirectToEdit;
 use AppBundle\Routing\RedirectToList;
-use AppBundle\Scene\Delete\Command;
+use Domain\Scene\Delete\Command;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

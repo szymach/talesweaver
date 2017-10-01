@@ -2,13 +2,13 @@
 
 namespace Tests\AppBundle\Form\Item;
 
-use AppBundle\Item\Create;
-use AppBundle\Item\Edit;
+use Domain\Item\Create;
+use Domain\Item\Edit;
 use AppBundle\Entity\Item;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Item\CreateType;
 use AppBundle\Form\Item\EditType;
-use AppBundle\Scene\Create\DTO as SceneDTO;
+use Domain\Scene\Create\DTO as SceneDTO;
 use Codeception\Test\Unit;
 use Ramsey\Uuid\Uuid;
 use UnitTester;

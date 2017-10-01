@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Character;
 
-use AppBundle\Character\AddToScene\Command;
+use Domain\Character\AddToScene\Command;
 use AppBundle\Entity\Character;
 use AppBundle\Entity\Scene;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;

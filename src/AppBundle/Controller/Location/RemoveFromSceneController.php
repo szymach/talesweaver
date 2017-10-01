@@ -4,7 +4,7 @@ namespace AppBundle\Controller\Location;
 
 use AppBundle\Entity\Location;
 use AppBundle\Entity\Scene;
-use AppBundle\Location\RemoveFromScene\Command;
+use Domain\Location\RemoveFromScene\Command;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;

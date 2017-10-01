@@ -3,7 +3,7 @@
 namespace AppBundle\Form\Scene;
 
 use AppBundle\Entity\Chapter;
-use AppBundle\Scene\Create\DTO;
+use Domain\Scene\Create\DTO;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

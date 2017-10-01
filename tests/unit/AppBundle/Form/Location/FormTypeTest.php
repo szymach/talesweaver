@@ -2,13 +2,13 @@
 
 namespace Tests\AppBundle\Form\Location;
 
-use AppBundle\Location\Create;
-use AppBundle\Location\Edit;
+use Domain\Location\Create;
+use Domain\Location\Edit;
 use AppBundle\Entity\Location;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Location\CreateType;
 use AppBundle\Form\Location\EditType;
-use AppBundle\Scene\Create\DTO as SceneDTO;
+use Domain\Scene\Create\DTO as SceneDTO;
 use Codeception\Test\Unit;
 use Ramsey\Uuid\Uuid;
 use UnitTester;

@@ -2,8 +2,8 @@
 
 namespace Tests\AppBundle\Form\Chapter;
 
-use AppBundle\Chapter\Create;
-use AppBundle\Chapter\Edit;
+use Domain\Chapter\Create;
+use Domain\Chapter\Edit;
 use AppBundle\Entity\Chapter;
 use AppBundle\Form\Chapter\CreateType;
 use AppBundle\Form\Chapter\EditType;

@@ -2,8 +2,8 @@
 
 namespace AppBundle\Controller\Chapter;
 
-use AppBundle\Chapter\Create\Command;
-use AppBundle\Chapter\Create\DTO;
+use Domain\Chapter\Create\Command;
+use Domain\Chapter\Create\DTO;
 use AppBundle\Entity\Book;
 use AppBundle\Form\Chapter\CreateType;
 use AppBundle\Routing\RedirectToEdit;

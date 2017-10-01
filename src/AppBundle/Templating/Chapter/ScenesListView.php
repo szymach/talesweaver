@@ -5,7 +5,7 @@ namespace AppBundle\Templating\Chapter;
 use AppBundle\Entity\Chapter;
 use AppBundle\Form\Scene\CreateType;
 use AppBundle\Pagination\Chapter\ScenePaginator;
-use AppBundle\Scene\Create\DTO;
+use Domain\Scene\Create\DTO;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

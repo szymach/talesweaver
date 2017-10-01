@@ -4,8 +4,8 @@ namespace AppBundle\Controller\Location;
 
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Location\CreateType;
-use AppBundle\Location\Create\Command;
-use AppBundle\Location\Create\DTO;
+use Domain\Location\Create\Command;
+use Domain\Location\Create\DTO;
 use AppBundle\Templating\Location\FormView;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;

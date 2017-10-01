@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form\Chapter;
 
-use AppBundle\Chapter\Edit\DTO;
+use Domain\Chapter\Edit\DTO;
 use AppBundle\Entity\Book;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

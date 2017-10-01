@@ -12,142 +12,142 @@ services:
 
     # Book handlers
     app.command.book.create:
-        class: AppBundle\Book\Create\CommandHandler
+        class: Domain\Book\Create\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Book\Create\Command }
+            - { name: command_handler, handles: Domain\Book\Create\Command }
 
     app.command.book.edit:
-        class: AppBundle\Book\Edit\CommandHandler
+        class: Domain\Book\Edit\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Book\Edit\Command }
+            - { name: command_handler, handles: Domain\Book\Edit\Command }
 
     app.command.book.delete:
-        class: AppBundle\Book\Delete\CommandHandler
+        class: Domain\Book\Delete\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Book\Delete\Command }
+            - { name: command_handler, handles: Domain\Book\Delete\Command }
 
     # Chapter handles
     app.command.chapter.create:
-        class: AppBundle\Chapter\Create\CommandHandler
+        class: Domain\Chapter\Create\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Chapter\Create\Command }
+            - { name: command_handler, handles: Domain\Chapter\Create\Command }
 
     app.command.chapter.edit:
-        class: AppBundle\Chapter\Edit\CommandHandler
+        class: Domain\Chapter\Edit\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Chapter\Edit\Command }
+            - { name: command_handler, handles: Domain\Chapter\Edit\Command }
 
     app.command.chapter.delete:
-        class: AppBundle\Chapter\Delete\CommandHandler
+        class: Domain\Chapter\Delete\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Chapter\Delete\Command }
+            - { name: command_handler, handles: Domain\Chapter\Delete\Command }
 
     # Scene handles
     app.command.scene.create:
-        class: AppBundle\Scene\Create\CommandHandler
+        class: Domain\Scene\Create\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Scene\Create\Command }
+            - { name: command_handler, handles: Domain\Scene\Create\Command }
 
     app.command.scene.edit:
-        class: AppBundle\Scene\Edit\CommandHandler
+        class: Domain\Scene\Edit\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Scene\Edit\Command }
+            - { name: command_handler, handles: Domain\Scene\Edit\Command }
 
     app.command.scene.delete:
-        class: AppBundle\Scene\Delete\CommandHandler
+        class: Domain\Scene\Delete\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Scene\Delete\Command }
+            - { name: command_handler, handles: Domain\Scene\Delete\Command }
 
     # Event handlers
     app.command.event.create:
-        class: AppBundle\Event\Create\CommandHandler
+        class: Domain\Event\Create\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Event\Create\Command }
+            - { name: command_handler, handles: Domain\Event\Create\Command }
 
     app.command.event.edit:
-        class: AppBundle\Event\Edit\CommandHandler
+        class: Domain\Event\Edit\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Event\Edit\Command }
+            - { name: command_handler, handles: Domain\Event\Edit\Command }
 
     app.command.event.delete:
-        class: AppBundle\Event\Delete\CommandHandler
+        class: Domain\Event\Delete\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Event\Delete\Command }
+            - { name: command_handler, handles: Domain\Event\Delete\Command }
 
     # Character handlers
     app.command.character.create:
-        class: AppBundle\Character\Create\CommandHandler
+        class: Domain\Character\Create\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Character\Create\Command }
+            - { name: command_handler, handles: Domain\Character\Create\Command }
 
     app.command.character.add_to_scene:
-        class: AppBundle\Character\AddToScene\CommandHandler
+        class: Domain\Character\AddToScene\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Character\AddToScene\Command }
+            - { name: command_handler, handles: Domain\Character\AddToScene\Command }
 
     app.command.character.edit:
-        class: AppBundle\Character\Edit\CommandHandler
+        class: Domain\Character\Edit\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Character\Edit\Command }
+            - { name: command_handler, handles: Domain\Character\Edit\Command }
 
     app.command.character.delete:
-        class: AppBundle\Character\Delete\CommandHandler
+        class: Domain\Character\Delete\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Character\Delete\Command }
+            - { name: command_handler, handles: Domain\Character\Delete\Command }
 
     app.command.character.remove_from_scene:
-        class: AppBundle\Character\RemoveFromScene\CommandHandler
+        class: Domain\Character\RemoveFromScene\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Character\RemoveFromScene\Command }
+            - { name: command_handler, handles: Domain\Character\RemoveFromScene\Command }
 
     #  Item handlers
     app.command.item.create:
-        class: AppBundle\Item\Create\CommandHandler
+        class: Domain\Item\Create\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Item\Create\Command }
+            - { name: command_handler, handles: Domain\Item\Create\Command }
 
     app.command.item.add_to_scene:
-        class: AppBundle\Item\AddToScene\CommandHandler
+        class: Domain\Item\AddToScene\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Item\AddToScene\Command }
+            - { name: command_handler, handles: Domain\Item\AddToScene\Command }
 
     app.command.item.edit:
-        class: AppBundle\Item\Edit\CommandHandler
+        class: Domain\Item\Edit\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Item\Edit\Command }
+            - { name: command_handler, handles: Domain\Item\Edit\Command }
 
     app.command.item.delete:
-        class: AppBundle\Item\Delete\CommandHandler
+        class: Domain\Item\Delete\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Item\Delete\Command }
+            - { name: command_handler, handles: Domain\Item\Delete\Command }
 
     app.command.item.remove_from_scene:
-        class: AppBundle\Item\RemoveFromScene\CommandHandler
+        class: Domain\Item\RemoveFromScene\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Item\RemoveFromScene\Command }
+            - { name: command_handler, handles: Domain\Item\RemoveFromScene\Command }
 
     #  Location handlers
     app.command.location.create:
-        class: AppBundle\Location\Create\CommandHandler
+        class: Domain\Location\Create\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Location\Create\Command }
+            - { name: command_handler, handles: Domain\Location\Create\Command }
 
     app.command.location.add_to_scene:
-        class: AppBundle\Location\AddToScene\CommandHandler
+        class: Domain\Location\AddToScene\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Location\AddToScene\Command }
+            - { name: command_handler, handles: Domain\Location\AddToScene\Command }
 
     app.command.location.edit:
-        class: AppBundle\Location\Edit\CommandHandler
+        class: Domain\Location\Edit\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Location\Edit\Command }
+            - { name: command_handler, handles: Domain\Location\Edit\Command }
 
     app.command.location.delete:
-        class: AppBundle\Location\Delete\CommandHandler
+        class: Domain\Location\Delete\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Location\Delete\Command }
+            - { name: command_handler, handles: Domain\Location\Delete\Command }
 
     app.command.location.remove_from_scene:
-        class: AppBundle\Location\RemoveFromScene\CommandHandler
+        class: Domain\Location\RemoveFromScene\CommandHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Location\RemoveFromScene\Command }
+            - { name: command_handler, handles: Domain\Location\RemoveFromScene\Command }

@@ -2,8 +2,8 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Character\Create;
-use AppBundle\Character\Edit;
+use Domain\Character\Create;
+use Domain\Character\Edit;
 use AppBundle\Entity\Traits\AvatarTrait;
 use AppBundle\Entity\Traits\CreatedByTrait;
 use AppBundle\Entity\Traits\TimestampableTrait;

@@ -2,8 +2,8 @@
 
 namespace AppBundle\Controller\Character;
 
-use AppBundle\Character\Edit\Command;
-use AppBundle\Character\Edit\DTO;
+use Domain\Character\Edit\Command;
+use Domain\Character\Edit\DTO;
 use AppBundle\Entity\Character;
 use AppBundle\Form\Character\EditType;
 use AppBundle\Templating\Character\FormView;

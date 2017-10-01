@@ -2,13 +2,13 @@
 
 namespace Tests\AppBundle\Form\Character;
 
-use AppBundle\Character\Create;
-use AppBundle\Character\Edit;
+use Domain\Character\Create;
+use Domain\Character\Edit;
 use AppBundle\Entity\Character;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Character\CreateType;
 use AppBundle\Form\Character\EditType;
-use AppBundle\Scene\Create\DTO as SceneDTO;
+use Domain\Scene\Create\DTO as SceneDTO;
 use Codeception\Test\Unit;
 use Ramsey\Uuid\Uuid;
 use UnitTester;

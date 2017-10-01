@@ -2,8 +2,8 @@
 
 namespace AppBundle\Controller\Book;
 
-use AppBundle\Book\Edit\Command;
-use AppBundle\Book\Edit\DTO;
+use Domain\Book\Edit\Command;
+use Domain\Book\Edit\DTO;
 use AppBundle\Entity\Book;
 use AppBundle\Form\Book\EditType;
 use AppBundle\Routing\RedirectToEdit;

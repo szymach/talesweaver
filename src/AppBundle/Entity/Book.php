@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Book\Edit\DTO;
+use Domain\Book\Edit\DTO;
 use AppBundle\Entity\Traits\CreatedByTrait;
 use AppBundle\Entity\Traits\TimestampableTrait;
 use AppBundle\Entity\Traits\TranslatableTrait;

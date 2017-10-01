@@ -4,8 +4,8 @@ namespace AppBundle\Controller\Item;
 
 use AppBundle\Entity\Item;
 use AppBundle\Form\Item\EditType;
-use AppBundle\Item\Edit\Command;
-use AppBundle\Item\Edit\DTO;
+use Domain\Item\Edit\Command;
+use Domain\Item\Edit\DTO;
 use AppBundle\Templating\Item\FormView;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;

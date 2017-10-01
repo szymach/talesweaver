@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Book;
 
-use AppBundle\Book\Create\Command;
+use Domain\Book\Create\Command;
 use AppBundle\Form\Book\CreateType;
 use AppBundle\Routing\RedirectToEdit;
 use AppBundle\Templating\SimpleFormView;

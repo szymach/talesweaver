@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Location;
 
-use AppBundle\Location\Delete\Command;
+use Domain\Location\Delete\Command;
 use AppBundle\Entity\Location;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;

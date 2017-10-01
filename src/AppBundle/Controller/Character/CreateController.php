@@ -2,8 +2,8 @@
 
 namespace AppBundle\Controller\Character;
 
-use AppBundle\Character\Create\Command;
-use AppBundle\Character\Create\DTO;
+use Domain\Character\Create\Command;
+use Domain\Character\Create\DTO;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Character\CreateType;
 use AppBundle\Templating\Character\FormView;

@@ -4,7 +4,7 @@ AppBundle\Entity\Event:
     table: event_entity
     repositoryClass: AppBundle\Entity\Repository\EventRepository
     entityListeners:
-        AppBundle\Event\ModelParserListener: ~
+        AppBundle\JSON\ModelParserListener: ~
     id:
         id:
             type: uuid

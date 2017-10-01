@@ -3,7 +3,7 @@
 namespace AppBundle\Templating\Item;
 
 use AppBundle\Entity\Item;
-use AppBundle\Item\ItemTimeline;
+use AppBundle\Timeline\ItemTimeline;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 

@@ -3,7 +3,7 @@
 namespace AppBundle\Templating\Location;
 
 use AppBundle\Entity\Location;
-use AppBundle\Location\LocationTimeline;
+use AppBundle\Timeline\LocationTimeline;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 

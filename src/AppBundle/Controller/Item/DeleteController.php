@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Item;
 
-use AppBundle\Item\Delete\Command;
+use Domain\Item\Delete\Command;
 use AppBundle\Entity\Item;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;

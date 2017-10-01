@@ -4,7 +4,7 @@ namespace AppBundle\Controller\Item;
 
 use AppBundle\Entity\Item;
 use AppBundle\Entity\Scene;
-use AppBundle\Item\AddToScene\Command;
+use Domain\Item\AddToScene\Command;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;

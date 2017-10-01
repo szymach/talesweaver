@@ -3,7 +3,7 @@
 namespace AppBundle\Form\Scene;
 
 use AppBundle\Entity\Chapter;
-use AppBundle\Scene\Edit\DTO;
+use Domain\Scene\Edit\DTO;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

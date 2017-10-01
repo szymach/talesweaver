@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Controller\Scene;
 
-use AppBundle\Scene\Create\DTO;
+use Domain\Scene\Create\DTO;
 use AppBundle\Entity\Scene;
 use FunctionalTester;
 use Ramsey\Uuid\Uuid;

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form\Book;
 
-use AppBundle\Book\Edit\DTO;
+use Domain\Book\Edit\DTO;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

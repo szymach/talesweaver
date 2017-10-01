@@ -2,8 +2,8 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Chapter\Create;
-use AppBundle\Chapter\Edit;
+use Domain\Chapter\Create;
+use Domain\Chapter\Edit;
 use AppBundle\Entity\Traits\CreatedByTrait;
 use AppBundle\Entity\Traits\TimestampableTrait;
 use AppBundle\Entity\Traits\TranslatableTrait;

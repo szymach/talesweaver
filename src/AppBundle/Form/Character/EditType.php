@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form\Character;
 
-use AppBundle\Character\Edit\DTO;
+use Domain\Character\Edit\DTO;
 use FSi\Bundle\DoctrineExtensionsBundle\Form\Type\FSi\ImageType;
 use FSi\Bundle\DoctrineExtensionsBundle\Form\Type\FSi\RemovableFileType;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;

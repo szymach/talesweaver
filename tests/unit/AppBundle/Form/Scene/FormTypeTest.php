@@ -2,8 +2,8 @@
 
 namespace Tests\AppBundle\Form\Scene;
 
-use AppBundle\Scene\Create;
-use AppBundle\Scene\Edit;
+use Domain\Scene\Create;
+use Domain\Scene\Edit;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Scene\CreateType;
 use AppBundle\Form\Scene\EditType;

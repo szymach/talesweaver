@@ -2,7 +2,7 @@
 
 namespace AppBundle\Templating\Character;
 
-use AppBundle\Character\CharacterTimeline;
+use AppBundle\Timeline\CharacterTimeline;
 use AppBundle\Entity\Character;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Templating\Book;
 
-use AppBundle\Chapter\Create\DTO;
+use Domain\Chapter\Create\DTO;
 use AppBundle\Entity\Book;
 use AppBundle\Form\Chapter\CreateType;
 use AppBundle\Pagination\Book\ChapterPaginator;

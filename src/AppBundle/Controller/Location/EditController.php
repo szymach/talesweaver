@@ -4,8 +4,8 @@ namespace AppBundle\Controller\Location;
 
 use AppBundle\Entity\Location;
 use AppBundle\Form\Location\EditType;
-use AppBundle\Location\Edit\Command;
-use AppBundle\Location\Edit\DTO;
+use Domain\Location\Edit\Command;
+use Domain\Location\Edit\DTO;
 use AppBundle\Templating\Location\FormView;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
