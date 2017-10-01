@@ -4,10 +4,10 @@ namespace AppBundle\Templating;
 
 use AppBundle\Entity\Book;
 use AppBundle\Entity\Chapter;
-use AppBundle\Entity\Repository\BookRepository;
-use AppBundle\Entity\Repository\ChapterRepository;
-use AppBundle\Entity\Repository\Interfaces\LatestChangesAwareRepository;
-use AppBundle\Entity\Repository\SceneRepository;
+use AppBundle\Repository\BookRepository;
+use AppBundle\Repository\ChapterRepository;
+use AppBundle\Repository\Interfaces\LatestChangesAwareRepository;
+use AppBundle\Repository\SceneRepository;
 use AppBundle\Entity\Scene;
 use DateTimeImmutable;
 use Symfony\Component\HttpFoundation\Response;

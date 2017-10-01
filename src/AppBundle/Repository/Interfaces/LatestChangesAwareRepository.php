@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity\Repository\Interfaces;
+namespace AppBundle\Repository\Interfaces;
 
 interface LatestChangesAwareRepository
 {

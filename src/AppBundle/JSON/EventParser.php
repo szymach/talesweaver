@@ -6,9 +6,9 @@ use AppBundle\Entity\Character;
 use AppBundle\Entity\Event;
 use AppBundle\Entity\Item;
 use AppBundle\Entity\Location;
-use AppBundle\Entity\Repository\CharacterRepository;
-use AppBundle\Entity\Repository\ItemRepository;
-use AppBundle\Entity\Repository\LocationRepository;
+use AppBundle\Repository\CharacterRepository;
+use AppBundle\Repository\ItemRepository;
+use AppBundle\Repository\LocationRepository;
 use JsonSerializable;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 

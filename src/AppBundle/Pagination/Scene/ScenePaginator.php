@@ -2,7 +2,7 @@
 
 namespace AppBundle\Pagination\Scene;
 
-use AppBundle\Entity\Repository\SceneRepository;
+use AppBundle\Repository\SceneRepository;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 

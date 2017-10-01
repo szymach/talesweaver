@@ -1,7 +1,7 @@
 ---
 AppBundle\Entity\Location:
     type: entity
-    repositoryClass: AppBundle\Entity\Repository\LocationRepository
+    repositoryClass: AppBundle\Repository\LocationRepository
     id:
         id:
             type: uuid

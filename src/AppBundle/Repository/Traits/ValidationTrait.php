@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AppBundle\Entity\Repository\Traits;
+namespace AppBundle\Repository\Traits;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\UuidInterface;

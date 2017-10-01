@@ -1,8 +1,8 @@
 <?php
 
-namespace AppBundle\Entity\Repository;
+namespace AppBundle\Repository;
 
-use AppBundle\Entity\Repository\Traits\ValidationTrait;
+use AppBundle\Repository\Traits\ValidationTrait;
 use AppBundle\Entity\Scene;
 use Doctrine\ORM\QueryBuilder;
 

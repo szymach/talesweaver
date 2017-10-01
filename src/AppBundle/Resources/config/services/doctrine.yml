@@ -12,34 +12,34 @@ services:
             - { name: doctrine.orm.entity_listener }
 
     # Repository
-    AppBundle\Entity\Repository\BookRepository:
+    AppBundle\Repository\BookRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ AppBundle\Entity\Book ]
 
-    AppBundle\Entity\Repository\SceneRepository:
+    AppBundle\Repository\SceneRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ AppBundle\Entity\Scene ]
 
-    AppBundle\Entity\Repository\CharacterRepository:
+    AppBundle\Repository\CharacterRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ AppBundle\Entity\Character ]
 
-    AppBundle\Entity\Repository\ItemRepository:
+    AppBundle\Repository\ItemRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ AppBundle\Entity\Item ]
 
-    AppBundle\Entity\Repository\LocationRepository:
+    AppBundle\Repository\LocationRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ AppBundle\Entity\Location ]
 
-    AppBundle\Entity\Repository\ChapterRepository:
+    AppBundle\Repository\ChapterRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ AppBundle\Entity\Chapter ]
 
-    AppBundle\Entity\Repository\EventRepository:
+    AppBundle\Repository\EventRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ AppBundle\Entity\Event ]
 
-    AppBundle\Entity\Repository\UserRepository:
+    AppBundle\Repository\UserRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ AppBundle\Entity\User ]

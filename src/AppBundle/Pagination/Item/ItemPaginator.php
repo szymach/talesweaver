@@ -2,7 +2,7 @@
 
 namespace AppBundle\Pagination\Item;
 
-use AppBundle\Entity\Repository\ItemRepository;
+use AppBundle\Repository\ItemRepository;
 use AppBundle\Entity\Scene;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;

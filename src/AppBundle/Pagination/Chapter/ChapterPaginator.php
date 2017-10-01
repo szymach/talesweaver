@@ -2,7 +2,7 @@
 
 namespace AppBundle\Pagination\Chapter;
 
-use AppBundle\Entity\Repository\ChapterRepository;
+use AppBundle\Repository\ChapterRepository;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 

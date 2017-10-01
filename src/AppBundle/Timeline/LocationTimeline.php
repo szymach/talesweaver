@@ -2,7 +2,7 @@
 
 namespace AppBundle\Timeline;
 
-use AppBundle\Entity\Repository\SceneRepository;
+use AppBundle\Repository\SceneRepository;
 use Ramsey\Uuid\UuidInterface;
 
 class LocationTimeline extends TimelineFormatter

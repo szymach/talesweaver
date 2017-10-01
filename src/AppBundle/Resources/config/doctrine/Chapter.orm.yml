@@ -1,7 +1,7 @@
 ---
 AppBundle\Entity\Chapter:
     type: entity
-    repositoryClass: AppBundle\Entity\Repository\ChapterRepository
+    repositoryClass: AppBundle\Repository\ChapterRepository
     id:
         id:
             type: uuid

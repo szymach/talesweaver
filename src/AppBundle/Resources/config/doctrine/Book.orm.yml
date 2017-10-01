@@ -1,7 +1,7 @@
 ---
 AppBundle\Entity\Book:
     type: entity
-    repositoryClass: AppBundle\Entity\Repository\BookRepository
+    repositoryClass: AppBundle\Repository\BookRepository
     id:
         id:
             type: uuid

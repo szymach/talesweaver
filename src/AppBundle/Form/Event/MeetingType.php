@@ -4,8 +4,8 @@ namespace AppBundle\Form\Event;
 
 use AppBundle\Entity\Character;
 use AppBundle\Entity\Location;
-use AppBundle\Entity\Repository\CharacterRepository;
-use AppBundle\Entity\Repository\LocationRepository;
+use AppBundle\Repository\CharacterRepository;
+use AppBundle\Repository\LocationRepository;
 use AppBundle\Entity\Scene;
 use Domain\Event\Meeting;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

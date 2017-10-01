@@ -3,7 +3,7 @@
 namespace AppBundle\Pagination\Chapter;
 
 use AppBundle\Entity\Chapter;
-use AppBundle\Entity\Repository\SceneRepository;
+use AppBundle\Repository\SceneRepository;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 

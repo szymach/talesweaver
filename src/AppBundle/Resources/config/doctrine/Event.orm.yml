@@ -2,7 +2,7 @@
 AppBundle\Entity\Event:
     type: entity
     table: event_entity
-    repositoryClass: AppBundle\Entity\Repository\EventRepository
+    repositoryClass: AppBundle\Repository\EventRepository
     entityListeners:
         AppBundle\JSON\ModelParserListener: ~
     id:

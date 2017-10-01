@@ -1,11 +1,11 @@
 <?php
 
-namespace AppBundle\Entity\Repository;
+namespace AppBundle\Repository;
 
 use AppBundle\Entity\Chapter;
-use AppBundle\Entity\Repository\Interfaces\LatestChangesAwareRepository;
-use AppBundle\Entity\Repository\Traits\LatestResultsTrait;
-use AppBundle\Entity\Repository\Traits\ValidationTrait;
+use AppBundle\Repository\Interfaces\LatestChangesAwareRepository;
+use AppBundle\Repository\Traits\LatestResultsTrait;
+use AppBundle\Repository\Traits\ValidationTrait;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 

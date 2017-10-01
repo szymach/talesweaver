@@ -2,7 +2,7 @@
 
 namespace AppBundle\Pagination\Location;
 
-use AppBundle\Entity\Repository\LocationRepository;
+use AppBundle\Repository\LocationRepository;
 use AppBundle\Entity\Scene;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
