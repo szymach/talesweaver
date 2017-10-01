@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Security;
 
 use AppBundle\Form\Security\RegisterType;
-use AppBundle\Security\Command\CreateUser;
+use Domain\Security\Command\CreateUser;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;

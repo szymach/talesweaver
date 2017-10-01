@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Security;
+namespace Domain\Security;
 
 use AppBundle\Entity\User;
 

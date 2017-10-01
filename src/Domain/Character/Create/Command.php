@@ -3,9 +3,9 @@
 namespace Domain\Character\Create;
 
 use AppBundle\Entity\User;
-use AppBundle\Security\Traits\UserAwareTrait;
-use AppBundle\Security\UserAccessInterface;
-use AppBundle\Security\UserAwareInterface;
+use Domain\Security\Traits\UserAwareTrait;
+use Domain\Security\UserAccessInterface;
+use Domain\Security\UserAwareInterface;
 use Ramsey\Uuid\UuidInterface;
 
 class Command implements UserAccessInterface, UserAwareInterface

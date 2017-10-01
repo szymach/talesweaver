@@ -4,7 +4,7 @@ namespace Domain\Scene\Edit;
 
 use AppBundle\Entity\Chapter;
 use AppBundle\Entity\Scene;
-use AppBundle\Traits\IdentityTrait;
+use Domain\Model\IdentityTrait;
 
 class DTO
 {

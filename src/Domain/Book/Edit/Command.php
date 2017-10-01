@@ -4,7 +4,7 @@ namespace Domain\Book\Edit;
 
 use AppBundle\Entity\Book;
 use AppBundle\Entity\User;
-use AppBundle\Security\UserAccessInterface;
+use Domain\Security\UserAccessInterface;
 
 class Command implements UserAccessInterface
 {

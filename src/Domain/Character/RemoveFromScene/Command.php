@@ -5,7 +5,7 @@ namespace Domain\Character\RemoveFromScene;
 use AppBundle\Entity\Character;
 use AppBundle\Entity\Scene;
 use AppBundle\Entity\User;
-use AppBundle\Security\UserAccessInterface;
+use Domain\Security\UserAccessInterface;
 
 class Command implements UserAccessInterface
 {

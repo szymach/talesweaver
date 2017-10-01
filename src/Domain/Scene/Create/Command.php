@@ -2,8 +2,8 @@
 
 namespace Domain\Scene\Create;
 
-use AppBundle\Security\Traits\UserAwareTrait;
-use AppBundle\Security\UserAwareInterface;
+use Domain\Security\Traits\UserAwareTrait;
+use Domain\Security\UserAwareInterface;
 use Ramsey\Uuid\UuidInterface;
 
 class Command implements UserAwareInterface

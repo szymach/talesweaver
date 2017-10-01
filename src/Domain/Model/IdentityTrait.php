@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Traits;
+namespace Domain\Model;
 
 use Ramsey\Uuid\UuidInterface;
 

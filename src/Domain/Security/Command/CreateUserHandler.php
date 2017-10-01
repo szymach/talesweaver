@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Security\Command;
+namespace Domain\Security\Command;
 
 use AppBundle\Entity\User;
 use AppBundle\Entity\UserRole;

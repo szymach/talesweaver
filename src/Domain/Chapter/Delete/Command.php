@@ -4,7 +4,7 @@ namespace Domain\Chapter\Delete;
 
 use AppBundle\Entity\Chapter;
 use AppBundle\Entity\User;
-use AppBundle\Security\UserAccessInterface;
+use Domain\Security\UserAccessInterface;
 use Ramsey\Uuid\UuidInterface;
 
 class Command implements UserAccessInterface

@@ -4,7 +4,7 @@ namespace Domain\Item\Edit;
 
 use AppBundle\Entity\Item;
 use AppBundle\Entity\Scene;
-use AppBundle\Traits\IdentityTrait;
+use Domain\Model\IdentityTrait;
 use Doctrine\Common\Collections\Collection;
 use FSi\DoctrineExtensions\Uploadable\File;
 use SplFileInfo;

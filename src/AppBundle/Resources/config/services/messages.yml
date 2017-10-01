@@ -6,9 +6,9 @@ services:
 
     # User handlers
     app.command.use.create:
-        class: AppBundle\Security\Command\CreateUserHandler
+        class: Domain\Security\Command\CreateUserHandler
         tags:
-            - { name: command_handler, handles: AppBundle\Security\Command\CreateUser }
+            - { name: command_handler, handles: Domain\Security\Command\CreateUser }
 
     # Book handlers
     app.command.book.create:

@@ -3,7 +3,7 @@
 namespace AppBundle\Bus;
 
 use AppBundle\Entity\User;
-use AppBundle\Security\UserAwareInterface;
+use Domain\Security\UserAwareInterface;
 use RuntimeException;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;

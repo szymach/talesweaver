@@ -4,7 +4,7 @@ namespace Domain\Chapter\Edit;
 
 use AppBundle\Entity\Book;
 use AppBundle\Entity\Chapter;
-use AppBundle\Traits\IdentityTrait;
+use Domain\Model\IdentityTrait;
 
 class DTO
 {

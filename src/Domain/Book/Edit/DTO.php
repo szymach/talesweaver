@@ -3,7 +3,7 @@
 namespace Domain\Book\Edit;
 
 use AppBundle\Entity\Book;
-use AppBundle\Traits\IdentityTrait;
+use Domain\Model\IdentityTrait;
 
 class DTO
 {

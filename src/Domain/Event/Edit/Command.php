@@ -4,7 +4,7 @@ namespace Domain\Event\Edit;
 
 use AppBundle\Entity\Event;
 use AppBundle\Entity\User;
-use AppBundle\Security\UserAccessInterface;
+use Domain\Security\UserAccessInterface;
 
 class Command implements UserAccessInterface
 {

@@ -5,7 +5,7 @@ namespace Domain\Event;
 use AppBundle\Entity\Character;
 use AppBundle\Entity\Location;
 use AppBundle\Entity\User;
-use AppBundle\Security\UserAccessInterface;
+use Domain\Security\UserAccessInterface;
 use JsonSerializable;
 
 class Meeting implements JsonSerializable, UserAccessInterface

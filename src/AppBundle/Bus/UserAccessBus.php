@@ -3,7 +3,7 @@
 namespace AppBundle\Bus;
 
 use AppBundle\Bus\Traits\UserAccessTrait;
-use AppBundle\Security\UserAccessInterface;
+use Domain\Security\UserAccessInterface;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
