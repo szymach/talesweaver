@@ -13,8 +13,9 @@ class DeleteControllerCest
 
     public function delete(FunctionalTester $I)
     {
+        $I->loginAsUser();
         $id = Uuid::uuid4();
-        $I->persistEntity(new Book($id, self::TITLE_PL));
+        $I->persistEntity(new Book($id, self::TITLE_PL, $I->getUser()));
         $I->seeInRepository(Book::class, ['id' => $id]);
         $I->amOnPage(self::LIST_URL);
         $I->canSeeNumberOfElements('tbody > tr', 1);

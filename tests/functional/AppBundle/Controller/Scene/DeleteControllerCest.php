@@ -14,10 +14,11 @@ class DeleteControllerCest
 
     public function delete(FunctionalTester $I)
     {
+        $I->loginAsUser();
         $id = Uuid::uuid4();
         $dto = new DTO();
         $dto->setTitle(self::TITLE_PL);
-        $I->persistEntity(new Scene($id, $dto));
+        $I->persistEntity(new Scene($id, $dto, $I->getUser()));
         $I->seeInRepository(Scene::class, ['id' => $id]);
 
         $I->amOnPage(self::LIST_URL);

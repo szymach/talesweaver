@@ -20,6 +20,7 @@ class FormControllerCest
 
     public function renderView(FunctionalTester $I)
     {
+        $I->loginAsUser();
         $I->amOnPage(self::CREATE_URL);
         $I->seeInTitle('Nowa scena');
         $I->seeElement(self::CREATE_FORM);
@@ -30,6 +31,7 @@ class FormControllerCest
 
     public function submitForms(FunctionalTester $I)
     {
+        $I->loginAsUser();
         $I->amOnPage(self::CREATE_URL);
         $I->submitForm(self::CREATE_FORM, ['create[title]' => self::TITLE_PL]);
 

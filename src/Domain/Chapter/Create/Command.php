@@ -40,6 +40,7 @@ class Command implements UserAccessInterface, UserAwareInterface
 
     public function isAllowed(User $user) : bool
     {
-        return $this->dto->getBook()->getCreatedBy()->getId() === $user->getId();
+        $book = $this->dto->getBook();
+        return !$book || $book->getCreatedBy()->getId() === $user->getId();
     }
 }
