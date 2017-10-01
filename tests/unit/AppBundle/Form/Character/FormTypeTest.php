@@ -94,13 +94,13 @@ class FormTypeTest extends Unit
     {
         $createDto = new Create\DTO($this->getScene());
         $createDto->setName(self::NAME_PL);
-        return new Character(Uuid::uuid4(), $createDto);
+        return new Character(Uuid::uuid4(), $createDto, $this->tester->getUser());
     }
 
     private function getScene() : Scene
     {
         $createDto = new SceneDTO();
         $createDto->setTitle(self::SCENE_TITLE_PL);
-        return new Scene(Uuid::uuid4(), $createDto);
+        return new Scene(Uuid::uuid4(), $createDto, $this->tester->getUser());
     }
 }

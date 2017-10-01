@@ -5,7 +5,7 @@ namespace AppBundle\Timeline;
 use AppBundle\Entity\Event;
 use AppBundle\Entity\Repository\EventRepository;
 use AppBundle\Entity\Repository\SceneRepository;
-use AppBundle\Model\Meeting;
+use Domain\Event\Meeting;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 

@@ -1,5 +1,5 @@
 ---
-AppBundle\Location\Create\DTO:
+Domain\Location\Create\DTO:
     constraints:
         - AppBundle\Validation\Constraints\UniqueDTO:
             fields: { name: 't.name', scene: 'e.scenes' }
@@ -13,7 +13,7 @@ AppBundle\Location\Create\DTO:
         name:
             - NotBlank: ~
 
-AppBundle\Location\Edit\DTO:
+Domain\Location\Edit\DTO:
     constraints:
         - AppBundle\Validation\Constraints\UniqueDTO:
             fields: { name: 't.name', scenes: 'e.scenes' }

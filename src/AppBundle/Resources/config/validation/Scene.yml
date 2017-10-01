@@ -1,5 +1,5 @@
 ---
-AppBundle\Scene\Create\DTO:
+Domain\Scene\Create\DTO:
     constraints:
         - AppBundle\Validation\Constraints\UniqueDTO:
             fields: { title: 't.title', chapter: 'e.chapter' }
@@ -11,7 +11,7 @@ AppBundle\Scene\Create\DTO:
         title:
             - NotBlank: ~
 
-AppBundle\Scene\Edit\DTO:
+Domain\Scene\Edit\DTO:
     constraints:
         - AppBundle\Validation\Constraints\UniqueDTO:
             fields: { title: 't.title', chapter: 'e.chapter' }

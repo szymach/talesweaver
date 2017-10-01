@@ -7,7 +7,7 @@ use AppBundle\Entity\Location;
 use AppBundle\Entity\Repository\CharacterRepository;
 use AppBundle\Entity\Repository\LocationRepository;
 use AppBundle\Entity\Scene;
-use AppBundle\Model\Meeting;
+use Domain\Event\Meeting;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

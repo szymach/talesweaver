@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Model;
+namespace Domain\Event;
 
 use AppBundle\Entity\Character;
 use AppBundle\Entity\Location;

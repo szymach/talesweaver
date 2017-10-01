@@ -1,5 +1,7 @@
 <?php
 
+use AppBundle\Entity\User;
+use AppBundle\Entity\UserRole;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -21,6 +23,11 @@ use Symfony\Component\HttpFoundation\Request;
 class UnitTester extends \Codeception\Actor
 {
     use _generated\UnitTesterActions;
+
+    /**
+     * @var User
+     */
+    private $user;
 
     public function createForm($class, $data = null)
     {
@@ -44,5 +51,14 @@ class UnitTester extends \Codeception\Actor
         $request = new Request([], $postData);
         $request->setMethod(Request::METHOD_POST);
         return $request;
+    }
+
+    public function getUser(): User
+    {
+        if (!$this->user) {
+            $this->user = new User('test@example.com', 'password', [new UserRole('ROLE_USER')]);
+        }
+
+        return $this->user;
     }
 }

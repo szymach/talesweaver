@@ -1,5 +1,5 @@
 ---
-AppBundle\Event\Create\DTO:
+Domain\Event\Create\DTO:
     constraints:
         - AppBundle\Validation\Constraints\UniqueDTO:
             fields: { name: 't.name', scene: 'e.scene' }
@@ -16,9 +16,9 @@ AppBundle\Event\Create\DTO:
         scene:
             - NotBlank: ~
 
-AppBundle\Model\Meeting:
+Domain\Event\Meeting:
     constraints:
-        - AppBundle\Validation\Constraints\Meeting: ~
+        - Domain\Validation\Constraints\Meeting: ~
     properties:
         root:
             - NotBlank: ~

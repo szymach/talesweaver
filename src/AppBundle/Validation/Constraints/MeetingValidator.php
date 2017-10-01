@@ -2,7 +2,7 @@
 
 namespace AppBundle\Validation\Constraints;
 
-use AppBundle\Model\Meeting;
+use Domain\Event\Meeting;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 

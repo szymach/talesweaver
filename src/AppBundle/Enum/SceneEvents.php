@@ -2,7 +2,7 @@
 
 namespace AppBundle\Enum;
 
-use AppBundle\Model\Meeting;
+use Domain\Event\Meeting;
 use AppBundle\Form\Event\MeetingType;
 use InvalidArgumentException;
 

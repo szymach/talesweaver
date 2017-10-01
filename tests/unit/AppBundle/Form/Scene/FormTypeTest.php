@@ -57,7 +57,7 @@ class FormTypeTest extends Unit
     {
         $createDto = new Create\DTO();
         $createDto->setTitle(self::TITLE_PL);
-        $scene = new Scene(Uuid::uuid4(), $createDto);
+        $scene = new Scene(Uuid::uuid4(), $createDto, $this->tester->getUser());
         $form = $this->tester->createForm(EditType::class, new Edit\DTO($scene));
         $form->handleRequest($this->tester->getRequest([
             'edit' => ['title' => self::TITLE_PL, 'text' => self::TEXT_PL]
@@ -77,7 +77,7 @@ class FormTypeTest extends Unit
     {
         $createDto = new Create\DTO();
         $createDto->setTitle(self::TITLE_PL);
-        $scene = new Scene(Uuid::uuid4(), $createDto);
+        $scene = new Scene(Uuid::uuid4(), $createDto, $this->tester->getUser());
         $form = $this->tester->createForm(EditType::class, new Edit\DTO($scene));
         $form->handleRequest($this->tester->getRequest([
             'edit' => ['title' => null, 'text' => null]

@@ -1,5 +1,5 @@
 ---
-AppBundle\Chapter\Create\DTO:
+Domain\Chapter\Create\DTO:
     constraints:
         - AppBundle\Validation\Constraints\UniqueDTO:
             fields: { title: 't.title', book: 'e.book' }
@@ -11,7 +11,7 @@ AppBundle\Chapter\Create\DTO:
         title:
             - NotBlank: ~
 
-AppBundle\Chapter\Edit\DTO:
+Domain\Chapter\Edit\DTO:
     constraints:
         - AppBundle\Validation\Constraints\UniqueDTO:
             fields: { title: 't.title', book: 'e.book' }
