@@ -23,6 +23,7 @@ class FormTypeTest extends Unit
 
     public function testValidCreateFormSubmission()
     {
+        $this->tester->loginAsUser();
         $form = $this->tester->createForm(CreateType::class);
         $form->handleRequest($this->tester->getRequest([
             'create' => ['title' => self::TITLE_PL]
@@ -39,6 +40,7 @@ class FormTypeTest extends Unit
 
     public function testInvalidCreateFormSubmission()
     {
+        $this->tester->loginAsUser();
         $form = $this->tester->createForm(CreateType::class);
         $form->handleRequest($this->tester->getRequest([
             'create' => ['title' => null]
@@ -55,6 +57,7 @@ class FormTypeTest extends Unit
 
     public function testValidEditFormSubmission()
     {
+        $this->tester->loginAsUser();
         $createDto = new Create\DTO();
         $createDto->setTitle(self::TITLE_PL);
         $scene = new Scene(Uuid::uuid4(), $createDto, $this->tester->getUser());
@@ -75,6 +78,7 @@ class FormTypeTest extends Unit
 
     public function testInvalidEditFormSubmission()
     {
+        $this->tester->loginAsUser();
         $createDto = new Create\DTO();
         $createDto->setTitle(self::TITLE_PL);
         $scene = new Scene(Uuid::uuid4(), $createDto, $this->tester->getUser());

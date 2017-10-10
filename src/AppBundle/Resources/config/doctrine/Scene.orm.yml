@@ -1,7 +1,7 @@
 ---
 AppBundle\Entity\Scene:
     type: entity
-    repositoryClass: AppBundle\Repository\SceneRepository
+    repositoryClass: AppBundle\Repository\Doctrine\SceneRepository
     id:
         id:
             type: uuid

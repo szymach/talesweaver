@@ -49,7 +49,7 @@ class RegisterController
     {
         $form = $this->formFactory->create(RegisterType::class);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();var_dump($request->request->all());
+            $data = $form->getData();
             $this->commandBus->handle(new CreateUser($data['username'], $data['password']));
 
             return new RedirectResponse($this->router->generate('login'));

@@ -3,6 +3,7 @@
 
 namespace AppBundle\Repository\Traits;
 
+use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\UuidInterface;
 
@@ -17,17 +18,22 @@ trait ValidationTrait
      */
     private $joinAliasCount = 0;
 
-    public function entityExists(array $parameters, ?UuidInterface $id)
-    {
+    public function entityExists(
+        User $user,
+        array $parameters,
+        ?UuidInterface $id
+    ) : bool {
         $qb = $this->getEntityManager()
             ->createQueryBuilder()
             ->select('COUNT(e.id)')
             ->from($this->getEntityName(), 'e')
             ->join('e.translations', 't')
+            ->where('e.createdBy = :user')
+            ->setParameter('user', $user)
         ;
 
         if ($id) {
-            $qb->where('e.id != :id')->setParameter('id', $id);
+            $qb->andWhere('e.id != :id')->setParameter('id', $id);
         }
 
         foreach ($parameters as $name => $value) {

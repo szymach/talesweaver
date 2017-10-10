@@ -2,7 +2,7 @@
 AppBundle\Entity\User:
     type: entity
     table: app_user
-    repositoryClass: AppBundle\Repository\UserRepository
+    repositoryClass: AppBundle\Repository\Doctrine\UserRepository
     id:
         id:
             type: integer

@@ -20,7 +20,7 @@ class ScenePaginator
 
     public function getResults(int $page = 1, int $maxPerPage = 10) : Pagerfanta
     {
-        $pager = new Pagerfanta(new DoctrineORMAdapter($this->repository->createStandaloneQb()));
+        $pager = new Pagerfanta(new DoctrineORMAdapter($this->repository->createStandaloneQueryBuilder()));
         $pager->setMaxPerPage($maxPerPage);
         $pager->setCurrentPage($page);
 

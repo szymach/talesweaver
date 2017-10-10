@@ -2,49 +2,19 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Repository\Traits\ValidationTrait;
-use AppBundle\Entity\Scene;
-use Doctrine\ORM\QueryBuilder;
+use AppBundle\Repository\Doctrine\CharacterRepository as DoctrineRepository;
+use AppBundle\Repository\Traits\SceneItemRepositoryTrait;
+use AppBundle\Security\UserProvider;
 
-class CharacterRepository extends TranslatableRepository
+class CharacterRepository
 {
-    use ValidationTrait;
-    
-    public function createForSceneQueryBuilder(Scene $scene) : QueryBuilder
-    {
-        return $this->createTranslatableQueryBuilder('c')
-            ->andWhere(':scene MEMBER OF c.scenes')
-            ->setParameter('scene', $scene)
-        ;
-    }
+    use SceneItemRepositoryTrait;
 
-    public function createRelatedQueryBuilder(Scene $scene) : QueryBuilder
-    {
-        $qb = $this->createTranslatableQueryBuilder('c');
-        return $qb->leftJoin('c.scenes', 's')
-            ->andWhere(
-                $qb->expr()->andX(
-                    ':scene NOT MEMBER OF c.scenes',
-                    's.chapter = :chapter'
-                )
-            )
-            ->orWhere(
-                $qb->expr()->andX(
-                    ':scene NOT MEMBER OF c.scenes',
-                    ':chapter MEMBER OF c.chapters'
-                )
-            )
-            ->setParameter('scene', $scene)
-            ->setParameter('chapter', $scene->getChapter())
-        ;
-    }
-
-    public function createRelatedToScenesQueryBuilder(array $scenes) : QueryBuilder
-    {
-        return $this->createTranslatableQueryBuilder('c')
-            ->join('c.scenes', 's')
-            ->andWhere(':scenes MEMBER OF c.scenes')
-            ->setParameter('scenes', $scenes)
-        ;
+    public function __construct(
+        DoctrineRepository $doctrineRepository,
+        UserProvider $userProvider
+    ) {
+        $this->doctrineRepository = $doctrineRepository;
+        $this->userProvider = $userProvider;
     }
 }

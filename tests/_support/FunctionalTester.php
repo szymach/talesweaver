@@ -27,19 +27,12 @@ class FunctionalTester extends Actor
 {
     use FunctionalTesterActions;
 
-    /**
-     * @var User
-     */
-    private $user;
+    const USER_EMAIL = 'test@example.com';
 
     public function loginAsUser()
     {
         /* @var $tokenStorage TokenStorageInterface */
         $tokenStorage = $this->grabService('security.token_storage');
-        if ($tokenStorage->getToken()) {
-            return;
-        }
-
         $firewall = 'main';
         $user = $this->getUser();
         $token = new UsernamePasswordToken(
@@ -48,6 +41,7 @@ class FunctionalTester extends Actor
             $firewall,
             $user->getRoles()
         );
+        $tokenStorage->setToken($token);
          /** @var Session $session */
         $session = $this->grabService('session');
         $session->set(sprintf('_security_%s', $firewall), serialize($token));
@@ -58,14 +52,15 @@ class FunctionalTester extends Actor
 
     public function getUser(): User
     {
-        if (!$this->user) {
+        $user = $this->grabEntityFromRepository(User::class, ['username' => self::USER_EMAIL]);
+        if (!$user) {
             $role = new UserRole('ROLE_USER');
-            $this->user = new User('test@example.com', 'password', [$role]);
+            $user = new User('test@example.com', 'password', [$role]);
             $this->persistEntity($role);
-            $this->persistEntity($this->user);
+            $this->persistEntity($user);
             $this->flushToDatabase();
         }
 
-        return $this->user;
+        return $user;
     }
 }

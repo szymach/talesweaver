@@ -2,30 +2,45 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Repository\Traits\ValidationTrait;
 use AppBundle\Entity\Scene;
+use AppBundle\Repository\Doctrine\EventRepository as DoctrineRepository;
+use AppBundle\Security\UserProvider;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 
-class EventRepository extends TranslatableRepository
+class EventRepository
 {
-    use ValidationTrait;
+    /**
+     * @var DoctrineRepository
+     */
+    private $doctrineRepository;
+
+    /**
+     * @var UserProvider
+     */
+    private $userProvider;
+
+    public function __construct(
+        DoctrineRepository $doctrineRepository,
+        UserProvider $userProvider
+    ) {
+        $this->doctrineRepository = $doctrineRepository;
+        $this->userProvider = $userProvider;
+    }
 
     public function createForSceneQueryBuilder(Scene $scene) : QueryBuilder
     {
-        return $this->createTranslatableQueryBuilder('e')
-            ->andWhere('e.scene = :scene')
-            ->setParameter('scene', $scene)
-        ;
+        return $this->doctrineRepository->createForSceneQueryBuilder(
+            $this->userProvider->fetchCurrentUser(),
+            $scene
+        );
     }
 
     public function findInEventsById(UuidInterface $id) : array
     {
-        return $this->createQueryBuilder('e')
-            ->where('e.model LIKE :id')
-            ->setParameter('id', sprintf('%%"%s"%%', $id))
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->doctrineRepository->findInEventsById(
+            $this->userProvider->fetchCurrentUser(),
+            $id
+        );
     }
 }

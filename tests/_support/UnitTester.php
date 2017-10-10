@@ -2,8 +2,12 @@
 
 use AppBundle\Entity\User;
 use AppBundle\Entity\UserRole;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 
 /**
  * Inherited Methods
@@ -24,10 +28,7 @@ class UnitTester extends \Codeception\Actor
 {
     use _generated\UnitTesterActions;
 
-    /**
-     * @var User
-     */
-    private $user;
+    const USER_EMAIL = 'test@example.com';
 
     public function createForm($class, $data = null)
     {
@@ -55,10 +56,38 @@ class UnitTester extends \Codeception\Actor
 
     public function getUser(): User
     {
-        if (!$this->user) {
-            $this->user = new User('test@example.com', 'password', [new UserRole('ROLE_USER')]);
+        /* @var $manager EntityManagerInterface */
+        $manager = $this->grabService('doctrine.orm.entity_manager');
+        $user = $manager->getRepository(User::class)->findOneBy(['username' => self::USER_EMAIL]);
+        if (!$user) {
+            $role = new UserRole('ROLE_USER');
+            $user = new User(self::USER_EMAIL, 'password', [$role]);
+            $manager->persist($role);
+            $manager->persist($user);
+            $manager->flush();
         }
 
-        return $this->user;
+        return $user;
+    }
+
+    public function loginAsUser()
+    {
+        /* @var $tokenStorage TokenStorageInterface */
+        $tokenStorage = $this->grabService('security.token_storage');
+        $firewall = 'main';
+        $user = $this->getUser();
+        $token = new UsernamePasswordToken(
+            $user,
+            $user->getPassword(),
+            $firewall,
+            $user->getRoles()
+        );
+        $tokenStorage->setToken($token);
+         /** @var Session $session */
+        $session = $this->grabService('session');
+        $session->set(sprintf('_security_%s', $firewall), serialize($token));
+        $session->save();
+
+        $this->setCookie($session->getName(), $session->getId());
     }
 }

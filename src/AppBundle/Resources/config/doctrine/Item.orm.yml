@@ -1,7 +1,7 @@
 ---
 AppBundle\Entity\Item:
     type: entity
-    repositoryClass: AppBundle\Repository\ItemRepository
+    repositoryClass: AppBundle\Repository\Doctrine\ItemRepository
     id:
         id:
             type: uuid
