@@ -5,6 +5,8 @@ use AppBundle\Entity\User;
 use AppBundle\Entity\UserRole;
 use Codeception\Actor;
 use Codeception\Lib\Friend;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
@@ -52,7 +54,9 @@ class FunctionalTester extends Actor
 
     public function getUser(): User
     {
-        $user = $this->grabEntityFromRepository(User::class, ['username' => self::USER_EMAIL]);
+        /* @var $manager EntityManagerInterface */
+        $manager = $this->grabService('doctrine.orm.entity_manager');
+        $user = $manager->getRepository(User::class)->findOneBy(['username' => self::USER_EMAIL]);
         if (!$user) {
             $role = new UserRole('ROLE_USER');
             $user = new User('test@example.com', 'password', [$role]);
