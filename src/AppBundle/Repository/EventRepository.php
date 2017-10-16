@@ -43,4 +43,13 @@ class EventRepository
             $id
         );
     }
+
+    public function entityExists(array $parameters, ?UuidInterface $id) : bool
+    {
+        return $this->doctrineRepository->entityExists(
+            $this->userProvider->fetchCurrentUser(),
+            $parameters,
+            $id
+        );
+    }
 }

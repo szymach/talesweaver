@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c89aee5ca5697d0b0d67f698d6825c0f",
+    "hash": "d09eb663846ae763e84ef7598822a573",
     "content-hash": "daac4df0dfdd493eb28cf6b2b266fd1d",
     "packages": [
         {
@@ -4604,16 +4604,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "6.4.1",
+            "version": "6.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "b770d8ba7e60295ee91d69d5a5e01ae833cac220"
+                "reference": "ae6e2e062ff55263c7b04374c190aca45872b26a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b770d8ba7e60295ee91d69d5a5e01ae833cac220",
-                "reference": "b770d8ba7e60295ee91d69d5a5e01ae833cac220",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/ae6e2e062ff55263c7b04374c190aca45872b26a",
+                "reference": "ae6e2e062ff55263c7b04374c190aca45872b26a",
                 "shasum": ""
             },
             "require": {
@@ -4684,7 +4684,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-10-07 17:53:53"
+            "time": "2017-10-15 06:16:19"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

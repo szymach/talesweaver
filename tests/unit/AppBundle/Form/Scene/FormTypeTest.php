@@ -13,7 +13,7 @@ use UnitTester;
 
 class FormTypeTest extends Unit
 {
-    const TITLE_PL = 'Scena';
+    const TITLE_PL = 'Scena2';
     const TEXT_PL = 'Treść sceny';
 
     /**

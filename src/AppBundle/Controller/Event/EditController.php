@@ -4,10 +4,10 @@ namespace AppBundle\Controller\Event;
 
 use AppBundle\Entity\Event;
 use AppBundle\Enum\SceneEvents;
-use AppBundle\Event\Edit\Command;
-use AppBundle\Event\Edit\DTO;
 use AppBundle\Form\Event\EditType;
 use AppBundle\Templating\Event\FormView;
+use Domain\Event\Edit\Command;
+use Domain\Event\Edit\DTO;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

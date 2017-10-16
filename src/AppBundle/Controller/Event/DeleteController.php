@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Event;
 
 use AppBundle\Entity\Event;
-use AppBundle\Event\Delete\Command;
+use Domain\Event\Delete\Command;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 

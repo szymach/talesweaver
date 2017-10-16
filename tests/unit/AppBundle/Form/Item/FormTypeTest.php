@@ -2,22 +2,22 @@
 
 namespace Tests\AppBundle\Form\Item;
 
-use Domain\Item\Create;
-use Domain\Item\Edit;
 use AppBundle\Entity\Item;
-use AppBundle\Entity\Scene;
 use AppBundle\Form\Item\CreateType;
 use AppBundle\Form\Item\EditType;
-use Domain\Scene\Create\DTO as SceneDTO;
 use Codeception\Test\Unit;
 use Ramsey\Uuid\Uuid;
+use Domain\Item\Create;
+use Domain\Item\Edit;
+use Tests\AppBundle\Form\CreateSceneTrait;
 use UnitTester;
 
 class FormTypeTest extends Unit
 {
+    use CreateSceneTrait;
+
     const NAME_PL = 'Przedmiot';
     const DESCRIPTION_PL = 'Opis przedmiotu';
-    const SCENE_TITLE_PL = 'Scena';
 
     /**
      * @var UnitTester
@@ -99,12 +99,5 @@ class FormTypeTest extends Unit
         $createDto = new Create\DTO($this->getScene());
         $createDto->setName(self::NAME_PL);
         return new Item(Uuid::uuid4(), $createDto, $this->tester->getUser());
-    }
-
-    private function getScene() : Scene
-    {
-        $createDto = new SceneDTO();
-        $createDto->setTitle(self::SCENE_TITLE_PL);
-        return new Scene(Uuid::uuid4(), $createDto, $this->tester->getUser());
     }
 }

@@ -2,22 +2,22 @@
 
 namespace Tests\AppBundle\Form\Character;
 
-use Domain\Character\Create;
-use Domain\Character\Edit;
-use AppBundle\Entity\Character;
-use AppBundle\Entity\Scene;
+
 use AppBundle\Form\Character\CreateType;
 use AppBundle\Form\Character\EditType;
-use Domain\Scene\Create\DTO as SceneDTO;
 use Codeception\Test\Unit;
-use Ramsey\Uuid\Uuid;
+use Domain\Character\Create;
+use Domain\Character\Edit;
+use Tests\AppBundle\Form\CreateCharacterTrait;
+use Tests\AppBundle\Form\CreateSceneTrait;
 use UnitTester;
 
 class FormTypeTest extends Unit
 {
+    use CreateCharacterTrait, CreateSceneTrait;
+
     const NAME_PL = 'Postać';
     const DESCRIPTION_PL = 'Opis postaci';
-    const SCENE_TITLE_PL = 'Scena';
 
     /**
      * @var UnitTester
@@ -92,19 +92,5 @@ class FormTypeTest extends Unit
         $this->assertInstanceOf(Edit\DTO::class, $form->getData());
         $this->assertEquals($form->getData()->getName(), null);
         $this->assertEquals($form->getData()->getDescription(), null);
-    }
-
-    private function getCharacter() : Character
-    {
-        $createDto = new Create\DTO($this->getScene());
-        $createDto->setName(self::NAME_PL);
-        return new Character(Uuid::uuid4(), $createDto, $this->tester->getUser());
-    }
-
-    private function getScene() : Scene
-    {
-        $createDto = new SceneDTO();
-        $createDto->setTitle(self::SCENE_TITLE_PL);
-        return new Scene(Uuid::uuid4(), $createDto, $this->tester->getUser());
     }
 }

@@ -5,12 +5,14 @@ namespace AppBundle\Validation\Constraints;
 use AppBundle\Entity\Book;
 use AppBundle\Entity\Chapter;
 use AppBundle\Entity\Character;
+use AppBundle\Entity\Event;
 use AppBundle\Entity\Item;
 use AppBundle\Entity\Location;
 use AppBundle\Entity\Scene;
 use AppBundle\Repository\BookRepository;
 use AppBundle\Repository\ChapterRepository;
 use AppBundle\Repository\CharacterRepository;
+use AppBundle\Repository\EventRepository;
 use AppBundle\Repository\ItemRepository;
 use AppBundle\Repository\LocationRepository;
 use AppBundle\Repository\SceneRepository;
@@ -38,6 +40,7 @@ class UniqueDTOValidator extends ConstraintValidator
         CharacterRepository $characterRepository,
         ItemRepository $itemRepository,
         LocationRepository $locationRepository,
+        EventRepository $eventRepository,
         PropertyAccessorInterface $propertyAccessor
     ) {
         $this->repositories = [
@@ -46,7 +49,8 @@ class UniqueDTOValidator extends ConstraintValidator
             Scene::class => $sceneRepository,
             Character::class => $characterRepository,
             Item::class => $itemRepository,
-            Location::class => $locationRepository
+            Location::class => $locationRepository,
+            Event::class => $eventRepository
         ];
         $this->propertyAccessor = $propertyAccessor;
     }

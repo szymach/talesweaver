@@ -75,3 +75,9 @@ services:
     app.security.login_form_authenticator:
         class: AppBundle\Security\LoginFormAuthenticator
         autowire: true
+
+
+    # Form
+    AppBundle\Form\Event\MeetingType:
+        autowire: true
+        tags: [form.type]

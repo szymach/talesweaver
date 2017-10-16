@@ -4,10 +4,10 @@ namespace AppBundle\Controller\Event;
 
 use AppBundle\Entity\Scene;
 use AppBundle\Enum\SceneEvents;
-use AppBundle\Event\Create\Command;
-use AppBundle\Event\Create\DTO;
 use AppBundle\Form\Event\CreateType;
 use AppBundle\Templating\Event\FormView;
+use Domain\Event\Create\Command;
+use Domain\Event\Create\DTO;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;

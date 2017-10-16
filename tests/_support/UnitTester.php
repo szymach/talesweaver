@@ -4,13 +4,14 @@ use AppBundle\Entity\User;
 use AppBundle\Entity\UserRole;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 
 /**
- * Inherited Methods
  * @method void wantToTest($text)
  * @method void wantTo($text)
  * @method void execute($callable)
@@ -28,36 +29,34 @@ class UnitTester extends \Codeception\Actor
 {
     use _generated\UnitTesterActions;
 
+    const LOCALE = 'pl';
     const USER_EMAIL = 'test@example.com';
 
-    public function createForm($class, $data = null)
+    public function createForm($class, $data = null, array $options = []): FormInterface
     {
-        return $this->getFormFactory()->create($class, $data, ['csrf_protection' => false]);
+        return $this->getFormFactory()->create(
+            $class,
+            $data,
+            array_merge($options, ['csrf_protection' => false])
+        );
     }
 
-    /**
-     * @return FormFactoryInterface
-     */
-    public function getFormFactory()
+    public function getFormFactory(): FormFactoryInterface
     {
         return $this->grabService('form.factory');
     }
 
-    /**
-     * @param array $postData
-     * @return Request
-     */
-    public function getRequest(array $postData)
+    public function getRequest(array $postData): Request
     {
         $request = new Request([], $postData);
         $request->setMethod(Request::METHOD_POST);
+        $request->setLocale(self::LOCALE);
         return $request;
     }
 
     public function getUser(): User
     {
-        /* @var $manager EntityManagerInterface */
-        $manager = $this->grabService('doctrine.orm.entity_manager');
+        $manager = $this->getEntityManager();
         $user = $manager->getRepository(User::class)->findOneBy(['username' => self::USER_EMAIL]);
         if (!$user) {
             $role = new UserRole('ROLE_USER');
@@ -70,10 +69,8 @@ class UnitTester extends \Codeception\Actor
         return $user;
     }
 
-    public function loginAsUser()
+    public function loginAsUser(): void
     {
-        /* @var $tokenStorage TokenStorageInterface */
-        $tokenStorage = $this->grabService('security.token_storage');
         $firewall = 'main';
         $user = $this->getUser();
         $token = new UsernamePasswordToken(
@@ -82,12 +79,26 @@ class UnitTester extends \Codeception\Actor
             $firewall,
             $user->getRoles()
         );
+
+        /* @var $tokenStorage TokenStorageInterface */
+        $tokenStorage = $this->grabService('security.token_storage');
         $tokenStorage->setToken($token);
+
          /** @var Session $session */
         $session = $this->grabService('session');
         $session->set(sprintf('_security_%s', $firewall), serialize($token));
         $session->save();
 
         $this->setCookie($session->getName(), $session->getId());
+    }
+
+    public function getEntityManager(): EntityManagerInterface
+    {
+        return $this->grabService('doctrine.orm.entity_manager');
+    }
+
+    public function getRouter(): RouterInterface
+    {
+        return $this->grabService('router');
     }
 }
