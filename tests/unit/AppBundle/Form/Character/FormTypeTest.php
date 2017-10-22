@@ -34,8 +34,8 @@ class FormTypeTest extends Unit
 
         $this->assertTrue($form->isSynchronized());
         $this->assertTrue($form->isSubmitted());
-        $this->assertEquals(0, count($form->getErrors(true)));
         $this->assertTrue($form->isValid());
+        $this->assertEquals(0, count($form->getErrors(true)));
 
         $this->assertInstanceOf(Create\DTO::class, $form->getData());
         $this->assertEquals($form->getData()->getName(), self::NAME_PL);
@@ -51,8 +51,8 @@ class FormTypeTest extends Unit
 
         $this->assertTrue($form->isSynchronized());
         $this->assertTrue($form->isSubmitted());
-        $this->assertEquals(1, count($form->getErrors(true)));
         $this->assertFalse($form->isValid());
+        $this->assertEquals(1, count($form->getErrors(true)));
 
         $this->assertInstanceOf(Create\DTO::class, $form->getData());
         $this->assertEquals($form->getData()->getName(), null);
@@ -68,8 +68,8 @@ class FormTypeTest extends Unit
 
         $this->assertTrue($form->isSynchronized());
         $this->assertTrue($form->isSubmitted());
-        $this->assertEquals(0, count($form->getErrors(true)));
         $this->assertTrue($form->isValid());
+        $this->assertEquals(0, count($form->getErrors(true)));
 
         $this->assertInstanceOf(Edit\DTO::class, $form->getData());
         $this->assertEquals($form->getData()->getName(), self::NAME_PL);
@@ -86,8 +86,8 @@ class FormTypeTest extends Unit
 
         $this->assertTrue($form->isSynchronized());
         $this->assertTrue($form->isSubmitted());
-        $this->assertEquals(1, count($form->getErrors(true)));
         $this->assertFalse($form->isValid());
+        $this->assertEquals(1, count($form->getErrors(true)));
 
         $this->assertInstanceOf(Edit\DTO::class, $form->getData());
         $this->assertEquals($form->getData()->getName(), null);

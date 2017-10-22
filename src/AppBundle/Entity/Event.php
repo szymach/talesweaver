@@ -5,10 +5,10 @@ namespace AppBundle\Entity;
 use AppBundle\Entity\Traits\CreatedByTrait;
 use AppBundle\Entity\Traits\TimestampableTrait;
 use AppBundle\Entity\Traits\TranslatableTrait;
-use AppBundle\Event\Create;
-use AppBundle\Event\Edit;
 use AppBundle\JSON\EventParser;
 use DateTimeImmutable;
+use Domain\Event\Create;
+use Domain\Event\Edit;
 use JsonSerializable;
 use Ramsey\Uuid\UuidInterface;
 

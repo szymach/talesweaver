@@ -3,7 +3,7 @@
 namespace AppBundle\Form\Event;
 
 use AppBundle\Entity\Scene;
-use AppBundle\Event\Edit\DTO;
+use Domain\Event\Edit\DTO;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
