@@ -24,7 +24,7 @@ class UniqueUserEmailValidator extends ConstraintValidator
             return;
         }
 
-        if ($this->repository->findOneBy(['username' => $email])) {
+        if ($this->repository->findOneByUsername($email)) {
             $this->context->buildViolation($constraint->message)->addViolation();
         }
     }
