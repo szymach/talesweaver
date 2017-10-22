@@ -2,7 +2,9 @@
 
 namespace Tests\AppBundle\Form\Event;
 
+use AppBundle\Entity\Character;
 use AppBundle\Entity\Event;
+use AppBundle\Entity\Location;
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Event\CreateType;
 use AppBundle\Form\Event\EditType;
@@ -23,7 +25,6 @@ class FormTypeTest extends Unit
     use CreateCharacterTrait, CreateLocationTrait, CreateSceneTrait;
 
     const NAME_PL = 'Wydarzenie';
-    const DESCRIPTION_PL = 'Opis postaci';
 
     /**
      * @var UnitTester
@@ -52,8 +53,19 @@ class FormTypeTest extends Unit
         $this->assertEquals(0, count($form->getErrors(true)));
         $this->assertTrue($form->isValid());
 
-        $this->assertInstanceOf(Create\DTO::class, $form->getData());
-        $this->assertEquals($form->getData()->getName(), self::NAME_PL);
+        /* @var $data Create\DTO */
+        $data = $form->getData();
+        $this->assertInstanceOf(Create\DTO::class, $data);
+        $this->assertEquals(self::NAME_PL, $data->getName());
+        /* @var $model Meeting */
+        $model = $data->getModel();
+        $this->assertInstanceOf(Meeting::class, $model);
+        $this->assertInstanceOf(Character::class, $model->getRoot());
+        $this->assertInstanceOf(Character::class, $model->getRelation());
+        $this->assertInstanceOf(Location::class, $model->getLocation());
+        $this->assertEquals($character1Id, $model->getRoot()->getId());
+        $this->assertEquals($character2Id, $model->getRelation()->getId());
+        $this->assertEquals($locationId, $model->getLocation()->getId());
     }
 
     public function testInvalidCreateFormSubmission()
@@ -98,9 +110,19 @@ class FormTypeTest extends Unit
         $this->assertTrue($form->isValid());
         $this->assertEquals(0, count($form->getErrors(true)));
 
-        $this->assertInstanceOf(Edit\DTO::class, $form->getData());
-        $this->assertEquals($form->getData()->getName(), self::NAME_PL);
-        $this->assertInstanceOf(Meeting::class, $form->getData()->getModel());
+        /* @var $data Edit\DTO */
+        $data = $form->getData();
+        $this->assertInstanceOf(Edit\DTO::class, $data);
+        $this->assertEquals(self::NAME_PL, $data->getName());
+        /* @var $model Meeting */
+        $model = $data->getModel();
+        $this->assertInstanceOf(Meeting::class, $model);
+        $this->assertInstanceOf(Character::class, $model->getRoot());
+        $this->assertInstanceOf(Character::class, $model->getRelation());
+        $this->assertInstanceOf(Location::class, $model->getLocation());
+        $this->assertEquals($character1Id, $model->getRoot()->getId());
+        $this->assertEquals($character2Id, $model->getRelation()->getId());
+        $this->assertEquals($locationId, $model->getLocation()->getId());
     }
 
     public function testInvalidEditFormSubmission()
