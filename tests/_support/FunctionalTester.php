@@ -30,6 +30,9 @@ class FunctionalTester extends Actor
     use FunctionalTesterActions;
 
     const USER_EMAIL = 'test@example.com';
+    const USER_PASSWORD = 'password123';
+
+    const ERROR_SELECTOR = '.help-block .list-unstyled li';
 
     public function loginAsUser()
     {
@@ -39,7 +42,7 @@ class FunctionalTester extends Actor
         $user = $this->getUser();
         $token = new UsernamePasswordToken(
             $user,
-            $user->getPassword(),
+            self::USER_PASSWORD,
             $firewall,
             $user->getRoles()
         );
@@ -59,12 +62,34 @@ class FunctionalTester extends Actor
         $user = $manager->getRepository(User::class)->findOneBy(['username' => self::USER_EMAIL]);
         if (!$user) {
             $role = new UserRole('ROLE_USER');
-            $user = new User('test@example.com', 'password', [$role]);
+            $user = new User(
+                self::USER_EMAIL,
+                password_hash(self::USER_PASSWORD, PASSWORD_BCRYPT),
+                [$role]
+            );
             $this->persistEntity($role);
             $this->persistEntity($user);
             $this->flushToDatabase();
         }
 
         return $user;
+    }
+
+    public function seeNumberOfErrors(int $count, string $selector = self::ERROR_SELECTOR): void
+    {
+        $this->seeNumberOfElements($selector, $count);
+    }
+
+    public function seeError(string $content, string $field): void
+    {
+        $this->see(
+            $content,
+            sprintf('input[name="%s"] + %s', $field, self::ERROR_SELECTOR)
+        );
+    }
+
+    public function seeErrorAlert(string $content)
+    {
+        $this->see($content, '.alert-danger.alert-form');
     }
 }

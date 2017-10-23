@@ -9,6 +9,11 @@ class RegisterControllerCest
 {
     const FORM_URL = '/pl/registration';
     const FORM_SELECTOR = 'form[name="register"]';
+
+    const EMAIL_FIELD = 'Email';
+    const PASSWORD_FIELD = 'Hasło';
+    const REPEAT_PASSWORD_FIELD = 'Powtórz hasło';
+
     const EMAIL = 'username@example.com';
     const PASSWORD = 'haslo123';
     const SHORT_PASSWORD = 'haslo';
@@ -18,30 +23,28 @@ class RegisterControllerCest
     const LOGIN_URL = '/pl/login';
     const DASHBOARD_URL = '/pl';
 
-    const ERROR_SELECTOR = '.help-block .list-unstyled li';
-
     public function registrationFormView(FunctionalTester $I)
     {
         $I->amOnPage(self::FORM_URL);
         $I->seeElement(self::FORM_SELECTOR);
-        $I->see('Email');
-        $I->see('Hasło');
-        $I->see('Powtórz hasło');
+        $I->see(self::EMAIL_FIELD);
+        $I->see(self::PASSWORD_FIELD);
+        $I->see(self::REPEAT_PASSWORD_FIELD);
     }
 
     public function validRegistrationAndLogin(FunctionalTester $I)
     {
         $I->amOnPage(self::FORM_URL);
-        $I->fillField('Email', self::EMAIL);
-        $I->fillField('Hasło', self::PASSWORD);
-        $I->fillField('Powtórz hasło', self::PASSWORD);
+        $I->fillField(self::EMAIL_FIELD, self::EMAIL);
+        $I->fillField(self::PASSWORD_FIELD, self::PASSWORD);
+        $I->fillField(self::REPEAT_PASSWORD_FIELD, self::PASSWORD);
         $I->click(self::SUBMIT);
 
         $I->canSeeCurrentUrlEquals(self::LOGIN_URL);
         $I->seeInRepository(User::class, ['username' => self::EMAIL]);
 
-        $I->fillField('Email', self::EMAIL);
-        $I->fillField('Hasło', self::PASSWORD);
+        $I->fillField(self::EMAIL_FIELD, self::EMAIL);
+        $I->fillField(self::PASSWORD_FIELD, self::PASSWORD);
         $I->amOnPage(self::DASHBOARD_URL);
     }
 
@@ -50,46 +53,38 @@ class RegisterControllerCest
         $I->amOnPage(self::FORM_URL);
         $I->click(self::SUBMIT);
         $I->canSeeCurrentUrlEquals(self::FORM_URL);
-        $I->seeNumberOfElements(self::ERROR_SELECTOR, 2);
-        $this->iSeeError($I, 'Ta wartość nie powinna być pusta.', '[username]');
-        $this->iSeeError($I, 'Ta wartość nie powinna być pusta.', '[password][first]');
+        $I->seeNumberOfErrors(2);
+        $I->seeError('Ta wartość nie powinna być pusta.', 'register[username]');
+        $I->seeError('Ta wartość nie powinna być pusta.', 'register[password][first]');
     }
 
     public function invalidRegistrationForm(FunctionalTester $I)
     {
         $I->amOnPage(self::FORM_URL);
-        $I->fillField('Email', 'nie-email');
-        $I->fillField('Hasło', self::SHORT_PASSWORD);
-        $I->fillField('Powtórz hasło', self::SHORT_PASSWORD);
+        $I->fillField(self::EMAIL_FIELD, 'nie-email');
+        $I->fillField(self::PASSWORD_FIELD, self::SHORT_PASSWORD);
+        $I->fillField(self::REPEAT_PASSWORD_FIELD, self::SHORT_PASSWORD);
         $I->click(self::SUBMIT);
         $I->canSeeCurrentUrlEquals(self::FORM_URL);
-        $I->seeNumberOfElements(self::ERROR_SELECTOR, 2);
-        $this->iSeeError($I, 'Ta wartość nie jest prawidłowym adresem email.', '[username]');
-        $this->iSeeError($I, 'Ta wartość jest zbyt krótka. Powinna mieć 6 lub więcej znaków.', '[password][first]');
+        $I->seeNumberOfErrors(2);
+        $I->seeError('Ta wartość nie jest prawidłowym adresem email.', 'register[username]');
+        $I->seeError('Ta wartość jest zbyt krótka. Powinna mieć 6 lub więcej znaków.', 'register[password][first]');
 
         $I->amOnPage(self::FORM_URL);
-        $I->fillField('Hasło', self::PASSWORD);
-        $I->fillField('Powtórz hasło', self::NOT_MATCHING_PASSWORD);
+        $I->fillField(self::PASSWORD_FIELD, self::PASSWORD);
+        $I->fillField(self::REPEAT_PASSWORD_FIELD, self::NOT_MATCHING_PASSWORD);
         $I->click(self::SUBMIT);
         $I->canSeeCurrentUrlEquals(self::FORM_URL);
-        $I->seeNumberOfElements(self::ERROR_SELECTOR, 2);
-        $this->iSeeError($I, 'Ta wartość nie powinna być pusta.', '[username]');
-        $this->iSeeError($I, 'Ta wartość jest nieprawidłowa.', '[password][first]');
+        $I->seeNumberOfErrors(2);
+        $I->seeError('Ta wartość nie powinna być pusta.', 'register[username]');
+        $I->seeError('Ta wartość jest nieprawidłowa.', 'register[password][first]');
 
         $I->amOnPage(self::FORM_URL);
-        $I->fillField('Hasło', self::PASSWORD);
+        $I->fillField(self::PASSWORD_FIELD, self::PASSWORD);
         $I->click(self::SUBMIT);
         $I->canSeeCurrentUrlEquals(self::FORM_URL);
-        $I->seeNumberOfElements(self::ERROR_SELECTOR, 2);
-        $this->iSeeError($I, 'Ta wartość nie powinna być pusta.', '[username]');
-        $this->iSeeError($I, 'Ta wartość jest nieprawidłowa.', '[password][first]');
-    }
-
-    private function iSeeError(FunctionalTester $I, string $content, string $field): void
-    {
-        $I->see(
-            $content,
-            sprintf('input[name="register%s"] + %s', $field, self::ERROR_SELECTOR)
-        );
+        $I->seeNumberOfErrors(2);
+        $I->seeError('Ta wartość nie powinna być pusta.', 'register[username]');
+        $I->seeError('Ta wartość jest nieprawidłowa.', 'register[password][first]');
     }
 }
