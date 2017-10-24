@@ -25,12 +25,11 @@ class CreateUserHandler
             $role = new UserRole(UserRole::USER);
             $this->manager->persist($role);
         }
-        $this->manager->persist(
-            new User(
-                $command->getUsername(),
-                password_hash($command->getPassword(), PASSWORD_BCRYPT),
-                [$role]
-            )
-        );
+
+        $this->manager->persist(new User(
+            $command->getUsername(),
+            password_hash($command->getPassword(), PASSWORD_BCRYPT),
+            [$role]
+        ));
     }
 }

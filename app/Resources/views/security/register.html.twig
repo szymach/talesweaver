@@ -2,15 +2,23 @@
 
 {% form_theme form 'form/form_theme.html.twig' %}
 
+{% block seo_title 'security.registration.header'|trans %}
+{% block subheader 'security.registration.header'|trans %}
+
 {% block body %}
-    {{ form_start(form) }}
-        {{ form_row(form.username) }}
-        {{ form_row(form.password) }}
-        <div class="form-group">
-            <div class="col-xs-12 text-right">
-                <button class="btn btn-success">{{ 'security.do_register' | trans }}</button>
-            </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+            {{ form_start(form) }}
+                {{ form_row(form.username) }}
+                {{ form_row(form.password) }}
+                <div class="form-group">
+                    <div class="col-xs-12 text-right">
+                        <a href="{{ path('app_index') }}" class="btn btn-default">{{ 'security.registration.login' | trans }}</a>
+                        <button class="btn btn-success">{{ 'security.registration.submit' | trans }}</button>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            {{ form_end(form) }}
         </div>
-        {{ form_end(form) }}
-    {{ form_end(form) }}
+    </div>
 {% endblock %}

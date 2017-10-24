@@ -11,17 +11,30 @@ crud:
     remove_from_scene: Usuń ze sceny
 
 security:
-    username:
-        label: Email
-        placeholder: Podaj swój adres email
-    password:
-        label: Hasło
-        placeholder: Podaj swoje hasło
-    password_repeat:
-        label: Powtórz hasło
-    submit: Zaloguj
-    register: Rejestracja
-    do_register: Zarejestruj
+    header: Bajkopisarz
+    login:
+        header: Logowanie
+        register: Rejestracja
+        submit: Zaloguj
+        username:
+            label: Email
+            placeholder: Podaj swój adres email
+        password:
+            label: Hasło
+            placeholder: Podaj swoje hasło
+    registration:
+        header: Rejestracja
+        login: Logowanie
+        username:
+            label: Email
+            placeholder: 'np. email@example.com'
+        password:
+            label: Hasło
+            placeholder: Hasło musi mieć przynajmniej 6 znaków
+        password_repeat:
+            label: Powtórz hasło
+            placeholder: Powtórz podane hasło
+        submit: Zarejestruj
 
 book:
     title: Tytuł
