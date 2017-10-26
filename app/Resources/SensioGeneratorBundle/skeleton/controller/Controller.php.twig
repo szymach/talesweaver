@@ -1,0 +1,28 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }}\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\HttpFoundation\Request;
+
+{% block class_definition %}
+class {{ controller }}Controller
+{% endblock class_definition %}
+{
+    /**
+     * @var EngineInterface
+     */
+    private $templating;
+
+    public function __construct(EngineInterface $templating)
+    {
+        $this->templating = $templating;
+    }
+
+    public function __invoke(Request $request)
+    {
+
+    }
+}
