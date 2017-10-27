@@ -11,6 +11,10 @@ services:
     AppBundle\Controller\:
         resource: "../../src/AppBundle/Controller/*"
 
+    AppBundle\Mail\RegistrationMailer:
+        arguments:
+            $mailerFrom: "%mailer_from%"
+
     AppBundle\Pagination\:
         resource: "../../src/AppBundle/Pagination/*"
 
@@ -22,6 +26,9 @@ services:
 
     AppBundle\Templating\:
         resource: "../../src/AppBundle/Templating/*"
+
+    AppBundle\Security\CodeGenerator\:
+        resource: "../../src/AppBundle/Security/CodeGenerator/*"
 
     AppBundle\Validation\Constraints\:
         resource: "../../src/AppBundle/Validation/Constraints/*"

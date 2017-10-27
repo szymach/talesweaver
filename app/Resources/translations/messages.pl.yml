@@ -35,6 +35,12 @@ security:
             label: Powtórz hasło
             placeholder: Powtórz podane hasło
         submit: Zarejestruj
+        mail:
+            title: Bajkopisarz - rejestracja
+            body: >
+                Witamy w aplikacji Bajkopisarz! Poniżej znajdziesz link z kodem
+                aktywującym konto!
+            link: Aktywuj konto
 
 book:
     title: Tytuł

@@ -11,6 +11,15 @@ AppBundle\Entity\User:
         username:
             unique: true
         password: ~
+        active:
+            type: boolean
+    oneToMany:
+        activationCodes:
+            targetEntity: AppBundle\Entity\UserActivationCode
+            mappedBy: user
+            cascade: ["persist", "remove"]
+            orderBy:
+                createdAt: DESC
     manyToMany:
         roles:
             targetEntity: AppBundle\Entity\UserRole

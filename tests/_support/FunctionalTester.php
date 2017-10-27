@@ -3,6 +3,7 @@
 use _generated\FunctionalTesterActions;
 use AppBundle\Entity\User;
 use AppBundle\Entity\UserRole;
+use AppBundle\Security\CodeGenerator\ActivationCodeGenerator;
 use Codeception\Actor;
 use Codeception\Lib\Friend;
 use Doctrine\ORM\EntityManagerInterface;
@@ -34,12 +35,12 @@ class FunctionalTester extends Actor
 
     const ERROR_SELECTOR = '.help-block .list-unstyled li';
 
-    public function loginAsUser()
+    public function loginAsUser(bool $active = true): void
     {
         /* @var $tokenStorage TokenStorageInterface */
         $tokenStorage = $this->grabService('security.token_storage');
         $firewall = 'main';
-        $user = $this->getUser();
+        $user = $this->getUser($active);
         $token = new UsernamePasswordToken(
             $user,
             self::USER_PASSWORD,
@@ -55,7 +56,7 @@ class FunctionalTester extends Actor
         $this->setCookie($session->getName(), $session->getId());
     }
 
-    public function getUser(): User
+    public function getUser(bool $active = true): User
     {
         /* @var $manager EntityManagerInterface */
         $manager = $this->grabService('doctrine.orm.entity_manager');
@@ -65,8 +66,12 @@ class FunctionalTester extends Actor
             $user = new User(
                 self::USER_EMAIL,
                 password_hash(self::USER_PASSWORD, PASSWORD_BCRYPT),
-                [$role]
+                [$role],
+                new ActivationCodeGenerator()
             );
+            if ($active) {
+                $user->activate();
+            }
             $this->persistEntity($role);
             $this->persistEntity($user);
             $this->flushToDatabase();

@@ -4,6 +4,8 @@ namespace Domain\Security\Command;
 
 use AppBundle\Entity\User;
 use AppBundle\Entity\UserRole;
+use AppBundle\Mail\RegistrationMailer;
+use AppBundle\Security\CodeGenerator\ActivationCodeGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 
 class CreateUserHandler
@@ -13,9 +15,24 @@ class CreateUserHandler
      */
     private $manager;
 
-    public function __construct(EntityManagerInterface $manager)
-    {
+    /**
+     * @var ActivationCodeGenerator
+     */
+    private $codeGenerator;
+
+    /**
+     * @var RegistrationMailer
+     */
+    private $mailer;
+
+    public function __construct(
+        EntityManagerInterface $manager,
+        ActivationCodeGenerator $codeGenerator,
+        RegistrationMailer $mailer
+    ) {
         $this->manager = $manager;
+        $this->codeGenerator = $codeGenerator;
+        $this->mailer = $mailer;
     }
 
     public function handle(CreateUser $command)
@@ -26,10 +43,13 @@ class CreateUserHandler
             $this->manager->persist($role);
         }
 
-        $this->manager->persist(new User(
+        $user = new User(
             $command->getUsername(),
             password_hash($command->getPassword(), PASSWORD_BCRYPT),
-            [$role]
-        ));
+            [$role],
+            $this->codeGenerator
+        );
+        $this->manager->persist($user);
+        $this->mailer->send($user);
     }
 }

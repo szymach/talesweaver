@@ -1,0 +1,12 @@
+<html lang="{{ app.request.locale }}">
+    <head>
+
+    </head>
+    <body>
+        {{ 'security.registration.mail.body'|trans }}
+        <br />
+        <a href="{{ url('activation', { code: code }) }}" target="_blank">
+            {{ 'security.registration.mail.link'|trans }}
+        </a>
+    </body>
+</html>

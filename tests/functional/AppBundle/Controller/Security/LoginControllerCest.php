@@ -67,4 +67,16 @@ class LoginControllerCest
         $I->canSeeCurrentUrlEquals(self::FORM_URL);
         $I->seeErrorAlert('Użytkownik o podanej nazwie nie istnieje.');
     }
+
+    public function inactiveUserLogin(FunctionalTester $I)
+    {
+        $I->getUser(false);
+
+        $I->amOnPage(self::FORM_URL);
+        $I->fillField(self::EMAIL_FIELD, FunctionalTester::USER_EMAIL);
+        $I->fillField(self::PASSWORD_FIELD, FunctionalTester::USER_PASSWORD);
+        $I->click(self::SUBMIT);
+
+        $I->canSeeCurrentUrlEquals(self::FORM_URL);
+    }
 }

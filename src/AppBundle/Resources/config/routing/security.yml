@@ -9,6 +9,11 @@ register:
     defaults: { _controller: AppBundle\Controller\Security\RegisterController }
     methods:  GET|POST
 
+activation:
+    path: /activate/{code}
+    defaults: { _controller: AppBundle\Controller\Security\ActivationController }
+    methods:  GET
+
 logout:
     path: /logout
     methods:  GET

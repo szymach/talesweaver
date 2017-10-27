@@ -1,0 +1,17 @@
+---
+AppBundle\Entity\UserActivationCode:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        value: ~
+        createdAt:
+            type: datetime_immutable
+    manyToOne:
+        user:
+            targetEntity: AppBundle\Entity\User
+            inversedBy: activationCodes
+            joinColumn:
+                onDelete: "CASCADE"

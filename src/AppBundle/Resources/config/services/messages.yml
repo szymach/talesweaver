@@ -5,10 +5,15 @@ services:
         autoconfigure: false
 
     # User handlers
-    app.command.use.create:
+    app.command.user.create:
         class: Domain\Security\Command\CreateUserHandler
         tags:
             - { name: command_handler, handles: Domain\Security\Command\CreateUser }
+
+    app.command.user.activate:
+        class: Domain\Security\Command\ActivateUserHandler
+        tags:
+            - { name: command_handler, handles: Domain\Security\Command\ActivateUser }
 
     # Book handlers
     app.command.book.create:

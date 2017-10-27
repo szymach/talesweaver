@@ -21,4 +21,9 @@ class UserRepository
     {
         return $this->doctrineRepository->findOneBy(['username' => $username]);
     }
+
+    public function findOneByActivationCode(string $code): ?User
+    {
+        return $this->doctrineRepository->findOneByActivationCode($code);
+    }
 }
