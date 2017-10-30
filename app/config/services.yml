@@ -11,6 +11,10 @@ services:
     AppBundle\Controller\:
         resource: "../../src/AppBundle/Controller/*"
 
+    AppBundle\Mail\PasswordResetMailer:
+        arguments:
+            $mailerFrom: "%mailer_from%"
+
     AppBundle\Mail\RegistrationMailer:
         arguments:
             $mailerFrom: "%mailer_from%"
@@ -27,8 +31,8 @@ services:
     AppBundle\Templating\:
         resource: "../../src/AppBundle/Templating/*"
 
-    AppBundle\Security\CodeGenerator\:
-        resource: "../../src/AppBundle/Security/CodeGenerator/*"
+    AppBundle\Security\:
+        resource: "../../src/AppBundle/Security/*"
 
     AppBundle\Validation\Constraints\:
         resource: "../../src/AppBundle/Validation/Constraints/*"
@@ -82,7 +86,6 @@ services:
     app.security.login_form_authenticator:
         class: AppBundle\Security\LoginFormAuthenticator
         autowire: true
-
 
     # Form
     AppBundle\Form\Event\MeetingType:

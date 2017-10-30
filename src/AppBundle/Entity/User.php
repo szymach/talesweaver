@@ -2,7 +2,9 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Security\CodeGenerator\ActivationCodeGenerator;
+use AppBundle\Entity\User\ActivationToken;
+use AppBundle\Entity\User\PasswordResetToken;
+use AppBundle\Security\TokenGenerator;
 use Assert\Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -37,28 +39,36 @@ class User implements UserInterface
     private $active = false;
 
     /**
-     * @var UserActivationCode[]|Collection
+     * @var ActivationToken[]|Collection
      */
-    private $activationCodes;
+    private $activationTokens;
+
+    /**
+     * @var PasswordResetToken[]|Collection
+     */
+    private $passwordResetTokens;
 
     /**
      * @param string $username
      * @param string $password
      * @param UserRole[] $roles
-     * @param ActivationCodeGenerator $generator
+     * @param TokenGenerator $generator
      */
     public function __construct(
         string $username,
         string $password,
         array $roles,
-        ActivationCodeGenerator $generator
+        TokenGenerator $generator
     ) {
         Assert::thatAll($roles)->isInstanceOf(UserRole::class);
 
         $this->username = $username;
         $this->password = $password;
         $this->roles = new ArrayCollection($roles);
-        $this->activationCodes = new ArrayCollection([$generator->generate($this)]);
+        $this->activationTokens = new ArrayCollection(
+            [$generator->generateUserActivationToken($this)]
+        );
+        $this->passwordResetTokens = new ArrayCollection();
     }
 
     public function getId(): int
@@ -90,12 +100,27 @@ class User implements UserInterface
         $this->active = true;
     }
 
-    public function getActivationCode(): ?UserActivationCode
+    public function getActivationToken(): ?ActivationToken
     {
-        return $this->activationCodes->count() > 0
-            ? $this->activationCodes->first()
-            : null
-        ;
+        $codes = $this->activationTokens->filter(function (ActivationToken $code) {
+            return $code->isValid();
+        });
+
+        return $codes->count() > 0 ? $codes->first() : null;
+    }
+
+    public function addPasswordResetToken(TokenGenerator $generator): void
+    {
+        $this->passwordResetTokens->add($generator->generatePasswordActivationToken($this));
+    }
+
+    public function getPasswordResetToken(): ?PasswordResetToken
+    {
+        $tokens = $this->passwordResetTokens->filter(function (PasswordResetToken $token) {
+            return $token->isValid();
+        });
+
+        return $tokens->count() > 0 ? $tokens->first() : null;
     }
 
     public function getRoles(): array

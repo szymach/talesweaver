@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AppBundle\Entity;
+namespace AppBundle\Entity\User;
 
+use AppBundle\Entity\User;
 use DateInterval;
 use DateTimeImmutable;
 
-class UserActivationCode
+class PasswordResetToken
 {
     /**
      * @var int
@@ -20,14 +21,14 @@ class UserActivationCode
     private $value;
 
     /**
-     * @var User
-     */
-    private $user;
-
-    /**
      * @var DateTimeImmutable
      */
     private $createdAt;
+
+    /**
+     * @var User
+     */
+    private $user;
 
     public function __construct(User $user, string $value)
     {
@@ -54,6 +55,11 @@ class UserActivationCode
     public function getCreatedAt(): DateTimeImmutable
     {
         return $this->createdAt;
+    }
+
+    public function getUser(): User
+    {
+        return $this->user;
     }
 
     public function isValid(): bool

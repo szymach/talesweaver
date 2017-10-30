@@ -8,10 +8,10 @@ use Doctrine\ORM\Query\Expr\Join;
 
 class UserRepository extends EntityRepository
 {
-    public function findOneByActivationCode(string $code): ?User
+    public function findOneByActivationToken(string $code): ?User
     {
         return $this->createQueryBuilder('u')
-            ->join('u.activationCodes', 'ac', Join::WITH, 'ac.value = :value')
+            ->join('u.activationTokens', 'ac', Join::WITH, 'ac.value = :value')
             ->groupBy('u.id')
             ->setParameter('value', $code)
             ->getQuery()

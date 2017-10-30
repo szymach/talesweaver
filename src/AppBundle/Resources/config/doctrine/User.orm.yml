@@ -14,8 +14,14 @@ AppBundle\Entity\User:
         active:
             type: boolean
     oneToMany:
-        activationCodes:
-            targetEntity: AppBundle\Entity\UserActivationCode
+        activationTokens:
+            targetEntity: AppBundle\Entity\User\ActivationToken
+            mappedBy: user
+            cascade: ["persist", "remove"]
+            orderBy:
+                createdAt: DESC
+        passwordResetTokens:
+            targetEntity: AppBundle\Entity\User\PasswordResetToken
             mappedBy: user
             cascade: ["persist", "remove"]
             orderBy:

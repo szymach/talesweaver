@@ -2,8 +2,9 @@
 
 use _generated\FunctionalTesterActions;
 use AppBundle\Entity\User;
+use AppBundle\Entity\User\PasswordResetToken;
 use AppBundle\Entity\UserRole;
-use AppBundle\Security\CodeGenerator\ActivationCodeGenerator;
+use AppBundle\Security\TokenGenerator;
 use Codeception\Actor;
 use Codeception\Lib\Friend;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,7 +13,6 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 /**
- * Inherited Methods
  * @method void wantToTest($text)
  * @method void wantTo($text)
  * @method void execute($callable)
@@ -58,7 +58,6 @@ class FunctionalTester extends Actor
 
     public function getUser(bool $active = true): User
     {
-        /* @var $manager EntityManagerInterface */
         $manager = $this->grabService('doctrine.orm.entity_manager');
         $user = $manager->getRepository(User::class)->findOneBy(['username' => self::USER_EMAIL]);
         if (!$user) {
@@ -67,7 +66,7 @@ class FunctionalTester extends Actor
                 self::USER_EMAIL,
                 password_hash(self::USER_PASSWORD, PASSWORD_BCRYPT),
                 [$role],
-                new ActivationCodeGenerator()
+                new TokenGenerator()
             );
             if ($active) {
                 $user->activate();
@@ -96,5 +95,24 @@ class FunctionalTester extends Actor
     public function seeErrorAlert(string $content)
     {
         $this->see($content, '.alert-danger.alert-form');
+    }
+
+    public function canSeeResetPasswordTokenGenerated(User $user):void
+    {
+        $token = $this->getEntityManager()
+            ->getRepository(PasswordResetToken::class)
+            ->findOneBy(['user' => $user])
+        ;
+        if (!$token) {
+            throw new RuntimeException(sprintf(
+                'No password reset token for user "%s"',
+                $user->getUsername()
+            ));
+        }
+    }
+
+    public function getEntityManager(): EntityManagerInterface
+    {
+        return $this->grabService('doctrine.orm.entity_manager');
     }
 }

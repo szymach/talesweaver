@@ -4,7 +4,7 @@ namespace Helper;
 
 use AppBundle\Entity\User;
 use AppBundle\Entity\UserRole;
-use AppBundle\Security\CodeGenerator\ActivationCodeGenerator;
+use AppBundle\Security\TokenGenerator;
 use Codeception\Module;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -46,7 +46,12 @@ class Unit extends Module
         if (!$user) {
             $manager = $this->getEntityManager();
             $role = new UserRole('ROLE_USER');
-            $user = new User(self::USER_EMAIL, 'password', [$role], new ActivationCodeGenerator());
+            $user = new User(
+                self::USER_EMAIL,
+                'password',
+                [$role],
+                new TokenGenerator()
+            );
             $user->activate();
             $manager->persist($role);
             $manager->persist($user);

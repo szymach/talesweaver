@@ -7,18 +7,12 @@ namespace AppBundle\Controller\Security;
 use AppBundle\Repository\UserRepository;
 use Domain\Security\Command\ActivateUser;
 use SimpleBus\Message\Bus\MessageBus;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 
 class ActivationController
 {
-    /**
-     * @var EngineInterface
-     */
-    private $templating;
-
     /**
      * @var UserRepository
      */
@@ -35,12 +29,10 @@ class ActivationController
     private $router;
 
     public function __construct(
-        EngineInterface $templating,
         UserRepository $repository,
         MessageBus $commandBus,
         RouterInterface $router
     ) {
-        $this->templating = $templating;
         $this->repository = $repository;
         $this->commandBus = $commandBus;
         $this->router = $router;
@@ -48,7 +40,7 @@ class ActivationController
 
     public function __invoke(string $code)
     {
-        $user = $this->repository->findOneByActivationCode($code);
+        $user = $this->repository->findOneByActivationToken($code);
         if (!$user) {
             throw new NotFoundHttpException('No user for code "%s"');
         }

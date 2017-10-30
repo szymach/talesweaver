@@ -41,6 +41,20 @@ security:
                 Witamy w aplikacji Bajkopisarz! Poniżej znajdziesz link z kodem
                 aktywującym konto!
             link: Aktywuj konto
+    reset_password:
+        login: Logowanie
+        request:
+            header: Resetowanie hasła
+            username:
+                label: Email
+                placeholder: Podaj adres e-mail swojego konta
+            submit: Wyślij
+        mail:
+            title: Bajkopisarz - resetowanie hasła
+            body: >
+                Na Twoją prośbę przesyłamy link do resetowania hasła w aplikacji
+                Bajkopisarz:
+            link: Resetowanie hasła
 
 book:
     title: Tytuł

@@ -3,7 +3,7 @@
 namespace Tests\AppBundle\Controller\Security;
 
 use AppBundle\Entity\User;
-use AppBundle\Entity\UserActivationCode;
+use AppBundle\Entity\User\ActivationToken;
 use FunctionalTester;
 
 class RegisterControllerCest
@@ -43,7 +43,7 @@ class RegisterControllerCest
 
         $I->canSeeCurrentUrlEquals(self::LOGIN_URL);
         $I->seeInRepository(User::class, ['username' => self::EMAIL, 'active' => false]);
-        $I->seeInRepository(UserActivationCode::class);
+        $I->seeInRepository(ActivationToken::class);
 
         $I->fillField(self::EMAIL_FIELD, self::EMAIL);
         $I->fillField(self::PASSWORD_FIELD, self::PASSWORD);
