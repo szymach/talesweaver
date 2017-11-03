@@ -86,6 +86,11 @@ class User implements UserInterface
         return $this->password;
     }
 
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
+
     public function isActive(): bool
     {
         return $this->active;

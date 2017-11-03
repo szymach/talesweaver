@@ -44,6 +44,10 @@ services:
         factory: ["@doctrine", getRepository]
         arguments: [ AppBundle\Entity\User ]
 
+    AppBundle\Repository\Doctrine\PasswordResetTokenRepository:
+        factory: ["@doctrine", getRepository]
+        arguments: [ AppBundle\Entity\User\PasswordResetToken ]
+
     # Repository
     AppBundle\Repository\BookRepository:
         autowire: true
@@ -67,4 +71,7 @@ services:
         autowire: true
 
     AppBundle\Repository\UserRepository:
+        autowire: true
+
+    AppBundle\Repository\PasswordResetTokenRepository:
         autowire: true

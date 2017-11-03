@@ -9,6 +9,7 @@ use Domain\Security\Command\GeneratePasswordResetToken;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -53,10 +54,12 @@ class ResetPasswordRequestController
             $this->commandBus->handle(new GeneratePasswordResetToken(
                 $form->getData()['username']
             ));
+
+            return new RedirectResponse($this->router->generate('app_index'));
         }
 
         return $this->templating->renderResponse(
-            'security/changePassword.html.twig',
+            'security/resetPasswordRequest.html.twig',
             ['form' => $form->createView()]
         );
     }

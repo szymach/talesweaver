@@ -6,25 +6,63 @@ use FunctionalTester;
 
 class ResetPasswordControllerCest
 {
+    private const LOGIN_ROUTE = 'login';
+    private const REQUEST_ROUTE = 'password_reset_request';
+    private const RESET_ROUTE = 'password_reset_change';
+    private const REQUEST_FORM = 'form[name="reset_password_request"]';
+    private const CHANGE_FORM = 'form[name="reset_password_change"]';
+
+    private const EMAIL_FIELD = 'Email';
+    private const REQUEST_SUBMIT = 'Wyślij';
+    private const LOGIN = 'Logowanie';
+
+    private const FIRST_PASSWORD = 'Nowe hasło';
+    private const SECOND_PASSWORD = 'Powtórz nowe hasło';
+    private const CHANGE_SUBMIT = 'Zmień hasło';
+
+    private const PASSWORD_FIELD = 'Hasło';
+    private const NEW_PASSWORD = 'nowe_haslo_123';
+    private const LOGIN_SUBMIT = 'Zaloguj';
+    private const DASHBOARD_ROUTE = 'app_index';
+
     public function resetPasswordFormRequestView(FunctionalTester $I)
     {
-        $I->amOnPage('/pl/reset-password/request');
-        $I->canSeeInCurrentUrl('/pl/reset-password/request');
-        $I->seeResponseCodeIs(200);
-        $I->seeElement('form[name="reset_password_request"]');
-        $I->see('Email');
-        $I->see('Wyślij');
-        $I->see('Logowanie');
+        $I->canSeeIAmOnRouteLocale(self::REQUEST_ROUTE);
+
+        $I->seeElement(self::REQUEST_FORM);
+        $I->see(self::EMAIL_FIELD);
+        $I->see(self::REQUEST_SUBMIT);
+        $I->see(self::LOGIN);
     }
 
     public function resetPasswordFormRequestSubmit(FunctionalTester $I)
     {
+        $I->canSeeIAmOnRouteLocale(self::REQUEST_ROUTE);
+
+        $I->fillField(self::EMAIL_FIELD, $I->getUser()->getUsername());
+        $I->click(self::REQUEST_SUBMIT);
+        $I->canSeeCurrentUrlEquals($I->createUrl(self::LOGIN_ROUTE));
+
         $user = $I->getUser();
-        $I->amOnPage('/pl/reset-password/request');
-        $I->fillField('Email', $user->getUsername());
-        $I->click('Wyślij');
-        $I->amOnPage('/pl/reset-password/request');
-        $I->seeResponseCodeIs(200);
         $I->canSeeResetPasswordTokenGenerated($user);
+        $I->canSeeIAmOnRouteLocale(self::RESET_ROUTE, [
+            'code' => (string) $user->getPasswordResetToken()
+        ]);
+        $I->seeElement(self::CHANGE_FORM);
+        $I->see(self::FIRST_PASSWORD);
+        $I->see(self::SECOND_PASSWORD);
+        $I->see(self::CHANGE_SUBMIT);
+        $I->see(self::LOGIN);
+
+        $I->fillField(self::FIRST_PASSWORD, self::NEW_PASSWORD);
+        $I->fillField(self::SECOND_PASSWORD, self::NEW_PASSWORD);
+        $I->click(self::CHANGE_SUBMIT);
+        $I->canSeeCurrentUrlEquals($I->createUrl(self::LOGIN_ROUTE));
+
+        $I->fillField(self::EMAIL_FIELD, FunctionalTester::USER_EMAIL);
+        $I->fillField(self::PASSWORD_FIELD, self::NEW_PASSWORD);
+        $I->click(self::LOGIN_SUBMIT);
+
+        $I->canSeeCurrentUrlEquals($I->createUrl(self::DASHBOARD_ROUTE));
     }
 }

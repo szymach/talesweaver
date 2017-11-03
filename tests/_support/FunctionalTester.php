@@ -9,6 +9,7 @@ use Codeception\Actor;
 use Codeception\Lib\Friend;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
@@ -29,6 +30,8 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 class FunctionalTester extends Actor
 {
     use FunctionalTesterActions;
+
+    const LOCALE = 'pl';
 
     const USER_EMAIL = 'test@example.com';
     const USER_PASSWORD = 'password123';
@@ -58,8 +61,10 @@ class FunctionalTester extends Actor
 
     public function getUser(bool $active = true): User
     {
-        $manager = $this->grabService('doctrine.orm.entity_manager');
-        $user = $manager->getRepository(User::class)->findOneBy(['username' => self::USER_EMAIL]);
+        $manager = $this->getEntityManager();
+        $user = $manager->getRepository(User::class)->findOneBy([
+            'username' => self::USER_EMAIL
+        ]);
         if (!$user) {
             $role = new UserRole('ROLE_USER');
             $user = new User(
@@ -79,8 +84,10 @@ class FunctionalTester extends Actor
         return $user;
     }
 
-    public function seeNumberOfErrors(int $count, string $selector = self::ERROR_SELECTOR): void
-    {
+    public function seeNumberOfErrors(
+        int $count,
+        string $selector = self::ERROR_SELECTOR
+    ): void {
         $this->seeNumberOfElements($selector, $count);
     }
 
@@ -111,8 +118,35 @@ class FunctionalTester extends Actor
         }
     }
 
+    public function canSeeIAmOnRouteLocale(
+        string $name,
+        array $parameters = [],
+        string $locale = self::LOCALE
+    ): void {
+        $url = $this->createUrl($name, $parameters, $locale);
+        $this->amOnPage($url);
+        $this->canSeeCurrentUrlEquals($url);
+        $this->canSeeResponseCodeIs(200);
+    }
+
+    public function createUrl(
+        string $name,
+        array $parameters = [],
+        string $locale = self::LOCALE
+    ): string {
+        return $this->getRouter()->generate(
+            $name,
+            array_merge(['_locale' => $locale], $parameters)
+        );
+    }
+
     public function getEntityManager(): EntityManagerInterface
     {
         return $this->grabService('doctrine.orm.entity_manager');
+    }
+
+    public function getRouter(): RouterInterface
+    {
+        return $this->grabService('router');
     }
 }

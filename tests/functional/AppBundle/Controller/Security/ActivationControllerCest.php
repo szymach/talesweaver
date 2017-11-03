@@ -11,7 +11,7 @@ class ActivationControllerCest
     {
         $user = $I->getUser(false);
         $I->amOnPage(sprintf('/pl/activate/%s', (string) $user->getActivationToken()));
-        $I->canSeeInCurrentUrl('/pl/login');
+        $I->canSeeCurrentUrlEquals('/pl/login');
         Assert::that($user->isActive())->eq(true);
     }
 }

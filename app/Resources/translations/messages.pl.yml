@@ -15,6 +15,7 @@ security:
     login:
         header: Logowanie
         register: Rejestracja
+        password_reset: Resetowanie hasła
         submit: Zaloguj
         username:
             label: Email
@@ -49,6 +50,15 @@ security:
                 label: Email
                 placeholder: Podaj adres e-mail swojego konta
             submit: Wyślij
+        change:
+            header: Zmiana hasła
+            first_password:
+                label: Nowe hasło
+                placeholder: Podaj nowe hasło do swojego konta
+            second_password:
+                label: Powtórz nowe hasło
+                placeholder: Powtórz hasło wpisane powyżej
+            submit: Zmień hasło
         mail:
             title: Bajkopisarz - resetowanie hasła
             body: >

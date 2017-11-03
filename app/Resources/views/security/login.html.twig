@@ -26,6 +26,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-xs-12 text-right">
+                        <a class="btn btn-default" href="{{ path('password_reset_request') }}">{{ 'security.login.password_reset' | trans }}</a>
                         <a class="btn btn-default" href="{{ path('register') }}">{{ 'security.login.register' | trans }}</a>
                         <button class="btn btn-success">{{ 'security.login.submit' | trans }}</button>
                     </div>

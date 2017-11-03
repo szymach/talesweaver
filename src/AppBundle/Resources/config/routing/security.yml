@@ -19,7 +19,7 @@ password_reset_request:
     defaults: { _controller: AppBundle\Controller\Security\ResetPasswordRequestController }
     methods:  GET|POST
 
-reset_password_change:
+password_reset_change:
     path: /reset-password/change/{code}
     defaults: { _controller: AppBundle\Controller\Security\ResetPasswordChangeController }
     methods:  GET|POST

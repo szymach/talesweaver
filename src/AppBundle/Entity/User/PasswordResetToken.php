@@ -21,6 +21,11 @@ class PasswordResetToken
     private $value;
 
     /**
+     * @var boolean
+     */
+    private $active = true;
+
+    /**
      * @var DateTimeImmutable
      */
     private $createdAt;
@@ -67,5 +72,15 @@ class PasswordResetToken
         /* @var $interval DateInterval */
         $interval = (new DateTimeImmutable())->diff($this->createdAt);
         return $interval->days <= 1 && $interval->h <= 24;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function deactivate(): void
+    {
+        $this->active = false;
     }
 }

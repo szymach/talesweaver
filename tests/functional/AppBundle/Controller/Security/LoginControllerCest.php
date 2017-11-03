@@ -9,12 +9,14 @@ class LoginControllerCest
     const FORM_URL = '/pl/login';
     const DASHBOARD_URL = '/pl';
     const REGISTER_URL = '/pl/registration';
+    const PASSWORD_RESET_URL = '/pl/reset-password/request';
 
     const FORM_SELECTOR = 'form';
     const EMAIL_FIELD = 'Email';
     const PASSWORD_FIELD = 'Hasło';
     const SUBMIT = 'Zaloguj';
     const REGISTER = 'Rejestracja';
+    const PASSWORD_RESET = 'Resetowanie hasła';
 
     const NONEXISTANT_EMAIL = 'email@nieistnieje.pl';
     const INCORRECT_PASSWORD = 'zlehaslo123';
@@ -30,6 +32,10 @@ class LoginControllerCest
 
         $I->click(self::REGISTER);
         $I->canSeeCurrentUrlEquals(self::REGISTER_URL);
+
+        $I->amOnPage(self::FORM_URL);
+        $I->click(self::PASSWORD_RESET);
+        $I->canSeeCurrentUrlEquals(self::PASSWORD_RESET_URL);
     }
 
     public function correctLogin(FunctionalTester $I)
