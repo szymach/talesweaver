@@ -4,6 +4,7 @@ namespace AppBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class Builder
 {
@@ -12,9 +13,17 @@ class Builder
      */
     private $factory;
 
-    public function __construct(FactoryInterface $factory)
-    {
+    /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
+
+    public function __construct(
+        FactoryInterface $factory,
+        TokenStorageInterface $tokenStorage
+    ) {
         $this->factory = $factory;
+        $this->tokenStorage = $tokenStorage;
     }
 
     public function createMainMenu()
@@ -27,23 +36,29 @@ class Builder
         $this->createBookMenu($menu);
         $this->createChapterMenu($menu);
         $this->createSceneMenu($menu);
-        $menu->addChild('menu.logout', ['route' => 'logout']);
+        $this->addUserSubmenu($menu);
 
         return $menu;
     }
 
-    private function createBookMenu(ItemInterface $menu)
+    private function createBookMenu(ItemInterface $menu): void
     {
         $menu->addChild('menu.books', ['route' => 'app_book_list']);
     }
 
-    private function createChapterMenu(ItemInterface $menu)
+    private function createChapterMenu(ItemInterface $menu): void
     {
         $menu->addChild('menu.chapters', ['route' => 'app_chapter_list']);
     }
 
-    private function createSceneMenu(ItemInterface $menu)
+    private function createSceneMenu(ItemInterface $menu): void
     {
         $menu->addChild('menu.scenes', ['route' => 'app_scene_list']);
+    }
+
+    private function addUserSubmenu(ItemInterface $menu): void
+    {
+        $submenu = $menu->addChild($this->tokenStorage->getToken()->getUsername());
+        $submenu->addChild('menu.logout', ['route' => 'logout']);
     }
 }

@@ -10,8 +10,15 @@ main {
     padding-bottom: 200px;
 }
 
-.navbar-default .navbar-nav > li.current > a {
-    color: $brand-primary;
+.navbar-default .navbar-nav {
+    & > li.current > a {
+        color: $brand-primary;
+    }
+ 
+    & > li > .dropdown-menu {
+        width: 100%;
+        padding: 5px;
+    }
 }
 
 ul.dropdown-menu {
