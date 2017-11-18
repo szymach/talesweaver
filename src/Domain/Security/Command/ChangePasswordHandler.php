@@ -8,10 +8,8 @@ class ChangePasswordHandler
 {
     public function handle(ChangePassword $command): void
     {
-        $token = $command->getToken();
-        $token->getUser()->setPassword(
-            password_hash($command->getPassword(), PASSWORD_BCRYPT)
+        $command->getUser()->setPassword(
+            password_hash($command->getNewPassword(), PASSWORD_BCRYPT)
         );
-        $token->deactivate();
     }
 }

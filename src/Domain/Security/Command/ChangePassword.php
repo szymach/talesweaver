@@ -4,33 +4,33 @@ declare(strict_types=1);
 
 namespace Domain\Security\Command;
 
-use AppBundle\Entity\User\PasswordResetToken;
+use AppBundle\Entity\User;
 
 class ChangePassword
 {
     /**
-     * @var PasswordResetToken
+     * @var User
      */
-    private $token;
+    private $user;
 
     /**
      * @var string
      */
-    private $password;
+    private $newPassword;
 
-    public function __construct(PasswordResetToken $token, string $password)
+    public function __construct(User $user, string $newPassword)
     {
-        $this->token = $token;
-        $this->password = $password;
+        $this->user = $user;
+        $this->newPassword = $newPassword;
     }
 
-    public function getToken(): PasswordResetToken
+    public function getUser(): User
     {
-        return $this->token;
+        return $this->user;
     }
 
-    public function getPassword(): string
+    public function getNewPassword(): string
     {
-        return $this->password;
+        return $this->newPassword;
     }
 }

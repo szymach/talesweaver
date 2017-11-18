@@ -65,6 +65,19 @@ security:
                 Na Twoją prośbę przesyłamy link do resetowania hasła w aplikacji
                 Bajkopisarz:
             link: Resetowanie hasła
+    change_password:
+        header: Zmiana hasła
+        current_password:
+            label: Aktualne hasło
+            placeholder: Podaj swoje aktualne hasło
+        new_password:
+            first:
+                label: Nowe hasło
+                placeholder: Podaj nowe hasło
+            second:
+                label: Powtórz nowe hasło
+                placeholder: Podaj ponownie nowe hasło
+        submit: Wyślij
 
 book:
     title: Tytuł
@@ -216,6 +229,7 @@ menu:
     books: Książki
     chapters: Rozdziały
     scenes: Sceny
+    change_password: Zmień hasło
     logout: Wyloguj
 
 modal:

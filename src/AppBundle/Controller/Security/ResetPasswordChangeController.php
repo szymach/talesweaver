@@ -7,7 +7,7 @@ namespace AppBundle\Controller\Security;
 use AppBundle\Entity\User\PasswordResetToken;
 use AppBundle\Form\Security\ResetPasswordChangeType;
 use AppBundle\Repository\PasswordResetTokenRepository;
-use Domain\Security\Command\ChangePassword;
+use Domain\Security\Command\ResetPassword;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -63,7 +63,7 @@ class ResetPasswordChangeController
         $form = $this->formFactory->create(ResetPasswordChangeType::class);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->commandBus->handle(
-                new ChangePassword($token, $form->getData()['password'])
+                new ResetPassword($token, $form->getData()['password'])
             );
 
             return new RedirectResponse($this->router->generate('app_index'));

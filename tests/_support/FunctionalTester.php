@@ -31,12 +31,12 @@ class FunctionalTester extends Actor
 {
     use FunctionalTesterActions;
 
-    const LOCALE = 'pl';
+    public const LOCALE = 'pl';
 
-    const USER_EMAIL = 'test@example.com';
-    const USER_PASSWORD = 'password123';
+    public const USER_EMAIL = 'test@example.com';
+    public const USER_PASSWORD = 'password123';
 
-    const ERROR_SELECTOR = '.help-block .list-unstyled li';
+    public const ERROR_SELECTOR = '.help-block .list-unstyled li';
 
     public function loginAsUser(bool $active = true): void
     {

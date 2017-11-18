@@ -21,6 +21,11 @@ services:
             - { name: command_handler, handles: Domain\Security\Command\GeneratePasswordResetToken }
 
     app.command.user.password_reset.change:
+        class: Domain\Security\Command\ResetPasswordHandler
+        tags:
+            - { name: command_handler, handles: Domain\Security\Command\ResetPassword }
+
+    app.command.user.change_password:
         class: Domain\Security\Command\ChangePasswordHandler
         tags:
             - { name: command_handler, handles: Domain\Security\Command\ChangePassword }

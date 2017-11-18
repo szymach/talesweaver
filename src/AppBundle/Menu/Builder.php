@@ -59,6 +59,7 @@ class Builder
     private function addUserSubmenu(ItemInterface $menu): void
     {
         $submenu = $menu->addChild($this->tokenStorage->getToken()->getUsername());
+        $submenu->addChild('menu.change_password', ['route' => 'change_password']);
         $submenu->addChild('menu.logout', ['route' => 'logout']);
     }
 }
