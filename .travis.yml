@@ -26,5 +26,5 @@ script:
   - bin/console doctrine:database:create --env=test
   - bin/console doctrine:schema:create --env=test
   # Temporary turned off, since it does not detect JSON column
-  - bin/console doctrine:schema:validate --env=test || true
+  #- bin/console doctrine:schema:validate --env=test
   - bin/codecept run
