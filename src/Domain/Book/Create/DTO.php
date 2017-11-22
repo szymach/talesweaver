@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Book\Create;
 
 class DTO
@@ -14,34 +16,22 @@ class DTO
      */
     private $description;
 
-    /**
-     * @param string $title
-     */
     public function setTitle(?string $title)
     {
         $this->title = $title;
     }
 
-    /**
-     * @return string
-     */
-    public function getTitle() : ?string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $description
-     */
     public function setDescription(?string $description)
     {
         $this->description = $description;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }

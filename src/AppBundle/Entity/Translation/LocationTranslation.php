@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Entity\Translation;
 
 use AppBundle\Entity\Location;
@@ -29,7 +31,7 @@ class LocationTranslation
      */
     private $location;
 
-    public function getId() : ?int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -39,7 +41,7 @@ class LocationTranslation
         $this->name = $name;
     }
 
-    public function getName() : ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -49,17 +51,17 @@ class LocationTranslation
         $this->description = $description;
     }
 
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setLocation(?Location $location) : void
+    public function setLocation(?Location $location): void
     {
         $this->location = $location;
     }
 
-    public function getLocation() : ?Location
+    public function getLocation(): ?Location
     {
         return $this->location;
     }

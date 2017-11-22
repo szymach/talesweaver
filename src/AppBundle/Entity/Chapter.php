@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Entity;
 
 use Domain\Chapter\Create;
@@ -68,7 +70,7 @@ class Chapter
     /**
      * @param \AppBundle\Chapter\Edit\DTO $dto
      */
-    public function edit(Edit\DTO $dto) : void
+    public function edit(Edit\DTO $dto): void
     {
         $this->title = $dto->getTitle();
         $this->book = $dto->getBook();
@@ -76,22 +78,22 @@ class Chapter
         $this->update();
     }
 
-    public function getId() : UuidInterface
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    public function getTitle() : ?string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function getScenes() : Collection
+    public function getScenes(): Collection
     {
         return $this->scenes;
     }
 
-    public function addCharacter(Character $character) : void
+    public function addCharacter(Character $character): void
     {
         if (!$this->characters->contains($character)) {
             $this->characters[] = $character;
@@ -99,23 +101,23 @@ class Chapter
         }
     }
 
-    public function removeCharacter(Character $character) : void
+    public function removeCharacter(Character $character): void
     {
         $this->characters->removeElement($character);
         $this->update();
     }
 
-    public function getCharacters() : Collection
+    public function getCharacters(): Collection
     {
         return $this->characters;
     }
 
-    public function setBook(?Book $book) : void
+    public function setBook(?Book $book): void
     {
         $this->book = $book;
     }
 
-    public function getBook() : ?Book
+    public function getBook(): ?Book
     {
         return $this->book;
     }

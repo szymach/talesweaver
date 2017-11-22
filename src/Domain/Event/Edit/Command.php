@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Event\Edit;
 
 use AppBundle\Entity\Event;
@@ -24,7 +26,7 @@ class Command implements UserAccessInterface
         $this->dto = $dto;
     }
 
-    public function perform() : void
+    public function perform(): void
     {
         $this->event->edit($this->dto);
     }

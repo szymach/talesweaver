@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Item\RemoveFromScene;
 
 use AppBundle\Entity\Item;
@@ -25,12 +27,12 @@ class Command implements UserAccessInterface
         $this->item = $item;
     }
 
-    public function perform() : void
+    public function perform(): void
     {
         $this->scene->removeItem($this->item);
     }
 
-    public function isAllowed(User $user) : bool
+    public function isAllowed(User $user): bool
     {
         return $this->scene->getCreatedBy()->getId() === $this->item->getCreatedBy()->getId()
             && $user->getId() === $this->item->getCreatedBy()->getId()

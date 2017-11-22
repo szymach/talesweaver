@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Location\Delete;
 
 use AppBundle\Entity\Location;
@@ -25,12 +27,12 @@ class Command implements UserAccessInterface
         $this->createdBy = $location->getCreatedBy()->getId();
     }
 
-    public function getId() : UuidInterface
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    public function isAllowed(User $user) : bool
+    public function isAllowed(User $user): bool
     {
         return $user->getId() === $this->createdBy;
     }

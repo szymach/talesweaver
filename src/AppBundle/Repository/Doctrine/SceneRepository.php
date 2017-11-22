@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Repository\Doctrine;
 
 use AppBundle\Entity\Chapter;
@@ -13,7 +15,7 @@ class SceneRepository extends TranslatableRepository
 {
     use LatestResultsTrait, ValidationTrait;
 
-    public function byCurrentUserStandaloneQueryBuilder(User $user) : QueryBuilder
+    public function byCurrentUserStandaloneQueryBuilder(User $user): QueryBuilder
     {
         return $this->createQueryBuilder('s')
             ->where('s.createdBy = :user')
@@ -22,7 +24,7 @@ class SceneRepository extends TranslatableRepository
         ;
     }
 
-    public function byCurrentUserForChapterQb(User $user, Chapter $chapter) : QueryBuilder
+    public function byCurrentUserForChapterQb(User $user, Chapter $chapter): QueryBuilder
     {
         return $this->createQueryBuilder('s')
             ->where('s.chapter = :chapter')
@@ -32,7 +34,7 @@ class SceneRepository extends TranslatableRepository
         ;
     }
 
-    public function firstCharacterOccurence(User $user, UuidInterface $id) : string
+    public function firstCharacterOccurence(User $user, UuidInterface $id): string
     {
         return $this->createFirstOccurenceQueryBuilder($user, $id)
             ->join('s.characters', 'c')
@@ -43,7 +45,7 @@ class SceneRepository extends TranslatableRepository
         ;
     }
 
-    public function firstItemOccurence(User $user, UuidInterface $id) : string
+    public function firstItemOccurence(User $user, UuidInterface $id): string
     {
         return $this->createFirstOccurenceQueryBuilder($user, $id)
             ->join('s.items', 'i')
@@ -54,7 +56,7 @@ class SceneRepository extends TranslatableRepository
         ;
     }
 
-    public function firstLocationOccurence(User $user, UuidInterface $id) : string
+    public function firstLocationOccurence(User $user, UuidInterface $id): string
     {
         return $this->createFirstOccurenceQueryBuilder($user, $id)
             ->join('s.locations', 'l')
@@ -65,7 +67,7 @@ class SceneRepository extends TranslatableRepository
         ;
     }
 
-    private function createFirstOccurenceQueryBuilder(User $user, UuidInterface $id) : QueryBuilder
+    private function createFirstOccurenceQueryBuilder(User $user, UuidInterface $id): QueryBuilder
     {
         return $this->getEntityManager()
             ->createQueryBuilder()

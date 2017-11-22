@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Templating\Chapter;
 
 use AppBundle\Pagination\Chapter\ChapterPaginator;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Templating\EngineInterface;
 
 class ListView
@@ -23,7 +26,7 @@ class ListView
         $this->pagination = $pagination;
     }
 
-    public function createView($page)
+    public function createView($page): Response
     {
         return $this->templating->renderResponse(
             'chapter/list.html.twig',

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Repository\Doctrine;
 
 use AppBundle\Entity\User;
@@ -11,7 +13,7 @@ class BookRepository extends TranslatableRepository
 {
     use LatestResultsTrait, ValidationTrait;
 
-    public function createByUserQueryBuilder(User $user) : QueryBuilder
+    public function createByUserQueryBuilder(User $user): QueryBuilder
     {
         return $this->createQueryBuilder('b')
             ->where('b.createdBy = :user')

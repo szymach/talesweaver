@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Entity\Traits;
 
 use DateTimeImmutable;
@@ -17,17 +19,17 @@ trait TimestampableTrait
      */
     private $updatedAt;
 
-    public function getCreatedAt() : DateTimeInterface
+    public function getCreatedAt(): DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt() : ?DateTimeInterface
+    public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    private function update() : void
+    private function update(): void
     {
         $this->updatedAt = new DateTimeImmutable();
     }

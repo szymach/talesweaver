@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\CreatedByTrait;
@@ -51,24 +53,24 @@ class Event
         $this->createdBy = $author;
     }
 
-    public function edit(Edit\DTO $dto) : void
+    public function edit(Edit\DTO $dto): void
     {
         $this->name = $dto->getName();
         $this->model = $dto->getModel();
         $this->update();
     }
 
-    public function parseModel(EventParser $parser) : void
+    public function parseModel(EventParser $parser): void
     {
         $this->model = $parser->parse($this);
     }
 
-    public function getId() : UuidInterface
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    public function getName() : ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -78,7 +80,7 @@ class Event
         return $this->model;
     }
 
-    public function getScene() : Scene
+    public function getScene(): Scene
     {
         return $this->scene;
     }

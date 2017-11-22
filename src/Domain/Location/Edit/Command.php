@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Location\Edit;
 
 use AppBundle\Entity\Location;
@@ -24,12 +26,12 @@ class Command implements UserAccessInterface
         $this->location = $location;
     }
 
-    public function perform() : void
+    public function perform(): void
     {
         $this->location->edit($this->dto);
     }
 
-    public function isAllowed(User $user) : bool
+    public function isAllowed(User $user): bool
     {
         return $this->location->getCreatedBy()->getId() === $user->getId();
     }

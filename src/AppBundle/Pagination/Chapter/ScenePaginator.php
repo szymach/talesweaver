@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Pagination\Chapter;
 
 use AppBundle\Entity\Chapter;
@@ -19,7 +21,7 @@ class ScenePaginator
         $this->repository = $repository;
     }
 
-    public function getResults(Chapter $book, int $page, int $maxPerPage = 10) : Pagerfanta
+    public function getResults(Chapter $book, int $page, int $maxPerPage = 10): Pagerfanta
     {
         $pager = new Pagerfanta(new DoctrineORMAdapter($this->repository->createForChapterQb($book)));
         $pager->setMaxPerPage($maxPerPage);

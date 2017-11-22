@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Templating\Character;
 
 use AppBundle\Timeline\CharacterTimeline;
@@ -27,7 +29,7 @@ class DisplayView
         $this->timeline = $timeline;
     }
 
-    public function createView(Character $character) : JsonResponse
+    public function createView(Character $character): JsonResponse
     {
         return new JsonResponse([
             'display' => $this->templating->render(

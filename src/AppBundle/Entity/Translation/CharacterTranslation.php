@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Entity\Translation;
 
 use AppBundle\Entity\Character;
@@ -29,7 +31,7 @@ class CharacterTranslation
      */
     private $character;
 
-    public function getId() : ?int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -39,7 +41,7 @@ class CharacterTranslation
         $this->name = $name;
     }
 
-    public function getName() : ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -49,7 +51,7 @@ class CharacterTranslation
         $this->description = $description;
     }
 
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -59,7 +61,7 @@ class CharacterTranslation
         $this->character = $character;
     }
 
-    public function getCharacter() : ?Character
+    public function getCharacter(): ?Character
     {
         return $this->character;
     }

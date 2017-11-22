@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Item\Edit;
 
 use AppBundle\Entity\Item;
@@ -24,12 +26,12 @@ class Command implements UserAccessInterface
         $this->item = $item;
     }
 
-    public function perform() : void
+    public function perform(): void
     {
         $this->item->edit($this->dto);
     }
 
-    public function isAllowed(User $user) : bool
+    public function isAllowed(User $user): bool
     {
         return $user->getId() === $this->item->getCreatedBy()->getId();
     }

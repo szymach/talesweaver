@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Enum;
 
-use Domain\Event\Meeting;
 use AppBundle\Form\Event\MeetingType;
+use Domain\Event\Meeting;
 use InvalidArgumentException;
 
 final class SceneEvents

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Pagination\Scene;
 
 use AppBundle\Repository\SceneRepository;
@@ -18,7 +20,7 @@ class ScenePaginator
         $this->repository = $repository;
     }
 
-    public function getResults(int $page = 1, int $maxPerPage = 10) : Pagerfanta
+    public function getResults(int $page = 1, int $maxPerPage = 10): Pagerfanta
     {
         $pager = new Pagerfanta(new DoctrineORMAdapter($this->repository->createStandaloneQueryBuilder()));
         $pager->setMaxPerPage($maxPerPage);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Templating\Event;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -18,7 +20,7 @@ class FormView
         $this->templating = $templating;
     }
 
-    public function createView(FormInterface $form) : JsonResponse
+    public function createView(FormInterface $form): JsonResponse
     {
         return new JsonResponse([
             'form' => $this->templating->render(

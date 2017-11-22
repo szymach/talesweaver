@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Chapter\Edit;
 
 use AppBundle\Entity\Chapter;
@@ -24,12 +26,12 @@ class Command implements UserAccessInterface
         $this->chapter = $chapter;
     }
 
-    public function perform() : void
+    public function perform(): void
     {
         $this->chapter->edit($this->dto);
     }
 
-    public function isAllowed(User $user) : bool
+    public function isAllowed(User $user): bool
     {
         return $user->getId() === $this->chapter->getCreatedBy()->getId();
     }

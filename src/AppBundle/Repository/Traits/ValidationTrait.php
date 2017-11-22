@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace AppBundle\Repository\Traits;
 
@@ -22,7 +23,7 @@ trait ValidationTrait
         User $user,
         array $parameters,
         ?UuidInterface $id
-    ) : bool {
+    ): bool {
         $qb = $this->getEntityManager()
             ->createQueryBuilder()
             ->select('COUNT(e.id)')

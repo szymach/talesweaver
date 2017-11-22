@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Bus;
 
 use AppBundle\Entity\User;
@@ -26,7 +28,7 @@ class UserAwareBus implements MessageBus
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function handle($message) : void
+    public function handle($message): void
     {
         if ($message instanceof UserAwareInterface) {
             $user = $this->getUser();
@@ -40,7 +42,7 @@ class UserAwareBus implements MessageBus
         $this->messageBus->handle($message);
     }
 
-    private function getUser() : ?User
+    private function getUser(): ?User
     {
         return $this->tokenStorage->getToken()
             ? $this->tokenStorage->getToken()->getUser()
@@ -52,7 +54,7 @@ class UserAwareBus implements MessageBus
      * @param string $class
      * @throws RuntimeException
      */
-    private function throwNoUserException(string $class) : void
+    private function throwNoUserException(string $class): void
     {
         throw new RuntimeException(sprintf('No user set when executing command %s', $class));
     }

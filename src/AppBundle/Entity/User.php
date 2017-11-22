@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\User\ActivationToken;
@@ -111,7 +113,7 @@ class User implements UserInterface
             return $code->isValid();
         });
 
-        return $codes->count() > 0 ? $codes->first() : null;
+        return $codes->count() > 0 ? $codes->first(): null;
     }
 
     public function addPasswordResetToken(TokenGenerator $generator): void
@@ -125,7 +127,7 @@ class User implements UserInterface
             return $token->isValid();
         });
 
-        return $tokens->count() > 0 ? $tokens->first() : null;
+        return $tokens->count() > 0 ? $tokens->first(): null;
     }
 
     public function getRoles(): array

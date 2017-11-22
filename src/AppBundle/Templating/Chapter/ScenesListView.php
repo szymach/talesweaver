@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Templating\Chapter;
 
 use AppBundle\Entity\Chapter;
@@ -46,7 +48,7 @@ class ScenesListView
         $this->router = $router;
     }
 
-    public function createView(Chapter $chapter, $page)
+    public function createView(Chapter $chapter, $page): Response
     {
         return new JsonResponse([
             'list' => $this->templating->render(
@@ -61,7 +63,7 @@ class ScenesListView
         ]);
     }
 
-    private function createSceneForm(Chapter $chapter) : FormInterface
+    private function createSceneForm(Chapter $chapter): FormInterface
     {
         return $this->formFactory->create(CreateType::class, new DTO($chapter), [
             'action' => $this->router->generate('app_scene_create')

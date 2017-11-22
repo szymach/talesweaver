@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Entity\Translation;
 
 use AppBundle\Entity\Book;
@@ -29,37 +31,37 @@ class BookTranslation
      */
     private $book;
 
-    public function getId() : ?int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setTitle(?string $title) : void
+    public function setTitle(?string $title): void
     {
         $this->title = $title;
     }
 
-    public function getTitle() : ?string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function setDescription(?string $description) : void
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
 
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setBook(?Book $book) : void
+    public function setBook(?Book $book): void
     {
         $this->book = $book;
     }
 
-    public function getBook() : ?Book
+    public function getBook(): ?Book
     {
         return $this->book;
     }

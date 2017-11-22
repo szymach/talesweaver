@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Scene\Edit;
 
 use AppBundle\Entity\Scene;
@@ -22,7 +24,7 @@ class Command
         $this->scene = $scene;
     }
 
-    public function perform()
+    public function perform(): void
     {
         $this->scene->edit($this->dto);
     }

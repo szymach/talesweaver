@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Repository\Traits;
 
 use AppBundle\Entity\User;
@@ -24,7 +26,7 @@ trait LatestResultsTrait
         string $locale,
         string $label = 'title',
         int $limit = 5
-    ) : array {
+    ): array {
         return $this->getEntityManager()
             ->createQueryBuilder()
             ->select('(CASE WHEN e.updatedAt IS NOT NULL THEN e.updatedAt ELSE e.createdAt END) AS date')

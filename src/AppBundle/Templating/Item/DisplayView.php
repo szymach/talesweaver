@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Templating\Item;
 
 use AppBundle\Entity\Item;
@@ -27,7 +29,7 @@ class DisplayView
         $this->timeline = $timeline;
     }
 
-    public function createView(Item $item) : JsonResponse
+    public function createView(Item $item): JsonResponse
     {
         return new JsonResponse([
             'display' => $this->templating->render(

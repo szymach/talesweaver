@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Templating\Scene;
 
 use AppBundle\Pagination\Scene\ScenePaginator;
@@ -24,7 +26,7 @@ class ListView
         $this->pagination = $pagination;
     }
 
-    public function createView(int $page) : Response
+    public function createView(int $page): Response
     {
         return $this->templating->renderResponse(
             'scene/list.html.twig',

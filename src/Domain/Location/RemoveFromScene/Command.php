@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Location\RemoveFromScene;
 
 use AppBundle\Entity\Location;
@@ -25,12 +27,12 @@ class Command implements UserAccessInterface
         $this->location = $location;
     }
 
-    public function perform() : void
+    public function perform(): void
     {
         $this->scene->removeLocation($this->location);
     }
 
-    public function isAllowed(User $user) : bool
+    public function isAllowed(User $user): bool
     {
         return $this->scene->getCreatedBy()->getId() === $this->location->getCreatedBy()->getId()
             && $user->getId() === $this->location->getCreatedBy()->getId()

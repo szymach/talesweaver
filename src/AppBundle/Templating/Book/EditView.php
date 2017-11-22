@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Templating\Book;
 
 use Domain\Chapter\Create\DTO;
@@ -46,7 +48,7 @@ class EditView
         $this->router = $router;
     }
 
-    public function createView(FormInterface $form, Book $book) : Response
+    public function createView(FormInterface $form, Book $book): Response
     {
         return $this->templating->renderResponse(
             'book/editForm.html.twig',
@@ -60,7 +62,7 @@ class EditView
         );
     }
 
-    private function createChapterForm(Book $book) : FormInterface
+    private function createChapterForm(Book $book): FormInterface
     {
         return $this->formFactory->create(CreateType::class, new DTO($book), [
             'action' => $this->router->generate('app_chapter_create')

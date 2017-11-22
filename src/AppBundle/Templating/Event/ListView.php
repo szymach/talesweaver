@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Templating\Event;
 
 use AppBundle\Entity\Scene;
@@ -26,7 +28,7 @@ class ListView
         $this->pagination = $pagination;
     }
 
-    public function createView(Scene $scene, $page) : JsonResponse
+    public function createView(Scene $scene, $page): JsonResponse
     {
         return new JsonResponse([
             'list' => $this->templating->render(

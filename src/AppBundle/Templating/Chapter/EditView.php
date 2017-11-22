@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Templating\Chapter;
 
 use AppBundle\Entity\Chapter;
@@ -46,7 +48,7 @@ class EditView
         $this->router = $router;
     }
 
-    public function createView(FormInterface $form, ?Chapter $chapter) : Response
+    public function createView(FormInterface $form, ?Chapter $chapter): Response
     {
         return $this->templating->renderResponse(
             'chapter/editForm.html.twig',
@@ -54,14 +56,14 @@ class EditView
                 'form' => $form->createView(),
                 'scenes' => $this->pagination->getResults($chapter, 1),
                 'chapterId' => $chapter->getId(),
-                'bookId' => $chapter->getBook() ? $chapter->getBook()->getId() : null,
+                'bookId' => $chapter->getBook() ? $chapter->getBook()->getId(): null,
                 'title' => $chapter->getTitle($chapter),
                 'sceneForm' => $this->createSceneForm($chapter)->createView()
             ]
         );
     }
 
-    private function createSceneForm(Chapter $chapter) : FormInterface
+    private function createSceneForm(Chapter $chapter): FormInterface
     {
         return $this->formFactory->create(CreateType::class, new DTO($chapter), [
             'action' => $this->router->generate('app_scene_create')

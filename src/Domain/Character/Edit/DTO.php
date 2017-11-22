@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Character\Edit;
 
 use AppBundle\Entity\Character;
@@ -42,22 +44,22 @@ class DTO
         $this->scenes = $character->getScenes();
     }
 
-    public function getName() : ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(?string $name)
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setDescription(?string $description)
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
@@ -67,7 +69,7 @@ class DTO
         return $this->avatar;
     }
 
-    public function setAvatar($avatar)
+    public function setAvatar($avatar): void
     {
         $this->avatar = $avatar;
     }

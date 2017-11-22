@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Bus;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,7 +26,7 @@ class TransactionWrappedBus implements MessageBus
         $this->manager = $manager;
     }
 
-    public function handle($message) : void
+    public function handle($message): void
     {
         $this->manager->beginTransaction();
         try {

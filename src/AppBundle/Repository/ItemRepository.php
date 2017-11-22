@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Repository;
 
 use AppBundle\Repository\Doctrine\ItemRepository as DoctrineRepository;

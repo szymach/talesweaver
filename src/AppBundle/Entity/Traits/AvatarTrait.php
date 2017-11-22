@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Entity\Traits;
 
 use FSi\DoctrineExtensions\Uploadable\File;
@@ -27,12 +29,12 @@ trait AvatarTrait
         $this->avatar = $avatar;
     }
 
-    public function getAvatarKey()
+    public function getAvatarKey(): ?string
     {
         return $this->avatarKey;
     }
 
-    public function setAvatarKey($avatarKey)
+    public function setAvatarKey(?string $avatarKey): void
     {
         $this->avatarKey = $avatarKey;
 

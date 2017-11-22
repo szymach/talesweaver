@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Bus;
 
 use AppBundle\Bus\Traits\UserAccessTrait;
@@ -23,7 +25,7 @@ class UserAccessBus implements MessageBus
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function handle($message) : void
+    public function handle($message): void
     {
         if ($message instanceof UserAccessInterface) {
             $user = $this->getUser();
@@ -43,7 +45,7 @@ class UserAccessBus implements MessageBus
      * @param string $class
      * @throws AccessDeniedException
      */
-    private function throwAccessDeniedException(string $class) : void
+    private function throwAccessDeniedException(string $class): void
     {
         throw new AccessDeniedException(
             sprintf('Access denied to command "%s" for user "%s"', $class)

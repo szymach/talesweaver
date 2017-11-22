@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Bus\Traits;
 
 use AppBundle\Entity\User;
@@ -16,7 +18,7 @@ trait UserAccessTrait
     /**
      * @return User|null
      */
-    private function getUser() : ?User
+    private function getUser(): ?User
     {
         return $this->tokenStorage->getToken()
             ? $this->tokenStorage->getToken()->getUser()
@@ -28,7 +30,7 @@ trait UserAccessTrait
      * @param string $class
      * @throws RuntimeException
      */
-    private function throwNoUserException(string $class) : void
+    private function throwNoUserException(string $class): void
     {
         throw new RuntimeException(sprintf('No user set when executing command %s', $class));
     }

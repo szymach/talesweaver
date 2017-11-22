@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\CreatedByTrait;
@@ -77,7 +79,7 @@ class Scene
         return (string) $this->title;
     }
 
-    public function edit(Edit\DTO $dto) : void
+    public function edit(Edit\DTO $dto): void
     {
         $this->title = $dto->getTitle();
         $this->text = $dto->getText();
@@ -85,27 +87,27 @@ class Scene
         $this->update();
     }
 
-    public function getId() : UuidInterface
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    public function getTitle() : ?string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function getText() : ?string
+    public function getText(): ?string
     {
         return $this->text;
     }
 
-    public function getChapter() : ?Chapter
+    public function getChapter(): ?Chapter
     {
         return $this->chapter;
     }
 
-    public function getBook() : ?Book
+    public function getBook(): ?Book
     {
         $book = null;
         if ($this->chapter && $this->chapter->getBook()) {
@@ -115,7 +117,7 @@ class Scene
         return $book;
     }
 
-    public function addCharacter(Character $character) : void
+    public function addCharacter(Character $character): void
     {
         if (!$this->characters->contains($character)) {
             $character->addScene($this);
@@ -124,18 +126,18 @@ class Scene
         }
     }
 
-    public function removeCharacter(Character $character) : void
+    public function removeCharacter(Character $character): void
     {
         $this->characters->removeElement($character);
         $this->update();
     }
 
-    public function getCharacters() : Collection
+    public function getCharacters(): Collection
     {
         return $this->characters;
     }
 
-    public function addLocation(Location $location) : void
+    public function addLocation(Location $location): void
     {
         if (!$this->locations->contains($location)) {
             $location->addScene($this);
@@ -144,18 +146,18 @@ class Scene
         }
     }
 
-    public function removeLocation(Location $location) : void
+    public function removeLocation(Location $location): void
     {
         $this->locations->removeElement($location);
         $this->update();
     }
 
-    public function getLocations() : Collection
+    public function getLocations(): Collection
     {
         return $this->locations;
     }
 
-    public function addItem(Item $item) : void
+    public function addItem(Item $item): void
     {
         if (!$this->items->contains($item)) {
             $item->addScene($this);
@@ -164,13 +166,13 @@ class Scene
         }
     }
 
-    public function removeItem(Item $item) : void
+    public function removeItem(Item $item): void
     {
         $this->items->removeElement($item);
         $this->update();
     }
 
-    public function getItems() : Collection
+    public function getItems(): Collection
     {
         return $this->items;
     }

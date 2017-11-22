@@ -39,7 +39,7 @@ class DeleteController
 
     public function __invoke(Request $request, Chapter $chapter, $page)
     {
-        $bookId = $chapter->getBook() ? $chapter->getBook()->getId() : null;
+        $bookId = $chapter->getBook() ? $chapter->getBook()->getId(): null;
         $this->commandBus->handle(new Command($chapter));
 
         if ($request->isXmlHttpRequest()) {

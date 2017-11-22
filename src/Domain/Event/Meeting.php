@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Event;
 
 use AppBundle\Entity\Character;
@@ -25,7 +27,7 @@ class Meeting implements JsonSerializable, UserAccessInterface
      */
     private $relation;
 
-    public function jsonSerialize() : array
+    public function jsonSerialize(): array
     {
         return [
             self::class => [
@@ -36,7 +38,7 @@ class Meeting implements JsonSerializable, UserAccessInterface
         ];
     }
 
-    public function isAllowed(User $user) : bool
+    public function isAllowed(User $user): bool
     {
         if (!$this->root || !$this->location || !$this->relation) {
             return false;
@@ -49,32 +51,32 @@ class Meeting implements JsonSerializable, UserAccessInterface
         ;
     }
 
-    public function getRoot() : ?Character
+    public function getRoot(): ?Character
     {
         return $this->root;
     }
 
-    public function setRoot(?Character $root)
+    public function setRoot(?Character $root): void
     {
         $this->root = $root;
     }
 
-    public function getLocation() : ?Location
+    public function getLocation(): ?Location
     {
         return $this->location;
     }
 
-    public function setLocation(?Location $location)
+    public function setLocation(?Location $location): void
     {
         $this->location = $location;
     }
 
-    public function getRelation() : ?Character
+    public function getRelation(): ?Character
     {
         return $this->relation;
     }
 
-    public function setRelation(?Character $relation)
+    public function setRelation(?Character $relation): void
     {
         $this->relation = $relation;
     }

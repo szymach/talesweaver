@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Templating\Character;
 
 use Symfony\Component\Form\FormInterface;
@@ -18,7 +20,7 @@ class FormView
         $this->templating = $templating;
     }
 
-    public function createView(FormInterface $form, string $title) : JsonResponse
+    public function createView(FormInterface $form, string $title): JsonResponse
     {
         return new JsonResponse([
             'form' => $this->templating->render(

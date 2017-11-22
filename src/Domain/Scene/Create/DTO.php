@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Scene\Create;
 
 use AppBundle\Entity\Chapter;
@@ -21,22 +23,22 @@ class DTO
         $this->chapter = $chapter;
     }
 
-    public function setTitle(?string $title)
+    public function setTitle(?string $title): void
     {
         $this->title = $title;
     }
 
-    public function getTitle() : ?string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function getChapter() : ?Chapter
+    public function getChapter(): ?Chapter
     {
         return $this->chapter;
     }
 
-    public function setChapter(?Chapter $chapter)
+    public function setChapter(?Chapter $chapter): void
     {
         $this->chapter = $chapter;
     }

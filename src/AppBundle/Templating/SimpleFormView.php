@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Templating;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -18,7 +20,7 @@ class SimpleFormView
         $this->templating = $templating;
     }
 
-    public function createView(FormInterface $form, $template, array $fields = []) : Response
+    public function createView(FormInterface $form, $template, array $fields = []): Response
     {
         $fields['form'] = $form->createView();
         return $this->templating->renderResponse($template, $fields);

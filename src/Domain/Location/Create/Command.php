@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Location\Create;
 
 use AppBundle\Entity\User;
@@ -28,17 +30,17 @@ class Command implements UserAccessInterface, UserAwareInterface
         $this->dto = $dto;
     }
 
-    public function getId() : UuidInterface
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    public function getData() : DTO
+    public function getData(): DTO
     {
         return $this->dto;
     }
 
-    public function isAllowed(User $user) : bool
+    public function isAllowed(User $user): bool
     {
         return $this->dto->getScene()->getCreatedBy()->getId() === $user->getId();
     }

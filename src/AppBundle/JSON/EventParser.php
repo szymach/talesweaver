@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\JSON;
 
 use AppBundle\Entity\Character;
@@ -38,7 +40,7 @@ class EventParser
         ];
     }
 
-    public function parse(Event $event) : JsonSerializable
+    public function parse(Event $event): JsonSerializable
     {
         $modelData = $event->getModel();
         $modelClass = key($modelData);

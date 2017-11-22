@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Security\Traits;
 
 use AppBundle\Entity\User;
@@ -14,7 +16,7 @@ trait UserAwareTrait
     /**
      * @param User $user
      */
-    public function setUser(User $user) : void
+    public function setUser(User $user): void
     {
         $this->user = $user;
     }

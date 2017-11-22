@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Chapter\Create;
 
 use AppBundle\Entity\Book;
@@ -21,17 +23,17 @@ class DTO
         $this->book = $book;
     }
 
-    public function setTitle(?string $title)
+    public function setTitle(?string $title): void
     {
         $this->title = $title;
     }
 
-    public function getTitle() : ?string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function getBook() : ?Book
+    public function getBook(): ?Book
     {
         return $this->book;
     }

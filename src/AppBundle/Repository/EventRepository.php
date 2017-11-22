@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Scene;
@@ -28,7 +30,7 @@ class EventRepository
         $this->userProvider = $userProvider;
     }
 
-    public function createForSceneQueryBuilder(Scene $scene) : QueryBuilder
+    public function createForSceneQueryBuilder(Scene $scene): QueryBuilder
     {
         return $this->doctrineRepository->createForSceneQueryBuilder(
             $this->userProvider->fetchCurrentUser(),
@@ -36,7 +38,7 @@ class EventRepository
         );
     }
 
-    public function findInEventsById(UuidInterface $id) : array
+    public function findInEventsById(UuidInterface $id): array
     {
         return $this->doctrineRepository->findInEventsById(
             $this->userProvider->fetchCurrentUser(),
@@ -44,7 +46,7 @@ class EventRepository
         );
     }
 
-    public function entityExists(array $parameters, ?UuidInterface $id) : bool
+    public function entityExists(array $parameters, ?UuidInterface $id): bool
     {
         return $this->doctrineRepository->entityExists(
             $this->userProvider->fetchCurrentUser(),

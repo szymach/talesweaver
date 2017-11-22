@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Book;
@@ -29,14 +31,14 @@ class ChapterRepository implements LatestChangesAwareRepository
         $this->userProvider = $userProvider;
     }
 
-    public function createStandaloneQueryBuilder() : QueryBuilder
+    public function createStandaloneQueryBuilder(): QueryBuilder
     {
         return $this->doctrineRepository->byCurrentUserQueryBuilder(
             $this->userProvider->fetchCurrentUser()
         );
     }
 
-    public function createForBookQb(Book $book) : QueryBuilder
+    public function createForBookQb(Book $book): QueryBuilder
     {
         return $this->doctrineRepository->byCurrentUserForBookQueryBuilder(
             $this->userProvider->fetchCurrentUser(),
@@ -44,7 +46,7 @@ class ChapterRepository implements LatestChangesAwareRepository
         );
     }
 
-    public function findLatest(string $locale, string $label = 'title', int $limit = 5) : array
+    public function findLatest(string $locale, string $label = 'title', int $limit = 5): array
     {
         return $this->doctrineRepository->findLatest(
             $this->userProvider->fetchCurrentUser(),
@@ -54,7 +56,7 @@ class ChapterRepository implements LatestChangesAwareRepository
         );
     }
 
-    public function entityExists(array $parameters, ?UuidInterface $id) : bool
+    public function entityExists(array $parameters, ?UuidInterface $id): bool
     {
         return $this->doctrineRepository->entityExists(
             $this->userProvider->fetchCurrentUser(),

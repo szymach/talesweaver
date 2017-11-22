@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Entity\Translation;
 
 use AppBundle\Entity\Chapter;
@@ -24,27 +26,27 @@ class ChapterTranslation
      */
     private $chapter;
 
-    public function getId() : ?int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setTitle(?string $title) : void
+    public function setTitle(?string $title): void
     {
         $this->title = $title;
     }
 
-    public function getTitle() : ?string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function setChapter(?Chapter $chapter) : void
+    public function setChapter(?Chapter $chapter): void
     {
         $this->chapter = $chapter;
     }
 
-    public function getChapter() : ?Chapter
+    public function getChapter(): ?Chapter
     {
         return $this->chapter;
     }

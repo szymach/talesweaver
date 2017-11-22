@@ -1,35 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Item\Delete;
 
 use AppBundle\Entity\Item;
-use Doctrine\ORM\EntityManagerInterface;
-use Throwable;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class CommandHandler
 {
     /**
-     * @var EntityManagerInterface
+     * @var ObjectManager
      */
     private $manager;
 
-    public function __construct(EntityManagerInterface $manager)
+    public function __construct(ObjectManager $manager)
     {
         $this->manager = $manager;
     }
 
-    public function handle(Command $command)
+    public function handle(Command $command): void
     {
-        $this->manager->beginTransaction();
-        try {
-            $this->manager->remove(
-                $this->manager->getRepository(Item::class)->find($command->getId())
-            );
-            $this->manager->flush();
-            $this->manager->commit();
-        } catch (Throwable $e) {
-            $this->manager->rollback();
-            throw $e;
-        }
+        $this->manager->remove(
+            $this->manager->getRepository(Item::class)->find($command->getId())
+        );
     }
 }

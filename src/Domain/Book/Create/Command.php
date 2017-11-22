@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Book\Create;
 
 use Domain\Security\Traits\UserAwareTrait;
@@ -26,12 +28,12 @@ class Command implements UserAwareInterface
         $this->title = $title;
     }
 
-    public function getId() : UuidInterface
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    public function getTitle() : string
+    public function getTitle(): string
     {
         return $this->title;
     }

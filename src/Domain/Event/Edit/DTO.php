@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Event\Edit;
 
 use AppBundle\Entity\Event;
@@ -30,22 +32,22 @@ class DTO
         $this->scene = $event->getScene()->getId();
     }
 
-    public function getName() : ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(?string $name)
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    public function getModel() : ?JsonSerializable
+    public function getModel(): ?JsonSerializable
     {
         return $this->model;
     }
 
-    public function setModel(?JsonSerializable $model)
+    public function setModel(?JsonSerializable $model): void
     {
         $this->model = $model;
     }

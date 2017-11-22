@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Repository\Doctrine;
 
 use AppBundle\Repository\Traits\ValidationTrait;
@@ -11,7 +13,7 @@ class LocationRepository extends TranslatableRepository
 {
     use ValidationTrait;
 
-    public function byCurrentUserForSceneQueryBuilder(User $user, Scene $scene) : QueryBuilder
+    public function byCurrentUserForSceneQueryBuilder(User $user, Scene $scene): QueryBuilder
     {
         return $this->createTranslatableQueryBuilder('l')
             ->andWhere(':scene MEMBER OF l.scenes')
@@ -21,7 +23,7 @@ class LocationRepository extends TranslatableRepository
         ;
     }
 
-    public function byCurrentUserRelatedQueryBuilder(User $user, Scene $scene) : QueryBuilder
+    public function byCurrentUserRelatedQueryBuilder(User $user, Scene $scene): QueryBuilder
     {
         $qb = $this->createTranslatableQueryBuilder('l');
         return $qb->leftJoin('l.scenes', 's')
@@ -40,7 +42,7 @@ class LocationRepository extends TranslatableRepository
         ;
     }
 
-    public function byCurrentUserRelatedToScenesQueryBuilder(User $user, array $scenes) : QueryBuilder
+    public function byCurrentUserRelatedToScenesQueryBuilder(User $user, array $scenes): QueryBuilder
     {
         return $this->createTranslatableQueryBuilder('l')
             ->join('l.scenes', 's')

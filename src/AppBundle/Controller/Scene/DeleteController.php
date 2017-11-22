@@ -39,7 +39,7 @@ class DeleteController
 
     public function __invoke(Request $request, Scene $scene, $page)
     {
-        $chapterId = $scene->getChapter() ? $scene->getChapter()->getId() : null;
+        $chapterId = $scene->getChapter() ? $scene->getChapter()->getId(): null;
         $this->commandBus->handle(new Command($scene->getId()));
 
         if ($request->isXmlHttpRequest()) {

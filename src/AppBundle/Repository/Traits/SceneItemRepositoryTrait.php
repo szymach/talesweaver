@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Repository\Traits;
 
 use AppBundle\Entity\Scene;
@@ -18,7 +20,7 @@ trait SceneItemRepositoryTrait
      */
     private $userProvider;
 
-    public function createForSceneQueryBuilder(Scene $scene) : QueryBuilder
+    public function createForSceneQueryBuilder(Scene $scene): QueryBuilder
     {
         return $this->doctrineRepository->byCurrentUserForSceneQueryBuilder(
             $this->userProvider->fetchCurrentUser(),
@@ -26,7 +28,7 @@ trait SceneItemRepositoryTrait
         );
     }
 
-    public function createRelatedQueryBuilder(Scene $scene) : QueryBuilder
+    public function createRelatedQueryBuilder(Scene $scene): QueryBuilder
     {
         return $this->doctrineRepository->byCurrentUserRelatedQueryBuilder(
             $this->userProvider->fetchCurrentUser(),
@@ -34,7 +36,7 @@ trait SceneItemRepositoryTrait
         );
     }
 
-    public function createRelatedToScenesQueryBuilder(array $scenes)
+    public function createRelatedToScenesQueryBuilder(array $scenes): QueryBuilder
     {
         return $this->doctrineRepository->byCurrentUserRelatedToScenesQueryBuilder(
             $this->userProvider->fetchCurrentUser(),
@@ -42,7 +44,7 @@ trait SceneItemRepositoryTrait
         );
     }
 
-    public function entityExists(array $parameters, ?UuidInterface $id) : bool
+    public function entityExists(array $parameters, ?UuidInterface $id): bool
     {
         return $this->doctrineRepository->entityExists(
             $this->userProvider->fetchCurrentUser(),

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Templating\Scene;
 
 use AppBundle\Entity\Scene;
@@ -18,7 +20,7 @@ class DisplayView
         $this->templating = $templating;
     }
 
-    public function createView(Scene $scene) : Response
+    public function createView(Scene $scene): Response
     {
         return $this->templating->renderResponse(
             'scene/display.html.twig',

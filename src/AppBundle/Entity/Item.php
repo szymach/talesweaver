@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\AvatarTrait;
@@ -85,22 +87,22 @@ class Item
         $this->update();
     }
 
-    public function getId() : UuidInterface
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    public function getName() : ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function addScene(Scene $scene) : void
+    public function addScene(Scene $scene): void
     {
         if (!$this->scenes->contains($scene)) {
             $this->scenes[] = $scene;
@@ -108,23 +110,23 @@ class Item
         }
     }
 
-    public function removeScene(Scene $scene) : void
+    public function removeScene(Scene $scene): void
     {
         $this->scenes->removeElement($scene);
         $this->update();
     }
 
-    public function getScenes() : Collection
+    public function getScenes(): Collection
     {
         return $this->scenes;
     }
 
-    public function getCharacters() : Collection
+    public function getCharacters(): Collection
     {
         return $this->characters;
     }
 
-    public function getLocations() : Collection
+    public function getLocations(): Collection
     {
         return $this->locations;
     }

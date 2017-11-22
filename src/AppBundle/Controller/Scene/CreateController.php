@@ -62,7 +62,7 @@ class CreateController
         return $this->templating->createView(
             $form,
             'scene/createForm.html.twig',
-            ['chapterId' => $chapter ? $chapter->getId() : null]
+            ['chapterId' => $chapter ? $chapter->getId(): null]
         );
     }
 }

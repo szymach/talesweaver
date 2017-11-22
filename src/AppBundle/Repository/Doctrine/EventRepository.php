@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Repository\Doctrine;
 
 use AppBundle\Repository\Traits\ValidationTrait;
@@ -12,7 +14,7 @@ class EventRepository extends TranslatableRepository
 {
     use ValidationTrait;
 
-    public function createForSceneQueryBuilder(User $user, Scene $scene) : QueryBuilder
+    public function createForSceneQueryBuilder(User $user, Scene $scene): QueryBuilder
     {
         return $this->createTranslatableQueryBuilder('e')
             ->where('e.scene = :scene')
@@ -22,7 +24,7 @@ class EventRepository extends TranslatableRepository
         ;
     }
 
-    public function findInEventsById(User $user, UuidInterface $id) : array
+    public function findInEventsById(User $user, UuidInterface $id): array
     {
         return $this->createQueryBuilder('e')
             ->where('e.model LIKE :id')

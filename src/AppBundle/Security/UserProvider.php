@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Security;
 
 use AppBundle\Entity\User;
@@ -18,7 +20,7 @@ class UserProvider
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function fetchCurrentUser() : User
+    public function fetchCurrentUser(): User
     {
         $token = $this->tokenStorage->getToken();
         if (!$token || !$token->getUser()) {

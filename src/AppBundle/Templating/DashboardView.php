@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Templating;
 
 use AppBundle\Entity\Book;
@@ -59,14 +61,14 @@ class DashboardView
         $this->sceneRepository = $sceneRepository;
     }
 
-    public function createView(string $locale) : Response
+    public function createView(string $locale): Response
     {
         $timeline = [];
         $this->addItems($timeline, $this->bookRepository, Book::class, $locale);
         $this->addItems($timeline, $this->chapterRepository, Chapter::class, $locale);
         $this->addItems($timeline, $this->sceneRepository, Scene::class, $locale);
 
-        uasort($timeline, function (array $itemA, array $itemB) : int {
+        uasort($timeline, function (array $itemA, array $itemB): int {
             $a = new DateTimeImmutable($itemA['date']);
             $b = new DateTimeImmutable($itemB['date']);
             if ($a == $b) {
@@ -87,7 +89,7 @@ class DashboardView
         LatestChangesAwareRepository $repository,
         string $class,
         string $locale
-    ) : void {
+    ): void {
         foreach ($repository->findLatest($locale) as $item) {
             $timeline[] = array_merge(
                 $item,

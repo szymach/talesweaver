@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Templating\Location;
 
 use AppBundle\Entity\Location;
@@ -27,7 +29,7 @@ class DisplayView
         $this->timeline = $timeline;
     }
 
-    public function createView(Location $location) : JsonResponse
+    public function createView(Location $location): JsonResponse
     {
         return new JsonResponse([
             'display' => $this->templating->render(

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Entity\Translation;
 
 use AppBundle\Entity\Traits\LocaleTrait;
@@ -28,12 +30,12 @@ class EventTranslation
      */
     private $event;
 
-    public function getId() : ?int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName() : ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -43,22 +45,22 @@ class EventTranslation
         $this->name = $name;
     }
 
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setDescription(?string $description) : void
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
 
-    public function getEvent() : ?Event
+    public function getEvent(): ?Event
     {
         return $this->event;
     }
 
-    public function setEvent(?Event $event) : void
+    public function setEvent(?Event $event): void
     {
         $this->event = $event;
     }

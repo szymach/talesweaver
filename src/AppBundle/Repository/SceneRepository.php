@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Chapter;
@@ -30,14 +32,14 @@ class SceneRepository implements LatestChangesAwareRepository
         $this->userProvider = $userProvider;
     }
 
-    public function createStandaloneQueryBuilder() : QueryBuilder
+    public function createStandaloneQueryBuilder(): QueryBuilder
     {
         return $this->doctrineRepository->byCurrentUserStandaloneQueryBuilder(
             $this->userProvider->fetchCurrentUser()
         );
     }
 
-    public function createForChapterQb(Chapter $chapter) : QueryBuilder
+    public function createForChapterQb(Chapter $chapter): QueryBuilder
     {
         return $this->doctrineRepository->byCurrentUserForChapterQb(
             $this->userProvider->fetchCurrentUser(),
@@ -45,7 +47,7 @@ class SceneRepository implements LatestChangesAwareRepository
         );
     }
 
-    public function findLatest(string $locale, string $label = 'title', int $limit = 5) : array
+    public function findLatest(string $locale, string $label = 'title', int $limit = 5): array
     {
         return $this->doctrineRepository->findLatest(
             $this->userProvider->fetchCurrentUser(),
@@ -55,7 +57,7 @@ class SceneRepository implements LatestChangesAwareRepository
         );
     }
 
-    public function entityExists(array $parameters, ?UuidInterface $id) : bool
+    public function entityExists(array $parameters, ?UuidInterface $id): bool
     {
         return $this->doctrineRepository->entityExists(
             $this->userProvider->fetchCurrentUser(),
@@ -65,7 +67,7 @@ class SceneRepository implements LatestChangesAwareRepository
     }
 
 
-    public function firstCharacterOccurence(UuidInterface $id) : string
+    public function firstCharacterOccurence(UuidInterface $id): string
     {
         $currentUser = $this->userProvider->fetchCurrentUser();
         $result = $this->doctrineRepository->firstCharacterOccurence(
@@ -83,7 +85,7 @@ class SceneRepository implements LatestChangesAwareRepository
         return $result;
     }
 
-    public function firstItemOccurence(UuidInterface $id) : string
+    public function firstItemOccurence(UuidInterface $id): string
     {
         $currentUser = $this->userProvider->fetchCurrentUser();
         $result = $this->doctrineRepository->firstItemOccurence(
@@ -101,7 +103,7 @@ class SceneRepository implements LatestChangesAwareRepository
         return $result;
     }
 
-    public function firstLocationOccurence(UuidInterface $id) : string
+    public function firstLocationOccurence(UuidInterface $id): string
     {
         $currentUser = $this->userProvider->fetchCurrentUser();
         $result = $this->doctrineRepository->firstLocationOccurence(

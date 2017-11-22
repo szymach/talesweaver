@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Chapter\Delete;
 
 use AppBundle\Entity\Chapter;
@@ -17,7 +19,7 @@ class CommandHandler
         $this->manager = $manager;
     }
 
-    public function handle(Command $command)
+    public function handle(Command $command): void
     {
         $this->manager->remove(
             $this->manager->getRepository(Chapter::class)->find($command->getId())

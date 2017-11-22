@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Templating\Book;
 
 use Domain\Chapter\Create\DTO;
@@ -46,7 +48,7 @@ class ChaptersListView
         $this->router = $router;
     }
 
-    public function createView(Book $book, $page)
+    public function createView(Book $book, $page): JsonResponse
     {
         return new JsonResponse([
             'list' => $this->templating->render(
@@ -61,7 +63,7 @@ class ChaptersListView
         ]);
     }
 
-    private function createChapterForm(Book $book) : FormInterface
+    private function createChapterForm(Book $book): FormInterface
     {
         return $this->formFactory->create(CreateType::class, new DTO($book), [
             'action' => $this->router->generate('app_chapter_create')

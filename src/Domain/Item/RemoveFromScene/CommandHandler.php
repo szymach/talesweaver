@@ -1,32 +1,13 @@
 <?php
 
-namespace Domain\Item\RemoveFromScene;
+declare(strict_types=1);
 
-use Doctrine\ORM\EntityManagerInterface;
-use Throwable;
+namespace Domain\Item\RemoveFromScene;
 
 class CommandHandler
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $manager;
-
-    public function __construct(EntityManagerInterface $manager)
-    {
-        $this->manager = $manager;
-    }
-
     public function handle(Command $command)
     {
-        $this->manager->beginTransaction();
-        try {
-            $command->perform();
-            $this->manager->flush();
-            $this->manager->commit();
-        } catch (Throwable $e) {
-            $this->manager->rollback();
-            throw $e;
-        }
+        $command->perform();
     }
 }

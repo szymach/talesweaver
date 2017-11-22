@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Entity;
 
 use Domain\Character\Create;
@@ -96,32 +98,32 @@ class Character
         $this->update();
     }
 
-    public function getId() : UuidInterface
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    public function getName() : ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function getBook() : ?Book
+    public function getBook(): ?Book
     {
         return $this->book;
     }
 
-    public function setBook(?Book $book) : void
+    public function setBook(?Book $book): void
     {
         $this->book = $book;
     }
 
-    public function addScene(Scene $scene) : void
+    public function addScene(Scene $scene): void
     {
         if (!$this->scenes->contains($scene)) {
             $this->assertSceneForTheSameBook($scene);
@@ -133,18 +135,18 @@ class Character
         }
     }
 
-    public function removeScene(Scene $scene) : void
+    public function removeScene(Scene $scene): void
     {
         $this->scenes->removeElement($scene);
         $this->update();
     }
 
-    public function getScenes() : Collection
+    public function getScenes(): Collection
     {
         return $this->scenes;
     }
 
-    public function addChapter(Chapter $chapter) : void
+    public function addChapter(Chapter $chapter): void
     {
         if (!$this->chapters->contains($chapter)) {
             $this->assertChapterFromTheSameBook($chapter);
@@ -157,18 +159,18 @@ class Character
         }
     }
 
-    public function removeChapter(Chapter $chapter) : void
+    public function removeChapter(Chapter $chapter): void
     {
         $this->chapters->removeElement($chapter);
         $this->update();
     }
 
-    public function getChapters() : Collection
+    public function getChapters(): Collection
     {
         return $this->chapters;
     }
 
-    public function addItem(Item $item) : void
+    public function addItem(Item $item): void
     {
         if (!$this->items->contains($item)) {
             $this->items[] = $item;
@@ -176,18 +178,18 @@ class Character
         }
     }
 
-    public function removeItem(Item $item) : void
+    public function removeItem(Item $item): void
     {
         $this->items->removeElement($item);
         $this->update();
     }
 
-    public function getItems() : Collection
+    public function getItems(): Collection
     {
         return $this->items;
     }
 
-    public function addLocation(Location $location) : void
+    public function addLocation(Location $location): void
     {
         if (!$this->locations->contains($location)) {
             $this->locations[] = $location;
@@ -195,13 +197,13 @@ class Character
         }
     }
 
-    public function removeLocation(Location $location) : void
+    public function removeLocation(Location $location): void
     {
         $this->locations->removeElement($location);
         $this->update();
     }
 
-    public function getLocations() : Collection
+    public function getLocations(): Collection
     {
         return $this->locations;
     }

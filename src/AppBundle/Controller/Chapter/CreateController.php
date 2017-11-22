@@ -62,7 +62,7 @@ class CreateController
         return $this->templating->createView(
             $form,
             'chapter/createForm.html.twig',
-            ['bookId' => $book ? $book->getId() : null]
+            ['bookId' => $book ? $book->getId(): null]
         );
     }
 }

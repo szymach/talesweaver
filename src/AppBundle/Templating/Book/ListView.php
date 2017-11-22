@@ -3,6 +3,7 @@
 namespace AppBundle\Templating\Book;
 
 use AppBundle\Pagination\Book\BookPaginator;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Templating\EngineInterface;
 
 class ListView
@@ -23,7 +24,7 @@ class ListView
         $this->pagination = $pagination;
     }
 
-    public function createView($page)
+    public function createView($page): Response
     {
         return $this->templating->renderResponse(
             'book/list.html.twig',

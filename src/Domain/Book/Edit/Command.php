@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Book\Edit;
 
 use AppBundle\Entity\Book;
@@ -24,12 +26,12 @@ class Command implements UserAccessInterface
         $this->book = $book;
     }
 
-    public function perform() : void
+    public function perform(): void
     {
         $this->book->edit($this->dto);
     }
 
-    public function isAllowed(User $user) : bool
+    public function isAllowed(User $user): bool
     {
         return $user->getId() === $this->book->getCreatedBy()->getId();
     }

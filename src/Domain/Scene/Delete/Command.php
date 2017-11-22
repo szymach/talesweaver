@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Scene\Delete;
 
 use Ramsey\Uuid\UuidInterface;
@@ -16,7 +18,7 @@ class Command
         $this->id = $id;
     }
 
-    public function getId() : UuidInterface
+    public function getId(): UuidInterface
     {
         return $this->id;
     }

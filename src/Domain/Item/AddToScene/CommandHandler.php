@@ -1,32 +1,13 @@
 <?php
 
-namespace Domain\Item\AddToScene;
+declare(strict_types=1);
 
-use Doctrine\ORM\EntityManagerInterface;
-use Throwable;
+namespace Domain\Item\AddToScene;
 
 class CommandHandler
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $manager;
-
-    public function __construct(EntityManagerInterface $manager)
+    public function handle(Command $command): void
     {
-        $this->manager = $manager;
-    }
-
-    public function handle(Command $command)
-    {
-        $this->manager->beginTransaction();
-        try {
-            $command->perform();
-            $this->manager->flush();
-            $this->manager->commit();
-        } catch (Throwable $exception) {
-            $this->manager->rollback();
-            throw $exception;
-        }
+        $command->perform();
     }
 }

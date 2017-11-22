@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Timeline;
 
 use AppBundle\Entity\Event;
@@ -43,7 +45,7 @@ abstract class TimelineFormatter
         $this->templating = $templating;
     }
 
-    public function getTimeline(UuidInterface $id, string $class) : array
+    public function getTimeline(UuidInterface $id, string $class): array
     {
         return array_merge(
             [sprintf('event.timeline.creation.%s', $class) => $this->getCreation($this->sceneRepository, $id)],
@@ -51,11 +53,11 @@ abstract class TimelineFormatter
         );
     }
 
-    abstract protected function getCreation(SceneRepository $sceneRepository, UuidInterface $id) : array;
+    abstract protected function getCreation(SceneRepository $sceneRepository, UuidInterface $id): array;
 
-    private function formatEvents(array $events) : array
+    private function formatEvents(array $events): array
     {
-        return array_reduce($events, function (array $initial, Event $event) : array {
+        return array_reduce($events, function (array $initial, Event $event): array {
             $model = $event->getModel();
             $modelClass = get_class($model);
             $fqcn = explode('\\', $modelClass);

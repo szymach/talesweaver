@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\AvatarTrait;
@@ -80,29 +82,29 @@ class Location
     /**
      * @param \AppBundle\Location\Edit\DTO $dto
      */
-    public function edit(EditDTO $dto) : void
+    public function edit(EditDTO $dto): void
     {
         $this->name = $dto->getName();
         $this->description = $dto->getDescription();
         $this->update();
     }
 
-    public function getId() : UuidInterface
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    public function getName() : ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function addScene(Scene $scene) : void
+    public function addScene(Scene $scene): void
     {
         if (!$this->scenes->contains($scene)) {
             $this->scenes->add($scene);
@@ -110,23 +112,23 @@ class Location
         }
     }
 
-    public function removeScene(Scene $scene) : void
+    public function removeScene(Scene $scene): void
     {
         $this->scenes->removeElement($scene);
         $this->update();
     }
 
-    public function getScenes() : Collection
+    public function getScenes(): Collection
     {
         return $this->scenes;
     }
 
-    public function getCharacters() : Colllection
+    public function getCharacters(): Colllection
     {
         return $this->characters;
     }
 
-    public function getItems() : Colllection
+    public function getItems(): Colllection
     {
         return $this->items;
     }

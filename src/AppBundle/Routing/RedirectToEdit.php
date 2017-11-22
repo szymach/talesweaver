@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Routing;
 
 use Ramsey\Uuid\UuidInterface;
@@ -18,7 +20,7 @@ class RedirectToEdit
         $this->router = $router;
     }
 
-    public function createResponse(string $route, UuidInterface $id) : RedirectResponse
+    public function createResponse(string $route, UuidInterface $id): RedirectResponse
     {
         return new RedirectResponse($this->router->generate($route, ['id' => $id]));
     }

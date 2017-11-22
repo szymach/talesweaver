@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Scene\Create;
 
 use Domain\Security\Traits\UserAwareTrait;
@@ -26,12 +28,12 @@ class Command implements UserAwareInterface
         $this->dto = $dto;
     }
 
-    public function getId() : UuidInterface
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    public function getData() : DTO
+    public function getData(): DTO
     {
         return $this->dto;
     }

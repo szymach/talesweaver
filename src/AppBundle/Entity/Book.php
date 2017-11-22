@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Entity;
 
 use Domain\Book\Edit\DTO;
@@ -58,7 +60,7 @@ class Book
         return $this->title;
     }
 
-    public function edit(DTO $dto) : void
+    public function edit(DTO $dto): void
     {
         $this->title = $dto->getTitle();
         $this->description = $dto->getDescription();
@@ -66,22 +68,22 @@ class Book
         $this->update();
     }
 
-    public function getId() : UuidInterface
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    public function getTitle() : ?string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function addChapter(Chapter $chapter) : void
+    public function addChapter(Chapter $chapter): void
     {
         if (!$this->chapters->contains($chapter)) {
             $this->chapters->add($chapter);
@@ -90,14 +92,14 @@ class Book
         }
     }
 
-    public function removeChapter(Chapter $chapter) : void
+    public function removeChapter(Chapter $chapter): void
     {
         $this->chapters->removeElement($chapter);
         $chapter->setBook(null);
         $this->update();
     }
 
-    public function getChapters() : Collection
+    public function getChapters(): Collection
     {
         return $this->chapters;
     }

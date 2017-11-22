@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Entity\Translation;
 
 use AppBundle\Entity\Scene;
@@ -29,7 +31,7 @@ class SceneTranslation
      */
     private $scene;
 
-    public function getId() : ?int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -39,27 +41,27 @@ class SceneTranslation
         $this->title = $title;
     }
 
-    public function getTitle() : ?string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function setText(?string $text) : void
+    public function setText(?string $text): void
     {
         $this->text = $text;
     }
 
-    public function getText() : ?string
+    public function getText(): ?string
     {
         return $this->text;
     }
 
-    public function setScene(?Scene $scene) : void
+    public function setScene(?Scene $scene): void
     {
         $this->scene = $scene;
     }
 
-    public function getScene() : ?Scene
+    public function getScene(): ?Scene
     {
         return $this->scene;
     }
