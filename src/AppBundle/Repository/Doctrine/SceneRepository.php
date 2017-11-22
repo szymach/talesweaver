@@ -36,7 +36,7 @@ class SceneRepository extends TranslatableRepository
     {
         return $this->createFirstOccurenceQueryBuilder($user, $id)
             ->join('s.characters', 'c')
-            ->where('c MEMBER OF s.characters')
+            ->andWhere('c MEMBER OF s.characters')
             ->andWhere('c.id = :id')
             ->getQuery()
             ->getSingleScalarResult()
@@ -47,7 +47,7 @@ class SceneRepository extends TranslatableRepository
     {
         return $this->createFirstOccurenceQueryBuilder($user, $id)
             ->join('s.items', 'i')
-            ->where('i MEMBER OF s.items')
+            ->andWhere('i MEMBER OF s.items')
             ->andWhere('i.id = :id')
             ->getQuery()
             ->getSingleScalarResult()
@@ -58,7 +58,7 @@ class SceneRepository extends TranslatableRepository
     {
         return $this->createFirstOccurenceQueryBuilder($user, $id)
             ->join('s.locations', 'l')
-            ->where('l MEMBER OF s.locations')
+            ->andWhere('l MEMBER OF s.locations')
             ->andWhere('l.id = :id')
             ->getQuery()
             ->getSingleScalarResult()
