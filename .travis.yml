@@ -1,9 +1,9 @@
 language: php
 
 cache:
-  directories:
-    - bin
-    - vendor
+    directories:
+        - bin
+        - vendor
 
 sudo: false
 
@@ -20,12 +20,12 @@ matrix:
           env: SYMFONY_DEPRECATIONS_HELPER=weak
 
 before_script:
-  - composer install -n
+    - composer install -n
 
 script:
-  - bin/phpcs
-  - bin/console doctrine:database:create --env=test
-  - bin/console doctrine:schema:create --env=test
-  # Temporary turned off, since it does not detect JSON column
-  #- bin/console doctrine:schema:validate --env=test
-  - bin/codecept run
+    - bin/phpcs
+    - bin/console doctrine:database:create --env=test
+    - bin/console doctrine:schema:create --env=test
+    # Temporary turned off, since it does not detect JSON column
+    #- bin/console doctrine:schema:validate --env=test
+    - bin/codecept run
