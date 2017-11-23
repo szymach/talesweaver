@@ -10,3 +10,13 @@
   <button type="button" class="close" data-dismiss="alert" aria-label="{{ 'alert.close' | trans }}"><span aria-hidden="true">&times;</span></button>
   {{ 'alert.error' | trans }}
 </div>
+{% for type, messages in app.flashes %}
+    <div class="alert alert-dismissible alert-{{ type }}" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="{{ 'alert.close' | trans }}">
+          <span aria-hidden="true">&times;</span>
+      </button>
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endfor %}

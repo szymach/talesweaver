@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Domain\Location\RemoveFromScene;
 
+use AppBundle\Bus\Messages\Message;
+use AppBundle\Bus\Messages\MessageCommandInterface;
+use AppBundle\Bus\Messages\RemovedFromSceneSuccessMessage;
 use AppBundle\Entity\Location;
 use AppBundle\Entity\Scene;
 use AppBundle\Entity\User;
 use Domain\Security\UserAccessInterface;
 
-class Command implements UserAccessInterface
+class Command implements MessageCommandInterface, UserAccessInterface
 {
     /**
      * @var Location
@@ -37,5 +40,13 @@ class Command implements UserAccessInterface
         return $this->scene->getCreatedBy()->getId() === $this->location->getCreatedBy()->getId()
             && $user->getId() === $this->location->getCreatedBy()->getId()
         ;
+    }
+
+    public function getMessage(): Message
+    {
+        return new RemovedFromSceneSuccessMessage(
+            'location',
+            ['%title%' => $this->location->getName(), '%sceneTitle%' => $this->scene->getTitle()]
+        );
     }
 }

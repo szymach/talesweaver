@@ -4,17 +4,25 @@ declare(strict_types=1);
 
 namespace Domain\Chapter\Delete;
 
+use AppBundle\Bus\Messages\DeletionSuccessMessage;
+use AppBundle\Bus\Messages\Message;
+use AppBundle\Bus\Messages\MessageCommandInterface;
 use AppBundle\Entity\Chapter;
 use AppBundle\Entity\User;
 use Domain\Security\UserAccessInterface;
 use Ramsey\Uuid\UuidInterface;
 
-class Command implements UserAccessInterface
+class Command implements MessageCommandInterface, UserAccessInterface
 {
     /**
      * @var UuidInterface
      */
     private $id;
+
+    /**
+     * @var string
+     */
+    private $title;
 
     /**
      * @var int
@@ -24,6 +32,7 @@ class Command implements UserAccessInterface
     public function __construct(Chapter $chapter)
     {
         $this->id = $chapter->getId();
+        $this->title = $chapter->getTitle();
         $this->createdBy = $chapter->getCreatedBy()->getId();
     }
 
@@ -35,5 +44,10 @@ class Command implements UserAccessInterface
     public function isAllowed(User $user): bool
     {
         return $user->getId() === $this->createdBy;
+    }
+
+    public function getMessage(): Message
+    {
+        return new DeletionSuccessMessage('chapter', ['%title%' => $this->title]);
     }
 }

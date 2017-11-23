@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Domain\Event\Create;
 
+use AppBundle\Bus\Messages\CreationSuccessMessage;
+use AppBundle\Bus\Messages\Message;
+use AppBundle\Bus\Messages\MessageCommandInterface;
 use AppBundle\Entity\User;
 use Domain\Security\Traits\UserAwareTrait;
 use Domain\Security\UserAccessInterface;
 use Domain\Security\UserAwareInterface;
 use Ramsey\Uuid\UuidInterface;
 
-class Command implements UserAccessInterface, UserAwareInterface
+class Command implements MessageCommandInterface, UserAccessInterface, UserAwareInterface
 {
     use UserAwareTrait;
 
@@ -50,5 +53,10 @@ class Command implements UserAccessInterface, UserAwareInterface
         return $user->getId() === $this->dto->getScene()->getCreatedBy()->getId()
             && $modelAccess
         ;
+    }
+
+    public function getMessage(): Message
+    {
+        return new CreationSuccessMessage('event', ['%title%' => $this->dto->getName()]);
     }
 }

@@ -99,6 +99,10 @@ book:
         expansion: Rozwinięcie
         ending: Zakończenie
         chapters: Rozdziały
+    alert:
+        created: Pomyślnie dodano nową książkę o tytule "%title%".
+        edit: Zapisano zmiany w książce.
+        deleted: Książka "%title%" została usunięta.
 
 chapter:
     title: Tytuł
@@ -119,6 +123,10 @@ chapter:
     tabs:
         basic: Podstawowe
         scenes: Sceny
+    alert:
+        created: Pomyślnie dodano nowy rozdział o tytule "%title%".
+        edit: Zapisano zmiany w rozdziale.
+        deleted: Rozdział "%title%" został usunięty.
 
 scene:
     title: Tytuł
@@ -141,6 +149,10 @@ scene:
         locations: Miejsca
         items: Przedmioty
         events: Wydarzenia
+    alert:
+        created: Pomyślnie dodano nową scenę o tytule "%title%".
+        edit: Zapisano zmiany w scenie.
+        deleted: Scena "%title%" została usunięta.
 
 event:
     name: Nazwa
@@ -158,6 +170,10 @@ event:
             'AppBundle\Entity\Character': 'Pojawił się w scene:'
             'AppBundle\Entity\Item': 'Pojawił się w scene:'
             'AppBundle\Entity\Location': 'Pojawiło się w scene:'
+    alert:
+        created: Pomyślnie dodano nowe wydarzenie o nazwie "%title%".
+        edit: Zapisano zmiany w wydarzeniu.
+        deleted: Wydarzenie "%title%" zostało usunięte.
 
 character:
     name: Imię
@@ -173,6 +189,12 @@ character:
         new: Nowa postać
         edit: Edycja postaci
         related: Dodawanie istniejącej postaci
+    alert:
+        created: Pomyślnie dodano nową postać o imieniu "%title%".
+        edit: Zapisano zmiany w postaci.
+        deleted: Postać "%title%" została usunięta.
+        added_to_scene: Dodano postać "%title%" do sceny "%sceneTitle%".
+        removed_from_scene: Usunięto postać "%title%" ze sceny "%sceneTitle%".
 
 item:
     name: Nazwa
@@ -187,6 +209,12 @@ item:
         new: Nowy przedmiot
         edit: Edycja przedmiotu
         related: Dodawanie istniejącego przedmiotu
+    alert:
+        created: Pomyślnie dodano nowy przedmiot o nazwiee "%title%".
+        edit: Zapisano zmiany w przedmiocie.
+        deleted: Przedmiot "%title%" została usunięta.
+        added_to_scene: Dodano przedmiot "%title%" do sceny "%sceneTitle%".
+        removed_from_scene: Usunięto przedmiot "%title%" ze sceny "%sceneTitle%".
 
 location:
     name: Nazwa
@@ -202,9 +230,12 @@ location:
         new: Nowe miejsce
         edit: Edycja miejsca
         related: Dodawanie istniejącej miejsca
-
-tag:
-    add: Dodaj znacznik
+    alert:
+        created: Pomyślnie dodano nowe miejsce o nazwie "%title%".
+        edit: Zapisano zmiany w miejscu.
+        deleted: Miejsce "%s" została usunięte.
+        added_to_scene: Dodano miejsce "%title%" do sceny "%sceneTitle%".
+        removed_from_scene: Usunięto miejsce "%title%" ze sceny "%sceneTitle%".
 
 # Front
 dashboard:
