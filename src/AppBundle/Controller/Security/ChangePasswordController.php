@@ -64,7 +64,8 @@ class ChangePasswordController
                 new ChangePassword($this->getUser(), $form->getData()['newPassword'])
             );
 
-            return new RedirectResponse($this->router->generate('logout'));
+            $this->tokenStorage->setToken(null);
+            return new RedirectResponse($this->router->generate('login'));
         }
 
         return $this->templating->renderResponse(

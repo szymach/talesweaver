@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Domain\Security\Command;
 
+use AppBundle\Bus\Messages\Message;
+use AppBundle\Bus\Messages\MessageCommandInterface;
 use AppBundle\Entity\User;
 
-class ChangePassword
+class ChangePassword implements MessageCommandInterface
 {
     /**
      * @var User
@@ -32,5 +34,14 @@ class ChangePassword
     public function getNewPassword(): string
     {
         return $this->newPassword;
+    }
+
+    public function getMessage(): Message
+    {
+        return new Message(
+            'security.change_password.alert.success',
+            [],
+            'success'
+        );
     }
 }

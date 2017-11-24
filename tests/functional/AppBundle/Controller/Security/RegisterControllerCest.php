@@ -44,10 +44,14 @@ class RegisterControllerCest
         $I->canSeeCurrentUrlEquals(self::LOGIN_URL);
         $I->seeInRepository(User::class, ['username' => self::EMAIL, 'active' => false]);
         $I->seeInRepository(ActivationToken::class);
+        $I->canSeeAlert(
+            'Pomyślnie zarejstrowano konto w aplikacji Bajkopisarz! Na podane'
+            . ' konto email wysłano wiadomość do aktywacji konta.'
+        );
 
         $I->fillField(self::EMAIL_FIELD, self::EMAIL);
         $I->fillField(self::PASSWORD_FIELD, self::PASSWORD);
-        $I->amOnPage(self::DASHBOARD_URL);
+        $I->canSeeCurrentUrlEquals(self::LOGIN_URL);
     }
 
     public function emptyRegistrationForm(FunctionalTester $I)

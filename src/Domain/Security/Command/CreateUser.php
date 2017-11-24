@@ -2,7 +2,10 @@
 
 namespace Domain\Security\Command;
 
-class CreateUser
+use AppBundle\Bus\Messages\Message;
+use AppBundle\Bus\Messages\MessageCommandInterface;
+
+class CreateUser implements MessageCommandInterface
 {
     /**
      * @var string
@@ -28,5 +31,14 @@ class CreateUser
     public function getPassword(): string
     {
         return $this->password;
+    }
+
+    public function getMessage(): Message
+    {
+        return new Message(
+            'security.registration.alert.success',
+            [],
+            'success'
+        );
     }
 }

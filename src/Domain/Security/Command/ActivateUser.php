@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Domain\Security\Command;
 
+use AppBundle\Bus\Messages\Message;
+use AppBundle\Bus\Messages\MessageCommandInterface;
 use AppBundle\Entity\User;
 use DomainException;
 
-class ActivateUser
+class ActivateUser implements MessageCommandInterface
 {
     /**
      * @var User
@@ -28,5 +30,14 @@ class ActivateUser
     public function getUser(): User
     {
         return $this->user;
+    }
+
+    public function getMessage(): Message
+    {
+        return new Message(
+            'security.activation.alert.success',
+            ['%username%' => $this->user->getUsername()],
+            'success'
+        );
     }
 }

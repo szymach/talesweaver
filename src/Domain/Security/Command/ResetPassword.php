@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Domain\Security\Command;
 
+use AppBundle\Bus\Messages\Message;
+use AppBundle\Bus\Messages\MessageCommandInterface;
 use AppBundle\Entity\User\PasswordResetToken;
 
-class ResetPassword
+class ResetPassword implements MessageCommandInterface
 {
     /**
      * @var PasswordResetToken
@@ -32,5 +34,14 @@ class ResetPassword
     public function getPassword(): string
     {
         return $this->password;
+    }
+
+    public function getMessage(): Message
+    {
+        return new Message(
+            'security.reset_password.change.alert.success',
+            [],
+            'success'
+        );
     }
 }

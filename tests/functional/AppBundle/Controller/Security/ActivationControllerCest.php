@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Controller\Security;
 
-use Assert\Assert;
+use Assert\Assertion;
 use FunctionalTester;
 
 class ActivationControllerCest
@@ -12,6 +12,10 @@ class ActivationControllerCest
         $user = $I->getUser(false);
         $I->amOnPage(sprintf('/pl/activate/%s', (string) $user->getActivationToken()));
         $I->canSeeCurrentUrlEquals('/pl/login');
-        Assert::that($user->isActive())->eq(true);
+        Assertion::eq(true, $user->isActive());
+        $I->canSeeAlert(sprintf(
+            'Pomyślnie aktywowano konto "%s"! Możesz się teraz zalogować.',
+            $user->getUsername()
+        ));
     }
 }

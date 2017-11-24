@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Domain\Security\Command;
 
-class GeneratePasswordResetToken
+use AppBundle\Bus\Messages\Message;
+use AppBundle\Bus\Messages\MessageCommandInterface;
+
+class GeneratePasswordResetToken implements MessageCommandInterface
 {
     /**
      * @var string
@@ -19,5 +22,14 @@ class GeneratePasswordResetToken
     public function getEmail(): string
     {
         return $this->email;
+    }
+
+    public function getMessage(): Message
+    {
+        return new Message(
+            'security.reset_password.request.alert.success',
+            [],
+            'success'
+        );
     }
 }

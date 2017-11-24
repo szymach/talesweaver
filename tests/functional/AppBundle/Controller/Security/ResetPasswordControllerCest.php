@@ -42,6 +42,10 @@ class ResetPasswordControllerCest
         $I->fillField(self::EMAIL_FIELD, $I->getUser()->getUsername());
         $I->click(self::REQUEST_SUBMIT);
         $I->canSeeCurrentUrlEquals($I->createUrl(self::LOGIN_ROUTE));
+        $I->canSeeAlert(
+            'Jeżeli podany adres email był prawidłowy, przesłano na niego email'
+            . ' z instrukcjami zmiany hasła.'
+        );
 
         $user = $I->getUser();
         $I->canSeeResetPasswordTokenGenerated($user);
@@ -58,7 +62,10 @@ class ResetPasswordControllerCest
         $I->fillField(self::SECOND_PASSWORD, self::NEW_PASSWORD);
         $I->click(self::CHANGE_SUBMIT);
         $I->canSeeCurrentUrlEquals($I->createUrl(self::LOGIN_ROUTE));
-
+        $I->canSeeAlert(
+            'Pomyślnie zmieniono hasło do konta. Możesz się teraz nim zalogować'
+            . ' do aplikacji.'
+        );
         $I->fillField(self::EMAIL_FIELD, FunctionalTester::USER_EMAIL);
         $I->fillField(self::PASSWORD_FIELD, self::NEW_PASSWORD);
         $I->click(self::LOGIN_SUBMIT);
