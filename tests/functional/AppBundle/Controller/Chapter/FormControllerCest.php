@@ -18,7 +18,7 @@ class FormControllerCest
 
     const TITLE_PL = 'Tytuł nowego rozdziału';
     const NEW_TITLE_PL = 'Zmieniony tytuł rozdziału';
-    const SCENE_TITLE_PL = 'Tytuł sceny przypisanego do rozdziału';
+    const SCENE_TITLE_PL = 'Tytuł sceny przypisanej do rozdziału';
 
     public function renderView(FunctionalTester $I)
     {
@@ -39,6 +39,10 @@ class FormControllerCest
             'translations' => ['title' => self::TITLE_PL]
         ]);
         $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $chapter->getId()));
+        $I->canSeeAlert(sprintf(
+            'Pomyślnie dodano nowy rozdział o tytule "%s"',
+            self::TITLE_PL
+        ));
         $I->seeElement(self::EDIT_FORM);
         $I->seeInTitle(self::TITLE_PL);
         $I->seeElement(self::SCENE_CREATE_FORM);
@@ -47,10 +51,15 @@ class FormControllerCest
 
         $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $chapter->getId()));
         $I->seeInTitle(self::NEW_TITLE_PL);
+        $I->canSeeAlert('Zapisano zmiany w rozdziale.');
 
         $I->submitForm(self::SCENE_CREATE_FORM, ['create[title]' => self::SCENE_TITLE_PL]);
         $scene = $I->grabEntityFromRepository(Scene::class);
         $I->seeCurrentUrlEquals(sprintf(self::SCENE_EDIT_URL, $scene->getId()));
         $I->seeInTitle(self::SCENE_TITLE_PL);
+        $I->canSeeAlert(sprintf(
+            'Pomyślnie dodano nową scenę o tytule "%s"',
+            self::SCENE_TITLE_PL
+        ));
     }
 }

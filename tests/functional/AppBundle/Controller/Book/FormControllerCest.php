@@ -44,6 +44,10 @@ class FormControllerCest
         $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $book->getId()));
 
         $I->seeElement(self::EDIT_FORM);
+        $I->canSeeAlert(sprintf(
+            'Pomyślnie dodano nową książkę o tytule "%s"',
+            self::TITLE_PL
+        ));
         $I->seeInTitle(self::TITLE_PL);
         $I->submitForm(self::EDIT_FORM, [
             'edit[title]' => self::NEW_TITLE_PL,
@@ -52,5 +56,6 @@ class FormControllerCest
 
         $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $book->getId()));
         $I->seeInTitle(self::NEW_TITLE_PL);
+        $I->canSeeAlert('Zapisano zmiany w książce.');
     }
 }

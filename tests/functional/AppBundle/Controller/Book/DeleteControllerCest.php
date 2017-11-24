@@ -22,5 +22,6 @@ class DeleteControllerCest
         $I->click('a[title="Usuń"]');
         $I->canSeeCurrentUrlEquals(self::LIST_URL);
         $I->dontSeeInRepository(Book::class, ['id' => $id]);
+        $I->canSeeAlert(sprintf('Książka "%s" została usunięta.', self::TITLE_PL));
     }
 }

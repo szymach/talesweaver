@@ -27,5 +27,6 @@ class DeleteControllerCest
 
         $I->canSeeCurrentUrlEquals(self::LIST_URL);
         $I->dontSeeInRepository(Scene::class, ['id' => $id]);
+        $I->canSeeAlert(sprintf('Scena "%s" została usunięta.', self::TITLE_PL));
     }
 }

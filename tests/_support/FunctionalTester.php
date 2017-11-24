@@ -140,6 +140,11 @@ class FunctionalTester extends Actor
         );
     }
 
+    public function canSeeAlert(string $content, string $type = 'success'): void
+    {
+        $this->canSee($content, sprintf('.alert.alert-%s', $type));
+    }
+
     public function getEntityManager(): EntityManagerInterface
     {
         return $this->grabService('doctrine.orm.entity_manager');

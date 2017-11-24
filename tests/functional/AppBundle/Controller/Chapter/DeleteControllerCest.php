@@ -25,5 +25,6 @@ class DeleteControllerCest
         $I->click('a[title="Usuń"]');
         $I->canSeeCurrentUrlEquals(self::LIST_URL);
         $I->dontSeeInRepository(Chapter::class, ['id' => $id]);
+        $I->canSeeAlert(sprintf('Rozdział "%s" został usunięty.', self::TITLE_PL));
     }
 }
