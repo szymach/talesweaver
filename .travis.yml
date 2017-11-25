@@ -4,8 +4,8 @@ cache:
     yarn: true
     directories:
         - bin
-        - vendor
         - node_modules
+        - vendor
 
 sudo: false
 
@@ -21,16 +21,18 @@ matrix:
         - php: 7.1
           env: SYMFONY_DEPRECATIONS_HELPER=weak
 
-before_script:
+install:
+    - echo 'date.timezone = "Europe/Warsaw"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
     - composer install -n
-    - yarn install
-    - bin/console server:start
-
-script:
-    - bin/phpcs
     - bin/console doctrine:database:create --env=test
     - bin/console doctrine:schema:create --env=test
-    # Temporary turned off, since it does not detect JSON column
-    #- bin/console doctrine:schema:validate --env=test
-    - bin/codecept run
-    - node_modules/cypress/bin/cypress run
+    - bin/console server:start
+    - yarn install
+    - node_modules/.bin/webpack
+
+script:
+#    - bin/phpcs
+#    - bin/console doctrine:schema:validate --env=test
+#    - bin/codecept run
+    - bin/console doctrine:fixtures:load -n --env=test
+    - node_modules/.bin/cypress run

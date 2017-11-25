@@ -13,6 +13,9 @@ framework:
         enabled: true
         collect: true
 
+web_profiler:
+    toolbar: false
+
 monolog:
     handlers:
         main:
@@ -43,10 +46,6 @@ swiftmailer:
 doctrine:
     dbal:
         dbname: "%database_name%-tst"
-
-# testing should be done in english
-parameters:
-    locale: en
 
 fsi_doctrine_extensions:
     default_filesystem_path: '%kernel.root_dir%/../web/uploaded_test'

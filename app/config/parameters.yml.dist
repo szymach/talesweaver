@@ -10,4 +10,4 @@ parameters:
     mailer_password:   ~
     mailer_from:       email@example.com
     secret:            ThisTokenIsNotSoSecretChangeIt
-    locale:            en
+    locale:            pl
