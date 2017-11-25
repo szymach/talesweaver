@@ -28,7 +28,9 @@
     "url-loader": "^0.5.8",
     "webpack": "^2.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "cypress": "^1.1.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/szymach/talesweaver.git"

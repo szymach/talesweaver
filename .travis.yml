@@ -1,9 +1,11 @@
 language: php
 
 cache:
+    yarn: true
     directories:
         - bin
         - vendor
+        - node_modules
 
 sudo: false
 
@@ -21,6 +23,8 @@ matrix:
 
 before_script:
     - composer install -n
+    - yarn install
+    - bin/console server:start
 
 script:
     - bin/phpcs
@@ -29,3 +33,4 @@ script:
     # Temporary turned off, since it does not detect JSON column
     #- bin/console doctrine:schema:validate --env=test
     - bin/codecept run
+    - node_modules/cypress/bin/cypress run

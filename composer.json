@@ -17,7 +17,12 @@
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "autoload-dev": {
-        "psr-4": { "Tests\\AppBundle\\": ["tests/functional/AppBundle", "tests/unit/AppBundle"] }
+        "psr-4": { 
+            "Tests\\AppBundle\\": [
+                "tests/functional/AppBundle",
+                "tests/unit/AppBundle"
+            ] 
+        }
     },
     "require": {
         "doctrine/orm": "^2.5",
