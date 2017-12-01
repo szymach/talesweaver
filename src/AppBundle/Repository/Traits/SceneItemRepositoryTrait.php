@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace AppBundle\Repository\Traits;
 
 use AppBundle\Entity\Scene;
+use AppBundle\Security\UserProvider;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 
 trait SceneItemRepositoryTrait
 {
     /**
-     * @var DoctrineRepository
+     * @var EntityRepository
      */
     private $doctrineRepository;
 

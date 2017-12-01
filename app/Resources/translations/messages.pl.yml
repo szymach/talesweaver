@@ -177,6 +177,7 @@ event:
     name: Nazwa
     header:
         new: Nowe wydarzenie
+        edit: Edycja wydarzenia
     'Domain\Event\Meeting':
         name: Spotkanie
         description: '<span class="underline">%root%</span> spotkał <span class="underline">%relation%</span> w <span class="underline">%location%</span>'

@@ -20,12 +20,12 @@ class FormView
         $this->templating = $templating;
     }
 
-    public function createView(FormInterface $form): JsonResponse
+    public function createView(FormInterface $form, string $title = 'event.header.new'): JsonResponse
     {
         return new JsonResponse([
             'form' => $this->templating->render(
                 'partial/simpleForm.html.twig',
-                ['form' => $form->createView(), 'title' => 'event.header.new']
+                ['form' => $form->createView(), 'title' => $title]
             )
         ], !$form->isSubmitted() || $form->isValid() ? 200 : 400);
     }

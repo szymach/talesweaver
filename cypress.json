@@ -1,5 +1,7 @@
 {
     "baseUrl": "http://127.0.0.1:8000/app_test.php/pl",
     "videoRecording": false,
-    "screenshotOnHeadlessFailure": false
+    "screenshotOnHeadlessFailure": false,
+    "viewportWidth": 1600,
+    "viewportHeight": 900
 }

@@ -5,6 +5,8 @@ $(document).on('ajaxComplete', hideBackdrop);
 $(document).on('ajaxError', hideBackdrop);
 
 $(document).ready(function() {
+    closeModal();
+
     $('main').on('click', '.js-load-form', function(event) {
         event.preventDefault();
         event.stopPropagation();
@@ -238,4 +240,11 @@ function hideBackdrop()
 function getAjaxClearButton()
 {
     return $('#clear-ajax');
+}
+
+function closeModal()
+{
+    $('.alert .close').on('click', function () {
+        $(this).parents('.alert').hide();
+    });
 }

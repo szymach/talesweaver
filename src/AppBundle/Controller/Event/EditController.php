@@ -69,6 +69,6 @@ class EditController
             return new JsonResponse(['success' => true]);
         }
 
-        return $this->templating->createView($form);
+        return $this->templating->createView($form, 'event.header.edit');
     }
 }
