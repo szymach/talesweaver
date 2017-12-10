@@ -10,6 +10,7 @@ services:
 
     AppBundle\Controller\:
         resource: "../../src/AppBundle/Controller/*"
+        public: true
 
     AppBundle\Mail\PasswordResetMailer:
         arguments:
@@ -62,6 +63,7 @@ services:
 
     AppBundle\JSON\EventParser:
         autowire: true
+        public: true
 
     # Bus
     transaction_wrapped_command_bus:

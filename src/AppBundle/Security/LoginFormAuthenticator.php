@@ -68,12 +68,6 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
 
     public function getCredentials(Request $request)
     {
-        if ($request->getPathInfo() !== sprintf('/%s/login', $request->getLocale())
-            || !$request->isMethod(Request::METHOD_POST)
-        ) {
-            return;
-        }
-
         $username = $request->request->get('_username');
         $password = $request->request->get('_password');
         $request->getSession()->set(Security::LAST_USERNAME, $username);
@@ -103,6 +97,13 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
     public function supportsRememberMe(): bool
     {
         return false;
+    }
+
+    public function supports(Request $request): bool
+    {
+        return $request->getPathInfo() === sprintf('/%s/login', $request->getLocale())
+            && $request->isMethod(Request::METHOD_POST)
+        ;
     }
 
     private function redirectTo(string $route, string $locale)

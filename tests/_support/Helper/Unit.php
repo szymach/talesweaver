@@ -20,8 +20,9 @@ use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
  */
 class Unit extends Module
 {
-    const LOCALE = 'pl';
-    const USER_EMAIL = 'test@example.com';
+    public const LOCALE = 'pl';
+    public const USER_EMAIL = 'test@example.com';
+    public const USER_ROLE = 'ROLE_USER';
 
     public function createForm($class, $data = null, array $options = []): FormInterface
     {
@@ -42,10 +43,12 @@ class Unit extends Module
 
     public function getUser(): User
     {
-        $user = $this->getEntityManager()->getRepository(User::class)->findOneBy(['username' => self::USER_EMAIL]);
+        $manager = $this->getEntityManager();
+        $user = $manager->getRepository(User::class)->findOneBy(['username' => self::USER_EMAIL]);
         if (!$user) {
-            $manager = $this->getEntityManager();
-            $role = new UserRole('ROLE_USER');
+            $role = $manager->getRepository(UserRole::class)->findOneBy(['role' => self::USER_ROLE])
+                ?? new UserRole(self::USER_ROLE)
+            ;
             $user = new User(
                 self::USER_EMAIL,
                 'password',
@@ -95,11 +98,6 @@ class Unit extends Module
     }
 
     public function _beforeSuite($settings = [])
-    {
-        $this->clearUsers();
-    }
-
-    public function _afterSuite($settings = [])
     {
         $this->clearUsers();
     }

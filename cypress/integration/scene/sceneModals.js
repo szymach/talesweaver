@@ -102,12 +102,7 @@ describe('Modal opening', function() {
     });
 
     it('deletes characters', function () {
-        cy.get('.characters .js-list-delete').first().click();
-        cy.get('#modal-confirm').click();
-        cy.contains('Operacja wykonana pomyślnie!').should('be.visible');
-        cy.get('nav.navbar.navbar-default').scrollIntoView();
-        cy.get('#success-alert .close').click();
-        cy.get('.characters .js-list-delete').first().click();
+        cy.get('.characters .js-list-delete').last().click();
         cy.get('#modal-confirm').click();
         cy.contains('Operacja wykonana pomyślnie!').should('be.visible');
     });

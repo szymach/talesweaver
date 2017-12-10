@@ -35,6 +35,7 @@ class FunctionalTester extends Actor
 
     public const USER_EMAIL = 'test@example.com';
     public const USER_PASSWORD = 'password123';
+    public const USER_ROLE = 'ROLE_USER';
 
     public const ERROR_SELECTOR = '.help-block .list-unstyled li';
 
@@ -66,7 +67,9 @@ class FunctionalTester extends Actor
             'username' => self::USER_EMAIL
         ]);
         if (!$user) {
-            $role = new UserRole('ROLE_USER');
+            $role = $manager->getRepository(UserRole::class)->findOneBy(['role' => self::USER_ROLE])
+                ?? new UserRole(self::USER_ROLE)
+            ;
             $user = new User(
                 self::USER_EMAIL,
                 password_hash(self::USER_PASSWORD, PASSWORD_BCRYPT),
