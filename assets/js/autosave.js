@@ -34,19 +34,18 @@ function scheduleAutosave(event)
             data: new FormData($form[0])
         })
         .success(function() {
-            displaySuccessAlert();
+            displayAlerts();
         })
         .error(function(xhr) {
             var response = JSON.parse(xhr.responseText);
             if (typeof response.form !== 'undefined') {
                 $form.replaceWith($(response.form));
             }
-            displayErrorAlert();
         }).complete(function () {
             savesScheduled[id] = false;
             bindAutosave();
         });
-    }, 300000);
+    }, 3000);
 }
 
 function showBackdrop()
@@ -61,16 +60,20 @@ function hideBackdrop()
     $('#backdrop').removeClass('active');
 }
 
-function displaySuccessAlert()
+function displayAlerts()
 {
-    $('#error-alert').hide();
-    $('#success-alert').hide();
-    var $alert = $('#autosave-success-alert');
-    $alert.show();
-    window.setTimeout(function() { $alert.fadeOut(800); }, 5000);
-}
-
-function displayErrorAlert()
-{
-    $('#error-alert').show();
+    $.ajax({
+        method: "GET",
+        url: $('#alerts').data('alert-url')
+    }).success(function (response) {
+        if (typeof response.alerts !== 'undefined') {
+            $('#alerts').append(response.alerts);
+            $('#alerts .alert').filter(':visible').each (function (index, alert) {
+                var $alert = $(alert);
+                window.setTimeout(function() {
+                    $alert.fadeOut(800, function () { $alert.remove(); });
+                }, 5000);
+            });
+        }
+    });
 }

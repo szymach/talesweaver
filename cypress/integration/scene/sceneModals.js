@@ -41,42 +41,42 @@ describe('Modal opening', function() {
         cy.get('.characters .fa-plus').click();
         cy.contains('Nowa postać');
         cy.get('input[name="create[name]"]').type('Postać{enter}');
-        cy.contains('Operacja wykonana pomyślnie!').should('be.visible');
+        cy.contains('Pomyślnie dodano nową postać o imieniu "Postać"').should('be.visible');
     });
 
     it('edits existing character', function () {
         cy.get('.characters button.js-edit-form').last().click();
         cy.contains('Edycja postaci');
         cy.get('input[name="edit[name]"]').type(' edytowana{enter}');
-        cy.contains('Operacja wykonana pomyślnie!').should('be.visible');
+        cy.contains('Zapisano zmiany w postaci.').should('be.visible');
     });
 
     it('creates new item', function () {
         cy.get('.items .fa-plus').click();
         cy.contains('Nowy przedmiot');
         cy.get('input[name="create[name]"]').type('Przedmiot{enter}');
-        cy.contains('Operacja wykonana pomyślnie!').should('be.visible');
+        cy.contains('Pomyślnie dodano nowy przedmiot o nazwie "Przedmiot"').should('be.visible');
     });
 
     it('edits existing item', function () {
         cy.get('.items button.js-edit-form').click();
         cy.contains('Edycja przedmiotu');
         cy.get('input[name="edit[name]"]').type(' edytowany{enter}');
-        cy.contains('Operacja wykonana pomyślnie!').should('be.visible');
+        cy.contains('Zapisano zmiany w przedmiocie.').should('be.visible');
     });
 
     it('creates new location', function () {
         cy.get('.locations .fa-plus').click();
         cy.contains('Nowe miejsce');
         cy.get('input[name="create[name]"]').type('Miejsce{enter}');
-        cy.contains('Operacja wykonana pomyślnie!').should('be.visible');
+        cy.contains('Pomyślnie dodano nowe miejsce o nazwie "Miejsce"').should('be.visible');
     });
 
     it('edits existing location', function () {
         cy.get('.locations button.js-edit-form').click();
         cy.contains('Edycja miejsca');
         cy.get('input[name="edit[name]"]').type(' edytowane{enter}');
-        cy.contains('Operacja wykonana pomyślnie!').should('be.visible');
+        cy.contains('Zapisano zmiany w miejscu.').should('be.visible');
     });
 
     it('creates new event', function () {
@@ -87,7 +87,7 @@ describe('Modal opening', function() {
         cy.get('[name="create[model][location]"').select('Miejsce edytowane');
         cy.get('[name="create[model][relation]"').select('Postać do spotkania');
         cy.get('form[name="create"] .btn-primary').click();
-        cy.contains('Operacja wykonana pomyślnie!').should('be.visible');
+        cy.contains('Pomyślnie dodano nowe wydarzenie o nazwie "Spotkanie"').should('be.visible');
     });
 
     it('edits existing event', function () {
@@ -98,30 +98,30 @@ describe('Modal opening', function() {
         cy.get('[name="edit[model][location]"').select('Miejsce edytowane');
         cy.get('[name="edit[model][relation]"').select('Postać edytowana');
         cy.get('#ajax-container form[name="edit"] .btn-primary').click();
-        cy.contains('Operacja wykonana pomyślnie!').should('be.visible');
+        cy.contains('Zapisano zmiany w wydarzeniu.').should('be.visible');
     });
 
-    it('deletes characters', function () {
+    it('deletes a character', function () {
         cy.get('.characters .js-list-delete').last().click();
         cy.get('#modal-confirm').click();
-        cy.contains('Operacja wykonana pomyślnie!').should('be.visible');
+        cy.contains('Postać "Postać edytowana" została usunięta.').should('be.visible');
     });
 
     it('deletes an item', function () {
         cy.get('.items .js-list-delete').first().click();
         cy.get('#modal-confirm').click();
-        cy.contains('Operacja wykonana pomyślnie!').should('be.visible');
+        cy.contains('Przedmiot "Przedmiot edytowany" został usunięty.').should('be.visible');
     });
 
     it('deletes a location', function () {
         cy.get('.locations .js-list-delete').first().click();
         cy.get('#modal-confirm').click();
-        cy.contains('Operacja wykonana pomyślnie!').should('be.visible');
+        cy.contains('Miejsce "Miejsce edytowane" zostało usunięte.').should('be.visible');
     });
 
     it('deletes an event', function () {
         cy.get('.events .js-list-delete').first().click();
         cy.get('#modal-confirm').click();
-        cy.contains('Operacja wykonana pomyślnie!').should('be.visible');
+        cy.contains('Wydarzenie "Spotkanie edytowane" zostało usunięte.').should('be.visible');
     });
 });

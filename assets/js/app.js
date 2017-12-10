@@ -39,10 +39,10 @@ $(document).ready(function() {
                 })
                 .success(function() {
                     refreshList($this.parents('.js-list'));
-                    displaySuccessAlert();
+                    displayAlerts();
                 })
                 .error(function() {
-                    displayErrorAlert();
+                    displayAlerts();
                 });
             } else {
                 window.location.href = $this.attr('href');
@@ -112,7 +112,7 @@ $(document).ready(function() {
         .success(function() {
             clearAjaxContainer();
             refreshList($($this.data('list-id')));
-            displaySuccessAlert();
+            displayAlerts();
         });
     });
 
@@ -186,7 +186,7 @@ function submitForm($form, $listTable)
     .success(function() {
         clearAjaxContainer();
         refreshList($listTable);
-        displaySuccessAlert();
+        displayAlerts();
     })
     .error(function(xhr) {
         clearAjaxContainer();
@@ -195,7 +195,7 @@ function submitForm($form, $listTable)
             displayAjaxContainerWithContent(response.form);
             bindAjaxForm($listTable);
         }
-        displayErrorAlert();
+        displayAlerts();
     });
 }
 
@@ -212,17 +212,22 @@ function getAjaxContainer()
     return $('#ajax-container');
 }
 
-function displaySuccessAlert()
+function displayAlerts()
 {
-    $('#error-alert').hide();
-    var $alert = $('#success-alert');
-    $alert.show();
-    window.setTimeout(function() { $alert.fadeOut(800); }, 5000);
-}
-
-function displayErrorAlert()
-{
-    $('#error-alert').show();
+    $.ajax({
+        method: "GET",
+        url: $('#alerts').data('alert-url')
+    }).success(function (response) {
+        if (typeof response.alerts !== 'undefined') {
+            $('#alerts').append(response.alerts);
+            $('#alerts .alert').filter(':visible').each (function (index, alert) {
+                var $alert = $(alert);
+                window.setTimeout(function() {
+                    $alert.fadeOut(800, function () { $alert.remove(); });
+                }, 5000);
+            });
+        }
+    });
 }
 
 function showBackdrop()

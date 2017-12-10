@@ -13,6 +13,8 @@ use AppBundle\Pagination\Location\LocationPaginator;
 use AppBundle\Pagination\Scene\ScenePaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class EditView
@@ -58,8 +60,18 @@ class EditView
         $this->eventPaginator = $eventPaginator;
     }
 
-    public function createView(FormInterface $form, Scene $scene): Response
+    public function createView(Request $request, FormInterface $form, Scene $scene): Response
     {
+        $status = !$form->isSubmitted() || $form->isValid() ? 200 : 403;
+        if ($request->isXmlHttpRequest()) {
+            return new JsonResponse([
+                'form' => $this->templating->render(
+                    'scene/form/editForm.html.twig',
+                    ['form' => $form->createView()]
+                )
+            ], $status);
+        }
+
         $parameters = [
             'form' => $form->createView(),
             'sceneId' => $scene->getId(),
@@ -86,9 +98,10 @@ class EditView
             $parameters['chapterId'] = null;
             $parameters['relatedScenes'] = [];
         }
-        return $this->templating->renderResponse(
+
+        return new Response($this->templating->render(
             'scene/editForm.html.twig',
             $parameters
-        );
+        ), $status);
     }
 }

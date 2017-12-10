@@ -4,10 +4,10 @@ namespace AppBundle\Controller\Scene;
 
 use AppBundle\Entity\Scene;
 use AppBundle\Form\Scene\EditType;
-use AppBundle\Routing\RedirectToEdit;
+use AppBundle\Routing\Scene\EditResponse;
+use AppBundle\Templating\Scene\EditView;
 use Domain\Scene\Edit\Command;
 use Domain\Scene\Edit\DTO;
-use AppBundle\Templating\Scene\EditView;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,20 +30,20 @@ class EditController
     private $commandBus;
 
     /**
-     * @var RedirectToEdit
+     * @var EditResponse
      */
-    private $redirector;
+    private $response;
 
     public function __construct(
         EditView $templating,
         FormFactoryInterface $formFactory,
         MessageBus $commandBus,
-        RedirectToEdit $redirector
+        EditResponse $response
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
-        $this->redirector = $redirector;
+        $this->response = $response;
     }
 
     public function __invoke(Request $request, Scene $scene)
@@ -53,9 +53,9 @@ class EditController
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->commandBus->handle(new Command($dto, $scene));
 
-            return $this->redirector->createResponse('app_scene_edit', $scene->getId());
+            return $this->response->create($request, $scene->getId());
         }
 
-        return $this->templating->createView($form, $scene);
+        return $this->templating->createView($request, $form, $scene);
     }
 }

@@ -230,9 +230,9 @@ item:
         edit: Edycja przedmiotu
         related: Dodawanie istniejącego przedmiotu
     alert:
-        created: Pomyślnie dodano nowy przedmiot o nazwiee "%title%".
+        created: Pomyślnie dodano nowy przedmiot o nazwie "%title%".
         edit: Zapisano zmiany w przedmiocie.
-        deleted: Przedmiot "%title%" została usunięta.
+        deleted: Przedmiot "%title%" został usunięty.
         added_to_scene: Dodano przedmiot "%title%" do sceny "%sceneTitle%".
         removed_from_scene: Usunięto przedmiot "%title%" ze sceny "%sceneTitle%".
 
@@ -253,7 +253,7 @@ location:
     alert:
         created: Pomyślnie dodano nowe miejsce o nazwie "%title%".
         edit: Zapisano zmiany w miejscu.
-        deleted: Miejsce "%s" została usunięte.
+        deleted: Miejsce "%title%" zostało usunięte.
         added_to_scene: Dodano miejsce "%title%" do sceny "%sceneTitle%".
         removed_from_scene: Usunięto miejsce "%title%" ze sceny "%sceneTitle%".
 

@@ -1,5 +1,11 @@
 ---
 app_index:
     path: /
-    defaults: { _controller: AppBundle\Controller\DashboardController }
+    controller: AppBundle\Controller\DashboardController
     methods:  GET
+
+alerts:
+    path: /alerts
+    controller: AppBundle\Controller\AlertsController
+    methods:  GET
+    condition: "request.isXmlHttpRequest()"

@@ -2,8 +2,6 @@
 
 {% block seo_title 'scene.header.edit' | trans({ '%title%': title }) %}
 
-{% form_theme form 'scene/form/form_theme.html.twig' %}
-
 {% block top_menu_right %}
     {% include 'scene/actions.html.twig' with {
         returnUrl:chapterId ? path('app_chapter_edit', { id: chapterId }) : path('app_scene_list', { page: app.request.get('page') }),
@@ -14,17 +12,7 @@
 {% block body %}
     <div class="row">
         <div class="col-xs-12 content-container">
-            {{ form_start(form) }}
-                <div class="row">
-                    {{ form_row(form.title, { row_class: 'col-sm-4 col-sm-offset-2 col-xs-12' }) }}
-                    {{ form_row(form.chapter, { row_class: 'col-sm-4 col-xs-12' }) }}
-                    {{ form_row(form.text, { row_class: 'col-xs-12 col-md-8 col-md-offset-2' }) }}
-                    <div class="col-xs-12 col-md-8 col-md-offset-2 text-right">
-                        <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
-                    </div>
-                </div>
-                {{ form_rest(form) }}
-            {{ form_end(form) }}
+            {% include 'scene/form/editForm.html.twig' with { form: form } only  %}
             <div id="ajax-container"></div>
             <div id="form-backdrop"></div>
             <button id="clear-ajax" class="btn btn-danger pull-right" style="display: none;">
@@ -32,7 +20,7 @@
             </button>
         </div>
     </div>
-    {% embed 'partial/sideMenu.html.twig' %}
+    {% embed 'partial/sideMenu.html.twig'%}
         {% block listContent %}
             {% if chapterTitle and relatedScenes | length %}
                 <li>

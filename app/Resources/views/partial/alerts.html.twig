@@ -1,22 +1,7 @@
-<div class="alert alert-success alert-dismissible" role="alert" id="success-alert" style="display: none;">
-  <button type="button" class="close" aria-label="{{ 'alert.close' | trans }}"><span aria-hidden="true">&times;</span></button>
-  {{ 'alert.success' | trans }}
-</div>
-<div class="alert alert-success alert-dismissible" role="alert" id="autosave-success-alert" style="display: none;">
-  <button type="button" class="close" aria-label="{{ 'alert.close' | trans }}"><span aria-hidden="true">&times;</span></button>
-  {{ 'alert.autosave_success' | trans }}
-</div>
-<div class="alert alert-danger alert-dismissible" role="alert" id="error-alert" style="display: none;">
-  <button type="button" class="close" aria-label="{{ 'alert.close' | trans }}"><span aria-hidden="true">&times;</span></button>
-  {{ 'alert.error' | trans }}
-</div>
 {% for type, messages in app.flashes %}
     <div class="alert alert-dismissible alert-{{ type }}" role="alert">
-      <button type="button" class="close" aria-label="{{ 'alert.close' | trans }}">
-          <span aria-hidden="true">&times;</span>
-      </button>
-        {% for message in messages %}
-            {{ message }}
-        {% endfor %}
+        {%- for message in messages -%}
+            <p>{{- message -}}</p>
+        {%- endfor -%}
     </div>
 {% endfor %}

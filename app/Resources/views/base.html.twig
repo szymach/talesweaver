@@ -18,7 +18,8 @@
                 {% block top_menu_right '' %}
             </div>
         </nav>
-        <div class="container" style="position: relative;">
+        <div id="alerts" class="container" style="position: relative;" data-alert-url="{{ path('alerts') }}">
+            {% block alerts '' %}
             {% include 'partial/alerts.html.twig' %}
         </div>
         <main class="container">
