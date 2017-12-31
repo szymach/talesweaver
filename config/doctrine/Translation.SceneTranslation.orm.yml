@@ -1,0 +1,25 @@
+---
+App\Entity\Translation\SceneTranslation:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        title:
+            type: string
+        text:
+            type: text
+            nullable: true
+        locale:
+            type: string
+            length: 2
+            fsi:
+                translatable:
+                    locale: ~
+    manyToOne:
+        scene:
+            targetEntity: App\Entity\Scene
+            inversedBy: translations
+            joinColumn:
+                onDelete: "CASCADE"

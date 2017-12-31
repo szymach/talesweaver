@@ -2,10 +2,10 @@
 
 namespace Domain\Security\Command;
 
-use AppBundle\Entity\User;
-use AppBundle\Entity\UserRole;
-use AppBundle\Mail\RegistrationMailer;
-use AppBundle\Security\TokenGenerator;
+use App\Entity\User;
+use App\Entity\UserRole;
+use App\Mail\RegistrationMailer;
+use App\Security\TokenGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 
 class CreateUserHandler

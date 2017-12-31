@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Scene\Create;
 
-use AppBundle\Entity\Chapter;
+use App\Entity\Chapter;
 
 class DTO
 {

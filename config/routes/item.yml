@@ -1,0 +1,40 @@
+---
+app_item_new:
+    path: /new/{id}
+    defaults: { _controller: App\Controller\Item\CreateController }
+    methods:  [GET, POST]
+
+app_item_edit:
+    path: /edit/{id}
+    defaults: { _controller: App\Controller\Item\EditController }
+    methods:  [GET, POST]
+
+app_item_list:
+    path: /list/{id}/{page}
+    defaults: { _controller: App\Controller\Item\ListController, page: 1 }
+    methods:  GET
+
+app_item_delete:
+    path: /delete/{id}
+    defaults: { _controller: App\Controller\Item\DeleteController }
+    methods:  GET
+
+app_item_display:
+    path: /display/{id}
+    defaults: { _controller: App\Controller\Item\DisplayController }
+    methods:  GET
+
+app_item_related:
+    path: /related/{id}/{page}
+    defaults: { _controller: App\Controller\Item\ListRelatedController, page: 1 }
+    methods:  GET
+
+app_item_add_to_scene:
+    path: /add-to-scene/{scene_id}/{item_id}
+    defaults: { _controller: App\Controller\Item\AddToSceneController }
+    methods:  GET
+
+app_item_remove_from_scene:
+    path: /remove-from-scene/{scene_id}/{item_id}
+    defaults: { _controller: App\Controller\Item\RemoveFromSceneController }
+    methods:  GET

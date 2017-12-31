@@ -1,8 +1,15 @@
 <?php
-namespace Helper;
 
+declare(strict_types=1);
+
+namespace App\Tests\Helper;
+
+use App\Entity\User;
+use App\Repository\Doctrine\UserRepository;
+use App\Tests\FunctionalTester;
 use Codeception\Module;
 use Codeception\Module\Symfony;
+use Doctrine\ORM\EntityManagerInterface;
 use FSi\DoctrineExtensions\Translatable\TranslatableListener;
 
 class Functional extends Module
@@ -10,15 +17,36 @@ class Functional extends Module
     public function _beforeSuite($settings = [])
     {
         $this->getTranslatableListener()->setLocale('pl');
+        $this->clearUser();
     }
 
-    private function getTranslatableListener() : TranslatableListener
+    public function _afterSuite()
     {
-        return $this->getSymfony()->_getContainer()->get('fsi_doctrine_extensions.listener.translatable');
+        $this->clearUser();
     }
 
-    private function getSymfony() : Symfony
+    private function getTranslatableListener(): TranslatableListener
+    {
+        return $this->getSymfony()->grabService('fsi_doctrine_extensions.listener.translatable');
+    }
+
+    private function getSymfony(): Symfony
     {
         return $this->getModule('Symfony');
+    }
+
+    private function clearUser(): void
+    {
+        /* @var $manager EntityManagerInterface */
+        $manager = $this->getSymfony()->grabService('doctrine.orm.entity_manager');
+        /* @var $userRepository UserRepository */
+        $userRepository = $manager->getRepository(User::class);
+        $user = $userRepository->findOneBy(['username' => FunctionalTester::USER_EMAIL]);
+        if (!$user) {
+            return;
+        }
+
+        $manager->remove($user);
+        $manager->flush();
     }
 }

@@ -1,0 +1,25 @@
+---
+App\Entity\Translation\BookTranslation:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        title:
+            type: text
+        description:
+            type: text
+            nullable: true
+        locale:
+            type: string
+            length: 2
+            fsi:
+                translatable:
+                    locale: ~
+    manyToOne:
+        book:
+            targetEntity: App\Entity\Book
+            inversedBy: translations
+            joinColumn:
+                onDelete: "CASCADE"

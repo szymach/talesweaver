@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Item\Create;
 
-use AppBundle\Entity\Item;
+use App\Entity\Item;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class CommandHandler

@@ -1,0 +1,12 @@
+ivory_ck_editor:
+    input_sync: true
+    default_config: full_size
+    configs:
+        full_size:
+            disableNativeSpellChecker: false
+            height: 650
+            toolbar: standard
+        small_size:
+            disableNativeSpellChecker: false
+            height: 150
+            toolbar: basic

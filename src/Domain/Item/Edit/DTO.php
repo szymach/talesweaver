@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Domain\Item\Edit;
 
-use AppBundle\Entity\Item;
-use AppBundle\Entity\Scene;
+use App\Entity\Item;
+use App\Entity\Scene;
 use Domain\Model\IdentityTrait;
 use Doctrine\Common\Collections\Collection;
 use FSi\DoctrineExtensions\Uploadable\File;

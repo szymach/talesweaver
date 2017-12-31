@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Domain\Chapter\Edit;
 
-use AppBundle\Entity\Book;
-use AppBundle\Entity\Chapter;
+use App\Entity\Book;
+use App\Entity\Chapter;
 use Domain\Model\IdentityTrait;
 
 class DTO

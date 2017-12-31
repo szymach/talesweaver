@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Item\Create;
 
-use AppBundle\Entity\Scene;
+use App\Entity\Scene;
 use FSi\DoctrineExtensions\Uploadable\File;
 use SplFileInfo;
 

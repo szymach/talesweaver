@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Domain\Security\Command;
 
-use AppBundle\Bus\Messages\Message;
-use AppBundle\Bus\Messages\MessageCommandInterface;
+use App\Bus\Messages\Message;
+use App\Bus\Messages\MessageCommandInterface;
 
 class GeneratePasswordResetToken implements MessageCommandInterface
 {

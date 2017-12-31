@@ -1,0 +1,30 @@
+---
+app_scene_create:
+    path: /create/{page}
+    defaults: { _controller: App\Controller\Scene\CreateController, page: 1 }
+    methods:  [GET, POST]
+
+app_scene_edit:
+    path: /edit/{id}
+    defaults: { _controller: App\Controller\Scene\EditController }
+    methods:  [GET, POST]
+
+app_scene_list:
+    path: /list/{page}
+    defaults: { _controller: App\Controller\Scene\ListController, page: 1 }
+    methods:  GET
+
+app_scene_delete:
+    path: /delete/{id}/{page}
+    defaults: { _controller: App\Controller\Scene\DeleteController, page: 1 }
+    methods:  GET
+
+app_scene_display:
+    path: /display/{id}
+    defaults: { _controller: App\Controller\Scene\DisplayController }
+    methods:  GET
+
+app_scene_pdf:
+    path: /pdf/{id}
+    defaults: { _controller: App\Controller\PDFController:sceneAction }
+    methods:  GET

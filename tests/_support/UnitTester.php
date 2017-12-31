@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Tests;
+
 /**
  * @method void wantToTest($text)
  * @method void wantTo($text)

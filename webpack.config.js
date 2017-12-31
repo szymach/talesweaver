@@ -14,7 +14,7 @@ module.exports = {
         "./assets/js/tags.js"
     ],
     output: {
-        path: path.resolve(__dirname, 'web/public'),
+        path: path.resolve(__dirname, 'public/assets'),
         filename: 'scripts.js'
     },
     resolve: {

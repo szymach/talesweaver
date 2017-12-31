@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Location\Create;
 
-use AppBundle\Entity\Location;
+use App\Entity\Location;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class CommandHandler

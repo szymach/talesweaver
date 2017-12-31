@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Domain\Event;
 
-use AppBundle\Entity\Character;
-use AppBundle\Entity\Location;
-use AppBundle\Entity\User;
+use App\Entity\Character;
+use App\Entity\Location;
+use App\Entity\User;
 use Domain\Security\UserAccessInterface;
 use JsonSerializable;
 

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Domain\Location\AddToScene;
 
-use AppBundle\Bus\Messages\AddedToSceneSuccessMessage;
-use AppBundle\Bus\Messages\Message;
-use AppBundle\Bus\Messages\MessageCommandInterface;
-use AppBundle\Entity\Location;
-use AppBundle\Entity\Scene;
-use AppBundle\Entity\User;
+use App\Bus\Messages\AddedToSceneSuccessMessage;
+use App\Bus\Messages\Message;
+use App\Bus\Messages\MessageCommandInterface;
+use App\Entity\Location;
+use App\Entity\Scene;
+use App\Entity\User;
 use Domain\Security\UserAccessInterface;
 
 class Command implements MessageCommandInterface, UserAccessInterface

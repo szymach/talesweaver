@@ -1,0 +1,61 @@
+base:
+    resource: "routes/base.yml"
+    prefix:   /
+
+# Security
+security:
+    resource: "routes/security.yml"
+    prefix:   /
+
+# Book
+book:
+    resource: "routes/book.yml"
+    prefix:   /book
+    options:
+        expose: true
+
+# Chapter
+chapter:
+    resource: "routes/chapter.yml"
+    prefix:   /chapter
+    options:
+        expose: true
+
+# Scene
+scene:
+    resource: "routes/scene.yml"
+    prefix:   /scene
+    options:
+        expose: true
+
+# Character
+character:
+    resource: "routes/character.yml"
+    prefix:   /character
+    condition: "request.isXmlHttpRequest()"
+    options:
+        expose: true
+
+# Item
+item:
+    resource: "routes/item.yml"
+    prefix:   /item
+    condition: "request.isXmlHttpRequest()"
+    options:
+        expose: true
+
+# Location
+location:
+    resource: "routes/location.yml"
+    prefix:   /location
+    condition: "request.isXmlHttpRequest()"
+    options:
+        expose: true
+
+# Event
+event:
+    resource: "routes/event.yml"
+    prefix:   /event
+    condition: "request.isXmlHttpRequest()"
+    options:
+        expose: true

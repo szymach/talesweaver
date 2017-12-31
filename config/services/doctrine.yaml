@@ -1,0 +1,77 @@
+---
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: false
+
+    # Entity listeners
+    entity_listener.event:
+        class: App\JSON\ModelParserListener
+        autowire: true
+        tags:
+            - { name: doctrine.orm.entity_listener }
+
+    # Doctrine repository
+    App\Repository\Doctrine\BookRepository:
+        factory: ["@doctrine", getRepository]
+        arguments: [ App\Entity\Book ]
+
+    App\Repository\Doctrine\SceneRepository:
+        factory: ["@doctrine", getRepository]
+        arguments: [ App\Entity\Scene ]
+
+    App\Repository\Doctrine\CharacterRepository:
+        factory: ["@doctrine", getRepository]
+        arguments: [ App\Entity\Character ]
+
+    App\Repository\Doctrine\ItemRepository:
+        factory: ["@doctrine", getRepository]
+        arguments: [ App\Entity\Item ]
+
+    App\Repository\Doctrine\LocationRepository:
+        factory: ["@doctrine", getRepository]
+        arguments: [ App\Entity\Location ]
+
+    App\Repository\Doctrine\ChapterRepository:
+        factory: ["@doctrine", getRepository]
+        arguments: [ App\Entity\Chapter ]
+
+    App\Repository\Doctrine\EventRepository:
+        factory: ["@doctrine", getRepository]
+        arguments: [ App\Entity\Event ]
+
+    App\Repository\Doctrine\UserRepository:
+        factory: ["@doctrine", getRepository]
+        arguments: [ App\Entity\User ]
+
+    App\Repository\Doctrine\PasswordResetTokenRepository:
+        factory: ["@doctrine", getRepository]
+        arguments: [ App\Entity\User\PasswordResetToken ]
+
+    # Repository
+    App\Repository\BookRepository:
+        autowire: true
+
+    App\Repository\SceneRepository:
+        autowire: true
+
+    App\Repository\CharacterRepository:
+        autowire: true
+
+    App\Repository\ItemRepository:
+        autowire: true
+
+    App\Repository\LocationRepository:
+        autowire: true
+
+    App\Repository\ChapterRepository:
+        autowire: true
+
+    App\Repository\EventRepository:
+        autowire: true
+
+    App\Repository\UserRepository:
+        autowire: true
+
+    App\Repository\PasswordResetTokenRepository:
+        autowire: true

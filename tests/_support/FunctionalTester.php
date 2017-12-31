@@ -1,13 +1,16 @@
 <?php
 
-use _generated\FunctionalTesterActions;
-use AppBundle\Entity\User;
-use AppBundle\Entity\User\PasswordResetToken;
-use AppBundle\Entity\UserRole;
-use AppBundle\Security\TokenGenerator;
+namespace App\Tests;
+
+use App\Entity\User;
+use App\Entity\User\PasswordResetToken;
+use App\Entity\UserRole;
+use App\Security\TokenGenerator;
+use App\Tests\_generated\FunctionalTesterActions;
 use Codeception\Actor;
 use Codeception\Lib\Friend;
 use Doctrine\ORM\EntityManagerInterface;
+use RuntimeException;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;

@@ -1,0 +1,36 @@
+---
+app_chapter_create:
+    path: /create/{page}
+    defaults: { _controller: App\Controller\Chapter\CreateController, page: 1 }
+    methods:  [GET, POST]
+
+app_chapter_edit:
+    path: /edit/{id}/{page}
+    defaults: { _controller: App\Controller\Chapter\EditController, page: 1 }
+    methods:  [GET, POST]
+
+app_chapter_list:
+    path: /list/{page}
+    defaults: { _controller: App\Controller\Chapter\ListController, page: 1 }
+    methods:  GET
+
+app_chapter_scenes_list:
+    path: /scenes/{id}/{page}
+    defaults: { _controller: App\Controller\Chapter\ScenesListController, page: 1 }
+    condition: "request.isXmlHttpRequest()"
+    methods:  GET
+
+app_chapter_delete:
+    path: /delete/{id}/{page}
+    defaults: { _controller: App\Controller\Chapter\DeleteController, page: 1 }
+    methods:  GET
+
+app_chapter_display:
+    path: /display/{id}
+    defaults: { _controller: App\Controller\Chapter\DisplayController }
+    methods:  GET
+
+app_chapter_pdf:
+    path: /pdf/{id}
+    defaults: { _controller: App\Controller\PDFController:ChapterAction }
+    methods:  GET

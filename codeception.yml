@@ -1,11 +1,14 @@
+namespace: App\Tests
 actor_suffix: Tester
 coverage:
     enabled: true
-    c3_url: 'http://127.0.0.1:8000/app_test.php'
+    c3_url: 'http://127.0.0.1:8000/pl'
     include:
         - src/*
     exclude:
         - var/cache/*
+params:
+    - .env
 paths:
     tests: tests
     output: tests/_output

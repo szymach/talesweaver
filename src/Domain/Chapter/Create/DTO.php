@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Chapter\Create;
 
-use AppBundle\Entity\Book;
+use App\Entity\Book;
 
 class DTO
 {

@@ -1,0 +1,8 @@
+---
+fsi_doctrine_extensions:
+    default_filesystem_path: '%kernel.project_dir%/../public/uploaded'
+    default_filesystem_base_url: '/uploaded'
+    orm:
+        default:
+            translatable: true
+            uploadable: true

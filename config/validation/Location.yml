@@ -1,0 +1,29 @@
+---
+Domain\Location\Create\DTO:
+    constraints:
+        - App\Validation\Constraints\UniqueDTO:
+            fields: { name: 't.name', scene: 'e.scenes' }
+            repositoryMethod: entityExists
+            path: name
+            entityClass: App\Entity\Location
+            message: location.exists
+    properties:
+        avatar:
+            - FSi\Bundle\DoctrineExtensionsBundle\Validator\Constraints\Image: ~
+        name:
+            - NotBlank: ~
+
+Domain\Location\Edit\DTO:
+    constraints:
+        - App\Validation\Constraints\UniqueDTO:
+            fields: { name: 't.name', scenes: 'e.scenes' }
+            id: id
+            repositoryMethod: entityExists
+            path: name
+            entityClass: App\Entity\Location
+            message: location.exists
+    properties:
+        avatar:
+            - FSi\Bundle\DoctrineExtensionsBundle\Validator\Constraints\Image: ~
+        name:
+            - NotBlank: ~

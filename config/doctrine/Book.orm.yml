@@ -1,0 +1,37 @@
+---
+App\Entity\Book:
+    type: entity
+    repositoryClass: App\Repository\Doctrine\BookRepository
+    id:
+        id:
+            type: uuid
+            generator: { strategy: NONE }
+    fsi:
+        translatable:
+            locale: locale
+            fields:
+                title:
+                    mappedBy: translations
+                    targetField: title
+                description:
+                    mappedBy: translations
+                    targetField: description
+    fields:
+        createdAt:
+            type: datetime
+        updatedAt:
+            type: datetime
+            nullable: true
+    oneToMany:
+        chapters:
+            targetEntity: App\Entity\Chapter
+            mappedBy: book
+            cascade: [persist, remove]
+        translations:
+            targetEntity: App\Entity\Translation\BookTranslation
+            mappedBy: book
+            indexBy: locale
+            cascade: [persist, remove]
+    manyToOne:
+        createdBy:
+            targetEntity:  App\Entity\User

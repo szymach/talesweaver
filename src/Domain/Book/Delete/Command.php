@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Domain\Book\Delete;
 
-use AppBundle\Bus\Messages\DeletionSuccessMessage;
-use AppBundle\Bus\Messages\Message;
-use AppBundle\Bus\Messages\MessageCommandInterface;
-use AppBundle\Entity\Book;
-use AppBundle\Entity\User;
+use App\Bus\Messages\DeletionSuccessMessage;
+use App\Bus\Messages\Message;
+use App\Bus\Messages\MessageCommandInterface;
+use App\Entity\Book;
+use App\Entity\User;
 use Domain\Security\UserAccessInterface;
 use Ramsey\Uuid\UuidInterface;
 

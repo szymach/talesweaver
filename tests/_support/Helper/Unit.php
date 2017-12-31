@@ -1,10 +1,12 @@
 <?php
 
-namespace Helper;
+declare(strict_types=1);
 
-use AppBundle\Entity\User;
-use AppBundle\Entity\UserRole;
-use AppBundle\Security\TokenGenerator;
+namespace App\Tests\Helper;
+
+use App\Entity\User;
+use App\Entity\UserRole;
+use App\Security\TokenGenerator;
 use Codeception\Module;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -79,7 +81,7 @@ class Unit extends Module
         $tokenStorage = $this->getService('security.token_storage');
         $tokenStorage->setToken($token);
 
-         /** @var Session $session */
+        /* @var $session Session */
         $session = $this->getService('session');
         $session->set(sprintf('_security_%s', $firewall), serialize($token));
         $session->save();

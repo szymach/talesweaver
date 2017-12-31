@@ -11,16 +11,15 @@
     ],
     "autoload": {
         "psr-4": {
-            "AppBundle\\": "src/AppBundle",
-            "Domain\\": "src/Domain"
-        },
-        "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
+            "App\\": "src/App/",
+            "Domain\\": "src/Domain/"
+        }
     },
     "autoload-dev": {
         "psr-4": { 
-            "Tests\\AppBundle\\": [
-                "tests/functional/AppBundle",
-                "tests/unit/AppBundle"
+            "App\\Tests\\": [
+                "tests/functional/App",
+                "tests/unit/App"
             ] 
         }
     },
@@ -35,65 +34,62 @@
         "ext-mbstring": "*",
         "fsi/doctrine-extensions": "^2.0@dev",
         "fsi/doctrine-extensions-bundle": "^2.0@dev",
-        "incenteev/composer-parameter-handler": "^2.0",
         "jms/i18n-routing-bundle": "^2.0",
         "knplabs/knp-menu-bundle": "^2.1",
         "knplabs/knp-snappy-bundle": "^1.4",
-        "php": ">=7.1",
+        "php": ">=7.2",
         "ramsey/uuid-doctrine": "^1.2",
-        "sensio/distribution-bundle": "^5.0",
-        "sensio/framework-extra-bundle": "^3.0",
-        "simple-bus/symfony-bridge": "^4.1",
+        "simple-bus/symfony-bridge": "^5.1",
+        "symfony/asset": "^4.0",
+        "symfony/console": "^4.0",
+        "symfony/expression-language": "^4.0",
+        "symfony/flex": "^1.0",
+        "symfony/form": "^3.4",
+        "symfony/framework-bundle": "^3.4",
         "symfony/monolog-bundle": "^3.1",
+        "symfony/polyfill-apcu": "^1.5",
+        "symfony/security-bundle": "^4.0",
         "symfony/swiftmailer-bundle": "^3.1",
-        "symfony/symfony": "^3.3.13",
-        "twig/extensions": "^1.4",
+        "symfony/translation": "4.0",
+        "symfony/twig-bundle": "^4.0",
+        "symfony/validator": "^4.0",
+        "symfony/yaml": "^4.0",
+        "twig/extensions": "^1.5",
         "white-october/pagerfanta-bundle": "^1.0"
     },
     "require-dev": {
         "codeception/codeception": "^2.3",
         "codeception/c3": "^2.0",
-        "doctrine/doctrine-fixtures-bundle": "^2.4",
-        "phpunit/phpunit": "^6.1",
+        "doctrine/doctrine-fixtures-bundle": "^3.0",
         "squizlabs/php_codesniffer": "^3.0",
-        "symfony/phpunit-bridge": "^3.3"
+        "symfony/browser-kit": "^4.0",
+        "symfony/css-selector": "^4.0",
+        "symfony/debug-bundle": "^4.0",
+        "symfony/dotenv": "^4.0",
+        "symfony/web-profiler-bundle": "^4.0",
+        "symfony/web-server-bundle": "^4.0",
+        "vlucas/phpdotenv": "^2.4"
     },
     "config": {
         "bin-dir": "bin"
     },
     "scripts": {
-        "symfony-scripts": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
-        ],
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd",
+            "ckeditor:install -n --clear=skip public/bundles/ivoryckeditor": "symfony-cmd"
+        },
         "post-install-cmd": [
-            "@symfony-scripts"
+            "@auto-scripts"
         ],
         "post-update-cmd": [
-            "@symfony-scripts"
+            "@auto-scripts"
         ]
     },
     "extra": {
-        "symfony-app-dir": "app",
-        "symfony-bin-dir": "bin",
-        "symfony-var-dir": "var",
-        "symfony-web-dir": "web",
-        "symfony-assets-install": "symlink",
-        "symfony-tests-dir": "tests",
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml",
-            "env-map": {
-                "database_host": "DB_HOST",
-                "database_user": "DB_USER",
-                "database_password": "DB_PASS",
-                "database_name": "DB_NAME",
-                "database_port": "DB_PORT",
-                "mailer_host": "MAILER_HOST",
-                "mailer_user": "MAILER_USER",
-                "mailer_password": "MAILER_PASSWORD"
-            }
+        "symfony": {
+            "id": "01C2MKG8BFE7N5Z4GNA7AHV5MM",
+            "allow-contrib": true
         }
     }
 }

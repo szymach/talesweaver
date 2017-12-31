@@ -1,0 +1,174 @@
+---
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: false
+        public: true
+
+    # User handlers
+    app.command.user.create:
+        class: Domain\Security\Command\CreateUserHandler
+        tags:
+            - { name: command_handler, handles: Domain\Security\Command\CreateUser }
+
+    app.command.user.activate:
+        class: Domain\Security\Command\ActivateUserHandler
+        tags:
+            - { name: command_handler, handles: Domain\Security\Command\ActivateUser }
+
+    app.command.user.password_reset.request:
+        class: Domain\Security\Command\GeneratePasswordResetTokenHandler
+        tags:
+            - { name: command_handler, handles: Domain\Security\Command\GeneratePasswordResetToken }
+
+    app.command.user.password_reset.change:
+        class: Domain\Security\Command\ResetPasswordHandler
+        tags:
+            - { name: command_handler, handles: Domain\Security\Command\ResetPassword }
+
+    app.command.user.change_password:
+        class: Domain\Security\Command\ChangePasswordHandler
+        tags:
+            - { name: command_handler, handles: Domain\Security\Command\ChangePassword }
+
+    # Book handlers
+    app.command.book.create:
+        class: Domain\Book\Create\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Book\Create\Command }
+
+    app.command.book.edit:
+        class: Domain\Book\Edit\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Book\Edit\Command }
+
+    app.command.book.delete:
+        class: Domain\Book\Delete\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Book\Delete\Command }
+
+    # Chapter handles
+    app.command.chapter.create:
+        class: Domain\Chapter\Create\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Chapter\Create\Command }
+
+    app.command.chapter.edit:
+        class: Domain\Chapter\Edit\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Chapter\Edit\Command }
+
+    app.command.chapter.delete:
+        class: Domain\Chapter\Delete\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Chapter\Delete\Command }
+
+    # Scene handles
+    app.command.scene.create:
+        class: Domain\Scene\Create\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Scene\Create\Command }
+
+    app.command.scene.edit:
+        class: Domain\Scene\Edit\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Scene\Edit\Command }
+
+    app.command.scene.delete:
+        class: Domain\Scene\Delete\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Scene\Delete\Command }
+
+    # Event handlers
+    app.command.event.create:
+        class: Domain\Event\Create\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Event\Create\Command }
+
+    app.command.event.edit:
+        class: Domain\Event\Edit\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Event\Edit\Command }
+
+    app.command.event.delete:
+        class: Domain\Event\Delete\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Event\Delete\Command }
+
+    # Character handlers
+    app.command.character.create:
+        class: Domain\Character\Create\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Character\Create\Command }
+
+    app.command.character.add_to_scene:
+        class: Domain\Character\AddToScene\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Character\AddToScene\Command }
+
+    app.command.character.edit:
+        class: Domain\Character\Edit\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Character\Edit\Command }
+
+    app.command.character.delete:
+        class: Domain\Character\Delete\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Character\Delete\Command }
+
+    app.command.character.remove_from_scene:
+        class: Domain\Character\RemoveFromScene\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Character\RemoveFromScene\Command }
+
+    #  Item handlers
+    app.command.item.create:
+        class: Domain\Item\Create\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Item\Create\Command }
+
+    app.command.item.add_to_scene:
+        class: Domain\Item\AddToScene\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Item\AddToScene\Command }
+
+    app.command.item.edit:
+        class: Domain\Item\Edit\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Item\Edit\Command }
+
+    app.command.item.delete:
+        class: Domain\Item\Delete\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Item\Delete\Command }
+
+    app.command.item.remove_from_scene:
+        class: Domain\Item\RemoveFromScene\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Item\RemoveFromScene\Command }
+
+    #  Location handlers
+    app.command.location.create:
+        class: Domain\Location\Create\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Location\Create\Command }
+
+    app.command.location.add_to_scene:
+        class: Domain\Location\AddToScene\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Location\AddToScene\Command }
+
+    app.command.location.edit:
+        class: Domain\Location\Edit\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Location\Edit\Command }
+
+    app.command.location.delete:
+        class: Domain\Location\Delete\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Location\Delete\Command }
+
+    app.command.location.remove_from_scene:
+        class: Domain\Location\RemoveFromScene\CommandHandler
+        tags:
+            - { name: command_handler, handles: Domain\Location\RemoveFromScene\Command }

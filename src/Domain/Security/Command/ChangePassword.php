@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Domain\Security\Command;
 
-use AppBundle\Bus\Messages\Message;
-use AppBundle\Bus\Messages\MessageCommandInterface;
-use AppBundle\Entity\User;
+use App\Bus\Messages\Message;
+use App\Bus\Messages\MessageCommandInterface;
+use App\Entity\User;
 
 class ChangePassword implements MessageCommandInterface
 {

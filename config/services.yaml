@@ -1,0 +1,101 @@
+parameters:
+    locale: pl
+    mailer_from: "%env(resolve:MAILER_FROM)%"
+
+imports:
+    - { resource: services/doctrine.yaml }
+    - { resource: services/messages.yaml }
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Knp\Menu\FactoryInterface: "@knp_menu.factory"
+    Knp\Snappy\GeneratorInterface: "@knp_snappy.pdf"
+    SimpleBus\Message\Bus\MessageBus: "@transaction_wrapped_command_bus"
+    Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface: '@security.user_password_encoder.generic'
+
+    App\Controller\:
+        resource: "../src/App/Controller/*"
+        public: true
+
+    App\DataFixtures\ORM\:
+        resource: "../src/App/DataFixtures/ORM/*"
+        tags: ['doctrine.fixture.orm']
+
+    App\Mail\PasswordResetMailer:
+        arguments:
+            $mailerFrom: "%mailer_from%"
+
+    App\Mail\RegistrationMailer:
+        arguments:
+            $mailerFrom: "%mailer_from%"
+
+    App\Pagination\:
+        resource: "../src/App/Pagination/*"
+
+    App\Routing\:
+        resource: "../src/App/Routing/*"
+
+    App\Timeline\:
+        resource: "../src/App/Timeline/*"
+
+    App\Templating\:
+        resource: "../src/App/Templating/*"
+
+    App\Security\:
+        resource: "../src/App/Security/*"
+
+    App\Validation\Constraints\:
+        resource: "../src/App/Validation/Constraints/*"
+
+    # Menu
+    app.menu.builder:
+        class: App\Menu\Builder
+        autowire: true
+
+    app.menu.main:
+        class: Knp\Menu\MenuItem
+        factory: ["@app.menu.builder", createMainMenu]
+        tags:
+            - { name: knp_menu.menu, alias: main }
+
+    App\JSON\EventParser:
+        autowire: true
+        public: true
+
+    # Bus
+    transaction_wrapped_command_bus:
+        class:     App\Bus\TransactionWrappedBus
+        decorates: command_bus
+        arguments: ['@transaction_wrapped_command_bus.inner']
+        public:    false
+
+    user_aware_command_bus:
+        class:     App\Bus\UserAwareBus
+        decorates: transaction_wrapped_command_bus
+        arguments: ['@user_aware_command_bus.inner']
+        public:    false
+
+    user_access_command_bus:
+        class:     App\Bus\UserAccessBus
+        decorates: user_aware_command_bus
+        arguments: ['@user_access_command_bus.inner']
+        public:    false
+
+    messages_aware_bus:
+        class:     App\Bus\MessagesAwareBus
+        decorates: user_access_command_bus
+        arguments: ['@messages_aware_bus.inner']
+        public:    false
+
+    # Security
+    app.security.login_form_authenticator:
+        class: App\Security\LoginFormAuthenticator
+        autowire: true
+
+    # Form
+    App\Form\Event\MeetingType:
+        autowire: true
+        tags: [form.type]

@@ -1,7 +1,0 @@
----
-AppBundle\Entity\UserRole:
-    type: entity
-    id:
-        role:
-            type: string
-            generator: { strategy: NONE }

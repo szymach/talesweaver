@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Domain\Scene\Edit;
 
-use AppBundle\Bus\Messages\EditionSuccessMessage;
-use AppBundle\Bus\Messages\Message;
-use AppBundle\Bus\Messages\MessageCommandInterface;
-use AppBundle\Entity\Scene;
-use AppBundle\Entity\User;
+use App\Bus\Messages\EditionSuccessMessage;
+use App\Bus\Messages\Message;
+use App\Bus\Messages\MessageCommandInterface;
+use App\Entity\Scene;
+use App\Entity\User;
 use Domain\Security\UserAccessInterface;
 
 class Command implements MessageCommandInterface, UserAccessInterface

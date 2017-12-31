@@ -1,0 +1,49 @@
+---
+App\Entity\Location:
+    type: entity
+    repositoryClass: App\Repository\Doctrine\LocationRepository
+    id:
+        id:
+            type: uuid
+            generator: { strategy: NONE }
+    fsi:
+        translatable:
+            locale: locale
+            fields:
+                name:
+                    mappedBy: translations
+                    targetField: name
+                description:
+                    mappedBy: translations
+                    targetField: description
+    fields:
+        avatarKey:
+            type: text
+            nullable: true
+            fsi: { uploadable: { targetField: avatar } }
+        createdAt:
+            type: datetime
+        updatedAt:
+            type: datetime
+            nullable: true
+    oneToMany:
+        translations:
+            targetEntity: App\Entity\Translation\LocationTranslation
+            mappedBy: location
+            indexBy: locale
+            cascade: [persist, remove]
+    manyToOne:
+        createdBy:
+            targetEntity:  App\Entity\User
+            joinColumn:
+                onDelete: CASCADE
+    manyToMany:
+        scenes:
+            targetEntity: App\Entity\Scene
+            mappedBy: locations
+        characters:
+            targetEntity: App\Entity\Character
+            mappedBy: locations
+        items:
+            targetEntity: App\Entity\Item
+            inversedBy: locations

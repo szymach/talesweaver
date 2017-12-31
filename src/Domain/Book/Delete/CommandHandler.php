@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Book\Delete;
 
-use AppBundle\Entity\Book;
+use App\Entity\Book;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class CommandHandler

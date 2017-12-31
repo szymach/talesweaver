@@ -1,0 +1,40 @@
+---
+App\Entity\User:
+    type: entity
+    table: app_user
+    repositoryClass: App\Repository\Doctrine\UserRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        username:
+            unique: true
+        password: ~
+        active:
+            type: boolean
+    oneToMany:
+        activationTokens:
+            targetEntity: App\Entity\User\ActivationToken
+            mappedBy: user
+            cascade: ["persist", "remove"]
+            orderBy:
+                createdAt: DESC
+        passwordResetTokens:
+            targetEntity: App\Entity\User\PasswordResetToken
+            mappedBy: user
+            cascade: ["persist", "remove"]
+            orderBy:
+                createdAt: DESC
+    manyToMany:
+        roles:
+            targetEntity: App\Entity\UserRole
+            joinTable:
+                name: user_roles
+                joinColumns:
+                    user_id:
+                        referencedColumnName: id
+                        onDelete: CASCADE
+                inverseJoinColumns:
+                    role_id:
+                        referencedColumnName: role

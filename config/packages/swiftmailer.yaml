@@ -1,0 +1,4 @@
+---
+swiftmailer:
+    spool: { type: memory }
+    url: "%env(resolve:MAILER_URL)%"

@@ -1,0 +1,53 @@
+---
+App\Entity\Scene:
+    type: entity
+    repositoryClass: App\Repository\Doctrine\SceneRepository
+    id:
+        id:
+            type: uuid
+            generator: { strategy: NONE }
+    fsi:
+        translatable:
+            locale: locale
+            fields:
+                title:
+                    mappedBy: translations
+                    targetField: title
+                text:
+                    mappedBy: translations
+                    targetField: text
+    fields:
+        createdAt:
+            type: datetime
+        updatedAt:
+            type: datetime
+            nullable: true
+    oneToMany:
+        translations:
+            targetEntity: App\Entity\Translation\SceneTranslation
+            mappedBy: scene
+            indexBy: locale
+            cascade: [persist, remove]
+    manyToOne:
+        chapter:
+            targetEntity: App\Entity\Chapter
+            inversedBy: scenes
+            joinColumn:
+                onDelete: "CASCADE"
+        createdBy:
+            targetEntity:  App\Entity\User
+            joinColumn:
+                onDelete: CASCADE
+    manyToMany:
+        characters:
+            targetEntity: App\Entity\Character
+            inversedBy: scenes
+            cascade: [persist]
+        items:
+            targetEntity: App\Entity\Item
+            inversedBy: scenes
+            cascade: [persist]
+        locations:
+            targetEntity: App\Entity\Location
+            inversedBy: scenes
+            cascade: [persist]

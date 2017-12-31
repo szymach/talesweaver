@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Domain\Book\Create;
 
-use AppBundle\Bus\Messages\CreationSuccessMessage;
-use AppBundle\Bus\Messages\Message;
-use AppBundle\Bus\Messages\MessageCommandInterface;
+use App\Bus\Messages\CreationSuccessMessage;
+use App\Bus\Messages\Message;
+use App\Bus\Messages\MessageCommandInterface;
 use Domain\Security\Traits\UserAwareTrait;
 use Domain\Security\UserAwareInterface;
 use Ramsey\Uuid\UuidInterface;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Scene\Delete;
 
-use AppBundle\Entity\Scene;
+use App\Entity\Scene;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class CommandHandler

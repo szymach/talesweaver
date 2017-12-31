@@ -1,0 +1,22 @@
+---
+App\Entity\Translation\ChapterTranslation:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        title:
+            type: text
+        locale:
+            type: string
+            length: 2
+            fsi:
+                translatable:
+                    locale: ~
+    manyToOne:
+        chapter:
+            targetEntity: App\Entity\Chapter
+            inversedBy: translations
+            joinColumn:
+                onDelete: "CASCADE"

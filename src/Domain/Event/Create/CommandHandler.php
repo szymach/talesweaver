@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Event\Create;
 
-use AppBundle\Entity\Event;
+use App\Entity\Event;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class CommandHandler

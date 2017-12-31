@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Event\Create;
 
-use AppBundle\Entity\Scene;
+use App\Entity\Scene;
 use JsonSerializable;
 
 class DTO

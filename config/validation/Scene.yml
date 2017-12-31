@@ -1,0 +1,25 @@
+---
+Domain\Scene\Create\DTO:
+    constraints:
+        - App\Validation\Constraints\UniqueDTO:
+            fields: { title: 't.title', chapter: 'e.chapter' }
+            repositoryMethod: entityExists
+            path: title
+            entityClass: App\Entity\Scene
+            message: scene.exists
+    properties:
+        title:
+            - NotBlank: ~
+
+Domain\Scene\Edit\DTO:
+    constraints:
+        - App\Validation\Constraints\UniqueDTO:
+            fields: { title: 't.title', chapter: 'e.chapter' }
+            id: id
+            repositoryMethod: entityExists
+            path: title
+            entityClass: App\Entity\Scene
+            message: scene.exists
+    properties:
+        title:
+            - NotBlank: ~

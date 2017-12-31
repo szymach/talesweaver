@@ -1,0 +1,11 @@
+---
+app_index:
+    path: /
+    controller: App\Controller\DashboardController
+    methods:  GET
+
+alerts:
+    path: /alerts
+    controller: App\Controller\AlertsController
+    methods:  GET
+    condition: "request.isXmlHttpRequest()"
