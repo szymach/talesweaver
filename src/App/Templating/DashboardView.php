@@ -68,20 +68,11 @@ class DashboardView
         $this->addItems($timeline, $this->chapterRepository, Chapter::class, $locale);
         $this->addItems($timeline, $this->sceneRepository, Scene::class, $locale);
 
-        uasort($timeline, function (array $itemA, array $itemB): int {
-            $a = new DateTimeImmutable($itemA['date']);
-            $b = new DateTimeImmutable($itemB['date']);
-            if ($a == $b) {
-                return 0;
-            }
-
-            return ($a > $b) ? -1 : 1;
+        uasort($timeline, function (array $a, array $b): int {
+            return new DateTimeImmutable($b['date']) <=> new DateTimeImmutable($a['date']);
         });
 
-        return $this->templating->renderResponse(
-            'dashboard.html.twig',
-            ['timeline' => $timeline]
-        );
+        return $this->templating->renderResponse('dashboard.html.twig', ['timeline' => $timeline]);
     }
 
     private function addItems(
@@ -90,15 +81,15 @@ class DashboardView
         string $class,
         string $locale
     ): void {
-        foreach ($repository->findLatest($locale) as $item) {
+        $callback = function (array $timeline, array $item) use ($class): array {
             $timeline[] = array_merge(
                 $item,
-                [
-                    'icon' => $this->icons[$class],
-                    'route' => $this->routes[$class],
-                    'class' => $class
-                ]
+                ['icon' => $this->icons[$class], 'route' => $this->routes[$class], 'class' => $class]
             );
-        }
+
+            return $timeline;
+        };
+
+        $timeline = array_reduce($repository->findLatest($locale), $callback, $timeline);
     }
 }
