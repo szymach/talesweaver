@@ -6,8 +6,7 @@ namespace App\Entity;
 
 use App\Entity\User\ActivationToken;
 use App\Entity\User\PasswordResetToken;
-use App\Security\TokenGenerator;
-use Assert\Assert;
+use Assert\Assertion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use DomainException;
@@ -15,6 +14,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface
 {
+    public const ROLE_USER = 'ROLE_USER';
+
     /**
      * @var int
      */
@@ -31,7 +32,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @var UserRole[]|Collection
+     * @var array
      */
     private $roles;
 
@@ -53,23 +54,17 @@ class User implements UserInterface
     /**
      * @param string $username
      * @param string $password
-     * @param UserRole[] $roles
-     * @param TokenGenerator $generator
+     * @param string $activationToken
      */
     public function __construct(
         string $username,
         string $password,
-        array $roles,
-        TokenGenerator $generator
+        string $activationToken
     ) {
-        Assert::thatAll($roles)->isInstanceOf(UserRole::class);
-
         $this->username = $username;
         $this->password = $password;
-        $this->roles = new ArrayCollection($roles);
-        $this->activationTokens = new ArrayCollection(
-            [$generator->generateUserActivationToken($this)]
-        );
+        $this->roles = [self::ROLE_USER];
+        $this->activationTokens = new ArrayCollection([new ActivationToken($this, $activationToken)]);
         $this->passwordResetTokens = new ArrayCollection();
     }
 
@@ -116,9 +111,9 @@ class User implements UserInterface
         return $codes->count() > 0 ? $codes->first(): null;
     }
 
-    public function addPasswordResetToken(TokenGenerator $generator): void
+    public function addPasswordResetToken(string $token): void
     {
-        $this->passwordResetTokens->add($generator->generatePasswordActivationToken($this));
+        $this->passwordResetTokens->add(new PasswordResetToken($this, $token));
     }
 
     public function getPasswordResetToken(): ?PasswordResetToken
@@ -127,12 +122,16 @@ class User implements UserInterface
             return $token->isValid();
         });
 
-        return $tokens->count() > 0 ? $tokens->first(): null;
+        return $tokens->count() > 0 ? $tokens->first() : null;
     }
 
     public function getRoles(): array
     {
-        return $this->roles->toArray();
+        if (is_string($this->roles)) {
+            $this->roles = json_decode($this->roles);
+        }
+
+        return $this->roles;
     }
 
     public function getSalt(): ?string

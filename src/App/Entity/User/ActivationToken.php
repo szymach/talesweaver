@@ -57,6 +57,11 @@ class ActivationToken
         return $this->createdAt;
     }
 
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
     public function isValid(): bool
     {
         /* @var $interval DateInterval */

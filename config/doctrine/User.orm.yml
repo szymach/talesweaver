@@ -13,6 +13,8 @@ App\Entity\User:
         password: ~
         active:
             type: boolean
+        roles:
+            type: json_array
     oneToMany:
         activationTokens:
             targetEntity: App\Entity\User\ActivationToken
@@ -26,15 +28,3 @@ App\Entity\User:
             cascade: ["persist", "remove"]
             orderBy:
                 createdAt: DESC
-    manyToMany:
-        roles:
-            targetEntity: App\Entity\UserRole
-            joinTable:
-                name: user_roles
-                joinColumns:
-                    user_id:
-                        referencedColumnName: id
-                        onDelete: CASCADE
-                inverseJoinColumns:
-                    role_id:
-                        referencedColumnName: role

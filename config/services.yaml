@@ -46,6 +46,7 @@ services:
 
     App\Security\:
         resource: "../src/App/Security/*"
+        exclude: "../src/App/Security/function/*"
 
     App\Validation\Constraints\:
         resource: "../src/App/Validation/Constraints/*"

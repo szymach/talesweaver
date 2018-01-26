@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Helper;
 
 use App\Entity\User;
-use App\Entity\UserRole;
-use App\Security\TokenGenerator;
 use Codeception\Module;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -15,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
+use function generate_user_token;
 
 /**
  *  Here you can define custom actions.
@@ -48,17 +47,8 @@ class Unit extends Module
         $manager = $this->getEntityManager();
         $user = $manager->getRepository(User::class)->findOneBy(['username' => self::USER_EMAIL]);
         if (!$user) {
-            $role = $manager->getRepository(UserRole::class)->findOneBy(['role' => self::USER_ROLE])
-                ?? new UserRole(self::USER_ROLE)
-            ;
-            $user = new User(
-                self::USER_EMAIL,
-                'password',
-                [$role],
-                new TokenGenerator()
-            );
+            $user = new User(self::USER_EMAIL, 'password', generate_user_token());
             $user->activate();
-            $manager->persist($role);
             $manager->persist($user);
             $manager->flush();
         }
@@ -111,12 +101,7 @@ class Unit extends Module
             $this->getEntityManager()->remove($user);
         }
 
-        $roles = $this->getEntityManager()->getRepository(UserRole::class)->findAll();
-        foreach ($roles as $role) {
-            $this->getEntityManager()->remove($role);
-        }
-
-        if (count($users) || count($roles)) {
+        if (count($users)) {
             $this->getEntityManager()->flush();
         }
     }

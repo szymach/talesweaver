@@ -4,8 +4,6 @@ namespace App\Tests;
 
 use App\Entity\User;
 use App\Entity\User\PasswordResetToken;
-use App\Entity\UserRole;
-use App\Security\TokenGenerator;
 use App\Tests\_generated\FunctionalTesterActions;
 use Codeception\Actor;
 use Codeception\Lib\Friend;
@@ -15,6 +13,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use function generate_user_token;
 
 /**
  * @method void wantToTest($text)
@@ -70,19 +69,14 @@ class FunctionalTester extends Actor
             'username' => self::USER_EMAIL
         ]);
         if (!$user) {
-            $role = $manager->getRepository(UserRole::class)->findOneBy(['role' => self::USER_ROLE])
-                ?? new UserRole(self::USER_ROLE)
-            ;
             $user = new User(
                 self::USER_EMAIL,
                 password_hash(self::USER_PASSWORD, PASSWORD_BCRYPT),
-                [$role],
-                new TokenGenerator()
+                generate_user_token()
             );
             if ($active) {
                 $user->activate();
             }
-            $this->persistEntity($role);
             $this->persistEntity($user);
             $this->flushToDatabase();
         }
@@ -90,10 +84,8 @@ class FunctionalTester extends Actor
         return $user;
     }
 
-    public function seeNumberOfErrors(
-        int $count,
-        string $selector = self::ERROR_SELECTOR
-    ): void {
+    public function seeNumberOfErrors(int $count, string $selector = self::ERROR_SELECTOR): void
+    {
         $this->seeNumberOfElements($selector, $count);
     }
 
@@ -105,7 +97,7 @@ class FunctionalTester extends Actor
         );
     }
 
-    public function seeErrorAlert(string $content)
+    public function seeErrorAlert(string $content): void
     {
         $this->see($content, '.alert-danger.alert-form');
     }

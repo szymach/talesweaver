@@ -7,11 +7,11 @@ namespace Domain\Security\Command;
 use App\Mail\PasswordResetMailer;
 use App\Repository\PasswordResetTokenRepository;
 use App\Repository\UserRepository;
-use App\Security\TokenGenerator;
 use DateInterval;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
+use function generate_user_token;
 
 class GeneratePasswordResetTokenHandler
 {
@@ -31,11 +31,6 @@ class GeneratePasswordResetTokenHandler
     private $userRepository;
 
     /**
-     * @var TokenGenerator
-     */
-    private $tokenGenerator;
-
-    /**
      * @var PasswordResetMailer
      */
     private $mailer;
@@ -44,13 +39,11 @@ class GeneratePasswordResetTokenHandler
         EntityManagerInterface $manager,
         PasswordResetTokenRepository $tokenRepository,
         UserRepository $userRepository,
-        TokenGenerator $tokenGenerator,
         PasswordResetMailer $mailer
     ) {
         $this->manager = $manager;
         $this->tokenRepository = $tokenRepository;
         $this->userRepository = $userRepository;
-        $this->tokenGenerator = $tokenGenerator;
         $this->mailer = $mailer;
     }
 
@@ -67,7 +60,7 @@ class GeneratePasswordResetTokenHandler
         if (!$user) {
             throw new RuntimeException(sprintf('No user found for username "%s"', $email));
         }
-        $user->addPasswordResetToken($this->tokenGenerator);
+        $user->addPasswordResetToken(generate_user_token());
         $this->mailer->send($user);
     }
 

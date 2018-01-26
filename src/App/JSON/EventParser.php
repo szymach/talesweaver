@@ -50,29 +50,25 @@ class EventParser
         return $model;
     }
 
-    private function setFields(JsonSerializable $model, array $fields)
+    private function setFields(JsonSerializable $model, array $fields): void
     {
-        foreach ($fields as $fieldName => $values) {
-            if (is_null($values)) {
-                continue;
-            }
+        $filter = array_filter($fields, function (?array $values): bool {
+            return null !== $values;
+        });
 
-            foreach ($values as $entityClass => $id) {
-                $this->setField($model, $fieldName, $entityClass, $id);
-            }
-        }
+        array_walk($filter, function (array $values, string $field) use ($model): void {
+            array_walk($values, function ($id, $class) use ($field, $model): void {
+                $this->setField($model, $field, $class, $id);
+            });
+        });
     }
 
-    private function setField(JsonSerializable $model, string $fieldName, string $entityClass, ?string $id)
+    private function setField(JsonSerializable $model, string $field, string $class, ?string $id): void
     {
         if (is_null($id)) {
             return;
         }
 
-        $this->propertAccessor->setValue(
-            $model,
-            $fieldName,
-            $this->repositories[$entityClass]->find($id)
-        );
+        $this->propertAccessor->setValue($model, $field, $this->repositories[$class]->find($id));
     }
 }

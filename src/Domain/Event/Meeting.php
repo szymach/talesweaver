@@ -31,7 +31,7 @@ class Meeting implements JsonSerializable, UserAccessInterface
     {
         return [
             self::class => [
-                'root' => $this->root ? [Character::class =>  $this->root->getId()] : null,
+                'root' => $this->root ? [Character::class => $this->root->getId()] : null,
                 'location' => $this->location ? [Location::class => $this->location->getId()] : null,
                 'relation' => $this->relation ? [Character::class => $this->relation->getId()] : null,
             ]

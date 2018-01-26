@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Security\Command;
 
 use App\Entity\User;
-use App\Entity\UserRole;
 use App\Mail\RegistrationMailer;
-use App\Security\TokenGenerator;
 use Doctrine\ORM\EntityManagerInterface;
+use function generate_user_token;
 
 class CreateUserHandler
 {
@@ -16,41 +17,24 @@ class CreateUserHandler
     private $manager;
 
     /**
-     * @var TokenGenerator
-     */
-    private $codeGenerator;
-
-    /**
      * @var RegistrationMailer
      */
     private $mailer;
 
-    public function __construct(
-        EntityManagerInterface $manager,
-        TokenGenerator $codeGenerator,
-        RegistrationMailer $mailer
-    ) {
+    public function __construct(EntityManagerInterface $manager, RegistrationMailer $mailer)
+    {
         $this->manager = $manager;
-        $this->codeGenerator = $codeGenerator;
         $this->mailer = $mailer;
     }
 
     public function handle(CreateUser $command)
     {
-        $role = $this->manager->getRepository(UserRole::class)->findOneBy(
-            ['role' => UserRole::USER]
-        );
-        if (!$role) {
-            $role = new UserRole(UserRole::USER);
-            $this->manager->persist($role);
-        }
-
         $user = new User(
             $command->getUsername(),
             password_hash($command->getPassword(), PASSWORD_BCRYPT),
-            [$role],
-            $this->codeGenerator
+            generate_user_token()
         );
+
         $this->manager->persist($user);
         $this->mailer->send($user);
     }

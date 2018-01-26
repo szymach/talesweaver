@@ -7,13 +7,12 @@ namespace App\DataFixtures\ORM;
 use App\Entity\Character;
 use App\Entity\Scene;
 use App\Entity\User;
-use App\Entity\UserRole;
-use App\Security\TokenGenerator;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Domain\Character\Create\DTO as CharacterDTO;
 use Domain\Scene\Create\DTO as SceneDTO;
 use Ramsey\Uuid\Uuid;
+use function generate_user_token;
 
 class LoadIntegrationData implements ORMFixtureInterface
 {
@@ -38,15 +37,12 @@ class LoadIntegrationData implements ORMFixtureInterface
 
     private function createUser(ObjectManager $manager): User
     {
-        $role = new UserRole('ROLE_USER');
         $user = new User(
             'user@example.com',
             password_hash('password', PASSWORD_BCRYPT),
-            [$role],
-            new TokenGenerator()
+            generate_user_token()
         );
         $user->activate();
-        $manager->persist($role);
         $manager->persist($user);
 
         return $user;
