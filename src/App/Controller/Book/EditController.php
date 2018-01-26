@@ -53,7 +53,7 @@ class EditController
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->commandBus->handle(new Command($dto, $book));
 
-            return $this->redirector->createResponse('app_book_edit', $book->getId());
+            return $this->redirector->createResponse('book_edit', $book->getId());
         }
 
         return $this->templating->createView($form, $book);

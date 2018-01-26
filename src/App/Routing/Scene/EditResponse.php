@@ -27,7 +27,7 @@ class EditResponse
     {
         return $request->isXmlHttpRequest()
             ? new JsonResponse([])
-            : new RedirectResponse($this->router->generate('app_scene_edit', ['id' => $id]))
+            : new RedirectResponse($this->router->generate('scene_edit', ['id' => $id]))
         ;
     }
 }

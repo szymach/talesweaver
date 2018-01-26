@@ -7,7 +7,7 @@
 {% block top_menu_right %}
     <ul class="nav navbar-nav pull-right">
         <li>
-            <a href="{{ path('app_book_list', { page: app.request.get('page', 1) }) }}">
+            <a href="{{ path('book_list', { page: app.request.get('page', 1) }) }}">
                 <span class="fa fa-angle-left"></span>
                 {{ 'book.back.to_list' | trans }}
             </a>

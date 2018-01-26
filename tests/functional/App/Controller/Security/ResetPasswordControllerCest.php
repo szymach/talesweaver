@@ -23,7 +23,7 @@ class ResetPasswordControllerCest
     private const PASSWORD_FIELD = 'Hasło';
     private const NEW_PASSWORD = 'nowe_haslo_123';
     private const LOGIN_SUBMIT = 'Zaloguj';
-    private const DASHBOARD_ROUTE = 'app_index';
+    private const DASHBOARD_ROUTE = 'index';
 
     public function resetPasswordFormRequestView(FunctionalTester $I)
     {

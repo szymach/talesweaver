@@ -89,12 +89,12 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
             Security::AUTHENTICATION_ERROR,
             $this->translator->trans($exception->getMessageKey(), $exception->getMessageData(), 'security')
         );
-        return $this->redirectTo('app_index', $request->getLocale());
+        return $this->redirectTo('index', $request->getLocale());
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        return $this->redirectTo('app_index', $request->getLocale());
+        return $this->redirectTo('index', $request->getLocale());
     }
 
     public function supportsRememberMe(): bool

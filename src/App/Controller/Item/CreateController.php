@@ -53,7 +53,7 @@ class CreateController
         $form = $this->formFactory->create(
             CreateType::class,
             new DTO($scene),
-            ['action' => $this->router->generate('app_item_new', ['id' => $scene->getId()])]
+            ['action' => $this->router->generate('item_new', ['id' => $scene->getId()])]
         );
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {

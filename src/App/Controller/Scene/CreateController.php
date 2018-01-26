@@ -54,7 +54,7 @@ class CreateController
             $sceneId = Uuid::uuid4();
             $this->commandBus->handle(new Command($sceneId, $form->getData()));
 
-            return $this->redirector->createResponse('app_scene_edit', $sceneId);
+            return $this->redirector->createResponse('scene_edit', $sceneId);
         }
 
         /* @var $chapter Chapter */

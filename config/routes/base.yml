@@ -1,5 +1,5 @@
 ---
-app_index:
+index:
     path: /
     controller: App\Controller\DashboardController
     methods:  GET

@@ -55,7 +55,7 @@ class ResetPasswordRequestController
                 $form->getData()['username']
             ));
 
-            return new RedirectResponse($this->router->generate('app_index'));
+            return new RedirectResponse($this->router->generate('index'));
         }
 
         return $this->templating->renderResponse(

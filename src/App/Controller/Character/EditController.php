@@ -52,7 +52,7 @@ class EditController
         $form = $this->formFactory->create(
             EditType::class,
             new DTO($character),
-            ['action' => $this->router->generate('app_character_edit', ['id' => $character->getId()])]
+            ['action' => $this->router->generate('character_edit', ['id' => $character->getId()])]
         );
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {

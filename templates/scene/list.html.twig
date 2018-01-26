@@ -15,13 +15,13 @@
                             <td class="text-right">{{ scene }}</td>
                             <td>
                                 <a class="btn btn-sm btn-primary"
-                                   href="{{ path('app_scene_edit', { id: scene.id }) }}"
+                                   href="{{ path('scene_edit', { id: scene.id }) }}"
                                    title="{{ 'crud.edit' | trans }}"
                                 >
                                     <span class="fa fa-edit"></span>
                                 </a>
                                 <a class="btn btn-sm btn-danger js-delete"
-                                   href="{{ path('app_scene_delete', { id: scene.id }) }}"
+                                   href="{{ path('scene_delete', { id: scene.id }) }}"
                                    title="{{ 'crud.delete' | trans }}"
                                 >
                                     <span class="fa fa-trash"></span>
@@ -34,7 +34,7 @@
                     <tr>
                         <td colspan="2" class="text-right">
                             <a class="btn btn-sm btn-success"
-                               href="{{ path('app_scene_create') }}"
+                               href="{{ path('scene_create') }}"
                                title="{{ 'crud.create' | trans }}"
                             >
                                 <span class="fa fa-plus"></span>

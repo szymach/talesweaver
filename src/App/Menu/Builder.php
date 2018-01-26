@@ -34,7 +34,7 @@ class Builder
             ->setChildrenAttribute('class', 'nav navbar-nav')
         ;
 
-        $menu->addChild('menu.start', ['route' => 'app_index']);
+        $menu->addChild('menu.start', ['route' => 'index']);
         $this->createBookMenu($menu);
         $this->createChapterMenu($menu);
         $this->createSceneMenu($menu);
@@ -45,17 +45,17 @@ class Builder
 
     private function createBookMenu(ItemInterface $menu): void
     {
-        $menu->addChild('menu.books', ['route' => 'app_book_list']);
+        $menu->addChild('menu.books', ['route' => 'book_list']);
     }
 
     private function createChapterMenu(ItemInterface $menu): void
     {
-        $menu->addChild('menu.chapters', ['route' => 'app_chapter_list']);
+        $menu->addChild('menu.chapters', ['route' => 'chapter_list']);
     }
 
     private function createSceneMenu(ItemInterface $menu): void
     {
-        $menu->addChild('menu.scenes', ['route' => 'app_scene_list']);
+        $menu->addChild('menu.scenes', ['route' => 'scene_list']);
     }
 
     private function addUserSubmenu(ItemInterface $menu): void

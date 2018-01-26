@@ -55,7 +55,7 @@ class EditController
             new DTO($event),
             [
                 'action' => $this->router->generate(
-                    'app_event_edit',
+                    'event_edit',
                     ['id' => $event->getId()]
                 ),
                 'model' => SceneEvents::getEventForm(get_class($event->getModel())),

@@ -30,7 +30,7 @@ class ChangePasswordControllerCest
     private const LOGIN = 'Zaloguj';
 
     private const LOGIN_ROUTE = 'login';
-    private const DASHBOARD_ROUTE = 'app_index';
+    private const DASHBOARD_ROUTE = 'index';
 
     public function changePasswordFormView(FunctionalTester $I)
     {

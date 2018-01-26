@@ -1,4 +1,4 @@
-<li class="chapters js-list" data-list-url="{{ path('app_book_chapter_list', { id: bookId }) }}">
+<li class="chapters js-list" data-list-url="{{ path('book_chapter_list', { id: bookId }) }}">
     <span class="fa fa-book logo-icon"></span>
     <span class="h4">{{ 'book.chapters'|trans }}</span>
     <ul>
@@ -6,13 +6,13 @@
             <li>
                 <span class="sublist-label">{{ chapter.title }}</span>
                 <a class="btn btn-xs btn-primary"
-                    href="{{ path('app_chapter_edit', { id: chapter.id }) }}"
+                    href="{{ path('chapter_edit', { id: chapter.id }) }}"
                     title="{{ 'crud.edit' | trans }}"
                 >
                     <span class="fa fa-edit"></span>
                 </a>
                 <button class="js-list-delete js-delete btn btn-xs btn-danger"
-                    data-delete-url="{{ path('app_chapter_delete', { id: chapter.id }) }}"
+                    data-delete-url="{{ path('chapter_delete', { id: chapter.id }) }}"
                     title="{{ 'crud.delete' | trans }}"
                 >
                     <span class="fa fa-trash"></span>

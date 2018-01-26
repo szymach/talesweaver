@@ -29,6 +29,6 @@ class DeleteController
     {
         $this->commandBus->handle(new Command($book));
 
-        return $this->redirector->createResponse('app_book_list', $page);
+        return $this->redirector->createResponse('book_list', $page);
     }
 }

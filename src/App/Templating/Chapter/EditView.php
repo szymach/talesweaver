@@ -66,7 +66,7 @@ class EditView
     private function createSceneForm(Chapter $chapter): FormInterface
     {
         return $this->formFactory->create(CreateType::class, new DTO($chapter), [
-            'action' => $this->router->generate('app_scene_create')
+            'action' => $this->router->generate('scene_create')
         ]);
     }
 }

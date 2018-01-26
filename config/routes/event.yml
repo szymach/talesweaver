@@ -1,22 +1,22 @@
 ---
-app_event_list:
+event_list:
     path: /list/{id}/{page}
     defaults: { _controller: App\Controller\Event\ListController, page: 1 }
     methods:  GET
 
-app_event_add:
+event_add:
     path: /add/{id}/{model}
     defaults: { _controller: App\Controller\Event\CreateController }
     methods:  GET|POST
     requirements:
         model: .+
 
-app_event_edit:
+event_edit:
     path: /edit/{id}
     defaults: { _controller: App\Controller\Event\EditController }
     methods:  GET|POST
 
-app_event_delete:
+event_delete:
     path: /delete/{id}
     defaults: { _controller: App\Controller\Event\DeleteController }
     methods:  GET

@@ -1,5 +1,5 @@
 <li class="events js-list"
-    data-list-url="{{ path('app_event_list', { id: sceneId, page: events.currentPage }) }}"
+    data-list-url="{{ path('event_list', { id: sceneId, page: events.currentPage }) }}"
 >
     <span class="fa fa-bookmark logo-icon" title="{{ 'scene.tabs.events' | trans }}"></span>
     <span class="h4">{{ 'scene.tabs.events' | trans }}</span>
@@ -10,13 +10,13 @@
                 <span>{{ event.name | truncate(20) }}</span>
                 <span class="list-actions">
                     <button class="js-load-form js-edit-form btn btn-xs btn-primary"
-                        data-form-url="{{ path('app_event_edit', { id: event.id }) }}"
+                        data-form-url="{{ path('event_edit', { id: event.id }) }}"
                         title="{{ 'crud.edit' | trans }}"
                     >
                         <span class="fa fa-edit"></span>
                     </button>
                     <button class="js-list-delete js-delete btn btn-xs btn-danger"
-                        data-delete-url="{{ path('app_event_delete', { id: event.id }) }}"
+                        data-delete-url="{{ path('event_delete', { id: event.id }) }}"
                         title="{{ 'crud.delete' | trans }}"
                     >
                         <span class="fa fa-trash"></span>
@@ -28,7 +28,7 @@
     <ul>
         {% for model in eventModels %}
             <li>
-                <span data-form-url="{{ path('app_event_add', { id: sceneId, model: model }) }}" class="js-load-form js-edit-form btn btn-success btn-xs">
+                <span data-form-url="{{ path('event_add', { id: sceneId, model: model }) }}" class="js-load-form js-edit-form btn btn-success btn-xs">
                     {{ ('event.' ~ model ~ '.name') | trans }}
                     <span class="fa fa-plus"></span>
                 </span>

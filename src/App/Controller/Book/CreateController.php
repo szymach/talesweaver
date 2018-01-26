@@ -54,7 +54,7 @@ class CreateController
             $bookId = Uuid::uuid4();
             $this->commandBus->handle(new Command($bookId, $form->getData()->getTitle()));
 
-            return $this->redirector->createResponse('app_book_edit', $bookId);
+            return $this->redirector->createResponse('book_edit', $bookId);
         }
 
         return $this->templating->createView($form, 'book/createForm.html.twig');

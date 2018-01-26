@@ -6,7 +6,7 @@
 
 {% block top_menu_right %}
     {% include 'partial/topMenu/actions.html.twig' with {
-        returnUrl: chapterId ? path('app_chapter_edit', { id: chapterId }) : path('app_scene_list', { page: app.request.get('page') }),
+        returnUrl: chapterId ? path('chapter_edit', { id: chapterId }) : path('scene_list', { page: app.request.get('page') }),
         returnLabel: chapterId ? 'scene.back.to_chapter' : 'scene.back.to_list' | trans
     } %}
 {% endblock %}

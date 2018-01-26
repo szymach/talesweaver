@@ -47,8 +47,8 @@ class DeleteController
         }
 
         return $chapterId
-            ? $this->editRedirector->createResponse('app_chapter_edit', $chapterId)
-            : $this->listRedirector->createResponse('app_scene_list', $page)
+            ? $this->editRedirector->createResponse('chapter_edit', $chapterId)
+            : $this->listRedirector->createResponse('scene_list', $page)
         ;
     }
 }

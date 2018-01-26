@@ -6,7 +6,7 @@
 
 {% block top_menu_right %}
     {% include 'partial/topMenu/actions.html.twig' with {
-        returnUrl: bookId ? path('app_book_edit', { id: bookId }) : path('app_chapter_list'),
+        returnUrl: bookId ? path('book_edit', { id: bookId }) : path('chapter_list'),
         returnLabel: bookId ? 'chapter.back.to_book' | trans : 'chapter.back.to_list' | trans
     } %}
 {% endblock %}

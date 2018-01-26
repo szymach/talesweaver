@@ -1,40 +1,40 @@
 ---
-app_character_new:
+character_new:
     path: /new/{id}
     defaults: { _controller: App\Controller\Character\CreateController }
     methods:  [GET, POST]
 
-app_character_edit:
+character_edit:
     path: /edit/{id}
     defaults: { _controller: App\Controller\Character\EditController }
     methods:  [GET, POST]
 
-app_character_list:
+character_list:
     path: /list/{id}/{page}
     defaults: { _controller: App\Controller\Character\ListController, page: 1 }
     methods:  GET
 
-app_character_delete:
+character_delete:
     path: /delete/{id}
     defaults: { _controller: App\Controller\Character\DeleteController }
     methods:  GET
 
-app_character_display:
+character_display:
     path: /display/{id}
     defaults: { _controller: App\Controller\Character\DisplayController }
     methods:  GET
 
-app_character_related:
+character_related:
     path: /related/{id}/{page}
     defaults: { _controller: App\Controller\Character\ListRelatedController, page: 1 }
     methods:  GET
 
-app_character_add_to_scene:
+character_add_to_scene:
     path: /add-to-scene/{scene_id}/{character_id}
     defaults: { _controller: App\Controller\Character\AddToSceneController }
     methods:  GET
 
-app_character_remove_from_scene:
+character_remove_from_scene:
     path: /remove-from-scene/{scene_id}/{character_id}
     defaults: { _controller: App\Controller\Character\RemoveFromSceneController }
     methods:  GET

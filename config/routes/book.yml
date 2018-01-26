@@ -1,25 +1,25 @@
 ---
-app_book_create:
+book_create:
     path: /create/{page}
     defaults: { _controller: App\Controller\Book\CreateController, page: 1 }
     methods:  [GET, POST]
 
-app_book_edit:
+book_edit:
     path: /edit/{id}/{page}
     defaults: { _controller: App\Controller\Book\EditController, page: 1 }
     methods:  [GET, POST]
 
-app_book_list:
+book_list:
     path: /list/{page}
     defaults: { _controller: App\Controller\Book\ListController, page: 1 }
     methods:  GET
 
-app_book_delete:
+book_delete:
     path: /delete/{id}/{page}
     defaults: { _controller: App\Controller\Book\DeleteController, page: 1 }
     methods:  GET
 
-app_book_chapter_list:
+book_chapter_list:
     path: /chapters/{id}/{page}
     defaults: { _controller: App\Controller\Book\ChaptersListController, page: 1 }
     condition: "request.isXmlHttpRequest()"

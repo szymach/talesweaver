@@ -44,9 +44,9 @@ class DashboardView
     ];
 
     private $routes = [
-        Book::class => 'app_book_edit',
-        Chapter::class => 'app_chapter_edit',
-        Scene::class => 'app_scene_edit'
+        Book::class => 'book_edit',
+        Chapter::class => 'chapter_edit',
+        Scene::class => 'scene_edit'
     ];
 
     public function __construct(

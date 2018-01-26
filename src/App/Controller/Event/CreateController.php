@@ -58,7 +58,7 @@ class CreateController
                 'scene' => $scene,
                 'model' => SceneEvents::getEventForm($model),
                 'action' => $this->router->generate(
-                    'app_event_add',
+                    'event_add',
                     ['id' => $scene->getId(), 'model' => $model]
                 )
             ]

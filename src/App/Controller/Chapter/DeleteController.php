@@ -47,8 +47,8 @@ class DeleteController
         }
 
         return $bookId
-            ? $this->editRedirector->createResponse('app_book_edit', $bookId)
-            : $this->listRedirector->createResponse('app_chapter_list', $page)
+            ? $this->editRedirector->createResponse('book_edit', $bookId)
+            : $this->listRedirector->createResponse('chapter_list', $page)
         ;
     }
 }

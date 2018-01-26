@@ -1,40 +1,40 @@
 ---
-app_location_new:
+location_new:
     path: /new/{id}
     defaults: { _controller: App\Controller\Location\CreateController }
     methods:  [GET, POST]
 
-app_location_edit:
+location_edit:
     path: /edit/{id}
     defaults: { _controller: App\Controller\Location\EditController }
     methods:  [GET, POST]
 
-app_location_list:
+location_list:
     path: /list/{id}/{page}
     defaults: { _controller: App\Controller\Location\ListController, page: 1 }
     methods:  GET
 
-app_location_delete:
+location_delete:
     path: /delete/{id}
     defaults: { _controller: App\Controller\Location\DeleteController }
     methods:  GET
 
-app_location_display:
+location_display:
     path: /display/{id}
     defaults: { _controller: App\Controller\Location\DisplayController }
     methods:  GET
 
-app_location_related:
+location_related:
     path: /related/{id}/{page}
     defaults: { _controller: App\Controller\Location\ListRelatedController, page: 1 }
     methods:  GET
 
-app_location_add_to_scene:
+location_add_to_scene:
     path: /add-to-scene/{scene_id}/{location_id}
     defaults: { _controller: App\Controller\Location\AddToSceneController }
     methods:  GET
 
-app_location_remove_from_scene:
+location_remove_from_scene:
     path: /remove-from-scene/{scene_id}/{location_id}
     defaults: { _controller: App\Controller\Location\RemoveFromSceneController }
     methods:  GET

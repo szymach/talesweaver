@@ -54,7 +54,7 @@ class CreateController
             $chapterId = Uuid::uuid4();
             $this->commandBus->handle(new Command($chapterId, $form->getData()));
 
-            return $this->redirector->createResponse('app_chapter_edit', $chapterId);
+            return $this->redirector->createResponse('chapter_edit', $chapterId);
         }
 
         /* @var $book Book */
