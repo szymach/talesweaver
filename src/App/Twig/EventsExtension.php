@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace App\Twig;
 
 use JsonSerializable;
-use Twig_Extension;
-use Twig_SimpleFilter;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use function mb_strtolower;
 
-class EventsExtension extends Twig_Extension
+class EventsExtension extends AbstractExtension
 {
     public function getFilters()
     {
         return [
-            new Twig_SimpleFilter('eventTemplateName', function (JsonSerializable $model): string {
+            new TwigFilter('eventTemplateName', function (JsonSerializable $model): string {
                 $fqcn = explode('\\', get_class($model));
 
                 return sprintf('scene/events/%s.html.twig', mb_strtolower(end($fqcn)));
