@@ -64,6 +64,7 @@ class Item
         $this->id = $id;
         $this->name = $dto->getName();
         $this->description = $dto->getDescription();
+        $this->avatar = $dto->getAvatar();
 
         $this->translations = new ArrayCollection();
         $this->scenes = new ArrayCollection();

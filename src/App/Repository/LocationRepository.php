@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Entity\Location;
 use App\Repository\Doctrine\LocationRepository as DoctrineRepository;
+use App\Repository\Interfaces\FindableByIdRepository;
+use App\Repository\Traits\ParamConverterRepository;
 use App\Repository\Traits\SceneItemRepositoryTrait;
 use App\Security\UserProvider;
 
@@ -13,9 +14,9 @@ use App\Security\UserProvider;
  * @property DoctrineRepository $doctrineRepository
  * @property UserProvider $userProvider
  */
-class LocationRepository
+class LocationRepository implements FindableByIdRepository
 {
-    use SceneItemRepositoryTrait;
+    use ParamConverterRepository, SceneItemRepositoryTrait;
 
     public function __construct(
         DoctrineRepository $doctrineRepository,
@@ -23,13 +24,5 @@ class LocationRepository
     ) {
         $this->doctrineRepository = $doctrineRepository;
         $this->userProvider = $userProvider;
-    }
-
-    public function find(string $id): ?Location
-    {
-        return $this->doctrineRepository->findOneBy([
-            'id' => $id,
-            'createdBy' => $this->userProvider->fetchCurrentUser()
-        ]);
     }
 }

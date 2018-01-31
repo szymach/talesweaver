@@ -96,6 +96,12 @@ services:
         class: App\Security\LoginFormAuthenticator
         autowire: true
 
+    App\Security\Request\SecuredInstanceParamConverter:
+        # replaced by repositories implementing FindableByIdRepository interface
+        arguments: [[]]
+        tags:
+            - { name: request.param_converter, priority: 10 }
+
     # Form
     App\Form\Event\MeetingType:
         autowire: true

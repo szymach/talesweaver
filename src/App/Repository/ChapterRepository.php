@@ -6,13 +6,17 @@ namespace App\Repository;
 
 use App\Entity\Book;
 use App\Repository\Doctrine\ChapterRepository as DoctrineRepository;
+use App\Repository\Interfaces\FindableByIdRepository;
 use App\Repository\Interfaces\LatestChangesAwareRepository;
+use App\Repository\Traits\ParamConverterRepository;
 use App\Security\UserProvider;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 
-class ChapterRepository implements LatestChangesAwareRepository
+class ChapterRepository implements FindableByIdRepository, LatestChangesAwareRepository
 {
+    use ParamConverterRepository;
+
     /**
      * @var DoctrineRepository
      */

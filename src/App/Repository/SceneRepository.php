@@ -6,14 +6,18 @@ namespace App\Repository;
 
 use App\Entity\Chapter;
 use App\Repository\Doctrine\SceneRepository as DoctrineRepository;
+use App\Repository\Interfaces\FindableByIdRepository;
 use App\Repository\Interfaces\LatestChangesAwareRepository;
+use App\Repository\Traits\ParamConverterRepository;
 use App\Security\UserProvider;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class SceneRepository implements LatestChangesAwareRepository
+class SceneRepository  implements FindableByIdRepository, LatestChangesAwareRepository
 {
+    use ParamConverterRepository;
+
     /**
      * @var DoctrineRepository
      */

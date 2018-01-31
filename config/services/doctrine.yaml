@@ -51,24 +51,31 @@ services:
     # Repository
     App\Repository\BookRepository:
         autowire: true
+        tags: ['app.param_converter.repository']
 
     App\Repository\SceneRepository:
         autowire: true
+        tags: ['app.param_converter.repository']
 
     App\Repository\CharacterRepository:
         autowire: true
+        tags: ['app.param_converter.repository']
 
     App\Repository\ItemRepository:
         autowire: true
+        tags: ['app.param_converter.repository']
 
     App\Repository\LocationRepository:
         autowire: true
+        tags: ['app.param_converter.repository']
 
     App\Repository\ChapterRepository:
         autowire: true
+        tags: ['app.param_converter.repository']
 
     App\Repository\EventRepository:
         autowire: true
+        tags: ['app.param_converter.repository']
 
     App\Repository\UserRepository:
         autowire: true

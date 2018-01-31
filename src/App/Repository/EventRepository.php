@@ -6,12 +6,16 @@ namespace App\Repository;
 
 use App\Entity\Scene;
 use App\Repository\Doctrine\EventRepository as DoctrineRepository;
+use App\Repository\Interfaces\FindableByIdRepository;
+use App\Repository\Traits\ParamConverterRepository;
 use App\Security\UserProvider;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 
-class EventRepository
+class EventRepository implements FindableByIdRepository
 {
+    use ParamConverterRepository;
+
     /**
      * @var DoctrineRepository
      */
