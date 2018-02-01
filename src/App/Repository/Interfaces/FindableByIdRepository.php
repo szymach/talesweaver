@@ -8,5 +8,5 @@ interface FindableByIdRepository
 {
     public function getClassName(): string;
 
-    public function find(string $id): ?object;
+    public function find(string $id);
 }

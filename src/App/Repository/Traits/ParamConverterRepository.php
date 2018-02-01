@@ -18,7 +18,7 @@ trait ParamConverterRepository
         return $this->doctrineRepository->getClassName();
     }
 
-    public function find(string $id): ?object
+    public function find(string $id)
     {
         return $this->doctrineRepository->findOneBy([
             'id' => $id,

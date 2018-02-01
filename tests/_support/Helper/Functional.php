@@ -16,6 +16,7 @@ class Functional extends Module
 {
     public function _beforeSuite($settings = [])
     {
+        $this->getSymfony()->_getContainer();
         $this->getTranslatableListener()->setLocale('pl');
         $this->clearUser();
     }
@@ -27,7 +28,7 @@ class Functional extends Module
 
     private function getTranslatableListener(): TranslatableListener
     {
-        return $this->getSymfony()->grabService('fsi_doctrine_extensions.listener.translatable');
+        return $this->getSymfony()->grabService('test.fsi_doctrine_extensions.listener.translatable');
     }
 
     private function getSymfony(): Symfony

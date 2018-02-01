@@ -67,9 +67,7 @@ class FunctionalTester extends Actor
     public function getUser(bool $active = true): User
     {
         $manager = $this->getEntityManager();
-        $user = $manager->getRepository(User::class)->findOneBy([
-            'username' => self::USER_EMAIL
-        ]);
+        $user = $manager->getRepository(User::class)->findOneBy(['username' => self::USER_EMAIL]);
         if (!$user) {
             $user = new User(
                 self::USER_EMAIL,
@@ -106,10 +104,7 @@ class FunctionalTester extends Actor
 
     public function canSeeResetPasswordTokenGenerated(User $user):void
     {
-        $token = $this->getEntityManager()
-            ->getRepository(PasswordResetToken::class)
-            ->findOneBy(['user' => $user])
-        ;
+        $token = $this->getEntityManager()->getRepository(PasswordResetToken::class)->findOneBy(['user' => $user]);
         if (!$token) {
             throw new RuntimeException(sprintf(
                 'No password reset token for user "%s"',
