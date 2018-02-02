@@ -18,9 +18,7 @@ class CreateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', TextType::class, [
-            'label' => 'location.name'
-        ]);
+        $builder->add('name', TextType::class, ['label' => 'location.name']);
 
         $builder->add('avatar', RemovableFileType::class, [
             'label' => 'item.avatar',

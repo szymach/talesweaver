@@ -66,7 +66,7 @@ class MeetingType extends AbstractType
         $resolver->setRequired(['scene']);
     }
 
-    private function getTranslationKey($field)
+    private function getTranslationKey(string $field): string
     {
         return sprintf('event.%s.fields.%s', Meeting::class, $field);
     }

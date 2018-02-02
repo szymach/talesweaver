@@ -18,9 +18,7 @@ class EditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', TextType::class, [
-            'label' => 'character.name'
-        ]);
+        $builder->add('name', TextType::class, ['label' => 'character.name']);
 
         $builder->add('avatar', RemovableFileType::class, [
             'label' => 'character.avatar',
