@@ -7,9 +7,10 @@ namespace App\Timeline;
 use App\Entity\Event;
 use App\Repository\EventRepository;
 use App\Repository\SceneRepository;
+use App\Templating\Engine;
 use Domain\Event\Meeting;
 use Ramsey\Uuid\UuidInterface;
-use App\Templating\Engine;
+use function mb_strtolower;
 
 abstract class TimelineFormatter
 {

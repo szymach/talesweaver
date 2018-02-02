@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Mail;
 
 use App\Entity\User;
+use App\Templating\Engine;
 use Swift_Mailer;
 use Swift_Message;
-use App\Templating\Engine;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class AbstractUserMailer

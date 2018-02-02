@@ -6,8 +6,8 @@ namespace App\Templating\Item;
 
 use App\Entity\Scene;
 use App\Pagination\Item\RelatedPaginator;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Templating\Engine;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class RelatedListView
 {
@@ -17,7 +17,7 @@ class RelatedListView
     private $templating;
 
     /**
-     * @var ItemPaginator
+     * @var RelatedPaginator
      */
     private $pagination;
 

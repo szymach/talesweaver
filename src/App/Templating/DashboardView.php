@@ -6,14 +6,14 @@ namespace App\Templating;
 
 use App\Entity\Book;
 use App\Entity\Chapter;
+use App\Entity\Scene;
 use App\Repository\BookRepository;
 use App\Repository\ChapterRepository;
 use App\Repository\Interfaces\LatestChangesAwareRepository;
 use App\Repository\SceneRepository;
-use App\Entity\Scene;
+use App\Templating\Engine;
 use DateTimeImmutable;
 use Symfony\Component\HttpFoundation\Response;
-use App\Templating\Engine;
 
 class DashboardView
 {

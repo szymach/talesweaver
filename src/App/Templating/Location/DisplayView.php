@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Templating\Location;
 
 use App\Entity\Location;
-use App\Timeline\LocationTimeline;
 use App\Templating\Engine;
+use App\Timeline\LocationTimeline;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DisplayView

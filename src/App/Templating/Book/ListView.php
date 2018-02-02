@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Templating\Book;
 
 use App\Pagination\Book\BookPaginator;
-use Symfony\Component\HttpFoundation\Response;
 use App\Templating\Engine;
+use Symfony\Component\HttpFoundation\Response;
 
 class ListView
 {

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Templating\Chapter;
 
 use App\Entity\Chapter;
-use Symfony\Component\HttpFoundation\Response;
 use App\Templating\Engine;
+use Symfony\Component\HttpFoundation\Response;
 
 class DisplayView
 {
