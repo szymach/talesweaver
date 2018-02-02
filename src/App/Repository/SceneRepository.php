@@ -14,7 +14,7 @@ use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class SceneRepository  implements FindableByIdRepository, LatestChangesAwareRepository
+class SceneRepository implements FindableByIdRepository, LatestChangesAwareRepository
 {
     use ParamConverterRepository;
 

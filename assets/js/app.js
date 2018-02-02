@@ -5,6 +5,7 @@ $(document).on('ajaxComplete', hideBackdrop);
 $(document).on('ajaxError', hideBackdrop);
 
 $(document).ready(function() {
+    setAlertFadeOuts();
     closeModal();
 
     $('main').on('click', '.js-load-form', function(event) {
@@ -153,6 +154,7 @@ function refreshList($listTable)
 function displayAjaxContainerWithContent($content)
 {
     var $container = getAjaxContainer();
+    clearCKEditor($container);
     $container.html($content);
     getAjaxClearButton().show();
     $container.addClass('active');
@@ -203,8 +205,20 @@ function clearAjaxContainer()
 {
     var $container = getAjaxContainer();
     getAjaxClearButton().hide();
+    clearCKEditor($container);
     $container.html('');
     $container.removeClass('active');
+}
+
+function clearCKEditor($container)
+{
+    var $instance = $container.find('.cke');
+    if (!$instance.length) {
+        return;
+    }
+
+    var instanceId = $instance.attr('id').replace('cke_', '');
+    CKEDITOR.instances[instanceId].destroy();
 }
 
 function getAjaxContainer()
@@ -220,12 +234,7 @@ function displayAlerts()
         success: function (response) {
             if (typeof response.alerts !== 'undefined') {
                 $('#alerts').append(response.alerts);
-                $('#alerts .alert').filter(':visible').each (function (index, alert) {
-                    var $alert = $(alert);
-                    window.setTimeout(function() {
-                        $alert.fadeOut(800, function () { $alert.remove(); });
-                    }, 5000);
-                });
+                setAlertFadeOuts();
             }
         }
     });
@@ -252,5 +261,15 @@ function closeModal()
 {
     $('.alert .close').on('click', function () {
         $(this).parents('.alert').hide();
+    });
+}
+
+function setAlertFadeOuts()
+{
+    $('#alerts .alert').filter(':visible').each (function (index, alert) {
+        var $alert = $(alert);
+        window.setTimeout(function() {
+            $alert.fadeOut(800, function () { $alert.remove(); });
+        }, 5000);
     });
 }

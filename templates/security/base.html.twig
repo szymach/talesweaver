@@ -27,6 +27,8 @@
             <h3 class="text-center" style="margin-bottom: 50px;">{% block subheader '' %}</h3>
             {% block body '' %}
         </main>
+        <script src="{{ absolute_url(asset('assets/scripts.js')) }}"></script>
+        {% block javascripts '' %}
     </body>
 </html>
 
