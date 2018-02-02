@@ -32,7 +32,7 @@ class SecuredInstanceParamConverter implements ParamConverterInterface
 
     public function apply(Request $request, ParamConverter $configuration): bool
     {
-        $id = $request->attributes->get('id', null);
+        $id = $this->getId($request, $configuration);
         if (null === $id) {
             throw new NotFoundHttpException(sprintf(
                 'No "id" paramater found in path "%s"',
@@ -70,5 +70,10 @@ class SecuredInstanceParamConverter implements ParamConverterInterface
     private function find(string $class, string $id): ?object
     {
         return $this->repositories[$class]->find($id);
+    }
+
+    private function getId(Request $request, ParamConverter $configuration)
+    {
+        return $request->attributes->get($configuration->getOptions()['id'] ?? 'id', null);
     }
 }

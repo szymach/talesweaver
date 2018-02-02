@@ -65,6 +65,30 @@ class SecuredInstanceParamConverterTest extends TestCase
         $request->attributes = $attributes;
 
         $configuration = $this->getMockBuilder(ParamConverter::class)->disableOriginalConstructor()->getMock();
+        $configuration->expects($this->once())->method('getOptions')->willReturn([]);
+        $configuration->expects($this->once())->method('getClass')->willReturn(Chapter::class);
+        $configuration->expects($this->once())->method('getName')->willReturn('book');
+
+        $converter = new SecuredInstanceParamConverter([$repository]);
+        $this->assertTrue($converter->apply($request, $configuration));
+    }
+
+    public function testSuccessfulApplicationWithCustomId()
+    {
+        $id = (string) Uuid::uuid4();
+        $chapter = $this->getMockBuilder(Chapter::class)->disableOriginalConstructor()->getMock();
+        $repository = $this->createMock(FindableByIdRepository::class);
+        $repository->expects($this->once())->method('getClassName')->willReturn(Chapter::class);
+        $repository->expects($this->once())->method('find')->with($id)->willReturn($chapter);
+
+        $attributes = $this->createMock(ParameterBag::class);
+        $attributes->expects($this->once())->method('get')->with('custom_id')->willReturn($id);
+        $attributes->expects($this->once())->method('set')->with('book', $chapter);
+        $request = $this->createMock(Request::class);
+        $request->attributes = $attributes;
+
+        $configuration = $this->getMockBuilder(ParamConverter::class)->disableOriginalConstructor()->getMock();
+        $configuration->expects($this->once())->method('getOptions')->willReturn(['id' => 'custom_id']);
         $configuration->expects($this->once())->method('getClass')->willReturn(Chapter::class);
         $configuration->expects($this->once())->method('getName')->willReturn('book');
 
@@ -123,6 +147,7 @@ class SecuredInstanceParamConverterTest extends TestCase
 
         $configuration = $this->getMockBuilder(ParamConverter::class)->disableOriginalConstructor()->getMock();
         $configuration->expects($this->exactly(2))->method('getClass')->willReturn(Scene::class);
+        $configuration->expects($this->once())->method('getOptions')->willReturn([]);
 
         $this->expectException(NotFoundHttpException::class);
         $this->expectExceptionMessage(
