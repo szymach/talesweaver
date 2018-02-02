@@ -35,14 +35,14 @@ $(document).ready(function() {
                 $.ajax({
                     method: "GET",
                     url: $this.data('delete-url'),
-                    dataType: "json"
-                })
-                .success(function() {
-                    refreshList($this.parents('.js-list'));
-                    displayAlerts();
-                })
-                .error(function() {
-                    displayAlerts();
+                    dataType: "json",
+                    success: function() {
+                        refreshList($this.parents('.js-list'));
+                        displayAlerts();
+                    },
+                    error: function() {
+                        displayAlerts();
+                    }
                 });
             } else {
                 window.location.href = $this.attr('href');
@@ -58,11 +58,11 @@ $(document).ready(function() {
         $.ajax({
             method: "GET",
             url: $this.data('display-url'),
-            dataType: "json"
-        })
-        .success(function(response) {
-            $('#modal-display').find('.modal-content').html(response.display);
-            $('#modal-display').modal();
+            dataType: "json",
+            success: function(response) {
+                $('#modal-display').find('.modal-content').html(response.display);
+                $('#modal-display').modal();
+            }
         });
     });
 
@@ -74,11 +74,11 @@ $(document).ready(function() {
         $.ajax({
             method: "GET",
             url: $this.data('list-url'),
-            dataType: "json"
-        })
-        .success(function(response) {
-            clearAjaxContainer();
-            displayAjaxContainerWithContent(response.list);
+            dataType: "json",
+            success: function(response) {
+                clearAjaxContainer();
+                displayAjaxContainerWithContent(response.list);
+            }
         });
     });
 
@@ -90,12 +90,12 @@ $(document).ready(function() {
         $.ajax({
             method: "GET",
             url: $this.attr('href'),
-            dataType: "json"
-        })
-        .success(function(response) {
-            var $container = $($this.parents('.js-ajax-pagination').first().data('container'));
-            clearAjaxContainer();
-            $container.html(response.list);
+            dataType: "json",
+            success: function(response) {
+                var $container = $($this.parents('.js-ajax-pagination').first().data('container'));
+                clearAjaxContainer();
+                $container.html(response.list);
+            }
         });
     });
 
@@ -107,12 +107,12 @@ $(document).ready(function() {
         $.ajax({
             method: "GET",
             url: $this.data('action-url'),
-            dataType: "json"
-        })
-        .success(function() {
-            clearAjaxContainer();
-            refreshList($($this.data('list-id')));
-            displayAlerts();
+            dataType: "json",
+            success: function() {
+                clearAjaxContainer();
+                refreshList($($this.data('list-id')));
+                displayAlerts();
+            }
         });
     });
 
@@ -130,11 +130,11 @@ function getForm(url, $listTable)
     $.ajax({
         method: "GET",
         url: url,
-        dataType: "json"
-    })
-    .success(function(response) {
-        displayAjaxContainerWithContent(response.form);
-        bindAjaxForm($listTable);
+        dataType: "json",
+        success: function(response) {
+            displayAjaxContainerWithContent(response.form);
+            bindAjaxForm($listTable);
+        }
     });
 }
 
@@ -143,10 +143,10 @@ function refreshList($listTable)
     $.ajax({
         method: "GET",
         url: $listTable.data('list-url'),
-        dataType: "json"
-    })
-    .success(function(response) {
-        $listTable.replaceWith(response.list);
+        dataType: "json",
+        success: function(response) {
+            $listTable.replaceWith(response.list);
+        }
     });
 }
 
@@ -181,21 +181,21 @@ function submitForm($form, $listTable)
         url: $form.attr('action'),
         processData: false,
         contentType: false,
-        data: new FormData($form[0])
-    })
-    .success(function() {
-        clearAjaxContainer();
-        refreshList($listTable);
-        displayAlerts();
-    })
-    .error(function(xhr) {
-        clearAjaxContainer();
-        var response = JSON.parse(xhr.responseText);
-        if (typeof response.form !== 'undefined') {
-            displayAjaxContainerWithContent(response.form);
-            bindAjaxForm($listTable);
+        data: new FormData($form[0]),
+        success: function() {
+            clearAjaxContainer();
+            refreshList($listTable);
+            displayAlerts();
+        },
+        error: function(xhr) {
+            clearAjaxContainer();
+            var response = JSON.parse(xhr.responseText);
+            if (typeof response.form !== 'undefined') {
+                displayAjaxContainerWithContent(response.form);
+                bindAjaxForm($listTable);
+            }
+            displayAlerts();
         }
-        displayAlerts();
     });
 }
 
@@ -216,16 +216,17 @@ function displayAlerts()
 {
     $.ajax({
         method: "GET",
-        url: $('#alerts').data('alert-url')
-    }).success(function (response) {
-        if (typeof response.alerts !== 'undefined') {
-            $('#alerts').append(response.alerts);
-            $('#alerts .alert').filter(':visible').each (function (index, alert) {
-                var $alert = $(alert);
-                window.setTimeout(function() {
-                    $alert.fadeOut(800, function () { $alert.remove(); });
-                }, 5000);
-            });
+        url: $('#alerts').data('alert-url'),
+        success: function (response) {
+            if (typeof response.alerts !== 'undefined') {
+                $('#alerts').append(response.alerts);
+                $('#alerts .alert').filter(':visible').each (function (index, alert) {
+                    var $alert = $(alert);
+                    window.setTimeout(function() {
+                        $alert.fadeOut(800, function () { $alert.remove(); });
+                    }, 5000);
+                });
+            }
         }
     });
 }

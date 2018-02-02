@@ -31,19 +31,20 @@ function scheduleAutosave(event)
             url: $form.attr('action'),
             processData: false,
             contentType: false,
-            data: new FormData($form[0])
-        })
-        .success(function() {
-            displayAlerts();
-        })
-        .error(function(xhr) {
-            var response = JSON.parse(xhr.responseText);
-            if (typeof response.form !== 'undefined') {
-                $form.replaceWith($(response.form));
+            data: new FormData($form[0]),
+            success: function() {
+                displayAlerts();
+            },
+            error: function(xhr) {
+                var response = JSON.parse(xhr.responseText);
+                if (typeof response.form !== 'undefined') {
+                    $form.replaceWith($(response.form));
+                }
+            },
+            complete: function () {
+                savesScheduled[id] = false;
+                bindAutosave();
             }
-        }).complete(function () {
-            savesScheduled[id] = false;
-            bindAutosave();
         });
     }, 3000);
 }
