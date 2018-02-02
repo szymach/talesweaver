@@ -57,9 +57,7 @@ class FormTypeTest extends Unit
     public function testValidEditFormSubmission()
     {
         $this->tester->loginAsUser();
-        $createDto = new Create\DTO();
-        $createDto->setTitle(self::TITLE_PL);
-        $chapter = new Chapter(Uuid::uuid4(), $createDto, $this->tester->getUser());
+        $chapter = new Chapter(Uuid::uuid4(), self::TITLE_PL, null, $this->tester->getUser());
         $form = $this->tester->createForm(EditType::class, new Edit\DTO($chapter));
         $form->handleRequest($this->tester->getRequest(['edit' => ['title' => self::TITLE_PL]]));
 
@@ -75,9 +73,7 @@ class FormTypeTest extends Unit
     public function testInvalidEditFormSubmission()
     {
         $this->tester->loginAsUser();
-        $createDto = new Create\DTO();
-        $createDto->setTitle(self::TITLE_PL);
-        $chapter = new Chapter(Uuid::uuid4(), $createDto, $this->tester->getUser());
+        $chapter = new Chapter(Uuid::uuid4(), self::TITLE_PL, null, $this->tester->getUser());
         $form = $this->tester->createForm(EditType::class, new Edit\DTO($chapter));
         $form->handleRequest($this->tester->getRequest(['edit' => ['title' => null]]));
 

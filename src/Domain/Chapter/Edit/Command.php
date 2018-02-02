@@ -31,7 +31,7 @@ class Command implements MessageCommandInterface, UserAccessInterface
 
     public function perform(): void
     {
-        $this->chapter->edit($this->dto);
+        $this->chapter->edit($this->dto->getTitle(), $this->dto->getBook());
     }
 
     public function isAllowed(User $user): bool

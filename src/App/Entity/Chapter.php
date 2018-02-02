@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Domain\Chapter\Create;
-use Domain\Chapter\Edit;
 use App\Entity\Traits\CreatedByTrait;
 use App\Entity\Traits\TimestampableTrait;
 use App\Entity\Traits\TranslatableTrait;
@@ -43,18 +41,12 @@ class Chapter
      */
     private $characters;
 
-    /**
-     * @param UuidInterface $id
-     * @param \App\Chapter\Create\DTO $dto
-     * @param User $author
-     */
-    public function __construct(UuidInterface $id, Create\DTO $dto, User $author)
+    public function __construct(UuidInterface $id, string $title, ?Book $book, User $author)
     {
         $this->id = $id;
-        $this->title = $dto->getTitle();
-        if ($dto->getBook()) {
-            $this->book = $dto->getBook();
-        }
+        $this->title = $title;
+        $this->book = $book;
+
         $this->characters = new ArrayCollection();
         $this->scenes = new ArrayCollection();
         $this->translations = new ArrayCollection();
@@ -68,12 +60,14 @@ class Chapter
     }
 
     /**
-     * @param \App\Chapter\Edit\DTO $dto
+     * @param string $title
+     * @param Book|null $book
+     * @return void
      */
-    public function edit(Edit\DTO $dto): void
+    public function edit(string $title, ?Book $book): void
     {
-        $this->title = $dto->getTitle();
-        $this->book = $dto->getBook();
+        $this->title = $title;
+        $this->book = $book;
 
         $this->update();
     }

@@ -22,7 +22,14 @@ class CommandHandler
     public function handle(Command $command): void
     {
         $this->manager->persist(
-            new Item($command->getId(), $command->getData(), $command->getUser())
+            new Item(
+                $command->getId(),
+                $command->getData()->getScene(),
+                $command->getData()->getName(),
+                $command->getData()->getDescription(),
+                $command->getData()->getAvatar(),
+                $command->getUser()
+            )
         );
     }
 }

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Domain\Character\Create;
-use Domain\Character\Edit;
 use App\Entity\Traits\AvatarTrait;
 use App\Entity\Traits\CreatedByTrait;
 use App\Entity\Traits\TimestampableTrait;
@@ -14,7 +12,9 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use DomainException;
+use FSi\DoctrineExtensions\Uploadable\File;
 use Ramsey\Uuid\UuidInterface;
+use SplFileInfo;
 
 class Character
 {
@@ -62,15 +62,26 @@ class Character
 
     /**
      * @param UuidInterface $id
-     * @param \App\Character\Create\DTO $dto
+     * @param Scene $scene
+     * @param string $name
+     * @param string|null $description
+     * @param File|SplFileInfo|null $avatar
      * @param User $author
      */
-    public function __construct(UuidInterface $id, Create\DTO $dto, User $author)
-    {
+    public function __construct(
+        UuidInterface $id,
+        Scene $scene,
+        string $name,
+        ?string $description,
+        $avatar,
+        User $author
+    ) {
+        $this->validateAvatar($avatar);
+
         $this->id = $id;
-        $this->name = $dto->getName();
-        $this->description = $dto->getDescription();
-        $this->avatar = $dto->getAvatar();
+        $this->name = $name;
+        $this->description = $description;
+        $this->avatar = $avatar;
 
         $this->translations = new ArrayCollection();
         $this->scenes = new ArrayCollection();
@@ -80,7 +91,7 @@ class Character
         $this->createdBy = $author;
         $this->createdAt = new DateTimeImmutable();
 
-        $dto->getScene()->addCharacter($this);
+        $scene->addCharacter($this);
     }
 
     public function __toString()
@@ -89,13 +100,22 @@ class Character
     }
 
     /**
-     * @param \App\Character\Edit\DTO $dto
+     * @param string $name
+     * @param string|null $description
+     * @param File|SplFileInfo|null $avatar
+     * @return void
      */
-    public function edit(Edit\DTO $dto)
-    {
-        $this->name = $dto->getName();
-        $this->description = $dto->getDescription();
-        $this->avatar = $dto->getAvatar();
+    public function edit(
+        string $name,
+        ?string $description,
+        $avatar
+    ): void {
+        $this->validateAvatar($avatar);
+
+        $this->name = $name;
+        $this->description = $description;
+        $this->avatar = $avatar;
+
         $this->update();
     }
 

@@ -7,8 +7,6 @@ namespace App\Entity;
 use App\Entity\Traits\CreatedByTrait;
 use App\Entity\Traits\TimestampableTrait;
 use App\Entity\Traits\TranslatableTrait;
-use Domain\Scene\Create;
-use Domain\Scene\Edit;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -55,16 +53,15 @@ class Scene
 
     /**
      * @param UuidInterface $id
-     * @param \App\Scene\Create\DTO $dto
+     * @param string $title
+     * @param Chapter|null $chapter
      * @param User $author
      */
-    public function __construct(UuidInterface $id, Create\DTO $dto, User $author)
+    public function __construct(UuidInterface $id, string $title, ?Chapter $chapter, User $author)
     {
         $this->id = $id;
-        $this->title = $dto->getTitle();
-        if ($dto->getChapter()) {
-            $this->chapter = $dto->getChapter();
-        }
+        $this->title = $title;
+        $this->chapter = $chapter;
 
         $this->characters = new ArrayCollection();
         $this->items = new ArrayCollection();
@@ -79,11 +76,11 @@ class Scene
         return (string) $this->title;
     }
 
-    public function edit(Edit\DTO $dto): void
+    public function edit(string $title, ?string $text, ?Chapter $chapter): void
     {
-        $this->title = $dto->getTitle();
-        $this->text = $dto->getText();
-        $this->chapter = $dto->getChapter();
+        $this->title = $title;
+        $this->text = $text;
+        $this->chapter = $chapter;
         $this->update();
     }
 

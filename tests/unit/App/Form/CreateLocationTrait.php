@@ -4,16 +4,20 @@ namespace App\Tests\Form;
 
 use App\Entity\Location;
 use App\Entity\Scene;
-use Domain\Location\Create;
 use Ramsey\Uuid\Uuid;
 
 trait CreateLocationTrait
 {
     private function getLocation(?Scene $scene = null) : Location
     {
-        $createDto = new Create\DTO($scene ?? $this->getScene());
-        $createDto->setName('Miejsce');
-        $location = new Location(Uuid::uuid4(), $createDto, $this->tester->getUser());
+        $location = new Location(
+            Uuid::uuid4(),
+            $scene ?? $this->getScene(),
+            'Miejsce',
+            null,
+            null,
+            $this->tester->getUser()
+        );
         $location->setLocale('pl');
 
         return $location;

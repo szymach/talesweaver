@@ -9,8 +9,6 @@ use App\Entity\Traits\TimestampableTrait;
 use App\Entity\Traits\TranslatableTrait;
 use App\JSON\EventParser;
 use DateTimeImmutable;
-use Domain\Event\Create;
-use Domain\Event\Edit;
 use JsonSerializable;
 use Ramsey\Uuid\UuidInterface;
 
@@ -40,23 +38,30 @@ class Event
 
     /**
      * @param UuidInterface $id
-     * @param \App\Event\Create\DTO $dto
+     * @param string $name
+     * @param JsonSerializable $model
+     * @param Scene $scene
      * @param User $author
      */
-    public function __construct(UuidInterface $id, Create\DTO $dto, User $author)
-    {
+    public function __construct(
+        UuidInterface $id,
+        string $name,
+        JsonSerializable $model,
+        Scene $scene,
+        User $author
+    ) {
         $this->id = $id;
-        $this->name = $dto->getName();
-        $this->model = $dto->getModel();
-        $this->scene = $dto->getScene();
+        $this->name = $name;
+        $this->model = $model;
+        $this->scene = $scene;
         $this->createdAt = new DateTimeImmutable();
         $this->createdBy = $author;
     }
 
-    public function edit(Edit\DTO $dto): void
+    public function edit(string $name, JsonSerializable $model): void
     {
-        $this->name = $dto->getName();
-        $this->model = $dto->getModel();
+        $this->name = $name;
+        $this->model = $model;
         $this->update();
     }
 

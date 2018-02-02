@@ -2,7 +2,6 @@
 
 namespace App\Tests\Controller\Scene;
 
-use Domain\Scene\Create\DTO;
 use App\Entity\Scene;
 use App\Tests\FunctionalTester;
 use Ramsey\Uuid\Uuid;
@@ -16,9 +15,7 @@ class DeleteControllerCest
     {
         $I->loginAsUser();
         $id = Uuid::uuid4();
-        $dto = new DTO();
-        $dto->setTitle(self::TITLE_PL);
-        $I->persistEntity(new Scene($id, $dto, $I->getUser()));
+        $I->persistEntity(new Scene($id, self::TITLE_PL, null, $I->getUser()));
         $I->seeInRepository(Scene::class, ['id' => $id]);
 
         $I->amOnPage(self::LIST_URL);

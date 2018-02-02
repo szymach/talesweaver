@@ -8,12 +8,12 @@ use App\Entity\Traits\AvatarTrait;
 use App\Entity\Traits\CreatedByTrait;
 use App\Entity\Traits\TimestampableTrait;
 use App\Entity\Traits\TranslatableTrait;
-use Domain\Item\Create\DTO as CreateDTO;
-use Domain\Item\Edit\DTO as EditDTO;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use FSi\DoctrineExtensions\Uploadable\File;
 use Ramsey\Uuid\UuidInterface;
+use SplFileInfo;
 
 class Item
 {
@@ -56,15 +56,26 @@ class Item
 
     /**
      * @param UuidInterface $id
-     * @param CreateDTO $dto
+     * @param Scene $scene
+     * @param string $name
+     * @param string|null $description
+     * @param File|SplFileInfo|null $avatar
      * @param User $author
      */
-    public function __construct(UuidInterface $id, CreateDTO $dto, User $author)
-    {
+    public function __construct(
+        UuidInterface $id,
+        Scene $scene,
+        string $name,
+        ?string $description,
+        $avatar,
+        User $author
+    ) {
+        $this->validateAvatar($avatar);
+
         $this->id = $id;
-        $this->name = $dto->getName();
-        $this->description = $dto->getDescription();
-        $this->avatar = $dto->getAvatar();
+        $this->name = $name;
+        $this->description = $description;
+        $this->avatar = $avatar;
 
         $this->translations = new ArrayCollection();
         $this->scenes = new ArrayCollection();
@@ -73,7 +84,7 @@ class Item
         $this->createdBy = $author;
         $this->createdAt = new DateTimeImmutable();
 
-        $dto->getScene()->addItem($this);
+        $scene->addItem($this);
     }
 
     public function __toString()
@@ -81,10 +92,23 @@ class Item
         return (string) $this->name;
     }
 
-    public function edit(EditDTO $dto)
-    {
-        $this->name = $dto->getName();
-        $this->description = $dto->getDescription();
+    /**
+     * @param string $name
+     * @param string|null $description
+     * @param File|SplFileInfo|null $avatar
+     * @return void
+     */
+    public function edit(
+        string $name,
+        ?string $description,
+        $avatar
+    ): void {
+        $this->validateAvatar($avatar);
+
+        $this->name = $name;
+        $this->description = $description;
+        $this->avatar = $avatar;
+
         $this->update();
     }
 

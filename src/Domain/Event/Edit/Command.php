@@ -31,7 +31,7 @@ class Command implements MessageCommandInterface, UserAccessInterface
 
     public function perform(): void
     {
-        $this->event->edit($this->dto);
+        $this->event->edit($this->dto->getName(), $this->dto->getModel(), $this->dto->getScene());
     }
 
     public function isAllowed(User $user): bool

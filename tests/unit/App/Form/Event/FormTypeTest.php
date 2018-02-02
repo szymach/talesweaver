@@ -192,8 +192,12 @@ class FormTypeTest extends Unit
 
     private function getEvent() : Event
     {
-        $createDto = new Create\DTO($this->getScene());
-        $createDto->setName(self::NAME_PL);
-        return new Event(Uuid::uuid4(), $createDto, $this->tester->getUser());
+        return new Event(
+            Uuid::uuid4(),
+            self::NAME_PL,
+            new Meeting(),
+            $this->getScene(),
+            $this->tester->getUser()
+        );
     }
 }

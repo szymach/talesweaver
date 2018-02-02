@@ -2,7 +2,6 @@
 
 namespace App\Tests\Controller\Chapter;
 
-use Domain\Chapter\Create\DTO;
 use App\Entity\Chapter;
 use App\Tests\FunctionalTester;
 use Ramsey\Uuid\Uuid;
@@ -16,9 +15,7 @@ class DeleteControllerCest
     {
         $I->loginAsUser();
         $id = Uuid::uuid4();
-        $dto = new DTO();
-        $dto->setTitle(self::TITLE_PL);
-        $I->persistEntity(new Chapter($id, $dto, $I->getUser()));
+        $I->persistEntity(new Chapter($id, self::TITLE_PL, null, $I->getUser()));
         $I->seeInRepository(Chapter::class, ['id' => $id]);
         $I->amOnPage(self::LIST_URL);
         $I->canSeeNumberOfElements('tbody > tr', 1);

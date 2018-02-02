@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\Traits;
 
 use FSi\DoctrineExtensions\Uploadable\File;
+use InvalidArgumentException;
 use SplFileInfo;
 
 trait AvatarTrait
@@ -40,6 +41,18 @@ trait AvatarTrait
 
         if (method_exists($this, 'update')) {
             $this->update();
+        }
+    }
+
+    private function validateAvatar($avatar): void
+    {
+        if (null !== $avatar && !($avatar instanceof File) && !($avatar instanceof SplFileInfo)) {
+            throw new InvalidArgumentException(sprintf(
+                'Avatar file must be either of instance "%s" or "%s", got "%s"',
+                File::class,
+                SplFileInfo::class,
+                is_object($avatar) ? get_class($avatar) : gettype($avatar)
+            ));
         }
     }
 }

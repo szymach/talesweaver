@@ -22,7 +22,12 @@ class CommandHandler
     public function handle(Command $command): void
     {
         $this->manager->persist(
-            new Chapter($command->getId(), $command->getData(), $command->getUser())
+            new Chapter(
+                $command->getId(),
+                $command->getData()->getTitle(),
+                $command->getData()->getBook(),
+                $command->getUser()
+            )
         );
     }
 }

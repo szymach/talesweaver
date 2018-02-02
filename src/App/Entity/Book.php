@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Domain\Book\Edit\DTO;
 use App\Entity\Traits\CreatedByTrait;
 use App\Entity\Traits\TimestampableTrait;
 use App\Entity\Traits\TranslatableTrait;
@@ -60,10 +59,15 @@ class Book
         return $this->title;
     }
 
-    public function edit(DTO $dto): void
+    /**
+     * @param string $title
+     * @param string|null $description
+     * @return void
+     */
+    public function edit(string $title, ?string $description): void
     {
-        $this->title = $dto->getTitle();
-        $this->description = $dto->getDescription();
+        $this->title = $title;
+        $this->description = $description;
 
         $this->update();
     }

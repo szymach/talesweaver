@@ -9,8 +9,6 @@ use App\Entity\Scene;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Domain\Character\Create\DTO as CharacterDTO;
-use Domain\Scene\Create\DTO as SceneDTO;
 use Ramsey\Uuid\Uuid;
 use function generate_user_token;
 
@@ -21,14 +19,17 @@ class LoadIntegrationData implements ORMFixtureInterface
         $locale = 'pl';
 
         $user = $this->createUser($manager);
-        $sceneDTO = new SceneDTO();
-        $sceneDTO->setTitle('Scena');
-        $scene = new Scene(Uuid::uuid4(), $sceneDTO, $user);
+        $scene = new Scene(Uuid::uuid4(), 'Scena', null, $user);
         $scene->setLocale($locale);
 
-        $characterDTO = new CharacterDTO($scene);
-        $characterDTO->setName('Postać do spotkania');
-        $character = new Character(Uuid::uuid4(), $characterDTO, $user);
+        $character = new Character(
+            Uuid::uuid4(),
+            $scene,
+            'Postać do spotkania',
+            '',
+            null,
+            $user
+        );
         $character->setLocale($locale);
 
         $manager->persist($scene);

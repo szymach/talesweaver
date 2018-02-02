@@ -6,7 +6,6 @@ namespace App\Entity;
 
 use App\Entity\User\ActivationToken;
 use App\Entity\User\PasswordResetToken;
-use Assert\Assertion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use DomainException;

@@ -96,8 +96,13 @@ class FormTypeTest extends Unit
 
     private function getItem() : Item
     {
-        $createDto = new Create\DTO($this->getScene());
-        $createDto->setName(self::NAME_PL);
-        return new Item(Uuid::uuid4(), $createDto, $this->tester->getUser());
+        return new Item(
+            Uuid::uuid4(),
+            $this->getScene(),
+            self::NAME_PL,
+            null,
+            null,
+            $this->tester->getUser()
+        );
     }
 }
