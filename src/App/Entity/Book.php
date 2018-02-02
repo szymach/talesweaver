@@ -7,7 +7,7 @@ namespace App\Entity;
 use App\Entity\Traits\CreatedByTrait;
 use App\Entity\Traits\TimestampableTrait;
 use App\Entity\Traits\TranslatableTrait;
-use Assert\Assert;
+use Assert\Assertion;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -44,7 +44,7 @@ class Book
      */
     public function __construct(UuidInterface $id, string $title, User $author)
     {
-        Assert::that($title)->notBlank('Cannot create a book without a title!');
+        Assertion::notBlank($title, 'Cannot create a book without a title!');
 
         $this->id = $id;
         $this->title = $title;
