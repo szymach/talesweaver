@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Character;
 
-use Domain\Character\Create\Command;
-use Domain\Character\Create\DTO;
 use App\Entity\Scene;
 use App\Form\Character\CreateType;
 use App\Templating\Character\FormView;
+use Domain\Character\Create\Command;
+use Domain\Character\Create\DTO;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Location;
 
 use App\Entity\Location;
 use App\Form\Location\EditType;
+use App\Templating\Location\FormView;
 use Domain\Location\Edit\Command;
 use Domain\Location\Edit\DTO;
-use App\Templating\Location\FormView;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

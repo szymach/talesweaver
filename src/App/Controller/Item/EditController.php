@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Item;
 
 use App\Entity\Item;
 use App\Form\Item\EditType;
+use App\Templating\Item\FormView;
 use Domain\Item\Edit\Command;
 use Domain\Item\Edit\DTO;
-use App\Templating\Item\FormView;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

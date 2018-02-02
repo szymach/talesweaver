@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Chapter;
 
-use Domain\Chapter\Delete\Command;
 use App\Entity\Chapter;
 use App\Routing\RedirectToEdit;
 use App\Routing\RedirectToList;
+use Domain\Chapter\Delete\Command;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

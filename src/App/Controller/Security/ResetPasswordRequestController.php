@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Controller\Security;
 
 use App\Form\Security\ResetPasswordRequestType;
+use App\Templating\Engine;
 use Domain\Security\Command\GeneratePasswordResetToken;
 use SimpleBus\Message\Bus\MessageBus;
-use App\Templating\Engine;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

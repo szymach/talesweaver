@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Security;
 
 use App\Form\Security\RegisterType;
+use App\Templating\Engine;
 use Domain\Security\Command\CreateUser;
 use SimpleBus\Message\Bus\MessageBus;
-use App\Templating\Engine;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

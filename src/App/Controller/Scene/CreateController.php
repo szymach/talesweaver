@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Scene;
 
 use App\Entity\Chapter;
 use App\Form\Scene\CreateType;
 use App\Routing\RedirectToEdit;
+use App\Templating\SimpleFormView;
 use Domain\Scene\Create\Command;
 use Domain\Scene\Create\DTO;
-use App\Templating\SimpleFormView;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;

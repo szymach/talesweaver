@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Character;
 
-use Domain\Character\RemoveFromScene\Command;
 use App\Entity\Character;
 use App\Entity\Scene;
+use Domain\Character\RemoveFromScene\Command;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;

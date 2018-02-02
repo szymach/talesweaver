@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Chapter;
 
-use Domain\Chapter\Create\Command;
-use Domain\Chapter\Create\DTO;
 use App\Entity\Book;
 use App\Form\Chapter\CreateType;
 use App\Routing\RedirectToEdit;
 use App\Templating\SimpleFormView;
+use Domain\Chapter\Create\Command;
+use Domain\Chapter\Create\DTO;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
