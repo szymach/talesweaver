@@ -67,6 +67,11 @@ class User implements UserInterface
         $this->passwordResetTokens = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return (string) $this->username;
+    }
+
     public function getId(): int
     {
         return $this->id;

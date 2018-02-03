@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Domain\Entity;
 
-use Domain\Entity\Traits\CreatedByTrait;
-use Domain\Entity\Traits\TimestampableTrait;
-use Domain\Entity\Traits\TranslatableTrait;
+use Assert\Assertion;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Domain\Entity\Traits\CreatedByTrait;
+use Domain\Entity\Traits\TimestampableTrait;
+use Domain\Entity\Traits\TranslatableTrait;
 use Ramsey\Uuid\UuidInterface;
 
 class Chapter
@@ -43,6 +44,11 @@ class Chapter
 
     public function __construct(UuidInterface $id, string $title, ?Book $book, User $author)
     {
+        Assertion::notBlank($title, sprintf(
+            'Cannot create a chapter without a title for author "%s"!',
+            (string) $author
+        ));
+
         $this->id = $id;
         $this->title = $title;
         $this->book = $book;
@@ -66,6 +72,11 @@ class Chapter
      */
     public function edit(string $title, ?Book $book): void
     {
+        Assertion::notBlank($title, sprintf(
+            'Tried to set an empty title on chapter with id "%s"!',
+            (string) $this->id
+        ));
+
         $this->title = $title;
         $this->book = $book;
 

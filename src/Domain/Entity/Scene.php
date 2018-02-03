@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Domain\Entity;
 
-use Domain\Entity\Traits\CreatedByTrait;
-use Domain\Entity\Traits\TimestampableTrait;
-use Domain\Entity\Traits\TranslatableTrait;
+use Assert\Assertion;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Domain\Entity\Traits\CreatedByTrait;
+use Domain\Entity\Traits\TimestampableTrait;
+use Domain\Entity\Traits\TranslatableTrait;
 use Ramsey\Uuid\UuidInterface;
 
 class Scene
@@ -59,6 +60,11 @@ class Scene
      */
     public function __construct(UuidInterface $id, string $title, ?Chapter $chapter, User $author)
     {
+        Assertion::notBlank($title, sprintf(
+            'Cannot create a scene without a title for author "%s"!',
+            (string) $author
+        ));
+
         $this->id = $id;
         $this->title = $title;
         $this->chapter = $chapter;
@@ -76,11 +82,23 @@ class Scene
         return (string) $this->title;
     }
 
+    /**
+     * @param string $title
+     * @param string|null $text
+     * @param Chapter|null $chapter
+     * @return void
+     */
     public function edit(string $title, ?string $text, ?Chapter $chapter): void
     {
+        Assertion::notBlank($title, sprintf(
+            'Tried to set an empty title on scene with id "%s"!',
+            (string) $this->id
+        ));
+
         $this->title = $title;
         $this->text = $text;
         $this->chapter = $chapter;
+
         $this->update();
     }
 

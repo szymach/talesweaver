@@ -21,7 +21,8 @@
             "App\\Tests\\": [
                 "tests/functional/App",
                 "tests/unit/App"
-            ]
+            ],
+            "Domain\\Tests\\": ["tests/unit/Domain"]
         }
     },
     "require": {

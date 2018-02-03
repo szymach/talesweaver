@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Domain\Entity;
 
+use Assert\Assertion;
+use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Domain\Entity\Traits\AvatarTrait;
 use Domain\Entity\Traits\CreatedByTrait;
 use Domain\Entity\Traits\TimestampableTrait;
 use Domain\Entity\Traits\TranslatableTrait;
-use DateTimeImmutable;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use FSi\DoctrineExtensions\Uploadable\File;
 use Ramsey\Uuid\UuidInterface;
 use SplFileInfo;
@@ -70,6 +71,10 @@ class Item
         $avatar,
         User $author
     ) {
+        Assertion::notBlank($name, sprintf(
+            'Cannot create an item without a name for author "%s"!',
+            (string) $author
+        ));
         $this->validateAvatar($avatar);
 
         $this->id = $id;
@@ -98,11 +103,10 @@ class Item
      * @param File|SplFileInfo|null $avatar
      * @return void
      */
-    public function edit(
-        string $name,
-        ?string $description,
-        $avatar
-    ): void {
+    public function edit(string $name, ?string $description, $avatar): void
+    {
+        Assertion::notBlank($name, sprintf('Tried to set an empty name on item with id "%s"!', (string) $this->id));
+
         $this->validateAvatar($avatar);
 
         $this->name = $name;

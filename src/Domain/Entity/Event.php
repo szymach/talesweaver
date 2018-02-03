@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Domain\Entity;
 
+use App\JSON\EventParser;
+use Assert\Assertion;
+use DateTimeImmutable;
 use Domain\Entity\Traits\CreatedByTrait;
 use Domain\Entity\Traits\TimestampableTrait;
 use Domain\Entity\Traits\TranslatableTrait;
-use App\JSON\EventParser;
-use DateTimeImmutable;
 use JsonSerializable;
 use Ramsey\Uuid\UuidInterface;
 
@@ -50,6 +51,11 @@ class Event
         Scene $scene,
         User $author
     ) {
+        Assertion::notBlank($name, sprintf(
+            'Cannot create an event without a name for author "%s"!',
+            (string) $author
+        ));
+
         $this->id = $id;
         $this->name = $name;
         $this->model = $model;
@@ -58,8 +64,15 @@ class Event
         $this->createdBy = $author;
     }
 
+    /**
+     * @param string $name
+     * @param JsonSerializable $model
+     * @return void
+     */
     public function edit(string $name, JsonSerializable $model): void
     {
+        Assertion::notBlank($name, sprintf('Tried to set an empty name on event with id "%s"!', (string) $this->id));
+
         $this->name = $name;
         $this->model = $model;
         $this->update();
