@@ -26,7 +26,10 @@ class EditType extends AbstractType
             'required' => false
         ]);
 
-        $builder->add('text', CKEditorType::class, ['label' => false]);
+        $builder->add('text', CKEditorType::class, [
+            'label' => false,
+            'attr' => ['class' => 'ckeditor-focusable']
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

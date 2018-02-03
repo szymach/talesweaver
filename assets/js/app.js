@@ -7,6 +7,8 @@ $(document).on('ajaxError', hideBackdrop);
 $(document).ready(function() {
     setAlertFadeOuts();
     closeModal();
+    focusFirstInupt();
+    focusCkeditor();
 
     $('main').on('click', '.js-load-form', function(event) {
         event.preventDefault();
@@ -135,6 +137,7 @@ function getForm(url, $listTable)
         success: function(response) {
             displayAjaxContainerWithContent(response.form);
             bindAjaxForm($listTable);
+            focusFirstInupt();
         }
     });
 }
@@ -271,5 +274,39 @@ function setAlertFadeOuts()
         window.setTimeout(function() {
             $alert.fadeOut(800, function () { $alert.remove(); });
         }, 5000);
+    });
+}
+
+function focusFirstInupt()
+{
+    const staticInputs = [
+        'form [name="_username"]',
+        'form[name="reset_password_request"] [name="reset_password_request[username]"]',
+        'form[name="register"] [name="register[username]"]',
+        'form[name="create"] [name="create[title]"]',
+        'form[name="edit"] [name="edit[title]"]',
+        'form[name="create"] [name="create[name]"]',
+        'form[name="edit"] [name="edit[name]"]'
+    ];
+
+    staticInputs.forEach(function (field) {
+        var $input = $(field);
+        if ($input.length) {
+            $input.trigger('focus');
+            return;
+        }
+    });
+}
+
+function focusCkeditor()
+{
+    if (typeof CKEDITOR === 'undefined') {
+        return;
+    }
+
+    CKEDITOR.on('instanceReady', function (item) {
+        if (true === $(item.editor.element.$).hasClass('ckeditor-focusable')) {
+            item.editor.focus();
+        }
     });
 }
