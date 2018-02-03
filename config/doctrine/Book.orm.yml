@@ -1,5 +1,5 @@
 ---
-App\Entity\Book:
+Domain\Entity\Book:
     type: entity
     repositoryClass: App\Repository\Doctrine\BookRepository
     id:
@@ -24,14 +24,14 @@ App\Entity\Book:
             nullable: true
     oneToMany:
         chapters:
-            targetEntity: App\Entity\Chapter
+            targetEntity: Domain\Entity\Chapter
             mappedBy: book
             cascade: [persist, remove]
         translations:
-            targetEntity: App\Entity\Translation\BookTranslation
+            targetEntity: Domain\Entity\Translation\BookTranslation
             mappedBy: book
             indexBy: locale
             cascade: [persist, remove]
     manyToOne:
         createdBy:
-            targetEntity:  App\Entity\User
+            targetEntity:  Domain\Entity\User

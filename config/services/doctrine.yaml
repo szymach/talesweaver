@@ -14,39 +14,39 @@ services:
     # Doctrine repository
     App\Repository\Doctrine\BookRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ App\Entity\Book ]
+        arguments: [ Domain\Entity\Book ]
 
     App\Repository\Doctrine\SceneRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ App\Entity\Scene ]
+        arguments: [ Domain\Entity\Scene ]
 
     App\Repository\Doctrine\CharacterRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ App\Entity\Character ]
+        arguments: [ Domain\Entity\Character ]
 
     App\Repository\Doctrine\ItemRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ App\Entity\Item ]
+        arguments: [ Domain\Entity\Item ]
 
     App\Repository\Doctrine\LocationRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ App\Entity\Location ]
+        arguments: [ Domain\Entity\Location ]
 
     App\Repository\Doctrine\ChapterRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ App\Entity\Chapter ]
+        arguments: [ Domain\Entity\Chapter ]
 
     App\Repository\Doctrine\EventRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ App\Entity\Event ]
+        arguments: [ Domain\Entity\Event ]
 
     App\Repository\Doctrine\UserRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ App\Entity\User ]
+        arguments: [ Domain\Entity\User ]
 
     App\Repository\Doctrine\PasswordResetTokenRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ App\Entity\User\PasswordResetToken ]
+        arguments: [ Domain\Entity\User\PasswordResetToken ]
 
     # Repository
     App\Repository\BookRepository:

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repository\Doctrine;
 
-use App\Entity\Scene;
-use App\Entity\User;
+use Domain\Entity\Scene;
+use Domain\Entity\User;
 use App\Repository\Traits\ValidationTrait;
 use Doctrine\ORM\QueryBuilder;
 

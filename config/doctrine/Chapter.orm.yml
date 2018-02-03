@@ -1,5 +1,5 @@
 ---
-App\Entity\Chapter:
+Domain\Entity\Chapter:
     type: entity
     repositoryClass: App\Repository\Doctrine\ChapterRepository
     id:
@@ -21,25 +21,25 @@ App\Entity\Chapter:
             nullable: true
     oneToMany:
         scenes:
-            targetEntity: App\Entity\Scene
+            targetEntity: Domain\Entity\Scene
             mappedBy: chapter
             cascade: [persist]
         translations:
-            targetEntity: App\Entity\Translation\ChapterTranslation
+            targetEntity: Domain\Entity\Translation\ChapterTranslation
             mappedBy: chapter
             indexBy: locale
             cascade: [persist, remove]
     manyToMany:
         characters:
-            targetEntity: App\Entity\Character
+            targetEntity: Domain\Entity\Character
             inversedBy: chapters
     manyToOne:
         book:
-            targetEntity: App\Entity\Book
+            targetEntity: Domain\Entity\Book
             inversedBy: chapters
             joinColumn:
                 onDelete: "CASCADE"
         createdBy:
-            targetEntity:  App\Entity\User
+            targetEntity:  Domain\Entity\User
             joinColumn:
                 onDelete: CASCADE

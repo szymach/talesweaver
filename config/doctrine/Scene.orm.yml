@@ -1,5 +1,5 @@
 ---
-App\Entity\Scene:
+Domain\Entity\Scene:
     type: entity
     repositoryClass: App\Repository\Doctrine\SceneRepository
     id:
@@ -24,30 +24,30 @@ App\Entity\Scene:
             nullable: true
     oneToMany:
         translations:
-            targetEntity: App\Entity\Translation\SceneTranslation
+            targetEntity: Domain\Entity\Translation\SceneTranslation
             mappedBy: scene
             indexBy: locale
             cascade: [persist, remove]
     manyToOne:
         chapter:
-            targetEntity: App\Entity\Chapter
+            targetEntity: Domain\Entity\Chapter
             inversedBy: scenes
             joinColumn:
                 onDelete: "CASCADE"
         createdBy:
-            targetEntity:  App\Entity\User
+            targetEntity:  Domain\Entity\User
             joinColumn:
                 onDelete: CASCADE
     manyToMany:
         characters:
-            targetEntity: App\Entity\Character
+            targetEntity: Domain\Entity\Character
             inversedBy: scenes
             cascade: [persist]
         items:
-            targetEntity: App\Entity\Item
+            targetEntity: Domain\Entity\Item
             inversedBy: scenes
             cascade: [persist]
         locations:
-            targetEntity: App\Entity\Location
+            targetEntity: Domain\Entity\Location
             inversedBy: scenes
             cascade: [persist]

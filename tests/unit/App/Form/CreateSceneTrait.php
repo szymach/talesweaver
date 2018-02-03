@@ -2,7 +2,7 @@
 
 namespace App\Tests\Form;
 
-use App\Entity\Scene;
+use Domain\Entity\Scene;
 use Ramsey\Uuid\Uuid;
 
 trait CreateSceneTrait

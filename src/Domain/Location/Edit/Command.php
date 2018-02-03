@@ -7,8 +7,8 @@ namespace Domain\Location\Edit;
 use App\Bus\Messages\EditionSuccessMessage;
 use App\Bus\Messages\Message;
 use App\Bus\Messages\MessageCommandInterface;
-use App\Entity\Location;
-use App\Entity\User;
+use Domain\Entity\Location;
+use Domain\Entity\User;
 use Domain\Security\UserAccessInterface;
 
 class Command implements MessageCommandInterface, UserAccessInterface

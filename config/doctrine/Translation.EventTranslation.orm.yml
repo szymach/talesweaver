@@ -1,5 +1,5 @@
 ---
-App\Entity\Translation\EventTranslation:
+Domain\Entity\Translation\EventTranslation:
     type: entity
     id:
         id:
@@ -16,7 +16,7 @@ App\Entity\Translation\EventTranslation:
                     locale: ~
     manyToOne:
         event:
-            targetEntity: App\Entity\Event
+            targetEntity: Domain\Entity\Event
             inversedBy: translations
             joinColumn:
                 onDelete: "CASCADE"

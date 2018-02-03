@@ -2,8 +2,8 @@
 
 namespace App\Tests\Form;
 
-use App\Entity\Location;
-use App\Entity\Scene;
+use Domain\Entity\Location;
+use Domain\Entity\Scene;
 use Ramsey\Uuid\Uuid;
 
 trait CreateLocationTrait

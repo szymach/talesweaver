@@ -7,7 +7,7 @@ namespace Domain\Item\Create;
 use App\Bus\Messages\CreationSuccessMessage;
 use App\Bus\Messages\Message;
 use App\Bus\Messages\MessageCommandInterface;
-use App\Entity\User;
+use Domain\Entity\User;
 use Domain\Security\Traits\UserAwareTrait;
 use Domain\Security\UserAccessInterface;
 use Domain\Security\UserAwareInterface;

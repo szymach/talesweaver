@@ -2,8 +2,8 @@
 
 namespace App\Tests\Form;
 
-use App\Entity\Character;
-use App\Entity\Scene;
+use Domain\Entity\Character;
+use Domain\Entity\Scene;
 use Ramsey\Uuid\Uuid;
 
 trait CreateCharacterTrait

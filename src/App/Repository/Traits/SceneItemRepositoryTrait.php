@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository\Traits;
 
-use App\Entity\Scene;
+use Domain\Entity\Scene;
 use App\Security\UserProvider;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;

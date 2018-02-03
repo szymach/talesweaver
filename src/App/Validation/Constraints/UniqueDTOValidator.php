@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Validation\Constraints;
 
-use App\Entity\Book;
-use App\Entity\Chapter;
-use App\Entity\Character;
-use App\Entity\Event;
-use App\Entity\Item;
-use App\Entity\Location;
-use App\Entity\Scene;
+use Domain\Entity\Book;
+use Domain\Entity\Chapter;
+use Domain\Entity\Character;
+use Domain\Entity\Event;
+use Domain\Entity\Item;
+use Domain\Entity\Location;
+use Domain\Entity\Scene;
 use App\Repository\BookRepository;
 use App\Repository\ChapterRepository;
 use App\Repository\CharacterRepository;

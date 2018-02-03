@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Domain\Character\Edit;
 
-use App\Entity\Character;
-use App\Entity\Scene;
+use Domain\Entity\Character;
+use Domain\Entity\Scene;
 use Domain\Model\IdentityTrait;
 use Doctrine\Common\Collections\Collection;
 use FSi\DoctrineExtensions\Uploadable\File;

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Entity\Translation;
+namespace Domain\Entity\Translation;
 
-use App\Entity\Scene;
-use App\Entity\Traits\LocaleTrait;
+use Domain\Entity\Scene;
+use Domain\Entity\Traits\LocaleTrait;
 
 class SceneTranslation
 {

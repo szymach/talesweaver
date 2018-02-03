@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Scene;
 
-use App\Entity\Scene;
+use Domain\Entity\Scene;
 use App\Form\Scene\EditType;
 use App\Routing\Scene\EditResponse;
 use App\Templating\Scene\EditView;

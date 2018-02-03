@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Bus\Traits;
 
-use App\Entity\User;
+use Domain\Entity\User;
 use RuntimeException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 

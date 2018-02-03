@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Bus;
 
-use App\Entity\User;
+use Domain\Entity\User;
 use Domain\Security\UserAwareInterface;
 use RuntimeException;
 use SimpleBus\Message\Bus\MessageBus;

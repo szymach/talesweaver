@@ -7,8 +7,8 @@ namespace Domain\Event\Delete;
 use App\Bus\Messages\DeletionSuccessMessage;
 use App\Bus\Messages\Message;
 use App\Bus\Messages\MessageCommandInterface;
-use App\Entity\Event;
-use App\Entity\User;
+use Domain\Entity\Event;
+use Domain\Entity\User;
 use Domain\Security\UserAccessInterface;
 use Ramsey\Uuid\UuidInterface;
 

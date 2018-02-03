@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace Domain\Entity;
 
-use App\Entity\User\ActivationToken;
-use App\Entity\User\PasswordResetToken;
+use Domain\Entity\User\ActivationToken;
+use Domain\Entity\User\PasswordResetToken;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use DomainException;

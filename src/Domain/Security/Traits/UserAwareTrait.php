@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Security\Traits;
 
-use App\Entity\User;
+use Domain\Entity\User;
 
 trait UserAwareTrait
 {

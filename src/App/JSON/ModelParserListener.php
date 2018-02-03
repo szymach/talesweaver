@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\JSON;
 
-use App\Entity\Event;
+use Domain\Entity\Event;
 use App\JSON\EventParser;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\DependencyInjection\ContainerInterface;

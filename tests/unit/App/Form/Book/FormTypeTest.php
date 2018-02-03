@@ -4,7 +4,7 @@ namespace App\Tests\Form\Book;
 
 use Domain\Book\Create;
 use Domain\Book\Edit;
-use App\Entity\Book;
+use Domain\Entity\Book;
 use App\Form\Book\CreateType;
 use App\Form\Book\EditType;
 use Codeception\Test\Unit;

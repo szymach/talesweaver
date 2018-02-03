@@ -7,8 +7,8 @@ namespace Domain\Scene\Delete;
 use App\Bus\Messages\DeletionSuccessMessage;
 use App\Bus\Messages\Message;
 use App\Bus\Messages\MessageCommandInterface;
-use App\Entity\Scene;
-use App\Entity\User;
+use Domain\Entity\Scene;
+use Domain\Entity\User;
 use Domain\Security\UserAccessInterface;
 use Ramsey\Uuid\UuidInterface;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Event;
 
-use App\Entity\Scene;
+use Domain\Entity\Scene;
 use App\Templating\Event\ListView;
 
 class ListController

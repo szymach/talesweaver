@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\DataFixtures\ORM;
 
-use App\Entity\Character;
-use App\Entity\Scene;
-use App\Entity\User;
+use Domain\Entity\Character;
+use Domain\Entity\Scene;
+use Domain\Entity\User;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;

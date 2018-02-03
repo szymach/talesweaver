@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Item;
 
-use App\Entity\Item;
+use Domain\Entity\Item;
 use App\Form\Item\EditType;
 use App\Templating\Item\FormView;
 use Domain\Item\Edit\Command;

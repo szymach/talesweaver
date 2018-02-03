@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Chapter;
 
-use App\Entity\Chapter;
+use Domain\Entity\Chapter;
 use App\Templating\Chapter\ScenesListView;
 
 class ScenesListController

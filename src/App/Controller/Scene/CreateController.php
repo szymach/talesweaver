@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Scene;
 
-use App\Entity\Chapter;
+use Domain\Entity\Chapter;
 use App\Form\Scene\CreateType;
 use App\Routing\RedirectToEdit;
 use App\Templating\SimpleFormView;

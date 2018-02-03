@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Event\Edit;
 
-use App\Entity\Event;
+use Domain\Entity\Event;
 use JsonSerializable;
 use Ramsey\Uuid\UuidInterface;
 

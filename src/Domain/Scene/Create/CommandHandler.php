@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Scene\Create;
 
-use App\Entity\Scene;
+use Domain\Entity\Scene;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class CommandHandler

@@ -6,7 +6,7 @@ namespace Domain\Security\Command;
 
 use App\Bus\Messages\Message;
 use App\Bus\Messages\MessageCommandInterface;
-use App\Entity\User;
+use Domain\Entity\User;
 use DomainException;
 
 class ActivateUser implements MessageCommandInterface

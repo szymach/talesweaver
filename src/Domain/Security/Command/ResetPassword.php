@@ -6,7 +6,7 @@ namespace Domain\Security\Command;
 
 use App\Bus\Messages\Message;
 use App\Bus\Messages\MessageCommandInterface;
-use App\Entity\User\PasswordResetToken;
+use Domain\Entity\User\PasswordResetToken;
 
 class ResetPassword implements MessageCommandInterface
 {

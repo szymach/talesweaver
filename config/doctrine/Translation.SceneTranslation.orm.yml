@@ -1,5 +1,5 @@
 ---
-App\Entity\Translation\SceneTranslation:
+Domain\Entity\Translation\SceneTranslation:
     type: entity
     id:
         id:
@@ -19,7 +19,7 @@ App\Entity\Translation\SceneTranslation:
                     locale: ~
     manyToOne:
         scene:
-            targetEntity: App\Entity\Scene
+            targetEntity: Domain\Entity\Scene
             inversedBy: translations
             joinColumn:
                 onDelete: "CASCADE"

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Location\Delete;
 
-use App\Entity\Location;
+use Domain\Entity\Location;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class CommandHandler

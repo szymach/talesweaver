@@ -5,7 +5,7 @@ Domain\Scene\Create\DTO:
             fields: { title: 't.title', chapter: 'e.chapter' }
             repositoryMethod: entityExists
             path: title
-            entityClass: App\Entity\Scene
+            entityClass: Domain\Entity\Scene
             message: scene.exists
     properties:
         title:
@@ -18,7 +18,7 @@ Domain\Scene\Edit\DTO:
             id: id
             repositoryMethod: entityExists
             path: title
-            entityClass: App\Entity\Scene
+            entityClass: Domain\Entity\Scene
             message: scene.exists
     properties:
         title:

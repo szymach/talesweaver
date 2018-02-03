@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Security;
 
-use App\Entity\User\PasswordResetToken;
+use Domain\Entity\User\PasswordResetToken;
 use App\Form\Security\ResetPasswordChangeType;
 use App\Repository\PasswordResetTokenRepository;
 use Domain\Security\Command\ResetPassword;

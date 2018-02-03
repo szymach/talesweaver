@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Entity\Traits;
+namespace Domain\Entity\Traits;
 
 use Doctrine\Common\Collections\Collection;
 

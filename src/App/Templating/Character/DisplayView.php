@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Templating\Character;
 
-use App\Entity\Character;
+use Domain\Entity\Character;
 use App\Templating\Engine;
 use App\Timeline\CharacterTimeline;
 use Symfony\Component\HttpFoundation\JsonResponse;

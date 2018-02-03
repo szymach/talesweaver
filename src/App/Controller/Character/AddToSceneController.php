@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Character;
 
-use App\Entity\Character;
-use App\Entity\Scene;
+use Domain\Entity\Character;
+use Domain\Entity\Scene;
 use Domain\Character\AddToScene\Command;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SimpleBus\Message\Bus\MessageBus;

@@ -2,7 +2,7 @@
 
 namespace App\Tests\Controller\Book;
 
-use App\Entity\Book;
+use Domain\Entity\Book;
 use App\Tests\FunctionalTester;
 
 class FormControllerCest

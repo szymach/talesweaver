@@ -1,5 +1,5 @@
 ---
-App\Entity\User\ActivationToken:
+Domain\Entity\User\ActivationToken:
     type: entity
     id:
         id:
@@ -11,7 +11,7 @@ App\Entity\User\ActivationToken:
             type: datetime_immutable
     manyToOne:
         user:
-            targetEntity: App\Entity\User
+            targetEntity: Domain\Entity\User
             inversedBy: activationTokens
             joinColumn:
                 onDelete: "CASCADE"

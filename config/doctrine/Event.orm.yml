@@ -1,5 +1,5 @@
 ---
-App\Entity\Event:
+Domain\Entity\Event:
     type: entity
     table: event_entity
     repositoryClass: App\Repository\Doctrine\EventRepository
@@ -26,16 +26,16 @@ App\Entity\Event:
             type: json_array
     oneToMany:
         translations:
-            targetEntity: App\Entity\Translation\EventTranslation
+            targetEntity: Domain\Entity\Translation\EventTranslation
             mappedBy: event
             indexBy: locale
             cascade: [persist, remove]
     manyToOne:
         scene:
-            targetEntity: App\Entity\Scene
+            targetEntity: Domain\Entity\Scene
             joinColumn:
                 onDelete: CASCADE
         createdBy:
-            targetEntity:  App\Entity\User
+            targetEntity:  Domain\Entity\User
             joinColumn:
                 onDelete: CASCADE

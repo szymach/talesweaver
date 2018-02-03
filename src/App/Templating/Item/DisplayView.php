@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Templating\Item;
 
-use App\Entity\Item;
+use Domain\Entity\Item;
 use App\Timeline\ItemTimeline;
 use App\Templating\Engine;
 use Symfony\Component\HttpFoundation\JsonResponse;

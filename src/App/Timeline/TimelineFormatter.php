@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Timeline;
 
-use App\Entity\Event;
+use Domain\Entity\Event;
 use App\Repository\EventRepository;
 use App\Repository\SceneRepository;
 use App\Templating\Engine;

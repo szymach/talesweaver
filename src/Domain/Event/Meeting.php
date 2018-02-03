@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Domain\Event;
 
-use App\Entity\Character;
-use App\Entity\Location;
-use App\Entity\User;
+use Domain\Entity\Character;
+use Domain\Entity\Location;
+use Domain\Entity\User;
 use Domain\Security\UserAccessInterface;
 use JsonSerializable;
 

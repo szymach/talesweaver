@@ -1,5 +1,5 @@
 ---
-App\Entity\User:
+Domain\Entity\User:
     type: entity
     table: app_user
     repositoryClass: App\Repository\Doctrine\UserRepository
@@ -17,13 +17,13 @@ App\Entity\User:
             type: json_array
     oneToMany:
         activationTokens:
-            targetEntity: App\Entity\User\ActivationToken
+            targetEntity: Domain\Entity\User\ActivationToken
             mappedBy: user
             cascade: ["persist", "remove"]
             orderBy:
                 createdAt: DESC
         passwordResetTokens:
-            targetEntity: App\Entity\User\PasswordResetToken
+            targetEntity: Domain\Entity\User\PasswordResetToken
             mappedBy: user
             cascade: ["persist", "remove"]
             orderBy:

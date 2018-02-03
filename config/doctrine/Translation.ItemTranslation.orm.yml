@@ -1,5 +1,5 @@
 ---
-App\Entity\Translation\ItemTranslation:
+Domain\Entity\Translation\ItemTranslation:
     type: entity
     id:
         id:
@@ -19,7 +19,7 @@ App\Entity\Translation\ItemTranslation:
                     locale: ~
     manyToOne:
         item:
-            targetEntity: App\Entity\Item
+            targetEntity: Domain\Entity\Item
             inversedBy: translations
             joinColumn:
                 onDelete: "CASCADE"

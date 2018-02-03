@@ -7,9 +7,9 @@ namespace Domain\Location\AddToScene;
 use App\Bus\Messages\AddedToSceneSuccessMessage;
 use App\Bus\Messages\Message;
 use App\Bus\Messages\MessageCommandInterface;
-use App\Entity\Location;
-use App\Entity\Scene;
-use App\Entity\User;
+use Domain\Entity\Location;
+use Domain\Entity\Scene;
+use Domain\Entity\User;
 use Domain\Security\UserAccessInterface;
 
 class Command implements MessageCommandInterface, UserAccessInterface

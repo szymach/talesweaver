@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\Event;
 
-use App\Entity\Scene;
+use Domain\Entity\Scene;
 use Domain\Event\Edit\DTO;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Entity\User;
+use Domain\Entity\User;
 use App\Repository\Doctrine\UserRepository as DoctrineRepository;
 
 class UserRepository

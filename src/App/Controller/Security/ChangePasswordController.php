@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Security;
 
-use App\Entity\User;
+use Domain\Entity\User;
 use App\Form\Security\ChangePasswordType;
 use Domain\Security\Command\ChangePassword;
 use SimpleBus\Message\Bus\MessageBus;

@@ -187,9 +187,9 @@ event:
             location: Miejsce
     timeline:
         creation:
-            'App\Entity\Character': 'Pojawił się w scene:'
-            'App\Entity\Item': 'Pojawił się w scene:'
-            'App\Entity\Location': 'Pojawiło się w scene:'
+            'Domain\Entity\Character': 'Pojawił się w scene:'
+            'Domain\Entity\Item': 'Pojawił się w scene:'
+            'Domain\Entity\Location': 'Pojawiło się w scene:'
     alert:
         created: Pomyślnie dodano nowe wydarzenie o nazwie "%title%".
         edit: Zapisano zmiany w wydarzeniu.
@@ -265,9 +265,9 @@ dashboard:
         Wybierz jedną z pozycji u góry by rozpocząć pracę.
     timeline: Ostatnie zmiany
     type:
-        'App\Entity\Book': Książka
-        'App\Entity\Chapter': Rozdział
-        'App\Entity\Scene': Scena
+        'Domain\Entity\Book': Książka
+        'Domain\Entity\Chapter': Rozdział
+        'Domain\Entity\Scene': Scena
     updated:
         0: Dodano
         1: Zaktualizowano

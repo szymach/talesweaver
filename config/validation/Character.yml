@@ -5,7 +5,7 @@ Domain\Character\Create\DTO:
             fields: { name: 't.name', scene: 'e.scenes' }
             repositoryMethod: entityExists
             path: name
-            entityClass: App\Entity\Character
+            entityClass: Domain\Entity\Character
             message: character.exists
     properties:
         avatar:
@@ -20,7 +20,7 @@ Domain\Character\Edit\DTO:
             id: id
             repositoryMethod: entityExists
             path: name
-            entityClass: App\Entity\Character
+            entityClass: Domain\Entity\Character
             message: character.exists
     properties:
         avatar:

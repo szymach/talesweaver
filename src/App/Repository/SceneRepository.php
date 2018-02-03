@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Entity\Chapter;
+use Domain\Entity\Chapter;
 use App\Repository\Doctrine\SceneRepository as DoctrineRepository;
 use App\Repository\Interfaces\FindableByIdRepository;
 use App\Repository\Interfaces\LatestChangesAwareRepository;

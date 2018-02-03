@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Entity\User;
+namespace Domain\Entity\User;
 
-use App\Entity\User;
+use Domain\Entity\User;
 use DateInterval;
 use DateTimeImmutable;
 

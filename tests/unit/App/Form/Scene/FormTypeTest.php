@@ -4,7 +4,7 @@ namespace App\Tests\Form\Scene;
 
 use Domain\Scene\Create;
 use Domain\Scene\Edit;
-use App\Entity\Scene;
+use Domain\Entity\Scene;
 use App\Form\Scene\CreateType;
 use App\Form\Scene\EditType;
 use Codeception\Test\Unit;

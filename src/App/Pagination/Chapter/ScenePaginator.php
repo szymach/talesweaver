@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Pagination\Chapter;
 
-use App\Entity\Chapter;
+use Domain\Entity\Chapter;
 use App\Repository\SceneRepository;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;

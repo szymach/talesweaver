@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Templating\Event;
 
-use App\Entity\Scene;
+use Domain\Entity\Scene;
 use App\Enum\SceneEvents;
 use App\Pagination\EventPaginator;
 use App\Templating\Engine;

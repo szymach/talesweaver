@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\Chapter;
 
-use App\Entity\Book;
+use Domain\Entity\Book;
 use Domain\Chapter\Create\DTO;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

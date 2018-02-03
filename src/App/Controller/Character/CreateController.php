@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Character;
 
-use App\Entity\Scene;
+use Domain\Entity\Scene;
 use App\Form\Character\CreateType;
 use App\Templating\Character\FormView;
 use Domain\Character\Create\Command;

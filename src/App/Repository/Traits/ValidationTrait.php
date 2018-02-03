@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository\Traits;
 
-use App\Entity\User;
+use Domain\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\UuidInterface;
 

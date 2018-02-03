@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
-use App\Entity\User;
-use App\Entity\User\PasswordResetToken;
+use Domain\Entity\User;
+use Domain\Entity\User\PasswordResetToken;
 use App\Tests\_generated\FunctionalTesterActions;
 use Codeception\Actor;
 use Codeception\Lib\Friend;

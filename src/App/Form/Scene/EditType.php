@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\Scene;
 
-use App\Entity\Chapter;
+use Domain\Entity\Chapter;
 use Domain\Scene\Edit\DTO;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

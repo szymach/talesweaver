@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Character;
 
-use App\Entity\Character;
+use Domain\Entity\Character;
 use App\Form\Character\EditType;
 use App\Templating\Character\FormView;
 use Domain\Character\Edit\Command;

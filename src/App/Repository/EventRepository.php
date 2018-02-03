@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Entity\Scene;
+use Domain\Entity\Scene;
 use App\Repository\Doctrine\EventRepository as DoctrineRepository;
 use App\Repository\Interfaces\FindableByIdRepository;
 use App\Repository\Traits\ParamConverterRepository;

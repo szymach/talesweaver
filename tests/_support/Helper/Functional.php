@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Helper;
 
-use App\Entity\User;
+use Domain\Entity\User;
 use App\Repository\Doctrine\UserRepository;
 use App\Tests\FunctionalTester;
 use Codeception\Module;

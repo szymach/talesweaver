@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Chapter;
 
-use App\Entity\Book;
+use Domain\Entity\Book;
 use App\Form\Chapter\CreateType;
 use App\Routing\RedirectToEdit;
 use App\Templating\SimpleFormView;

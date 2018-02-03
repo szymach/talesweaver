@@ -2,10 +2,10 @@
 
 namespace App\Tests\Form\Event;
 
-use App\Entity\Character;
-use App\Entity\Event;
-use App\Entity\Location;
-use App\Entity\Scene;
+use Domain\Entity\Character;
+use Domain\Entity\Event;
+use Domain\Entity\Location;
+use Domain\Entity\Scene;
 use App\Form\Event\CreateType;
 use App\Form\Event\EditType;
 use App\Form\Event\MeetingType;

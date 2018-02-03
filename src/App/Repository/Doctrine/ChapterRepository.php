@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repository\Doctrine;
 
-use App\Entity\Book;
-use App\Entity\User;
+use Domain\Entity\Book;
+use Domain\Entity\User;
 use App\Repository\Traits\LatestResultsTrait;
 use App\Repository\Traits\ValidationTrait;
 use Doctrine\ORM\QueryBuilder;

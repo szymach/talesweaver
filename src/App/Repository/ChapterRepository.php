@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Entity\Book;
+use Domain\Entity\Book;
 use App\Repository\Doctrine\ChapterRepository as DoctrineRepository;
 use App\Repository\Interfaces\FindableByIdRepository;
 use App\Repository\Interfaces\LatestChangesAwareRepository;

@@ -9,9 +9,9 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
         mappings:
-            App:
+            Domain:
                 is_bundle: false
                 type: yml
                 dir: '%kernel.project_dir%/config/doctrine'
-                prefix: 'App\Entity'
-                alias: App
+                prefix: 'Domain\Entity'
+                alias: Domain

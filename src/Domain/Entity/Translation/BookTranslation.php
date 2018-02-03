@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Entity\Translation;
+namespace Domain\Entity\Translation;
 
-use App\Entity\Book;
-use App\Entity\Traits\LocaleTrait;
+use Domain\Entity\Book;
+use Domain\Entity\Traits\LocaleTrait;
 
 class BookTranslation
 {

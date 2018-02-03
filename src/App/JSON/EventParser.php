@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\JSON;
 
-use App\Entity\Character;
-use App\Entity\Event;
-use App\Entity\Item;
-use App\Entity\Location;
+use Domain\Entity\Character;
+use Domain\Entity\Event;
+use Domain\Entity\Item;
+use Domain\Entity\Location;
 use App\Repository\CharacterRepository;
 use App\Repository\ItemRepository;
 use App\Repository\LocationRepository;

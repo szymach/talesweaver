@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Helper;
 
-use App\Entity\User;
+use Domain\Entity\User;
 use Codeception\Module;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;

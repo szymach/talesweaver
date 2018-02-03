@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Location;
 
-use App\Entity\Location;
-use App\Entity\Scene;
+use Domain\Entity\Location;
+use Domain\Entity\Scene;
 use Domain\Location\RemoveFromScene\Command;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SimpleBus\Message\Bus\MessageBus;

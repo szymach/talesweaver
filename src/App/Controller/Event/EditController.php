@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Event;
 
-use App\Entity\Event;
+use Domain\Entity\Event;
 use App\Enum\SceneEvents;
 use App\Form\Event\EditType;
 use App\Templating\Event\FormView;

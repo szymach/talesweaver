@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Pagination\Location;
 
 use App\Repository\LocationRepository;
-use App\Entity\Scene;
+use Domain\Entity\Scene;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 

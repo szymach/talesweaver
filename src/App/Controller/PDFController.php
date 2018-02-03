@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\Chapter;
-use App\Entity\Scene;
+use Domain\Entity\Chapter;
+use Domain\Entity\Scene;
 use Knp\Snappy\GeneratorInterface;
 use App\Templating\Engine;
 use Symfony\Component\HttpFoundation\Response;

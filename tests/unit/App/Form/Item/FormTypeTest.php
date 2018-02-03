@@ -2,7 +2,7 @@
 
 namespace App\Tests\Form\Item;
 
-use App\Entity\Item;
+use Domain\Entity\Item;
 use App\Form\Item\CreateType;
 use App\Form\Item\EditType;
 use Codeception\Test\Unit;

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Templating;
 
-use App\Entity\Book;
-use App\Entity\Chapter;
-use App\Entity\Scene;
+use Domain\Entity\Book;
+use Domain\Entity\Chapter;
+use Domain\Entity\Scene;
 use App\Repository\BookRepository;
 use App\Repository\ChapterRepository;
 use App\Repository\Interfaces\LatestChangesAwareRepository;

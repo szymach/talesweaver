@@ -2,8 +2,8 @@
 
 namespace App\Tests\Controller\Chapter;
 
-use App\Entity\Chapter;
-use App\Entity\Scene;
+use Domain\Entity\Chapter;
+use Domain\Entity\Scene;
 use App\Tests\FunctionalTester;
 
 class FormControllerCest

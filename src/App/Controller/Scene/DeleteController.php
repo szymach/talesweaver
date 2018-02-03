@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Scene;
 
-use App\Entity\Scene;
+use Domain\Entity\Scene;
 use App\Routing\RedirectToEdit;
 use App\Routing\RedirectToList;
 use Domain\Scene\Delete\Command;

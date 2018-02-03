@@ -5,7 +5,7 @@ Domain\Event\Create\DTO:
             fields: { name: 't.name', scene: 'e.scene' }
             repositoryMethod: entityExists
             path: name
-            entityClass: App\Entity\Event
+            entityClass: Domain\Entity\Event
             message: event.exists
     properties:
         name:
@@ -22,7 +22,7 @@ Domain\Event\Edit\DTO:
             fields: { name: 't.name', scene: 'e.scene' }
             repositoryMethod: entityExists
             path: name
-            entityClass: App\Entity\Event
+            entityClass: Domain\Entity\Event
             message: event.exists
     properties:
         name:

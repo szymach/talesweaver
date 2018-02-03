@@ -2,8 +2,8 @@
 
 namespace App\Tests\Controller\Security;
 
-use App\Entity\User;
-use App\Entity\User\ActivationToken;
+use Domain\Entity\User;
+use Domain\Entity\User\ActivationToken;
 use App\Tests\FunctionalTester;
 
 class RegisterControllerCest

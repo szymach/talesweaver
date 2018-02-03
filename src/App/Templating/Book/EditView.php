@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Templating\Book;
 
-use App\Entity\Book;
+use Domain\Entity\Book;
 use App\Form\Chapter\CreateType;
 use App\Pagination\Book\ChapterPaginator;
 use App\Templating\Engine;

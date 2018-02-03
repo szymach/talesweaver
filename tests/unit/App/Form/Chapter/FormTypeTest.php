@@ -4,7 +4,7 @@ namespace App\Tests\Form\Chapter;
 
 use Domain\Chapter\Create;
 use Domain\Chapter\Edit;
-use App\Entity\Chapter;
+use Domain\Entity\Chapter;
 use App\Form\Chapter\CreateType;
 use App\Form\Chapter\EditType;
 use Codeception\Test\Unit;

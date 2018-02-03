@@ -1,5 +1,5 @@
 ---
-App\Entity\Item:
+Domain\Entity\Item:
     type: entity
     repositoryClass: App\Repository\Doctrine\ItemRepository
     id:
@@ -28,22 +28,22 @@ App\Entity\Item:
             nullable: true
     oneToMany:
         translations:
-            targetEntity: App\Entity\Translation\ItemTranslation
+            targetEntity: Domain\Entity\Translation\ItemTranslation
             mappedBy: item
             indexBy: locale
             cascade: [persist, remove]
     manyToOne:
         createdBy:
-            targetEntity:  App\Entity\User
+            targetEntity:  Domain\Entity\User
             joinColumn:
                 onDelete: CASCADE
     manyToMany:
         scenes:
-            targetEntity: App\Entity\Scene
+            targetEntity: Domain\Entity\Scene
             mappedBy: items
         characters:
-            targetEntity: App\Entity\Character
+            targetEntity: Domain\Entity\Character
             mappedBy: items
         locations:
-            targetEntity: App\Entity\Location
+            targetEntity: Domain\Entity\Location
             mappedBy: items

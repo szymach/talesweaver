@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Entity\Translation;
+namespace Domain\Entity\Translation;
 
-use App\Entity\Item;
-use App\Entity\Traits\LocaleTrait;
+use Domain\Entity\Character;
+use Domain\Entity\Traits\LocaleTrait;
 
-class ItemTranslation
+class CharacterTranslation
 {
     use LocaleTrait;
 
@@ -27,16 +27,16 @@ class ItemTranslation
     private $description;
 
     /**
-     * @var Item
+     * @var Character
      */
-    private $item;
+    private $character;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setName($name): void
+    public function setName(?string $name)
     {
         $this->name = $name;
     }
@@ -46,7 +46,7 @@ class ItemTranslation
         return $this->name;
     }
 
-    public function setDescription($description): void
+    public function setDescription(?string $description)
     {
         $this->description = $description;
     }
@@ -56,13 +56,13 @@ class ItemTranslation
         return $this->description;
     }
 
-    public function setItem(?Item $item): void
+    public function setCharacter(?Character $character)
     {
-        $this->item = $item;
+        $this->character = $character;
     }
 
-    public function getItem(): ?Item
+    public function getCharacter(): ?Character
     {
-        return $this->item;
+        return $this->character;
     }
 }

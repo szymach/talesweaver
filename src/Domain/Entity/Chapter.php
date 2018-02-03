@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace Domain\Entity;
 
-use App\Entity\Traits\CreatedByTrait;
-use App\Entity\Traits\TimestampableTrait;
-use App\Entity\Traits\TranslatableTrait;
+use Domain\Entity\Traits\CreatedByTrait;
+use Domain\Entity\Traits\TimestampableTrait;
+use Domain\Entity\Traits\TranslatableTrait;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

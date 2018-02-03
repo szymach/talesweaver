@@ -5,7 +5,7 @@ Domain\Book\Create\DTO:
             fields: { title: 't.title' }
             repositoryMethod: entityExists
             path: title
-            entityClass: App\Entity\Book
+            entityClass: Domain\Entity\Book
             message: book.exists
     properties:
         title:
@@ -18,7 +18,7 @@ Domain\Book\Edit\DTO:
             id: id
             repositoryMethod: entityExists
             path: title
-            entityClass: App\Entity\Book
+            entityClass: Domain\Entity\Book
             message: book.exists
     properties:
         title:

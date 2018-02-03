@@ -2,7 +2,7 @@
 
 namespace App\Tests\Controller\Chapter;
 
-use App\Entity\Chapter;
+use Domain\Entity\Chapter;
 use App\Tests\FunctionalTester;
 use Ramsey\Uuid\Uuid;
 

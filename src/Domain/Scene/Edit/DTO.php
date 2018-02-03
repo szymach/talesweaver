@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Domain\Scene\Edit;
 
-use App\Entity\Chapter;
-use App\Entity\Scene;
+use Domain\Entity\Chapter;
+use Domain\Entity\Scene;
 use Domain\Model\IdentityTrait;
 
 class DTO
