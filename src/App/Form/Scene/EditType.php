@@ -6,10 +6,10 @@ namespace App\Form\Scene;
 
 use Domain\Entity\Chapter;
 use Domain\Scene\Edit\DTO;
-use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,9 +26,9 @@ class EditType extends AbstractType
             'required' => false
         ]);
 
-        $builder->add('text', CKEditorType::class, [
+        $builder->add('text', TextareaType::class, [
             'label' => false,
-            'attr' => ['class' => 'ckeditor-focusable']
+            'attr' => ['class' => 'ckeditor']
         ]);
     }
 

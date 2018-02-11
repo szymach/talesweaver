@@ -1,4 +1,4 @@
-var $ = require('jquery');
+import * as $ from 'jquery';
 
 $(document).on('ajaxStart', showBackdrop);
 $(document).on('ajaxComplete', hideBackdrop);
@@ -8,7 +8,7 @@ $(document).ready(function() {
     setAlertFadeOuts();
     closeModal();
     focusFirstInupt();
-    focusCkeditor();
+    //focusCkeditor();
 
     $('main').on('click', '.js-load-form', function(event) {
         event.preventDefault();

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Form\Book;
 
 use Domain\Book\Edit\DTO;
-use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,10 +18,10 @@ class EditType extends AbstractType
     {
         $builder->add('title', TextType::class, ['label' => 'book.title']);
 
-        $builder->add('description', CKEditorType::class, [
+        $builder->add('description', TextareaType::class, [
             'label' => 'book.description',
-            'required' => false,
-            'config_name' => 'small_size'
+            'attr' => ['class' => 'ckeditor'],
+            'required' => false
         ]);
     }
 

@@ -33,7 +33,6 @@
         "ext-gd": "*",
         "ext-intl": "*",
         "ext-mbstring": "*",
-        "fsi/ckeditor-bundle": "^7.0",
         "fsi/doctrine-extensions": "^2.0@dev",
         "fsi/doctrine-extensions-bundle": "^2.0@dev",
         "jms/i18n-routing-bundle": "^2.0",
@@ -78,8 +77,7 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd",
-            "ckeditor:install -n --clear=skip public/bundles/ivoryckeditor": "symfony-cmd"
+            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"

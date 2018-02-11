@@ -10,6 +10,7 @@ use FSi\Bundle\DoctrineExtensionsBundle\Form\Type\FSi\RemovableFileType;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,9 +27,9 @@ class EditType extends AbstractType
             'required' => false
         ]);
 
-        $builder->add('description', CKEditorType::class, [
+        $builder->add('description', TextareaType::class, [
             'label' => 'character.description',
-            'config_name' => 'small_size',
+            'attr' => ['class' => 'ckeditor'],
             'required' => false
         ]);
     }
