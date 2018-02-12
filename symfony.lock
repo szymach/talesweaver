@@ -11,6 +11,9 @@
     "codeception/codeception": {
         "version": "2.3.7"
     },
+    "codeception/stub": {
+        "version": "1.0.1"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {

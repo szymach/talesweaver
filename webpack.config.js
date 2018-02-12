@@ -1,6 +1,7 @@
+const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const webpack = require('webpack');
+const ClearWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
 const path = require('path');
@@ -11,17 +12,16 @@ module.exports = {
         "bootstrap-loader",
         "./assets/scss/base.scss",
         "./assets/scss/ckeditor.scss",
-        "./assets/js/app.js",
-        "./assets/js/sidemenu.js",
-        "./assets/js/autosave.js",
+        "./assets/js/typescript/app.ts",
         "./assets/js/ckeditor.js"
     ],
+    devtool: "source-map",
     output: {
         path: path.resolve(__dirname, 'public/assets'),
         filename: 'scripts.js'
     },
     resolve: {
-        extensions: [ '.js' ]
+        extensions: [ '.js', ".ts" ]
     },
     plugins: [
         new ExtractTextPlugin({ filename: 'styles.css', allChunks: true }),
@@ -29,6 +29,9 @@ module.exports = {
         new CKEditorWebpackPlugin({
             languages: ['pl', 'en'],
             language: 'pl'
+        }),
+        new ClearWebpackPlugin([path.resolve(__dirname, 'public/assets')], {
+            verbose: true
         }),
 //        new UglifyJsPlugin({
 //            uglifyOptions: {
@@ -40,6 +43,7 @@ module.exports = {
     ],
     module: {
         rules: [
+            { test: /\.ts$/, loader: "awesome-typescript-loader" },
             { test: /\.scss$/, use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'postcss-loader', 'sass-loader'] }) },
             { test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, use: ["url-loader"] },
             {
