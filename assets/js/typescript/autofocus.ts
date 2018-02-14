@@ -1,7 +1,7 @@
 import * as $ from 'jquery';
 
 export function onStatic() {
-    let staticInputs = [
+    const staticInputs = [
         'form [name="_username"]',
         'form[name="reset_password_request"] [name="reset_password_request[username]"]',
         'form[name="register"] [name="register[username]"]',
@@ -12,7 +12,7 @@ export function onStatic() {
     ];
 
     Array.prototype.forEach.call(staticInputs, function (field : string) {
-        let $input = $(field);
+        let $input : JQuery<HTMLElement> = $(field);
         if ($input.length) {
             $input.trigger('focus');
         }

@@ -217,6 +217,12 @@
   version "3.5.20"
   resolved "https://registry.yarnpkg.com/@types/bluebird/-/bluebird-3.5.20.tgz#f6363172add6f4eabb8cada53ca9af2781e8d6a1"
 
+"@types/bootstrap@^3.3.37":
+  version "3.3.37"
+  resolved "https://registry.yarnpkg.com/@types/bootstrap/-/bootstrap-3.3.37.tgz#35a83106cb1131972977cf075a8d95cc05e895b0"
+  dependencies:
+    "@types/jquery" "*"
+
 "@types/chai-jquery@1.1.35":
   version "1.1.35"
   resolved "https://registry.yarnpkg.com/@types/chai-jquery/-/chai-jquery-1.1.35.tgz#9a8f0a39ec0851b2768a8f8c764158c2a2568d04"
