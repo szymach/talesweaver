@@ -19,11 +19,8 @@ trait ValidationTrait
      */
     private $joinAliasCount = 0;
 
-    public function entityExists(
-        User $user,
-        array $parameters,
-        ?UuidInterface $id
-    ): bool {
+    public function entityExists(User $user, array $parameters, ?UuidInterface $id): bool
+    {
         $qb = $this->getEntityManager()
             ->createQueryBuilder()
             ->select('COUNT(e.id)')
@@ -44,15 +41,15 @@ trait ValidationTrait
                 $qb->andWhere(sprintf('%s IS NULL', $name));
             } elseif ($metadata->isCollectionValuedAssociation($fieldLabel)) {
                 $joinAlias = sprintf('jAlias%s', ++$this->joinAliasCount);
-                $qb->leftJoin($name, $joinAlias)
-                    ->andWhere(sprintf('%s MEMBER OF %s', $joinAlias, $name))
-                    ->andWhere(sprintf('%s = :%s', $joinAlias, $fieldLabel))
-                    ->setParameter($fieldLabel, $value)
+                $qb->leftJoin($name, $joinAlias)->andWhere(sprintf('%s MEMBER OF %s', $joinAlias, $name));
+                $condition = is_iterable($value)
+                    ? sprintf('%s IN (:%s)', $joinAlias, implode(',', (array) $fieldLabel))
+                    : sprintf('%s = :%s', $joinAlias, $fieldLabel)
                 ;
+
+                $qb->andWhere($condition)->setParameter($fieldLabel, $value);
             } else {
-                $qb->andWhere(sprintf('%s = :%s', $name, $fieldLabel))
-                    ->setParameter($fieldLabel, $value)
-                ;
+                $qb->andWhere(sprintf('%s = :%s', $name, $fieldLabel))->setParameter($fieldLabel, $value);
             }
         }
 

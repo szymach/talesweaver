@@ -35,22 +35,20 @@ function bindAjaxForm($listTable : JQuery<HTMLElement>)
     });
 }
 
-function submitForm($form : JQuery<HTMLElement>, $listTable : JQuery<HTMLElement>)
+function submitForm($form : any, $listTable : JQuery<HTMLElement>)
 {
-    let form : HTMLFormElement = new HTMLFormElement();
-    form.outerHtml = $form.html();
     $.ajax({
         method: "POST",
         url: $form.attr('action'),
         processData: false,
         contentType: false,
-        data: new FormData(form),
+        data: new FormData($form[0]),
         success: function() {
             ajaxContainer.clearAjaxContainer();
             lists.refreshList($listTable);
             alerts.displayAlerts();
         },
-        error: function(xhr) {
+        error: function(xhr : any) {
             ajaxContainer.clearAjaxContainer();
             let response : any = JSON.parse(xhr.responseText);
             if (typeof response.form !== 'undefined') {
