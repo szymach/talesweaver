@@ -275,9 +275,6 @@
     "symfony/cache": {
         "version": "v4.0.2"
     },
-    "symfony/class-loader": {
-        "version": "v3.4.2"
-    },
     "symfony/config": {
         "version": "v3.4.2"
     },

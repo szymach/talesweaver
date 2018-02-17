@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d0fb9ea450b7d5259babb09550efbe48",
+    "content-hash": "f22d09c243a1b83f906ceab60d2509c6",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1091,28 +1091,27 @@
         },
         {
             "name": "jms/i18n-routing-bundle",
-            "version": "2.0.4",
+            "version": "3.0.2",
             "target-dir": "JMS/I18nRoutingBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/JMSI18nRoutingBundle.git",
-                "reference": "052917faa3f00801c288f6d475ef7e2485928d5b"
+                "reference": "712a76f6fc30127bd73b662a72f59c546201c995"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/JMSI18nRoutingBundle/zipball/052917faa3f00801c288f6d475ef7e2485928d5b",
-                "reference": "052917faa3f00801c288f6d475ef7e2485928d5b",
+                "url": "https://api.github.com/repos/schmittjoh/JMSI18nRoutingBundle/zipball/712a76f6fc30127bd73b662a72f59c546201c995",
+                "reference": "712a76f6fc30127bd73b662a72f59c546201c995",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9",
-                "symfony/framework-bundle": "~2.3|~3.0"
+                "php": "^7.1",
+                "symfony/framework-bundle": "^4.0"
             },
             "require-dev": {
-                "jms/di-extra-bundle": "~1.1",
-                "phpunit/phpunit": "~4",
+                "phpunit/phpunit": "^6.0",
                 "sensio/framework-extra-bundle": "*",
-                "symfony/symfony": "~2.3|~3.0"
+                "symfony/symfony": "^4.0"
             },
             "suggest": {
                 "jms/translation-bundle": "If you want to use the RouteTranslation extractor"
@@ -1137,14 +1136,14 @@
                     "email": "albertcasademont@gmail.com"
                 }
             ],
-            "description": "This bundle allows you to create i18n routes. Fork of the jms/i18n-routing-bundle",
+            "description": "This bundle allows you to create i18n routes.",
             "homepage": "http://jmsyst.com/bundles/JMSI18nRoutingBundle",
             "keywords": [
                 "multilanguage",
                 "routing",
                 "translation"
             ],
-            "time": "2017-12-06T11:56:15+00:00"
+            "time": "2017-12-06T09:20:21+00:00"
         },
         {
             "name": "knplabs/gaufrette",
@@ -2184,16 +2183,16 @@
         },
         {
             "name": "sensio/framework-extra-bundle",
-            "version": "v5.1.5",
+            "version": "v5.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-                "reference": "93ae48d5f4b567105bcc058c3a8ba506176eca8a"
+                "reference": "bf4940572e43af679aaa13be98f3446a1c237bd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/93ae48d5f4b567105bcc058c3a8ba506176eca8a",
-                "reference": "93ae48d5f4b567105bcc058c3a8ba506176eca8a",
+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/bf4940572e43af679aaa13be98f3446a1c237bd8",
+                "reference": "bf4940572e43af679aaa13be98f3446a1c237bd8",
                 "shasum": ""
             },
             "require": {
@@ -2249,7 +2248,7 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2018-02-06T19:53:10+00:00"
+            "time": "2018-02-14T08:40:54+00:00"
         },
         {
             "name": "simple-bus/message-bus",
@@ -2551,62 +2550,6 @@
                 "psr6"
             ],
             "time": "2018-01-18T22:19:33+00:00"
-        },
-        {
-            "name": "symfony/class-loader",
-            "version": "v3.4.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/class-loader.git",
-                "reference": "e63c12699822bb3b667e7216ba07fbcc3a3e203e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/class-loader/zipball/e63c12699822bb3b667e7216ba07fbcc3a3e203e",
-                "reference": "e63c12699822bb3b667e7216ba07fbcc3a3e203e",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.5.9|>=7.0.8"
-            },
-            "require-dev": {
-                "symfony/finder": "~2.8|~3.0|~4.0",
-                "symfony/polyfill-apcu": "~1.1"
-            },
-            "suggest": {
-                "symfony/polyfill-apcu": "For using ApcClassLoader on HHVM"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.4-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\ClassLoader\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony ClassLoader Component",
-            "homepage": "https://symfony.com",
-            "time": "2018-01-03T07:37:34+00:00"
         },
         {
             "name": "symfony/config",
@@ -3201,45 +3144,45 @@
         },
         {
             "name": "symfony/form",
-            "version": "v3.4.4",
+            "version": "v4.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/form.git",
-                "reference": "38baa1f09d9592fd3382d83073542d599b8b3f55"
+                "reference": "46ff2f07ea787a500a9a7000389744c1445fb40e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/form/zipball/38baa1f09d9592fd3382d83073542d599b8b3f55",
-                "reference": "38baa1f09d9592fd3382d83073542d599b8b3f55",
+                "url": "https://api.github.com/repos/symfony/form/zipball/46ff2f07ea787a500a9a7000389744c1445fb40e",
+                "reference": "46ff2f07ea787a500a9a7000389744c1445fb40e",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5.9|>=7.0.8",
-                "symfony/event-dispatcher": "~2.8|~3.0|~4.0",
-                "symfony/intl": "^2.8.18|^3.2.5|~4.0",
+                "php": "^7.1.3",
+                "symfony/event-dispatcher": "~3.4|~4.0",
+                "symfony/intl": "~3.4|~4.0",
                 "symfony/options-resolver": "~3.4|~4.0",
                 "symfony/polyfill-mbstring": "~1.0",
-                "symfony/property-access": "~2.8|~3.0|~4.0"
+                "symfony/property-access": "~3.4|~4.0"
             },
             "conflict": {
                 "phpunit/phpunit": "<4.8.35|<5.4.3,>=5.0",
-                "symfony/dependency-injection": "<3.3",
-                "symfony/doctrine-bridge": "<2.7",
+                "symfony/dependency-injection": "<3.4",
+                "symfony/doctrine-bridge": "<3.4",
                 "symfony/framework-bundle": "<3.4",
-                "symfony/http-kernel": "<3.3.5",
+                "symfony/http-kernel": "<3.4",
                 "symfony/twig-bridge": "<3.4"
             },
             "require-dev": {
                 "doctrine/collections": "~1.0",
-                "symfony/config": "~2.7|~3.0|~4.0",
+                "symfony/config": "~3.4|~4.0",
                 "symfony/console": "~3.4|~4.0",
-                "symfony/dependency-injection": "~3.3|~4.0",
-                "symfony/http-foundation": "~2.8|~3.0|~4.0",
-                "symfony/http-kernel": "^3.3.5|~4.0",
-                "symfony/security-csrf": "~2.8|~3.0|~4.0",
-                "symfony/translation": "~2.8|~3.0|~4.0",
-                "symfony/validator": "^3.2.5|~4.0",
-                "symfony/var-dumper": "~3.3.11|~3.4|~4.0"
+                "symfony/dependency-injection": "~3.4|~4.0",
+                "symfony/http-foundation": "~3.4|~4.0",
+                "symfony/http-kernel": "~3.4|~4.0",
+                "symfony/security-csrf": "~3.4|~4.0",
+                "symfony/translation": "~3.4|~4.0",
+                "symfony/validator": "~3.4|~4.0",
+                "symfony/var-dumper": "~3.4|~4.0"
             },
             "suggest": {
                 "symfony/framework-bundle": "For templating with PHP.",
@@ -3250,7 +3193,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.4-dev"
+                    "dev-master": "4.0-dev"
                 }
             },
             "autoload": {
@@ -3277,33 +3220,32 @@
             ],
             "description": "Symfony Form Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-29T09:03:43+00:00"
+            "time": "2018-01-29T09:06:29+00:00"
         },
         {
             "name": "symfony/framework-bundle",
-            "version": "v3.4.4",
+            "version": "v4.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/framework-bundle.git",
-                "reference": "fc9e348327603fbc1158fc2b731666e6fe1b4266"
+                "reference": "3766b9b88e9918f68560b58a404340b41112b861"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/framework-bundle/zipball/fc9e348327603fbc1158fc2b731666e6fe1b4266",
-                "reference": "fc9e348327603fbc1158fc2b731666e6fe1b4266",
+                "url": "https://api.github.com/repos/symfony/framework-bundle/zipball/3766b9b88e9918f68560b58a404340b41112b861",
+                "reference": "3766b9b88e9918f68560b58a404340b41112b861",
                 "shasum": ""
             },
             "require": {
                 "ext-xml": "*",
-                "php": "^5.5.9|>=7.0.8",
+                "php": "^7.1.3",
                 "symfony/cache": "~3.4|~4.0",
-                "symfony/class-loader": "~3.2",
                 "symfony/config": "~3.4|~4.0",
                 "symfony/dependency-injection": "^3.4.3|^4.0.3",
                 "symfony/event-dispatcher": "~3.4|~4.0",
-                "symfony/filesystem": "~2.8|~3.0|~4.0",
-                "symfony/finder": "~2.8|~3.0|~4.0",
-                "symfony/http-foundation": "^3.3.11|~4.0",
+                "symfony/filesystem": "~3.4|~4.0",
+                "symfony/finder": "~3.4|~4.0",
+                "symfony/http-foundation": "~3.4|~4.0",
                 "symfony/http-kernel": "~3.4|~4.0",
                 "symfony/polyfill-mbstring": "~1.0",
                 "symfony/routing": "~3.4|~4.0"
@@ -3312,44 +3254,44 @@
                 "phpdocumentor/reflection-docblock": "<3.0",
                 "phpdocumentor/type-resolver": "<0.2.1",
                 "phpunit/phpunit": "<4.8.35|<5.4.3,>=5.0",
-                "symfony/asset": "<3.3",
+                "symfony/asset": "<3.4",
                 "symfony/console": "<3.4",
                 "symfony/form": "<3.4",
-                "symfony/property-info": "<3.3",
-                "symfony/serializer": "<3.3",
+                "symfony/property-info": "<3.4",
+                "symfony/serializer": "<3.4",
                 "symfony/stopwatch": "<3.4",
                 "symfony/translation": "<3.4",
                 "symfony/validator": "<3.4",
-                "symfony/workflow": "<3.3"
+                "symfony/workflow": "<3.4"
             },
             "require-dev": {
                 "doctrine/annotations": "~1.0",
                 "doctrine/cache": "~1.0",
                 "fig/link-util": "^1.0",
                 "phpdocumentor/reflection-docblock": "^3.0|^4.0",
-                "symfony/asset": "~3.3|~4.0",
-                "symfony/browser-kit": "~2.8|~3.0|~4.0",
+                "symfony/asset": "~3.4|~4.0",
+                "symfony/browser-kit": "~3.4|~4.0",
                 "symfony/console": "~3.4|~4.0",
-                "symfony/css-selector": "~2.8|~3.0|~4.0",
-                "symfony/dom-crawler": "~2.8|~3.0|~4.0",
-                "symfony/expression-language": "~2.8|~3.0|~4.0",
+                "symfony/css-selector": "~3.4|~4.0",
+                "symfony/dom-crawler": "~3.4|~4.0",
+                "symfony/expression-language": "~3.4|~4.0",
                 "symfony/form": "~3.4|~4.0",
                 "symfony/lock": "~3.4|~4.0",
                 "symfony/polyfill-intl-icu": "~1.0",
-                "symfony/process": "~2.8|~3.0|~4.0",
-                "symfony/property-info": "~3.3|~4.0",
-                "symfony/security": "~2.8|~3.0|~4.0",
-                "symfony/security-core": "~3.2|~4.0",
-                "symfony/security-csrf": "~2.8|~3.0|~4.0",
-                "symfony/serializer": "~3.3|~4.0",
+                "symfony/process": "~3.4|~4.0",
+                "symfony/property-info": "~3.4|~4.0",
+                "symfony/security": "~3.4|~4.0",
+                "symfony/security-core": "~3.4|~4.0",
+                "symfony/security-csrf": "~3.4|~4.0",
+                "symfony/serializer": "~3.4|~4.0",
                 "symfony/stopwatch": "~3.4|~4.0",
-                "symfony/templating": "~2.8|~3.0|~4.0",
+                "symfony/templating": "~3.4|~4.0",
                 "symfony/translation": "~3.4|~4.0",
                 "symfony/validator": "~3.4|~4.0",
-                "symfony/var-dumper": "~3.3|~4.0",
-                "symfony/web-link": "~3.3|~4.0",
-                "symfony/workflow": "~3.3|~4.0",
-                "symfony/yaml": "~3.2|~4.0",
+                "symfony/var-dumper": "~3.4|~4.0",
+                "symfony/web-link": "~3.4|~4.0",
+                "symfony/workflow": "~3.4|~4.0",
+                "symfony/yaml": "~3.4|~4.0",
                 "twig/twig": "~1.34|~2.4"
             },
             "suggest": {
@@ -3365,7 +3307,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.4-dev"
+                    "dev-master": "4.0-dev"
                 }
             },
             "autoload": {
@@ -3392,7 +3334,7 @@
             ],
             "description": "Symfony FrameworkBundle",
             "homepage": "https://symfony.com",
-            "time": "2018-01-29T09:03:43+00:00"
+            "time": "2018-01-29T09:06:29+00:00"
         },
         {
             "name": "symfony/http-foundation",
@@ -4428,16 +4370,16 @@
         },
         {
             "name": "symfony/swiftmailer-bundle",
-            "version": "v3.1.6",
+            "version": "v3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/swiftmailer-bundle.git",
-                "reference": "9728097df87e76e2db71fc41fd7d211c06daea3e"
+                "reference": "7756867d9b21231ae0ce746a6b861b7e293cc885"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/swiftmailer-bundle/zipball/9728097df87e76e2db71fc41fd7d211c06daea3e",
-                "reference": "9728097df87e76e2db71fc41fd7d211c06daea3e",
+                "url": "https://api.github.com/repos/symfony/swiftmailer-bundle/zipball/7756867d9b21231ae0ce746a6b861b7e293cc885",
+                "reference": "7756867d9b21231ae0ce746a6b861b7e293cc885",
                 "shasum": ""
             },
             "require": {
@@ -4459,7 +4401,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.1-dev"
+                    "dev-master": "3.2-dev"
                 }
             },
             "autoload": {
@@ -4486,7 +4428,7 @@
             ],
             "description": "Symfony SwiftmailerBundle",
             "homepage": "http://symfony.com",
-            "time": "2017-10-23T15:15:11+00:00"
+            "time": "2018-02-14T08:09:24+00:00"
         },
         {
             "name": "symfony/translation",
