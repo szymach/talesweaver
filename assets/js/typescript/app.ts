@@ -4,6 +4,7 @@ import * as sidemenu from './sidemenu';
 import * as forms from './forms';
 import * as backdrop from './backdrop';
 import * as display from './display';
+import ckeditor = require('../ckeditor');
 import './lists';
 
 (function () {
@@ -11,10 +12,11 @@ import './lists';
         display.closeModal();
         autofocus.onStatic();
         sidemenu.toggle();
+        ckeditor.initializeCKEditor(document.querySelector('.ckeditor'));
 
-//        $(document).on('ajaxStart', backdrop.showBackdrop());
-//        $(document).on('ajaxComplete', backdrop.hideBackdrop());
-//        $(document).on('ajaxError', backdrop.hideBackdrop());
+        $.bind('ajaxStart', backdrop.showBackdrop());
+        $.bind('ajaxComplete', backdrop.hideBackdrop());
+        $.bind('ajaxError', backdrop.hideBackdrop());
 
         $('main').on('click', '.js-load-form', function (event : JQuery.Event) {
             event.preventDefault();

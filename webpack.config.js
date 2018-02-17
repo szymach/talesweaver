@@ -12,8 +12,7 @@ module.exports = {
         "bootstrap-loader",
         "./assets/scss/base.scss",
         "./assets/scss/ckeditor.scss",
-        "./assets/js/typescript/app.ts",
-        "./assets/js/ckeditor.js"
+        "./assets/js/typescript/app.ts"
     ],
     devtool: "source-map",
     output: {
