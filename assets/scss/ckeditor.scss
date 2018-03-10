@@ -2,6 +2,10 @@
     padding: 1em;
     min-height: 800px;
 
+    .ckeditor-small & {
+        min-height: 400px;
+    }
+
     #ajax-container & {
         min-height: 300px;
     }
