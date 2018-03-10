@@ -77,6 +77,7 @@ class SceneRepository extends TranslatableRepository
             ->where('s.createdBy = :user')
             ->setParameter('id', $id)
             ->setParameter('user', $user)
+            ->setMaxResults(1)
         ;
     }
 }
