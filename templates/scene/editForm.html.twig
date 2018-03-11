@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block seo_title 'scene.header.edit' | trans({ '%title%': title }) %}
+{% block seo_title 'scene.header.edit'|trans({ '%title%': title }) %}
 
 {% block top_menu_right %}
     {% include 'scene/actions.html.twig' with {
@@ -11,7 +11,7 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-xs-12 content-container">
+        <div class="col-xs-12 col-md-8 col-md-offset-2 content-container">
             {% include 'scene/form/editForm.html.twig' with { form: form } only  %}
             <div id="ajax-container"></div>
             <div id="form-backdrop"></div>

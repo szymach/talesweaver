@@ -1,9 +1,9 @@
 {% form_theme form 'scene/form/theme.html.twig' %}
 {{ form_start(form) }}
     <div class="row">
-        {{ form_row(form.title, { row_class: 'col-sm-4 col-sm-offset-2 col-xs-12' }) }}
-        {{ form_row(form.chapter, { row_class: 'col-sm-4 col-xs-12' }) }}
-        {{ form_row(form.text, { row_class: 'col-xs-12 col-md-8 col-md-offset-2' }) }}
+        {{ form_row(form.title, { row_class: 'col-sm-6 col-xs-12' }) }}
+        {{ form_row(form.chapter, { row_class: 'col-sm-6 col-xs-12' }) }}
+        {{ form_row(form.text, { row_class: 'col-xs-12' }) }}
         <div class="col-xs-12 col-md-8 col-md-offset-2 text-right">
             <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
         </div>
