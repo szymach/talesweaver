@@ -18,11 +18,11 @@ export function displayAlerts()
 export function setAlertFadeOuts()
 {
     $('#alerts .alert').filter(':visible').each(function (index : number, alert : HTMLElement) {
-        var $alert : JQuery<HTMLElement> = $(alert);
+        const $alert : JQuery<HTMLElement> = $(alert);
         window.setTimeout(function() {
             $alert.fadeOut(800, function () {
                 $alert.remove();
             });
-        }, 5000);
+        }, 3000);
     });
 }

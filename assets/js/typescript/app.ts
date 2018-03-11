@@ -4,6 +4,7 @@ import * as sidemenu from './sidemenu';
 import * as forms from './forms';
 import * as backdrop from './backdrop';
 import * as display from './display';
+import * as alerts from './alerts';
 import ckeditor = require('../ckeditor');
 import './lists';
 
@@ -12,6 +13,7 @@ import './lists';
         display.closeModal();
         autofocus.onStatic();
         sidemenu.toggle();
+        alerts.setAlertFadeOuts();
         ckeditor.initializeCKEditor(document.querySelector('.ckeditor'));
 
         $.bind('ajaxStart', backdrop.showBackdrop());
@@ -22,12 +24,9 @@ import './lists';
             event.preventDefault();
             event.stopPropagation();
 
-            let $this : JQuery<HTMLElement> = $(event.currentTarget);
-            let $listTable : JQuery<HTMLElement> = $this.parents('.js-list').first();
-            let url : string = $this.hasClass('js-edit-form')
-                ? $this.data('form-url')
-                : $listTable.data('form-url')
-            ;
+            const $this : JQuery<HTMLElement> = $(event.currentTarget);
+            const $listTable : JQuery<HTMLElement> = $this.parents('.js-list').first();
+            const url : string = $this.hasClass('js-edit-form') ? $this.data('form-url') : $listTable.data('form-url');
 
             forms.getForm(url, $listTable);
             $('html, body').animate({
