@@ -281,6 +281,7 @@ menu:
     chapters: Rozdziały
     scenes: Sceny
     change_password: Zmień hasło
+    toggle: Przełącz nawigację
     logout: Wyloguj
 
 modal:
