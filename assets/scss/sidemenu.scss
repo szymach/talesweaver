@@ -14,6 +14,14 @@
     z-index:99;
     padding-top: 70px;
 
+    .side-menu-toggle {
+        margin-top: 15px;
+
+        @media (min-width: $screen-md) {
+            display: none;
+        }
+    }
+
     .fa.logo-icon {
         display: inline-block;
         width: 25px;
