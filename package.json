@@ -48,7 +48,7 @@
     "webpack": "^3.10.0"
   },
   "devDependencies": {
-    "cypress": "^1.4.1"
+    "cypress": "^2.0.0"
   },
   "repository": {
     "type": "git",
