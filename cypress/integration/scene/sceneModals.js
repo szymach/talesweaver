@@ -17,10 +17,10 @@ describe('Modal opening', function() {
         cy.url().should('eq', Cypress.config('baseUrl') + '/scene/list');
         cy.get('.btn-primary[title="Edycja"]').click();
         cy.url().should('contain', Cypress.config('baseUrl') + '/scene/edit');
-        cy.get('.side-menu-toggle').click();
     });
 
     it('verifies side menu toggle', function () {
+        cy.viewport(991, 600)
         cy.get('.side-menu').should('have.class', 'expanded');
         cy.contains('Postacie');
         cy.contains('Przedmioty');

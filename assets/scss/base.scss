@@ -13,7 +13,7 @@ main {
 .navbar-default {
     .navbar-collapse {
 
-        @media(max-width: $screen-sm) {
+        @media(max-width: $screen-sm-min) {
             position: absolute;
             background-color: #fff;
             width: 100%;
@@ -40,7 +40,7 @@ main {
                 float: right;
                 border-top: none;
                 border-bottom: none;
-                padding-top: 0;
+                padding: 0;
             }
         }
     }
