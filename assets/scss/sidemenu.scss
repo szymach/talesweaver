@@ -1,23 +1,41 @@
 .side-menu {
-    background:#fbfbfb;
-    border-left:1px solid #e5e5e5;
-    position:absolute;
-    top:0;
-    bottom:0;
-    height:100%;
-    right:0;
-    width:60px;
-    overflow:hidden;
+    background: $body-bg;
+    border-left: 1px solid $gray-light;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    right: 0;
+    width: 60px;
+    overflow: hidden;
     -webkit-transition:width .1s linear;
-    transition:width .1s linear;
-    -webkit-transform:translateZ(0) scale(1,1);
-    z-index:99;
+    transition: width .1s linear;
+    -webkit-transform: translateZ(0) scale(1,1);
+    z-index: 99;
     padding-top: 70px;
 
+    @media (min-width: $screen-md-min) {
+        width: 225px;
+        overflow: visible;
+    }
+
+    &.expanded {
+        width: 225px;
+        overflow: visible;
+    }
+
+    @media (max-width: $screen-md-min) {
+        &:not(.expanded) {
+            ul li *:not(.fa) {
+                display: none;
+            }
+        }
+    }
     .side-menu-toggle {
         margin-top: 15px;
+        padding-left: 13px;
 
-        @media (min-width: $screen-md) {
+        @media (min-width: $screen-md-min) {
             display: none;
         }
     }
@@ -42,13 +60,22 @@
 
     ul {
         margin: 7px 0;
-        padding-left: 15px;
         display: block;
+        padding-left: 10px;
 
         li {
             position: relative;
             display: block;
-            min-height: 30px;
+            min-height: 35px;
+            line-height: 35px;
+
+            ul {
+                margin-left: -10px;
+                -webkit-box-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
+                -moz-box-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
+                box-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
+
+            }
 
             .h4 {
                 display: inline-block;
@@ -62,6 +89,7 @@
                 font-size: 14px;
                 -webkit-transform: translateZ(0) scale(1,1);
                 -webkit-transition: all .1s linear;
+                transform:  translateZ(0) scale(1,1);
                 transition: all .1s linear;
             }
 
@@ -80,16 +108,4 @@
             }
         }
     }
-
-    &:not(.expanded) {
-        ul li *:not(.fa) {
-            display: none;
-        }
-    }
-
-    &.expanded {
-        width: 250px;
-        overflow: visible;
-    }
 }
-

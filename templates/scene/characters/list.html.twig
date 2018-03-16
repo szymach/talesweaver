@@ -2,9 +2,8 @@
     data-form-url="{{ path('character_new', { id: sceneId }) }}"
     data-list-url="{{ path('character_list', { id: sceneId, page: characters.currentPage }) }}"
 >
-    <span class="fa fa-user-o logo-icon"></span>
+    <span class="fa fa-user-o logo-icon" title="{{ 'scene.tabs.characters' | trans }}"></span>
     <span class="h4">
-        {{ 'scene.tabs.characters' | trans }}
         <button class="btn btn-xs btn-success js-load-form" title="{{ 'character.actions.create' | trans }}">
             <span class="fa fa-plus"></span>
         </button>

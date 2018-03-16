@@ -22,10 +22,10 @@
     </div>
     {% embed 'partial/sideMenu.html.twig'%}
         {% block listContent %}
-            {% if chapterTitle and relatedScenes | length %}
+            {% if chapterTitle and relatedScenes|length %}
                 <li>
-                    <span class="fa fa-book logo-icon"></span>
-                    <span class="h4">{{ chapterTitle | truncate(10) }}</span>
+                    <span class="fa fa-book logo-icon" title="{{ chapterTitle }}"></span>
+                    <span class="h4">{{ chapterTitle|truncate(10) }}</span>
                     <ul>
                         {% for relatedScene in relatedScenes %}
                             <li><a href="{{ path('scene_edit', { id: relatedScene.id }) }}">{{ relatedScene.title }}</a></li>

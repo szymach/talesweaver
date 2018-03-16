@@ -2,9 +2,8 @@
     data-form-url="{{ path('location_new', { id: sceneId }) }}"
     data-list-url="{{ path('location_list', { id: sceneId, page: locations.currentPage }) }}"
 >
-    <span class="fa fa-map logo-icon"></span>
+    <span class="fa fa-map logo-icon" title="{{ 'scene.tabs.locations' | trans }}"></span>
     <span class="h4">
-        {{ 'scene.tabs.locations' | trans }}
         <button class="btn btn-xs btn-success js-load-form" title="{{ 'location.actions.create' | trans }}">
             <span class="fa fa-plus"></span>
         </button>
