@@ -74,7 +74,7 @@ function bindAutosave(editor)
                     savesScheduled[id] = false;
                 }
             });
-        }, 10000);
+        }, 120000);
     });
 }
 

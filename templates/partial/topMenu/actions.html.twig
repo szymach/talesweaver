@@ -3,4 +3,16 @@
         <a href="{{ returnUrl }}"><span class="fa fa-angle-left"></span>  {{ returnLabel }}</a>
     </li>
     {% block additionalActions '' %}
+    <li class="last dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            {{ app.user.username }}
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu">
+            <li class="first">
+                <a href="{{ path('change_password') }}">{{ 'menu.change_password'|trans }}</a>
+                <a href="{{ path('logout') }}">{{ 'menu.logout'|trans }}</a>
+            </li>
+        </ul>
+    </li>
 </ul>

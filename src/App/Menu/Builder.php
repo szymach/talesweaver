@@ -38,7 +38,6 @@ class Builder
         $this->createBookMenu($menu);
         $this->createChapterMenu($menu);
         $this->createSceneMenu($menu);
-        $this->addUserSubmenu($menu);
 
         return $menu;
     }
@@ -56,12 +55,5 @@ class Builder
     private function createSceneMenu(ItemInterface $menu): void
     {
         $menu->addChild('menu.scenes', ['route' => 'scene_list']);
-    }
-
-    private function addUserSubmenu(ItemInterface $menu): void
-    {
-        $submenu = $menu->addChild($this->tokenStorage->getToken()->getUsername());
-        $submenu->addChild('menu.change_password', ['route' => 'change_password']);
-        $submenu->addChild('menu.logout', ['route' => 'logout']);
     }
 }
