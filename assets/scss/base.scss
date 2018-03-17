@@ -1,5 +1,8 @@
 @import 'paper/_variables';
+@import 'ajax';
+@import 'nav';
 @import 'sidemenu';
+@import 'utilities';
 
 body {
     position: relative;
@@ -8,53 +11,6 @@ body {
 
 main {
     padding-bottom: 50px;
-}
-
-.navbar-default {
-    .navbar-collapse {
-        @media(max-width: $screen-sm-min) {
-            position: absolute;
-            background-color: #fff;
-            width: 100%;
-        }
-    }
-
-    .navbar-nav {
-        & > li.current > a {
-            color: $brand-primary;
-        }
-
-        & > li > .dropdown-menu {
-            width: 100%;
-            padding: 5px;
-            background-color: #fff;
-        }
-
-        &.nav-actions {
-            border-top: 1px solid #e5e5e5;
-            border-bottom: 1px solid #e5e5e5;
-            padding: 15px 0;
-
-            @media(min-width: $screen-sm) {
-                float: right;
-                border-top: none;
-                border-bottom: none;
-                padding: 0;
-            }
-        }
-    }
-}
-
-ul.dropdown-menu {
-    border-radius: 0;
-    border: none;
-    background-color: transparent;
-    padding: 0;
-
-    .btn {
-        display: block;
-        width: 100%;
-    }
 }
 
 form .tab-pane {
@@ -67,63 +23,12 @@ table:not(.dashboard) {
     }
 }
 
-#backdrop.active {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 10000;
-}
-
-.content-container {
-    position: relative;
-
-    #ajax-container {
-        display: none;
-        background-color: $body-bg;
-        position: absolute;
-        top: 0;
-        left: 15px;
-        right: 15px;
-        min-height: 400px;
-        z-index: 10;
-        box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-        padding: 15px;
-
-        &.active {
-            display: block;
-        }
-    }
-
-    #ajax-container.active + #form-backdrop {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 9;
-        background-color: rgba(0, 0, 0, 0.6);
-    }
-
-    #clear-ajax {
-        position: absolute;
-        top: 35px;
-        right: 30px;
-        z-index: 11;
-    }
-}
-
 .display {
     text-align: justify;
 
     & > p {
         text-indent: 25px;
     }
-}
-
-nav.navbar {
-    z-index: 100;
 }
 
 .alert:not(.alert-form) {
@@ -133,14 +38,6 @@ nav.navbar {
     top: 0;
     left: 0;
     right: 0;
-}
-
-.cursor-pointer {
-    cursor: pointer;
-}
-
-.underline {
-    text-decoration: underline;
 }
 
 .dashboard-timeline {

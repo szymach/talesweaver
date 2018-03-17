@@ -1,0 +1,50 @@
+.navbar-default {
+    .navbar-collapse {
+        @media(max-width: $screen-sm-min) {
+            position: absolute;
+            background-color: #fff;
+            width: 100%;
+        }
+    }
+
+    .navbar-nav {
+        & > li.current > a {
+            color: $brand-primary;
+        }
+
+        & > li > .dropdown-menu {
+            width: 100%;
+            padding: 5px;
+            background-color: #fff;
+        }
+
+        &.nav-actions {
+            border-top: 1px solid #e5e5e5;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 15px 0;
+
+            @media(min-width: $screen-sm) {
+                float: right;
+                border-top: none;
+                border-bottom: none;
+                padding: 0;
+            }
+        }
+    }
+}
+
+ul.dropdown-menu {
+    border-radius: 0;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+
+    .btn {
+        display: block;
+        width: 100%;
+    }
+}
+
+nav.navbar {
+    z-index: 100;
+}

@@ -12,7 +12,7 @@
     transition: width .1s linear;
     -webkit-transform: translateZ(0) scale(1,1);
     z-index: 99;
-    padding-top: 70px;
+    padding-top: 60px;
 
     @media (min-width: $screen-md-min) {
         width: 225px;
