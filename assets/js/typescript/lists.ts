@@ -57,7 +57,7 @@ $('main').on('click', '.js-load-sublist', function (event : JQuery.Event) {
     });
 });
 
-$('main').on('click', '.js-ajax-pagination a', function (event : JQuery.Event) {
+$('main').on('click', '.js-ajax-pagination .pagination a', function (event : JQuery.Event) {
     event.preventDefault();
     event.stopPropagation();
 
@@ -67,9 +67,9 @@ $('main').on('click', '.js-ajax-pagination a', function (event : JQuery.Event) {
         url: $this.attr('href'),
         dataType: "json",
         success: function(response : any) {
-            var $container = $($this.parents('.js-ajax-pagination').first().data('container'));
+            let $container = $this.parents('.js-ajax-pagination').first();
             ajaxContainer.clearAjaxContainer();
-            $container.html(response.list);
+            $container.replaceWith(response.list);
         }
     });
 });

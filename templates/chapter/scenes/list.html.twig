@@ -1,6 +1,11 @@
-<li class="chapters js-list" data-list-url="{{ path('chapter_scenes_list', { id: chapterId }) }}">
+<li class="chapters js-list js-ajax-pagination" data-list-url="{{ path('chapter_scenes_list', { id: chapterId }) }}">
     <span class="fa fa-book logo-icon"></span>
     <span class="h4">{{ 'chapter.scenes'|trans }}</span>
+    {% include 'partial/pagination.html.twig' with {
+        paginator: scenes,
+        route: 'chapter_scenes_list',
+        parameters: { id: chapterId }
+    } only %}
     <ul>
         {% for scene in scenes %}
             <li>
@@ -27,7 +32,7 @@
         {{ form_row(sceneForm.title, { label: false }) }}
         <div style="display: none;">{{ form_row(sceneForm.chapter) }}</div>
         {{ form_rest(sceneForm) }}
-        <button style="display: block; width: 100%; margin-top: 10px;"class="btn btn-primary btn-sm">
+        <button class="btn btn-success btn-sm full-width mt-10">
             {{- 'chapter.actions.add_scene' | trans -}}
         </button>
     {{ form_end(sceneForm) }}

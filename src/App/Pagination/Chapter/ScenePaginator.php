@@ -21,9 +21,9 @@ class ScenePaginator
         $this->repository = $repository;
     }
 
-    public function getResults(Chapter $book, int $page, int $maxPerPage = 10): Pagerfanta
+    public function getResults(Chapter $chapter, int $page, int $maxPerPage = 3): Pagerfanta
     {
-        $pager = new Pagerfanta(new DoctrineORMAdapter($this->repository->createForChapterQb($book)));
+        $pager = new Pagerfanta(new DoctrineORMAdapter($this->repository->createForChapterQb($chapter)));
         $pager->setMaxPerPage($maxPerPage);
         $pager->setCurrentPage($page);
 

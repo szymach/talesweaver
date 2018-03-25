@@ -20,7 +20,10 @@ module.exports = {
         filename: 'scripts.js'
     },
     resolve: {
-        extensions: [ '.js', ".ts" ]
+        extensions: [ '.js', ".ts" ],
+        alias: {
+            'bootstrap': path.resolve(__dirname, 'node_modules/bootstrap-sass')
+        }
     },
     plugins: [
         new ExtractTextPlugin({ filename: 'styles.css', allChunks: true }),

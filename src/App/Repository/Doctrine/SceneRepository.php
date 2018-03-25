@@ -20,6 +20,7 @@ class SceneRepository extends TranslatableRepository
         return $this->createQueryBuilder('s')
             ->where('s.createdBy = :user')
             ->andWhere('s.chapter IS NULL')
+            ->orderBy('s.createdAt')
             ->setParameter('user', $user)
         ;
     }
@@ -29,6 +30,7 @@ class SceneRepository extends TranslatableRepository
         return $this->createQueryBuilder('s')
             ->where('s.chapter = :chapter')
             ->andWhere('s.createdBy = :user')
+            ->orderBy('s.createdAt')
             ->setParameter('chapter', $chapter)
             ->setParameter('user', $user)
         ;

@@ -14,6 +14,11 @@ scene_list:
     defaults: { _controller: App\Controller\Scene\ListController, page: 1 }
     methods:  GET
 
+scene_related_list:
+    path: /related-list/{id}/{page}
+    defaults: { _controller: App\Controller\Scene\RelatedListController, page: 1 }
+    methods:  GET
+
 scene_delete:
     path: /delete/{id}/{page}
     defaults: { _controller: App\Controller\Scene\DeleteController, page: 1 }

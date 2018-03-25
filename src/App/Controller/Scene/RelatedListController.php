@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Chapter;
+namespace App\Controller\Scene;
 
+use App\Templating\Scene\RelatedListView;
 use Domain\Entity\Chapter;
-use App\Templating\Chapter\ScenesListView;
 
-class ScenesListController
+class RelatedListController
 {
     /**
-     * @var ScenesListView
+     * @var RelatedListView
      */
     private $templating;
 
-    public function __construct(ScenesListView $templating)
+    public function __construct(RelatedListView $templating)
     {
         $this->templating = $templating;
     }

@@ -11,6 +11,13 @@ import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 import * as $ from 'jquery';
 
 export function initializeCKEditor(elements) {
+    if (typeof elements === 'undefined'
+        || elements === null
+        || 0 === elements.length
+    ) {
+        return;
+    }
+
     ClassicEditor.create(elements, {
         plugins: [
             EssentialsPlugin,
@@ -44,7 +51,15 @@ export function initializeCKEditor(elements) {
 var savesScheduled = [];
 function bindAutosave(editor)
 {
+    if (typeof editor === 'undefined') {
+        return;
+    }
+
     editor.document.on('changesDone', function() {
+        if (typeof editor.element === 'undefined') {
+            return;
+        }
+
         var $element = $(editor.element);
         var $form = $element.parents('form');
         var id = $form.attr('id');

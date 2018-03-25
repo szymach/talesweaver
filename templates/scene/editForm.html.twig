@@ -4,8 +4,8 @@
 
 {% block top_menu_right %}
     {% include 'scene/actions.html.twig' with {
-        returnUrl:chapterId ? path('chapter_edit', { id: chapterId }) : path('scene_list', { page: app.request.get('page') }),
-        returnLabel: (chapterId ? 'scene.back.to_chapter' : 'scene.back.to_list') | trans
+        returnUrl: chapterId ? path('chapter_edit', { id: chapterId }) : path('scene_list', { page: app.request.get('page') }),
+        returnLabel: (chapterId ? 'scene.back.to_chapter' : 'scene.back.to_list')|trans
     } %}
 {% endblock %}
 
@@ -22,16 +22,8 @@
     </div>
     {% embed 'partial/sideMenu.html.twig'%}
         {% block listContent %}
-            {% if chapterTitle and relatedScenes|length %}
-                <li>
-                    <span class="fa fa-book logo-icon" title="{{ chapterTitle }}"></span>
-                    <span class="h4">{{ chapterTitle|truncate(10) }}</span>
-                    <ul>
-                        {% for relatedScene in relatedScenes %}
-                            <li><a href="{{ path('scene_edit', { id: relatedScene.id }) }}">{{ relatedScene.title }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </li>
+            {% if chapterTitle and relatedScenes|length > 0 %}
+                {% include 'scene/relatedList.html.twig' with { sceneId: sceneId, chapterTitle: chapterTitle, chapterId: chapterId, scenes: relatedScenes, page: 1 } only %}
             {% endif %}
             {% include 'scene/characters/list.html.twig' with { sceneId: sceneId, chapterId: chapterId, characters: characters } only %}
             {% include 'scene/items/list.html.twig' with { sceneId: sceneId, chapterId: chapterId, items: items } only %}

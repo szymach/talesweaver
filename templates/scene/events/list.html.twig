@@ -3,7 +3,13 @@
 >
     <span class="fa fa-bookmark logo-icon" title="{{ 'scene.tabs.events' | trans }}"></span>
     <span class="h4">{{ 'scene.tabs.events' | trans }}</span>
-    <ul>
+    {% for model in eventModels %}
+        <span data-form-url="{{ path('event_add', { id: sceneId, model: model }) }}" class="js-load-form js-edit-form cursor-pointer">
+            {{ ('event.' ~ model ~ '.name') | trans }}
+            <span class="fa fa-plus btn btn-success btn-xs"></span>
+        </span>
+    {% endfor %}
+   <ul>
         {% for event in events %}
             {% set model = event.model %}
             <li>
@@ -21,16 +27,6 @@
                     >
                         <span class="fa fa-trash"></span>
                     </button>
-                </span>
-            </li>
-        {% endfor %}
-    </ul>
-    <ul>
-        {% for model in eventModels %}
-            <li>
-                <span data-form-url="{{ path('event_add', { id: sceneId, model: model }) }}" class="js-load-form js-edit-form btn btn-success btn-xs">
-                    {{ ('event.' ~ model ~ '.name') | trans }}
-                    <span class="fa fa-plus"></span>
                 </span>
             </li>
         {% endfor %}

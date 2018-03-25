@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace App\Templating\Chapter;
 
-use Domain\Entity\Chapter;
 use App\Form\Scene\CreateType;
 use App\Pagination\Chapter\ScenePaginator;
 use App\Templating\Engine;
+use Domain\Entity\Chapter;
 use Domain\Scene\Create\DTO;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 
 class ScenesListView
@@ -48,7 +49,7 @@ class ScenesListView
         $this->router = $router;
     }
 
-    public function createView(Chapter $chapter, $page): Response
+    public function createView(Chapter $chapter, int $page): Response
     {
         return new JsonResponse([
             'list' => $this->templating->render(

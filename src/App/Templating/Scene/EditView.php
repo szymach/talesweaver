@@ -6,11 +6,11 @@ namespace App\Templating\Scene;
 
 use Domain\Entity\Scene;
 use App\Enum\SceneEvents;
+use App\Pagination\Chapter\ScenePaginator;
 use App\Pagination\Character\CharacterPaginator;
 use App\Pagination\EventPaginator;
 use App\Pagination\Item\ItemPaginator;
 use App\Pagination\Location\LocationPaginator;
-use App\Pagination\Scene\ScenePaginator;
 use App\Templating\Engine;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,6 +23,11 @@ class EditView
      * @var Engine
      */
     private $templating;
+
+    /**
+     * @var ScenePaginator
+     */
+    private $scenePaginator;
 
     /**
      * @var CharacterPaginator
@@ -46,17 +51,17 @@ class EditView
 
     public function __construct(
         Engine $templating,
-        ScenePaginator $pagination,
         CharacterPaginator $characterPaginator,
         ItemPaginator $itemPaginator,
         LocationPaginator $locationPaginator,
+        ScenePaginator $scenePaginator,
         EventPaginator $eventPaginator
     ) {
         $this->templating = $templating;
-        $this->pagination = $pagination;
         $this->characterPaginator = $characterPaginator;
         $this->itemPaginator = $itemPaginator;
         $this->locationPaginator = $locationPaginator;
+        $this->scenePaginator = $scenePaginator;
         $this->eventPaginator = $eventPaginator;
     }
 
@@ -83,25 +88,19 @@ class EditView
             'eventModels' => SceneEvents::getAllEvents()
         ];
         if ($scene->getChapter()) {
-            $parameters['chapterTitle'] = $scene->getChapter()->getTitle();
-            $parameters['chapterId'] = $scene->getChapter()->getId();
-            $relatedScenes = [];
-            foreach ($scene->getChapter()->getScenes() as $relatedScene) {
-                $relatedScenes[] = [
-                    'id' => $relatedScene->getId(),
-                    'title' => $relatedScene->getTitle()
-                ];
-            }
-            $parameters['relatedScenes'] = $relatedScenes;
+            $chapter = $scene->getChapter();
+            $parameters['chapterTitle'] = $chapter->getTitle();
+            $parameters['chapterId'] = $chapter->getId();
+            $parameters['relatedScenes'] = $this->scenePaginator->getResults($chapter, 1);
         } else {
             $parameters['chapterTitle'] = null;
             $parameters['chapterId'] = null;
             $parameters['relatedScenes'] = [];
         }
 
-        return new Response($this->templating->render(
-            'scene/editForm.html.twig',
-            $parameters
-        ), $status);
+        return new Response(
+            $this->templating->render('scene/editForm.html.twig', $parameters),
+            $status
+        );
     }
 }
