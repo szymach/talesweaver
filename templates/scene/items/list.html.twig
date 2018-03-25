@@ -2,8 +2,9 @@
     data-form-url="{{ path('item_new', { id: sceneId }) }}"
     data-list-url="{{ path('item_list', { id: sceneId, page: items.currentPage }) }}"
 >
-    <span class="fa fa-key logo-icon" title="{{ 'scene.tabs.items' | trans }}"></span>
+    <span class="fa fa-key logo-icon"></span>
     <span class="h4">
+        {{ 'scene.tabs.items' | trans }}
         <button class="btn btn-xs btn-success js-load-form" title="{{ 'item.actions.create' | trans }}">
             <span class="fa fa-plus"></span>
         </button>
