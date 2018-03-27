@@ -1,4 +1,4 @@
 ---
 fsi_doctrine_extensions:
-    default_filesystem_path: '%kernel.project_dir%/../public/uploaded_tst'
+    default_filesystem_path: '%kernel.project_dir%/public/uploaded_tst'
     default_filesystem_base_url: '/uploaded_tst'
