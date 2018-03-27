@@ -1,4 +1,4 @@
-<li class="locations js-list"
+<li class="locations js-list js-ajax-pagination"
     data-form-url="{{ path('location_new', { id: sceneId }) }}"
     data-list-url="{{ path('location_list', { id: sceneId, page: locations.currentPage }) }}"
 >
@@ -17,6 +17,7 @@
             </button>
         {% endif %}
     </span>
+    {% include 'partial/pagination.html.twig' with { paginator: locations, route: 'location_list', parameters: { id: sceneId, page: page }} only %}
     <ul>
         {% for location in locations -%}
             <li>
@@ -35,7 +36,7 @@
                         <span class="fa fa-eye"></span>
                     </button>
                     {% if chapterId %}
-                        <button class="js-list-delete js-delete btn btn-xs btn-warning"
+                        <button class="js-list-delete js-delete btn btn-xs btn-danger"
                             data-delete-url="{{ path('location_remove_from_scene', { scene_id: sceneId, location_id: location.id }) }}"
                             title="{{ 'crud.remove_from_scene' | trans }}"
                         >

@@ -11,7 +11,7 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-xs-12 col-md-8 col-md-offset-2 content-container">
+        <div class="col-xs-10 col-sm-offset-1 col-md-8 col-md-offset-2 content-container">
             {% include 'scene/form/editForm.html.twig' with { form: form } only %}
             <div id="ajax-container"></div>
             <div id="form-backdrop"></div>
@@ -25,10 +25,10 @@
             {% if chapterTitle and relatedScenes|length > 0 %}
                 {% include 'scene/relatedList.html.twig' with { sceneId: sceneId, chapterTitle: chapterTitle, chapterId: chapterId, scenes: relatedScenes, page: 1 } only %}
             {% endif %}
-            {% include 'scene/characters/list.html.twig' with { sceneId: sceneId, chapterId: chapterId, characters: characters } only %}
-            {% include 'scene/items/list.html.twig' with { sceneId: sceneId, chapterId: chapterId, items: items } only %}
-            {% include 'scene/locations/list.html.twig' with { sceneId: sceneId, chapterId: chapterId, locations: locations } only %}
-            {% include 'scene/events/list.html.twig' with { sceneId: sceneId, chapterId: chapterId, events: events, eventModels: eventModels } only %}
+            {% include 'scene/characters/list.html.twig' with { sceneId: sceneId, chapterId: chapterId, characters: characters, page: 1 } only %}
+            {% include 'scene/items/list.html.twig' with { sceneId: sceneId, chapterId: chapterId, items: items, page: 1 } only %}
+            {% include 'scene/locations/list.html.twig' with { sceneId: sceneId, chapterId: chapterId, locations: locations, page: 1 } only %}
+            {% include 'scene/events/list.html.twig' with { sceneId: sceneId, chapterId: chapterId, events: events, eventModels: eventModels, page: 1 } only %}
         {% endblock %}
     {% endembed %}
 {% endblock %}

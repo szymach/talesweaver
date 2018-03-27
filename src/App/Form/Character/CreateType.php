@@ -20,15 +20,15 @@ class CreateType extends AbstractType
     {
         $builder->add('name', TextType::class, ['label' => 'character.name']);
 
-        $builder->add('avatar', RemovableFileType::class, [
-            'label' => 'character.avatar',
-            'file_type' => ImageType::class,
-            'required' => false
-        ]);
-
         $builder->add('description', TextareaType::class, [
             'label' => 'character.description',
             'attr' => ['class' => 'ckeditor'],
+            'required' => false
+        ]);
+
+        $builder->add('avatar', RemovableFileType::class, [
+            'label' => 'character.avatar',
+            'file_type' => ImageType::class,
             'required' => false
         ]);
     }

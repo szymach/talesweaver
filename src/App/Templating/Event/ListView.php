@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Templating\Event;
 
-use Domain\Entity\Scene;
 use App\Enum\SceneEvents;
 use App\Pagination\EventPaginator;
 use App\Templating\Engine;
+use Domain\Entity\Scene;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ListView
@@ -28,7 +28,7 @@ class ListView
         $this->pagination = $pagination;
     }
 
-    public function createView(Scene $scene, $page): JsonResponse
+    public function createView(Scene $scene, int $page): JsonResponse
     {
         return new JsonResponse([
             'list' => $this->templating->render(

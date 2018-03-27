@@ -20,15 +20,15 @@ class EditType extends AbstractType
     {
         $builder->add('name', TextType::class, ['label' => 'location.name']);
 
-        $builder->add('avatar', RemovableFileType::class, [
-            'label' => 'location.avatar',
-            'file_type' => ImageType::class,
-            'required' => false
-        ]);
-
         $builder->add('description', TextareaType::class, [
             'label' => 'location.description',
             'attr' => ['class' => 'ckeditor'],
+            'required' => false
+        ]);
+
+        $builder->add('avatar', RemovableFileType::class, [
+            'label' => 'location.avatar',
+            'file_type' => ImageType::class,
             'required' => false
         ]);
     }

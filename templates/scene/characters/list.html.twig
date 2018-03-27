@@ -1,24 +1,25 @@
-<li class="characters js-list"
+<li class="characters js-list js-ajax-pagination"
     data-form-url="{{ path('character_new', { id: sceneId }) }}"
     data-list-url="{{ path('character_list', { id: sceneId, page: characters.currentPage }) }}"
 >
     <span class="fa fa-user-o logo-icon"></span>
     <span class="h4">
         {{ 'scene.tabs.characters' | trans }}
-        <button class="btn btn-xs btn-success js-load-form" title="{{ 'character.actions.create' | trans }}">
+        <button class="btn btn-xs btn-success js-load-form" title="{{ 'character.actions.create'|trans }}">
             <span class="fa fa-plus"></span>
         </button>
         {% if chapterId %}
             <button class="btn btn-xs btn-default js-load-sublist"
-                    title="{{ 'character.actions.add_existing' | trans }}"
+                    title="{{ 'character.actions.add_existing'|trans }}"
                     data-list-url="{{ path('character_related', { id: sceneId }) }}"
             >
                 <span class="fa fa-link"></span>
             </button>
         {% endif %}
     </span>
+    {% include 'partial/pagination.html.twig' with { paginator: characters, route: 'character_list', parameters: { id: sceneId, page: page }} only %}
     <ul>
-        {% for character in characters -%}
+        {% for character in characters %}
             <li>
                 <span class="sublist-label">{{ character | truncate(15) }}</span>
                 <span class="list-actions">
@@ -35,7 +36,7 @@
                         <span class="fa fa-eye"></span>
                     </button>
                     {% if chapterId %}
-                        <button class="js-list-delete js-delete btn btn-xs btn-warning"
+                        <button class="js-list-delete js-delete btn btn-xs btn-danger"
                             data-delete-url="{{ path('character_remove_from_scene', { scene_id: sceneId, character_id: character.id }) }}"
                             title="{{ 'crud.remove_from_scene' | trans }}"
                         >
@@ -50,6 +51,6 @@
                     </button>
                 </span>
             </li>
-        {%- endfor %}
+        {% endfor %}
     </ul>
 </li>

@@ -1,4 +1,4 @@
-<li class="events js-list"
+<li class="events js-list js-ajax-pagination"
     data-list-url="{{ path('event_list', { id: sceneId, page: events.currentPage }) }}"
 >
     <span class="fa fa-bookmark logo-icon" title="{{ 'scene.tabs.events' | trans }}"></span>
@@ -9,6 +9,7 @@
             <span class="fa fa-plus btn btn-success btn-xs"></span>
         </span>
     {% endfor %}
+    {% include 'partial/pagination.html.twig' with { paginator: events, route: 'event_list', parameters: { id: sceneId, page: page }} only %}
    <ul>
         {% for event in events %}
             {% set model = event.model %}

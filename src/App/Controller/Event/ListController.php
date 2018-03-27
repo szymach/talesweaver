@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Event;
 
-use Domain\Entity\Scene;
 use App\Templating\Event\ListView;
+use Domain\Entity\Scene;
 
 class ListController
 {
@@ -19,7 +19,7 @@ class ListController
         $this->templating = $templating;
     }
 
-    public function __invoke(Scene $scene, $page)
+    public function __invoke(Scene $scene, int $page)
     {
         return $this->templating->createView($scene, $page);
     }
