@@ -31,7 +31,7 @@ class RelatedListView
     {
         return new JsonResponse([
             'list' => $this->templating->render(
-                'scene/relatedList.html.twig',
+                'scene/related/list.html.twig',
                 [
                     'chapterId' => $chapter->getId(),
                     'chapterTitle' => $chapter->getTitle(),

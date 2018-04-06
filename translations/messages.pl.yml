@@ -291,6 +291,7 @@ modal:
 
 side_menu:
     toggle_navigation: Pokaż/ukryj menu
+    toggle_list: Pokaż
 
 yes: Tak
 no: Nie

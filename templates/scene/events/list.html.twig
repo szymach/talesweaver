@@ -1,35 +1,23 @@
-<li class="events js-list js-ajax-pagination"
-    data-list-url="{{ path('event_list', { id: sceneId, page: events.currentPage }) }}"
->
-    <span class="fa fa-bookmark logo-icon" title="{{ 'scene.tabs.events' | trans }}"></span>
-    <span class="h4">{{ 'scene.tabs.events' | trans }}</span>
-    {% for model in eventModels %}
-        <span data-form-url="{{ path('event_add', { id: sceneId, model: model }) }}" class="js-load-form js-edit-form cursor-pointer">
-            {{ ('event.' ~ model ~ '.name') | trans }}
-            <span class="fa fa-plus btn btn-success btn-xs"></span>
-        </span>
+<ul class="js-ajax-pagination" data-list-url="{{ path('event_list', { id: sceneId, page: events.currentPage }) }}">
+    {% for event in events %}
+        {% set model = event.model %}
+        <li>
+            <span>{{ event.name | truncate(20) }}</span>
+            <span class="list-actions">
+                <button class="js-load-form js-edit-form btn btn-xs btn-primary"
+                    data-form-url="{{ path('event_edit', { id: event.id }) }}"
+                    title="{{ 'crud.edit' | trans }}"
+                >
+                    <span class="fa fa-edit"></span>
+                </button>
+                <button class="js-list-delete js-delete btn btn-xs btn-danger"
+                    data-delete-url="{{ path('event_delete', { id: event.id }) }}"
+                    title="{{ 'crud.delete' | trans }}"
+                >
+                    <span class="fa fa-trash"></span>
+                </button>
+            </span>
+        </li>
     {% endfor %}
-    {% include 'partial/pagination.html.twig' with { paginator: events, route: 'event_list', parameters: { id: sceneId, page: page }} only %}
-   <ul>
-        {% for event in events %}
-            {% set model = event.model %}
-            <li>
-                <span>{{ event.name | truncate(20) }}</span>
-                <span class="list-actions">
-                    <button class="js-load-form js-edit-form btn btn-xs btn-primary"
-                        data-form-url="{{ path('event_edit', { id: event.id }) }}"
-                        title="{{ 'crud.edit' | trans }}"
-                    >
-                        <span class="fa fa-edit"></span>
-                    </button>
-                    <button class="js-list-delete js-delete btn btn-xs btn-danger"
-                        data-delete-url="{{ path('event_delete', { id: event.id }) }}"
-                        title="{{ 'crud.delete' | trans }}"
-                    >
-                        <span class="fa fa-trash"></span>
-                    </button>
-                </span>
-            </li>
-        {% endfor %}
-    </ul>
-</li>
+</ul>
+{% include 'partial/pagination.html.twig' with { paginator: events, route: 'event_list', parameters: { id: sceneId, page: page }} only %}

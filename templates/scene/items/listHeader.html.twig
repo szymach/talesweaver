@@ -1,0 +1,24 @@
+<li data-form-url="{{ path('item_new', { id: sceneId }) }}">
+    <span class="h4">
+        <button class="btn btn-xs btn-default js-list-toggle"
+                data-list-url="{{ path('item_list', { id: sceneId, page: 1 }) }}"
+                title="{{ 'crud.list'|trans }}"
+        >
+            <span class="fa fa-list"></span>
+        </button>
+        {% if chapterId %}
+            <button class="btn btn-xs btn-default js-load-sublist"
+                    title="{{ 'item.actions.add_existing'|trans }}"
+                    data-list-url="{{ path('item_related', { id: sceneId }) }}"
+            >
+                <span class="fa fa-link"></span>
+            </button>
+        {% endif %}
+        <button class="btn btn-xs btn-success js-load-form" title="{{ 'item.actions.create'|trans }}">
+            <span class="fa fa-plus"></span>
+        </button>
+        <span>{{ 'scene.tabs.items' | trans }}</span>
+    </span>
+    <span class="js-list-container"></span>
+</li>
+

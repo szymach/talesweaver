@@ -22,13 +22,13 @@
     </div>
     {% embed 'partial/sideMenu.html.twig'%}
         {% block listContent %}
-            {% if chapterTitle and relatedScenes|length > 0 %}
-                {% include 'scene/relatedList.html.twig' with { sceneId: sceneId, chapterTitle: chapterTitle, chapterId: chapterId, scenes: relatedScenes, page: 1 } only %}
+            {% if chapterTitle is not null and relatedScenes|length > 0 %}
+                {% include 'scene/related/listHeader.html.twig' with { chapterTitle: chapterTitle, chapterId: chapterId } only %}
             {% endif %}
-            {% include 'scene/characters/list.html.twig' with { sceneId: sceneId, chapterId: chapterId, characters: characters, page: 1 } only %}
-            {% include 'scene/items/list.html.twig' with { sceneId: sceneId, chapterId: chapterId, items: items, page: 1 } only %}
-            {% include 'scene/locations/list.html.twig' with { sceneId: sceneId, chapterId: chapterId, locations: locations, page: 1 } only %}
-            {% include 'scene/events/list.html.twig' with { sceneId: sceneId, chapterId: chapterId, events: events, eventModels: eventModels, page: 1 } only %}
+            {% include 'scene/characters/listHeader.html.twig' with { sceneId: sceneId, chapterId: chapterId } only %}
+            {% include 'scene/items/listHeader.html.twig' with { sceneId: sceneId, chapterId: chapterId } only %}
+            {% include 'scene/locations/listHeader.html.twig' with { sceneId: sceneId, chapterId: chapterId} only %}
+            {% include 'scene/events/listHeader.html.twig' with { sceneId: sceneId, chapterId: chapterId, eventModels: eventModels } only %}
         {% endblock %}
     {% endembed %}
 {% endblock %}

@@ -1,56 +1,36 @@
-<li class="locations js-list js-ajax-pagination"
-    data-form-url="{{ path('location_new', { id: sceneId }) }}"
-    data-list-url="{{ path('location_list', { id: sceneId, page: locations.currentPage }) }}"
->
-    <span class="fa fa-map logo-icon"></span>
-    <span class="h4">
-        {{ 'scene.tabs.locations' | trans }}
-        <button class="btn btn-xs btn-success js-load-form" title="{{ 'location.actions.create' | trans }}">
-            <span class="fa fa-plus"></span>
-        </button>
-        {% if chapterId %}
-            <button class="btn btn-xs btn-default js-load-sublist"
-                    title="{{ 'location.actions.add_existing' | trans }}"
-                    data-list-url="{{ path('location_related', { id: sceneId }) }}"
-            >
-                <span class="fa fa-link"></span>
-            </button>
-        {% endif %}
-    </span>
-    {% include 'partial/pagination.html.twig' with { paginator: locations, route: 'location_list', parameters: { id: sceneId, page: page }} only %}
-    <ul>
-        {% for location in locations -%}
-            <li>
-                <span class="sublist-label">{{ location | truncate(15) }}</span>
-                <span class="list-actions">
-                    <button class="js-load-form js-edit-form btn btn-xs btn-primary"
-                        data-form-url="{{ path('location_edit', { id: location.id }) }}"
-                        title="{{ 'crud.edit' | trans }}"
+<ul class="js-ajax-pagination" data-list-url="{{ path('location_list', { id: sceneId, page: locations.currentPage }) }}">
+    {% for location in locations %}
+        <li>
+            <span class="sublist-label">{{ location | truncate(15) }}</span>
+            <span class="list-actions">
+                <button class="js-load-form js-edit-form btn btn-xs btn-primary"
+                    data-form-url="{{ path('location_edit', { id: location.id }) }}"
+                    title="{{ 'crud.edit' | trans }}"
+                >
+                    <span class="fa fa-edit"></span>
+                </button>
+                <button class="js-display btn btn-xs btn-default"
+                    data-display-url="{{ path('location_display', { id: location.id }) }}"
+                    title="{{ 'crud.display' | trans }}"
+                >
+                    <span class="fa fa-eye"></span>
+                </button>
+                {% if chapterId %}
+                    <button class="js-list-delete js-delete btn btn-xs btn-warning"
+                        data-delete-url="{{ path('location_remove_from_scene', { scene_id: sceneId, location_id: location.id }) }}"
+                        title="{{ 'crud.remove_from_scene' | trans }}"
                     >
-                        <span class="fa fa-edit"></span>
+                        <span class="fa fa-scissors"></span>
                     </button>
-                    <button class="js-display btn btn-xs btn-default"
-                        data-display-url="{{ path('location_display', { id: location.id }) }}"
-                        title="{{ 'crud.display' | trans }}"
-                    >
-                        <span class="fa fa-eye"></span>
-                    </button>
-                    {% if chapterId %}
-                        <button class="js-list-delete js-delete btn btn-xs btn-danger"
-                            data-delete-url="{{ path('location_remove_from_scene', { scene_id: sceneId, location_id: location.id }) }}"
-                            title="{{ 'crud.remove_from_scene' | trans }}"
-                        >
-                            <span class="fa fa-scissors"></span>
-                        </button>
-                    {% endif %}
-                    <button class="js-list-delete js-delete btn btn-xs btn-danger"
-                        data-delete-url="{{ path('location_delete', { id: location.id }) }}"
-                        title="{{ 'crud.delete' | trans }}"
-                    >
-                        <span class="fa fa-trash"></span>
-                    </button>
-                </span>
-            </li>
-        {%- endfor %}
-    </ul>
-</li>
+                {% endif %}
+                <button class="js-list-delete js-delete btn btn-xs btn-danger"
+                    data-delete-url="{{ path('location_delete', { id: location.id }) }}"
+                    title="{{ 'crud.delete' | trans }}"
+                >
+                    <span class="fa fa-trash"></span>
+                </button>
+            </span>
+        </li>
+    {% endfor %}
+</ul>
+{% include 'partial/pagination.html.twig' with { paginator: locations, route: 'location_list', parameters: { id: sceneId, page: page }} only %}

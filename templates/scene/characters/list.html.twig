@@ -1,56 +1,36 @@
-<li class="characters js-list js-ajax-pagination"
-    data-form-url="{{ path('character_new', { id: sceneId }) }}"
-    data-list-url="{{ path('character_list', { id: sceneId, page: characters.currentPage }) }}"
->
-    <span class="fa fa-user-o logo-icon"></span>
-    <span class="h4">
-        {{ 'scene.tabs.characters' | trans }}
-        <button class="btn btn-xs btn-success js-load-form" title="{{ 'character.actions.create'|trans }}">
-            <span class="fa fa-plus"></span>
-        </button>
-        {% if chapterId %}
-            <button class="btn btn-xs btn-default js-load-sublist"
-                    title="{{ 'character.actions.add_existing'|trans }}"
-                    data-list-url="{{ path('character_related', { id: sceneId }) }}"
-            >
-                <span class="fa fa-link"></span>
-            </button>
-        {% endif %}
-    </span>
-    {% include 'partial/pagination.html.twig' with { paginator: characters, route: 'character_list', parameters: { id: sceneId, page: page }} only %}
-    <ul>
-        {% for character in characters %}
-            <li>
-                <span class="sublist-label">{{ character | truncate(15) }}</span>
-                <span class="list-actions">
-                    <button class="js-load-form js-edit-form btn btn-xs btn-primary"
-                        data-form-url="{{ path('character_edit', { id: character.id }) }}"
-                        title="{{ 'crud.edit' | trans }}"
+<ul class="js-ajax-pagination" data-list-url="{{ path('character_list', { id: sceneId, page: characters.currentPage }) }}">
+    {% for character in characters %}
+        <li>
+            <span class="sublist-label">{{ character | truncate(20) }}</span>
+            <span class="list-actions">
+                <button class="js-load-form js-edit-form btn btn-xs btn-primary"
+                    data-form-url="{{ path('character_edit', { id: character.id }) }}"
+                    title="{{ 'crud.edit' | trans }}"
+                >
+                    <span class="fa fa-edit"></span>
+                </button>
+                <button class="js-display btn btn-xs btn-default"
+                    data-display-url="{{ path('character_display', { id: character.id }) }}"
+                    title="{{ 'crud.display' | trans }}"
+                >
+                    <span class="fa fa-eye"></span>
+                </button>
+                {% if chapterId %}
+                    <button class="js-list-delete js-delete btn btn-xs btn-warning"
+                        data-delete-url="{{ path('character_remove_from_scene', { scene_id: sceneId, character_id: character.id }) }}"
+                        title="{{ 'crud.remove_from_scene' | trans }}"
                     >
-                        <span class="fa fa-edit"></span>
+                        <span class="fa fa-scissors"></span>
                     </button>
-                    <button class="js-display btn btn-xs btn-default"
-                        data-display-url="{{ path('character_display', { id: character.id }) }}"
-                        title="{{ 'crud.display' | trans }}"
-                    >
-                        <span class="fa fa-eye"></span>
-                    </button>
-                    {% if chapterId %}
-                        <button class="js-list-delete js-delete btn btn-xs btn-danger"
-                            data-delete-url="{{ path('character_remove_from_scene', { scene_id: sceneId, character_id: character.id }) }}"
-                            title="{{ 'crud.remove_from_scene' | trans }}"
-                        >
-                            <span class="fa fa-scissors"></span>
-                        </button>
-                    {% endif %}
-                    <button class="js-list-delete js-delete btn btn-xs btn-danger"
-                        data-delete-url="{{ path('character_delete', { id: character.id }) }}"
-                        title="{{ 'crud.delete' | trans }}"
-                    >
-                        <span class="fa fa-trash"></span>
-                    </button>
-                </span>
-            </li>
-        {% endfor %}
-    </ul>
-</li>
+                {% endif %}
+                <button class="js-list-delete js-delete btn btn-xs btn-danger"
+                    data-delete-url="{{ path('character_delete', { id: character.id }) }}"
+                    title="{{ 'crud.delete' | trans }}"
+                >
+                    <span class="fa fa-trash"></span>
+                </button>
+            </span>
+        </li>
+    {% endfor %}
+</ul>
+{% include 'partial/pagination.html.twig' with { paginator: characters, route: 'character_list', parameters: { id: sceneId, page: page }} only %}

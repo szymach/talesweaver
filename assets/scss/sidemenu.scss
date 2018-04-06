@@ -4,12 +4,12 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    height: 100%;
     right: 0;
     width: 60px;
     overflow: hidden;
-    -webkit-transition:width .1s linear;
     transition: width .1s linear;
+    transform: translateZ(0) scale(1,1);
+    -webkit-transition: width .1s linear;
     -webkit-transform: translateZ(0) scale(1,1);
     z-index: 99;
     padding-top: 65px;
@@ -29,14 +29,6 @@
             ul li *:not(.fa) {
                 display: none;
             }
-        }
-    }
-    .side-menu-toggle {
-        margin-top: 15px;
-        padding-left: 13px;
-
-        @media (min-width: $screen-md-min) {
-            display: none;
         }
     }
 
@@ -69,12 +61,22 @@
             min-height: 35px;
             line-height: 35px;
 
-            ul {
-                margin-left: -10px;
-                -webkit-box-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
-                -moz-box-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
-                box-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
+            .js-list-container {
+                &.loaded {
+                    position: absolute;
+                    right: 225px;
+                    top: 10px;
+                    width: 250px;
+                    height: 150px;
+                    -webkit-box-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
+                    -moz-box-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
+                    box-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
+                    background-color: #fff;
 
+                    .js-ajax-pagination {
+                        height: 100px;
+                    }
+                }
             }
 
             .h4 {
@@ -111,16 +113,19 @@
 
         &.pagination {
             line-height: initial;
-            padding: 5px 0;
-            text-align: center;
+            padding: 0;
+            margin: 0 10px 0 0;
+            text-align: right;
             box-shadow: none;
 
             li {
                 display: inline-block;
+                min-height: 15px;
+                line-height: 15px;
 
                 & > a, span {
                     display: inline-block;
-                    padding: 5px;
+                    padding: 0 5px;
                     font-size: 13px;
                 }
             }

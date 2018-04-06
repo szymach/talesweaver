@@ -6,6 +6,7 @@ import * as lists from './lists';
 
 export function getForm(url : string, $listTable : JQuery<HTMLElement>)
 {
+    lists.closeSublists();
     $.ajax({
         method: "GET",
         url: url,
