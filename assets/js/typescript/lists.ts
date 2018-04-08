@@ -18,18 +18,21 @@ export function refreshList($listTable : JQuery<HTMLElement>)
 
 export function closeSublists()
 {
-    let $openedLists : JQuery<HTMLElement> = $('.js-list-container.loaded');
+    let $openedLists : JQuery<HTMLElement> = $('.side-menu .loaded');
     if (0 === $openedLists.length) {
         return;
     }
 
-    $openedLists.removeClass('loaded').html('');
+    $openedLists.removeClass('loaded').find('.js-list-container').each(function(index, element : HTMLElement) {
+        $(element).html('');
+    });
 }
 
 $('main').on('click', '.js-list-toggle', function (event : JQuery.Event) {
     let $this : JQuery<HTMLElement> = $(event.currentTarget);
     let $container : JQuery<HTMLElement> = $this.parents('li').first().find('.js-list-container');
-    if ($container.hasClass('loaded')) {
+    let $containerWrapper = $container.parent();
+    if ($containerWrapper.hasClass('loaded')) {
         closeSublists();
     } else {
         ajaxContainer.clearAjaxContainer();
@@ -39,7 +42,8 @@ $('main').on('click', '.js-list-toggle', function (event : JQuery.Event) {
             url: $this.data('list-url'),
             dataType: "json",
             success: function(response : any) {
-                $container.html(response.list).addClass('loaded');
+                $container.html(response.list);
+                $containerWrapper.addClass('loaded');
             }
         });
     }

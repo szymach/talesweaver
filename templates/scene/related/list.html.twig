@@ -1,6 +1,6 @@
 <ul class="js-ajax-pagination" data-list-url="{{ path('scene_related_list', { id: chapterId, page: page }) }}">
     {% for scene in scenes %}
-        <li><a href="{{ path('scene_edit', { id: scene.id }) }}">{{ scene.title }}</a></li>
+        <li><a class="" href="{{ path('scene_edit', { id: scene.id }) }}">{{ scene.title }}</a></li>
     {% endfor %}
 </ul>
 {% include 'partial/pagination.html.twig' with { paginator: scenes, route: 'scene_related_list', parameters: { id: chapterId, page: page }} only %}

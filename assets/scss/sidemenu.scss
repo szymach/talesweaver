@@ -1,3 +1,6 @@
+$sidemenu-active-menu-bg: #f7f7f7;
+$sidemenu-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
+
 .side-menu {
     background: $body-bg;
     border-left: 1px solid $gray-light;
@@ -53,25 +56,31 @@
     ul {
         margin: 7px 0;
         display: block;
-        padding-left: 10px;
+        padding: 0;
 
         li {
             position: relative;
             display: block;
             min-height: 35px;
             line-height: 35px;
+            padding-left: 10px;
 
-            .js-list-container {
-                &.loaded {
+            &.loaded {
+                background-color: $sidemenu-active-menu-bg;
+                -webkit-box-shadow: $sidemenu-shadow;
+                -moz-box-shadow: $sidemenu-shadow;
+                box-shadow: $sidemenu-shadow;
+
+                .js-list-container {
                     position: absolute;
                     right: 225px;
-                    top: 10px;
+                    top: 0;
                     width: 250px;
                     height: 150px;
-                    -webkit-box-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
-                    -moz-box-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
-                    box-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
-                    background-color: #fff;
+                    -webkit-box-shadow: $sidemenu-shadow;
+                    -moz-box-shadow: $sidemenu-shadow;
+                    box-shadow: $sidemenu-shadow;
+                    background-color: $sidemenu-active-menu-bg;
 
                     .js-ajax-pagination {
                         height: 100px;
@@ -122,6 +131,7 @@
                 display: inline-block;
                 min-height: 15px;
                 line-height: 15px;
+                padding: 0;
 
                 & > a, span {
                     display: inline-block;
