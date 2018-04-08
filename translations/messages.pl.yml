@@ -1,4 +1,16 @@
 ---
+meta:
+    title: Bajkopisarz
+
+menu:
+    start: Start
+    books: Książki
+    chapters: Rozdziały
+    scenes: Sceny
+    change_password: Zmień hasło
+    toggle: Przełącz nawigację
+    logout: Wyloguj
+
 crud:
     save: Zapisz
     edit: Edycja
@@ -94,9 +106,21 @@ security:
                 placeholder: Podaj ponownie nowe hasło
         submit: Wyślij
         alert:
-            success: >
-                Pomyślnie zmieniono hasło do aplikacji. Wymagane jest ponowne
-                zalogowanie.
+            success: Pomyślnie zmieniono hasło do aplikacji. Wymagane jest ponowne zalogowanie.
+
+dashboard:
+    header: |
+        Witaj w aplikacji Bajkopisarz!
+
+        Wybierz jedną z pozycji u góry by rozpocząć pracę.
+    timeline: Ostatnie zmiany
+    type:
+        'Domain\Entity\Book': Książka
+        'Domain\Entity\Chapter': Rozdział
+        'Domain\Entity\Scene': Scena
+    updated:
+        0: Dodano
+        1: Zaktualizowano
 
 book:
     title: Tytuł
@@ -119,15 +143,15 @@ book:
         ending: Zakończenie
         chapters: Rozdziały
     alert:
-        created: Pomyślnie dodano nową książkę o tytule "%title%".
+        created: 'Pomyślnie dodano nową książkę o tytule "%title%".'
         edit: Zapisano zmiany w książce.
-        deleted: Książka "%title%" została usunięta.
+        deleted: 'Książka "%title%" została usunięta.'
 
 chapter:
     title: Tytuł
     placeholder:
         title: Tytuł nowego rozdziału
-        book: Wybierz ...
+        book: 'Wybierz ...'
     scenes: Sceny
     book: Książka
     actions:
@@ -143,9 +167,9 @@ chapter:
         basic: Podstawowe
         scenes: Sceny
     alert:
-        created: Pomyślnie dodano nowy rozdział o tytule "%title%".
+        created: 'Pomyślnie dodano nowy rozdział o tytule "%title%".'
         edit: Zapisano zmiany w rozdziale.
-        deleted: Rozdział "%title%" został usunięty.
+        deleted: 'Rozdział "%title%" został usunięty.'
 
 scene:
     title: Tytuł
@@ -169,9 +193,9 @@ scene:
         items: Przedmioty
         events: Wydarzenia
     alert:
-        created: Pomyślnie dodano nową scenę o tytule "%title%".
+        created: 'Pomyślnie dodano nową scenę o tytule "%title%".'
         edit: Zapisano zmiany w scenie.
-        deleted: Scena "%title%" została usunięta.
+        deleted: 'Scena "%title%" została usunięta.'
 
 event:
     name: Nazwa
@@ -199,8 +223,6 @@ character:
     name: Imię
     description: Opis
     avatar: Zdjęcie
-    items: Przedmioty
-    locations: Miejsca
     actions:
         add_to_scene: 'Dodaj do sceny "%scene%"'
         create: Nowa postać
@@ -220,7 +242,6 @@ item:
     name: Nazwa
     description: Opis
     avatar: Zdjęcie
-    characters: Postacie
     actions:
         create: Nowy przedmiot
         add_existing: Dodaj przedmiot z innej sceny
@@ -240,8 +261,6 @@ location:
     name: Nazwa
     description: Opis
     avatar: Zdjęcie
-    characters: Postacie
-    items: Przedmioty
     actions:
         create: Nowe miejsce
         add_existing: Dodaj miejsce z innej sceny
@@ -256,33 +275,6 @@ location:
         deleted: Miejsce "%title%" zostało usunięte.
         added_to_scene: Dodano miejsce "%title%" do sceny "%sceneTitle%".
         removed_from_scene: Usunięto miejsce "%title%" ze sceny "%sceneTitle%".
-
-# Front
-dashboard:
-    header: |
-        Witaj w aplikacji Bajkopisarz!
-
-        Wybierz jedną z pozycji u góry by rozpocząć pracę.
-    timeline: Ostatnie zmiany
-    type:
-        'Domain\Entity\Book': Książka
-        'Domain\Entity\Chapter': Rozdział
-        'Domain\Entity\Scene': Scena
-    updated:
-        0: Dodano
-        1: Zaktualizowano
-
-meta:
-    title: Bajkopisarz
-
-menu:
-    start: Start
-    books: Książki
-    chapters: Rozdziały
-    scenes: Sceny
-    change_password: Zmień hasło
-    toggle: Przełącz nawigację
-    logout: Wyloguj
 
 modal:
     action_confirmation: Potwierdzenie akcji
