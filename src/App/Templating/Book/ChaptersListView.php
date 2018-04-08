@@ -48,7 +48,7 @@ class ChaptersListView
         $this->router = $router;
     }
 
-    public function createView(Book $book, $page): JsonResponse
+    public function createView(Book $book, int $page): JsonResponse
     {
         return new JsonResponse([
             'list' => $this->templating->render(

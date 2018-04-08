@@ -49,10 +49,6 @@ $sidemenu-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
         }
     }
 
-    .fa.logo-icon.switch {
-       width: 100%;
-    }
-
     ul {
         margin: 7px 0;
         display: block;
@@ -81,11 +77,11 @@ $sidemenu-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
                     -moz-box-shadow: $sidemenu-shadow;
                     box-shadow: $sidemenu-shadow;
                     background-color: $sidemenu-active-menu-bg;
-
-                    .js-ajax-pagination {
-                        height: 100px;
-                    }
                 }
+            }
+
+            .js-ajax-pagination {
+                height: 100px;
             }
 
             .h4 {
@@ -111,7 +107,7 @@ $sidemenu-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
             }
 
             form {
-                max-width: 200px;
+                padding-right: 10px;
             }
 
             .list-actions {

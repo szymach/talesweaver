@@ -19,7 +19,7 @@ class ChaptersListController
         $this->templating = $templating;
     }
 
-    public function __invoke(Book $book, $page)
+    public function __invoke(Book $book, int $page)
     {
         return $this->templating->createView($book, $page);
     }

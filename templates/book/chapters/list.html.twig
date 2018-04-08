@@ -1,30 +1,22 @@
-<li class="chapters js-list" data-list-url="{{ path('book_chapter_list', { id: bookId }) }}">
-    <span class="fa fa-book logo-icon"></span>
-    <span class="h4">{{ 'book.chapters'|trans }}</span>
-    <ul>
-        {% for chapter in chapters %}
-            <li>
-                <span class="sublist-label">{{ chapter.title }}</span>
+<ul class="js-ajax-pagination" data-list-url="{{ path('book_chapter_list', { id: bookId }) }}">
+    {% for chapter in chapters %}
+        <li>
+            <span class="sublist-label">{{ chapter.title }}</span>
+            <span class="pull-right pr-10">
                 <a class="btn btn-xs btn-primary"
-                    href="{{ path('chapter_edit', { id: chapter.id }) }}"
-                    title="{{ 'crud.edit' | trans }}"
-                >
+                   href="{{ path('chapter_edit', { id: chapter.id }) }}"
+                   title="{{ 'crud.edit' | trans }}"
+                   >
                     <span class="fa fa-edit"></span>
                 </a>
                 <button class="js-list-delete js-delete btn btn-xs btn-danger"
-                    data-delete-url="{{ path('chapter_delete', { id: chapter.id }) }}"
-                    title="{{ 'crud.delete' | trans }}"
-                >
+                        data-delete-url="{{ path('chapter_delete', { id: chapter.id }) }}"
+                        title="{{ 'crud.delete' | trans }}"
+                        >
                     <span class="fa fa-trash"></span>
                 </button>
-            </li>
-        {% endfor %}
-    </ul>
-    {% form_theme chapterForm 'bootstrap_3_layout.html.twig' %}
-    {{ form_start(chapterForm) }}
-        {{ form_row(chapterForm.title, { label: false }) }}
-        <div style="display: none;">{{ form_row(chapterForm.book) }}</div>
-        {{ form_rest(chapterForm) }}
-        <button style="display: block; width: 100%; margin-top: 10px;" class="btn btn-primary btn-sm">{{ 'book.actions.add_chapter' | trans }}</button>
-    {{ form_end(chapterForm) }}
-</li>
+            </span>
+        </li>
+    {% endfor %}
+</ul>
+{% include 'partial/pagination.html.twig' with { paginator: chapters, route: 'book_chapter_list', parameters: { id: bookId, page: page }} only %}

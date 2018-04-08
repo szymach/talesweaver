@@ -27,7 +27,7 @@
     </div>
     {% embed 'partial/sideMenu.html.twig' %}
         {% block listContent %}
-            {% include 'chapter/scenes/list.html.twig' with {
+            {% include 'chapter/scenes/listHeader.html.twig' with {
                 chapterId: chapterId,
                 scenes: scenes,
                 sceneForm: sceneForm

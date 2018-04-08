@@ -1,39 +1,22 @@
-<li class="chapters js-list js-ajax-pagination" data-list-url="{{ path('chapter_scenes_list', { id: chapterId }) }}">
-    <span class="fa fa-book logo-icon"></span>
-    <span class="h4">{{ 'chapter.scenes'|trans }}</span>
-    {% include 'partial/pagination.html.twig' with {
-        paginator: scenes,
-        route: 'chapter_scenes_list',
-        parameters: { id: chapterId }
-    } only %}
-    <ul>
-        {% for scene in scenes %}
-            <li>
-                <span class="sublist-label">{{ scene }}</span>
-                <span class="pull-right" style="padding-right: 5px;">
-                    <a class="btn btn-xs btn-primary"
-                        href="{{ path('scene_edit', { id: scene.id }) }}"
-                        title="{{ 'crud.edit' | trans }}"
-                    >
-                        <span class="fa fa-edit"></span>
-                    </a>
-                    <button class="js-list-delete js-delete btn btn-xs btn-danger"
+<ul class="js-ajax-pagination" data-list-url="{{ path('chapter_scenes_list', { id: chapterId }) }}">
+    {% for scene in scenes %}
+        <li>
+            <span class="sublist-label">{{ scene }}</span>
+            <span class="pull-right pr-10">
+                <a class="btn btn-xs btn-primary"
+                   href="{{ path('scene_edit', { id: scene.id }) }}"
+                   title="{{ 'crud.edit' | trans }}"
+                   >
+                    <span class="fa fa-edit"></span>
+                </a>
+                <button class="js-list-delete js-delete btn btn-xs btn-danger"
                         data-delete-url="{{ path('scene_delete', { id: scene.id }) }}"
                         title="{{ 'crud.delete' | trans }}"
-                    >
-                        <span class="fa fa-trash"></span>
-                    </button>
-                </span>
-            </li>
-        {% endfor %}
-    </ul>
-    {% form_theme sceneForm 'bootstrap_3_layout.html.twig' %}
-    {{ form_start(sceneForm) }}
-        {{ form_row(sceneForm.title, { label: false }) }}
-        <div style="display: none;">{{ form_row(sceneForm.chapter) }}</div>
-        {{ form_rest(sceneForm) }}
-        <button class="btn btn-success btn-sm full-width mt-10">
-            {{- 'chapter.actions.add_scene' | trans -}}
-        </button>
-    {{ form_end(sceneForm) }}
-</li>
+                        >
+                    <span class="fa fa-trash"></span>
+                </button>
+            </span>
+        </li>
+    {% endfor %}
+</ul>
+{% include 'partial/pagination.html.twig' with { paginator: scenes, route: 'chapter_scenes_list', parameters: { id: chapterId }} only %}

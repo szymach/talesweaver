@@ -1,0 +1,16 @@
+<li>
+    <span class="fa fa-book logo-icon"></span>
+    <span class="h4">{{ 'chapter.scenes'|trans }}</span>
+    {% form_theme sceneForm 'bootstrap_3_layout.html.twig' %}
+    {{ form_start(sceneForm) }}
+        {{ form_row(sceneForm.title, { label: false }) }}
+        <div style="display: none;">{{ form_row(sceneForm.chapter) }}</div>
+        {{ form_rest(sceneForm) }}
+        <button class="btn btn-success btn-sm full-width mt-10">
+            {{- 'chapter.actions.add_scene' | trans -}}
+        </button>
+    {{ form_end(sceneForm) }}
+    <span class="js-list-container">
+        {% include 'chapter/scenes/list.html.twig' with { chapterId: chapterId, scenes: scenes, page: 1 } only %}
+    </span>
+</li>

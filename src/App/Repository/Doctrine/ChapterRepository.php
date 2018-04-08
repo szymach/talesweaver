@@ -28,6 +28,7 @@ class ChapterRepository extends TranslatableRepository
         return $this->createQueryBuilder('c')
             ->where('c.book = :book')
             ->andWhere('c.createdBy = :user')
+            ->orderBy('c.createdAt')
             ->setParameter('book', $book)
             ->setParameter('user', $user)
         ;

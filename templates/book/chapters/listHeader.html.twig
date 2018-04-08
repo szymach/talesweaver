@@ -1,0 +1,14 @@
+<li>
+    <span class="fa fa-book logo-icon"></span>
+    <span class="h4">{{ 'book.chapters'|trans }}</span>
+    {% form_theme chapterForm 'bootstrap_3_layout.html.twig' %}
+    {{ form_start(chapterForm) }}
+        {{ form_row(chapterForm.title, { label: false }) }}
+        <div style="display: none;">{{ form_row(chapterForm.book) }}</div>
+        {{ form_rest(chapterForm) }}
+        <button class="btn btn-success btn-sm full-width">{{ 'book.actions.add_chapter' | trans }}</button>
+    {{ form_end(chapterForm) }}
+    <span class="js-list-container">
+        {% include 'book/chapters/list.html.twig' with { bookId: bookId, chapters: chapters, page: 1 } only %}
+    </span>
+</li>
