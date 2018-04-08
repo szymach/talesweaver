@@ -1,5 +1,9 @@
 import * as $ from 'jquery';
 
+$.bind('ajaxStart', showBackdrop());
+$.bind('ajaxComplete', hideBackdrop());
+$.bind('ajaxError', hideBackdrop());
+
 export function showBackdrop()
 {
     setCursor('wait');

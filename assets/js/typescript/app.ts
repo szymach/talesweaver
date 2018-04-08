@@ -1,8 +1,7 @@
 import * as $ from 'jquery';
 import * as autofocus from './autofocus';
-import * as sidemenu from './sidemenu';
-import * as forms from './forms';
-import * as backdrop from './backdrop';
+import './forms';
+import './backdrop';
 import * as display from './display';
 import * as alerts from './alerts';
 import ckeditor = require('../ckeditor');
@@ -12,26 +11,7 @@ import './lists';
     $(function () {
         display.closeModal();
         autofocus.onStatic();
-        sidemenu.toggle();
         alerts.setAlertFadeOuts();
         ckeditor.initializeCKEditor(document.querySelector('.ckeditor'));
-
-        $.bind('ajaxStart', backdrop.showBackdrop());
-        $.bind('ajaxComplete', backdrop.hideBackdrop());
-        $.bind('ajaxError', backdrop.hideBackdrop());
-
-        $('main').on('click', '.js-load-form', function (event : JQuery.Event) {
-            event.preventDefault();
-            event.stopPropagation();
-
-            const $this : JQuery<HTMLElement> = $(event.currentTarget);
-            const $listTable : JQuery<HTMLElement> = $this.parents('.js-list').first();
-            const url : string = $this.hasClass('js-edit-form') ? $this.data('form-url') : $listTable.data('form-url');
-
-            forms.getForm(url, $listTable);
-            $('html, body').animate({
-                scrollTop: $("#clear-ajax").offset().top
-            }, 2000);
-        });
     });
 })();

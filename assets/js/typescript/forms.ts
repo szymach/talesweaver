@@ -4,6 +4,19 @@ import * as ajaxContainer from './ajax-container';
 import * as alerts from './alerts';
 import * as lists from './lists';
 
+$('main').on('click', '.js-load-form', function (event : JQuery.Event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const $this : JQuery<HTMLElement> = $(event.currentTarget);
+    const $listTable : JQuery<HTMLElement> = $this.parents('.js-list').first();
+
+    getForm($this.data('form-url'), $listTable);
+    $('html, body').animate({
+        scrollTop: $("#clear-ajax").offset().top
+    }, 2000);
+});
+
 export function getForm(url : string, $listTable : JQuery<HTMLElement>)
 {
     lists.closeSublists();

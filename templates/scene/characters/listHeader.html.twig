@@ -1,4 +1,4 @@
-<li data-form-url="{{ path('character_new', { id: sceneId }) }}">
+<li>
     <span class="h4">
         <button class="btn btn-xs btn-default js-list-toggle"
                 data-list-url="{{ path('character_list', { id: sceneId, page: 1 }) }}"
@@ -14,7 +14,10 @@
                 <span class="fa fa-link"></span>
             </button>
         {% endif %}
-        <button class="btn btn-xs btn-success js-load-form" title="{{ 'character.actions.create'|trans }}">
+        <button class="btn btn-xs btn-success js-load-form"
+                title="{{ 'character.actions.create'|trans }}"
+                data-form-url="{{ path('character_new', { id: sceneId }) }}"
+        >
             <span class="fa fa-plus"></span>
         </button>
         <span>{{ 'scene.tabs.characters' | trans }}</span>
