@@ -17,13 +17,29 @@ $('main').on('click', '.js-display', function (event : JQuery.Event) {
     event.preventDefault();
     event.stopPropagation();
 
+    const $this : JQuery<HTMLElement> = $(event.currentTarget);
     $.ajax({
         method: "GET",
-        url: $(event.currentTarget).data('display-url'),
+        url: $this.data('display-url'),
         dataType: "json",
         success: function(response : any) {
-            $('#modal-display').find('.modal-content').html(response.display);
-            $('#modal-display').modal();
+            const $modal = $('#modal-display');
+            $modal.find('.modal-content').html(response.display);
+            const modalClass : string = $this.data('modal-class');
+            if (typeof modalClass !== 'undefined') {
+                $modal.find('.modal-dialog').addClass(modalClass);
+                $modal.data('class-to-remove', modalClass);
+            }
+            $modal.modal();
         }
     });
 });
+
+$('#modal-display').on('hidden.bs.modal', function (event : JQuery.Event) {
+    const $this : JQuery<HTMLElement> = $(event.currentTarget)
+    const classToRemove : string = $this.data('class-to-remove');
+    if (typeof classToRemove !== 'undefined') {
+        $this.find('.modal-dialog').removeClass(classToRemove);
+        $this.removeAttr('class-to-remove');
+    }
+})
