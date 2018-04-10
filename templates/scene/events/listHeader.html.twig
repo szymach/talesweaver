@@ -6,13 +6,12 @@
         >
             <span class="fa fa-list"></span>
         </button>
+        <button class="btn btn-success btn-xs js-display"
+                data-display-url="{{ path('event_options', { id: sceneId }) }}"
+                title="{{ 'crud.create'|trans }}">
+            <span class="fa fa-plus"></span>
+        </button>
         <span>{{ 'scene.tabs.events' | trans }}</span>
     </span>
-    {% for model in eventModels %}
-        <span data-form-url="{{ path('event_add', { id: sceneId, model: model }) }}" class="js-load-form js-edit-form cursor-pointer">
-            {{ ('event.' ~ model ~ '.name') | trans }}
-            <span class="fa fa-plus btn btn-success btn-xs"></span>
-        </span>
-    {% endfor %}
     <span class="js-list-container"></span>
 </li>

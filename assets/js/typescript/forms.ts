@@ -3,21 +3,20 @@ import * as autofocus from './autofocus';
 import * as ajaxContainer from './ajax-container';
 import * as alerts from './alerts';
 import * as lists from './lists';
+import * as display from './display';
 
-$('main').on('click', '.js-load-form', function (event : JQuery.Event) {
+$('main, .modal').on('click', '.js-load-form', function (event : JQuery.Event) {
     event.preventDefault();
     event.stopPropagation();
 
-    const $this : JQuery<HTMLElement> = $(event.currentTarget);
-    const $listTable : JQuery<HTMLElement> = $this.parents('.js-list').first();
-
-    getForm($this.data('form-url'), $listTable);
+    display.closeAllModals();
+    getForm($(event.currentTarget).data('form-url'));
     $('html, body').animate({
         scrollTop: $("#clear-ajax").offset().top
     }, 2000);
 });
 
-export function getForm(url : string, $listTable : JQuery<HTMLElement>)
+export function getForm(url : string)
 {
     lists.closeSublists();
     $.ajax({
@@ -26,13 +25,13 @@ export function getForm(url : string, $listTable : JQuery<HTMLElement>)
         dataType: "json",
         success: function(response : any) {
             ajaxContainer.displayAjaxContainerWithContent(response.form);
-            bindAjaxForm($listTable);
+            bindAjaxForm();
             autofocus.onStatic();
         }
     });
 }
 
-function bindAjaxForm($listTable : JQuery<HTMLElement>)
+function bindAjaxForm()
 {
     let $container = ajaxContainer.getAjaxContainer();
     $container.off('submit');
@@ -40,7 +39,7 @@ function bindAjaxForm($listTable : JQuery<HTMLElement>)
         event.preventDefault();
         event.stopPropagation();
 
-        submitForm($(event.currentTarget), $listTable);
+        submitForm($(event.currentTarget));
         var $input : JQuery<HTMLElement> = $container.find('form input').first();
         if ($input.length) {
             $input.trigger('focus');
@@ -49,7 +48,7 @@ function bindAjaxForm($listTable : JQuery<HTMLElement>)
     });
 }
 
-function submitForm($form : any, $listTable : JQuery<HTMLElement>)
+function submitForm($form : any)
 {
     $.ajax({
         method: "POST",
@@ -59,7 +58,6 @@ function submitForm($form : any, $listTable : JQuery<HTMLElement>)
         data: new FormData($form[0]),
         success: function() {
             ajaxContainer.clearAjaxContainer();
-            lists.refreshList($listTable);
             alerts.displayAlerts();
         },
         error: function(xhr : any) {
@@ -67,7 +65,6 @@ function submitForm($form : any, $listTable : JQuery<HTMLElement>)
             let response : any = JSON.parse(xhr.responseText);
             if (typeof response.form !== 'undefined') {
                 ajaxContainer.displayAjaxContainerWithContent(response.form);
-                bindAjaxForm($listTable);
             }
             alerts.displayAlerts();
         }

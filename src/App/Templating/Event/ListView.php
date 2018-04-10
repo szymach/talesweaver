@@ -36,7 +36,6 @@ class ListView
                 [
                     'events' => $this->pagination->getResults($scene, $page),
                     'sceneId' => $scene->getId(),
-                    'eventModels' => SceneEvents::getAllEvents(),
                     'page' => $page
                 ]
             )

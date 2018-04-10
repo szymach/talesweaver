@@ -209,6 +209,8 @@ event:
             root: Pierwsza osoba
             relation: Druga osoba
             location: Miejsce
+    modal:
+        title: Wybierz wydarzenie do dodania
     timeline:
         creation:
             'Domain\Entity\Character': 'Pojawił się w scene:'

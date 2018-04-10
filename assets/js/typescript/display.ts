@@ -8,6 +8,11 @@ export function closeModal()
     });
 }
 
+export function closeAllModals()
+{
+    $('.modal.in').find('[data-dismiss=modal]').trigger('click');
+}
+
 $('main').on('click', '.js-display', function (event : JQuery.Event) {
     event.preventDefault();
     event.stopPropagation();

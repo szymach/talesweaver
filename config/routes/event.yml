@@ -4,6 +4,11 @@ event_list:
     defaults: { _controller: App\Controller\Event\ListController, page: 1 }
     methods:  GET
 
+event_options:
+    path: /options/{id}
+    defaults: { _controller: App\Controller\Event\OptionsListController }
+    methods:  GET
+
 event_add:
     path: /add/{id}/{model}
     defaults: { _controller: App\Controller\Event\CreateController }
