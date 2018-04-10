@@ -35,7 +35,7 @@ class RelatedListView
                 [
                     'chapterId' => $chapter->getId(),
                     'chapterTitle' => $chapter->getTitle(),
-                    'scenes' => $this->pagination->getResults($chapter, $page),
+                    'scenes' => $this->pagination->getResults($chapter, $page, 3),
                     'page' => $page
                 ]
             )
