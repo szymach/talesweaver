@@ -2,8 +2,12 @@
     {% for model in eventModels %}
         <li>
             <span>{{ ('event.' ~ model ~ '.name') | trans }}</span>
-            <span data-form-url="{{ path('event_add', { id: sceneId, model: model }) }}" class="js-load-form cursor-pointer list-actions">
-                <span class="btn btn-xs btn-success fa fa-plus"></span>
+            <span class="list-actions">
+                <span data-form-url="{{ path('event_add', { id: sceneId, model: model }) }}"
+                    class="btn btn-xs btn-success js-load-form"
+                >
+                    <span class="fa fa-plus"></span>
+                </span>
             </span>
         </li>
     {%  endfor %}
