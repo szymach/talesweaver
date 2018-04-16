@@ -18,35 +18,46 @@ export function refreshList($listTable : JQuery<HTMLElement>)
 
 export function closeSublists()
 {
-    let $openedLists : JQuery<HTMLElement> = $('.side-menu .loaded');
+    let $openedLists : JQuery<HTMLElement> = $('.side-menu .js-loaded');
     if (0 === $openedLists.length) {
         return;
     }
 
-    $openedLists.removeClass('loaded').find('.js-list-container').each(function(index, element : HTMLElement) {
+    $openedLists.removeClass('js-loaded').find('.js-list-container').each(function(index, element : HTMLElement) {
         $(element).html('');
+    });
+    $openedLists.find('.js-list-toggled').each(function (index, element : HTMLElement) {
+        $(element).removeClass('js-list-toggled');
     });
 }
 
 $('main').on('click', '.js-list-toggle', function (event : JQuery.Event) {
-    let $this : JQuery<HTMLElement> = $(event.currentTarget);
-    let $container : JQuery<HTMLElement> = $this.parents('li').first().find('.js-list-container');
-    let $containerWrapper = $container.parent();
-    if ($containerWrapper.hasClass('loaded')) {
+    const $this : JQuery<HTMLElement> = $(event.currentTarget);
+    const $container : JQuery<HTMLElement> = $this.parents('li').first().find('.js-list-container');
+    const $containerWrapper = $container.parent();
+
+    const wasOpened : boolean = $this.hasClass('js-list-toggled');
+
+    if (true === $containerWrapper.hasClass('js-loaded')) {
         closeSublists();
-    } else {
-        ajaxContainer.clearAjaxContainer();
-        closeSublists();
-        $.ajax({
-            method: "GET",
-            url: $this.data('list-url'),
-            dataType: "json",
-            success: function(response : any) {
-                $container.html(response.list);
-                $containerWrapper.addClass('loaded');
-            }
-        });
     }
+
+    if (true === wasOpened) {
+        return;
+    }
+
+    ajaxContainer.clearAjaxContainer();
+    closeSublists();
+    $.ajax({
+        method: "GET",
+        url: $this.data('list-url'),
+        dataType: "json",
+        success: function(response : any) {
+            $container.html(response.list);
+            $containerWrapper.addClass('js-loaded');
+            $this.addClass('js-list-toggled');
+        }
+    });
 });
 
 $('main').on('click', '.js-delete', function (event : JQuery.Event) {

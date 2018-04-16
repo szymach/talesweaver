@@ -61,7 +61,7 @@ $sidemenu-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
             line-height: 35px;
             padding-left: 10px;
 
-            &.loaded {
+            &.js-loaded {
                 background-color: $sidemenu-active-menu-bg;
                 -webkit-box-shadow: $sidemenu-shadow;
                 -moz-box-shadow: $sidemenu-shadow;
