@@ -1,5 +1,4 @@
 import * as $ from 'jquery';
-import * as autofocus from './autofocus';
 import './forms';
 import './backdrop';
 import * as display from './display';
@@ -9,8 +8,7 @@ import './lists';
 
 (function () {
     $(function () {
-        display.closeModal();
-        autofocus.onStatic();
+        alerts.closeAlert();
         alerts.setAlertFadeOuts();
         ckeditor.initializeCKEditor(document.querySelector('.ckeditor'));
     });

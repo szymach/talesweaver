@@ -1,13 +1,6 @@
 import * as $ from 'jquery';
 import 'bootstrap';
 
-export function closeModal()
-{
-    $('.alert .close').on('click', function (event : JQuery.Event) {
-        $(event.currentTarget).parents('.alert').hide();
-    });
-}
-
 export function closeAllModals()
 {
     $('.modal.in').find('[data-dismiss=modal]').trigger('click');

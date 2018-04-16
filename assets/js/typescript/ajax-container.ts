@@ -31,8 +31,6 @@ export function getAjaxClearButton()
 
 getAjaxClearButton().on('click', function() {
     backdrop.showBackdrop();
-    $('html, body').animate({ scrollTop: $("main").offset().top }, 500, function () {
-        clearAjaxContainer();
-        backdrop.hideBackdrop();
-    });
+    clearAjaxContainer();
+    backdrop.hideBackdrop();
 });

@@ -1,5 +1,4 @@
 import * as $ from 'jquery';
-import * as autofocus from './autofocus';
 import * as ajaxContainer from './ajax-container';
 import * as alerts from './alerts';
 import * as lists from './lists';
@@ -26,7 +25,6 @@ export function getForm(url : string)
         success: function(response : any) {
             ajaxContainer.displayAjaxContainerWithContent(response.form);
             bindAjaxForm();
-            autofocus.onStatic();
         }
     });
 }

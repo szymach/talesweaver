@@ -26,3 +26,10 @@ export function setAlertFadeOuts()
         }, 3000);
     });
 }
+
+export function closeAlert()
+{
+    $('.alert .close').on('click', function (event : JQuery.Event) {
+        $(event.currentTarget).parents('.alert').hide();
+    });
+}
