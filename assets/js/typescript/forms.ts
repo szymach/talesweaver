@@ -4,7 +4,7 @@ import * as alerts from './alerts';
 import * as lists from './lists';
 import * as display from './display';
 
-$('main, .modal').on('click', '.js-load-form', function (event : JQuery.Event) {
+$('main, .modal').on('click', '.js-load-form', function (event : JQuery.Event): void {
     event.preventDefault();
     event.stopPropagation();
 
@@ -15,7 +15,7 @@ $('main, .modal').on('click', '.js-load-form', function (event : JQuery.Event) {
     }, 2000);
 });
 
-export function getForm(url : string)
+export function getForm(url : string): void
 {
     lists.closeSublists();
     $.ajax({
@@ -25,11 +25,12 @@ export function getForm(url : string)
         success: function(response : any) {
             ajaxContainer.displayAjaxContainerWithContent(response.form);
             bindAjaxForm();
+            triggerAutofocus();
         }
     });
 }
 
-function bindAjaxForm()
+function bindAjaxForm(): void
 {
     let $container = ajaxContainer.getAjaxContainer();
     $container.off('submit');
@@ -46,7 +47,7 @@ function bindAjaxForm()
     });
 }
 
-function submitForm($form : any)
+function submitForm($form : any): void
 {
     $.ajax({
         method: "POST",
@@ -67,4 +68,14 @@ function submitForm($form : any)
             alerts.displayAlerts();
         }
     });
+}
+
+function triggerAutofocus(): void
+{
+    const input : JQuery<HTMLElement> = ajaxContainer.getAjaxContainer().find('[autofocus="autofocus"]').first();
+    if (typeof input === 'undefined') {
+        return;
+    }
+
+    input.trigger('focus');
 }

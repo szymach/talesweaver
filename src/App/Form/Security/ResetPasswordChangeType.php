@@ -23,7 +23,8 @@ class ResetPasswordChangeType extends AbstractType
                 'label' => 'security.reset_password.change.first_password.label',
                 'constraints' => [new NotBlank(), new Length(['min' => 6])],
                 'attr' => [
-                    'placeholder' => 'security.reset_password.change.first_password.placeholder'
+                    'placeholder' => 'security.reset_password.change.first_password.placeholder',
+                    'autofocus' => 'autofocus'
                 ]
             ],
             'second_options' => [

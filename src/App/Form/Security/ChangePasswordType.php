@@ -21,7 +21,7 @@ class ChangePasswordType extends AbstractType
         $builder->add('currentPassword', PasswordType::class, [
             'label' => 'security.change_password.current_password.label',
             'constraints' => [new UserPassword()],
-            'attr' => ['placeholder' => 'security.change_password.current_password.placeholder']
+            'attr' => ['placeholder' => 'security.change_password.current_password.placeholder', 'autofocus' => 'autofocus']
         ]);
 
         $builder->add('newPassword', RepeatedType::class, [

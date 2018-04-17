@@ -19,7 +19,7 @@ class CreateType extends AbstractType
     {
         $builder->add('title', TextType::class, [
             'label' => 'chapter.title',
-            'attr' => ['placeholder' => 'chapter.placeholder.title']
+            'attr' => ['placeholder' => 'chapter.placeholder.title', 'autofocus' => 'autofocus']
         ]);
 
         $builder->add('book', EntityType::class, [

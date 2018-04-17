@@ -16,7 +16,10 @@ class EditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title', TextType::class, ['label' => 'book.title']);
+        $builder->add('title', TextType::class, [
+            'label' => 'book.title',
+            'attr' => ['autofocus' => 'autofocus']
+        ]);
 
         $builder->add('description', TextareaType::class, [
             'label' => 'book.description',

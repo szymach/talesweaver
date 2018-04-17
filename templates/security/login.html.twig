@@ -15,7 +15,13 @@
                 <div class="form-group">
                     <label for="username" class="col-sm-2 control-label">{{ 'security.login.username.label' | trans }}</label>
                     <div class="col-sm-10">
-                        <input id="username" type="email" name="_username" class="form-control" placeholder="{{ 'security.login.username.placeholder' | trans }}">
+                        <input id="username"
+                               type="email"
+                               name="_username"
+                               class="form-control"
+                               placeholder="{{ 'security.login.username.placeholder' | trans }}"
+                               autofocus="autofocus"
+                        />
                     </div>
                 </div>
                 <div class="form-group">

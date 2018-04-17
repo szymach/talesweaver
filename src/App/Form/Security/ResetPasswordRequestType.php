@@ -20,7 +20,8 @@ class ResetPasswordRequestType extends AbstractType
             'label' => 'security.reset_password.request.username.label',
             'constraints' => [new NotBlank(), new Email()],
             'attr' => [
-                'placeholder' => 'security.reset_password.request.username.placeholder'
+                'placeholder' => 'security.reset_password.request.username.placeholder',
+                'autofocus' => 'autofocus'
             ]
         ]);
     }

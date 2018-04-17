@@ -23,7 +23,7 @@ class RegisterType extends AbstractType
         $builder->add('username', EmailType::class, [
             'label' => 'security.registration.username.label',
             'constraints' => [new NotBlank(), new Email(), new UniqueUserEmail()],
-            'attr' => ['placeholder' => 'security.registration.username.placeholder']
+            'attr' => ['placeholder' => 'security.registration.username.placeholder', 'autofocus' => 'autofocus']
         ]);
 
         $builder->add('password', RepeatedType::class, [

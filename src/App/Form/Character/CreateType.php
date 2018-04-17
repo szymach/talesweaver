@@ -18,7 +18,10 @@ class CreateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', TextType::class, ['label' => 'character.name']);
+        $builder->add('name', TextType::class, [
+            'label' => 'character.name',
+            'attr' => ['autofocus' => 'autofocus']
+        ]);
 
         $builder->add('description', TextareaType::class, [
             'label' => 'character.description',
