@@ -48,10 +48,10 @@ class FormControllerCest
         $I->see('Podgląd', 'a');
         $I->see('Wróć do listy', 'a');
         $I->seeElement('nav.side-menu');
-        $I->seeElement('nav.side-menu span.fa[title="Postacie"]');
-        $I->seeElement('nav.side-menu span.fa[title="Przedmioty"]');
-        $I->seeElement('nav.side-menu span.fa[title="Miejsca"]');
-        $I->see('Wydarzenia', 'nav.side-menu .h4');
+        $I->see('Postacie', 'span');
+        $I->see('Przedmioty', 'span');
+        $I->see('Miejsca', 'span');
+        $I->see('Wydarzenia', 'span');
 
         $I->submitForm(self::EDIT_FORM, [
             'edit[title]' => self::NEW_TITLE_PL,
