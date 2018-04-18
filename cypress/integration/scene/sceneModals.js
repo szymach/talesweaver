@@ -17,111 +17,147 @@ describe('Modal opening', function() {
         cy.url().should('eq', Cypress.config('baseUrl') + '/scene/list');
         cy.get('.btn-primary[title="Edycja"]').click();
         cy.url().should('contain', Cypress.config('baseUrl') + '/scene/edit');
-    });
-
-    it('verifies side menu toggle', function () {
-        cy.viewport(991, 600)
-        cy.get('.side-menu').should('have.class', 'expanded');
-        cy.contains('Postacie');
-        cy.contains('Przedmioty');
-        cy.contains('Miejsca');
-        cy.contains('Wydarzenia');
-        cy.contains('Spotkanie');
-
-        cy.get('.side-menu-toggle').click();
-        expect('.side-menu').to.not.contain('Postacie');
-        expect('.side-menu').to.not.contain('Przedmioty');
-        expect('.side-menu').to.not.contain('Miejsca');
-        expect('.side-menu').to.not.contain('Wydarzenia');
-        expect('.side-menu').to.not.contain('Spotkanie');
-        cy.get('.side-menu').should('not.have.class', 'expanded');
+        cy.get('#ajax-container').as('ajax-container');
+        cy.get('.side-menu ul li').contains('Postacie').parents('li').first().as('characters');
+        cy.get('.side-menu ul li').contains('Przedmioty').parents('li').first().as('items');
+        cy.get('.side-menu ul li').contains('Miejsca').parents('li').first().as('locations');
+        cy.get('.side-menu ul li').contains('Wydarzenia').parents('li').first().as('events');
     });
 
     it('creates new character', function () {
-        cy.get('.characters .fa-plus').click();
-        cy.contains('Nowa postać');
-        cy.get('input[name="create[name]"]').type('Postać{enter}');
-        cy.contains('Pomyślnie dodano nową postać o imieniu "Postać"').should('be.visible');
+        cy.get('@characters').within(() => {
+            cy.get('.js-load-form').click();
+        }).then(() => {
+            cy.get('@ajax-container').contains('Nowa postać').should('be.visible');
+            cy.get('@ajax-container').get('input[name="create[name]"]').type('Postać{enter}');
+            cy.contains('Pomyślnie dodano nową postać o imieniu "Postać"').should('be.visible');
+        });
     });
 
     it('edits existing character', function () {
-        cy.get('.characters button.js-edit-form').last().click();
-        cy.contains('Edycja postaci');
-        cy.get('input[name="edit[name]"]').type(' edytowana{enter}');
-        cy.contains('Zapisano zmiany w postaci.').should('be.visible');
+        cy.get('@characters').within(() => {
+            cy.get('.js-list-toggle').click();
+            cy.get('.js-edit-form').last().click();
+        }).then(() => {
+            cy.contains('Edycja postaci');
+            cy.get('input[name="edit[name]"]').type(' edytowana{enter}');
+            cy.contains('Zapisano zmiany w postaci.').should('be.visible');
+        });
     });
 
     it('creates new item', function () {
-        cy.get('.items .fa-plus').click();
-        cy.contains('Nowy przedmiot');
-        cy.get('input[name="create[name]"]').type('Przedmiot{enter}');
-        cy.contains('Pomyślnie dodano nowy przedmiot o nazwie "Przedmiot"').should('be.visible');
+        cy.get('@items').within(() => {
+            cy.get('.js-load-form').click();
+        }).then(() => {
+            cy.get('@ajax-container').contains('Nowy przedmiot').should('be.visible');
+            cy.get('@ajax-container').get('input[name="create[name]"]').type('Przedmiot{enter}');
+            cy.contains('Pomyślnie dodano nowy przedmiot o nazwie "Przedmiot"').should('be.visible');
+        });
     });
 
     it('edits existing item', function () {
-        cy.get('.items button.js-edit-form').click();
-        cy.contains('Edycja przedmiotu');
-        cy.get('input[name="edit[name]"]').type(' edytowany{enter}');
-        cy.contains('Zapisano zmiany w przedmiocie.').should('be.visible');
+        cy.get('@items').within(() => {
+            cy.get('.js-list-toggle').click();
+            cy.get('.js-edit-form').last().click();
+        }).then(() => {
+            cy.contains('Edycja przedmiotu');
+            cy.get('input[name="edit[name]"]').type(' edytowany{enter}');
+            cy.contains('Zapisano zmiany w przedmiocie.').should('be.visible');
+        });
     });
 
     it('creates new location', function () {
-        cy.get('.locations .fa-plus').click();
-        cy.contains('Nowe miejsce');
-        cy.get('input[name="create[name]"]').type('Miejsce{enter}');
-        cy.contains('Pomyślnie dodano nowe miejsce o nazwie "Miejsce"').should('be.visible');
+        cy.get('@locations').within(() => {
+            cy.get('.js-load-form').click();
+        }).then(() => {
+            cy.get('@ajax-container').contains('Nowe miejsce').should('be.visible');
+            cy.get('@ajax-container').get('input[name="create[name]"]').type('Miejsce{enter}');
+            cy.contains('Pomyślnie dodano nowe miejsce o nazwie "Miejsce"').should('be.visible');
+        });
     });
 
     it('edits existing location', function () {
-        cy.get('.locations button.js-edit-form').click();
-        cy.contains('Edycja miejsca');
-        cy.get('input[name="edit[name]"]').type(' edytowane{enter}');
-        cy.contains('Zapisano zmiany w miejscu.').should('be.visible');
+        cy.get('@locations').within(() => {
+            cy.get('.js-list-toggle').click();
+            cy.get('.js-edit-form').last().click();
+        }).then(() => {
+            cy.contains('Edycja miejsca');
+            cy.get('input[name="edit[name]"]').type(' edytowane{enter}');
+            cy.contains('Zapisano zmiany w miejscu.').should('be.visible');
+        });
     });
 
     it('creates new event', function () {
-        cy.get('.events .btn-success').click();
-        cy.contains('Nowe wydarzenie');
-        cy.get('[name="create[name]"').type('Spotkanie');
-        cy.get('[name="create[model][root]"').select('Postać edytowana');
-        cy.get('[name="create[model][location]"').select('Miejsce edytowane');
-        cy.get('[name="create[model][relation]"').select('Postać do spotkania');
-        cy.get('form[name="create"] .btn-primary').click();
-        cy.contains('Pomyślnie dodano nowe wydarzenie o nazwie "Spotkanie"').should('be.visible');
+        cy.get('@events').within(() => {
+            cy.get('.js-list-toggle[title="Nowy"]').click();
+            cy.get('.js-load-form').click();
+        }).then(() => {
+            cy.get('@ajax-container').contains('Nowe wydarzenie').should('be.visible');
+            cy.get('@ajax-container').get('[name="create[name]"').type('Spotkanie');
+            cy.get('@ajax-container').get('[name="create[model][root]"').select('Postać edytowana');
+            cy.get('@ajax-container').get('[name="create[model][location]"').select('Miejsce edytowane');
+            cy.get('@ajax-container').get('[name="create[model][relation]"').select('Postać do spotkania');
+            cy.get('@ajax-container').get('form[name="create"] .btn-primary').click();
+            cy.contains('Pomyślnie dodano nowe wydarzenie o nazwie "Spotkanie"').should('be.visible');
+        });
     });
 
     it('edits existing event', function () {
-        cy.get('.events button[title="Edycja"]').click();
-        cy.contains('Edycja wydarzenia');
-        cy.get('[name="edit[name]"').type(' edytowane');
-        cy.get('[name="edit[model][root]"').select('Postać do spotkania');
-        cy.get('[name="edit[model][location]"').select('Miejsce edytowane');
-        cy.get('[name="edit[model][relation]"').select('Postać edytowana');
-        cy.get('#ajax-container form[name="edit"] .btn-primary').click();
-        cy.contains('Zapisano zmiany w wydarzeniu.').should('be.visible');
+        cy.get('@events').within(() => {
+            cy.get('.js-list-toggle[title="Lista"]').click();
+            cy.get('.js-load-form.js-edit-form').click();
+        }).then(() => {
+            cy.get('@ajax-container').contains('Edycja wydarzenia').should('be.visible');
+            cy.get('@ajax-container').get('[name="edit[name]"').type(' edytowane');
+            cy.get('@ajax-container').get('[name="edit[model][root]"').select('Postać do spotkania');
+            cy.get('@ajax-container').get('[name="edit[model][location]"').select('Miejsce edytowane');
+            cy.get('@ajax-container').get('[name="edit[model][relation]"').select('Postać edytowana');
+            cy.get('@ajax-container').contains('Zapisz').click();
+            cy.contains('Zapisano zmiany w wydarzeniu.').should('be.visible');
+        });
     });
 
     it('deletes a character', function () {
-        cy.get('.characters .js-list-delete').last().click();
-        cy.get('#modal-confirm').click();
-        cy.contains('Postać "Postać edytowana" została usunięta.').should('be.visible');
+        cy.get('@characters').within(() => {
+            cy.get('.js-list-toggle').click();
+            cy.get('.js-delete').last().click();
+        }).then(() => {
+            cy.get('#modal-confirm').click().then(() => {
+                cy.contains('Postać "Postać edytowana" została usunięta.').should('be.visible');
+            });
+        });
     });
 
     it('deletes an item', function () {
-        cy.get('.items .js-list-delete').first().click();
-        cy.get('#modal-confirm').click();
-        cy.contains('Przedmiot "Przedmiot edytowany" został usunięty.').should('be.visible');
+        cy.get('@items').within(() => {
+            cy.get('.js-list-toggle').click();
+            cy.get('.js-delete').last().click();
+        }).then(() => {
+            cy.get('#modal-confirm').click().then(() => {
+                cy.contains('Przedmiot "Przedmiot edytowany" został usunięty.').should('be.visible');
+            });
+        });
     });
 
     it('deletes a location', function () {
-        cy.get('.locations .js-list-delete').first().click();
-        cy.get('#modal-confirm').click();
-        cy.contains('Miejsce "Miejsce edytowane" zostało usunięte.').should('be.visible');
+        cy.get('@locations').within(() => {
+            cy.get('.js-list-toggle').click();
+            cy.get('.js-delete').last().click();
+        }).then(() => {
+            cy.get('#modal-confirm').click().then(() => {
+                cy.contains('Miejsce "Miejsce edytowane" zostało usunięte.').should('be.visible');
+            });
+        });
     });
 
     it('deletes an event', function () {
-        cy.get('.events .js-list-delete').first().click();
-        cy.get('#modal-confirm').click();
-        cy.contains('Wydarzenie "Spotkanie edytowane" zostało usunięte.').should('be.visible');
+        cy.get('@events').within(() => {
+            cy.get('.js-list-toggle[title="Lista"]').click();
+            cy.get('.js-delete').last().click();
+        }).then(() => {
+            cy.get('#modal-confirm').click().then(() => {
+                cy.contains('Wydarzenie "Spotkanie edytowane" zostało usunięte.').should('be.visible');
+            });
+        });
     });
 });
