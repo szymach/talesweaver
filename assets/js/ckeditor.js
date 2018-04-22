@@ -10,7 +10,16 @@ import ListPlugin from '@ckeditor/ckeditor5-list/src/list';
 import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 import * as $ from 'jquery';
 
-initializeCKEditor(document.querySelector('.ckeditor'));
+(function () {
+    $(function () {
+        initializeCKEditor(document.querySelector('.ckeditor'));
+    });
+
+    const ajaxContainer = document.getElementById('ajax-container');
+    ajaxContainer.addEventListener('ckeditor:initialize', function (e) {
+        initializeCKEditor(ajaxContainer.querySelector('.ckeditor'));
+    }, false);
+})();
 
 function initializeCKEditor(elements) {
     if (typeof elements === 'undefined'
@@ -50,7 +59,7 @@ function initializeCKEditor(elements) {
     });
 }
 
-var savesScheduled = [];
+const savesScheduled = [];
 function bindAutosave(editor)
 {
     if (typeof editor === 'undefined') {
@@ -62,9 +71,9 @@ function bindAutosave(editor)
             return;
         }
 
-        var $element = $(editor.element);
-        var $form = $element.parents('form');
-        var id = $form.attr('id');
+        const $element = $(editor.element);
+        const $form = $element.parents('form');
+        const id = $form.attr('id');
         if (savesScheduled[id] || editor.data.get() === $element.val()) {
             return;
         }
@@ -103,7 +112,7 @@ function displayAlerts()
         success : function (response) {
             if (typeof response.alerts !== 'undefined') {
                 $('#alerts').append(response.alerts);
-                $('#alerts .alert').filter(':visible').each (function (index, alert) {
+                $('#alerts .alert').filter(':visible').each(function (index, alert) {
                     var $alert = $(alert);
                     window.setTimeout(function() {
                         $alert.fadeOut(800, function () { $alert.remove(); });

@@ -1,14 +1,9 @@
 import * as $ from 'jquery';
 import * as backdrop from './backdrop';
 
-export function getAjaxContainer()
-{
-    return $('#ajax-container');
-}
-
 export function clearAjaxContainer()
 {
-    let $container : JQuery<HTMLElement> = getAjaxContainer();
+    const $container : JQuery<HTMLElement> = getAjaxContainer();
     getAjaxClearButton().hide();
     $container.html('');
     $container.removeClass('active');
@@ -16,11 +11,16 @@ export function clearAjaxContainer()
 
 export function displayAjaxContainerWithContent(content : string)
 {
-    let $container : JQuery<HTMLElement> = getAjaxContainer();
+    const $container : JQuery<HTMLElement> = getAjaxContainer();
     $container.html(content);
     getAjaxClearButton().show();
+    $container.trigger('ckeditor');
     $container.addClass('active');
-    //ckeditor.initializeCKEditor($container.find('.ckeditor')[0]);
+}
+
+export function getAjaxContainer()
+{
+    return $('#ajax-container');
 }
 
 export function getAjaxClearButton()

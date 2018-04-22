@@ -13,3 +13,8 @@
     {{ form_end(form) }}
     </div>
 </div>
+<script>
+    const event = document.createEvent('Event');
+    event.initEvent('ckeditor:initialize', true, true);
+    document.getElementById('ajax-container').dispatchEvent(event);
+</script>
