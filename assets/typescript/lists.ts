@@ -1,7 +1,6 @@
 import * as $ from 'jquery';
 import * as ajaxContainer from './ajax-container';
-import * as alerts from './alerts';
-import * as forms from './forms';
+import {displayAlerts} from './alerts';
 
 export function refreshList($listTable : JQuery<HTMLElement>)
 {
@@ -76,10 +75,10 @@ $('main').on('click', '.js-delete', function (event : JQuery.Event) {
                 dataType: "json",
                 success: function() {
                     refreshList($this.parents('.js-list'));
-                    alerts.displayAlerts();
+                    displayAlerts();
                 },
                 error: function() {
-                    alerts.displayAlerts();
+                    displayAlerts();
                 }
             });
         } else {
@@ -133,7 +132,7 @@ $('main').on('click', '.js-list-action', function (event : JQuery.Event) {
         success: function() {
             ajaxContainer.clearAjaxContainer();
             refreshList($($this.data('list-id')));
-            alerts.displayAlerts();
+            displayAlerts();
         }
     });
 });

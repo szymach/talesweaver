@@ -1,5 +1,12 @@
 import * as $ from 'jquery';
 
+(function () {
+    $(function () {
+        closeAlert();
+        setAlertFadeOuts();
+    });
+})();
+
 export function displayAlerts()
 {
     let $alerts : JQuery<HTMLElement> = $('#alerts');
