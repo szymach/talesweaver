@@ -7,7 +7,6 @@
         "allowJs": true
     },
     "include": [
-        "./assets/js/typescript/**/*",
-        "./assets/js/ckeditor.js"
+        "./assets/js/typescript/**/*"
     ]
 }

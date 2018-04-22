@@ -10,7 +10,9 @@ import ListPlugin from '@ckeditor/ckeditor5-list/src/list';
 import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 import * as $ from 'jquery';
 
-export function initializeCKEditor(elements) {
+initializeCKEditor(document.querySelector('.ckeditor'));
+
+function initializeCKEditor(elements) {
     if (typeof elements === 'undefined'
         || elements === null
         || 0 === elements.length

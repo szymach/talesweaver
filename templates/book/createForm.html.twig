@@ -4,6 +4,13 @@
 
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/ckeditor.css')) }}">
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ absolute_url(asset('assets/ckeditor.js')) }}" async></script>
+{% endblock %}
+
 {% block top_menu_right %}
     {% include 'partial/topMenu/actions.html.twig' with {
         returnUrl: path('book_list', { page: app.request.get('page', 1) }),

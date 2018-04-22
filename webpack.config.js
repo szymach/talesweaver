@@ -7,17 +7,19 @@ const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-    entry: [
-        "font-awesome-sass-loader",
-        "bootstrap-loader",
-        "./assets/scss/base.scss",
-        "./assets/scss/ckeditor.scss",
-        "./assets/js/typescript/app.ts"
-    ],
+    entry: {
+        main: [
+            "font-awesome-sass-loader",
+            "bootstrap-loader",
+            "./assets/scss/base.scss",
+            "./assets/js/typescript/app.ts"
+        ],
+        ckeditor: ["./assets/scss/ckeditor.scss", "./assets/js/ckeditor.js"]
+    },
     devtool: "source-map",
     output: {
         path: path.resolve(__dirname, 'public/assets'),
-        filename: 'scripts.js'
+        filename: '[name].js'
     },
     resolve: {
         extensions: [ '.js', ".ts" ],
@@ -26,7 +28,7 @@ module.exports = {
         }
     },
     plugins: [
-        new ExtractTextPlugin({ filename: 'styles.css', allChunks: true }),
+        new ExtractTextPlugin({ filename: '[name].css', allChunks: true }),
         new OptimizeCssAssetsPlugin(),
         new CKEditorWebpackPlugin({
             languages: ['pl', 'en'],

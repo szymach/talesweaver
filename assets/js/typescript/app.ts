@@ -10,6 +10,5 @@ import './lists';
     $(function () {
         alerts.closeAlert();
         alerts.setAlertFadeOuts();
-        ckeditor.initializeCKEditor(document.querySelector('.ckeditor'));
     });
 })();

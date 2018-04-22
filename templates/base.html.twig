@@ -6,7 +6,7 @@
         <meta name="description" content="{% block seo_description '' %}">
         <meta name="keywords" content="{% block seo_keywords '' %}">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <link rel="stylesheet" href="{{ absolute_url(asset('assets/styles.css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('assets/main.css')) }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
         {% block stylesheets '' %}
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
@@ -45,7 +45,7 @@
         <footer>{% block footer '' %}</footer>
         {% include 'partial/confirmationModal.html.twig' %}
         {% block modals '' %}
-        <script src="{{ absolute_url(asset('assets/scripts.js')) }}"></script>
+        <script src="{{ absolute_url(asset('assets/main.js')) }}" async></script>
         {% block javascripts '' %}
         <div id="backdrop"></div>
     </body>

@@ -21,7 +21,7 @@ export function displayAjaxContainerWithContent(content : string)
     $container.html(content);
     getAjaxClearButton().show();
     $container.addClass('active');
-    ckeditor.initializeCKEditor($container.find('.ckeditor')[0]);
+    //ckeditor.initializeCKEditor($container.find('.ckeditor')[0]);
 }
 
 export function getAjaxClearButton()
