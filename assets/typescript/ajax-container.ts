@@ -1,6 +1,5 @@
 import * as $ from 'jquery';
 import * as backdrop from './backdrop';
-import ckeditor = require('../ckeditor');
 
 export function getAjaxContainer()
 {

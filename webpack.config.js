@@ -12,7 +12,7 @@ module.exports = {
             "font-awesome-sass-loader",
             "bootstrap-loader",
             "./assets/scss/base.scss",
-            "./assets/js/typescript/app.ts"
+            "./assets/typescript/app.ts"
         ],
         ckeditor: ["./assets/scss/ckeditor.scss", "./assets/js/ckeditor.js"]
     },
@@ -37,13 +37,13 @@ module.exports = {
         new ClearWebpackPlugin([path.resolve(__dirname, 'public/assets')], {
             verbose: true
         }),
-//        new UglifyJsPlugin({
-//            uglifyOptions: {
-//                mangle: false,
-//                warnings: false,
-//                ecma: 8
-//            }
-//        })
+        new UglifyJsPlugin({
+            uglifyOptions: {
+                mangle: false,
+                warnings: false,
+                ecma: 6
+            }
+        })
     ],
     module: {
         rules: [
