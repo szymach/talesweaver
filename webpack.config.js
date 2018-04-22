@@ -65,7 +65,6 @@ module.exports = {
             }
         ]
     },
-    devtool: 'source-map',
     performance: { hints: false },
     watchOptions: {
         aggregateTimeout: 300,
