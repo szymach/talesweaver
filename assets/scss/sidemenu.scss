@@ -16,23 +16,10 @@ $sidemenu-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
     -webkit-transform: translateZ(0) scale(1,1);
     z-index: 99;
     padding-top: 65px;
+    overflow: visible;
 
     @media (min-width: $screen-md-min) {
         width: 225px;
-        overflow: visible;
-    }
-
-    &.expanded {
-        width: 225px;
-        overflow: visible;
-    }
-
-    @media (max-width: $screen-md-min) {
-        &:not(.expanded) {
-            ul li *:not(.fa) {
-                display: none;
-            }
-        }
     }
 
     .fa.logo-icon {
@@ -43,6 +30,40 @@ $sidemenu-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
         vertical-align: middle;
         font-size: 20px;
         line-height: 26px;
+
+        &.js-trigger-sidelist-mobile {
+            line-height: 35px;
+            margin-left: -10px;
+            width: 65px;
+        }
+
+        &.mobile-expanded {
+            background-color: $sidemenu-active-menu-bg;
+            -webkit-box-shadow: $sidemenu-shadow;
+            -moz-box-shadow: $sidemenu-shadow;
+            box-shadow: $sidemenu-shadow;
+
+            & + .h4 {
+                display: inline-block;
+                position: absolute;
+                right: 60px;
+                top: 0;
+                height: 36px;
+                width: 250px;
+                margin-top: 0;
+                padding-left: 10px;
+                vertical-align: middle;
+                -webkit-box-shadow: $sidemenu-shadow;
+                -moz-box-shadow: $sidemenu-shadow;
+                box-shadow: $sidemenu-shadow;
+                background-color: $sidemenu-active-menu-bg;
+                padding-top: 3px;
+
+                & + .js-list-container {
+                    top: 36px;
+                }
+            }
+        }
 
         &:last-child {
             bottom: 0;
@@ -61,6 +82,14 @@ $sidemenu-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
             line-height: 35px;
             padding-left: 10px;
 
+            .h4 {
+                display: none;
+                margin: 5px 0;
+                @media (min-width: $screen-md-min) {
+                    display: inline-block;
+                }
+            }
+
             &.js-loaded {
                 background-color: $sidemenu-active-menu-bg;
                 -webkit-box-shadow: $sidemenu-shadow;
@@ -69,7 +98,7 @@ $sidemenu-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
 
                 .js-list-container {
                     position: absolute;
-                    right: 225px;
+                    right: 60px;
                     top: 0;
                     width: 250px;
                     height: 150px;
@@ -77,16 +106,15 @@ $sidemenu-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
                     -moz-box-shadow: $sidemenu-shadow;
                     box-shadow: $sidemenu-shadow;
                     background-color: $sidemenu-active-menu-bg;
+
+                    @media (min-width: $screen-md-min) {
+                        right: 225px;
+                    }
                 }
             }
 
             .js-ajax-pagination {
                 height: 100px;
-            }
-
-            .h4 {
-                display: inline-block;
-                margin: 5px 0;
             }
 
             & > a:not(.btn) {

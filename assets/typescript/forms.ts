@@ -18,6 +18,7 @@ $('main, .modal').on('click', '.js-load-form', function (event : JQuery.Event): 
 export function getForm(url : string): void
 {
     lists.closeSublists();
+    lists.closeMobileSublists();
     $.ajax({
         method: "GET",
         url: url,

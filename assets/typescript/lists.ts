@@ -30,6 +30,16 @@ export function closeSublists()
     });
 }
 
+export function closeMobileSublists()
+{
+    $('.mobile-expanded').removeClass('mobile-expanded');
+}
+
+$(window).on('resize', function () {
+    closeSublists();
+    closeMobileSublists();
+});
+
 $('main').on('click', '.js-list-toggle', function (event : JQuery.Event) {
     const $this : JQuery<HTMLElement> = $(event.currentTarget);
     const $container : JQuery<HTMLElement> = $this.parents('li').first().find('.js-list-container');
@@ -92,6 +102,7 @@ $('main').on('click', '.js-load-sublist', function (event : JQuery.Event) {
     event.stopPropagation();
 
     closeSublists();
+    closeMobileSublists();
     $.ajax({
         method: "GET",
         url: $(event.currentTarget).data('list-url'),
@@ -135,4 +146,17 @@ $('main').on('click', '.js-list-action', function (event : JQuery.Event) {
             displayAlerts();
         }
     });
+});
+
+$('main').on('click', '.js-trigger-sidelist-mobile', function (event : JQuery.Event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const $this = $(event.currentTarget);
+    const wasExpanded : boolean = $this.hasClass('mobile-expanded');
+    closeSublists();
+    closeMobileSublists();
+    if (false === wasExpanded) {
+        $this.addClass('mobile-expanded');
+    }
 });

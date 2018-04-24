@@ -1,4 +1,5 @@
 import * as $ from 'jquery';
+import {closeMobileSublists} from './lists';
 import 'bootstrap';
 
 export function closeAllModals()
@@ -10,6 +11,7 @@ $('main').on('click', '.js-display', function (event : JQuery.Event) {
     event.preventDefault();
     event.stopPropagation();
 
+    closeMobileSublists();
     const $this : JQuery<HTMLElement> = $(event.currentTarget);
     $.ajax({
         method: "GET",
