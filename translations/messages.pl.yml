@@ -202,8 +202,11 @@ event:
     header:
         new: Nowe wydarzenie
         edit: Edycja wydarzenia
+    actions:
+        create: Nowe wydarzenie
     'Domain\Event\Meeting':
         name: Spotkanie
+        create: Nowe spotkanie
         description: '<span class="underline">%root%</span> spotkał <span class="underline">%relation%</span> w <span class="underline">%location%</span>'
         fields:
             root: Pierwsza osoba

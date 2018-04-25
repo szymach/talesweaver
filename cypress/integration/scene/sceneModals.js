@@ -1,4 +1,4 @@
-describe('Modal opening', function() {
+describe('Scene sidemenu actions', function() {
 
     beforeEach(function () {
         cy.request({
