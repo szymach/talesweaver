@@ -5,10 +5,7 @@ describe('Scene sidemenu actions', function() {
             method: 'POST',
             url: '/login',
             form: true,
-            body: {
-                '_username': 'user@example.com',
-                '_password': 'password'
-            }
+            body: { '_username': 'user@example.com', '_password': 'password' }
         }).then(function (response) {
             expect(response.status).to.eq(200);
         });
