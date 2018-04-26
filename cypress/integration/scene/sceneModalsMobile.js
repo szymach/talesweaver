@@ -1,24 +1,9 @@
-describe('Modal opening', function() {
+describe('Modal opening', () => {
 
-    beforeEach(function () {
-        cy.request({
-            method: 'POST',
-            url: '/login',
-            form: true,
-            body: {
-                '_username': 'user@example.com',
-                '_password': 'password'
-            }
-        }).then(function (response) {
-            expect(response.status).to.eq(200);
-        });
-
-        cy.visit('/scene/list');
-        cy.url().should('eq', Cypress.config('baseUrl') + '/scene/list');
-        cy.get('.btn-primary[title="Edycja"]').click();
-        cy.url().should('contain', Cypress.config('baseUrl') + '/scene/edit');
+    beforeEach(() => {
+        cy.visitStandaloneScene();
         cy.viewport(768, 800);
-        cy.get('#ajax-container').as('ajax-container');
+        cy.registerAjaxContainerAlias();
         cy.get('.side-menu ul [title="Postacie"]').as('characters');
         cy.get('.side-menu ul [title="Przedmioty"]').as('items');
         cy.get('.side-menu ul [title="Miejsca"]').as('locations');
@@ -26,7 +11,7 @@ describe('Modal opening', function() {
     });
 
 
-    it('opens mobile lists', function () {
+    it('opens mobile lists', () => {
         cy.get('@characters').click().then(() => {
             cy.get('.h4').contains('Postacie').should('be.visible');
             cy.get('.h4').contains('Przedmioty').should('not.be.visible');

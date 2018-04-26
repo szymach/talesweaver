@@ -1,27 +1,15 @@
-describe('Scene sidemenu actions', function() {
+describe('Scene sidemenu actions', () => {
 
-    beforeEach(function () {
-        cy.request({
-            method: 'POST',
-            url: '/login',
-            form: true,
-            body: { '_username': 'user@example.com', '_password': 'password' }
-        }).then(function (response) {
-            expect(response.status).to.eq(200);
-        });
-
-        cy.visit('/scene/list');
-        cy.url().should('eq', Cypress.config('baseUrl') + '/scene/list');
-        cy.get('.btn-primary[title="Edycja"]').click();
-        cy.url().should('contain', Cypress.config('baseUrl') + '/scene/edit');
-        cy.get('#ajax-container').as('ajax-container');
+    beforeEach(() => {
+        cy.visitStandaloneScene();
+        cy.registerAjaxContainerAlias();
         cy.get('.side-menu ul li').contains('Postacie').parents('li').first().as('characters');
         cy.get('.side-menu ul li').contains('Przedmioty').parents('li').first().as('items');
         cy.get('.side-menu ul li').contains('Miejsca').parents('li').first().as('locations');
         cy.get('.side-menu ul li').contains('Wydarzenia').parents('li').first().as('events');
     });
 
-    it('creates new character', function () {
+    it('creates new character', () => {
         cy.get('@characters').within(() => {
             cy.get('.js-load-form').click();
         }).then(() => {
@@ -31,7 +19,7 @@ describe('Scene sidemenu actions', function() {
         });
     });
 
-    it('edits existing character', function () {
+    it('edits existing character', () => {
         cy.get('@characters').within(() => {
             cy.get('.js-list-toggle').click();
             cy.get('.js-edit-form').last().click();
@@ -42,7 +30,7 @@ describe('Scene sidemenu actions', function() {
         });
     });
 
-    it('creates new item', function () {
+    it('creates new item', () => {
         cy.get('@items').within(() => {
             cy.get('.js-load-form').click();
         }).then(() => {
@@ -52,7 +40,7 @@ describe('Scene sidemenu actions', function() {
         });
     });
 
-    it('edits existing item', function () {
+    it('edits existing item', () => {
         cy.get('@items').within(() => {
             cy.get('.js-list-toggle').click();
             cy.get('.js-edit-form').last().click();
@@ -63,7 +51,7 @@ describe('Scene sidemenu actions', function() {
         });
     });
 
-    it('creates new location', function () {
+    it('creates new location', () => {
         cy.get('@locations').within(() => {
             cy.get('.js-load-form').click();
         }).then(() => {
@@ -73,7 +61,7 @@ describe('Scene sidemenu actions', function() {
         });
     });
 
-    it('edits existing location', function () {
+    it('edits existing location', () => {
         cy.get('@locations').within(() => {
             cy.get('.js-list-toggle').click();
             cy.get('.js-edit-form').last().click();
@@ -84,9 +72,9 @@ describe('Scene sidemenu actions', function() {
         });
     });
 
-    it('creates new event', function () {
+    it('creates new event', () => {
         cy.get('@events').within(() => {
-            cy.get('.js-list-toggle[title="Nowy"]').click();
+            cy.get('.js-list-toggle[title="Nowe wydarzenie"]').click();
             cy.get('.js-load-form').click();
         }).then(() => {
             cy.get('@ajax-container').contains('Nowe wydarzenie').should('be.visible');
@@ -99,7 +87,7 @@ describe('Scene sidemenu actions', function() {
         });
     });
 
-    it('edits existing event', function () {
+    it('edits existing event', () => {
         cy.get('@events').within(() => {
             cy.get('.js-list-toggle[title="Lista"]').click();
             cy.get('.js-load-form.js-edit-form').click();
@@ -114,7 +102,7 @@ describe('Scene sidemenu actions', function() {
         });
     });
 
-    it('deletes a character', function () {
+    it('deletes a character', () => {
         cy.get('@characters').within(() => {
             cy.get('.js-list-toggle').click();
             cy.get('.js-delete').last().click();
@@ -125,7 +113,7 @@ describe('Scene sidemenu actions', function() {
         });
     });
 
-    it('deletes an item', function () {
+    it('deletes an item', () => {
         cy.get('@items').within(() => {
             cy.get('.js-list-toggle').click();
             cy.get('.js-delete').last().click();
@@ -136,7 +124,7 @@ describe('Scene sidemenu actions', function() {
         });
     });
 
-    it('deletes a location', function () {
+    it('deletes a location', () => {
         cy.get('@locations').within(() => {
             cy.get('.js-list-toggle').click();
             cy.get('.js-delete').last().click();
@@ -147,7 +135,7 @@ describe('Scene sidemenu actions', function() {
         });
     });
 
-    it('deletes an event', function () {
+    it('deletes an event', () => {
         cy.get('@events').within(() => {
             cy.get('.js-list-toggle[title="Lista"]').click();
             cy.get('.js-delete').last().click();
