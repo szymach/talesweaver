@@ -36,8 +36,8 @@ install:
     - bin/console doctrine:schema:validate
 
 script:
-    - bin/phpcs
-    - bin/codecept run
+    - vendor/bin/phpcs
+    - vendor/bin/codecept run
     - bin/console doctrine:fixtures:load -n
     - bin/console server:start
     - yarn install
