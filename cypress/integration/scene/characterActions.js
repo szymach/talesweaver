@@ -19,7 +19,6 @@ describe('Character sidemenu actions', () => {
     it('edits existing character', () => {
         cy.get('@characters').within(() => {
             cy.get('.js-list-toggle').click();
-            cy.get('.pagination .next a').click();
             cy.contains(/^Postać$/).next().find('.js-edit-form').click();
         }).then(() => {
             cy.contains('Edycja postaci');

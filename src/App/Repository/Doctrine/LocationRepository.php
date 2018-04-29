@@ -18,6 +18,7 @@ class LocationRepository extends TranslatableRepository
         return $this->createTranslatableQueryBuilder('l')
             ->andWhere(':scene MEMBER OF l.scenes')
             ->andWhere('l.createdBy = :user')
+            ->orderBy('t.name', 'ASC')
             ->setParameter('scene', $scene)
             ->setParameter('user', $user)
         ;
@@ -36,6 +37,7 @@ class LocationRepository extends TranslatableRepository
             )
             ->andWhere(':scene NOT MEMBER OF l.scenes')
             ->orWhere('s.id IS NULL')
+            ->orderBy('t.name', 'ASC')
             ->setParameter('chapter', $scene->getChapter())
             ->setParameter('scene', $scene)
             ->setParameter('user', $user)
@@ -48,6 +50,7 @@ class LocationRepository extends TranslatableRepository
             ->join('l.scenes', 's')
             ->where('l.createdBy = :user')
             ->andWhere(':scenes MEMBER OF l.scenes')
+            ->orderBy('t.name', 'ASC')
             ->setParameter('scenes', $scenes)
             ->setParameter('user', $user)
         ;

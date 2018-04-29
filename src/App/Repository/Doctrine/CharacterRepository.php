@@ -15,12 +15,14 @@ class CharacterRepository extends TranslatableRepository
 
     public function byCurrentUserForSceneQueryBuilder(User $user, Scene $scene): QueryBuilder
     {
-        return $this->createTranslatableQueryBuilder('c')
+        $qb = $this->createTranslatableQueryBuilder('c')
             ->andWhere(':scene MEMBER OF c.scenes')
             ->andWhere('c.createdBy = :user')
+            ->orderBy('t.name', 'ASC')
             ->setParameter('user', $user)
             ->setParameter('scene', $scene)
         ;
+        return $qb;
     }
 
     public function byCurrentUserRelatedQueryBuilder(User $user, Scene $scene): QueryBuilder
@@ -36,6 +38,7 @@ class CharacterRepository extends TranslatableRepository
                 ':scene NOT MEMBER OF c.scenes',
                 ':chapter MEMBER OF c.chapters'
             ))
+            ->orderBy('t.name', 'ASC')
             ->setParameter('chapter', $scene->getChapter())
             ->setParameter('scene', $scene)
             ->setParameter('user', $user)
@@ -47,6 +50,7 @@ class CharacterRepository extends TranslatableRepository
         return $this->createTranslatableQueryBuilder('c')
             ->join('c.scenes', 's')
             ->where('c.createdBy = :user')
+            ->orderBy('t.name', 'ASC')
             ->andWhere(':scenes MEMBER OF c.scenes')
             ->setParameter('scenes', $scenes)
             ->setParameter('user', $user)

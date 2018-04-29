@@ -21,6 +21,7 @@ Domain\Event\Edit\DTO:
         - App\Validation\Constraints\UniqueDTO:
             fields: { name: 't.name', scene: 'e.scene' }
             repositoryMethod: entityExists
+            id: id
             path: name
             entityClass: Domain\Entity\Event
             message: event.exists

@@ -54,7 +54,9 @@ class FormControllerCest
         $I->canSeeAlert('Zapisano zmiany w rozdziale.');
 
         $I->submitForm(self::SCENE_CREATE_FORM, ['create[title]' => self::SCENE_TITLE_PL]);
-        $scene = $I->grabEntityFromRepository(Scene::class);
+        $scene = $I->grabEntityFromRepository(Scene::class, [
+            'translations' => ['title' => self::SCENE_TITLE_PL]
+        ]);
         $I->seeCurrentUrlEquals(sprintf(self::SCENE_EDIT_URL, $scene->getId()));
         $I->seeInTitle(self::SCENE_TITLE_PL);
         $I->canSeeAlert(sprintf(

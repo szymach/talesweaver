@@ -11,6 +11,11 @@ use Ramsey\Uuid\UuidInterface;
 class DTO
 {
     /**
+     * @var UuidInterface
+     */
+    private $id;
+
+    /**
      * @var string
      */
     private $name;
@@ -27,9 +32,15 @@ class DTO
 
     public function __construct(Event $event)
     {
+        $this->id = $event->getId();
         $this->name = $event->getName();
         $this->model = $event->getModel();
         $this->scene = $event->getScene()->getId();
+    }
+
+    public function getId(): UuidInterface
+    {
+        return $this->id;
     }
 
     public function getName(): ?string

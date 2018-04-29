@@ -19,6 +19,7 @@ class EventRepository extends TranslatableRepository
         return $this->createTranslatableQueryBuilder('e')
             ->where('e.scene = :scene')
             ->andWhere('e.createdBy = :user')
+            ->orderBy('t.name', 'ASC')
             ->setParameter('scene', $scene)
             ->setParameter('user', $user)
         ;

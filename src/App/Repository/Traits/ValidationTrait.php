@@ -30,7 +30,7 @@ trait ValidationTrait
             ->setParameter('user', $user)
         ;
 
-        if ($id) {
+        if (null !== $id) {
             $qb->andWhere('e.id != :id')->setParameter('id', $id);
         }
 

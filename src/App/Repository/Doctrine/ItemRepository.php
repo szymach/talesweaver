@@ -18,6 +18,7 @@ class ItemRepository extends TranslatableRepository
         return $this->createTranslatableQueryBuilder('i')
             ->where(':scene MEMBER OF i.scenes')
             ->andWhere('i.createdBy = :user')
+            ->orderBy('t.name', 'ASC')
             ->setParameter('scene', $scene)
             ->setParameter('user', $user)
         ;
@@ -36,6 +37,7 @@ class ItemRepository extends TranslatableRepository
             )
             ->andWhere(':scene NOT MEMBER OF i.scenes')
             ->orWhere('s.id IS NULL')
+            ->orderBy('t.name', 'ASC')
             ->setParameter('chapter', $scene->getChapter())
             ->setParameter('scene', $scene)
             ->setParameter('user', $user)
@@ -48,6 +50,7 @@ class ItemRepository extends TranslatableRepository
             ->join('i.scenes', 's')
             ->where('i.createdBy = :user')
             ->andWhere(':scenes MEMBER OF i.scenes')
+            ->orderBy('t.name', 'ASC')
             ->setParameter('scenes', $scenes)
             ->setParameter('user', $user)
         ;

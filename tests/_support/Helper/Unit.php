@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Helper;
 
-use Domain\Entity\User;
 use Codeception\Module;
 use Doctrine\ORM\EntityManagerInterface;
+use Domain\Entity\User;
+use FSi\DoctrineExtensions\Translatable\TranslatableListener;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,6 +40,7 @@ class Unit extends Module
         $request = new Request([], $postData);
         $request->setMethod(Request::METHOD_POST);
         $request->setLocale(self::LOCALE);
+        $request->setDefaultLocale(self::LOCALE);
         return $request;
     }
 
@@ -89,9 +91,20 @@ class Unit extends Module
         return $this->getService('form.factory');
     }
 
+    public function _afterSuite()
+    {
+        $this->clearUsers();
+    }
+
     public function _beforeSuite($settings = [])
     {
         $this->clearUsers();
+        $this->getTranslatableListener()->setLocale(self::LOCALE);
+    }
+
+    private function getTranslatableListener(): TranslatableListener
+    {
+        return $this->getService('test.fsi_doctrine_extensions.listener.translatable');
     }
 
     private function clearUsers(): void
