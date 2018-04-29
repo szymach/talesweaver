@@ -8,6 +8,7 @@ use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Domain\Entity\Character;
+use Domain\Entity\Location;
 use Domain\Entity\Scene;
 use Domain\Entity\User;
 use Ramsey\Uuid\Uuid;
@@ -22,8 +23,17 @@ class LoadStandaloneSceneData implements ORMFixtureInterface, OrderedFixtureInte
         $scene = new Scene(Uuid::uuid4(), 'Scena', null, $user);
         $scene->setLocale(self::LOCALE);
 
-        $character = new Character(Uuid::uuid4(), $scene, 'Postać do spotkania', '', null, $user);
-        $character->setLocale(self::LOCALE);
+        $character1 = new Character(Uuid::uuid4(), $scene, 'Postać do spotkania 1', '', null, $user);
+        $character2 = new Character(Uuid::uuid4(), $scene, 'Postać do spotkania 2', '', null, $user);
+        $character3 = new Character(Uuid::uuid4(), $scene, 'Postać do spotkania 3', '', null, $user);
+        $character1->setLocale(self::LOCALE);
+        $character2->setLocale(self::LOCALE);
+        $character3->setLocale(self::LOCALE);
+
+        $location1 = new Location(Uuid::uuid4(), $scene, 'Miejsce do spotkania 1', '', null, $user);
+        $location2 = new Location(Uuid::uuid4(), $scene, 'Miejsce do spotkania 2', '', null, $user);
+        $location1->setLocale(self::LOCALE);
+        $location2->setLocale(self::LOCALE);
 
         $manager->persist($scene);
         $manager->flush();
