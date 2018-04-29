@@ -1,12 +1,12 @@
 describe('Event sidemenu actions', () => {
 
     beforeEach(() => {
-        cy.visitStandaloneScene();
-        cy.registerAjaxContainerAlias();
-        cy.get('.side-menu ul li').contains('Wydarzenia').parents('li').first().as('events');
+    cy.visitStandaloneScene();
+    cy.registerAjaxContainerAlias();
+    cy.get('.side-menu ul li').contains('Wydarzenia').parents('li').first().as('events');
     });
 
-    it('creates new event', () => {
+    it('creates, edits and deletes an event', () => {
         cy.get('@events').within(() => {
             cy.get('.js-list-toggle[title="Nowe wydarzenie"]').click();
             cy.get('.js-load-form').click();
@@ -19,9 +19,7 @@ describe('Event sidemenu actions', () => {
             cy.get('@ajax-container').get('form[name="create"] .btn-primary').click();
             cy.contains('Pomyślnie dodano nowe wydarzenie o nazwie "Spotkanie"').should('be.visible');
         });
-    });
 
-    it('edits existing event', () => {
         cy.get('@events').within(() => {
             cy.get('.js-list-toggle[title="Lista"]').click();
             cy.get('.js-load-form.js-edit-form').click();
@@ -34,9 +32,7 @@ describe('Event sidemenu actions', () => {
             cy.get('@ajax-container').contains('Zapisz').click();
             cy.contains('Zapisano zmiany w wydarzeniu.').should('be.visible');
         });
-    });
 
-    it('deletes an event', () => {
         cy.get('@events').within(() => {
             cy.get('.js-list-toggle[title="Lista"]').click();
             cy.get('.js-delete').last().click();

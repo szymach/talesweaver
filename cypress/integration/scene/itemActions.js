@@ -6,7 +6,7 @@ describe('Item sidemenu actions', () => {
         cy.get('.side-menu ul li').contains('Przedmioty').parents('li').first().as('items');
     });
 
-    it('creates new item', () => {
+    it('creates, edits and deletes an item', () => {
         cy.get('@items').within(() => {
             cy.get('.js-load-form').click();
         }).then(() => {
@@ -14,9 +14,7 @@ describe('Item sidemenu actions', () => {
             cy.get('@ajax-container').get('input[name="create[name]"]').type('Przedmiot{enter}');
             cy.contains('Pomyślnie dodano nowy przedmiot o nazwie "Przedmiot"').should('be.visible');
         });
-    });
 
-    it('edits existing item', () => {
         cy.get('@items').within(() => {
             cy.get('.js-list-toggle').click();
             cy.get('.js-edit-form').last().click();
@@ -25,9 +23,7 @@ describe('Item sidemenu actions', () => {
             cy.get('input[name="edit[name]"]').type(' edytowany{enter}');
             cy.contains('Zapisano zmiany w przedmiocie.').should('be.visible');
         });
-    });
 
-    it('deletes an item', () => {
         cy.get('@items').within(() => {
             cy.get('.js-list-toggle').click();
             cy.get('.js-delete').last().click();
