@@ -30,8 +30,9 @@ describe('Character sidemenu actions', () => {
     it('deletes a character', () => {
         cy.get('@characters').within(() => {
             cy.get('.js-list-toggle').click();
-            cy.get('.pagination .next a').click();
-            cy.get('li').contains('Postać edytowana').next().find('.js-delete').click();
+            cy.get('.pagination .next a').click().then(() => {
+                cy.get('@characters').get('li span').contains('Postać edytowana').next().find('.js-delete').click()
+            });
         }).then(() => {
             cy.get('#modal-confirm').click().then(() => {
                 cy.contains('Postać "Postać edytowana" została usunięta.').should('be.visible');
