@@ -151,11 +151,11 @@ $('main').on('click', '.js-trigger-sidelist-mobile', function (event : JQuery.Ev
     event.preventDefault();
     event.stopPropagation();
 
-    const $this = $(event.currentTarget);
-    const wasExpanded : boolean = $this.hasClass('mobile-expanded');
+    const $parent = $(event.currentTarget).parent();
+    const wasExpanded : boolean = $parent.hasClass('mobile-expanded');
     closeSublists();
     closeMobileSublists();
     if (false === wasExpanded) {
-        $this.addClass('mobile-expanded');
+        $parent .addClass('mobile-expanded');
     }
 });

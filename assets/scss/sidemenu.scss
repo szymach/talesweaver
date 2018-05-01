@@ -1,5 +1,5 @@
 $sidemenu-active-menu-bg: #f7f7f7;
-$sidemenu-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
+$sidemenu-shadow: inset 0px 0px 2px 0px $gray-light;
 
 .side-menu {
     background: $body-bg;
@@ -22,54 +22,6 @@ $sidemenu-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
         width: 225px;
     }
 
-    .fa.logo-icon {
-        display: inline-block;
-        width: 25px;
-        height: 36px;
-        text-align: center;
-        vertical-align: middle;
-        font-size: 20px;
-        line-height: 26px;
-
-        &.js-trigger-sidelist-mobile {
-            line-height: 35px;
-            margin-left: -10px;
-            width: 65px;
-        }
-
-        &.mobile-expanded {
-            background-color: $sidemenu-active-menu-bg;
-            -webkit-box-shadow: $sidemenu-shadow;
-            -moz-box-shadow: $sidemenu-shadow;
-            box-shadow: $sidemenu-shadow;
-
-            & + .h4 {
-                display: inline-block;
-                position: absolute;
-                right: 60px;
-                top: 0;
-                height: 36px;
-                width: 250px;
-                margin-top: 0;
-                padding-left: 10px;
-                vertical-align: middle;
-                -webkit-box-shadow: $sidemenu-shadow;
-                -moz-box-shadow: $sidemenu-shadow;
-                box-shadow: $sidemenu-shadow;
-                background-color: $sidemenu-active-menu-bg;
-                padding-top: 3px;
-
-                & + .js-list-container {
-                    top: 36px;
-                }
-            }
-        }
-
-        &:last-child {
-            bottom: 0;
-        }
-    }
-
     ul {
         margin: 7px 0;
         display: block;
@@ -90,11 +42,70 @@ $sidemenu-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
                 }
             }
 
+            .fa.logo-icon {
+                display: inline-block;
+                width: 25px;
+                height: 36px;
+                text-align: center;
+                vertical-align: middle;
+                font-size: 20px;
+                line-height: 26px;
+
+                &.js-trigger-sidelist-mobile {
+                    line-height: 35px;
+                    margin-left: -10px;
+                    width: 65px;
+                }
+
+                &:last-child {
+                    bottom: 0;
+                }
+            }
+
+            &.mobile-expanded {
+                .fa.logo-icon {
+                    background-color: $sidemenu-active-menu-bg;
+                    -webkit-box-shadow: inset -1px 0px 2px 0px $gray-light;
+                    -moz-box-shadow: inset -1px 0px 2px 0px $gray-light;
+                    box-shadow: inset -1px 0px 2px 0px $gray-light;
+
+                    & + .h4 {
+                        display: inline-block;
+                        position: absolute;
+                        right: 60px;
+                        top: 0;
+                        height: 36px;
+                        width: 250px;
+                        margin-top: 0;
+                        padding-left: 10px;
+                        vertical-align: middle;
+                        -webkit-box-shadow: inset 0px 0px 2px 0px $gray-light;
+                        -moz-box-shadow: inset 0px 0px 2px 0px $gray-light;
+                        box-shadow: inset 0px 0px 2px 0px $gray-light;
+                        background-color: $sidemenu-active-menu-bg;
+                        padding-top: 3px;
+
+                        & + .js-list-container {
+                            top: 36px;
+                            -webkit-box-shadow: inset 1px -1px 1px 0px $gray-light;
+                            -moz-box-shadow: inset 1px -1px 1px 0px $gray-light;
+                            box-shadow: inset 1px -1px 1px 0px $gray-light;
+                        }
+                    }
+                }
+            }
+
             &.js-loaded {
                 background-color: $sidemenu-active-menu-bg;
                 -webkit-box-shadow: $sidemenu-shadow;
                 -moz-box-shadow: $sidemenu-shadow;
                 box-shadow: $sidemenu-shadow;
+
+                &.mobile-expanded .fa.logo-icon + .h4 {
+                    -webkit-box-shadow: inset 1px 1px 2px 0px $gray-light;
+                    -moz-box-shadow: inset 1px 1px 2px 0px $gray-light;
+                    box-shadow: inset 1px 1px 2px 0px $gray-light;
+                }
 
                 .js-list-container {
                     position: absolute;
@@ -102,9 +113,9 @@ $sidemenu-shadow: inset 0px 0px 2px 0px rgba(187,187,187,1);
                     top: 0;
                     width: 250px;
                     height: 150px;
-                    -webkit-box-shadow: $sidemenu-shadow;
-                    -moz-box-shadow: $sidemenu-shadow;
-                    box-shadow: $sidemenu-shadow;
+                    -webkit-box-shadow: inset 1px 0px 2px 0px $gray-light;
+                    -moz-box-shadow: inset 1px 0px 2px 0px $gray-light;
+                    box-shadow: inset 1px 0px 2px 0px $gray-light;
                     background-color: $sidemenu-active-menu-bg;
 
                     @media (min-width: $screen-md-min) {
