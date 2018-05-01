@@ -1,16 +1,23 @@
 <li>
-    <span class="fa fa-book logo-icon"></span>
-    <span class="h4">{{ 'chapter.scenes'|trans }}</span>
-    {% form_theme sceneForm 'bootstrap_3_layout.html.twig' %}
-    {{ form_start(sceneForm) }}
-        {{ form_row(sceneForm.title, { label: false }) }}
-        <div style="display: none;">{{ form_row(sceneForm.chapter) }}</div>
-        {{ form_rest(sceneForm) }}
-        <button class="btn btn-success btn-sm full-width mt-10">
-            {{- 'chapter.actions.add_scene'|trans -}}
+    <i class="fa fa-2x fa-book visible-xs visible-sm js-trigger-sidelist-mobile logo-icon cursor-pointer"
+       title="{{ 'chapter.scenes'|trans }}"
+    ></i>
+    <span class="h4">
+        <button class="btn btn-xs btn-default js-list-toggle"
+                data-list-url="{{ path('chapter_scenes_list', { id: chapterId, page: 1 }) }}"
+                title="{{ 'crud.list'|trans }}"
+        >
+            <span class="fa fa-list"></span>
         </button>
-    {{ form_end(sceneForm) }}
-    <span class="js-list-container">
-        {% include 'chapter/scenes/list.html.twig' with { chapterId: chapterId, scenes: scenes, page: 1 } only %}
+        <span>{{ 'chapter.scenes'|trans }}</span>
+        {{ form_start(sceneForm) }}
+            {{ form_row(sceneForm.title, { label: false }) }}
+            <div style="display: none;">{{ form_row(sceneForm.chapter) }}</div>
+            {{ form_rest(sceneForm) }}
+            <button class="btn btn-success btn-sm full-width mt-10">
+                {{- 'chapter.actions.add_scene'|trans -}}
+            </button>
+        {{ form_end(sceneForm) }}
     </span>
+    <span class="js-list-container"></span>
 </li>

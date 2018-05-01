@@ -40,6 +40,10 @@ $sidemenu-shadow: inset 0px 0px 2px 0px $gray-light;
                 @media (min-width: $screen-md-min) {
                     display: inline-block;
                 }
+
+                form {
+                    padding: 10px 10px 10px 0;
+                }
             }
 
             .fa.logo-icon {
@@ -93,6 +97,16 @@ $sidemenu-shadow: inset 0px 0px 2px 0px $gray-light;
                         }
                     }
                 }
+
+                form {
+                    background-color: $sidemenu-active-menu-bg;
+                    margin-left: -10px;
+                    margin-top: 6px;
+                    padding: 10px;
+                    -webkit-box-shadow: inset 0px 0px 1px 0  $gray-light;
+                    -moz-box-shadow: inset 0px 0px 1px 0  $gray-light;
+                    box-shadow: inset 0px 0px 1px 0  $gray-light;
+                }
             }
 
             &.js-loaded {
@@ -143,10 +157,6 @@ $sidemenu-shadow: inset 0px 0px 2px 0px $gray-light;
             .sublist-label {
                 display: inline-block;
                 min-width: 95px;
-            }
-
-            form {
-                padding-right: 10px;
             }
 
             .list-actions {

@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Templating\Book;
 
-use Domain\Entity\Book;
 use App\Form\Chapter\CreateType;
-use App\Pagination\Book\ChapterPaginator;
 use App\Templating\Engine;
 use Domain\Chapter\Create\DTO;
+use Domain\Entity\Book;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,11 +21,6 @@ class EditView
     private $templating;
 
     /**
-     * @var ChapterPaginator
-     */
-    private $pagination;
-
-    /**
      * @var FormFactoryInterface
      */
     private $formFactory;
@@ -38,12 +32,10 @@ class EditView
 
     public function __construct(
         Engine $templating,
-        ChapterPaginator $pagination,
         FormFactoryInterface $formFactory,
         RouterInterface $router
     ) {
         $this->templating = $templating;
-        $this->pagination = $pagination;
         $this->formFactory = $formFactory;
         $this->router = $router;
     }
@@ -55,7 +47,6 @@ class EditView
             [
                 'form' => $form->createView(),
                 'chapterForm' => $this->createChapterForm($book)->createView(),
-                'chapters' => $this->pagination->getResults($book, 1),
                 'bookId' => $book->getId(),
                 'title' => $book->getTitle()
             ]

@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+{% form_theme chapterForm 'bootstrap_3_layout.html.twig' %}
 
 {% block top_menu_right %}
     <ul class="nav navbar-nav pull-right">
@@ -33,11 +34,11 @@
             {{ form_end(form) }}
         </div>
     </div>
+    <div id="ajax-container"></div>
     {% embed 'partial/sideMenu.html.twig' %}
         {% block listContent %}
             {% include 'book/chapters/listHeader.html.twig' with {
                 bookId: bookId,
-                chapters: chapters,
                 chapterForm: chapterForm
             } only %}
         {% endblock %}

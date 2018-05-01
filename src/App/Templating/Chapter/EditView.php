@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Templating\Chapter;
 
-use Domain\Entity\Chapter;
 use App\Form\Scene\CreateType;
-use App\Pagination\Chapter\ScenePaginator;
 use App\Templating\Engine;
+use Domain\Entity\Chapter;
 use Domain\Scene\Create\DTO;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -22,11 +21,6 @@ class EditView
     private $templating;
 
     /**
-     * @var ScenePaginator
-     */
-    private $pagination;
-
-    /**
      * @var FormFactoryInterface
      */
     private $formFactory;
@@ -38,12 +32,10 @@ class EditView
 
     public function __construct(
         Engine $templating,
-        ScenePaginator $pagination,
         FormFactoryInterface $formFactory,
         RouterInterface $router
     ) {
         $this->templating = $templating;
-        $this->pagination = $pagination;
         $this->formFactory = $formFactory;
         $this->router = $router;
     }
@@ -54,7 +46,6 @@ class EditView
             'chapter/editForm.html.twig',
             [
                 'form' => $form->createView(),
-                'scenes' => $this->pagination->getResults($chapter, 1),
                 'chapterId' => $chapter->getId(),
                 'bookId' => $chapter->getBook() ? $chapter->getBook()->getId(): null,
                 'title' => $chapter->getTitle($chapter),
