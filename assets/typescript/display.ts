@@ -1,4 +1,3 @@
-import * as $ from 'jquery';
 import {closeMobileSublists} from './lists';
 import 'bootstrap';
 

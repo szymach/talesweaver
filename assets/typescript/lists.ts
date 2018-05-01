@@ -1,4 +1,3 @@
-import * as $ from 'jquery';
 import * as ajaxContainer from './ajax-container';
 import {displayAlerts} from './alerts';
 

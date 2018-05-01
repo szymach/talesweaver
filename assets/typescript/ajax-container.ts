@@ -1,4 +1,3 @@
-import * as $ from 'jquery';
 import * as backdrop from './backdrop';
 
 export function clearAjaxContainer()

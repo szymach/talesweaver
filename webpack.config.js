@@ -28,6 +28,10 @@ module.exports = {
         }
     },
     plugins: [
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery'
+        }),
         new ExtractTextPlugin({ filename: '[name].css', allChunks: true }),
         new OptimizeCssAssetsPlugin(),
         new CKEditorWebpackPlugin({

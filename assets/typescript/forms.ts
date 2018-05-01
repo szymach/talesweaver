@@ -1,4 +1,3 @@
-import * as $ from 'jquery';
 import * as ajaxContainer from './ajax-container';
 import * as alerts from './alerts';
 import * as lists from './lists';
