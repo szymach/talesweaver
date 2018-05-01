@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block seo_title 'book.header.edit' | trans({ '%title%': title }) %}
+{% block seo_title 'book.header.edit'|trans({ '%title%': title }) %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ absolute_url(asset('assets/ckeditor.css')) }}">
@@ -16,7 +16,7 @@
         <li>
             <a href="{{ path('book_list', { page: app.request.get('page', 1) }) }}">
                 <span class="fa fa-angle-left"></span>
-                {{ 'book.back.to_list' | trans }}
+                {{ 'book.back.to_list'|trans }}
             </a>
         </li>
     </ul>
@@ -29,7 +29,7 @@
                 {{ form_row(form.title) }}
                 {{ form_row(form.description) }}
                 {{ form_rest(form) }}
-                <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
+                <button class="btn btn-primary pull-right">{{ 'crud.save'|trans }}</button>
             {{ form_end(form) }}
         </div>
     </div>

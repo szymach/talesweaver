@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block seo_title 'scene.header.create' | trans %}
+{% block seo_title 'scene.header.create'|trans %}
 
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
 
 {% block top_menu_right %}
     {% include 'partial/topMenu/actions.html.twig' with {
         returnUrl: chapterId ? path('chapter_edit', { id: chapterId }) : path('scene_list', { page: app.request.get('page') }),
-        returnLabel: chapterId ? 'scene.back.to_chapter' : 'scene.back.to_list' | trans
+        returnLabel: chapterId ? 'scene.back.to_chapter' : 'scene.back.to_list'|trans
     } %}
 {% endblock %}
 
@@ -17,7 +17,7 @@
             {{ form_start(form) }}
                 {{ form_row(form.title) }}
                 {{ form_row(form.chapter) }}
-                <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
+                <button class="btn btn-primary pull-right">{{ 'crud.save'|trans }}</button>
                 {{ form_rest(form) }}
             {{ form_end(form) }}
         </div>

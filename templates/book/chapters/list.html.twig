@@ -5,13 +5,13 @@
             <span class="pull-right pr-10">
                 <a class="btn btn-xs btn-primary"
                    href="{{ path('chapter_edit', { id: chapter.id }) }}"
-                   title="{{ 'crud.edit' | trans }}"
+                   title="{{ 'crud.edit'|trans }}"
                    >
                     <span class="fa fa-edit"></span>
                 </a>
                 <button class="js-list-delete js-delete btn btn-xs btn-danger"
                         data-delete-url="{{ path('chapter_delete', { id: chapter.id }) }}"
-                        title="{{ 'crud.delete' | trans }}"
+                        title="{{ 'crud.delete'|trans }}"
                         >
                     <span class="fa fa-trash"></span>
                 </button>

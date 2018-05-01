@@ -1,9 +1,9 @@
-<h3>{{ 'character.header.related' | trans }}</h3>
+<h3>{{ 'character.header.related'|trans }}</h3>
 <table class="table">
     <thead>
         <tr>
-            <th>{{ 'character.name' | trans }}</th>
-            <th>{{ 'crud.actions' | trans }}</th>
+            <th>{{ 'character.name'|trans }}</th>
+            <th>{{ 'crud.actions'|trans }}</th>
         </tr>
     </thead>
     <tbody>
@@ -14,7 +14,7 @@
                     <button class="btn btn-success js-list-action"
                         data-action-url="{{ path('character_add_to_scene', { scene_id: sceneId, character_id: character.id }) }}"
                         data-list-id=".characters.js-list"
-                        title="{{ 'character.actions.add_to_scene' | trans({ '%scene%': sceneTitle }) }}"
+                        title="{{ 'character.actions.add_to_scene'|trans({ '%scene%': sceneTitle }) }}"
                     >
                         <span class="fa fa-plus"></span>
                     </button>

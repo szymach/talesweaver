@@ -16,13 +16,13 @@
                         <td>
                             <a class="btn btn-sm btn-primary"
                                href="{{ path('book_edit', { id: book.id }) }}"
-                               title="{{ 'crud.edit' | trans }}"
+                               title="{{ 'crud.edit'|trans }}"
                             >
                                 <span class="fa fa-edit"></span>
                             </a>
                             <a class="btn btn-sm btn-danger js-delete"
                                href="{{ path('book_delete', { id: book.id, page: app.request.get('page') }) }}"
-                               title="{{ 'crud.delete' | trans }}"
+                               title="{{ 'crud.delete'|trans }}"
                             >
                                 <span class="fa fa-trash"></span>
                             </a>
@@ -35,7 +35,7 @@
                         <td colspan="2" class="text-right">
                             <a class="btn btn-sm btn-success"
                                href="{{ path('book_create') }}"
-                               title="{{ 'crud.create' | trans }}"
+                               title="{{ 'crud.create'|trans }}"
                             >
                                 <span class="fa fa-plus"></span>
                             </a>

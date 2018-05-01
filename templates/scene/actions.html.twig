@@ -1,9 +1,9 @@
 {% extends 'partial/topMenu/actions.html.twig' %}
 {% block additionalActions %}
     <li>
-        <a href="{{ path('scene_display', { id: sceneId }) }}" target="_blank" title="{{ 'display.go_to' | trans }}">
+        <a href="{{ path('scene_display', { id: sceneId }) }}" target="_blank" title="{{ 'display.go_to'|trans }}">
             <span class="fa fa-eye"></span>
-            {{ 'display.label' | trans }}
+            {{ 'display.label'|trans }}
         </a>
     </li>
 {% endblock %}

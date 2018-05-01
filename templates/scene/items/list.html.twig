@@ -1,31 +1,31 @@
 <ul class="js-ajax-pagination" data-list-url="{{ path('item_list', { id: sceneId, page: items.currentPage }) }}">
     {% for item in items %}
         <li>
-            <span class="sublist-label">{{ item | truncate(15) }}</span>
+            <span class="sublist-label">{{ item|truncate(15) }}</span>
             <span class="list-actions">
                 <button class="js-load-form js-edit-form btn btn-xs btn-primary"
                     data-form-url="{{ path('item_edit', { id: item.id }) }}"
-                    title="{{ 'crud.edit' | trans }}"
+                    title="{{ 'crud.edit'|trans }}"
                 >
                     <span class="fa fa-edit"></span>
                 </button>
                 <button class="js-display btn btn-xs btn-default"
                     data-display-url="{{ path('item_display', { id: item.id }) }}"
-                    title="{{ 'crud.display' | trans }}"
+                    title="{{ 'crud.display'|trans }}"
                 >
                     <span class="fa fa-eye"></span>
                 </button>
                 {% if chapterId %}
                     <button class="js-list-delete js-delete btn btn-xs btn-warning"
                         data-delete-url="{{ path('item_remove_from_scene', { scene_id: sceneId, item_id: item.id }) }}"
-                        title="{{ 'crud.remove_from_scene' | trans }}"
+                        title="{{ 'crud.remove_from_scene'|trans }}"
                     >
                         <span class="fa fa-scissors"></span>
                     </button>
                 {% endif %}
                 <button class="js-list-delete js-delete btn btn-xs btn-danger"
                     data-delete-url="{{ path('item_delete', { id: item.id }) }}"
-                    title="{{ 'crud.delete' | trans }}"
+                    title="{{ 'crud.delete'|trans }}"
                 >
                     <span class="fa fa-trash"></span>
                 </button>

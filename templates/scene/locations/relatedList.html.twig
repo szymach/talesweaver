@@ -1,9 +1,9 @@
-<h3>{{ 'location.header.related' | trans }}</h3>
+<h3>{{ 'location.header.related'|trans }}</h3>
 <table class="table">
     <thead>
         <tr>
-            <th>{{ 'location.name' | trans }}</th>
-            <th>{{ 'crud.actions' | trans }}</th>
+            <th>{{ 'location.name'|trans }}</th>
+            <th>{{ 'crud.actions'|trans }}</th>
         </tr>
     </thead>
     <tbody>
@@ -14,7 +14,7 @@
                     <button class="btn btn-success js-list-action"
                         data-action-url="{{ path('location_add_to_scene', { scene_id: sceneId, location_id: location.id }) }}"
                         data-list-id=".locations.js-list"
-                        title="{{ 'location.actions.add_to_scene' | trans({ '%scene%': sceneTitle }) }}"
+                        title="{{ 'location.actions.add_to_scene'|trans({ '%scene%': sceneTitle }) }}"
                     >
                         <span class="fa fa-plus"></span>
                     </button>

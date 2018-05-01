@@ -2,23 +2,23 @@
     {% for event in events %}
         {% set model = event.model %}
         <li>
-            <span>{{ event.name | truncate(20) }}</span>
+            <span>{{ event.name|truncate(20) }}</span>
             <span class="list-actions">
                 <button class="js-load-form js-edit-form btn btn-xs btn-primary"
                     data-form-url="{{ path('event_edit', { id: event.id }) }}"
-                    title="{{ 'crud.edit' | trans }}"
+                    title="{{ 'crud.edit'|trans }}"
                 >
                     <span class="fa fa-edit"></span>
                 </button>
                 <button class="js-display btn btn-xs btn-default"
                     data-display-url="{{ path('event_display', { id: event.id }) }}"
-                    title="{{ 'crud.display' | trans }}"
+                    title="{{ 'crud.display'|trans }}"
                 >
                     <span class="fa fa-eye"></span>
                 </button>
                 <button class="js-list-delete js-delete btn btn-xs btn-danger"
                     data-delete-url="{{ path('event_delete', { id: event.id }) }}"
-                    title="{{ 'crud.delete' | trans }}"
+                    title="{{ 'crud.delete'|trans }}"
                 >
                     <span class="fa fa-trash"></span>
                 </button>

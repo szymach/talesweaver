@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block seo_title 'book.header.create' | trans %}
+{% block seo_title 'book.header.create'|trans %}
 
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 
@@ -14,7 +14,7 @@
 {% block top_menu_right %}
     {% include 'partial/topMenu/actions.html.twig' with {
         returnUrl: path('book_list', { page: app.request.get('page', 1) }),
-        returnLabel: 'book.back.to_list' | trans
+        returnLabel: 'book.back.to_list'|trans
     } %}
 {% endblock %}
 
@@ -25,7 +25,7 @@
                 {{ form_row(form.title) }}
                 {{ form_row(form.description) }}
                 {{ form_rest(form) }}
-                <button class="btn btn-primary pull-right">{{ 'crud.save' | trans }}</button>
+                <button class="btn btn-primary pull-right">{{ 'crud.save'|trans }}</button>
             {{ form_end(form) }}
         </div>
     </div>
