@@ -17,6 +17,15 @@ describe('Location sidemenu actions', () => {
 
         cy.get('@locations').within(() => {
             cy.get('.js-list-toggle').click();
+            cy.contains(/^Miejsce$/).next().find('.js-display').click();
+        }).then(() => {
+            cy.get('#modal-display h4').contains(/^Miejsce$/).should('be.visible');
+            cy.get('#modal-display').contains('Zamknij').click();
+            cy.get('@locations').find('.js-list-toggle').click();
+        });
+
+        cy.get('@locations').within(() => {
+            cy.get('.js-list-toggle').click();
             cy.contains(/^Miejsce$/).next().find('.js-edit-form').click();
         }).then(() => {
             cy.contains('Edycja miejsca');

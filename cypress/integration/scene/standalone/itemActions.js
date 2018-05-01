@@ -17,6 +17,15 @@ describe('Item sidemenu actions', () => {
 
         cy.get('@items').within(() => {
             cy.get('.js-list-toggle').click();
+            cy.contains(/^Przedmiot$/).next().find('.js-display').click();
+        }).then(() => {
+            cy.get('#modal-display h4').contains(/^Przedmiot$/).should('be.visible');
+            cy.get('#modal-display').contains('Zamknij').click();
+            cy.get('@items').find('.js-list-toggle').click();
+        });
+
+        cy.get('@items').within(() => {
+            cy.get('.js-list-toggle').click();
             cy.get('.js-edit-form').last().click();
         }).then(() => {
             cy.contains('Edycja przedmiotu');
