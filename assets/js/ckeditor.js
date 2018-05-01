@@ -12,12 +12,12 @@ import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 (function () {
     $(function () {
         initializeCKEditor(document.querySelector('.ckeditor'));
-    });
 
-    const ajaxContainer = document.getElementById('ajax-container');
-    ajaxContainer.addEventListener('ckeditor:initialize', function (e) {
-        initializeCKEditor(ajaxContainer.querySelector('.ckeditor'));
-    }, false);
+        const ajaxContainer = document.getElementById('ajax-container');
+        ajaxContainer.addEventListener('ckeditor:initialize', function (e) {
+            initializeCKEditor(ajaxContainer.querySelector('.ckeditor'));
+        }, false);
+    });
 })();
 
 function initializeCKEditor(elements) {
