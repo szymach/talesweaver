@@ -11,7 +11,7 @@
             <tr>
                 <td>{{ character }}</td>
                 <td>
-                    <button class="btn btn-success js-list-action"
+                    <button class="btn btn-success btn-sm js-list-action"
                         data-action-url="{{ path('character_add_to_scene', { scene_id: sceneId, character_id: character.id }) }}"
                         data-list-id=".characters.js-list"
                         title="{{ 'character.actions.add_to_scene'|trans({ '%scene%': sceneTitle }) }}"

@@ -11,7 +11,7 @@
             <tr>
                 <td>{{ location }}</td>
                 <td>
-                    <button class="btn btn-success js-list-action"
+                    <button class="btn btn-success btn-sm js-list-action"
                         data-action-url="{{ path('location_add_to_scene', { scene_id: sceneId, location_id: location.id }) }}"
                         data-list-id=".locations.js-list"
                         title="{{ 'location.actions.add_to_scene'|trans({ '%scene%': sceneTitle }) }}"
