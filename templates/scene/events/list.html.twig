@@ -10,6 +10,12 @@
                 >
                     <span class="fa fa-edit"></span>
                 </button>
+                <button class="js-display btn btn-xs btn-default"
+                    data-display-url="{{ path('event_display', { id: event.id }) }}"
+                    title="{{ 'crud.display' | trans }}"
+                >
+                    <span class="fa fa-eye"></span>
+                </button>
                 <button class="js-list-delete js-delete btn btn-xs btn-danger"
                     data-delete-url="{{ path('event_delete', { id: event.id }) }}"
                     title="{{ 'crud.delete' | trans }}"

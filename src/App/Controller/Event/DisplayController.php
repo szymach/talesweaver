@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Character;
+namespace App\Controller\Event;
 
-use App\Templating\Character\DisplayView;
-use Domain\Entity\Character;
+use App\Templating\Event\DisplayView;
+use Domain\Entity\Event;
 
 class DisplayController
 {
@@ -19,7 +19,7 @@ class DisplayController
         $this->templating = $templating;
     }
 
-    public function __invoke(Character $character)
+    public function __invoke(Event $character)
     {
         return $this->templating->createView($character);
     }

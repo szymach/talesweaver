@@ -21,6 +21,11 @@ event_edit:
     defaults: { _controller: App\Controller\Event\EditController }
     methods:  GET|POST
 
+event_display:
+    path: /dsiplay/{id}
+    defaults: { _controller: App\Controller\Event\DisplayController }
+    methods:  GET
+
 event_delete:
     path: /delete/{id}
     defaults: { _controller: App\Controller\Event\DeleteController }

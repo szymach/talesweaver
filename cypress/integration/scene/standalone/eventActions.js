@@ -20,15 +20,14 @@ describe('Event sidemenu actions', () => {
             cy.contains('Pomyślnie dodano nowe wydarzenie o nazwie "Spotkanie"').should('be.visible');
         });
 
-// TODO add event display
-//        cy.get('@events').within(() => {
-//            cy.get('.js-list-toggle.btn-default').click();
-//            cy.contains(/^Spotkanie$/).next().find('.js-display').click();
-//        }).then(() => {
-//            cy.get('#modal-display h4').contains(/^Spotkanie$/).should('be.visible');
-//            cy.get('#modal-display').contains('Zamknij').click();
-//            cy.get('@events').find('.js-list-toggle.btn-default').click();
-//        });
+        cy.get('@events').within(() => {
+            cy.get('.js-list-toggle.btn-default').click();
+            cy.contains(/^Spotkanie$/).next().find('.js-display').click();
+        }).then(() => {
+            cy.get('#modal-display h4').contains(/^Spotkanie$/).should('be.visible');
+            cy.get('#modal-display').contains('Zamknij').click();
+            cy.get('@events').find('.js-list-toggle.btn-default').click();
+        });
 
         cy.get('@events').within(() => {
             cy.get('.js-list-toggle[title="Lista"]').click();

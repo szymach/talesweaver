@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Templating\Character;
 
-use Domain\Entity\Character;
 use App\Templating\Engine;
 use App\Timeline\CharacterTimeline;
+use Domain\Entity\Character;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DisplayView
