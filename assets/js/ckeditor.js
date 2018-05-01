@@ -41,7 +41,7 @@ function initializeCKEditor(elements) {
             ParagraphPlugin
         ],
         toolbar: [
-            'headings',
+            'heading',
             'bold',
             'italic',
             'link',
@@ -65,7 +65,7 @@ function bindAutosave(editor)
         return;
     }
 
-    editor.document.on('changesDone', function() {
+    editor.model.document.on('change', function() {
         if (typeof editor.element === 'undefined') {
             return;
         }

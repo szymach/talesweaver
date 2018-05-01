@@ -4,6 +4,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ClearWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
+const { styles } = require( '@ckeditor/ckeditor5-dev-utils' );
 const path = require('path');
 
 module.exports = {
@@ -34,10 +35,7 @@ module.exports = {
         }),
         new ExtractTextPlugin({ filename: '[name].css', allChunks: true }),
         new OptimizeCssAssetsPlugin(),
-        new CKEditorWebpackPlugin({
-            languages: ['pl', 'en'],
-            language: 'pl'
-        }),
+        new CKEditorWebpackPlugin({ language: 'pl' }),
         new ClearWebpackPlugin([path.resolve(__dirname, 'public/assets')], {
             verbose: true
         }),
@@ -54,20 +52,33 @@ module.exports = {
             { test: /\.ts$/, loader: "awesome-typescript-loader" },
             { test: /\.scss$/, use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'postcss-loader', 'sass-loader'] }) },
             { test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, use: ["url-loader"] },
-            {
-                test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+            { test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
                 exclude: [
                     path.resolve(__dirname, "node_modules/@ckeditor")
                 ],
                 use: ['file-loader']
             },
             { test: /bootstrap-sass\/assets\/javascripts\//, use: [ 'imports-loader?jQuery=jquery'] },
+            { test: /ckeditor5-[^/]+\/theme\/icons\/[^/]+\.svg$/, use: [ 'raw-loader' ] },
             {
-                test: /\.svg$/,
-                include: [
-                    path.resolve(__dirname, "node_modules/@ckeditor")
-                ],
-                use: [ 'raw-loader' ]
+                test: /ckeditor5-[^/]+\/theme\/[\w-/]+\.css$/,
+                use: [
+                    {
+                        loader: 'style-loader',
+                        options: {
+                            singleton: true
+                        }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: styles.getPostCssConfig( {
+                            themeImporter: {
+                                themePath: require.resolve( '@ckeditor/ckeditor5-theme-lark' )
+                            },
+                            minify: true
+                        } )
+                    }
+                ]
             }
         ]
     },
