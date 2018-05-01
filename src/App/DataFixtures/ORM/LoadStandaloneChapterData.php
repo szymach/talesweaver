@@ -35,13 +35,13 @@ class LoadStandaloneChapterData implements ORMFixtureInterface, OrderedFixtureIn
         $character1->setLocale(self::LOCALE);
         $character2->setLocale(self::LOCALE);
 
-        $item1 = new Item(Uuid::uuid4(), $scene1, 'Postać 1', '', null, $user);
-        $item2 = new Item(Uuid::uuid4(), $scene2, 'Postać 2', '', null, $user);
+        $item1 = new Item(Uuid::uuid4(), $scene1, 'Przedmiot 1', '', null, $user);
+        $item2 = new Item(Uuid::uuid4(), $scene2, 'Przedmiot 2', '', null, $user);
         $item1->setLocale(self::LOCALE);
         $item2->setLocale(self::LOCALE);
 
-        $location1 = new Location(Uuid::uuid4(), $scene1, 'Postać 1', '', null, $user);
-        $location2 = new Location(Uuid::uuid4(), $scene2, 'Postać 2', '', null, $user);
+        $location1 = new Location(Uuid::uuid4(), $scene1, 'Miejsce 1', '', null, $user);
+        $location2 = new Location(Uuid::uuid4(), $scene2, 'Miejsce 2', '', null, $user);
         $location1->setLocale(self::LOCALE);
         $location2->setLocale(self::LOCALE);
 

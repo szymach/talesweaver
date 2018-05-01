@@ -273,7 +273,7 @@ location:
     header:
         new: Nowe miejsce
         edit: Edycja miejsca
-        related: Dodawanie istniejącej miejsca
+        related: Dodawanie istniejącego miejsca
     alert:
         created: Pomyślnie dodano nowe miejsce o nazwie "%title%".
         edit: Zapisano zmiany w miejscu.
