@@ -126,7 +126,7 @@ book:
     title: Tytuł
     description: Opis
     placeholder:
-        title: Podaj tytuł książki
+        title: Podaj tytuł książki i zapisz, by móc dodawać rozdziały
     chapters: Rozdziały
     actions:
         create: Nowa
@@ -136,12 +136,10 @@ book:
         edit: '%title% - edycja'
     back:
         to_list: Powrót do listy
-    tabs:
-        basic: Podstawowe
-        introduction: Wstęp
-        expansion: Rozwinięcie
-        ending: Zakończenie
-        chapters: Rozdziały
+    list:
+        no_results:
+            header: Nie masz jeszcze żadnej książki.
+            add_new: Dodaj nową!
     alert:
         created: 'Pomyślnie dodano nową książkę o tytule "%title%".'
         edit: Zapisano zmiany w książce.
@@ -150,8 +148,10 @@ book:
 chapter:
     title: Tytuł
     placeholder:
-        title: Tytuł nowego rozdziału
-        book: 'Wybierz ...'
+        title:
+            book: Podaj tytuł rozdziału
+            standalone: Podaj tytuł rozdziału i zapisz, by móc dodawać sceny
+        book: 'Przypisz do książki'
     scenes: Sceny
     book: Książka
     actions:
@@ -160,6 +160,11 @@ chapter:
     header:
         create: Nowy rozdział
         edit: '%title% - edycja'
+    list:
+        standalone:
+            no_results:
+                header: Nie masz jeszcze żadnego nieprzypisanego do książki rozdziału.
+                add_new: Dodaj nowy!
     back:
         to_book: Wróć do książki
         to_list: Wróć do listy
@@ -175,7 +180,10 @@ scene:
     title: Tytuł
     text: Treść
     placeholder:
-        title: Tytuł nowej sceny
+        title:
+            chapter: Podaj tytuł sceny
+            standalone: Podaj tytuł sceny i zapisz, by wprowadzać treść
+        chapter: 'Przypisz do rozdziału'
     chapter: Rozdział
     book: Książka
     actions:
@@ -186,6 +194,11 @@ scene:
     back:
         to_chapter: Wróć do rozdziału
         to_list: Wróć do listy
+    list:
+        standalone:
+            no_results:
+                header: Nie masz jeszcze żadnej nieprzypisanej do rozdziału sceny.
+                add_new: Dodaj nową!
     tabs:
         basic: Treść
         characters: Postacie

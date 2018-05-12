@@ -7,42 +7,54 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12 col-md-offset-3 col-md-6">
-            <table class="table">
-                <tbody>
-                    {% for scene in scenes %}
+        {% if scenes|length > 0 %}
+            <div class="col-xs-12 col-md-offset-3 col-md-6">
+                <table class="table">
+                    <tbody>
+                        {% for scene in scenes %}
+                            <tr>
+                                <td class="text-right">{{ scene }}</td>
+                                <td>
+                                    <a class="btn btn-sm btn-primary"
+                                       href="{{ path('scene_edit', { id: scene.id }) }}"
+                                       title="{{ 'crud.edit'|trans }}"
+                                       >
+                                        <span class="fa fa-edit"></span>
+                                    </a>
+                                    <a class="btn btn-sm btn-danger js-delete"
+                                       href="{{ path('scene_delete', { id: scene.id }) }}"
+                                       title="{{ 'crud.delete'|trans }}"
+                                       >
+                                        <span class="fa fa-trash"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
                         <tr>
-                            <td class="text-right">{{ scene }}</td>
-                            <td>
-                                <a class="btn btn-sm btn-primary"
-                                   href="{{ path('scene_edit', { id: scene.id }) }}"
-                                   title="{{ 'crud.edit'|trans }}"
-                                >
-                                    <span class="fa fa-edit"></span>
-                                </a>
-                                <a class="btn btn-sm btn-danger js-delete"
-                                   href="{{ path('scene_delete', { id: scene.id }) }}"
-                                   title="{{ 'crud.delete'|trans }}"
-                                >
-                                    <span class="fa fa-trash"></span>
+                            <td colspan="2" class="text-right">
+                                <a class="btn btn-sm btn-success"
+                                   href="{{ path('scene_create') }}"
+                                   title="{{ 'crud.create'|trans }}"
+                                   >
+                                    <span class="fa fa-plus"></span>
                                 </a>
                             </td>
                         </tr>
-                    {% endfor %}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="2" class="text-right">
-                            <a class="btn btn-sm btn-success"
-                               href="{{ path('scene_create') }}"
-                               title="{{ 'crud.create'|trans }}"
-                            >
-                                <span class="fa fa-plus"></span>
-                            </a>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
+                    </tfoot>
+                </table>
+            {% else %}
+                <div class="col-xs-12 text-center">
+                    <h4>{{- 'scene.list.standalone.no_results.header'|trans -}}</h4>
+                    <a class="btn btn-sm btn-success"
+                       href="{{ path('scene_create') }}"
+                       title="{{ 'scene.actions.create'|trans }}"
+                       >
+                        <span class="fa fa-plus"></span> {{ 'scene.list.standalone.no_results.add_new'|trans }}
+                    </a>
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

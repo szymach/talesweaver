@@ -2,7 +2,7 @@
 
 {% block seo_title 'scene.header.create'|trans %}
 
-{% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 
 {% block top_menu_right %}
     {% include 'partial/topMenuActions.html.twig' with {
@@ -17,7 +17,7 @@
             {{ form_start(form) }}
                 {{ form_row(form.title) }}
                 {{ form_row(form.chapter) }}
-                <button class="btn btn-primary pull-right">{{ 'crud.save'|trans }}</button>
+                <button class="btn btn-success pull-right">{{ 'crud.save'|trans }}</button>
                 {{ form_rest(form) }}
             {{ form_end(form) }}
         </div>

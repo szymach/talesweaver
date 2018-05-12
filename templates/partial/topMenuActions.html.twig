@@ -1,5 +1,7 @@
 <ul class="nav navbar-nav nav-actions">
-    <li><a href="{{ returnUrl }}"><span class="fa fa-angle-left"></span>  {{ returnLabel }}</a></li>
+    {% if returnUrl is defined and returnLabel is defined %}
+        <li><a href="{{ returnUrl }}"><span class="fa fa-angle-left"></span>  {{ returnLabel }}</a></li>
+    {% endif %}
     {% block additionalActions '' %}
     <li class="visible-xs"><a href="{{ path('change_password') }}">{{ 'menu.change_password'|trans }}</a></li>
     <li class="visible-xs"><a href="{{ path('logout') }}">{{ 'menu.logout'|trans }}</a></li>

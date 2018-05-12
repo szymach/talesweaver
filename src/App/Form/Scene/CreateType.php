@@ -19,12 +19,13 @@ class CreateType extends AbstractType
     {
         $builder->add('title', TextType::class, [
             'label' => 'scene.title',
-            'attr' => ['placeholder' => 'scene.placeholder.title', 'autofocus' => 'autofocus']
+            'attr' => ['placeholder' => $options['title_placeholder'], 'autofocus' => 'autofocus']
         ]);
 
         $builder->add('chapter', EntityType::class, [
             'label' => 'scene.chapter',
             'class' => Chapter::Class,
+            'placeholder' => 'scene.placeholder.chapter',
             'required' => false
         ]);
     }
@@ -33,7 +34,9 @@ class CreateType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => DTO::class,
-            'method' => Request::METHOD_POST
+            'method' => Request::METHOD_POST,
+            'title_placeholder' => 'scene.placeholder.title.standalone'
         ]);
+        $resolver->setAllowedTypes('title_placeholder', ['null', 'string']);
     }
 }

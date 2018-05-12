@@ -26,6 +26,7 @@ class EditType extends AbstractType
         $builder->add('chapter', EntityType::class, [
             'label' => 'scene.chapter',
             'class' => Chapter::Class,
+            'placeholder' => 'scene.placeholder.chapter',
             'required' => false
         ]);
 

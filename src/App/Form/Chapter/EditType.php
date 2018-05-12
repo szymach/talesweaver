@@ -25,6 +25,7 @@ class EditType extends AbstractType
         $builder->add('book', EntityType::class, [
             'label' => 'chapter.book',
             'class' => Book::Class,
+            'placeholder' => 'chapter.placeholder.book',
             'required' => false
         ]);
     }

@@ -3,22 +3,24 @@
 {% block body %}
     <div class="row">
         <h3 class="col-xs-12 col-md-6">{{ 'dashboard.header'|trans|nl2br }}</h3>
-        <div class="col-xs-12 col-md-6 dashboard-timeline">
-            <h3>{{ 'dashboard.timeline'|trans }}</h3>
-            <br/>
-            <ul class="list-unstyled">{% spaceless %}
-                {% for item in timeline %}
-                    <li>
-                        <h5 class="inline-block">
-                            <i class="fa {{ item.updated ? 'fa-history' : 'fa-plus-circle' }}" title="{{ ('dashboard.updated.' ~ item.updated)|trans }}"></i>&nbsp;|&nbsp;
-                            <i class="fa {{ item.icon }}" title="{{ ('dashboard.type.' ~ item.class)|trans }}"></i>&nbsp;|&nbsp;
-                            <a href="{{ path(item.route, { id: item.id }) }}" title="{{ 'crud.edit'|trans }}">
-                                <i class="fa fa-edit"></i>
-                            </a>&nbsp;|&nbsp;{{ item.label }}
-                        </h5>
-                    </li>
-                {% endfor %}
-            {% endspaceless %}</ul>
-        </div>
+        {% if timeline|length > 0 %}
+            <div class="col-xs-12 col-md-6 dashboard-timeline">
+                <h3>{{ 'dashboard.timeline'|trans }}</h3>
+                <br/>
+                <ul class="list-unstyled">{% spaceless %}
+                    {% for item in timeline %}
+                        <li>
+                            <h5 class="inline-block">
+                                <i class="fa {{ item.updated ? 'fa-history' : 'fa-plus-circle' }}" title="{{ ('dashboard.updated.' ~ item.updated)|trans }}"></i>&nbsp;|&nbsp;
+                                <i class="fa {{ item.icon }}" title="{{ ('dashboard.type.' ~ item.class)|trans }}"></i>&nbsp;|&nbsp;
+                                <a href="{{ path(item.route, { id: item.id }) }}" title="{{ 'crud.edit'|trans }}">
+                                    <i class="fa fa-edit"></i>
+                                </a>&nbsp;|&nbsp;{{ item.label }}
+                            </h5>
+                        </li>
+                    {% endfor %}
+                {% endspaceless %}</ul>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
