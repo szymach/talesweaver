@@ -22,8 +22,14 @@ Cypress.Commands.add("visitSceneForChapter", () => {
     cy.url().should('eq', Cypress.config('baseUrl') + '/chapter/list');
     cy.get('tr').contains(/^Rozdział$/).parent().find('[title="Edycja"]').click().then(() => {
         cy.url().should('contain', Cypress.config('baseUrl') + '/chapter/edit');
-        cy.get('.side-menu').contains('Scena 1').parent().find('[title="Edycja"]').click().then(() => {
-            cy.url().should('contain', Cypress.config('baseUrl') + '/scene/edit');
+
+        cy.get('.side-menu ul li').contains('Sceny').parents('li').first().as('scenes');
+        cy.get('@scenes').find('.js-list-toggle').click().then(() => {
+            cy.get('@scenes').within(() => {
+                cy.contains(/^Scena 1$/).next().find('[title="Edycja"]').click().then(() => {
+                    cy.url().should('contain', Cypress.config('baseUrl') + '/scene/edit');
+                })
+            });
         });
     });
 });
