@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Form\Chapter;
 
-use Domain\Entity\Book;
+use App\Repository\BookRepository;
 use Domain\Chapter\Edit\DTO;
+use Domain\Entity\Book;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -15,6 +16,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EditType extends AbstractType
 {
+    /**
+     * @var BookRepository
+     */
+    private $bookRepository;
+
+    public function __construct(BookRepository $bookRepository)
+    {
+        $this->bookRepository = $bookRepository;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title', TextType::class, [
@@ -25,6 +36,7 @@ class EditType extends AbstractType
         $builder->add('book', EntityType::class, [
             'label' => 'chapter.book',
             'class' => Book::Class,
+            'query_builder' => $this->bookRepository->createQueryBuilder(),
             'placeholder' => 'chapter.placeholder.book',
             'required' => false
         ]);

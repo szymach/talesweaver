@@ -34,7 +34,9 @@ class TransactionWrappedBus implements MessageBus
             $this->manager->flush();
             $this->manager->commit();
         } catch (Throwable $exception) {
-            $this->manager->rollback();
+            if (true === $this->manager->getConnection()->isTransactionActive()) {
+                $this->manager->rollback();
+            }
             throw $exception;
         }
     }
