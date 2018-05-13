@@ -1,9 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block seo_title 'chapter.header.create'|trans %}
-
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 
+{% block seoTitle 'chapter.seo_title.form.create'|trans %}
 {% block rightMenu %}
     {% include 'partial/topMenuActions.html.twig' with {
         returnUrl: bookId ? path('book_edit', { id: bookId }) : path('chapter_list'),
@@ -15,13 +14,9 @@
     <div class="row">
         <div class="col-xs-10 col-sm-offset-1 col-md-6 col-md-offset-3">
             {{ form_start(form) }}
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade in active" id="basic">
-                        {{ form_row(form.title) }}
-                        {{ form_row(form.book) }}
-                        <button class="btn btn-success pull-right">{{ 'crud.save'|trans }}</button>
-                    </div>
-                </div>
+                {{ form_row(form.title) }}
+                {{ form_row(form.book) }}
+                <button class="btn btn-success pull-right">{{ 'crud.save'|trans }}</button>
             {{ form_end(form) }}
         </div>
     </div>

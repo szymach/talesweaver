@@ -131,9 +131,6 @@ book:
     actions:
         create: Nowa
         add_chapter: Dodaj
-    header:
-        create: Nowa książka
-        edit: '%title% - edycja'
     back:
         to_list: Powrót do listy
     list:
@@ -144,6 +141,11 @@ book:
         created: 'Pomyślnie dodano nową książkę o tytule "%title%".'
         edit: Zapisano zmiany w książce.
         deleted: 'Książka "%title%" została usunięta.'
+    seo_title:
+        list: Książki
+        form:
+            create: Nowa książka
+            edit: '%title% - edycja'
 
 chapter:
     title: Tytuł
@@ -157,9 +159,6 @@ chapter:
     actions:
         create: Nowy
         add_scene: Dodaj
-    header:
-        create: Nowy rozdział
-        edit: '%title% - edycja'
     list:
         standalone:
             no_results:
@@ -175,6 +174,11 @@ chapter:
         created: 'Pomyślnie dodano nowy rozdział o tytule "%title%".'
         edit: Zapisano zmiany w rozdziale.
         deleted: 'Rozdział "%title%" został usunięty.'
+    seo_title:
+        list: Rozdziały
+        form:
+            create: Nowy rozdział
+            edit: '%title% - edycja'
 
 scene:
     title: Tytuł
@@ -188,9 +192,6 @@ scene:
     book: Książka
     actions:
         create: Nowa
-    header:
-        create: Nowa scena
-        edit: '%title% - edycja'
     back:
         to_chapter: Wróć do rozdziału
         to_list: Wróć do listy
@@ -209,6 +210,11 @@ scene:
         created: 'Pomyślnie dodano nową scenę o tytule "%title%".'
         edit: Zapisano zmiany w scenie.
         deleted: 'Scena "%title%" została usunięta.'
+    seo_title:
+        list: Sceny
+        form:
+            create: Nowa scena
+            edit: '%title% - edycja'
 
 event:
     name: Nazwa

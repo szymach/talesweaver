@@ -2,14 +2,12 @@
 <html lang="{{ app.request.locale }}">
     <head>
         <meta charset="UTF-8" />
-        <title>{% block seo_title 'meta.title'|trans %}</title>
-        <meta name="description" content="{% block seo_description '' %}">
-        <meta name="keywords" content="{% block seo_keywords '' %}">
+        <title>{% block seoTitle 'meta.title'|trans %}</title>
+        <meta name="description" content="{% block seoDescription '' %}">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <link rel="stylesheet" href="{{ absolute_url(asset('assets/main.css')) }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+        <link rel="stylesheet" href="{{ absolute_url(asset('assets/main.css')) }}">
         {% block stylesheets '' %}
-        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
         <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     </head>
     <body>

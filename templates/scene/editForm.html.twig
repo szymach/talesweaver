@@ -1,13 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ absolute_url(asset('assets/ckeditor.css')) }}">
-{% endblock %}
-{% block javascripts %}
-    <script src="{{ absolute_url(asset('assets/ckeditor.js')) }}" async></script>
-{% endblock %}
-
-{% block seo_title 'scene.header.edit'|trans({ '%title%': title }) %}
+{% block seoTitle 'scene.seo_title.form.edit'|trans({ '%title%': title }) %}
 {% block rightMenu %}
     {% include 'scene/actions.html.twig' with {
         sceneId: sceneId,
@@ -42,4 +35,11 @@
 
 {% block modals %}
     {% include 'partial/displayModal.html.twig' %}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/ckeditor.css')) }}">
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ absolute_url(asset('assets/ckeditor.js')) }}" async></script>
 {% endblock %}

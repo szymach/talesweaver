@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block seo_title 'chapter.header.edit'|trans({ '%title%': title }) %}
-
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% form_theme sceneForm 'bootstrap_3_layout.html.twig' %}
 
+{% block seoTitle 'chapter.seo_title.form.edit'|trans({ '%title%': title }) %}
 {% block rightMenu %}
     {% include 'chapter/actions.html.twig' with {
         chapterId: chapterId,

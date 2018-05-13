@@ -1,9 +1,7 @@
 index_no_locale:
     path: /
     controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction
-    defaults:
-        path: /pl
-        permanent: true
+    defaults: { path: /pl, permanent: true }
     options: { i18n: false }
 
 base:

@@ -1,16 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block seo_title 'book.header.create'|trans %}
-
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ absolute_url(asset('assets/ckeditor.css')) }}">
-{% endblock %}
-{% block javascripts %}
-    <script src="{{ absolute_url(asset('assets/ckeditor.js')) }}" async></script>
-{% endblock %}
-
+{% block seoTitle 'book.seo_title.form.create'|trans %}
 {% block rightMenu %}
     {% include 'partial/topMenuActions.html.twig' with {
         returnUrl: path('book_list', { page: app.request.get('page', 1) }),
@@ -29,4 +21,11 @@
             {{ form_end(form) }}
         </div>
     </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/ckeditor.css')) }}">
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ absolute_url(asset('assets/ckeditor.js')) }}" async></script>
 {% endblock %}

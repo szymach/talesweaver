@@ -1,17 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block seo_title 'book.header.edit'|trans({ '%title%': title }) %}
-
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ absolute_url(asset('assets/ckeditor.css')) }}">
-{% endblock %}
-{% block javascripts %}
-    <script src="{{ absolute_url(asset('assets/ckeditor.js')) }}" async></script>
-{% endblock %}
-
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% form_theme chapterForm 'bootstrap_3_layout.html.twig' %}
 
+{% block seoTitle 'book.seo_title.form.edit'|trans({ '%title%': title }) %}
 {% block rightMenu %}
     {% include 'partial/topMenuActions.html.twig' with {
         returnUrl: path('book_list', { page: app.request.get('page', 1) }),
@@ -39,4 +31,11 @@
             } only %}
         {% endblock %}
     {% endembed %}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/ckeditor.css')) }}">
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ absolute_url(asset('assets/ckeditor.js')) }}" async></script>
 {% endblock %}
