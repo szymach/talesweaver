@@ -11,11 +11,11 @@
     <script src="{{ absolute_url(asset('assets/ckeditor.js')) }}" async></script>
 {% endblock %}
 
-{% block top_menu_right %}
+{% block rightMenu %}
     {% include 'partial/topMenuActions.html.twig' with {
         returnUrl: path('book_list', { page: app.request.get('page', 1) }),
         returnLabel: 'book.back.to_list'|trans
-    } %}
+    } only %}
 {% endblock %}
 
 {% block body %}

@@ -8,12 +8,12 @@
 {% endblock %}
 
 {% block seo_title 'scene.header.edit'|trans({ '%title%': title }) %}
-
-{% block top_menu_right %}
+{% block rightMenu %}
     {% include 'scene/actions.html.twig' with {
+        sceneId: sceneId,
         returnUrl: chapterId ? path('chapter_edit', { id: chapterId }) : path('scene_list', { page: app.request.get('page') }),
         returnLabel: (chapterId ? 'scene.back.to_chapter' : 'scene.back.to_list')|trans
-    } %}
+    } only %}
 {% endblock %}
 
 {% block body %}

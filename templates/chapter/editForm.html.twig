@@ -5,11 +5,12 @@
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% form_theme sceneForm 'bootstrap_3_layout.html.twig' %}
 
-{% block top_menu_right %}
+{% block rightMenu %}
     {% include 'chapter/actions.html.twig' with {
+        chapterId: chapterId,
         returnUrl: bookId ? path('book_edit', { id: bookId }) : path('chapter_list'),
         returnLabel: bookId ? 'chapter.back.to_book'|trans : 'chapter.back.to_list'|trans
-    } %}
+    } only %}
 {% endblock %}
 
 {% block body %}

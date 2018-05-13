@@ -12,15 +12,11 @@
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% form_theme chapterForm 'bootstrap_3_layout.html.twig' %}
 
-{% block top_menu_right %}
-    <ul class="nav navbar-nav pull-right">
-        <li>
-            <a href="{{ path('book_list', { page: app.request.get('page', 1) }) }}">
-                <span class="fa fa-angle-left"></span>
-                {{ 'book.back.to_list'|trans }}
-            </a>
-        </li>
-    </ul>
+{% block rightMenu %}
+    {% include 'partial/topMenuActions.html.twig' with {
+        returnUrl: path('book_list', { page: app.request.get('page', 1) }),
+        returnLabel: 'book.back.to_list'|trans
+    } only %}
 {% endblock %}
 
 {% block body %}

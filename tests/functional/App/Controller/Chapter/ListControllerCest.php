@@ -10,6 +10,7 @@ class ListControllerCest
     {
         $I->loginAsUser();
         $I->amOnPage('/pl/chapter/list');
-        $I->seeElement('table');
+        $I->seeElement('h4');
+        $I->see('Nie masz jeszcze żadnego nieprzypisanego do książki rozdziału.');
     }
 }

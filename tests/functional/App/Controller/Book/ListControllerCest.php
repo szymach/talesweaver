@@ -10,6 +10,7 @@ class ListControllerCest
     {
         $I->loginAsUser();
         $I->amOnPage('/pl/book/list');
-        $I->seeElement('table');
+        $I->seeElement('h4');
+        $I->see('Nie masz jeszcze żadnej książki');
     }
 }

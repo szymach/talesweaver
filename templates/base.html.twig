@@ -31,7 +31,9 @@
                 </div>
                 <div id="navbar" aria-expande="false" class="navbar-collapse collapse">
                     {% block menu knp_menu_render('main') %}
-                    {% include 'partial/topMenuActions.html.twig' with {} only %}
+                    {% block rightMenu %}
+                        {% include 'partial/topMenuActions.html.twig' with {} only %}
+                    {% endblock %}
                 </div>
             </div>
         </nav>
