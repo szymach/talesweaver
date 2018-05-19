@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use Domain\Entity\Book;
 use App\Repository\Doctrine\ChapterRepository as DoctrineRepository;
 use App\Repository\Interfaces\FindableByIdRepository;
 use App\Repository\Interfaces\LatestChangesAwareRepository;
 use App\Repository\Traits\ParamConverterRepository;
 use App\Security\UserProvider;
 use Doctrine\ORM\QueryBuilder;
+use Domain\Entity\Book;
 use Ramsey\Uuid\UuidInterface;
 
 class ChapterRepository implements FindableByIdRepository, LatestChangesAwareRepository
