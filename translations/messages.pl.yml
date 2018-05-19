@@ -242,6 +242,8 @@ event:
         created: Pomyślnie dodano nowe wydarzenie o nazwie "%title%".
         edit: Zapisano zmiany w wydarzeniu.
         deleted: Wydarzenie "%title%" zostało usunięte.
+    list:
+        no_results: Scena nie posiada żadnych przypisanych wydarzeń.
 
 character:
     name: Imię
@@ -261,6 +263,8 @@ character:
         deleted: Postać "%title%" została usunięta.
         added_to_scene: Dodano postać "%title%" do sceny "%sceneTitle%".
         removed_from_scene: Usunięto postać "%title%" ze sceny "%sceneTitle%".
+    list:
+        no_results: Scena nie posiada żadnych przypisanych postaci.
 
 item:
     name: Nazwa
@@ -280,6 +284,8 @@ item:
         deleted: Przedmiot "%title%" został usunięty.
         added_to_scene: Dodano przedmiot "%title%" do sceny "%sceneTitle%".
         removed_from_scene: Usunięto przedmiot "%title%" ze sceny "%sceneTitle%".
+    list:
+        no_results: Scena nie posiada żadnych przypisanych przedmiotów.
 
 location:
     name: Nazwa
@@ -299,6 +305,8 @@ location:
         deleted: Miejsce "%title%" zostało usunięte.
         added_to_scene: Dodano miejsce "%title%" do sceny "%sceneTitle%".
         removed_from_scene: Usunięto miejsce "%title%" ze sceny "%sceneTitle%".
+    list:
+        no_results: Scena nie posiada żadnych przypisanych miejsc.
 
 modal:
     action_confirmation: Potwierdzenie akcji

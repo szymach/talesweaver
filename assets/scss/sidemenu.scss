@@ -157,6 +157,11 @@ $sidemenu-shadow: inset 0px 0px 2px 0px $gray-light;
             .sublist-label {
                 display: inline-block;
                 min-width: 95px;
+
+                &.no-results {
+                    padding: 5px 8px 5px 10px;
+                    line-height: 20px;
+                }
             }
 
             .list-actions {
