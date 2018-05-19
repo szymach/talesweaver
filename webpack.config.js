@@ -73,7 +73,7 @@ module.exports = {
                         loader: 'postcss-loader',
                         options: styles.getPostCssConfig( {
                             themeImporter: {
-                                themePath: require.resolve( '@ckeditor/ckeditor5-theme-lark' )
+                                themePath: require.resolve('@ckeditor/ckeditor5-theme-lark')
                             },
                             minify: true
                         } )
@@ -82,9 +82,5 @@ module.exports = {
             }
         ]
     },
-    performance: { hints: false },
-    watchOptions: {
-        aggregateTimeout: 300,
-        poll: 1000
-    }
+    performance: { hints: false }
 };

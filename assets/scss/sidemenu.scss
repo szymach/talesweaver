@@ -4,12 +4,10 @@ $sidemenu-shadow: inset 0px 0px 2px 0px $gray-light;
 .side-menu {
     background: $body-bg;
     border-left: 1px solid $gray-light;
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     right: 0;
-    width: 60px;
-    overflow: hidden;
     transition: width .1s linear;
     transform: translateZ(0) scale(1,1);
     -webkit-transition: width .1s linear;
@@ -17,6 +15,7 @@ $sidemenu-shadow: inset 0px 0px 2px 0px $gray-light;
     z-index: 99;
     padding-top: 65px;
     overflow: visible;
+    width: 60px;
 
     @media (min-width: $screen-md-min) {
         width: 225px;
@@ -58,7 +57,7 @@ $sidemenu-shadow: inset 0px 0px 2px 0px $gray-light;
                 &.js-trigger-sidelist-mobile {
                     line-height: 35px;
                     margin-left: -10px;
-                    width: 65px;
+                    width: 59px;
                 }
 
                 &:last-child {
