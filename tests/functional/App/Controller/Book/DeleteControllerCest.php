@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Controller\Book;
 
-use Domain\Entity\Book;
 use App\Tests\FunctionalTester;
+use Domain\Entity\Book;
 use Ramsey\Uuid\Uuid;
 
 class DeleteControllerCest

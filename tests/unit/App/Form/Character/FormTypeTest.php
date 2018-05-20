@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Tests\Form\Character;
+declare(strict_types=1);
 
+namespace App\Tests\Form\Character;
 
 use App\Form\Character\CreateType;
 use App\Form\Character\EditType;
+use App\Tests\Form\CreateCharacterTrait;
+use App\Tests\Form\CreateSceneTrait;
 use Codeception\Test\Unit;
 use Domain\Character\Create;
 use Domain\Character\Edit;
-use App\Tests\Form\CreateCharacterTrait;
-use App\Tests\Form\CreateSceneTrait;
 use UnitTester;
 
 class FormTypeTest extends Unit

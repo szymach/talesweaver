@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Form\Scene;
 
-use Domain\Scene\Create;
-use Domain\Scene\Edit;
-use Domain\Entity\Scene;
 use App\Form\Scene\CreateType;
 use App\Form\Scene\EditType;
 use Codeception\Test\Unit;
+use Domain\Entity\Scene;
+use Domain\Scene\Create;
+use Domain\Scene\Edit;
 use Ramsey\Uuid\Uuid;
 use UnitTester;
 

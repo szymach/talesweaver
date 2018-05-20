@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Security\Request;
 
+use App\Repository\Interfaces\FindableByIdRepository;
+use App\Security\Request\SecuredInstanceParamConverter;
 use Domain\Entity\Book;
 use Domain\Entity\Chapter;
 use Domain\Entity\Scene;
-use App\Repository\Interfaces\FindableByIdRepository;
-use App\Security\Request\SecuredInstanceParamConverter;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;

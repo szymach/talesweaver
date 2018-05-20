@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Controller\Chapter;
 
+use App\Tests\FunctionalTester;
 use Domain\Entity\Chapter;
 use Domain\Entity\Scene;
-use App\Tests\FunctionalTester;
 
 class FormControllerCest
 {

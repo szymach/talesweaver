@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Controller\Security;
 
+use App\Tests\FunctionalTester;
 use Domain\Entity\User;
 use Domain\Entity\User\ActivationToken;
-use App\Tests\FunctionalTester;
 
 class RegisterControllerCest
 {

@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Form\Book;
 
-use Domain\Book\Create;
-use Domain\Book\Edit;
-use Domain\Entity\Book;
 use App\Form\Book\CreateType;
 use App\Form\Book\EditType;
 use Codeception\Test\Unit;
+use Domain\Book\Create;
+use Domain\Book\Edit;
+use Domain\Entity\Book;
 use Ramsey\Uuid\Uuid;
 use UnitTester;
 

@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Form\Location;
 
 use App\Form\Location\CreateType;
 use App\Form\Location\EditType;
+use App\Tests\Form\CreateLocationTrait;
+use App\Tests\Form\CreateSceneTrait;
 use Codeception\Test\Unit;
 use Domain\Location\Create;
 use Domain\Location\Edit;
-use App\Tests\Form\CreateLocationTrait;
-use App\Tests\Form\CreateSceneTrait;
 use UnitTester;
 
 class FormTypeTest extends Unit

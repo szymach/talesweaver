@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Form\Item;
 
-use Domain\Entity\Item;
 use App\Form\Item\CreateType;
 use App\Form\Item\EditType;
+use App\Tests\Form\CreateSceneTrait;
 use Codeception\Test\Unit;
-use Ramsey\Uuid\Uuid;
+use Domain\Entity\Item;
 use Domain\Item\Create;
 use Domain\Item\Edit;
-use App\Tests\Form\CreateSceneTrait;
+use Ramsey\Uuid\Uuid;
 use UnitTester;
 
 class FormTypeTest extends Unit

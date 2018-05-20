@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Controller\Security;
 
-use Assert\Assertion;
 use App\Tests\FunctionalTester;
+use Assert\Assertion;
 
 class ActivationControllerCest
 {

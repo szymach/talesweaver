@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Tests\JSON;
 
-use Domain\Entity\Character;
-use Domain\Entity\Event;
-use Domain\Entity\Location;
 use App\JSON\EventParser;
 use App\Repository\CharacterRepository;
 use App\Repository\ItemRepository;
 use App\Repository\LocationRepository;
+use Domain\Entity\Character;
+use Domain\Entity\Event;
+use Domain\Entity\Location;
 use Domain\Event\Meeting;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;

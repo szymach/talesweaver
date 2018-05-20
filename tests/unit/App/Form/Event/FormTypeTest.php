@@ -1,23 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Form\Event;
 
+use App\Form\Event\CreateType;
+use App\Form\Event\EditType;
+use App\Form\Event\MeetingType;
+use App\Tests\Form\CreateCharacterTrait;
+use App\Tests\Form\CreateLocationTrait;
+use App\Tests\Form\CreateSceneTrait;
+use Codeception\Test\Unit;
 use Domain\Entity\Character;
 use Domain\Entity\Event;
 use Domain\Entity\Location;
 use Domain\Entity\Scene;
-use App\Form\Event\CreateType;
-use App\Form\Event\EditType;
-use App\Form\Event\MeetingType;
-use Codeception\Test\Unit;
 use Domain\Event\Create;
 use Domain\Event\Edit;
 use Domain\Event\Meeting;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Form\FormInterface;
-use App\Tests\Form\CreateCharacterTrait;
-use App\Tests\Form\CreateLocationTrait;
-use App\Tests\Form\CreateSceneTrait;
 use UnitTester;
 
 class FormTypeTest extends Unit
