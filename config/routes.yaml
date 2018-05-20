@@ -1,6 +1,7 @@
+# TODO Replace with Symfony's i18n routing
 index_no_locale:
     path: /
-    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction
     defaults: { path: /pl, permanent: true }
     options: { i18n: false }
 
