@@ -44,15 +44,11 @@ class Chapter
 
     public function __construct(UuidInterface $id, string $title, ?Book $book, User $author)
     {
-        Assertion::notBlank($title, sprintf(
-            'Cannot create a chapter without a title for author "%s"!',
-            (string) $author
-        ));
+        $this->assertCorrectConstructorData($title, $author, $book);
 
         $this->id = $id;
         $this->title = $title;
         $this->book = $book;
-
         $this->characters = new ArrayCollection();
         $this->scenes = new ArrayCollection();
         $this->translations = new ArrayCollection();
@@ -62,7 +58,7 @@ class Chapter
 
     public function __toString()
     {
-        return (string) $this->title;
+        return $this->title;
     }
 
     /**
@@ -72,10 +68,7 @@ class Chapter
      */
     public function edit(string $title, ?Book $book): void
     {
-        Assertion::notBlank($title, sprintf(
-            'Tried to set an empty title on chapter with id "%s"!',
-            (string) $this->id
-        ));
+        $this->assertCorrectEditionData($title, $book);
 
         $this->title = $title;
         $this->book = $book;
@@ -125,5 +118,49 @@ class Chapter
     public function getBook(): ?Book
     {
         return $this->book;
+    }
+
+    private function assertCorrectConstructorData(string $title, User $author, ?Book $book): void
+    {
+        Assertion::notBlank($title, sprintf(
+            'Cannot create a chapter without a title for author "%s"!',
+            $author->getId()
+        ));
+
+        if (null !== $book) {
+            Assertion::eq(
+                $author,
+                $book->getCreatedBy(),
+                sprintf(
+                    'Chapter for user "%s" with title "%s" cannot be assigned to book "%s", whose author is "%s"',
+                    $author->getId(),
+                    $title,
+                    $book->getId()->toString(),
+                    $book->getCreatedBy()->getId()
+                )
+            );
+        }
+    }
+
+    private function assertCorrectEditionData(string $title, ?Book $book): void
+    {
+        Assertion::notBlank($title, sprintf(
+            'Tried to set an empty title on chapter with id "%s"!',
+            (string) $this->id
+        ));
+
+        if (null !== $book) {
+            Assertion::eq(
+                $this->createdBy,
+                $book->getCreatedBy(),
+                sprintf(
+                    'Chapter for user "%s" with title "%s" cannot be assigned to book "%s", whose author is "%s"',
+                    $this->createdBy->getId(),
+                    $title,
+                    $book->getId()->toString(),
+                    $book->getCreatedBy()->getId()
+                )
+            );
+        }
     }
 }

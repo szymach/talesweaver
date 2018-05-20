@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
-use Domain\Entity\User;
-use Domain\Entity\User\PasswordResetToken;
 use App\Tests\_generated\FunctionalTesterActions;
 use Codeception\Actor;
 use Codeception\Lib\Friend;
 use Doctrine\ORM\EntityManagerInterface;
+use Domain\Entity\User;
+use Domain\Entity\User\PasswordResetToken;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Throwable;
 use function generate_user_token;
 
 /**
@@ -56,7 +57,7 @@ class FunctionalTester extends Actor
             $user->getRoles()
         );
         $tokenStorage->setToken($token);
-         /** @var Session $session */
+         /* @var $session Session */
         $session = $this->grabService('session');
         $session->set(sprintf('_security_%s', $firewall), serialize($token));
         $session->save();
@@ -64,13 +65,13 @@ class FunctionalTester extends Actor
         $this->setCookie($session->getName(), $session->getId());
     }
 
-    public function getUser(bool $active = true): User
+    public function getUser(bool $active = true, string $username = self::USER_EMAIL): User
     {
         $manager = $this->getEntityManager();
-        $user = $manager->getRepository(User::class)->findOneBy(['username' => self::USER_EMAIL]);
+        $user = $manager->getRepository(User::class)->findOneBy(['username' => $username]);
         if (!$user) {
             $user = new User(
-                self::USER_EMAIL,
+                $username,
                 password_hash(self::USER_PASSWORD, PASSWORD_BCRYPT),
                 generate_user_token()
             );
@@ -93,7 +94,13 @@ class FunctionalTester extends Actor
     {
         $this->see(
             $content,
-            sprintf('input[name="%s"] + %s', $field, self::ERROR_SELECTOR)
+            sprintf(
+                'input[name="%s"] + %s, select[name="%s"] + %s',
+                $field,
+                self::ERROR_SELECTOR,
+                $field,
+                self::ERROR_SELECTOR
+            )
         );
     }
 
