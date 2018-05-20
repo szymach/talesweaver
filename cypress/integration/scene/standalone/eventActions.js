@@ -16,7 +16,7 @@ describe('Event sidemenu actions', () => {
             cy.get('@ajax-container').get('[name="create[model][root]"]').select('Postać do spotkania 1');
             cy.get('@ajax-container').get('[name="create[model][location]"]').select('Miejsce do spotkania 1');
             cy.get('@ajax-container').get('[name="create[model][relation]"]').select('Postać do spotkania 2');
-            cy.get('@ajax-container').get('form[name="create"] .btn-primary').click();
+            cy.get('@ajax-container').contains('Zapisz').click();
             cy.contains('Pomyślnie dodano nowe wydarzenie o nazwie "Spotkanie"').should('be.visible');
         });
 

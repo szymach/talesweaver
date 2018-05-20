@@ -33,8 +33,13 @@ services:
             $mailerFrom: "%mailer_from%"
 
     App\:
-        resource: "../src/App/{Form,JSON,Menu,Pagination,Routing,Timeline,Templating,Security,Validation}/*"
+        resource: "../src/App/{Form,Menu,Pagination,Routing,Timeline,Templating,Security,Validation}/*"
         exclude: "../src/App/Security/function/*"
+
+    # JSON
+    App\JSON\EventParser:
+        public: true
+        autowire: true
 
     # Menu
     app.menu.builder:
