@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Bus;
 
 use App\Bus\Traits\UserAccessTrait;
+use Domain\Entity\User;
 use Domain\Security\UserAccessInterface;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -34,7 +35,7 @@ class UserAccessBus implements MessageBus
             }
 
             if (!$message->isAllowed($user)) {
-                $this->throwAccessDeniedException(get_class($message));
+                $this->throwAccessDeniedException(get_class($message), $user);
             }
         }
 
@@ -45,10 +46,10 @@ class UserAccessBus implements MessageBus
      * @param string $class
      * @throws AccessDeniedException
      */
-    private function throwAccessDeniedException(string $class): void
+    private function throwAccessDeniedException(string $class, User $user): void
     {
         throw new AccessDeniedException(
-            sprintf('Access denied to command "%s" for user "%s"', $class)
+            sprintf('Access denied to command "%s" for user "%s"', $class, $user->getId())
         );
     }
 }
