@@ -52,8 +52,9 @@ class Event
         User $author
     ) {
         Assertion::notBlank($name, sprintf(
-            'Cannot create an event without a name for author "%s"!',
-            (string) $author
+            'Cannot create an event without a name for author "%s" and scene "%s"!',
+            $author->getId(),
+            $scene->getId()->toString()
         ));
 
         $this->id = $id;
@@ -71,7 +72,10 @@ class Event
      */
     public function edit(string $name, JsonSerializable $model): void
     {
-        Assertion::notBlank($name, sprintf('Tried to set an empty name on event with id "%s"!', (string) $this->id));
+        Assertion::notBlank(
+            $name,
+            sprintf('Tried to set an empty name on event with id "%s"!', $this->id->toString())
+        );
 
         $this->name = $name;
         $this->model = $model;
