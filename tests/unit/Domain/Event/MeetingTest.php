@@ -17,7 +17,7 @@ class MeetingTest extends TestCase
         $user = $this->createMock(User::class);
 
         $character1 = $this->createMock(Character::class);
-        $character1->expects($this->exactly(3))->method('getCreatedBy')->willReturn($user);
+        $character1->expects($this->exactly(4))->method('getCreatedBy')->willReturn($user);
 
         $character2 = $this->createMock(Character::class);
         $character2->expects($this->exactly(2))->method('getCreatedBy')->willReturn($user);

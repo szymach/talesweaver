@@ -42,9 +42,9 @@ class Meeting implements JsonSerializable, UserAccessInterface
 
     public function isAllowed(User $user): bool
     {
-        return (null === $this->root && $this->root->getCreatedBy() === $user)
-            && (null === $this->location && $this->location->getCreatedBy() === $user)
-            && (null === $this->relation && $this->relation->getCreatedBy() === $user)
+        return (null !== $this->root && $this->root->getCreatedBy() === $user)
+            && (null !== $this->location && $this->location->getCreatedBy() === $user)
+            && (null !== $this->relation && $this->relation->getCreatedBy() === $user)
         ;
     }
 
