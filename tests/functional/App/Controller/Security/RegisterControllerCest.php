@@ -10,21 +10,21 @@ use Domain\Entity\User\ActivationToken;
 
 class RegisterControllerCest
 {
-    const FORM_URL = '/pl/registration';
-    const FORM_SELECTOR = 'form[name="register"]';
+    private const FORM_URL = '/pl/registration';
+    private const FORM_SELECTOR = 'form[name="register"]';
 
-    const EMAIL_FIELD = 'Email';
-    const PASSWORD_FIELD = 'Hasło';
-    const REPEAT_PASSWORD_FIELD = 'Powtórz hasło';
+    private const EMAIL_FIELD = 'Email';
+    private const PASSWORD_FIELD = 'Hasło';
+    private const REPEAT_PASSWORD_FIELD = 'Powtórz hasło';
 
-    const EMAIL = 'username@example.com';
-    const PASSWORD = 'haslo123';
-    const SHORT_PASSWORD = 'haslo';
-    const NOT_MATCHING_PASSWORD = 'haslo321';
-    const SUBMIT = 'Zarejestruj';
+    private const EMAIL = 'username@example.com';
+    private const PASSWORD = 'haslo123';
+    private const SHORT_PASSWORD = 'haslo';
+    private const NOT_MATCHING_PASSWORD = 'haslo321';
+    private const SUBMIT = 'Zarejestruj';
 
-    const LOGIN_URL = '/pl/login';
-    const DASHBOARD_URL = '/pl';
+    private const LOGIN_URL = '/pl/login';
+    private const DASHBOARD_URL = '/pl';
 
     public function registrationFormView(FunctionalTester $I)
     {

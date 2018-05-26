@@ -10,17 +10,17 @@ use Domain\Entity\Scene;
 
 class FormControllerCest
 {
-    const CREATE_URL = '/pl/chapter/create';
-    const EDIT_URL = '/pl/chapter/edit/%s';
-    const SCENE_EDIT_URL = '/pl/scene/edit/%s';
+    private const CREATE_URL = '/pl/chapter/create';
+    private const EDIT_URL = '/pl/chapter/edit/%s';
+    private const SCENE_EDIT_URL = '/pl/scene/edit/%s';
 
-    const CREATE_FORM = 'form[name="create"]';
-    const EDIT_FORM = 'form[name="edit"]';
-    const SCENE_CREATE_FORM = 'form[name="create"]';
+    private const CREATE_FORM = 'form[name="create"]';
+    private const EDIT_FORM = 'form[name="edit"]';
+    private const SCENE_CREATE_FORM = 'form[name="create"]';
 
-    const TITLE_PL = 'Tytuł nowego rozdziału';
-    const NEW_TITLE_PL = 'Zmieniony tytuł rozdziału';
-    const SCENE_TITLE_PL = 'Tytuł sceny przypisanej do rozdziału';
+    private const TITLE_PL = 'Tytuł nowego rozdziału';
+    private const NEW_TITLE_PL = 'Zmieniony tytuł rozdziału';
+    private const SCENE_TITLE_PL = 'Tytuł sceny przypisanej do rozdziału';
 
     public function renderView(FunctionalTester $I)
     {

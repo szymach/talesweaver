@@ -9,16 +9,16 @@ use Domain\Entity\Book;
 
 class FormControllerCest
 {
-    const CREATE_URL = '/pl/book/create';
-    const EDIT_URL = '/pl/book/edit/%s';
+    private const CREATE_URL = '/pl/book/create';
+    private const EDIT_URL = '/pl/book/edit/%s';
 
-    const CREATE_FORM = 'form[name="create"]';
-    const EDIT_FORM = 'form[name="edit"]';
+    private const CREATE_FORM = 'form[name="create"]';
+    private const EDIT_FORM = 'form[name="edit"]';
 
-    const TITLE_PL = 'Tytuł nowej książki';
-    const DESCRIPTION_PL = 'Opis nowej książki';
-    const NEW_TITLE_PL = 'Zmieniony tytuł książki';
-    const NEW_DESCRIPTION_PL = 'Zmieniony opis książki';
+    private const TITLE_PL = 'Tytuł nowej książki';
+    private const DESCRIPTION_PL = 'Opis nowej książki';
+    private const NEW_TITLE_PL = 'Zmieniony tytuł książki';
+    private const NEW_DESCRIPTION_PL = 'Zmieniony opis książki';
 
     public function renderView(FunctionalTester $I)
     {

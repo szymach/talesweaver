@@ -10,8 +10,8 @@ use Ramsey\Uuid\Uuid;
 
 class DeleteControllerCest
 {
-    const LIST_URL = '/pl/book/list';
-    const TITLE_PL = 'Tytuł nowej książki';
+    private const LIST_URL = '/pl/book/list';
+    private const TITLE_PL = 'Tytuł nowej książki';
 
     public function delete(FunctionalTester $I)
     {

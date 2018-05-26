@@ -9,16 +9,16 @@ use Domain\Entity\Scene;
 
 class FormControllerCest
 {
-    const CREATE_URL = '/pl/scene/create';
-    const EDIT_URL = '/pl/scene/edit/%s';
+    private const CREATE_URL = '/pl/scene/create';
+    private const EDIT_URL = '/pl/scene/edit/%s';
 
-    const CREATE_FORM = 'form[name="create"]';
-    const EDIT_FORM = 'form[name="edit"]';
+    private const CREATE_FORM = 'form[name="create"]';
+    private const EDIT_FORM = 'form[name="edit"]';
 
-    const TITLE_PL = 'Tytuł nowej sceny';
-    const CONTENT_PL = 'Treść nowej sceny';
-    const NEW_TITLE_PL = 'Zmieniony tytuł sceny';
-    const NEW_CONTENT_PL = 'Zmieniona treść sceny';
+    private const TITLE_PL = 'Tytuł nowej sceny';
+    private const CONTENT_PL = 'Treść nowej sceny';
+    private const NEW_TITLE_PL = 'Zmieniony tytuł sceny';
+    private const NEW_CONTENT_PL = 'Zmieniona treść sceny';
 
     public function renderView(FunctionalTester $I)
     {

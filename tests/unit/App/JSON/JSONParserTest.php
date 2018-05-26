@@ -11,6 +11,7 @@ use App\Repository\LocationRepository;
 use Domain\Entity\Character;
 use Domain\Entity\Event;
 use Domain\Entity\Location;
+use Domain\Entity\User;
 use Domain\Event\Meeting;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -52,12 +53,19 @@ class JSONParserTest extends TestCase
             ]
         ]);
 
-        $root = $this->prophesize(Character::class)->reveal();
-        $relation = $this->prophesize(Character::class)->reveal();
-        $location = $this->prophesize(Location::class)->reveal();
-        $this->characterRepository->find('1')->shouldBeCalled()->willReturn($root);
-        $this->characterRepository->find('2')->shouldBeCalled()->willReturn($relation);
-        $this->locationRepository->find('1')->shouldBeCalled()->willReturn($location);
+        $author = $root = $this->prophesize(User::class);
+        /* @var $root Character */
+        $root = $this->prophesize(Character::class);
+        $root->getCreatedBy()->shouldBeCalled()->willReturn($author);
+        /* @var $relation Character */
+        $relation = $this->prophesize(Character::class);
+        $relation->getCreatedBy()->shouldBeCalled()->willReturn($author);
+        /* @var $location Location */
+        $location = $this->prophesize(Location::class);
+        $location->getCreatedBy()->shouldBeCalled()->willReturn($author);
+        $this->characterRepository->find('1')->shouldBeCalled()->willReturn($root->reveal());
+        $this->characterRepository->find('2')->shouldBeCalled()->willReturn($relation->reveal());
+        $this->locationRepository->find('1')->shouldBeCalled()->willReturn($location->reveal());
 
         /* @var $parsedModel Meeting */
         $parsedModel = $this->createParser()->parse($event);
