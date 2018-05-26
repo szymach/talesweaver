@@ -32,6 +32,6 @@ trait UserAccessTrait
      */
     private function throwNoUserException(string $class): void
     {
-        throw new RuntimeException(sprintf('No user set when executing command %s', $class));
+        throw new RuntimeException(sprintf('No user set when executing command "%s"', $class));
     }
 }
