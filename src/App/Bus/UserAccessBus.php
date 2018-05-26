@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace App\Bus;
 
-use App\Bus\Traits\UserAccessTrait;
 use Domain\Entity\User;
 use Domain\Security\UserAccessInterface;
+use RuntimeException;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class UserAccessBus implements MessageBus
 {
-    use UserAccessTrait;
-
     /**
      * @var MessageBus
      */
@@ -28,28 +26,28 @@ class UserAccessBus implements MessageBus
 
     public function handle($message): void
     {
-        if ($message instanceof UserAccessInterface) {
+        if (true === $message instanceof UserAccessInterface) {
             $user = $this->getUser();
-            if (!$user) {
-                $this->throwNoUserException(get_class($message));
+            if (null === $user) {
+                throw new RuntimeException(
+                    sprintf('No user set when executing command "%s"', get_class($message))
+                );
             }
 
-            if (!$message->isAllowed($user)) {
-                $this->throwAccessDeniedException(get_class($message), $user);
+            if (false === $message->isAllowed($user)) {
+                throw new AccessDeniedException(sprintf(
+                    'Access denied to command "%s" for user "%s"',
+                    get_class($message),
+                    $user->getId()
+                ));
             }
         }
 
         $this->messageBus->handle($message);
     }
 
-    /**
-     * @param string $class
-     * @throws AccessDeniedException
-     */
-    private function throwAccessDeniedException(string $class, User $user): void
+    private function getUser(): ?User
     {
-        throw new AccessDeniedException(
-            sprintf('Access denied to command "%s" for user "%s"', $class, $user->getId())
-        );
+        return $this->tokenStorage->getToken() ? $this->tokenStorage->getToken()->getUser() : null;
     }
 }
