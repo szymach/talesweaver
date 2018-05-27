@@ -13,6 +13,7 @@ use Domain\Entity\Traits\CreatedByTrait;
 use Domain\Entity\Traits\TimestampableTrait;
 use Domain\Entity\Traits\TranslatableTrait;
 use FSi\DoctrineExtensions\Uploadable\File;
+use InvalidArgumentException;
 use Ramsey\Uuid\UuidInterface;
 use SplFileInfo;
 
@@ -73,9 +74,9 @@ class Item
     ) {
         Assertion::notBlank($name, sprintf(
             'Cannot create an item without a name for author "%s"!',
-            (string) $author
+            $author->getId()
         ));
-        $this->validateAvatar($avatar);
+        $this->validateAvatar($id, $avatar);
 
         $this->id = $id;
         $this->name = $name;
@@ -105,7 +106,7 @@ class Item
      */
     public function edit(string $name, ?string $description, $avatar): void
     {
-        Assertion::notBlank($name, sprintf('Tried to set an empty name on item with id "%s"!', (string) $this->id));
+        Assertion::notBlank($name, sprintf('Tried to set an empty name on item with id "%s"!', $this->id->toString()));
 
         $this->validateAvatar($avatar);
 
@@ -158,5 +159,21 @@ class Item
     public function getLocations(): Collection
     {
         return $this->locations;
+    }
+
+    private function validateAvatar(UuidInterface $id, $avatar): void
+    {
+        if (null !== $avatar
+            && false === $avatar instanceof File
+            && false === $avatar instanceof SplFileInfo
+        ) {
+            throw new InvalidArgumentException(sprintf(
+                'Item\'s "%s" avatar must be either of instance "%s" or "%s", got "%s"',
+                $id->toString(),
+                File::class,
+                SplFileInfo::class,
+                is_object($avatar) ? get_class($avatar) : gettype($avatar)
+            ));
+        }
     }
 }

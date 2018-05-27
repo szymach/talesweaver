@@ -14,6 +14,7 @@ use Domain\Entity\Traits\TimestampableTrait;
 use Domain\Entity\Traits\TranslatableTrait;
 use DomainException;
 use FSi\DoctrineExtensions\Uploadable\File;
+use InvalidArgumentException;
 use Ramsey\Uuid\UuidInterface;
 use SplFileInfo;
 
@@ -78,10 +79,10 @@ class Character
         User $author
     ) {
         Assertion::notBlank($name, sprintf(
-            'Cannot create a character without a name for author "%s"!',
-            (string) $author
+            'Cannot create a character without a name for user "%s"!',
+            $author->getId()
         ));
-        $this->validateAvatar($avatar);
+        $this->validateAvatar($id, $avatar);
 
         $this->id = $id;
         $this->name = $name;
@@ -114,7 +115,7 @@ class Character
     {
         Assertion::notBlank($name, sprintf(
             'Tried to set an empty name on character with id "%s"!',
-            (string) $this->id
+            $this->id->toString()
         ));
         $this->validateAvatar($avatar);
 
@@ -237,35 +238,33 @@ class Character
 
     private function assertSceneForTheSameBook(Scene $scene)
     {
-        if (empty($this->scenes)) {
+        if (true === $this->scenes->isEmpty()) {
             return;
         }
 
-        $callback = function (Scene $currentScene) use ($scene) {
-            if ($currentScene->getChapter() && !$scene->getChapter()) {
+        $this->scenes->map(function (Scene $currentScene) use ($scene) {
+            if (null !== $currentScene->getChapter() && null === $scene->getChapter()) {
                 throw new DomainException(sprintf(
                     'Tried to assign scene "%s" without a chapter to character "%s"'
                 ));
             }
 
-            if (!$currentScene->getChapter() && $scene->getChapter()) {
+            if (null === $currentScene->getChapter() && null !== $scene->getChapter()) {
                 throw new DomainException(sprintf(
                     'Tried to assign scene "%s" with a chapter to character "%s"'
                 ));
             }
-        };
-
-        $this->scenes->map($callback);
+        });
     }
 
     private function assertChapterFromTheSameBook(Chapter $chapter)
     {
-        if (!$this->book && !$chapter->getBook()) {
+        if (null === $this->book && null === $chapter->getBook()) {
             // No book to check
             return;
         }
 
-        if (!$this->book && $chapter->getBook()) {
+        if (null === $this->book && null !== $chapter->getBook()) {
             // New book
             return;
         }
@@ -276,6 +275,22 @@ class Character
                 $this->id,
                 $this->book->getId(),
                 $chapter->getBook()->getId()
+            ));
+        }
+    }
+
+    private function validateAvatar(UuidInterface $id, $avatar): void
+    {
+        if (null !== $avatar
+            && false === $avatar instanceof File
+            && false === $avatar instanceof SplFileInfo
+        ) {
+            throw new InvalidArgumentException(sprintf(
+                'Character\'s "%s" avatar must be either of instance "%s" or "%s", got "%s"',
+                $id->toString(),
+                File::class,
+                SplFileInfo::class,
+                is_object($avatar) ? get_class($avatar) : gettype($avatar)
             ));
         }
     }

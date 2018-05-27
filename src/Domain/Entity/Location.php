@@ -13,6 +13,7 @@ use Domain\Entity\Traits\CreatedByTrait;
 use Domain\Entity\Traits\TimestampableTrait;
 use Domain\Entity\Traits\TranslatableTrait;
 use FSi\DoctrineExtensions\Uploadable\File;
+use InvalidArgumentException;
 use Ramsey\Uuid\UuidInterface;
 use SplFileInfo;
 
@@ -73,9 +74,9 @@ class Location
     ) {
         Assertion::notBlank($name, sprintf(
             'Cannot create a location without a name for author "%s"!',
-            (string) $author
+            $author->getId()
         ));
-        $this->validateAvatar($avatar);
+        $this->validateAvatar($id, $avatar);
 
         $this->id = $id;
         $this->name = $name;
@@ -106,7 +107,7 @@ class Location
     {
         Assertion::notBlank($name, sprintf(
             'Tried to set an empty name on location with id "%s"!',
-            (string) $this->id
+            $this->id->toString()
         ));
 
         $this->validateAvatar($avatar);
@@ -160,5 +161,21 @@ class Location
     public function getItems(): Colllection
     {
         return $this->items;
+    }
+
+    private function validateAvatar(UuidInterface $id, $avatar): void
+    {
+        if (null !== $avatar
+            && false === $avatar instanceof File
+            && false === $avatar instanceof SplFileInfo
+        ) {
+            throw new InvalidArgumentException(sprintf(
+                'Location\'s "%s" avatar must be either of instance "%s" or "%s", got "%s"',
+                $id->toString(),
+                File::class,
+                SplFileInfo::class,
+                is_object($avatar) ? get_class($avatar) : gettype($avatar)
+            ));
+        }
     }
 }

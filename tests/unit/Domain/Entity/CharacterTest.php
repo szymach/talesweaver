@@ -10,22 +10,24 @@ use Domain\Entity\Scene;
 use Domain\Entity\User;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class CharacterTest extends TestCase
 {
     public function testEmptyTitle()
     {
         $this->expectException(Assert\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Cannot create a character without a name for author ""!');
+        $this->expectExceptionMessage('Cannot create a character without a name for user "1"!');
 
+        $author = $this->createMock(User::class);
+        $author->expects($this->once())->method('getId')->willReturn(1);
         new Character(
-            Uuid::uuid4(),
+            $this->createMock(UuidInterface::class),
             $this->createMock(Scene::class),
             '',
             null,
             null,
-            $this->createMock(User::class)
+            $author
         );
     }
 
@@ -33,12 +35,14 @@ class CharacterTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Avatar file must be either of instance "FSi\DoctrineExtensions\Uploadable\File"'
+            'Character\'s "some uuid" avatar must be either of instance "FSi\DoctrineExtensions\Uploadable\File"'
             . ' or "SplFileInfo", got "integer"'
         );
 
+        $id = $this->createMock(UuidInterface::class);
+        $id->expects($this->once())->method('toString')->willReturn('some uuid');
         new Character(
-            Uuid::uuid4(),
+            $id,
             $this->createMock(Scene::class),
             'character',
             null,
@@ -49,10 +53,11 @@ class CharacterTest extends TestCase
 
     public function testEmptyTitleOnEdit()
     {
-        $id = Uuid::uuid4();
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf('Tried to set an empty name on character with id "%s"!', $id));
+        $this->expectExceptionMessage('Tried to set an empty name on character with id "some id"!');
 
+        $id = $this->createMock(UuidInterface::class);
+        $id->expects($this->once())->method('toString')->willReturn('some id');
         $character = new Character(
             $id,
             $this->createMock(Scene::class),

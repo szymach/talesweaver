@@ -10,22 +10,24 @@ use Domain\Entity\Scene;
 use Domain\Entity\User;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class ItemTest extends TestCase
 {
     public function testEmptyTitle()
     {
         $this->expectException(Assert\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Cannot create an item without a name for author ""!');
+        $this->expectExceptionMessage('Cannot create an item without a name for author "2"!');
 
+        $author = $this->createMock(User::class);
+        $author->expects($this->once())->method('getId')->willReturn(2);
         new Item(
-            Uuid::uuid4(),
+            $this->createMock(UuidInterface::class),
             $this->createMock(Scene::class),
             '',
             null,
             null,
-            $this->createMock(User::class)
+            $author
         );
     }
 
@@ -33,12 +35,14 @@ class ItemTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Avatar file must be either of instance "FSi\DoctrineExtensions\Uploadable\File"'
+            'Item\'s "item uuid" avatar must be either of instance "FSi\DoctrineExtensions\Uploadable\File"'
             . ' or "SplFileInfo", got "string"'
         );
 
+        $id = $this->createMock(UuidInterface::class);
+        $id->expects($this->once())->method('toString')->willReturn('item uuid');
         new Item(
-            Uuid::uuid4(),
+            $id,
             $this->createMock(Scene::class),
             'item',
             null,
@@ -49,11 +53,11 @@ class ItemTest extends TestCase
 
     public function testEmptyTitleOnEdit()
     {
-        $id = Uuid::uuid4();
+        $id = $this->createMock(UuidInterface::class);
+        $id->expects($this->once())->method('toString')->willReturn('another item uuid');
+
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            sprintf('Tried to set an empty name on item with id "%s"!', $id)
-        );
+        $this->expectExceptionMessage('Tried to set an empty name on item with id "another item uuid"!');
 
         $item = new Item(
             $id,
