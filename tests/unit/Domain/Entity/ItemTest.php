@@ -19,14 +19,22 @@ class ItemTest extends TestCase
         $this->expectException(Assert\InvalidArgumentException::class);
         $this->expectExceptionMessage('Cannot create an item without a name for author ""!');
 
-        new Item(Uuid::uuid4(), $this->createMock(Scene::class), '', null, null, $this->createMock(User::class));
+        new Item(
+            Uuid::uuid4(),
+            $this->createMock(Scene::class),
+            '',
+            null,
+            null,
+            $this->createMock(User::class)
+        );
     }
 
     public function testIncorrectAvatar()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Avatar file must be either of instance "FSi\DoctrineExtensions\Uploadable\File" or "SplFileInfo", got "string"'
+            'Avatar file must be either of instance "FSi\DoctrineExtensions\Uploadable\File"'
+            . ' or "SplFileInfo", got "string"'
         );
 
         new Item(
@@ -43,9 +51,18 @@ class ItemTest extends TestCase
     {
         $id = Uuid::uuid4();
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf('Tried to set an empty name on item with id "%s"!', $id));
+        $this->expectExceptionMessage(
+            sprintf('Tried to set an empty name on item with id "%s"!', $id)
+        );
 
-        $item = new Item($id, $this->createMock(Scene::class), 'item', null, null, $this->createMock(User::class));
+        $item = new Item(
+            $id,
+            $this->createMock(Scene::class),
+            'item',
+            null,
+            null,
+            $this->createMock(User::class)
+        );
         $item->edit('', null, null);
     }
 }

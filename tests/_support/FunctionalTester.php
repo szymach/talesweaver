@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Throwable;
 use function generate_user_token;
 
 /**
@@ -69,13 +68,13 @@ class FunctionalTester extends Actor
     {
         $manager = $this->getEntityManager();
         $user = $manager->getRepository(User::class)->findOneBy(['username' => $username]);
-        if (!$user) {
+        if (null === $user) {
             $user = new User(
                 $username,
                 password_hash(self::USER_PASSWORD, PASSWORD_BCRYPT),
                 generate_user_token()
             );
-            if ($active) {
+            if (true === $active) {
                 $user->activate();
             }
             $this->persistEntity($user);
@@ -92,16 +91,13 @@ class FunctionalTester extends Actor
 
     public function seeError(string $content, string $field): void
     {
-        $this->see(
-            $content,
-            sprintf(
-                'input[name="%s"] + %s, select[name="%s"] + %s',
-                $field,
-                self::ERROR_SELECTOR,
-                $field,
-                self::ERROR_SELECTOR
-            )
-        );
+        $this->see($content, sprintf(
+            'input[name="%s"] + %s, select[name="%s"] + %s',
+            $field,
+            self::ERROR_SELECTOR,
+            $field,
+            self::ERROR_SELECTOR
+        ));
     }
 
     public function seeErrorAlert(string $content): void
@@ -112,7 +108,7 @@ class FunctionalTester extends Actor
     public function canSeeResetPasswordTokenGenerated(User $user):void
     {
         $token = $this->getEntityManager()->getRepository(PasswordResetToken::class)->findOneBy(['user' => $user]);
-        if (!$token) {
+        if (null === $token) {
             throw new RuntimeException(sprintf(
                 'No password reset token for user "%s"',
                 $user->getUsername()
@@ -131,11 +127,8 @@ class FunctionalTester extends Actor
         $this->canSeeResponseCodeIs(200);
     }
 
-    public function createUrl(
-        string $name,
-        array $parameters = [],
-        string $locale = self::LOCALE
-    ): string {
+    public function createUrl(string $name, array $parameters = [], string $locale = self::LOCALE): string
+    {
         return $this->getRouter()->generate(
             $name,
             array_merge(['_locale' => $locale], $parameters)

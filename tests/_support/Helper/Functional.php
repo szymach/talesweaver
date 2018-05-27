@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace App\Tests\Helper;
 
-use Domain\Entity\User;
 use App\Repository\Doctrine\UserRepository;
 use App\Tests\FunctionalTester;
 use Codeception\Module;
 use Codeception\Module\Symfony;
 use Doctrine\ORM\EntityManagerInterface;
+use Domain\Entity\User;
 use FSi\DoctrineExtensions\Translatable\TranslatableListener;
 
 class Functional extends Module
 {
+    /**
+     * phpcs:disable
+     */
     public function _beforeSuite($settings = [])
     {
         $this->getSymfony()->_getContainer();
@@ -21,6 +24,9 @@ class Functional extends Module
         $this->clearUser();
     }
 
+    /**
+     * phpcs:disable
+     */
     public function _afterSuite()
     {
         $this->clearUser();

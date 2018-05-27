@@ -48,7 +48,7 @@ class Unit extends Module
     {
         $manager = $this->getEntityManager();
         $user = $manager->getRepository(User::class)->findOneBy(['username' => self::USER_EMAIL]);
-        if (!$user) {
+        if (null === $user) {
             $user = new User(self::USER_EMAIL, 'password', generate_user_token());
             $user->activate();
             $manager->persist($user);
@@ -91,11 +91,17 @@ class Unit extends Module
         return $this->getService('form.factory');
     }
 
+    /**
+     * phpcs:disable
+     */
     public function _afterSuite()
     {
         $this->clearUsers();
     }
 
+    /**
+     * phpcs:disable
+     */
     public function _beforeSuite($settings = [])
     {
         $this->clearUsers();
@@ -109,14 +115,17 @@ class Unit extends Module
 
     private function clearUsers(): void
     {
-        $users = $this->getEntityManager()->getRepository(User::class)->findAll();
-        foreach ($users as $user) {
-            $this->getEntityManager()->remove($user);
+        $manager = $this->getEntityManager();
+        $users = $manager->getRepository(User::class)->findAll();
+        if (0 === count($users)) {
+            return;
         }
 
-        if (count($users)) {
-            $this->getEntityManager()->flush();
-        }
+        array_walk($users, function (User $user) use ($manager): void {
+            $manager->remove($user);
+        });
+
+        $this->getEntityManager()->flush();
     }
 
     private function getService(string $name)

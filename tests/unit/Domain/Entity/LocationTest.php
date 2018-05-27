@@ -34,7 +34,8 @@ class LocationTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Avatar file must be either of instance "FSi\DoctrineExtensions\Uploadable\File" or "SplFileInfo", got "stdClass"'
+            'Avatar file must be either of instance "FSi\DoctrineExtensions\Uploadable\File"'
+            . ' or "SplFileInfo", got "stdClass"'
         );
 
         new Location(

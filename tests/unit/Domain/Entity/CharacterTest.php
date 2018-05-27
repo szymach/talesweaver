@@ -19,14 +19,22 @@ class CharacterTest extends TestCase
         $this->expectException(Assert\InvalidArgumentException::class);
         $this->expectExceptionMessage('Cannot create a character without a name for author ""!');
 
-        new Character(Uuid::uuid4(), $this->createMock(Scene::class), '', null, null, $this->createMock(User::class));
+        new Character(
+            Uuid::uuid4(),
+            $this->createMock(Scene::class),
+            '',
+            null,
+            null,
+            $this->createMock(User::class)
+        );
     }
 
     public function testIncorrectAvatar()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Avatar file must be either of instance "FSi\DoctrineExtensions\Uploadable\File" or "SplFileInfo", got "integer"'
+            'Avatar file must be either of instance "FSi\DoctrineExtensions\Uploadable\File"'
+            . ' or "SplFileInfo", got "integer"'
         );
 
         new Character(
