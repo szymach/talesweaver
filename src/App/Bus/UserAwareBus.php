@@ -30,10 +30,12 @@ class UserAwareBus implements MessageBus
 
     public function handle($message): void
     {
-        if ($message instanceof UserAwareInterface) {
+        if (true === $message instanceof UserAwareInterface) {
             $user = $this->getUser();
-            if (!$user) {
-                $this->throwNoUserException(get_class($message));
+            if (null === $user) {
+                throw new RuntimeException(
+                    sprintf('No user set when executing command "%s"', get_class($message))
+                );
             }
 
             $message->setUser($user);
@@ -44,18 +46,6 @@ class UserAwareBus implements MessageBus
 
     private function getUser(): ?User
     {
-        return $this->tokenStorage->getToken()
-            ? $this->tokenStorage->getToken()->getUser()
-            : null
-        ;
-    }
-
-    /**
-     * @param string $class
-     * @throws RuntimeException
-     */
-    private function throwNoUserException(string $class): void
-    {
-        throw new RuntimeException(sprintf('No user set when executing command %s', $class));
+        return $this->tokenStorage->getToken() ? $this->tokenStorage->getToken()->getUser() : null;
     }
 }
