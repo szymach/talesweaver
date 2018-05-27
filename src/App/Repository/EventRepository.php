@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use Domain\Entity\Scene;
 use App\Repository\Doctrine\EventRepository as DoctrineRepository;
 use App\Repository\Interfaces\FindableByIdRepository;
 use App\Repository\Traits\ParamConverterRepository;
 use App\Security\UserProvider;
 use Doctrine\ORM\QueryBuilder;
+use Domain\Entity\Scene;
 use Ramsey\Uuid\UuidInterface;
 
 class EventRepository implements FindableByIdRepository
@@ -26,10 +26,8 @@ class EventRepository implements FindableByIdRepository
      */
     private $userProvider;
 
-    public function __construct(
-        DoctrineRepository $doctrineRepository,
-        UserProvider $userProvider
-    ) {
+    public function __construct(DoctrineRepository $doctrineRepository, UserProvider $userProvider)
+    {
         $this->doctrineRepository = $doctrineRepository;
         $this->userProvider = $userProvider;
     }

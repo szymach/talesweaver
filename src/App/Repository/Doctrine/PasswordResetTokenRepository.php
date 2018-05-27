@@ -40,7 +40,7 @@ class PasswordResetTokenRepository extends EntityRepository
             ->getResult()
         ;
 
-        if (!count($previousTokensIds)) {
+        if (0 === count($previousTokensIds)) {
             return;
         }
 

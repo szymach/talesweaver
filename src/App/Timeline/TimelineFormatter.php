@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Timeline;
 
-use Domain\Entity\Event;
 use App\Repository\EventRepository;
 use App\Repository\SceneRepository;
 use App\Templating\Engine;
+use Domain\Entity\Event;
 use Domain\Event\Meeting;
 use Ramsey\Uuid\UuidInterface;
 use function mb_strtolower;

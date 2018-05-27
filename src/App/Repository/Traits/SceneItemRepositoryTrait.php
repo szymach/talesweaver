@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Repository\Traits;
 
-use Domain\Entity\Scene;
 use App\Security\UserProvider;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Domain\Entity\Scene;
 use Ramsey\Uuid\UuidInterface;
 
 trait SceneItemRepositoryTrait

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Repository\Doctrine;
 
-use Domain\Entity\Book;
-use Domain\Entity\User;
 use App\Repository\Traits\LatestResultsTrait;
 use App\Repository\Traits\ValidationTrait;
 use Doctrine\ORM\QueryBuilder;
+use Domain\Entity\Book;
+use Domain\Entity\User;
 
 class ChapterRepository extends TranslatableRepository
 {

@@ -23,7 +23,7 @@ class UserProvider
     public function fetchCurrentUser(): User
     {
         $token = $this->tokenStorage->getToken();
-        if (!$token || !$token->getUser()) {
+        if (null === $token || null === $token->getUser()) {
             throw new AccessDeniedException('No currently logged in user!');
         }
 

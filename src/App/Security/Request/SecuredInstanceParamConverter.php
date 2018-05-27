@@ -40,7 +40,7 @@ class SecuredInstanceParamConverter implements ParamConverterInterface
             ));
         }
 
-        if (!Uuid::isValid($id)) {
+        if (false === Uuid::isValid($id)) {
             throw new NotFoundHttpException(sprintf(
                 'Invalid UUID "%s" for class "%s"!',
                 $id,
@@ -49,7 +49,7 @@ class SecuredInstanceParamConverter implements ParamConverterInterface
         }
 
         $object = $this->find($configuration->getClass(), $id);
-        if (!$object) {
+        if (null === $object) {
             throw new NotFoundHttpException(sprintf(
                 'Could not find object of class "%s" for id "%s"',
                 $configuration->getClass(),

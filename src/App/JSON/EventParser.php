@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\JSON;
 
+use App\Repository\CharacterRepository;
+use App\Repository\ItemRepository;
+use App\Repository\LocationRepository;
 use Domain\Entity\Character;
 use Domain\Entity\Event;
 use Domain\Entity\Item;
 use Domain\Entity\Location;
-use App\Repository\CharacterRepository;
-use App\Repository\ItemRepository;
-use App\Repository\LocationRepository;
 use JsonSerializable;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
@@ -65,7 +65,7 @@ class EventParser
 
     private function setField(JsonSerializable $model, string $field, string $class, ?string $id): void
     {
-        if (is_null($id)) {
+        if (null === $id) {
             return;
         }
 

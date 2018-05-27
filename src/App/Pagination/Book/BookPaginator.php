@@ -22,9 +22,7 @@ class BookPaginator
 
     public function getResults(int $page = 1, int $maxPerPage = 10): Pagerfanta
     {
-        $pager = new Pagerfanta(
-            new DoctrineORMAdapter($this->repository->createQueryBuilder())
-        );
+        $pager = new Pagerfanta(new DoctrineORMAdapter($this->repository->createQueryBuilder()));
         $pager->setMaxPerPage($maxPerPage);
         $pager->setCurrentPage($page);
 

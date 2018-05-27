@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Repository\Doctrine;
 
-use Domain\Entity\Scene;
-use Domain\Entity\User;
 use App\Repository\Traits\ValidationTrait;
 use Doctrine\ORM\QueryBuilder;
+use Domain\Entity\Scene;
+use Domain\Entity\User;
 
 class CharacterRepository extends TranslatableRepository
 {
@@ -15,14 +15,13 @@ class CharacterRepository extends TranslatableRepository
 
     public function byCurrentUserForSceneQueryBuilder(User $user, Scene $scene): QueryBuilder
     {
-        $qb = $this->createTranslatableQueryBuilder('c')
+        return $this->createTranslatableQueryBuilder('c')
             ->andWhere(':scene MEMBER OF c.scenes')
             ->andWhere('c.createdBy = :user')
             ->orderBy('t.name', 'ASC')
             ->setParameter('user', $user)
             ->setParameter('scene', $scene)
         ;
-        return $qb;
     }
 
     public function byCurrentUserRelatedQueryBuilder(User $user, Scene $scene): QueryBuilder

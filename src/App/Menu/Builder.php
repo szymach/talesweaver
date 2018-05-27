@@ -20,19 +20,15 @@ class Builder
      */
     private $tokenStorage;
 
-    public function __construct(
-        FactoryInterface $factory,
-        TokenStorageInterface $tokenStorage
-    ) {
+    public function __construct(FactoryInterface $factory, TokenStorageInterface $tokenStorage)
+    {
         $this->factory = $factory;
         $this->tokenStorage = $tokenStorage;
     }
 
     public function createMainMenu()
     {
-        $menu = $this->factory->createItem('root')
-            ->setChildrenAttribute('class', 'nav navbar-nav')
-        ;
+        $menu = $this->factory->createItem('root')->setChildrenAttribute('class', 'nav navbar-nav');
 
         $menu->addChild('menu.start', ['route' => 'index']);
         $this->createBookMenu($menu);

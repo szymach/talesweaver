@@ -26,10 +26,8 @@ class BookRepository implements FindableByIdRepository, LatestChangesAwareReposi
      */
     private $userProvider;
 
-    public function __construct(
-        DoctrineRepository $doctrineRepository,
-        UserProvider $userProvider
-    ) {
+    public function __construct(DoctrineRepository $doctrineRepository, UserProvider $userProvider)
+    {
         $this->doctrineRepository = $doctrineRepository;
         $this->userProvider = $userProvider;
     }

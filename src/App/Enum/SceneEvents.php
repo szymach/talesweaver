@@ -10,26 +10,26 @@ use InvalidArgumentException;
 
 final class SceneEvents
 {
-    const MEETING = Meeting::class;
+    public const MEETING = Meeting::class;
 
-    public static function isEvent(string $model)
+    public static function isEvent(string $model): void
     {
-        if (!in_array($model, [self::MEETING])) {
+        if (false === in_array($model, [self::MEETING], true)) {
             throw new InvalidArgumentException(sprintf('%s is not a scene event model!', $model));
         }
     }
 
-    public static function getAllEvents()
+    public static function getAllEvents(): array
     {
         return array_keys(self::getAllForms());
     }
 
-    public static function getAllForms()
+    public static function getAllForms(): array
     {
         return [self::MEETING => MeetingType::class];
     }
 
-    public static function getEventForm($model)
+    public static function getEventForm(string $model): string
     {
         self::isEvent($model);
 

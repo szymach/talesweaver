@@ -25,7 +25,7 @@ class EditResponse
 
     public function create(Request $request, UuidInterface $id): Response
     {
-        return $request->isXmlHttpRequest()
+        return true === $request->isXmlHttpRequest()
             ? new JsonResponse([])
             : new RedirectResponse($this->router->generate('scene_edit', ['id' => $id]))
         ;

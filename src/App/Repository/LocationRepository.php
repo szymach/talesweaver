@@ -18,10 +18,8 @@ class LocationRepository implements FindableByIdRepository
 {
     use ParamConverterRepository, SceneItemRepositoryTrait;
 
-    public function __construct(
-        DoctrineRepository $doctrineRepository,
-        UserProvider $userProvider
-    ) {
+    public function __construct(DoctrineRepository $doctrineRepository, UserProvider $userProvider)
+    {
         $this->doctrineRepository = $doctrineRepository;
         $this->userProvider = $userProvider;
     }

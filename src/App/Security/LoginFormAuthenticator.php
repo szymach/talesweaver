@@ -54,12 +54,12 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
 
     public function checkCredentials($credentials, UserInterface $user): bool
     {
-        if (!$this->passwordEncoder->isPasswordValid($user, $credentials['password'])) {
+        if (false === $this->passwordEncoder->isPasswordValid($user, $credentials['password'])) {
             throw new BadCredentialsException();
         }
 
         /* @var $user User */
-        if (!$user->isActive()) {
+        if (false === $user->isActive()) {
             throw new CustomUserMessageAuthenticationException(sprintf(
                 'User "%s" is inactive',
                 $user->getUsername()
@@ -89,6 +89,7 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
             Security::AUTHENTICATION_ERROR,
             $this->translator->trans($exception->getMessageKey(), $exception->getMessageData(), 'security')
         );
+
         return $this->redirectTo('index', $request->getLocale());
     }
 
@@ -111,8 +112,6 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
 
     private function redirectTo(string $route, string $locale)
     {
-        return new RedirectResponse(
-            $this->router->generate($route, ['_locale' => $locale])
-        );
+        return new RedirectResponse($this->router->generate($route, ['_locale' => $locale]));
     }
 }
