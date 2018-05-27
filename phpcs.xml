@@ -4,6 +4,7 @@
     <rule ref="PSR2"/>
 
     <file>src</file>
+    <file>tests</file>
 
     <exclude-pattern>*.js</exclude-pattern>
 

@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace App\Bus;
 
-use App\Bus\Messages\Message;
 use App\Bus\Messages\MessageCommandInterface;
 use SimpleBus\Message\Bus\MessageBus;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -19,9 +17,9 @@ class MessagesAwareBus implements MessageBus
     private $messageBus;
 
     /**
-     * @var RequestStack
+     * @var Session
      */
-    private $requestStack;
+    private $session;
 
     /**
      * @var TranslatorInterface
@@ -30,27 +28,23 @@ class MessagesAwareBus implements MessageBus
 
     public function __construct(
         MessageBus $messageBus,
-        RequestStack $requestStack,
+        Session $session,
         TranslatorInterface $translator
     ) {
         $this->messageBus = $messageBus;
-        $this->requestStack = $requestStack;
+        $this->session = $session;
         $this->translator = $translator;
     }
 
     public function handle($command): void
     {
         $this->messageBus->handle($command);
-        if ($command instanceof MessageCommandInterface) {
-            $this->setFlash($command->getMessage());
+        if (false === $command instanceof MessageCommandInterface) {
+            return;
         }
-    }
 
-    private function setFlash(Message $message): void
-    {
-        /* @var $session Session */
-        $session = $this->requestStack->getCurrentRequest()->getSession();
-        $session->getFlashBag()->set(
+        $message = $command->getMessage();
+        $this->session->getFlashBag()->set(
             $message->getType(),
             $this->translator->trans(
                 $message->getTranslationKey(),
