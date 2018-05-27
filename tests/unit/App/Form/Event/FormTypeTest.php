@@ -26,7 +26,7 @@ class FormTypeTest extends Unit
 {
     use CreateCharacterTrait, CreateLocationTrait, CreateSceneTrait;
 
-    const NAME_PL = 'Wydarzenie';
+    private const NAME_PL = 'Wydarzenie';
 
     /**
      * @var UnitTester
@@ -192,7 +192,7 @@ class FormTypeTest extends Unit
         ];
     }
 
-    private function getEvent() : Event
+    private function getEvent(): Event
     {
         return new Event(
             Uuid::uuid4(),
