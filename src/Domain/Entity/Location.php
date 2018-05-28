@@ -110,7 +110,7 @@ class Location
             $this->id->toString()
         ));
 
-        $this->validateAvatar($avatar);
+        $this->validateAvatar($this->id, $avatar);
 
         $this->name = $name;
         $this->description = $description;

@@ -31,7 +31,7 @@ class ItemTest extends TestCase
         );
     }
 
-    public function testIncorrectAvatar()
+    public function testIncorrectAvatarOnNewEntity()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -49,6 +49,27 @@ class ItemTest extends TestCase
             'text',
             $this->createMock(User::class)
         );
+    }
+
+    public function testIncorrectAvatarOnExistingEntity()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Item\'s "edited uuid" avatar must be either of instance "FSi\DoctrineExtensions\Uploadable\File"'
+            . ' or "SplFileInfo", got "string"'
+        );
+
+        $id = $this->createMock(UuidInterface::class);
+        $id->expects($this->exactly(2))->method('toString')->willReturn('edited uuid');
+        $item = new Item(
+            $id,
+            $this->createMock(Scene::class),
+            'item',
+            null,
+            null,
+            $this->createMock(User::class)
+        );
+        $item->edit('item', '', 'avatar');
     }
 
     public function testEmptyTitleOnEdit()

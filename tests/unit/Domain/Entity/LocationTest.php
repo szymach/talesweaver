@@ -32,7 +32,7 @@ class LocationTest extends TestCase
         );
     }
 
-    public function testIncorrectAvatar()
+    public function testIncorrectAvatarOnNewEntity()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -50,6 +50,27 @@ class LocationTest extends TestCase
             new stdClass(),
             $this->createMock(User::class)
         );
+    }
+
+    public function testIncorrectAvatarOnExistingEntity()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Location\'s "edited uuid" avatar must be either of instance "FSi\DoctrineExtensions\Uploadable\File"'
+            . ' or "SplFileInfo", got "stdClass"'
+        );
+
+        $id = $this->createMock(UuidInterface::class);
+        $id->expects($this->exactly(2))->method('toString')->willReturn('edited uuid');
+        $item = new Location(
+            $id,
+            $this->createMock(Scene::class),
+            'new location',
+            null,
+            null,
+            $this->createMock(User::class)
+        );
+        $item->edit('edited location', '', new stdClass());
     }
 
     public function testEmptyTitleOnEdit()

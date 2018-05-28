@@ -117,7 +117,7 @@ class Character
             'Tried to set an empty name on character with id "%s"!',
             $this->id->toString()
         ));
-        $this->validateAvatar($avatar);
+        $this->validateAvatar($this->id, $avatar);
 
         $this->name = $name;
         $this->description = $description;
