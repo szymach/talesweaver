@@ -151,6 +151,19 @@ class Character
         $this->book = $book;
     }
 
+    public function removeBookIfNoRelatedChaptersLeft(Book $book): void
+    {
+        $relatedChaptersLeft = $this->chapters->filter(function (Chapter $chapter) use ($book): bool {
+            return $chapter->getBook() === $book;
+        })->count();
+
+        if (0 !== $relatedChaptersLeft) {
+            return;
+        }
+
+        $this->setBook(null);
+    }
+
     public function addScene(Scene $scene): void
     {
         if (true === $this->scenes->contains($scene)) {
@@ -169,6 +182,10 @@ class Character
     public function removeScene(Scene $scene): void
     {
         $this->scenes->removeElement($scene);
+        if (null !== $scene->getChapter()) {
+            $this->removeChapterIfNoRelatedScenesLeft($scene->getChapter());
+        }
+
         $this->update();
     }
 
@@ -195,6 +212,10 @@ class Character
     public function removeChapter(Chapter $chapter): void
     {
         $this->chapters->removeElement($chapter);
+        if (null !== $chapter->getBook()) {
+            $this->removeBookIfNoRelatedChaptersLeft($chapter->getBook());
+        }
+
         $this->update();
     }
 
@@ -286,6 +307,19 @@ class Character
                 $chapter->getBook()->getId()
             ));
         }
+    }
+
+    private function removeChapterIfNoRelatedScenesLeft(Chapter $chapter): void
+    {
+        $relatedScenesLeft = $this->scenes->filter(function (Scene $scene) use ($chapter): bool {
+            return $scene->getChapter() === $chapter;
+        })->count();
+
+        if (0 !== $relatedScenesLeft) {
+            return;
+        }
+
+        $this->removeChapter($chapter);
     }
 
     private function validateAvatar(UuidInterface $id, $avatar): void

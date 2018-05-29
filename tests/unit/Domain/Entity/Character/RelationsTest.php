@@ -39,6 +39,31 @@ class RelationsTest extends TestCase
         $this->assertContains($chapter, $character->getChapters()->toArray());
     }
 
+    public function testChapterIsRemovedWhenNoRelatedScenesAreLeft()
+    {
+        $chapter = $this->createMock(Chapter::class);
+        $scene = $this->createMock(Scene::class);
+        $scene->expects($this->exactly(4))->method('getChapter')->willReturn($chapter);
+
+        $character = new Character(
+            $this->createMock(UuidInterface::class),
+            $scene,
+            'Chapter with a book',
+            '',
+            null,
+            $this->createMock(User::class)
+        );
+        // Since the character would be added to the scene in the constructor via
+        // $scene->addCharacter(), calling it on a mock scene object does not
+        // properly call $character->addScene() and the chapter is not added. Hence
+        // manual call
+        $character->addScene($scene);
+
+        $this->assertContains($chapter, $character->getChapters()->toArray());
+        $character->removeScene($scene);
+        $this->assertNotContains($chapter, $character->getChapters()->toArray());
+    }
+
     public function testBookIsSetWhenChapterHasOne()
     {
         $book = $this->createMock(Book::class);
@@ -60,5 +85,27 @@ class RelationsTest extends TestCase
         $this->assertNull($character->getBook());
         $character->addScene($scene);
         $this->assertEquals($book, $character->getBook());
+    }
+
+    public function testBookIsRemovedWhenNoRelatedChapterIsLeft()
+    {
+        $book = $this->createMock(Book::class);
+        $chapter = $this->createMock(Chapter::class);
+        $chapter->expects($this->exactly(6))->method('getBook')->willReturn($book);
+
+        $scene = $this->createMock(Scene::class);
+        $scene->expects($this->exactly(4))->method('getChapter')->willReturn($chapter);
+
+        $character = new Character(
+            $this->createMock(UuidInterface::class),
+            $scene,
+            'Chapter with a book',
+            '',
+            null,
+            $this->createMock(User::class)
+        );
+        $character->addScene($scene);
+        $character->removeScene($scene);
+        $this->assertNull($character->getBook());
     }
 }
