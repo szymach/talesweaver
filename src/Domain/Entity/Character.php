@@ -102,7 +102,7 @@ class Character
 
     public function __toString()
     {
-        return (string) $this->name;
+        return $this->name;
     }
 
     /**
@@ -153,14 +153,17 @@ class Character
 
     public function addScene(Scene $scene): void
     {
-        if (!$this->scenes->contains($scene)) {
-            $this->assertSceneForTheSameBook($scene);
-            $this->scenes[] = $scene;
-            if ($scene->getChapter()) {
-                $this->addChapter($scene->getChapter());
-            }
-            $this->update();
+        if (true === $this->scenes->contains($scene)) {
+            return;
         }
+
+        $this->assertSceneForTheSameBook($scene);
+        $this->scenes[] = $scene;
+        if (null !== $scene->getChapter()) {
+            $this->addChapter($scene->getChapter());
+        }
+
+        $this->update();
     }
 
     public function removeScene(Scene $scene): void
@@ -176,15 +179,17 @@ class Character
 
     public function addChapter(Chapter $chapter): void
     {
-        if (!$this->chapters->contains($chapter)) {
-            $this->assertChapterFromTheSameBook($chapter);
-            $chapter->addCharacter($this);
-            $this->chapters[] = $chapter;
-            if ($chapter->getBook()) {
-                $this->setBook($chapter->getBook());
-            }
-            $this->update();
+        if (true === $this->chapters->contains($chapter)) {
+            return;
         }
+
+        $this->assertChapterFromTheSameBook($chapter);
+        $chapter->addCharacter($this);
+        $this->chapters[] = $chapter;
+        if (null !== $chapter->getBook()) {
+            $this->setBook($chapter->getBook());
+        }
+        $this->update();
     }
 
     public function removeChapter(Chapter $chapter): void
@@ -200,10 +205,12 @@ class Character
 
     public function addItem(Item $item): void
     {
-        if (!$this->items->contains($item)) {
-            $this->items[] = $item;
-            $this->update();
+        if (true ===$this->items->contains($item)) {
+            return;
         }
+
+        $this->items[] = $item;
+        $this->update();
     }
 
     public function removeItem(Item $item): void
@@ -219,10 +226,12 @@ class Character
 
     public function addLocation(Location $location): void
     {
-        if (!$this->locations->contains($location)) {
-            $this->locations[] = $location;
-            $this->update();
+        if (true === $this->locations->contains($location)) {
+            return;
         }
+
+        $this->locations[] = $location;
+        $this->update();
     }
 
     public function removeLocation(Location $location): void
@@ -236,7 +245,7 @@ class Character
         return $this->locations;
     }
 
-    private function assertSceneForTheSameBook(Scene $scene)
+    private function assertSceneForTheSameBook(Scene $scene): void
     {
         if (true === $this->scenes->isEmpty()) {
             return;
