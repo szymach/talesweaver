@@ -21,8 +21,8 @@
 
         <one-to-many field="translations" target-entity="Domain\Entity\Translation\ChapterTranslation" mapped-by="chapter">
             <cascade>
-                <cascade-remove/>
                 <cascade-persist/>
+                <cascade-remove/>
             </cascade>
         </one-to-many>
 

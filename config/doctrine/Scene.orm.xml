@@ -16,8 +16,8 @@
 
         <one-to-many field="translations" target-entity="Domain\Entity\Translation\SceneTranslation" mapped-by="scene">
             <cascade>
-                <cascade-remove/>
                 <cascade-persist/>
+                <cascade-remove/>
             </cascade>
         </one-to-many>
 
@@ -28,8 +28,44 @@
             <join-column on-delete="CASCADE"/>
         </many-to-one>
 
-        <many-to-many field="characters" target-entity="Domain\Entity\Character" inversed-by="scenes"/>
-        <many-to-many field="items" target-entity="Domain\Entity\Item" inversed-by="scenes" />
-        <many-to-many field="locations" target-entity="Domain\Entity\Location" inversed-by="scenes"/>
+        <many-to-many field="characters" target-entity="Domain\Entity\Character" inversed-by="scenes">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <join-table name="scene_character">
+                <join-columns>
+                    <join-column name="scene_id" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="character_id" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+        <many-to-many field="items" target-entity="Domain\Entity\Item" inversed-by="scenes">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <join-table name="scene_item">
+                <join-columns>
+                    <join-column name="scene_id" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="item_id" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+        <many-to-many field="locations" target-entity="Domain\Entity\Location" inversed-by="scenes">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <join-table name="scene_location">
+                <join-columns>
+                    <join-column name="scene_id" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="location_id" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
     </entity>
 </doctrine-mapping>
