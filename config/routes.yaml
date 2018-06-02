@@ -1,44 +1,50 @@
-# TODO Replace with Symfony's i18n routing
-index_no_locale:
-    path: /
-    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction
-    defaults: { path: /pl, permanent: true }
-    options: { i18n: false }
-
+# Base
 base:
     resource: "routes/base.yml"
-    prefix:   /
+    prefix:
+        en: /en
+        pl: /pl
 
 # Security
 security:
     resource: "routes/security.yml"
-    prefix:   /
+    prefix:
+        en: /en
+        pl: /pl
 
 # Book
 book:
     resource: "routes/book.yml"
-    prefix:   /book
+    prefix:
+        en: /en/book
+        pl: /pl/book
     options:
         expose: true
 
 # Chapter
 chapter:
     resource: "routes/chapter.yml"
-    prefix:   /chapter
+    prefix:
+        en: /en/chapter
+        pl: /pl/chapter
     options:
         expose: true
 
 # Scene
 scene:
     resource: "routes/scene.yml"
-    prefix:   /scene
+    prefix:
+        en: /en/scene
+        pl: /pl/scene
     options:
         expose: true
 
 # Character
 character:
     resource: "routes/character.yml"
-    prefix:   /character
+    prefix:
+        en: /en/character
+        pl: /pl/character
     condition: "request.isXmlHttpRequest()"
     options:
         expose: true
@@ -46,7 +52,9 @@ character:
 # Item
 item:
     resource: "routes/item.yml"
-    prefix:   /item
+    prefix:
+        en: /en/item
+        pl: /pl/item
     condition: "request.isXmlHttpRequest()"
     options:
         expose: true
@@ -54,7 +62,9 @@ item:
 # Location
 location:
     resource: "routes/location.yml"
-    prefix:   /location
+    prefix:
+        en: /en/location
+        pl: /pl/location
     condition: "request.isXmlHttpRequest()"
     options:
         expose: true
@@ -62,7 +72,9 @@ location:
 # Event
 event:
     resource: "routes/event.yml"
-    prefix:   /event
+    prefix:
+        en: /en/event
+        pl: /pl/event
     condition: "request.isXmlHttpRequest()"
     options:
         expose: true

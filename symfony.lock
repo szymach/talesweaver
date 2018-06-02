@@ -95,9 +95,6 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
-    "jms/i18n-routing-bundle": {
-        "version": "2.0.4"
-    },
     "knplabs/gaufrette": {
         "version": "v0.1.9"
     },
@@ -376,6 +373,9 @@
     },
     "symfony/polyfill-apcu": {
         "version": "v1.6.0"
+    },
+    "symfony/polyfill-ctype": {
+        "version": "v1.8.0"
     },
     "symfony/polyfill-intl-icu": {
         "version": "v1.6.0"
