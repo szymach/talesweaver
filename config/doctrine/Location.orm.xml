@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:fsi="http://fsi.pl/schemas/orm/doctrine-extensions-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
+>
+    <entity repository-class="App\Repository\Doctrine\LocationRepository" name="Domain\Entity\Location">
+
+        <fsi:translatable-locale field="locale" />
+        <fsi:translatable-field field="name" mappedBy="translations" />
+        <fsi:translatable-field field="description" mappedBy="translations" />
+
+        <id name="id" type="uuid"/>
+        <field name="avatarKey" type="text" nullable="true"/>
+        <field name="createdAt" type="datetime"/>
+        <field name="updatedAt" type="datetime" nullable="true"/>
+
+        <one-to-many field="translations" target-entity="Domain\Entity\Translation\LocationTranslation" mapped-by="location">
+            <cascade>
+                <cascade-remove/>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+
+        <many-to-one field="createdBy" target-entity="Domain\Entity\User">
+            <join-columns>
+                <join-column on-delete="CASCADE"/>
+            </join-columns>
+        </many-to-one>
+
+        <many-to-many field="scenes" target-entity="Domain\Entity\Scene" mapped-by="locations"/>
+        <many-to-many field="characters" target-entity="Domain\Entity\Character" mapped-by="locations"/>
+        <many-to-many field="items" target-entity="Domain\Entity\Item" inversed-by="locations">
+            <join-columns>
+                <join-column on-delete="CASCADE"/>
+            </join-columns>
+            <inverse-join-columns>
+                <join-column on-delete="CASCADE"/>
+            </inverse-join-columns>
+        </many-to-many>
+    </entity>
+</doctrine-mapping>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:fsi="http://fsi.pl/schemas/orm/doctrine-extensions-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
+>
+    <entity name="Domain\Entity\Translation\BookTranslation">
+        <id name="id" type="integer">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="title" type="text"/>
+        <field name="description" type="text" nullable="true"/>
+        <field name="locale" length="2">
+            <fsi:translatable-locale />
+        </field>
+        <many-to-one field="book" target-entity="Domain\Entity\Book" inversed-by="translations">
+            <join-columns>
+                <join-column on-delete="CASCADE"/>
+            </join-columns>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

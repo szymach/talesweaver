@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:fsi="http://fsi.pl/schemas/orm/doctrine-extensions-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
+>
+    <entity repository-class="App\Repository\Doctrine\SceneRepository" name="Domain\Entity\Scene">
+
+        <fsi:translatable-locale field="locale" />
+        <fsi:translatable-field field="title" mappedBy="translations" />
+        <fsi:translatable-field field="text" mappedBy="translations" />
+
+        <id name="id" type="uuid"/>
+        <field name="createdAt" type="datetime"/>
+        <field name="updatedAt" type="datetime" nullable="true"/>
+
+        <one-to-many field="translations" target-entity="Domain\Entity\Translation\SceneTranslation" mapped-by="scene">
+            <cascade>
+                <cascade-remove/>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+
+        <many-to-one field="chapter" target-entity="Domain\Entity\Chapter" inversed-by="scenes">
+            <join-columns>
+                <join-column on-delete="CASCADE"/>
+            </join-columns>
+        </many-to-one>
+
+        <many-to-one field="createdBy" target-entity="Domain\Entity\User">
+            <join-columns>
+                <join-column on-delete="CASCADE"/>
+            </join-columns>
+        </many-to-one>
+
+        <many-to-many field="characters" target-entity="Domain\Entity\Character" inversed-by="scenes">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <join-columns>
+                <join-column on-delete="CASCADE"/>
+            </join-columns>
+            <inverse-join-columns>
+                <join-column on-delete="CASCADE"/>
+            </inverse-join-columns>
+        </many-to-many>
+
+        <many-to-many field="items" target-entity="Domain\Entity\Item" inversed-by="scenes">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <join-columns>
+                <join-column on-delete="CASCADE"/>
+            </join-columns>
+            <inverse-join-columns>
+                <join-column on-delete="CASCADE"/>
+            </inverse-join-columns>
+        </many-to-many>
+
+        <many-to-many field="locations" target-entity="Domain\Entity\Location" inversed-by="scenes">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <join-columns>
+                <join-column on-delete="CASCADE"/>
+            </join-columns>
+            <inverse-join-columns>
+                <join-column on-delete="CASCADE"/>
+            </inverse-join-columns>
+        </many-to-many>
+    </entity>
+</doctrine-mapping>
