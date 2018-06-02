@@ -29,14 +29,5 @@
         </many-to-one>
 
         <many-to-many field="scenes" target-entity="Domain\Entity\Scene" mapped-by="locations"/>
-        <many-to-many field="characters" target-entity="Domain\Entity\Character" mapped-by="locations"/>
-        <many-to-many field="items" target-entity="Domain\Entity\Item" inversed-by="locations">
-            <join-columns>
-                <join-column on-delete="CASCADE"/>
-            </join-columns>
-            <inverse-join-columns>
-                <join-column on-delete="CASCADE"/>
-            </inverse-join-columns>
-        </many-to-many>
     </entity>
 </doctrine-mapping>

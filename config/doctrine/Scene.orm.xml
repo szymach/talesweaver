@@ -22,51 +22,14 @@
         </one-to-many>
 
         <many-to-one field="chapter" target-entity="Domain\Entity\Chapter" inversed-by="scenes">
-            <join-columns>
-                <join-column on-delete="CASCADE"/>
-            </join-columns>
+            <join-column on-delete="CASCADE"/>
         </many-to-one>
-
         <many-to-one field="createdBy" target-entity="Domain\Entity\User">
-            <join-columns>
-                <join-column on-delete="CASCADE"/>
-            </join-columns>
+            <join-column on-delete="CASCADE"/>
         </many-to-one>
 
-        <many-to-many field="characters" target-entity="Domain\Entity\Character" inversed-by="scenes">
-            <cascade>
-                <cascade-persist/>
-            </cascade>
-            <join-columns>
-                <join-column on-delete="CASCADE"/>
-            </join-columns>
-            <inverse-join-columns>
-                <join-column on-delete="CASCADE"/>
-            </inverse-join-columns>
-        </many-to-many>
-
-        <many-to-many field="items" target-entity="Domain\Entity\Item" inversed-by="scenes">
-            <cascade>
-                <cascade-persist/>
-            </cascade>
-            <join-columns>
-                <join-column on-delete="CASCADE"/>
-            </join-columns>
-            <inverse-join-columns>
-                <join-column on-delete="CASCADE"/>
-            </inverse-join-columns>
-        </many-to-many>
-
-        <many-to-many field="locations" target-entity="Domain\Entity\Location" inversed-by="scenes">
-            <cascade>
-                <cascade-persist/>
-            </cascade>
-            <join-columns>
-                <join-column on-delete="CASCADE"/>
-            </join-columns>
-            <inverse-join-columns>
-                <join-column on-delete="CASCADE"/>
-            </inverse-join-columns>
-        </many-to-many>
+        <many-to-many field="characters" target-entity="Domain\Entity\Character" inversed-by="scenes"/>
+        <many-to-many field="items" target-entity="Domain\Entity\Item" inversed-by="scenes" />
+        <many-to-many field="locations" target-entity="Domain\Entity\Location" inversed-by="scenes"/>
     </entity>
 </doctrine-mapping>

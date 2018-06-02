@@ -29,8 +29,6 @@
         </many-to-one>
 
         <many-to-many field="scenes" target-entity="Domain\Entity\Scene" mapped-by="items"/>
-        <many-to-many field="characters" target-entity="Domain\Entity\Character" mapped-by="items"/>
-        <many-to-many field="locations" target-entity="Domain\Entity\Location" mapped-by="items"/>
 
     </entity>
 </doctrine-mapping>

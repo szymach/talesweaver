@@ -31,20 +31,11 @@
                 <join-column on-delete="CASCADE"/>
             </join-columns>
         </many-to-one>
-
         <many-to-one field="createdBy" target-entity="Domain\Entity\User">
             <join-columns>
                 <join-column on-delete="CASCADE"/>
             </join-columns>
         </many-to-one>
 
-        <many-to-many field="characters" target-entity="Domain\Entity\Character" inversed-by="chapters">
-            <join-columns>
-                <join-column on-delete="CASCADE"/>
-            </join-columns>
-            <inverse-join-columns>
-                <join-column on-delete="CASCADE"/>
-            </inverse-join-columns>
-        </many-to-many>
     </entity>
 </doctrine-mapping>

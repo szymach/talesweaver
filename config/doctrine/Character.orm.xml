@@ -23,31 +23,14 @@
         </one-to-many>
 
         <many-to-one field="book" target-entity="Domain\Entity\Book">
-            <join-column on-delete="CASCADE"/>
+            <join-column on-delete="SET NULL"/>
         </many-to-one>
 
         <many-to-one field="createdBy" target-entity="Domain\Entity\User">
             <join-column on-delete="CASCADE"/>
         </many-to-one>
 
-        <many-to-many field="chapters" target-entity="Domain\Entity\Chapter" mapped-by="characters"/>
         <many-to-many field="scenes" target-entity="Domain\Entity\Scene" mapped-by="characters"/>
-        <many-to-many field="items" target-entity="Domain\Entity\Item" inversed-by="characters">
-            <join-columns>
-                <join-column on-delete="CASCADE"/>
-            </join-columns>
-            <inverse-join-columns>
-                <join-column on-delete="CASCADE"/>
-            </inverse-join-columns>
-        </many-to-many>
 
-        <many-to-many field="locations" target-entity="Domain\Entity\Location" inversed-by="characters">
-            <join-columns>
-                <join-column on-delete="CASCADE"/>
-            </join-columns>
-            <inverse-join-columns>
-                <join-column on-delete="CASCADE"/>
-            </inverse-join-columns>
-        </many-to-many>
     </entity>
 </doctrine-mapping>
