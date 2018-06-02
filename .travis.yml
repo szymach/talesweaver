@@ -29,6 +29,7 @@ before_install:
 
 install:
     - composer install -n
+    - composer validate
     - rm .env
     - cp .env.travis .env
     - bin/console doctrine:database:create
@@ -37,6 +38,9 @@ install:
 
 script:
     - vendor/bin/phpcs
+    - bin/console lint:yaml config
+    - bin/console lint:yaml translations
+    - bin/console lint:twig templates
     - vendor/bin/codecept run
     - bin/console doctrine:fixtures:load -n
     - bin/console server:start
