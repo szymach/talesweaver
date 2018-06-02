@@ -151,19 +151,6 @@ class Character
         $this->book = $book;
     }
 
-    public function removeBookIfNoRelatedChaptersLeft(Book $book): void
-    {
-        $relatedChaptersLeft = $this->chapters->filter(function (Chapter $chapter) use ($book): bool {
-            return $chapter->getBook() === $book;
-        })->count();
-
-        if (0 !== $relatedChaptersLeft) {
-            return;
-        }
-
-        $this->setBook(null);
-    }
-
     public function addScene(Scene $scene): void
     {
         if (true === $this->scenes->contains($scene)) {
@@ -227,7 +214,7 @@ class Character
 
     public function addItem(Item $item): void
     {
-        if (true ===$this->items->contains($item)) {
+        if (true === $this->items->contains($item)) {
             return;
         }
 
@@ -309,6 +296,19 @@ class Character
         }
 
         $this->removeChapter($chapter);
+    }
+
+    private function removeBookIfNoRelatedChaptersLeft(Book $book): void
+    {
+        $relatedChaptersLeft = $this->chapters->filter(function (Chapter $chapter) use ($book): bool {
+            return $chapter->getBook() === $book;
+        })->count();
+
+        if (0 !== $relatedChaptersLeft) {
+            return;
+        }
+
+        $this->setBook(null);
     }
 
     private function validateAvatar(UuidInterface $id, $avatar): void

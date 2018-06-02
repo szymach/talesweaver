@@ -69,7 +69,7 @@ class User implements UserInterface
 
     public function __toString()
     {
-        return (string) $this->username;
+        return $this->username;
     }
 
     public function getId(): int
@@ -99,7 +99,7 @@ class User implements UserInterface
 
     public function activate(): void
     {
-        if ($this->active) {
+        if (true === $this->active) {
             throw new DomainException(sprintf('User "%s" is already active!', $this->id));
         }
 
@@ -108,11 +108,11 @@ class User implements UserInterface
 
     public function getActivationToken(): ?ActivationToken
     {
-        $codes = $this->activationTokens->filter(function (ActivationToken $code) {
+        $codes = $this->activationTokens->filter(function (ActivationToken $code): bool {
             return $code->isValid();
         });
 
-        return $codes->count() > 0 ? $codes->first(): null;
+        return false === $codes->isEmpty() ? $codes->first(): null;
     }
 
     public function addPasswordResetToken(string $token): void
@@ -122,19 +122,15 @@ class User implements UserInterface
 
     public function getPasswordResetToken(): ?PasswordResetToken
     {
-        $tokens = $this->passwordResetTokens->filter(function (PasswordResetToken $token) {
+        $tokens = $this->passwordResetTokens->filter(function (PasswordResetToken $token): bool {
             return $token->isValid();
         });
 
-        return $tokens->count() > 0 ? $tokens->first() : null;
+        return false === $tokens->isEmpty() ? $tokens->first() : null;
     }
 
     public function getRoles(): array
     {
-        if (is_string($this->roles)) {
-            $this->roles = json_decode($this->roles);
-        }
-
         return $this->roles;
     }
 

@@ -91,23 +91,25 @@ class Chapter
         return $this->scenes;
     }
 
+    public function getCharacters(): Collection
+    {
+        return $this->characters;
+    }
+
     public function addCharacter(Character $character): void
     {
-        if (!$this->characters->contains($character)) {
-            $this->characters[] = $character;
-            $this->update();
+        if (true === $this->characters->contains($character)) {
+            return;
         }
+
+        $this->characters[] = $character;
+        $this->update();
     }
 
     public function removeCharacter(Character $character): void
     {
         $this->characters->removeElement($character);
         $this->update();
-    }
-
-    public function getCharacters(): Collection
-    {
-        return $this->characters;
     }
 
     public function setBook(?Book $book): void

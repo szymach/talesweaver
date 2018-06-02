@@ -71,7 +71,7 @@ class Book
     {
         Assertion::notBlank($title, sprintf(
             'Tried to set an empty title on book with id "%s"!',
-            (string) $this->id
+            $this->id->toString()
         ));
 
         $this->title = $title;
@@ -95,24 +95,28 @@ class Book
         return $this->description;
     }
 
+    public function getChapters(): Collection
+    {
+        return $this->chapters;
+    }
+
     public function addChapter(Chapter $chapter): void
     {
-        if (!$this->chapters->contains($chapter)) {
-            $this->chapters->add($chapter);
-            $chapter->setBook($this);
-            $this->update();
+        if (true === $this->chapters->contains($chapter)) {
+            return;
         }
+
+        $this->chapters->add($chapter);
+        $chapter->setBook($this);
+
+        $this->update();
     }
 
     public function removeChapter(Chapter $chapter): void
     {
         $this->chapters->removeElement($chapter);
         $chapter->setBook(null);
-        $this->update();
-    }
 
-    public function getChapters(): Collection
-    {
-        return $this->chapters;
+        $this->update();
     }
 }
