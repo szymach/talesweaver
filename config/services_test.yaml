@@ -1,0 +1,7 @@
+---
+services:
+    _defaults:
+        public: true
+
+    test.fsi_doctrine_extensions.listener.translatable:
+        alias: fsi_doctrine_extensions.listener.translatable
