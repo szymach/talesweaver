@@ -1,10 +1,10 @@
 actor: FunctionalTester
 modules:
     enabled:
-        - \App\Tests\Helper\Functional
+        - Symfony:
+            app_path: 'src/App'
+            var_path: 'var'
+            environment: 'test'
         - Doctrine2:
             depends: Symfony
-        - Symfony:
-            app_path: src/App
-            environment: test
-            var_path: var
+        - \App\Tests\Helper\Functional
