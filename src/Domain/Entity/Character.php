@@ -170,7 +170,7 @@ class Character
             return;
         }
 
-        $this->assertSceneForTheSameBook($scene);
+        $this->assertSceneFromTheSameChapter($scene);
         $this->scenes[] = $scene;
         if (null !== $scene->getChapter()) {
             $this->addChapter($scene->getChapter());
@@ -206,6 +206,7 @@ class Character
         if (null !== $chapter->getBook()) {
             $this->setBook($chapter->getBook());
         }
+
         $this->update();
     }
 
@@ -266,45 +267,33 @@ class Character
         return $this->locations;
     }
 
-    private function assertSceneForTheSameBook(Scene $scene): void
+    private function assertSceneFromTheSameChapter(Scene $scene): void
     {
         if (true === $this->scenes->isEmpty()) {
             return;
         }
 
-        $this->scenes->map(function (Scene $currentScene) use ($scene) {
-            if (null !== $currentScene->getChapter() && null === $scene->getChapter()) {
-                throw new DomainException(sprintf(
-                    'Tried to assign scene "%s" without a chapter to character "%s"'
-                ));
-            }
-
-            if (null === $currentScene->getChapter() && null !== $scene->getChapter()) {
-                throw new DomainException(sprintf(
-                    'Tried to assign scene "%s" with a chapter to character "%s"'
-                ));
-            }
-        });
+        $chapters = $this->chapters->toArray();
+        if (null === $scene->getChapter() && 0 !== count($chapters)) {
+            throw new DomainException(sprintf(
+                'Scene "%s" is inconsistent with other scenes from character "%s"',
+                $scene->getId()->toString(),
+                $this->id->toString()
+            ));
+        }
     }
 
-    private function assertChapterFromTheSameBook(Chapter $chapter)
+    private function assertChapterFromTheSameBook(Chapter $chapter): void
     {
-        if (null === $this->book && null === $chapter->getBook()) {
-            // No book to check
-            return;
-        }
-
-        if (null === $this->book && null !== $chapter->getBook()) {
-            // New book
+        if (0 === $this->chapters->count()) {
             return;
         }
 
         if ($this->book !== $chapter->getBook()) {
             throw new DomainException(sprintf(
-                'Character "%s" is already assigned to book "%s", but tried to assign it to book "%s"',
-                $this->id,
-                $this->book->getId(),
-                $chapter->getBook()->getId()
+                'Chapter "%s" is inconsistent with character\'s "%s" chapters',
+                $chapter->getId()->toString(),
+                $this->id->toString()
             ));
         }
     }
