@@ -1,12 +1,12 @@
 import {closeMobileSublists} from './lists';
 import 'bootstrap';
 
-export function closeAllModals()
+export function closeAllModals() : void
 {
     $('.modal.in').find('[data-dismiss=modal]').trigger('click');
 }
 
-$('main').on('click', '.js-display', function (event : JQuery.Event) {
+$('main').on('click', '.js-display', function (event : JQuery.Event) : void {
     event.preventDefault();
     event.stopPropagation();
 
@@ -29,7 +29,7 @@ $('main').on('click', '.js-display', function (event : JQuery.Event) {
     });
 });
 
-$('#modal-display').on('hidden.bs.modal', function (event : JQuery.Event) {
+$('#modal-display').on('hidden.bs.modal', function (event : JQuery.Event) : void {
     const $this : JQuery<HTMLElement> = $(event.currentTarget)
     const classToRemove : string = $this.data('class-to-remove');
     if (typeof classToRemove !== 'undefined') {

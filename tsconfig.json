@@ -3,8 +3,9 @@
         "sourceMap": true,
         "noImplicitAny": true,
         "module": "commonjs",
-        "target": "es6",
-        "allowJs": true
+        "target": "es8",
+        "allowJs": true,
+        "lib" : ["es2015", "es2015.iterable", "dom"]
     },
     "include": [
         "./assets/typescript/**/*"

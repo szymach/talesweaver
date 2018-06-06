@@ -5,7 +5,7 @@
     });
 })();
 
-export function displayAlerts()
+export function displayAlerts() : void
 {
     let $alerts : JQuery<HTMLElement> = $('#alerts');
     $.ajax({
@@ -20,7 +20,7 @@ export function displayAlerts()
     });
 }
 
-export function setAlertFadeOuts()
+export function setAlertFadeOuts() : void
 {
     $('#alerts .alert').filter(':visible').each(function (index : number, alert : HTMLElement) {
         const $alert : JQuery<HTMLElement> = $(alert);
@@ -32,7 +32,7 @@ export function setAlertFadeOuts()
     });
 }
 
-export function closeAlert()
+export function closeAlert() : void
 {
     $('.alert .close').on('click', function (event : JQuery.Event) {
         $(event.currentTarget).parents('.alert').hide();

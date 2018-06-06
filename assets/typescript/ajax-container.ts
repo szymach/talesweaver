@@ -1,6 +1,6 @@
-import * as backdrop from './backdrop';
+import {showBackdrop, hideBackdrop} from './backdrop';
 
-export function clearAjaxContainer()
+export function clearAjaxContainer() : void
 {
     const $container : JQuery<HTMLElement> = getAjaxContainer();
     getAjaxClearButton().hide();
@@ -8,7 +8,7 @@ export function clearAjaxContainer()
     $container.removeClass('active');
 }
 
-export function displayAjaxContainerWithContent(content : string)
+export function displayAjaxContainerWithContent(content : string) : void
 {
     const $container : JQuery<HTMLElement> = getAjaxContainer();
     $container.html(content);
@@ -17,18 +17,18 @@ export function displayAjaxContainerWithContent(content : string)
     $container.addClass('active');
 }
 
-export function getAjaxContainer()
+export function getAjaxContainer() : JQuery<HTMLElement>
 {
     return $('#ajax-container');
 }
 
-export function getAjaxClearButton()
+export function getAjaxClearButton() : JQuery<HTMLElement>
 {
     return $('#clear-ajax');
 }
 
-getAjaxClearButton().on('click', function() {
-    backdrop.showBackdrop();
+getAjaxClearButton().on('click', function() : void {
+    showBackdrop();
     clearAjaxContainer();
-    backdrop.hideBackdrop();
+    hideBackdrop();
 });

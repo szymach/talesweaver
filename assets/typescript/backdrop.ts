@@ -2,24 +2,24 @@ $.bind('ajaxStart', showBackdrop());
 $.bind('ajaxComplete', hideBackdrop());
 $.bind('ajaxError', hideBackdrop());
 
-export function showBackdrop()
+export function showBackdrop() : void
 {
     setCursor('wait');
     getBackdrop().addClass('active');
 }
 
-export function hideBackdrop()
+export function hideBackdrop() : void
 {
     setCursor('default');
     getBackdrop().removeClass('active');
 }
 
-function getBackdrop()
+function getBackdrop() : JQuery<HTMLElement>
 {
     return $('#backdrop');
 }
 
-function setCursor(value : string)
+function setCursor(value : string) : void
 {
     $('html').css('cursor', value);
 }

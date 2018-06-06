@@ -32,17 +32,18 @@ export function getForm(url : string): void
 
 function bindAjaxForm(): void
 {
-    let $container = ajaxContainer.getAjaxContainer();
+    const $container = ajaxContainer.getAjaxContainer();
     $container.off('submit');
     $container.on('submit', '.js-form', function (event : JQuery.Event) {
         event.preventDefault();
         event.stopPropagation();
 
         submitForm($(event.currentTarget));
-        var $input : JQuery<HTMLElement> = $container.find('form input').first();
-        if ($input.length) {
+        const $input : JQuery<HTMLElement> = $container.find('form input').first();
+        if (0 !== $input.length) {
             $input.trigger('focus');
         }
+
         return false;
     });
 }
@@ -61,7 +62,7 @@ function submitForm($form : any): void
         },
         error: function(xhr : any) {
             ajaxContainer.clearAjaxContainer();
-            let response : any = JSON.parse(xhr.responseText);
+            const response : any = JSON.parse(xhr.responseText);
             if (typeof response.form !== 'undefined') {
                 ajaxContainer.displayAjaxContainerWithContent(response.form);
             }
