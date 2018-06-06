@@ -33,6 +33,13 @@ class ChapterRepository implements FindableByIdRepository, LatestChangesAwareRep
         $this->userProvider = $userProvider;
     }
 
+    public function createAllAvailableQueryBuilder(): QueryBuilder
+    {
+        return $this->doctrineRepository->allAvailableByUserQueryBuilder(
+            $this->userProvider->fetchCurrentUser()
+        );
+    }
+
     public function createStandaloneQueryBuilder(): QueryBuilder
     {
         return $this->doctrineRepository->byCurrentUserQueryBuilder(

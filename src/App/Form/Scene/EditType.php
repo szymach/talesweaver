@@ -6,7 +6,6 @@ namespace App\Form\Scene;
 
 use App\Repository\ChapterRepository;
 use Domain\Entity\Chapter;
-use Domain\Entity\Scene;
 use Domain\Scene\Edit\DTO;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -32,25 +31,35 @@ class EditType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event): void {
             $form = $event->getForm();
             $form->add('title', TextType::class, [
                 'label' => 'scene.title',
                 'attr' => ['autofocus' => 'autofocus']
             ]);
 
-            /* @var $data Scene */
+            /* @var $scene DTO */
             $scene = $event->getData();
             if (null !== $scene && null !== $scene->getChapter() && null !== $scene->getChapter()->getBook()) {
                 $qb = $this->chapterRepository->createForBookQb($scene->getChapter()->getBook());
+                $choiceLabel = function (Chapter $chapter): string {
+                    return $chapter->getTitle();
+                };
             } else {
-                $qb = $this->chapterRepository->createStandaloneQueryBuilder();
+                $qb = $this->chapterRepository->createAllAvailableQueryBuilder();
+                $choiceLabel = function (Chapter $chapter): string {
+                    $book = $chapter->getBook();
+                    return null !== $book
+                        ? sprintf('%s (%s)', $chapter->getTitle(), $book->getTitle())
+                        : $chapter->getTitle()
+                    ;
+                };
             }
 
             $form->add('chapter', EntityType::class, [
                 'label' => 'scene.chapter',
                 'class' => Chapter::Class,
-                'data' => null !== $scene ? $scene->getChapter() : null,
+                'choice_label' => $choiceLabel,
                 'query_builder' => $qb,
                 'placeholder' => 'scene.placeholder.chapter',
                 'required' => false

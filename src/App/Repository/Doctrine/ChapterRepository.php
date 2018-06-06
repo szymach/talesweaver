@@ -14,6 +14,15 @@ class ChapterRepository extends TranslatableRepository
 {
     use LatestResultsTrait, ValidationTrait;
 
+    public function allAvailableByUserQueryBuilder(User $user): QueryBuilder
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.createdBy = :user')
+            ->orderBy('c.book')
+            ->setParameter('user', $user)
+        ;
+    }
+
     public function byCurrentUserQueryBuilder(User $user): QueryBuilder
     {
         return $this->createQueryBuilder('c')
@@ -23,7 +32,7 @@ class ChapterRepository extends TranslatableRepository
         ;
     }
 
-    public function byCurrentUserForBookQueryBuilder(User $user, Book $book)
+    public function byCurrentUserForBookQueryBuilder(User $user, Book $book): QueryBuilder
     {
         return $this->createQueryBuilder('c')
             ->where('c.book = :book')

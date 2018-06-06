@@ -9,7 +9,6 @@ use App\Form\Scene\CreateType;
 use App\Routing\RedirectToEdit;
 use App\Templating\SimpleFormView;
 use Domain\Scene\Create\Command;
-use Domain\Scene\Create\DTO;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -51,7 +50,7 @@ class CreateController
 
     public function __invoke(Request $request)
     {
-        $form = $this->formFactory->create(CreateType::class, new DTO());
+        $form = $this->formFactory->create(CreateType::class);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $sceneId = Uuid::uuid4();
             $this->commandBus->handle(new Command($sceneId, $form->getData()));
