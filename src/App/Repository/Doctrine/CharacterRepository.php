@@ -28,14 +28,10 @@ class CharacterRepository extends TranslatableRepository
     {
         $qb = $this->createTranslatableQueryBuilder('c');
         return $qb->leftJoin('c.scenes', 's')
-            ->where('c.createdBy = :user')
+            ->andWhere('c.createdBy = :user')
             ->andWhere($qb->expr()->andX(
                 ':scene NOT MEMBER OF c.scenes',
                 's.chapter = :chapter'
-            ))
-            ->orWhere($qb->expr()->andX(
-                ':scene NOT MEMBER OF c.scenes',
-                ':chapter MEMBER OF c.chapters'
             ))
             ->orderBy('t.name', 'ASC')
             ->setParameter('chapter', $scene->getChapter())
@@ -48,9 +44,9 @@ class CharacterRepository extends TranslatableRepository
     {
         return $this->createTranslatableQueryBuilder('c')
             ->join('c.scenes', 's')
-            ->where('c.createdBy = :user')
-            ->orderBy('t.name', 'ASC')
+            ->andWhere('c.createdBy = :user')
             ->andWhere(':scenes MEMBER OF c.scenes')
+            ->orderBy('t.name', 'ASC')
             ->setParameter('scenes', $scenes)
             ->setParameter('user', $user)
         ;

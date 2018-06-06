@@ -22,10 +22,6 @@
             </cascade>
         </one-to-many>
 
-        <many-to-one field="book" target-entity="Domain\Entity\Book">
-            <join-column on-delete="SET NULL"/>
-        </many-to-one>
-
         <many-to-one field="createdBy" target-entity="Domain\Entity\User">
             <join-column on-delete="CASCADE"/>
         </many-to-one>

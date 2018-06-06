@@ -36,7 +36,6 @@ class ItemRepository extends TranslatableRepository
                 )
             )
             ->andWhere(':scene NOT MEMBER OF i.scenes')
-            ->orWhere('s.id IS NULL')
             ->orderBy('t.name', 'ASC')
             ->setParameter('chapter', $scene->getChapter())
             ->setParameter('scene', $scene)

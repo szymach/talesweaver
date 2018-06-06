@@ -47,16 +47,6 @@ class Item
     private $scenes;
 
     /**
-     * @var Collection
-     */
-    private $characters;
-
-    /**
-     * @var Collection
-     */
-    private $locations;
-
-    /**
      * @param UuidInterface $id
      * @param Scene $scene
      * @param string $name
@@ -85,8 +75,6 @@ class Item
 
         $this->translations = new ArrayCollection();
         $this->scenes = new ArrayCollection();
-        $this->characters = new ArrayCollection();
-        $this->locations = new ArrayCollection();
         $this->createdBy = $author;
         $this->createdAt = new DateTimeImmutable();
 
@@ -95,7 +83,7 @@ class Item
 
     public function __toString()
     {
-        return (string) $this->name;
+        return $this->name;
     }
 
     /**
@@ -132,33 +120,25 @@ class Item
         return $this->description;
     }
 
+    public function getScenes(): Collection
+    {
+        return $this->scenes;
+    }
+
     public function addScene(Scene $scene): void
     {
-        if (!$this->scenes->contains($scene)) {
-            $this->scenes[] = $scene;
-            $this->update();
+        if (true === $this->scenes->contains($scene)) {
+            return;
         }
+
+        $this->scenes->add($scene);
+        $this->update();
     }
 
     public function removeScene(Scene $scene): void
     {
         $this->scenes->removeElement($scene);
         $this->update();
-    }
-
-    public function getScenes(): Collection
-    {
-        return $this->scenes;
-    }
-
-    public function getCharacters(): Collection
-    {
-        return $this->characters;
-    }
-
-    public function getLocations(): Collection
-    {
-        return $this->locations;
     }
 
     private function validateAvatar(UuidInterface $id, $avatar): void

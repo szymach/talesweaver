@@ -90,4 +90,20 @@ class BasePropertiesTest extends TestCase
         );
         $character->edit('', null, null);
     }
+
+    public function testProperCreation()
+    {
+        $scene = $this->createMock(Scene::class);
+        $scene->expects($this->once())->method('addCharacter')->with($this->isInstanceOf(Character::class));
+
+        $character = new Character(
+            $this->createMock(UuidInterface::class),
+            $scene,
+            'Chapter properly created',
+            '',
+            null,
+            $this->createMock(User::class)
+        );
+        $this->assertContains($scene, $character->getScenes());
+    }
 }

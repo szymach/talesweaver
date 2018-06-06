@@ -133,7 +133,6 @@ class Scene
             return;
         }
 
-        $character->addScene($this);
         $this->characters[] = $character;
 
         $this->update();
