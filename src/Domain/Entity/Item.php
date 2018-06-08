@@ -12,6 +12,7 @@ use Domain\Entity\Traits\AvatarTrait;
 use Domain\Entity\Traits\CreatedByTrait;
 use Domain\Entity\Traits\TimestampableTrait;
 use Domain\Entity\Traits\TranslatableTrait;
+use DomainException;
 use FSi\DoctrineExtensions\Uploadable\File;
 use InvalidArgumentException;
 use Ramsey\Uuid\UuidInterface;
@@ -78,6 +79,7 @@ class Item
         $this->createdBy = $author;
         $this->createdAt = new DateTimeImmutable();
 
+        $this->scenes->add($scene);
         $scene->addItem($this);
     }
 
@@ -131,6 +133,7 @@ class Item
             return;
         }
 
+        $this->assertSceneConsistency($scene);
         $this->scenes->add($scene);
         $this->update();
     }
@@ -139,6 +142,62 @@ class Item
     {
         $this->scenes->removeElement($scene);
         $this->update();
+    }
+
+    private function assertSceneConsistency(Scene $scene): void
+    {
+        if (true === $this->scenes->isEmpty()) {
+            return;
+        }
+
+        $sceneChapter = $scene->getChapter();
+        $chapters = $this->getChapters();
+        if (null === $sceneChapter && 0 !== count($chapters)) {
+            $this->throwInconsistentSceneException($scene);
+        }
+
+        if (null !== $sceneChapter && $this->getBook($chapters) !== $sceneChapter->getBook()) {
+            $this->throwInconsistentSceneException($scene);
+        }
+    }
+
+    private function getChapters(): array
+    {
+        return array_reduce(
+            $this->scenes->toArray(),
+            function (array $chapters, Scene $scene): array {
+                $chapter = $scene->getChapter();
+                if (null !== $chapter && false === in_array($chapter, $chapters, true)) {
+                    $chapters[] = $chapter;
+                }
+
+                return $chapters;
+            },
+            []
+        );
+    }
+
+    private function getBook(array $chapters): ?Book
+    {
+        return array_reduce(
+            $chapters,
+            function (?Book $book, Chapter $chapter): ?Book {
+                $chapterBook = $chapter->getBook();
+                if (null === $book && null !== $chapterBook) {
+                    $book = $chapterBook;
+                } elseif ($book !== $chapterBook) {
+                    // No tests for this, since it would require hacks to create
+                    // such a scenario.
+                    throw new DomainException(sprintf(
+                        'Character "%s" has scenes from at least two different books!',
+                        $this->id->toString()
+                    ));
+                }
+
+                return $book;
+            },
+            null
+        );
     }
 
     private function validateAvatar(UuidInterface $id, $avatar): void
@@ -155,5 +214,14 @@ class Item
                 is_object($avatar) ? get_class($avatar) : gettype($avatar)
             ));
         }
+    }
+
+    private function throwInconsistentSceneException(Scene $scene): void
+    {
+        throw new DomainException(sprintf(
+            'Scene "%s" is inconsistent with other scenes of item "%s"',
+            $scene->getId()->toString(),
+            $this->id->toString()
+        ));
     }
 }

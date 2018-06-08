@@ -155,7 +155,6 @@ class Scene
             return;
         }
 
-        $location->addScene($this);
         $this->locations[] = $location;
 
         $this->update();
@@ -178,7 +177,6 @@ class Scene
             return;
         }
 
-        $item->addScene($this);
         $this->items[] = $item;
 
         $this->update();

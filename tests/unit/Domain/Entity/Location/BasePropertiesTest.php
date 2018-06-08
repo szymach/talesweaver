@@ -62,7 +62,7 @@ class BasePropertiesTest extends TestCase
 
         $id = $this->createMock(UuidInterface::class);
         $id->expects($this->exactly(2))->method('toString')->willReturn('edited uuid');
-        $item = new Location(
+        $location = new Location(
             $id,
             $this->createMock(Scene::class),
             'new location',
@@ -70,7 +70,7 @@ class BasePropertiesTest extends TestCase
             null,
             $this->createMock(User::class)
         );
-        $item->edit('edited location', '', new stdClass());
+        $location->edit('edited location', '', new stdClass());
     }
 
     public function testEmptyTitleOnEdit()
@@ -89,5 +89,21 @@ class BasePropertiesTest extends TestCase
             $this->createMock(User::class)
         );
         $location->edit('', null, null);
+    }
+
+    public function testProperCreation()
+    {
+        $scene = $this->createMock(Scene::class);
+        $scene->expects($this->once())->method('addLocation')->with($this->isInstanceOf(Location::class));
+
+        $location = new Location(
+            $this->createMock(UuidInterface::class),
+            $scene,
+            'Location properly created',
+            '',
+            null,
+            $this->createMock(User::class)
+        );
+        $this->assertContains($scene, $location->getScenes());
     }
 }
