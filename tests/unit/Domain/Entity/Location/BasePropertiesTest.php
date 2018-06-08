@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Tests\Entity;
+namespace Domain\Tests\Entity\Location;
 
 use Assert;
 use Domain\Entity\Location;
@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
 use stdClass;
 
-class LocationTest extends TestCase
+class BasePropertiesTest extends TestCase
 {
     public function testEmptyTitle()
     {

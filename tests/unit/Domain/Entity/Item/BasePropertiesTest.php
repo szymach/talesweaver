@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Tests\Entity;
+namespace Domain\Tests\Entity\Item;
 
 use Assert;
 use Domain\Entity\Item;
@@ -12,7 +12,7 @@ use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
 
-class ItemTest extends TestCase
+class BasePropertiesTest extends TestCase
 {
     public function testEmptyTitle()
     {
