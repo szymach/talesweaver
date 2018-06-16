@@ -107,7 +107,6 @@ class Book
         }
 
         $this->chapters->add($chapter);
-        $chapter->setBook($this);
 
         $this->update();
     }
@@ -115,7 +114,6 @@ class Book
     public function removeChapter(Chapter $chapter): void
     {
         $this->chapters->removeElement($chapter);
-        $chapter->setBook(null);
 
         $this->update();
     }

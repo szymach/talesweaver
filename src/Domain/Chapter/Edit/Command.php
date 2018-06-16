@@ -29,9 +29,14 @@ class Command implements MessageCommandInterface, UserAccessInterface
         $this->chapter = $chapter;
     }
 
-    public function perform(): void
+    public function getDto(): DTO
     {
-        $this->chapter->edit($this->dto->getTitle(), $this->dto->getBook());
+        return $this->dto;
+    }
+
+    public function getChapter(): Chapter
+    {
+        return $this->chapter;
     }
 
     public function isAllowed(User $user): bool
