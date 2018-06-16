@@ -13,12 +13,7 @@
         <field name="createdAt" type="datetime"/>
         <field name="updatedAt" type="datetime" nullable="true"/>
 
-        <one-to-many field="scenes" target-entity="Domain\Entity\Scene" mapped-by="chapter">
-            <cascade>
-                <cascade-persist/>
-            </cascade>
-        </one-to-many>
-
+        <one-to-many field="scenes" target-entity="Domain\Entity\Scene" mapped-by="chapter" />
         <one-to-many field="translations" target-entity="Domain\Entity\Translation\ChapterTranslation" mapped-by="chapter">
             <cascade>
                 <cascade-persist/>

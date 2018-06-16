@@ -14,13 +14,7 @@
         <field name="createdAt" type="datetime" />
         <field name="updatedAt" type="datetime" nullable="true"/>
 
-        <one-to-many field="chapters" target-entity="Domain\Entity\Chapter" mapped-by="book">
-            <cascade>
-                <cascade-persist/>
-                <cascade-remove/>
-            </cascade>
-        </one-to-many>
-
+        <one-to-many field="chapters" target-entity="Domain\Entity\Chapter" mapped-by="book" />
         <one-to-many field="translations" target-entity="Domain\Entity\Translation\BookTranslation" mapped-by="book">
             <cascade>
                 <cascade-persist/>

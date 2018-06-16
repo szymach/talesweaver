@@ -5,6 +5,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
 >
     <entity name="Domain\Entity\Translation\EventTranslation">
+
         <id name="id" type="integer">
             <generator strategy="IDENTITY"/>
         </id>
@@ -12,10 +13,12 @@
         <field name="locale" length="2">
             <fsi:translatable-locale />
         </field>
+
         <many-to-one field="event" target-entity="Domain\Entity\Event" inversed-by="translations">
             <join-columns>
                 <join-column on-delete="CASCADE"/>
             </join-columns>
         </many-to-one>
+
     </entity>
 </doctrine-mapping>
