@@ -124,7 +124,15 @@ class Scene
 
     public function getBook(): ?Book
     {
-        return null !== $this->chapter && $this->chapter->getBook() ? $this->chapter->getBook() : null;
+        return null !== $this->chapter && null !== $this->chapter->getBook()
+            ? $this->chapter->getBook()
+            : null
+        ;
+    }
+
+    public function getCharacters(): Collection
+    {
+        return $this->characters;
     }
 
     public function addCharacter(Character $character): void
@@ -133,7 +141,7 @@ class Scene
             return;
         }
 
-        $this->characters[] = $character;
+        $this->characters->add($character);
 
         $this->update();
     }
@@ -144,9 +152,9 @@ class Scene
         $this->update();
     }
 
-    public function getCharacters(): Collection
+    public function getLocations(): Collection
     {
-        return $this->characters;
+        return $this->locations;
     }
 
     public function addLocation(Location $location): void
@@ -155,7 +163,7 @@ class Scene
             return;
         }
 
-        $this->locations[] = $location;
+        $this->locations->add($location);
 
         $this->update();
     }
@@ -166,9 +174,9 @@ class Scene
         $this->update();
     }
 
-    public function getLocations(): Collection
+    public function getItems(): Collection
     {
-        return $this->locations;
+        return $this->items;
     }
 
     public function addItem(Item $item): void
@@ -177,7 +185,7 @@ class Scene
             return;
         }
 
-        $this->items[] = $item;
+        $this->items->add($item);
 
         $this->update();
     }
@@ -186,10 +194,5 @@ class Scene
     {
         $this->items->removeElement($item);
         $this->update();
-    }
-
-    public function getItems(): Collection
-    {
-        return $this->items;
     }
 }
