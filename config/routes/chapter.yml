@@ -32,5 +32,5 @@ chapter_display:
 
 chapter_pdf:
     path: /pdf/{id}
-    defaults: { _controller: App\Controller\PDFController:ChapterAction }
+    defaults: { _controller: App\Controller\Chapter\PdfController }
     methods:  GET

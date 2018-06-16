@@ -31,5 +31,5 @@ scene_display:
 
 scene_pdf:
     path: /pdf/{id}
-    defaults: { _controller: App\Controller\PDFController:sceneAction }
+    defaults: { _controller: App\Controller\Scene\PdfController }
     methods:  GET

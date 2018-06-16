@@ -6,4 +6,9 @@
             {{ 'display.label'|trans }}
         </a>
     </li>
+    <li>
+        <a href="{{ path('scene_pdf', { id: sceneId }) }}" target="_blank" title="{{ 'pdf.render'|trans }}">
+            <span class="fa fa-file-pdf-o"></span> {{ 'pdf.label'|trans }}
+        </a>
+    </li>
 {% endblock %}
