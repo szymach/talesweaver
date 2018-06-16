@@ -8,6 +8,10 @@ class CommandHandler
 {
     public function handle(Command $command): void
     {
-        $command->perform();
+        $scene = $command->getScene();
+        $character = $command->getCharacter();
+
+        $scene->removeCharacter($character);
+        $character->removeScene($scene);
     }
 }
