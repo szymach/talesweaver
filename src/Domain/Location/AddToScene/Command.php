@@ -30,9 +30,14 @@ class Command implements MessageCommandInterface, UserAccessInterface
         $this->location = $location;
     }
 
-    public function perform(): void
+    public function getScene(): Scene
     {
-        $this->scene->addLocation($this->location);
+        return $this->scene;
+    }
+
+    public function getLocation(): Location
+    {
+        return $this->location;
     }
 
     public function isAllowed(User $user): bool
