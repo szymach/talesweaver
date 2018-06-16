@@ -30,9 +30,14 @@ class Command implements MessageCommandInterface, UserAccessInterface
         $this->item = $item;
     }
 
-    public function perform(): void
+    public function getScene(): Scene
     {
-        $this->scene->addItem($this->item);
+        return $this->scene;
+    }
+
+    public function getItem(): Item
+    {
+        return $this->item;
     }
 
     public function isAllowed(User $user): bool
