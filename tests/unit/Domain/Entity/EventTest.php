@@ -14,19 +14,20 @@ use Ramsey\Uuid\UuidInterface;
 
 class EventTest extends TestCase
 {
-    public function testEmptyTitle()
+    public function testExceptionWhenEmptyTitleOnCreation()
     {
-        $user = $this->createMock(User::class);
-        $user->expects($this->once())->method('getId')->willReturn(1);
-        $sceneId = $this->createMock(UuidInterface::class);
-        $sceneId->expects($this->once())->method('toString')->willReturn('uuid id');
-        $scene = $this->createMock(Scene::class);
-        $scene->expects($this->once())->method('getId')->willReturn($sceneId);
-
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             'Cannot create an event without a name for author "1" and scene "uuid id"!'
         );
+
+        $user = $this->createMock(User::class);
+        $user->expects($this->once())->method('getId')->willReturn(1);
+
+        $sceneId = $this->createMock(UuidInterface::class);
+        $sceneId->expects($this->once())->method('toString')->willReturn('uuid id');
+        $scene = $this->createMock(Scene::class);
+        $scene->expects($this->once())->method('getId')->willReturn($sceneId);
 
         new Event(
             $this->createMock(UuidInterface::class),
@@ -37,7 +38,7 @@ class EventTest extends TestCase
         );
     }
 
-    public function testEmptyTitleOnEdit()
+    public function testExceptionWhenEmptyTitleOnEdit()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Tried to set an empty name on event with id "uuid id 2"!');

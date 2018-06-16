@@ -62,7 +62,7 @@ class Scene
     {
         Assertion::notBlank($title, sprintf(
             'Cannot create a scene without a title for author "%s"!',
-            (string) $author
+            $author->getUsername()
         ));
 
         $this->id = $id;
@@ -79,7 +79,7 @@ class Scene
 
     public function __toString()
     {
-        return (string) $this->title;
+        return $this->title ?? '';
     }
 
     /**
@@ -92,7 +92,7 @@ class Scene
     {
         Assertion::notBlank($title, sprintf(
             'Tried to set an empty title on scene with id "%s"!',
-            (string) $this->id
+            $this->id->toString()
         ));
 
         $this->title = $title;

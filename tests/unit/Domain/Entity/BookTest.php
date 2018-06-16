@@ -8,24 +8,27 @@ use Assert\InvalidArgumentException;
 use Domain\Entity\Book;
 use Domain\Entity\User;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class BookTest extends TestCase
 {
-    public function testEmptyTitle()
+    public function testExceptionWhenEmptyTitleOnCreation()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Cannot create a book without a title for author ""!');
+        $this->expectExceptionMessage('Cannot create a book without a title for author "book user"!');
 
-        new Book(Uuid::uuid4(), '', $this->createMock(User::class));
+        $user = $this->createMock(User::class);
+        $user->expects($this->once())->method('getUsername')->willReturn('book user');
+        new Book($this->createMock(UuidInterface::class), '', $user);
     }
 
-    public function testEmptyTitleOnEdit()
+    public function testExceptionWhenEmptyTitleOnEdit()
     {
-        $id = Uuid::uuid4();
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf('Tried to set an empty title on book with id "%s"!', $id));
+        $this->expectExceptionMessage('Tried to set an empty title on book with id "book id"!');
 
+        $id = $this->createMock(UuidInterface::class);
+        $id->expects($this->once())->method('toString')->willReturn('book id');
         $book = new Book($id, 'book', $this->createMock(User::class));
         $book->edit('', null);
     }

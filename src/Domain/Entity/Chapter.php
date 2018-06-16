@@ -113,13 +113,13 @@ class Chapter
     {
         Assertion::notBlank($title, sprintf(
             'Cannot create a chapter without a title for author "%s"!',
-            $author->getId()
+            $author->getUsername()
         ));
 
         if (null !== $book) {
             Assertion::eq(
-                $author,
-                $book->getCreatedBy(),
+                $author->getId(),
+                $book->getCreatedBy()->getId(),
                 sprintf(
                     'Chapter for user "%s" with title "%s" cannot be assigned to book "%s", whose author is "%s"',
                     $author->getId(),
@@ -135,7 +135,7 @@ class Chapter
     {
         Assertion::notBlank($title, sprintf(
             'Tried to set an empty title on chapter with id "%s"!',
-            (string) $this->id
+            $this->id->toString()
         ));
 
         if (null !== $book) {

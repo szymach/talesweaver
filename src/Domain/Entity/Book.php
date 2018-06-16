@@ -46,7 +46,7 @@ class Book
     {
         Assertion::notBlank($title, sprintf(
             'Cannot create a book without a title for author "%s"!',
-            (string) $author
+            $author->getUsername()
         ));
 
         $this->id = $id;
