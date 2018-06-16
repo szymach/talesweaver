@@ -29,9 +29,14 @@ class Command implements MessageCommandInterface, UserAccessInterface
         $this->scene = $scene;
     }
 
-    public function perform(): void
+    public function getDto(): DTO
     {
-        $this->scene->edit($this->dto->getTitle(), $this->dto->getText(), $this->dto->getChapter());
+        return $this->dto;
+    }
+
+    public function getScene(): Scene
+    {
+        return $this->scene;
     }
 
     public function isAllowed(User $user): bool

@@ -80,9 +80,9 @@ class Chapter
         return $this->title;
     }
 
-    public function getScenes(): Collection
+    public function getBook(): ?Book
     {
-        return $this->scenes;
+        return $this->book;
     }
 
     public function setBook(?Book $book): void
@@ -90,9 +90,23 @@ class Chapter
         $this->book = $book;
     }
 
-    public function getBook(): ?Book
+    public function getScenes(): Collection
     {
-        return $this->book;
+        return $this->scenes;
+    }
+
+    public function addScene(Scene $scene): void
+    {
+        if (true === $this->scenes->contains($scene)) {
+            return;
+        }
+
+        $this->scenes->add($scene);
+    }
+
+    public function removeScene(Scene $scene): void
+    {
+        $this->scenes->removeElement($scene);
     }
 
     private function assertCorrectConstructorData(string $title, User $author, ?Book $book): void

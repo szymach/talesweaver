@@ -21,13 +21,17 @@ class CommandHandler
 
     public function handle(Command $command): void
     {
-        $this->manager->persist(
-            new Scene(
-                $command->getId(),
-                $command->getData()->getTitle(),
-                $command->getData()->getChapter(),
-                $command->getUser()
-            )
+        $chapter = $command->getData()->getChapter();
+        $scene = new Scene(
+            $command->getId(),
+            $command->getData()->getTitle(),
+            $command->getData()->getChapter(),
+            $command->getUser()
         );
+        if (null !== $chapter) {
+            $chapter->addScene($scene);
+        }
+
+        $this->manager->persist($scene);
     }
 }
