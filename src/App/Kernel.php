@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Security\Request\SecuredInstanceParamConverter;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 
-class Kernel extends BaseKernel
+class Kernel extends BaseKernel implements CompilerPassInterface
 {
     use MicroKernelTrait;
 
@@ -34,6 +37,17 @@ class Kernel extends BaseKernel
                 yield new $class();
             }
         }
+    }
+
+    public function process(ContainerBuilder $container)
+    {
+        $definition = $container->findDefinition(SecuredInstanceParamConverter::class);
+        $taggedServices = $container->findTaggedServiceIds('app.param_converter.repository');
+
+        $repositoryServices = array_map(function ($id): Reference {
+            return new Reference($id);
+        }, array_keys($taggedServices));
+        $definition->replaceArgument(0, $repositoryServices);
     }
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader)

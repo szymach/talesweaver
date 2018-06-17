@@ -78,3 +78,7 @@ event:
     condition: "request.isXmlHttpRequest()"
     options:
         expose: true
+
+logout:
+    path: /logout
+    methods:  GET

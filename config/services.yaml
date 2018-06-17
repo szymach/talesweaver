@@ -34,18 +34,16 @@ services:
             $mailerFrom: "%mailer_from%"
 
     App\:
-        resource: "../src/App/{Form,Menu,Pagination,Routing,Timeline,Templating,Security,Validation}/*"
+        resource: "../src/App/{Form,JSON,Menu,Pagination,Routing,Templating,Timeline,Security,Validation}/*"
         exclude: "../src/App/Security/function/*"
 
-    # JSON
+    # Do not remove, because it is not explicitly used and is removed from the container
     App\JSON\EventParser:
         public: true
-        autowire: true
 
     # Menu
     app.menu.builder:
         class: App\Menu\Builder
-        autowire: true
 
     app.menu.main:
         class: Knp\Menu\MenuItem
@@ -58,33 +56,29 @@ services:
         class:     App\Bus\TransactionWrappedBus
         decorates: command_bus
         arguments: ['@transaction_wrapped_command_bus.inner']
-        public:    false
 
     user_aware_command_bus:
         class:     App\Bus\UserAwareBus
         decorates: transaction_wrapped_command_bus
         arguments: ['@user_aware_command_bus.inner']
-        public:    false
 
     user_access_command_bus:
         class:     App\Bus\UserAccessBus
         decorates: user_aware_command_bus
         arguments: ['@user_access_command_bus.inner']
-        public:    false
 
     messages_aware_bus:
         class:     App\Bus\MessagesAwareBus
         decorates: user_access_command_bus
         arguments: ['@messages_aware_bus.inner']
-        public:    false
 
     # Security
     app.security.login_form_authenticator:
         class: App\Security\LoginFormAuthenticator
-        autowire: true
 
     App\Security\Request\SecuredInstanceParamConverter:
-        # replaced by repositories implementing FindableByIdRepository interface
         arguments: [[]]
+        autowire: false
+        autoconfigure: false
         tags:
             - { name: request.param_converter, priority: 10 }

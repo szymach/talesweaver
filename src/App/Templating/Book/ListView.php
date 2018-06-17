@@ -26,7 +26,7 @@ class ListView
         $this->pagination = $pagination;
     }
 
-    public function createView($page): Response
+    public function createView(int $page): Response
     {
         return $this->templating->renderResponse(
             'book/list.html.twig',

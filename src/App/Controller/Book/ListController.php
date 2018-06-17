@@ -18,7 +18,7 @@ class ListController
         $this->templating = $templating;
     }
 
-    public function __invoke($page)
+    public function __invoke(int $page)
     {
         return $this->templating->createView($page);
     }
