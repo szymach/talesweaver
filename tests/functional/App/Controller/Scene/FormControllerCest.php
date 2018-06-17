@@ -41,13 +41,11 @@ class FormControllerCest
             'translations' => ['title' => self::TITLE_PL]
         ]);
         $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $scene->getId()));
-        $I->canSeeAlert(sprintf(
-            'Pomyślnie dodano nową scenę o tytule "%s"',
-            self::TITLE_PL
-        ));
+        $I->canSeeAlert(sprintf('Pomyślnie dodano nową scenę o tytule "%s"', self::TITLE_PL));
         $I->seeElement(self::EDIT_FORM);
         $I->seeInTitle(self::TITLE_PL);
         $I->see('Podgląd', 'a');
+        $I->see('PDF', 'a');
         $I->see('Wróć do listy', 'a');
         $I->seeElement('nav.side-menu');
         $I->see('Postacie', 'span');
