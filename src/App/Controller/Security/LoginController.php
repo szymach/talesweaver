@@ -31,7 +31,10 @@ class LoginController
     {
         return $this->templating->renderResponse(
             'security/login.html.twig',
-            ['error' => $this->authenticationUtilities->getLastAuthenticationError()]
+            [
+                'error' => $this->authenticationUtilities->getLastAuthenticationError(),
+                'lastUsername' => $this->authenticationUtilities->getLastUsername()
+            ]
         );
     }
 }

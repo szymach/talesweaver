@@ -14,17 +14,20 @@ security:
         main:
             pattern: ^/
             anonymous: ~
-            logout_on_user_change: true
+            provider: database_users
             guard:
                 authenticators: [app.security.login_form_authenticator]
+            form_login:
+                check_path: login_check
+                login_path: login
             logout:
-                path:   /logout
-                target: /
+                path:   logout
+                target: login
 
     access_control:
         - { path: ^/(pl|en)/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/(pl|en)/registration, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/(pl|en)/activate, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/(pl|en)/reset-password/request, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/(pl|en)/reset-password/change/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(pl|en)/reset-password/change, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: ROLE_USER }

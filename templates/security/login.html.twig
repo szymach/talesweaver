@@ -5,8 +5,10 @@
 
 {% block body %}
     {% if error %}
-        <div class="alert alert-danger alert-form text-center" role="alert">
-            {{ error }}
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-md-offset-3">
+                <div class="alert alert-danger alert-form text-center" role="alert">{{ error }}</div>
+            </div>
         </div>
     {% endif %}
     <div class="row">
@@ -20,23 +22,33 @@
                                name="_username"
                                class="form-control"
                                placeholder="{{ 'security.login.username.placeholder'|trans }}"
-                               autofocus="autofocus"
+                               {% if lastUsername is empty %}autofocus="autofocus"{% endif %}
+                               value="{{ lastUsername }}"
                         />
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="password" class="col-sm-2 control-label">{{ 'security.login.password.label'|trans }}</label>
                     <div class="col-sm-10">
-                        <input id="password" type="password" name="_password" class="form-control" placeholder="{{ 'security.login.password.placeholder'|trans }}">
+                        <input id="password"
+                               type="password"
+                               name="_password"
+                               class="form-control"
+                               placeholder="{{ 'security.login.password.placeholder'|trans }}"
+                               {% if lastUsername is not empty %}autofocus="autofocus"{% endif %}
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-xs-12 text-right">
-                        <button class="btn btn-success">{{ 'security.login.submit'|trans }}</button>
-                        <a class="btn btn-default" href="{{ path('password_reset_request') }}">{{ 'security.login.password_reset'|trans }}</a>
-                        <a class="btn btn-default" href="{{ path('register') }}">{{ 'security.login.register'|trans }}</a>
+                        <button class="btn btn-sm btn-success">{{ 'security.login.submit'|trans }}</button>
+                        <a class="btn btn-sm btn-default" href="{{ path('password_reset_request') }}">{{ 'security.login.password_reset'|trans }}</a>
+                        <a class="btn btn-sm btn-default" href="{{ path('register') }}">{{ 'security.login.register'|trans }}</a>
                     </div>
                 </div>
+                {% if app.environment != 'test' %}
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+                {% endif %}
             </form>
         </div>
     </div>

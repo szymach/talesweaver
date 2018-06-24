@@ -10,6 +10,8 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
+        bind:
+            $environment: '%kernel.environment%'
 
     Knp\Menu\FactoryInterface: "@knp_menu.factory"
     Knp\Snappy\GeneratorInterface: "@knp_snappy.pdf"
