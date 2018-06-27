@@ -1,13 +1,13 @@
-import * as ajaxContainer from './ajax-container';
-import * as alerts from './alerts';
-import * as lists from './lists';
-import * as display from './display';
+import {displayAjaxContainerWithContent, getAjaxContainer, clearAjaxContainer} from './ajax-container';
+import {displayAlerts} from './alerts';
+import {closeSublists, closeMobileSublists} from './lists';
+import {closeAllModals} from './display';
 
 $('main, .modal').on('click', '.js-load-form', function (event : JQuery.Event): void {
     event.preventDefault();
     event.stopPropagation();
 
-    display.closeAllModals();
+    closeAllModals();
     getForm($(event.currentTarget).data('form-url'));
     $('html, body').animate({
         scrollTop: $("#clear-ajax").offset().top
@@ -16,14 +16,14 @@ $('main, .modal').on('click', '.js-load-form', function (event : JQuery.Event): 
 
 export function getForm(url : string): void
 {
-    lists.closeSublists();
-    lists.closeMobileSublists();
+    closeSublists();
+    closeMobileSublists();
     $.ajax({
         method: "GET",
         url: url,
         dataType: "json",
         success: function(response : any) {
-            ajaxContainer.displayAjaxContainerWithContent(response.form);
+            displayAjaxContainerWithContent(response.form);
             bindAjaxForm();
             triggerAutofocus();
         }
@@ -32,7 +32,7 @@ export function getForm(url : string): void
 
 function bindAjaxForm(): void
 {
-    const $container = ajaxContainer.getAjaxContainer();
+    const $container = getAjaxContainer();
     $container.off('submit');
     $container.on('submit', '.js-form', function (event : JQuery.Event) {
         event.preventDefault();
@@ -57,23 +57,23 @@ function submitForm($form : any): void
         contentType: false,
         data: new FormData($form[0]),
         success: function() {
-            ajaxContainer.clearAjaxContainer();
-            alerts.displayAlerts();
+            clearAjaxContainer();
+            displayAlerts();
         },
         error: function(xhr : any) {
-            ajaxContainer.clearAjaxContainer();
+            clearAjaxContainer();
             const response : any = JSON.parse(xhr.responseText);
             if (typeof response.form !== 'undefined') {
-                ajaxContainer.displayAjaxContainerWithContent(response.form);
+                displayAjaxContainerWithContent(response.form);
             }
-            alerts.displayAlerts();
+            displayAlerts();
         }
     });
 }
 
 function triggerAutofocus(): void
 {
-    const input : JQuery<HTMLElement> = ajaxContainer.getAjaxContainer().find('[autofocus="autofocus"]').first();
+    const input : JQuery<HTMLElement> = getAjaxContainer().find('[autofocus="autofocus"]').first();
     if (typeof input === 'undefined') {
         return;
     }

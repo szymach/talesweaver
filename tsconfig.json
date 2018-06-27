@@ -4,7 +4,6 @@
         "noImplicitAny": true,
         "module": "commonjs",
         "target": "es8",
-        "allowJs": true,
         "lib" : ["es2015", "es2015.iterable", "dom"]
     },
     "include": [

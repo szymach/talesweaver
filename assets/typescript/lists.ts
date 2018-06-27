@@ -1,4 +1,4 @@
-import * as ajaxContainer from './ajax-container';
+import {displayAjaxContainerWithContent, getAjaxContainer, clearAjaxContainer} from './ajax-container';
 import {displayAlerts} from './alerts';
 
 export function refreshList($listTable : JQuery<HTMLElement>) : void
@@ -53,7 +53,7 @@ $('main').on('click', '.js-list-toggle', function (event : JQuery.Event) : void 
         return;
     }
 
-    ajaxContainer.clearAjaxContainer();
+    clearAjaxContainer();
     closeSublists();
     $.ajax({
         method: "GET",
@@ -76,7 +76,7 @@ $('main').on('click', '.js-delete', function (event : JQuery.Event) : void {
     $('#modal-confirm').off('click').on('click', function() {
         $('#modal-delete').modal('hide');
         if ($this.hasClass('js-list-delete')) {
-            ajaxContainer.clearAjaxContainer();
+            clearAjaxContainer();
             $.ajax({
                 method: "GET",
                 url: $this.data('delete-url'),
@@ -106,8 +106,8 @@ $('main').on('click', '.js-load-sublist', function (event : JQuery.Event) : void
         url: $(event.currentTarget).data('list-url'),
         dataType: "json",
         success: function(response : any) : void {
-            ajaxContainer.clearAjaxContainer();
-            ajaxContainer.displayAjaxContainerWithContent(response.list);
+            clearAjaxContainer();
+            displayAjaxContainerWithContent(response.list);
         }
     });
 });
@@ -122,7 +122,7 @@ $('main').on('click', '.js-ajax-pagination+.pagination a', function (event : JQu
         url: $this.attr('href'),
         dataType: "json",
         success: function(response : any) {
-            ajaxContainer.clearAjaxContainer();
+            clearAjaxContainer();
             $this.parents('.js-list-container').html(response.list);
         }
     });
@@ -139,7 +139,7 @@ $('main').on('click', '.js-list-action', function (event : JQuery.Event) : void 
         url: $this.data('action-url'),
         dataType: "json",
         success: function() : void {
-            ajaxContainer.clearAjaxContainer();
+            clearAjaxContainer();
             refreshList($($this.data('list-id')));
             displayAlerts();
         }

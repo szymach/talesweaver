@@ -29,54 +29,41 @@ module.exports = {
         }
     },
     plugins: [
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery'
-        }),
+        new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }),
         new ExtractTextPlugin({ filename: '[name].css', allChunks: true }),
         new OptimizeCssAssetsPlugin(),
         new CKEditorWebpackPlugin({ language: 'pl' }),
-        new ClearWebpackPlugin([path.resolve(__dirname, 'public/assets')], {
-            verbose: true
-        }),
-        new UglifyJsPlugin({
-            uglifyOptions: {
-                mangle: false,
-                warnings: false,
-                ecma: 6
-            }
-        })
+        new ClearWebpackPlugin([path.resolve(__dirname, 'public/assets')], { verbose: true }),
+        new UglifyJsPlugin({ uglifyOptions: { mangle: false, warnings: false, ecma: 6, sourceMap: true }})
     ],
     module: {
         rules: [
             { test: /\.ts$/, loader: "awesome-typescript-loader" },
-            { test: /\.scss$/, use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'postcss-loader', 'sass-loader'] }) },
-            { test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, use: ["url-loader"] },
-            { test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
-                exclude: [
-                    path.resolve(__dirname, "node_modules/@ckeditor")
-                ],
-                use: ['file-loader']
+            {
+                test: /\.scss$/,
+                use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'postcss-loader', 'sass-loader'] })
             },
-            { test: /bootstrap-sass\/assets\/javascripts\//, use: [ 'imports-loader?jQuery=jquery'] },
+            {
+                test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                use: [{ loader: 'file-loader', query: { publicPath: '/assets/' } }]
+            },
+            {
+                test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+                exclude: [path.resolve(__dirname, "node_modules/@ckeditor")],
+                use: [ 'file-loader' ]
+            },
+            { test: /bootstrap-sass\/assets\/javascripts\// },
             { test: /ckeditor5-[^/]+\/theme\/icons\/[^/]+\.svg$/, use: [ 'raw-loader' ] },
             {
                 test: /ckeditor5-[^/]+\/theme\/[\w-/]+\.css$/,
                 use: [
-                    {
-                        loader: 'style-loader',
-                        options: {
-                            singleton: true
-                        }
-                    },
+                    { loader: 'style-loader', options: { singleton: true } },
                     {
                         loader: 'postcss-loader',
-                        options: styles.getPostCssConfig( {
-                            themeImporter: {
-                                themePath: require.resolve('@ckeditor/ckeditor5-theme-lark')
-                            },
+                        options: styles.getPostCssConfig({
+                            themeImporter: { themePath: require.resolve('@ckeditor/ckeditor5-theme-lark') },
                             minify: true
-                        } )
+                        })
                     }
                 ]
             }
