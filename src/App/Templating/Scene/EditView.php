@@ -4,15 +4,20 @@ declare(strict_types=1);
 
 namespace App\Templating\Scene;
 
-use Domain\Entity\Scene;
 use App\Enum\SceneEvents;
+use App\Form\Scene\CreateType;
 use App\Pagination\Chapter\ScenePaginator;
 use App\Pagination\Character\CharacterPaginator;
 use App\Pagination\EventPaginator;
 use App\Pagination\Item\ItemPaginator;
 use App\Pagination\Location\LocationPaginator;
 use App\Templating\Engine;
+use Domain\Entity\Chapter;
+use Domain\Entity\Scene;
+use Domain\Scene\Create\DTO;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,13 +54,19 @@ class EditView
      */
     private $eventPaginator;
 
+    /**
+     * @var FormFactoryInterface
+     */
+    private $formFactory;
+
     public function __construct(
         Engine $templating,
         CharacterPaginator $characterPaginator,
         ItemPaginator $itemPaginator,
         LocationPaginator $locationPaginator,
         ScenePaginator $scenePaginator,
-        EventPaginator $eventPaginator
+        EventPaginator $eventPaginator,
+        FormFactoryInterface $formFactory
     ) {
         $this->templating = $templating;
         $this->characterPaginator = $characterPaginator;
@@ -63,12 +74,13 @@ class EditView
         $this->locationPaginator = $locationPaginator;
         $this->scenePaginator = $scenePaginator;
         $this->eventPaginator = $eventPaginator;
+        $this->formFactory = $formFactory;
     }
 
     public function createView(Request $request, FormInterface $form, Scene $scene): Response
     {
-        $status = !$form->isSubmitted() || $form->isValid() ? 200 : 403;
-        if ($request->isXmlHttpRequest()) {
+        $status = false === $form->isSubmitted() || true === $form->isValid() ? 200 : 403;
+        if (true === $request->isXmlHttpRequest()) {
             return new JsonResponse([
                 'form' => $this->templating->render(
                     'scene/form/editForm.html.twig',
@@ -87,11 +99,13 @@ class EditView
             'events' => $this->eventPaginator->getResults($scene, 1),
             'eventModels' => SceneEvents::getAllEvents()
         ];
-        if ($scene->getChapter()) {
+
+        if (null !== $scene->getChapter()) {
             $chapter = $scene->getChapter();
             $parameters['chapterTitle'] = $chapter->getTitle();
             $parameters['chapterId'] = $chapter->getId();
             $parameters['relatedScenes'] = $this->scenePaginator->getResults($chapter, 1);
+            $parameters['nextSceneForm'] = $this->createNextSceneForm($chapter);
         } else {
             $parameters['chapterTitle'] = null;
             $parameters['chapterId'] = null;
@@ -102,5 +116,10 @@ class EditView
             $this->templating->render('scene/editForm.html.twig', $parameters),
             $status
         );
+    }
+
+    private function createNextSceneForm(Chapter $chapter): FormView
+    {
+        return $this->formFactory->create(CreateType::class, new DTO($chapter))->createView();
     }
 }

@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\Controller\Scene;
 
 use App\Tests\FunctionalTester;
+use Domain\Entity\Chapter;
 use Domain\Entity\Scene;
+use Ramsey\Uuid\Uuid;
 
 class FormControllerCest
 {
@@ -14,6 +16,7 @@ class FormControllerCest
 
     private const CREATE_FORM = 'form[name="create"]';
     private const EDIT_FORM = 'form[name="edit"]';
+    private const NEXT_FORM = 'nav form[name="create"]';
 
     private const TITLE_PL = 'Tytuł nowej sceny';
     private const CONTENT_PL = 'Treść nowej sceny';
@@ -60,5 +63,25 @@ class FormControllerCest
         $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $scene->getId()));
         $I->seeInTitle(self::NEW_TITLE_PL);
         $I->canSeeAlert('Zapisano zmiany w scenie.');
+    }
+
+    public function nextSceneForm(FunctionalTester $I)
+    {
+        $user = $I->getUser();
+        $chapter = new Chapter(Uuid::uuid4(), 'Rozdział', null, $user);
+        $I->persistEntity($chapter);
+        $id = Uuid::uuid4();
+        $I->persistEntity(new Scene($id, self::TITLE_PL, $chapter, $user));
+
+        $I->cantSeeInRepository(Scene::class, ['translations' => ['title' => self::NEW_TITLE_PL]]);
+        $I->loginAsUser();
+        $I->amOnPage(sprintf(self::EDIT_URL, $id->toString()));
+        $I->seeElement(self::NEXT_FORM);
+        $I->seeElement(self::EDIT_FORM);
+        $I->submitForm(self::NEXT_FORM, ['create[title]' => self::NEW_TITLE_PL]);
+        $I->seeCurrentUrlMatches(
+            '/\/pl\/scene\/edit\/[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/'
+        );
+        $I->canSeeInRepository(Scene::class, ['translations' => ['title' => self::NEW_TITLE_PL]]);
     }
 }

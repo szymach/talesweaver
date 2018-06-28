@@ -187,6 +187,7 @@ scene:
         title:
             chapter: Podaj tytuł sceny
             standalone: Podaj tytuł sceny i zapisz, by wprowadzać treść
+            next: Następna scena
         chapter: 'Przypisz do rozdziału'
     chapter: Rozdział
     book: Książka

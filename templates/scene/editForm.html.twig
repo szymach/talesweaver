@@ -23,7 +23,11 @@
     {% embed 'partial/sideMenu.html.twig'%}
         {% block listContent %}
             {% if chapterTitle is not null and relatedScenes|length > 0 %}
-                {% include 'scene/related/listHeader.html.twig' with { chapterTitle: chapterTitle, chapterId: chapterId } only %}
+                {% include 'scene/related/listHeader.html.twig' with {
+                    chapterTitle: chapterTitle,
+                    chapterId: chapterId,
+                    form: nextSceneForm
+                } only %}
             {% endif %}
             {% include 'scene/characters/listHeader.html.twig' with { sceneId: sceneId, chapterId: chapterId } only %}
             {% include 'scene/items/listHeader.html.twig' with { sceneId: sceneId, chapterId: chapterId } only %}
