@@ -6,7 +6,7 @@ namespace App\Controller\Security;
 
 use App\Form\Security\ResetPasswordChangeType;
 use App\Repository\PasswordResetTokenRepository;
-use App\Templating\Engine;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Domain\Entity\User\PasswordResetToken;
 use Domain\Security\Command\ResetPassword;
 use SimpleBus\Message\Bus\MessageBus;
@@ -19,7 +19,7 @@ use Symfony\Component\Routing\RouterInterface;
 class ResetPasswordChangeController
 {
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
@@ -44,7 +44,7 @@ class ResetPasswordChangeController
     private $router;
 
     public function __construct(
-        Engine $templating,
+        EngineInterface $templating,
         PasswordResetTokenRepository $resetPasswordTokenRepository,
         FormFactoryInterface $formFactory,
         MessageBus $commandBus,

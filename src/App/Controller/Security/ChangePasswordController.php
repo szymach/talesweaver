@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Security;
 
 use App\Form\Security\ChangePasswordType;
-use App\Templating\Engine;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Domain\Entity\User;
 use Domain\Security\Command\ChangePassword;
 use SimpleBus\Message\Bus\MessageBus;
@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class ChangePasswordController
 {
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
@@ -43,7 +43,7 @@ class ChangePasswordController
     private $router;
 
     public function __construct(
-        Engine $templating,
+        EngineInterface $templating,
         FormFactoryInterface $formFactory,
         TokenStorageInterface $tokenStorage,
         MessageBus $commandBus,

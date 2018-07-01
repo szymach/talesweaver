@@ -6,13 +6,13 @@ namespace App\Templating\Character;
 
 use Domain\Entity\Scene;
 use App\Pagination\Character\CharacterPaginator;
-use App\Templating\Engine;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ListView
 {
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
@@ -21,7 +21,7 @@ class ListView
      */
     private $pagination;
 
-    public function __construct(Engine $templating, CharacterPaginator $pagination)
+    public function __construct(EngineInterface $templating, CharacterPaginator $pagination)
     {
         $this->templating = $templating;
         $this->pagination = $pagination;

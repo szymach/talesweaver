@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace App\Templating\Event;
 
 use App\Enum\SceneEvents;
-use App\Templating\Engine;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Domain\Entity\Scene;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class OptionsListView
 {
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
-    public function __construct(Engine $templating)
+    public function __construct(EngineInterface $templating)
     {
         $this->templating = $templating;
     }

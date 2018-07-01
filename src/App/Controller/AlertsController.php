@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Templating\Engine;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AlertsController
 {
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
-    public function __construct(Engine $templating)
+    public function __construct(EngineInterface $templating)
     {
         $this->templating = $templating;
     }

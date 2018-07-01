@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Mail;
 
-use App\Templating\Engine;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Domain\Entity\User;
 use Swift_Mailer;
 use Swift_Message;
@@ -18,7 +18,7 @@ class AbstractUserMailer
     private $mailer;
 
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
@@ -34,7 +34,7 @@ class AbstractUserMailer
 
     public function __construct(
         Swift_Mailer $mailer,
-        Engine $templating,
+        EngineInterface $templating,
         TranslatorInterface $translator,
         string $mailerFrom
     ) {

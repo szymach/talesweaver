@@ -6,7 +6,7 @@ namespace App\Templating\Chapter;
 
 use App\Form\Scene\CreateType;
 use App\Pagination\Chapter\ScenePaginator;
-use App\Templating\Engine;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Domain\Entity\Chapter;
 use Domain\Scene\Create\DTO;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -18,7 +18,7 @@ use Symfony\Component\Routing\RouterInterface;
 class ScenesListView
 {
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
@@ -38,7 +38,7 @@ class ScenesListView
     private $router;
 
     public function __construct(
-        Engine $templating,
+        EngineInterface $templating,
         ScenePaginator $pagination,
         FormFactoryInterface $formFactory,
         RouterInterface $router

@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace App\Templating;
 
-use Domain\Entity\Book;
-use Domain\Entity\Chapter;
-use Domain\Entity\Scene;
 use App\Repository\BookRepository;
 use App\Repository\ChapterRepository;
 use App\Repository\Interfaces\LatestChangesAwareRepository;
 use App\Repository\SceneRepository;
-use App\Templating\Engine;
 use DateTimeImmutable;
+use Domain\Entity\Book;
+use Domain\Entity\Chapter;
+use Domain\Entity\Scene;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 class DashboardView
 {
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
@@ -50,7 +50,7 @@ class DashboardView
     ];
 
     public function __construct(
-        Engine $templating,
+        EngineInterface $templating,
         BookRepository $bookRepository,
         ChapterRepository $chapterRepository,
         SceneRepository $sceneRepository

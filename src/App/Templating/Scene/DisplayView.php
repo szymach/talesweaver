@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace App\Templating\Scene;
 
 use Domain\Entity\Scene;
-use App\Templating\Engine;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 class DisplayView
 {
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
-    public function __construct(Engine $templating)
+    public function __construct(EngineInterface $templating)
     {
         $this->templating = $templating;
     }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Templating;
 
 use Knp\Snappy\GeneratorInterface;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 class PdfView
@@ -22,11 +23,11 @@ class PdfView
     private $pdfGenerator;
 
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
-    public function __construct(Engine $templating, GeneratorInterface $pdfGenerator)
+    public function __construct(EngineInterface $templating, GeneratorInterface $pdfGenerator)
     {
         $this->templating = $templating;
         $this->pdfGenerator = $pdfGenerator;

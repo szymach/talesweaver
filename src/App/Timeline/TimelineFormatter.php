@@ -6,7 +6,7 @@ namespace App\Timeline;
 
 use App\Repository\EventRepository;
 use App\Repository\SceneRepository;
-use App\Templating\Engine;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Domain\Entity\Event;
 use Domain\Event\Meeting;
 use Ramsey\Uuid\UuidInterface;
@@ -25,7 +25,7 @@ abstract class TimelineFormatter
     private $eventRepository;
 
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
@@ -39,7 +39,7 @@ abstract class TimelineFormatter
     public function __construct(
         SceneRepository $sceneRepository,
         EventRepository $eventRepository,
-        Engine $templating
+        EngineInterface $templating
     ) {
         $this->sceneRepository = $sceneRepository;
         $this->eventRepository = $eventRepository;

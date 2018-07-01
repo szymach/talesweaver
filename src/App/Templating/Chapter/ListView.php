@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Templating\Chapter;
 
 use App\Pagination\Chapter\ChapterPaginator;
-use App\Templating\Engine;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 class ListView
 {
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
@@ -20,7 +20,7 @@ class ListView
      */
     private $pagination;
 
-    public function __construct(Engine $templating, ChapterPaginator $pagination)
+    public function __construct(EngineInterface $templating, ChapterPaginator $pagination)
     {
         $this->templating = $templating;
         $this->pagination = $pagination;

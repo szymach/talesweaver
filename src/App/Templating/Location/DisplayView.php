@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace App\Templating\Location;
 
 use Domain\Entity\Location;
-use App\Templating\Engine;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use App\Timeline\LocationTimeline;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DisplayView
 {
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
@@ -22,7 +22,7 @@ class DisplayView
     private $timeline;
 
     public function __construct(
-        Engine $templating,
+        EngineInterface $templating,
         LocationTimeline $timeline
     ) {
         $this->templating = $templating;

@@ -6,14 +6,14 @@ namespace App\Templating\Event;
 
 use App\Enum\SceneEvents;
 use App\Pagination\EventPaginator;
-use App\Templating\Engine;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Domain\Entity\Scene;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ListView
 {
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
@@ -22,7 +22,7 @@ class ListView
      */
     private $pagination;
 
-    public function __construct(Engine $templating, EventPaginator $pagination)
+    public function __construct(EngineInterface $templating, EventPaginator $pagination)
     {
         $this->templating = $templating;
         $this->pagination = $pagination;

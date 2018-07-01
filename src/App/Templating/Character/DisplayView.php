@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Templating\Character;
 
-use App\Templating\Engine;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use App\Timeline\CharacterTimeline;
 use Domain\Entity\Character;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class DisplayView
 {
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
@@ -22,7 +22,7 @@ class DisplayView
     private $timeline;
 
     public function __construct(
-        Engine $templating,
+        EngineInterface $templating,
         CharacterTimeline $timeline
     ) {
         $this->templating = $templating;

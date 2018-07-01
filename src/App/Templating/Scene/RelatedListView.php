@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace App\Templating\Scene;
 
 use App\Pagination\Chapter\ScenePaginator;
-use App\Templating\Engine;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Domain\Entity\Chapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class RelatedListView
 {
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
@@ -21,7 +21,7 @@ class RelatedListView
      */
     private $pagination;
 
-    public function __construct(Engine $templating, ScenePaginator $pagination)
+    public function __construct(EngineInterface $templating, ScenePaginator $pagination)
     {
         $this->templating = $templating;
         $this->pagination = $pagination;

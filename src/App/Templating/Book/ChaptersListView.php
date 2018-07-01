@@ -7,7 +7,7 @@ namespace App\Templating\Book;
 use Domain\Entity\Book;
 use App\Form\Chapter\CreateType;
 use App\Pagination\Book\ChapterPaginator;
-use App\Templating\Engine;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Domain\Chapter\Create\DTO;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -17,7 +17,7 @@ use Symfony\Component\Routing\RouterInterface;
 class ChaptersListView
 {
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
@@ -37,7 +37,7 @@ class ChaptersListView
     private $router;
 
     public function __construct(
-        Engine $templating,
+        EngineInterface $templating,
         ChapterPaginator $pagination,
         FormFactoryInterface $formFactory,
         RouterInterface $router

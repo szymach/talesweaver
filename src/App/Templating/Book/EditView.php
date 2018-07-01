@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Templating\Book;
 
 use App\Form\Chapter\CreateType;
-use App\Templating\Engine;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Domain\Chapter\Create\DTO;
 use Domain\Entity\Book;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -16,7 +16,7 @@ use Symfony\Component\Routing\RouterInterface;
 class EditView
 {
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
@@ -31,7 +31,7 @@ class EditView
     private $router;
 
     public function __construct(
-        Engine $templating,
+        EngineInterface $templating,
         FormFactoryInterface $formFactory,
         RouterInterface $router
     ) {

@@ -6,13 +6,13 @@ namespace App\Templating\Item;
 
 use Domain\Entity\Item;
 use App\Timeline\ItemTimeline;
-use App\Templating\Engine;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DisplayView
 {
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
@@ -22,7 +22,7 @@ class DisplayView
     private $timeline;
 
     public function __construct(
-        Engine $templating,
+        EngineInterface $templating,
         ItemTimeline $timeline
     ) {
         $this->templating = $templating;

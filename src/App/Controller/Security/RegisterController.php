@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Security;
 
 use App\Form\Security\RegisterType;
-use App\Templating\Engine;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Domain\Security\Command\CreateUser;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -16,7 +16,7 @@ use Symfony\Component\Routing\RouterInterface;
 class RegisterController
 {
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
@@ -36,7 +36,7 @@ class RegisterController
     private $router;
 
     public function __construct(
-        Engine $templating,
+        EngineInterface $templating,
         FormFactoryInterface $formFactory,
         MessageBus $commandBus,
         RouterInterface $router

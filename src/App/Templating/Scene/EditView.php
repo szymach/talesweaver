@@ -11,7 +11,7 @@ use App\Pagination\Character\CharacterPaginator;
 use App\Pagination\EventPaginator;
 use App\Pagination\Item\ItemPaginator;
 use App\Pagination\Location\LocationPaginator;
-use App\Templating\Engine;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Domain\Entity\Chapter;
 use Domain\Entity\Scene;
 use Domain\Scene\Create\DTO;
@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\Response;
 class EditView
 {
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
@@ -60,7 +60,7 @@ class EditView
     private $formFactory;
 
     public function __construct(
-        Engine $templating,
+        EngineInterface $templating,
         CharacterPaginator $characterPaginator,
         ItemPaginator $itemPaginator,
         LocationPaginator $locationPaginator,

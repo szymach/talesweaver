@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Controller\Security;
 
-use App\Templating\Engine;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController
 {
     /**
-     * @var Engine
+     * @var EngineInterface
      */
     private $templating;
 
@@ -20,7 +20,7 @@ class LoginController
     private $authenticationUtilities;
 
     public function __construct(
-        Engine $templating,
+        EngineInterface $templating,
         AuthenticationUtils $authenticationUtilities
     ) {
         $this->templating = $templating;
