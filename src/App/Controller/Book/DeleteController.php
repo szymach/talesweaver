@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Book;
 
-use Domain\Entity\Book;
 use App\Routing\RedirectToList;
 use Domain\Book\Delete\Command;
+use Domain\Entity\Book;
 use SimpleBus\Message\Bus\MessageBus;
 
 class DeleteController

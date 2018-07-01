@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Scene;
 
-use Domain\Entity\Scene;
 use App\Routing\RedirectToEdit;
 use App\Routing\RedirectToList;
+use Domain\Entity\Scene;
 use Domain\Scene\Delete\Command;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;

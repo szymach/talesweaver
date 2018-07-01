@@ -55,7 +55,7 @@ class ChaptersListView
                 'book/chapters/list.html.twig',
                 [
                     'bookId' => $book->getId(),
-                    'chapters' => $this->pagination->getResults($book, $page),
+                    'chapters' => $this->pagination->getResults($book, $page, 3),
                     'chapterForm' => $this->createChapterForm($book)->createView(),
                     'page' => $page
                 ]

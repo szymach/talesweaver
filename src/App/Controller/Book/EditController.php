@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller\Book;
 
-use Domain\Entity\Book;
 use App\Form\Book\EditType;
 use App\Routing\RedirectToEdit;
 use App\Templating\Book\EditView;
 use Domain\Book\Edit\Command;
 use Domain\Book\Edit\DTO;
+use Domain\Entity\Book;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;

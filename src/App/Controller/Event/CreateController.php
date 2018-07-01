@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller\Event;
 
-use Domain\Entity\Scene;
 use App\Enum\SceneEvents;
 use App\Form\Event\CreateType;
 use App\Templating\Event\FormView;
+use Domain\Entity\Scene;
 use Domain\Event\Create\Command;
 use Domain\Event\Create\DTO;
 use Ramsey\Uuid\Uuid;

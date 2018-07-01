@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Item;
 
-use Domain\Entity\Item;
 use App\Form\Item\EditType;
 use App\Templating\Item\FormView;
+use Domain\Entity\Item;
 use Domain\Item\Edit\Command;
 use Domain\Item\Edit\DTO;
 use SimpleBus\Message\Bus\MessageBus;

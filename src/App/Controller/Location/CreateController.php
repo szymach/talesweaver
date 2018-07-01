@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Location;
 
-use Domain\Entity\Scene;
 use App\Form\Location\CreateType;
 use App\Templating\Location\FormView;
+use Domain\Entity\Scene;
 use Domain\Location\Create\Command;
 use Domain\Location\Create\DTO;
 use Ramsey\Uuid\Uuid;

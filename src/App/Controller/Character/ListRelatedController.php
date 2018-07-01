@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Character;
 
-use Domain\Entity\Scene;
 use App\Templating\Character\RelatedListView;
+use Domain\Entity\Scene;
 
 class ListRelatedController
 {

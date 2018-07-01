@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller\Event;
 
-use Domain\Entity\Event;
 use App\Enum\SceneEvents;
 use App\Form\Event\EditType;
 use App\Templating\Event\FormView;
+use Domain\Entity\Event;
 use Domain\Event\Edit\Command;
 use Domain\Event\Edit\DTO;
 use SimpleBus\Message\Bus\MessageBus;

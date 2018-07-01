@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller\Chapter;
 
-use Domain\Entity\Chapter;
 use App\Form\Chapter\EditType;
 use App\Routing\RedirectToEdit;
 use App\Templating\Chapter\EditView;
 use Domain\Chapter\Edit\Command;
 use Domain\Chapter\Edit\DTO;
+use Domain\Entity\Chapter;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;

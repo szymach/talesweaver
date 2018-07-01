@@ -16,6 +16,7 @@ class CharacterRepository extends TranslatableRepository
     public function byCurrentUserForSceneQueryBuilder(User $user, Scene $scene): QueryBuilder
     {
         return $this->createTranslatableQueryBuilder('c')
+            ->addSelect('t')
             ->andWhere(':scene MEMBER OF c.scenes')
             ->andWhere('c.createdBy = :user')
             ->orderBy('t.name', 'ASC')

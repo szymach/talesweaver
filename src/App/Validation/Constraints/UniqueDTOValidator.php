@@ -4,13 +4,6 @@ declare(strict_types=1);
 
 namespace App\Validation\Constraints;
 
-use Domain\Entity\Book;
-use Domain\Entity\Chapter;
-use Domain\Entity\Character;
-use Domain\Entity\Event;
-use Domain\Entity\Item;
-use Domain\Entity\Location;
-use Domain\Entity\Scene;
 use App\Repository\BookRepository;
 use App\Repository\ChapterRepository;
 use App\Repository\CharacterRepository;
@@ -19,6 +12,13 @@ use App\Repository\ItemRepository;
 use App\Repository\LocationRepository;
 use App\Repository\SceneRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Domain\Entity\Book;
+use Domain\Entity\Chapter;
+use Domain\Entity\Character;
+use Domain\Entity\Event;
+use Domain\Entity\Item;
+use Domain\Entity\Location;
+use Domain\Entity\Scene;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;

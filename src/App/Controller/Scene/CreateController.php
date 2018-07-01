@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller\Scene;
 
-use Domain\Entity\Chapter;
 use App\Form\Scene\CreateType;
 use App\Routing\RedirectToEdit;
 use App\Templating\SimpleFormView;
+use Domain\Entity\Chapter;
 use Domain\Scene\Create\Command;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;

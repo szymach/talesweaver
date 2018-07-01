@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller\Chapter;
 
-use Domain\Entity\Chapter;
 use App\Routing\RedirectToEdit;
 use App\Routing\RedirectToList;
 use Domain\Chapter\Delete\Command;
+use Domain\Entity\Chapter;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller\Scene;
 
-use Domain\Entity\Scene;
 use App\Form\Scene\EditType;
 use App\Routing\Scene\EditResponse;
 use App\Templating\Scene\EditView;
+use Domain\Entity\Scene;
 use Domain\Scene\Edit\Command;
 use Domain\Scene\Edit\DTO;
 use SimpleBus\Message\Bus\MessageBus;

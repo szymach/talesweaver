@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Location;
 
-use Domain\Entity\Location;
 use App\Form\Location\EditType;
 use App\Templating\Location\FormView;
+use Domain\Entity\Location;
 use Domain\Location\Edit\Command;
 use Domain\Location\Edit\DTO;
 use SimpleBus\Message\Bus\MessageBus;

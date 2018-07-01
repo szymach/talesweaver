@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Item;
 
-use Domain\Entity\Item;
 use App\Templating\Item\DisplayView;
+use Domain\Entity\Item;
 
 class DisplayController
 {

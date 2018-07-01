@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Controller\Security;
 
-use Domain\Entity\User;
 use App\Form\Security\ChangePasswordType;
+use App\Templating\Engine;
+use Domain\Entity\User;
 use Domain\Security\Command\ChangePassword;
 use SimpleBus\Message\Bus\MessageBus;
-use App\Templating\Engine;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

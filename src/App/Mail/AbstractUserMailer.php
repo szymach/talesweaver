@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Mail;
 
-use Domain\Entity\User;
 use App\Templating\Engine;
+use Domain\Entity\User;
 use Swift_Mailer;
 use Swift_Message;
 use Symfony\Component\Translation\TranslatorInterface;

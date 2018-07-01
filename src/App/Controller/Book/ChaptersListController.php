@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Book;
 
-use Domain\Entity\Book;
 use App\Templating\Book\ChaptersListView;
+use Domain\Entity\Book;
 
 class ChaptersListController
 {

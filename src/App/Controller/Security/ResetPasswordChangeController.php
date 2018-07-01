@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller\Security;
 
-use Domain\Entity\User\PasswordResetToken;
 use App\Form\Security\ResetPasswordChangeType;
 use App\Repository\PasswordResetTokenRepository;
+use App\Templating\Engine;
+use Domain\Entity\User\PasswordResetToken;
 use Domain\Security\Command\ResetPassword;
 use SimpleBus\Message\Bus\MessageBus;
-use App\Templating\Engine;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

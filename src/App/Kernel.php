@@ -44,7 +44,7 @@ class Kernel extends BaseKernel implements CompilerPassInterface
         $definition = $container->findDefinition(SecuredInstanceParamConverter::class);
         $taggedServices = $container->findTaggedServiceIds('app.param_converter.repository');
 
-        $repositoryServices = array_map(function ($id): Reference {
+        $repositoryServices = array_map(function (string $id): Reference {
             return new Reference($id);
         }, array_keys($taggedServices));
         $definition->replaceArgument(0, $repositoryServices);

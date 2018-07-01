@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Scene;
 
-use Domain\Entity\Scene;
 use App\Templating\Scene\DisplayView;
+use Domain\Entity\Scene;
 
 class DisplayController
 {

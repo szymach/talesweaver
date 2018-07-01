@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller\Chapter;
 
-use Domain\Entity\Book;
 use App\Form\Chapter\CreateType;
 use App\Routing\RedirectToEdit;
 use App\Templating\SimpleFormView;
 use Domain\Chapter\Create\Command;
 use Domain\Chapter\Create\DTO;
+use Domain\Entity\Book;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;

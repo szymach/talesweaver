@@ -56,7 +56,7 @@ class ScenesListView
                 'chapter/scenes/list.html.twig',
                 [
                     'chapterId' => $chapter->getId(),
-                    'scenes' => $this->pagination->getResults($chapter, $page),
+                    'scenes' => $this->pagination->getResults($chapter, $page, 3),
                     'page' => $page,
                     'sceneForm' => $this->createSceneForm($chapter)->createView()
                 ]
