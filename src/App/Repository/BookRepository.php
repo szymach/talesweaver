@@ -7,15 +7,12 @@ namespace App\Repository;
 use App\Repository\Doctrine\BookRepository as DoctrineRepository;
 use App\Repository\Interfaces\FindableByIdRepository;
 use App\Repository\Interfaces\LatestChangesAwareRepository;
-use App\Repository\Traits\ParamConverterRepository;
 use App\Security\UserProvider;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 
 class BookRepository implements FindableByIdRepository, LatestChangesAwareRepository
 {
-    use ParamConverterRepository;
-
     /**
      * @var DoctrineRepository
      */
@@ -30,6 +27,19 @@ class BookRepository implements FindableByIdRepository, LatestChangesAwareReposi
     {
         $this->doctrineRepository = $doctrineRepository;
         $this->userProvider = $userProvider;
+    }
+
+    public function getClassName(): string
+    {
+        return $this->doctrineRepository->getClassName();
+    }
+
+    public function find(string $id)
+    {
+        return $this->doctrineRepository->findOneBy([
+            'id' => $id,
+            'createdBy' => $this->userProvider->fetchCurrentUser()
+        ]);
     }
 
     public function createQueryBuilder(): QueryBuilder

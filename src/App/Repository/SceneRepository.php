@@ -7,7 +7,6 @@ namespace App\Repository;
 use App\Repository\Doctrine\SceneRepository as DoctrineRepository;
 use App\Repository\Interfaces\FindableByIdRepository;
 use App\Repository\Interfaces\LatestChangesAwareRepository;
-use App\Repository\Traits\ParamConverterRepository;
 use App\Security\UserProvider;
 use Doctrine\ORM\QueryBuilder;
 use Domain\Entity\Chapter;
@@ -16,8 +15,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class SceneRepository implements FindableByIdRepository, LatestChangesAwareRepository
 {
-    use ParamConverterRepository;
-
     /**
      * @var DoctrineRepository
      */
@@ -32,6 +29,19 @@ class SceneRepository implements FindableByIdRepository, LatestChangesAwareRepos
     {
         $this->doctrineRepository = $doctrineRepository;
         $this->userProvider = $userProvider;
+    }
+
+    public function getClassName(): string
+    {
+        return $this->doctrineRepository->getClassName();
+    }
+
+    public function find(string $id)
+    {
+        return $this->doctrineRepository->findOneBy([
+            'id' => $id,
+            'createdBy' => $this->userProvider->fetchCurrentUser()
+        ]);
     }
 
     public function createStandaloneQueryBuilder(): QueryBuilder
@@ -67,7 +77,6 @@ class SceneRepository implements FindableByIdRepository, LatestChangesAwareRepos
             $id
         );
     }
-
 
     public function firstCharacterOccurence(UuidInterface $id): string
     {

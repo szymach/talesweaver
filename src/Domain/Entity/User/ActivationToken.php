@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Domain\Entity\User;
 
-use Domain\Entity\User;
 use DateInterval;
 use DateTimeImmutable;
+use Domain\Entity\User;
 
 class ActivationToken
 {

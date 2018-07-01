@@ -6,7 +6,6 @@ namespace App\Repository;
 
 use App\Repository\Doctrine\EventRepository as DoctrineRepository;
 use App\Repository\Interfaces\FindableByIdRepository;
-use App\Repository\Traits\ParamConverterRepository;
 use App\Security\UserProvider;
 use Doctrine\ORM\QueryBuilder;
 use Domain\Entity\Scene;
@@ -14,8 +13,6 @@ use Ramsey\Uuid\UuidInterface;
 
 class EventRepository implements FindableByIdRepository
 {
-    use ParamConverterRepository;
-
     /**
      * @var DoctrineRepository
      */
@@ -30,6 +27,19 @@ class EventRepository implements FindableByIdRepository
     {
         $this->doctrineRepository = $doctrineRepository;
         $this->userProvider = $userProvider;
+    }
+
+    public function getClassName(): string
+    {
+        return $this->doctrineRepository->getClassName();
+    }
+
+    public function find(string $id)
+    {
+        return $this->doctrineRepository->findOneBy([
+            'id' => $id,
+            'createdBy' => $this->userProvider->fetchCurrentUser()
+        ]);
     }
 
     public function createForSceneQueryBuilder(Scene $scene): QueryBuilder
