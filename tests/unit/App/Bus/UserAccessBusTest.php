@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\Bus;
 
 use App\Bus\UserAccessBus;
-use Domain\Entity\User;
-use Domain\Security\UserAccessInterface;
+use Domain\User;
+use Application\Security\UserAccessInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;

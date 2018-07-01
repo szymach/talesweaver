@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Event;
 
-use Domain\Entity\Event;
-use Domain\Event\Delete\Command;
+use Application\Event\Delete\Command;
+use Domain\Event;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 

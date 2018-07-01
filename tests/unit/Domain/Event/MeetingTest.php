@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Domain\Tests\Entity;
+namespace Domain\Tests;
 
-use Domain\Entity\Character;
-use Domain\Entity\Location;
-use Domain\Entity\User;
+use Domain\Character;
+use Domain\Location;
+use Domain\User;
 use Domain\Event\Meeting;
 use PHPUnit\Framework\TestCase;
 

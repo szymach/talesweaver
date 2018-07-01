@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Character;
 
 use App\Templating\Character\DisplayView;
-use Domain\Entity\Character;
+use Domain\Character;
 
 class DisplayController
 {

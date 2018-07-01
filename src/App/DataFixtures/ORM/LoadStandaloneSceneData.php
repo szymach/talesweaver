@@ -7,10 +7,10 @@ namespace App\DataFixtures\ORM;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Domain\Entity\Character;
-use Domain\Entity\Location;
-use Domain\Entity\Scene;
-use Domain\Entity\User;
+use Domain\Character;
+use Domain\Location;
+use Domain\Scene;
+use Domain\User;
 use Ramsey\Uuid\Uuid;
 
 class LoadStandaloneSceneData implements ORMFixtureInterface, OrderedFixtureInterface

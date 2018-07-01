@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\Controller\Security;
 
 use App\Tests\FunctionalTester;
-use Domain\Entity\User;
-use Domain\Entity\User\ActivationToken;
+use Domain\User;
+use Domain\User\ActivationToken;
 
 class RegisterControllerCest
 {

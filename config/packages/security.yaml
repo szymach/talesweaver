@@ -1,10 +1,10 @@
 security:
     encoders:
-        Domain\Entity\User: bcrypt
+        Domain\User: bcrypt
 
     providers:
         database_users:
-            entity: { class: Domain\Entity\User, property: username }
+            entity: { class: Domain\User, property: username }
 
     firewalls:
         dev:

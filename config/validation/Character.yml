@@ -1,11 +1,11 @@
 ---
-Domain\Character\Create\DTO:
+Application\Character\Create\DTO:
     constraints:
         - App\Validation\Constraints\UniqueDTO:
             fields: { name: 't.name', scene: 'e.scenes' }
             repositoryMethod: entityExists
             path: name
-            entityClass: Domain\Entity\Character
+            entityClass: Domain\Character
             message: character.exists
     properties:
         avatar:
@@ -13,14 +13,14 @@ Domain\Character\Create\DTO:
         name:
             - NotBlank: ~
 
-Domain\Character\Edit\DTO:
+Application\Character\Edit\DTO:
     constraints:
         - App\Validation\Constraints\UniqueDTO:
             fields: { name: 't.name', scenes: 'e.scenes' }
             id: id
             repositoryMethod: entityExists
             path: name
-            entityClass: Domain\Entity\Character
+            entityClass: Domain\Character
             message: character.exists
     properties:
         avatar:

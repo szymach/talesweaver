@@ -6,8 +6,8 @@ namespace Doctrine\Repository;
 
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use Domain\Entity\Chapter;
-use Domain\Entity\User;
+use Domain\Chapter;
+use Domain\User;
 use Ramsey\Uuid\UuidInterface;
 
 class SceneRepository extends TranslatableRepository

@@ -7,9 +7,9 @@ namespace App\Tests\Form\Chapter;
 use App\Form\Chapter\CreateType;
 use App\Form\Chapter\EditType;
 use Codeception\Test\Unit;
-use Domain\Chapter\Create;
-use Domain\Chapter\Edit;
-use Domain\Entity\Chapter;
+use Application\Chapter\Create;
+use Application\Chapter\Edit;
+use Domain\Chapter;
 use Ramsey\Uuid\Uuid;
 use UnitTester;
 

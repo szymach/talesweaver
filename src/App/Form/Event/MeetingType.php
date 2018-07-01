@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Form\Event;
 
-use Domain\Entity\Character;
-use Domain\Entity\Location;
-use Domain\Entity\Scene;
+use Domain\Character;
+use Domain\Location;
+use Domain\Scene;
 use App\Repository\CharacterRepository;
 use App\Repository\LocationRepository;
 use Domain\Event\Meeting;

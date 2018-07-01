@@ -9,8 +9,8 @@ use App\Form\Character\EditType;
 use App\Tests\Form\CreateCharacterTrait;
 use App\Tests\Form\CreateSceneTrait;
 use Codeception\Test\Unit;
-use Domain\Character\Create;
-use Domain\Character\Edit;
+use Application\Character\Create;
+use Application\Character\Edit;
 use UnitTester;
 
 class FormTypeTest extends Unit

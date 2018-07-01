@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Templating\Event;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Domain\Entity\Event;
+use Domain\Event;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DisplayView

@@ -6,8 +6,8 @@ namespace Doctrine\Repository;
 
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use Domain\Entity\Book;
-use Domain\Entity\User;
+use Domain\Book;
+use Domain\User;
 use Ramsey\Uuid\UuidInterface;
 
 class ChapterRepository extends TranslatableRepository

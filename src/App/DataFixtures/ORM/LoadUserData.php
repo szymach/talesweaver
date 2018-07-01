@@ -7,7 +7,7 @@ namespace App\DataFixtures\ORM;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Domain\Entity\User;
+use Domain\User;
 use function generate_user_token;
 
 class LoadUserData implements ORMFixtureInterface, OrderedFixtureInterface

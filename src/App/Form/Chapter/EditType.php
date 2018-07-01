@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Form\Chapter;
 
 use App\Repository\BookRepository;
-use Domain\Chapter\Edit\DTO;
-use Domain\Entity\Book;
+use Application\Chapter\Edit\DTO;
+use Domain\Book;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

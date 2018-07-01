@@ -1,11 +1,11 @@
 ---
-Domain\Event\Create\DTO:
+Application\Event\Create\DTO:
     constraints:
         - App\Validation\Constraints\UniqueDTO:
             fields: { name: 't.name', scene: 'e.scene' }
             repositoryMethod: entityExists
             path: name
-            entityClass: Domain\Entity\Event
+            entityClass: Domain\Event
             message: event.exists
     properties:
         name:
@@ -16,14 +16,14 @@ Domain\Event\Create\DTO:
         scene:
             - NotBlank: ~
 
-Domain\Event\Edit\DTO:
+Application\Event\Edit\DTO:
     constraints:
         - App\Validation\Constraints\UniqueDTO:
             fields: { name: 't.name', scene: 'e.scene' }
             repositoryMethod: entityExists
             id: id
             path: name
-            entityClass: Domain\Entity\Event
+            entityClass: Domain\Event
             message: event.exists
     properties:
         name:

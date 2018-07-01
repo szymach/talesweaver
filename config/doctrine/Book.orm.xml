@@ -4,7 +4,7 @@
                   xmlns:fsi="http://fsi.pl/schemas/orm/doctrine-extensions-mapping"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
 >
-    <entity repository-class="Doctrine\Repository\BookRepository" name="Domain\Entity\Book">
+    <entity repository-class="Doctrine\Repository\BookRepository" name="Domain\Book">
 
         <fsi:translatable-locale field="locale" />
         <fsi:translatable-field field="title" mappedBy="translations" />
@@ -14,15 +14,15 @@
         <field name="createdAt" type="datetime" />
         <field name="updatedAt" type="datetime" nullable="true"/>
 
-        <one-to-many field="chapters" target-entity="Domain\Entity\Chapter" mapped-by="book" />
-        <one-to-many field="translations" target-entity="Domain\Entity\Translation\BookTranslation" mapped-by="book">
+        <one-to-many field="chapters" target-entity="Domain\Chapter" mapped-by="book" />
+        <one-to-many field="translations" target-entity="Domain\Translation\BookTranslation" mapped-by="book">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
             </cascade>
         </one-to-many>
 
-        <many-to-one field="createdBy" target-entity="Domain\Entity\User" />
+        <many-to-one field="createdBy" target-entity="Domain\User" />
 
     </entity>
 </doctrine-mapping>

@@ -6,9 +6,9 @@ namespace App\Tests\Security\Request;
 
 use App\Repository\Interfaces\FindableByIdRepository;
 use App\Security\Request\SecuredInstanceParamConverter;
-use Domain\Entity\Book;
-use Domain\Entity\Chapter;
-use Domain\Entity\Scene;
+use Domain\Book;
+use Domain\Chapter;
+use Domain\Scene;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -126,7 +126,7 @@ class SecuredInstanceParamConverterTest extends TestCase
         $configuration->expects($this->once())->method('getClass')->willReturn(Scene::class);
 
         $this->expectException(NotFoundHttpException::class);
-        $this->expectExceptionMessage('Invalid UUID "1" for class "Domain\Entity\Scene"!');
+        $this->expectExceptionMessage('Invalid UUID "1" for class "Domain\Scene"!');
 
         $converter = new SecuredInstanceParamConverter([]);
         $converter->apply($request, $configuration);
@@ -151,7 +151,7 @@ class SecuredInstanceParamConverterTest extends TestCase
 
         $this->expectException(NotFoundHttpException::class);
         $this->expectExceptionMessage(
-            sprintf('Could not find object of class "Domain\Entity\Scene" for id "%s"', $id)
+            sprintf('Could not find object of class "Domain\Scene" for id "%s"', $id)
         );
 
         $converter = new SecuredInstanceParamConverter([$repository]);

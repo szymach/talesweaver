@@ -6,7 +6,7 @@ namespace App\Templating\Scene;
 
 use App\Pagination\Chapter\ScenePaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Domain\Entity\Chapter;
+use Domain\Chapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class RelatedListView

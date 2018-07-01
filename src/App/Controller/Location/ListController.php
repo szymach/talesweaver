@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Location;
 
 use App\Templating\Location\ListView;
-use Domain\Entity\Scene;
+use Domain\Scene;
 
 class ListController
 {

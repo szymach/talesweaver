@@ -6,8 +6,8 @@ namespace App\Controller\Chapter;
 
 use App\Routing\RedirectToEdit;
 use App\Routing\RedirectToList;
-use Domain\Chapter\Delete\Command;
-use Domain\Entity\Chapter;
+use Application\Chapter\Delete\Command;
+use Domain\Chapter;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

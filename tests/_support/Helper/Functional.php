@@ -9,7 +9,7 @@ use App\Tests\FunctionalTester;
 use Codeception\Module;
 use Codeception\Module\Symfony;
 use Doctrine\ORM\EntityManagerInterface;
-use Domain\Entity\User;
+use Domain\User;
 use FSi\DoctrineExtensions\Translatable\TranslatableListener;
 
 class Functional extends Module

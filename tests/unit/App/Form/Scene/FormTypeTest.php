@@ -7,9 +7,9 @@ namespace App\Tests\Form\Scene;
 use App\Form\Scene\CreateType;
 use App\Form\Scene\EditType;
 use Codeception\Test\Unit;
-use Domain\Entity\Scene;
-use Domain\Scene\Create;
-use Domain\Scene\Edit;
+use Domain\Scene;
+use Application\Scene\Create;
+use Application\Scene\Edit;
 use Ramsey\Uuid\Uuid;
 use UnitTester;
 

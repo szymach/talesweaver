@@ -6,9 +6,9 @@ namespace App\Controller\Location;
 
 use App\Form\Location\EditType;
 use App\Templating\Location\FormView;
-use Domain\Entity\Location;
-use Domain\Location\Edit\Command;
-use Domain\Location\Edit\DTO;
+use Domain\Location;
+use Application\Location\Edit\Command;
+use Application\Location\Edit\DTO;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

@@ -1,24 +1,24 @@
 ---
-Domain\Book\Create\DTO:
+Application\Book\Create\DTO:
     constraints:
         - App\Validation\Constraints\UniqueDTO:
             fields: { title: 't.title' }
             repositoryMethod: entityExists
             path: title
-            entityClass: Domain\Entity\Book
+            entityClass: Domain\Book
             message: book.exists
     properties:
         title:
             - NotBlank: ~
 
-Domain\Book\Edit\DTO:
+Application\Book\Edit\DTO:
     constraints:
         - App\Validation\Constraints\UniqueDTO:
             fields: { title: 't.title' }
             id: id
             repositoryMethod: entityExists
             path: title
-            entityClass: Domain\Entity\Book
+            entityClass: Domain\Book
             message: book.exists
     properties:
         title:

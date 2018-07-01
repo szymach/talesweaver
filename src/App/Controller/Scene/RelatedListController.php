@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Scene;
 
 use App\Templating\Scene\RelatedListView;
-use Domain\Entity\Chapter;
+use Domain\Chapter;
 
 class RelatedListController
 {

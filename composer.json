@@ -12,6 +12,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/App/",
+            "Application\\": "src/Application/",
             "Doctrine\\": "src/Doctrine/",
             "Domain\\": "src/Domain/"
         },

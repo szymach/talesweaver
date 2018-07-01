@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Mail;
 
-use Domain\Entity\User;
+use Domain\User;
 
 class PasswordResetMailer extends AbstractUserMailer
 {

@@ -6,9 +6,9 @@ namespace App\Controller\Character;
 
 use App\Form\Character\CreateType;
 use App\Templating\Character\FormView;
-use Domain\Character\Create\Command;
-use Domain\Character\Create\DTO;
-use Domain\Entity\Scene;
+use Application\Character\Create\Command;
+use Application\Character\Create\DTO;
+use Domain\Scene;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;

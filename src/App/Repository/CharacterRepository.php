@@ -8,7 +8,7 @@ use App\Repository\Interfaces\FindableByIdRepository;
 use App\Security\UserProvider;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Repository\CharacterRepository as DoctrineRepository;
-use Domain\Entity\Scene;
+use Domain\Scene;
 use Ramsey\Uuid\UuidInterface;
 
 class CharacterRepository implements FindableByIdRepository

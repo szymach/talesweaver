@@ -6,9 +6,9 @@ namespace App\Controller\Character;
 
 use App\Form\Character\EditType;
 use App\Templating\Character\FormView;
-use Domain\Character\Edit\Command;
-use Domain\Character\Edit\DTO;
-use Domain\Entity\Character;
+use Application\Character\Edit\Command;
+use Application\Character\Edit\DTO;
+use Domain\Character;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

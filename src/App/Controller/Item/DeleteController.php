@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Item;
 
-use Domain\Entity\Item;
-use Domain\Item\Delete\Command;
+use Domain\Item;
+use Application\Item\Delete\Command;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 

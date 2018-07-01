@@ -1,11 +1,11 @@
 ---
-Domain\Item\Create\DTO:
+Application\Item\Create\DTO:
     constraints:
         - App\Validation\Constraints\UniqueDTO:
             fields: { name: 't.name', scene: 'e.scenes' }
             repositoryMethod: entityExists
             path: name
-            entityClass: Domain\Entity\Item
+            entityClass: Domain\Item
             message: item.exists
     properties:
         avatar:
@@ -13,14 +13,14 @@ Domain\Item\Create\DTO:
         name:
             - NotBlank: ~
 
-Domain\Item\Edit\DTO:
+Application\Item\Edit\DTO:
     constraints:
         - App\Validation\Constraints\UniqueDTO:
             fields: { name: 't.name', scenes: 'e.scenes' }
             id: id
             repositoryMethod: entityExists
             path: name
-            entityClass: Domain\Entity\Item
+            entityClass: Domain\Item
             message: item.exists
     properties:
         avatar:

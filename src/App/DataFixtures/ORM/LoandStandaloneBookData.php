@@ -7,9 +7,9 @@ namespace App\DataFixtures\ORM;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Domain\Entity\Book;
-use Domain\Entity\Chapter;
-use Domain\Entity\User;
+use Domain\Book;
+use Domain\Chapter;
+use Domain\User;
 use Ramsey\Uuid\Uuid;
 
 class LoandStandaloneBookData implements ORMFixtureInterface, OrderedFixtureInterface

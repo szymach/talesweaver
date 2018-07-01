@@ -6,8 +6,8 @@ namespace Doctrine\Repository;
 
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use Domain\Entity\Scene;
-use Domain\Entity\User;
+use Domain\Scene;
+use Domain\User;
 use Ramsey\Uuid\UuidInterface;
 
 class ItemRepository extends TranslatableRepository

@@ -3,7 +3,7 @@
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
 >
-    <entity name="Domain\Entity\User\ActivationToken">
+    <entity name="Domain\User\ActivationToken">
 
         <id name="id" type="integer">
             <generator strategy="IDENTITY"/>
@@ -11,7 +11,7 @@
         <field name="value" type="string"/>
         <field name="createdAt" type="datetime_immutable"/>
 
-        <many-to-one field="user" target-entity="Domain\Entity\User" inversed-by="activationTokens">
+        <many-to-one field="user" target-entity="Domain\User" inversed-by="activationTokens">
             <join-columns>
                 <join-column on-delete="CASCADE"/>
             </join-columns>

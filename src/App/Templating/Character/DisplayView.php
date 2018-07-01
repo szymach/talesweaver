@@ -6,7 +6,7 @@ namespace App\Templating\Character;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use App\Timeline\CharacterTimeline;
-use Domain\Entity\Character;
+use Domain\Character;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DisplayView

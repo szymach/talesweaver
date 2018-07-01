@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\Bus;
 
 use App\Bus\UserAwareBus;
-use Domain\Entity\User;
-use Domain\Security\UserAwareInterface;
+use Domain\User;
+use Application\Security\UserAwareInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;

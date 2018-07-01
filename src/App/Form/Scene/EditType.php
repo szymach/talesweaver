@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Form\Scene;
 
 use App\Repository\ChapterRepository;
-use Domain\Entity\Chapter;
-use Domain\Scene\Edit\DTO;
+use Domain\Chapter;
+use Application\Scene\Edit\DTO;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;

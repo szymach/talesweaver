@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Domain\Event;
 
-use Domain\Entity\Author;
-use Domain\Entity\Character;
-use Domain\Entity\Location;
-use Domain\Entity\User;
-use Domain\Security\UserAccessInterface;
+use Application\Security\UserAccessInterface;
+use Domain\Character;
+use Domain\Location;
+use Domain\User;
 use DomainException;
 use JsonSerializable;
 

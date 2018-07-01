@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\Book;
 
-use Domain\Book\Edit\DTO;
+use Application\Book\Edit\DTO;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;

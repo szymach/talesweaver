@@ -9,7 +9,7 @@ use App\Repository\Interfaces\LatestChangesAwareRepository;
 use App\Security\UserProvider;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Repository\SceneRepository as DoctrineRepository;
-use Domain\Entity\Chapter;
+use Domain\Chapter;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 

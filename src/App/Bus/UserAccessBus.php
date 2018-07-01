@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Bus;
 
-use Domain\Entity\User;
-use Domain\Security\UserAccessInterface;
+use Application\Security\UserAccessInterface;
+use Domain\User;
 use RuntimeException;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;

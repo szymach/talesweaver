@@ -6,7 +6,7 @@ namespace App\Templating\Event;
 
 use App\Enum\SceneEvents;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Domain\Entity\Scene;
+use Domain\Scene;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class OptionsListView

@@ -6,7 +6,7 @@ namespace App\Controller\Security;
 
 use App\Form\Security\RegisterType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Domain\Security\Command\CreateUser;
+use Application\Security\Command\CreateUser;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;

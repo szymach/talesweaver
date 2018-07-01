@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\Item;
 
-use Domain\Item\Edit\DTO;
+use Application\Item\Edit\DTO;
 use FSi\Bundle\DoctrineExtensionsBundle\Form\Type\FSi\ImageType;
 use FSi\Bundle\DoctrineExtensionsBundle\Form\Type\FSi\RemovableFileType;
 use Symfony\Component\Form\AbstractType;

@@ -7,7 +7,7 @@ namespace App\Controller\Book;
 use App\Form\Book\CreateType;
 use App\Routing\RedirectToEdit;
 use App\Templating\SimpleFormView;
-use Domain\Book\Create\Command;
+use Application\Book\Create\Command;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;

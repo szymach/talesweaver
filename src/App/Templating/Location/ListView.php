@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Templating\Location;
 
-use Domain\Entity\Scene;
+use Domain\Scene;
 use App\Pagination\Location\LocationPaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

@@ -114,9 +114,9 @@ dashboard:
         bottom: Wybierz jedną z pozycji u góry by rozpocząć pracę.
     timeline: Ostatnie zmiany
     type:
-        'Domain\Entity\Book': Książka
-        'Domain\Entity\Chapter': Rozdział
-        'Domain\Entity\Scene': Scena
+        'Domain\Book': Książka
+        'Domain\Chapter': Rozdział
+        'Domain\Scene': Scena
     updated:
         0: Dodano
         1: Zaktualizowano
@@ -238,9 +238,9 @@ event:
         title: Wybierz wydarzenie do dodania
     timeline:
         creation:
-            'Domain\Entity\Character': 'Pojawił się w scene:'
-            'Domain\Entity\Item': 'Pojawił się w scene:'
-            'Domain\Entity\Location': 'Pojawiło się w scene:'
+            'Domain\Character': 'Pojawił się w scene:'
+            'Domain\Item': 'Pojawił się w scene:'
+            'Domain\Location': 'Pojawiło się w scene:'
     alert:
         created: 'Pomyślnie dodano nowe wydarzenie o nazwie "%title%".'
         edit: Zapisano zmiany w wydarzeniu.

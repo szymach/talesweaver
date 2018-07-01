@@ -7,7 +7,7 @@ namespace App\Timeline;
 use App\Repository\EventRepository;
 use App\Repository\SceneRepository;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Domain\Entity\Event;
+use Domain\Event;
 use Domain\Event\Meeting;
 use Ramsey\Uuid\UuidInterface;
 use function mb_strtolower;

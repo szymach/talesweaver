@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Event;
 
 use App\Templating\Event\ListView;
-use Domain\Entity\Scene;
+use Domain\Scene;
 
 class ListController
 {

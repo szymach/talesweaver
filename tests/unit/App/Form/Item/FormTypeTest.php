@@ -8,9 +8,9 @@ use App\Form\Item\CreateType;
 use App\Form\Item\EditType;
 use App\Tests\Form\CreateSceneTrait;
 use Codeception\Test\Unit;
-use Domain\Entity\Item;
-use Domain\Item\Create;
-use Domain\Item\Edit;
+use Domain\Item;
+use Application\Item\Create;
+use Application\Item\Edit;
 use Ramsey\Uuid\Uuid;
 use UnitTester;
 

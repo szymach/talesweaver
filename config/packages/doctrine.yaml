@@ -13,5 +13,5 @@ doctrine:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/config/doctrine'
-                prefix: 'Domain\Entity'
+                prefix: 'Domain'
                 alias: Domain

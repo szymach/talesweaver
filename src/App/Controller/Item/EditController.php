@@ -6,9 +6,9 @@ namespace App\Controller\Item;
 
 use App\Form\Item\EditType;
 use App\Templating\Item\FormView;
-use Domain\Entity\Item;
-use Domain\Item\Edit\Command;
-use Domain\Item\Edit\DTO;
+use Domain\Item;
+use Application\Item\Edit\Command;
+use Application\Item\Edit\DTO;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

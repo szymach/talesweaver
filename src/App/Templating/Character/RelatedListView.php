@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Templating\Character;
 
-use Domain\Entity\Scene;
+use Domain\Scene;
 use App\Pagination\Character\RelatedPaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

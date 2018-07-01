@@ -9,8 +9,8 @@ use App\Form\Location\EditType;
 use App\Tests\Form\CreateLocationTrait;
 use App\Tests\Form\CreateSceneTrait;
 use Codeception\Test\Unit;
-use Domain\Location\Create;
-use Domain\Location\Edit;
+use Application\Location\Create;
+use Application\Location\Edit;
 use UnitTester;
 
 class FormTypeTest extends Unit

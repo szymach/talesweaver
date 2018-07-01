@@ -1,24 +1,24 @@
 ---
-Domain\Chapter\Create\DTO:
+Application\Chapter\Create\DTO:
     constraints:
         - App\Validation\Constraints\UniqueDTO:
             fields: { title: 't.title', book: 'e.book' }
             repositoryMethod: entityExists
             path: title
-            entityClass: Domain\Entity\Chapter
+            entityClass: Domain\Chapter
             message: chapter.exists
     properties:
         title:
             - NotBlank: ~
 
-Domain\Chapter\Edit\DTO:
+Application\Chapter\Edit\DTO:
     constraints:
         - App\Validation\Constraints\UniqueDTO:
             fields: { title: 't.title', book: 'e.book' }
             id: id
             repositoryMethod: entityExists
             path: title
-            entityClass: Domain\Entity\Chapter
+            entityClass: Domain\Chapter
             message: chapter.exists
     properties:
         title:

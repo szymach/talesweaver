@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Event;
 
 use App\Templating\Event\DisplayView;
-use Domain\Entity\Event;
+use Domain\Event;
 
 class DisplayController
 {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Bus;
 
-use App\Bus\Messages\Message;
-use App\Bus\Messages\MessageCommandInterface;
+use Application\Messages\Message;
+use Application\Messages\MessageCommandInterface;
 use App\Bus\MessagesAwareBus;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

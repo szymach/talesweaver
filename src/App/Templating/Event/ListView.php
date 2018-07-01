@@ -7,7 +7,7 @@ namespace App\Templating\Event;
 use App\Enum\SceneEvents;
 use App\Pagination\EventPaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Domain\Entity\Scene;
+use Domain\Scene;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ListView

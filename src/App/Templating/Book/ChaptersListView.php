@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Templating\Book;
 
-use Domain\Entity\Book;
+use Domain\Book;
 use App\Form\Chapter\CreateType;
 use App\Pagination\Book\ChapterPaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Domain\Chapter\Create\DTO;
+use Application\Chapter\Create\DTO;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

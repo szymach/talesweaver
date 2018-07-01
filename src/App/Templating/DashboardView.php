@@ -9,9 +9,9 @@ use App\Repository\ChapterRepository;
 use App\Repository\Interfaces\LatestChangesAwareRepository;
 use App\Repository\SceneRepository;
 use DateTimeImmutable;
-use Domain\Entity\Book;
-use Domain\Entity\Chapter;
-use Domain\Entity\Scene;
+use Domain\Book;
+use Domain\Chapter;
+use Domain\Scene;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 

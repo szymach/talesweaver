@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Form;
 
-use Domain\Entity\Character;
-use Domain\Entity\Scene;
+use Domain\Character;
+use Domain\Scene;
 use Ramsey\Uuid\Uuid;
 
 trait CreateCharacterTrait

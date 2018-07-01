@@ -6,8 +6,8 @@ namespace App\Templating\Chapter;
 
 use App\Form\Scene\CreateType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Domain\Entity\Chapter;
-use Domain\Scene\Create\DTO;
+use Domain\Chapter;
+use Application\Scene\Create\DTO;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;

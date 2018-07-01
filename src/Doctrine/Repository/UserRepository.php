@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Doctrine\Repository;
 
-use Domain\Entity\User;
+use Domain\User;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 

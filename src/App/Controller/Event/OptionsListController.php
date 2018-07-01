@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Event;
 
 use App\Templating\Event\OptionsListView;
-use Domain\Entity\Scene;
+use Domain\Scene;
 
 class OptionsListController
 {

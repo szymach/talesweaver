@@ -6,7 +6,7 @@ namespace App\Templating\Item;
 
 use App\Pagination\Item\ItemPaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Domain\Entity\Scene;
+use Domain\Scene;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ListView

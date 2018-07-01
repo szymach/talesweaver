@@ -6,7 +6,7 @@ namespace App\Tests\Helper;
 
 use Codeception\Module;
 use Doctrine\ORM\EntityManagerInterface;
-use Domain\Entity\User;
+use Domain\User;
 use FSi\DoctrineExtensions\Translatable\TranslatableListener;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;

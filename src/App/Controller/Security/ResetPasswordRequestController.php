@@ -6,7 +6,7 @@ namespace App\Controller\Security;
 
 use App\Form\Security\ResetPasswordRequestType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Domain\Security\Command\GeneratePasswordResetToken;
+use Application\Security\Command\GeneratePasswordResetToken;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;

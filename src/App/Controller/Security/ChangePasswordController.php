@@ -6,8 +6,8 @@ namespace App\Controller\Security;
 
 use App\Form\Security\ChangePasswordType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Domain\Entity\User;
-use Domain\Security\Command\ChangePassword;
+use Domain\User;
+use Application\Security\Command\ChangePassword;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;

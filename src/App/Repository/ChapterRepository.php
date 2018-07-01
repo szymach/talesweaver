@@ -9,7 +9,7 @@ use App\Repository\Interfaces\LatestChangesAwareRepository;
 use App\Security\UserProvider;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Repository\ChapterRepository as DoctrineRepository;
-use Domain\Entity\Book;
+use Domain\Book;
 use Ramsey\Uuid\UuidInterface;
 
 class ChapterRepository implements FindableByIdRepository, LatestChangesAwareRepository

@@ -7,12 +7,12 @@ namespace App\DataFixtures\ORM;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Domain\Entity\Chapter;
-use Domain\Entity\Character;
-use Domain\Entity\Item;
-use Domain\Entity\Location;
-use Domain\Entity\Scene;
-use Domain\Entity\User;
+use Domain\Chapter;
+use Domain\Character;
+use Domain\Item;
+use Domain\Location;
+use Domain\Scene;
+use Domain\User;
 use Ramsey\Uuid\Uuid;
 
 class LoadStandaloneChapterData implements ORMFixtureInterface, OrderedFixtureInterface

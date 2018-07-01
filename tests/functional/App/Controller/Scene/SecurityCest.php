@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Controller\Scene;
 
 use App\Tests\FunctionalTester;
-use Domain\Entity\Scene;
+use Domain\Scene;
 use Ramsey\Uuid\Uuid;
 
 class SecurityCest

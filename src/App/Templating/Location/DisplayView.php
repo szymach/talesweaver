@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Templating\Location;
 
-use Domain\Entity\Location;
+use Domain\Location;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use App\Timeline\LocationTimeline;
 use Symfony\Component\HttpFoundation\JsonResponse;

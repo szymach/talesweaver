@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Bus;
 
-use App\Bus\Messages\MessageCommandInterface;
+use Application\Messages\MessageCommandInterface;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface;

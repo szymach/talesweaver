@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Pagination\Book;
 
 use App\Repository\ChapterRepository;
-use Domain\Entity\Book;
+use Domain\Book;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 

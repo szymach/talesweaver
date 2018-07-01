@@ -7,10 +7,10 @@ namespace App\JSON;
 use App\Repository\CharacterRepository;
 use App\Repository\ItemRepository;
 use App\Repository\LocationRepository;
-use Domain\Entity\Character;
-use Domain\Entity\Event;
-use Domain\Entity\Item;
-use Domain\Entity\Location;
+use Domain\Character;
+use Domain\Event;
+use Domain\Item;
+use Domain\Location;
 use JsonSerializable;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 

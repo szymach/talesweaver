@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Location;
 
 use App\Templating\Location\DisplayView;
-use Domain\Entity\Location;
+use Domain\Location;
 
 class DisplayController
 {

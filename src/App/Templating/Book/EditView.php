@@ -6,8 +6,8 @@ namespace App\Templating\Book;
 
 use App\Form\Chapter\CreateType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Domain\Chapter\Create\DTO;
-use Domain\Entity\Book;
+use Application\Chapter\Create\DTO;
+use Domain\Book;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
