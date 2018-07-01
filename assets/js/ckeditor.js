@@ -118,7 +118,7 @@ function displayAlerts()
                 Array.prototype.filter.call(alerts.querySelectorAll('.alert'), function (alert) {
                     window.setTimeout(function() {
                         fadeOut(alert, 1);
-                    }, 5000);
+                    }, 30000);
                 });
             }
         }

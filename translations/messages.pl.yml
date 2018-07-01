@@ -109,10 +109,9 @@ security:
             success: Pomyślnie zmieniono hasło do aplikacji. Wymagane jest ponowne zalogowanie.
 
 dashboard:
-    header: |
-        Witaj w aplikacji Bajkopisarz!
-
-        Wybierz jedną z pozycji u góry by rozpocząć pracę.
+    header:
+        top: Witaj w aplikacji Bajkopisarz!
+        bottom: Wybierz jedną z pozycji u góry by rozpocząć pracę.
     timeline: Ostatnie zmiany
     type:
         'Domain\Entity\Book': Książka
@@ -227,7 +226,10 @@ event:
     'Domain\Event\Meeting':
         name: Spotkanie
         create: Nowe spotkanie
-        description: '<span class="underline">%root%</span> spotkał <span class="underline">%relation%</span> w <span class="underline">%location%</span>'
+        description:
+            <span class="underline">%root%</span> spotkał
+            <span class="underline">%relation%</span> w
+            <span class="underline">%location%</span>
         fields:
             root: Pierwsza osoba
             relation: Druga osoba
@@ -240,9 +242,9 @@ event:
             'Domain\Entity\Item': 'Pojawił się w scene:'
             'Domain\Entity\Location': 'Pojawiło się w scene:'
     alert:
-        created: Pomyślnie dodano nowe wydarzenie o nazwie "%title%".
+        created: 'Pomyślnie dodano nowe wydarzenie o nazwie "%title%".'
         edit: Zapisano zmiany w wydarzeniu.
-        deleted: Wydarzenie "%title%" zostało usunięte.
+        deleted: 'Wydarzenie "%title%" zostało usunięte.'
     list:
         no_results: Scena nie posiada żadnych przypisanych wydarzeń.
 
@@ -259,11 +261,11 @@ character:
         edit: Edycja postaci
         related: Dodawanie istniejącej postaci
     alert:
-        created: Pomyślnie dodano nową postać o imieniu "%title%".
+        created: 'Pomyślnie dodano nową postać o imieniu "%title%".'
         edit: Zapisano zmiany w postaci.
-        deleted: Postać "%title%" została usunięta.
-        added_to_scene: Dodano postać "%title%" do sceny "%sceneTitle%".
-        removed_from_scene: Usunięto postać "%title%" ze sceny "%sceneTitle%".
+        deleted: 'Postać "%title%" została usunięta.'
+        added_to_scene: 'Dodano postać "%title%" do sceny "%sceneTitle%".'
+        removed_from_scene: 'Usunięto postać "%title%" ze sceny "%sceneTitle%".'
     list:
         no_results: Scena nie posiada żadnych przypisanych postaci.
 
@@ -280,11 +282,11 @@ item:
         edit: Edycja przedmiotu
         related: Dodawanie istniejącego przedmiotu
     alert:
-        created: Pomyślnie dodano nowy przedmiot o nazwie "%title%".
+        created: 'Pomyślnie dodano nowy przedmiot o nazwie "%title%".'
         edit: Zapisano zmiany w przedmiocie.
         deleted: Przedmiot "%title%" został usunięty.
-        added_to_scene: Dodano przedmiot "%title%" do sceny "%sceneTitle%".
-        removed_from_scene: Usunięto przedmiot "%title%" ze sceny "%sceneTitle%".
+        added_to_scene: 'Dodano przedmiot "%title%" do sceny "%sceneTitle%".'
+        removed_from_scene: 'Usunięto przedmiot "%title%" ze sceny "%sceneTitle%".'
     list:
         no_results: Scena nie posiada żadnych przypisanych przedmiotów.
 
@@ -301,11 +303,11 @@ location:
         edit: Edycja miejsca
         related: Dodawanie istniejącego miejsca
     alert:
-        created: Pomyślnie dodano nowe miejsce o nazwie "%title%".
+        created: 'Pomyślnie dodano nowe miejsce o nazwie "%title%".'
         edit: Zapisano zmiany w miejscu.
-        deleted: Miejsce "%title%" zostało usunięte.
-        added_to_scene: Dodano miejsce "%title%" do sceny "%sceneTitle%".
-        removed_from_scene: Usunięto miejsce "%title%" ze sceny "%sceneTitle%".
+        deleted: 'Miejsce "%title%" zostało usunięte.'
+        added_to_scene: 'Dodano miejsce "%title%" do sceny "%sceneTitle%".'
+        removed_from_scene: 'Usunięto miejsce "%title%" ze sceny "%sceneTitle%".'
     list:
         no_results: Scena nie posiada żadnych przypisanych miejsc.
 
