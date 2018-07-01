@@ -4,7 +4,7 @@
                   xmlns:fsi="http://fsi.pl/schemas/orm/doctrine-extensions-mapping"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
 >
-    <entity repository-class="App\Repository\Doctrine\LocationRepository" name="Domain\Entity\Location">
+    <entity repository-class="Doctrine\Repository\LocationRepository" name="Domain\Entity\Location">
 
         <fsi:translatable-locale field="locale" />
         <fsi:translatable-field field="name" mappedBy="translations" />

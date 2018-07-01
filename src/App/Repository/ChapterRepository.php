@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Repository\Doctrine\ChapterRepository as DoctrineRepository;
 use App\Repository\Interfaces\FindableByIdRepository;
 use App\Repository\Interfaces\LatestChangesAwareRepository;
 use App\Security\UserProvider;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Repository\ChapterRepository as DoctrineRepository;
 use Domain\Entity\Book;
 use Ramsey\Uuid\UuidInterface;
 

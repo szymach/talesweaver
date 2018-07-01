@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Doctrine;
+namespace Doctrine\Repository;
 
 use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository as BaseRepository;
 

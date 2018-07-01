@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Repository\Doctrine\PasswordResetTokenRepository as DoctrineRepository;
 use DateTimeImmutable;
+use Doctrine\Repository\PasswordResetTokenRepository as DoctrineRepository;
 
 class PasswordResetTokenRepository
 {

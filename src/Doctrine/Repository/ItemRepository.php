@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Doctrine;
+namespace Doctrine\Repository;
 
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
@@ -10,7 +10,7 @@ use Domain\Entity\Scene;
 use Domain\Entity\User;
 use Ramsey\Uuid\UuidInterface;
 
-class LocationRepository extends TranslatableRepository
+class ItemRepository extends TranslatableRepository
 {
     /**
      * @var int
@@ -19,9 +19,9 @@ class LocationRepository extends TranslatableRepository
 
     public function byCurrentUserForSceneQueryBuilder(User $user, Scene $scene): QueryBuilder
     {
-        return $this->createTranslatableQueryBuilder('l')
-            ->andWhere(':scene MEMBER OF l.scenes')
-            ->andWhere('l.createdBy = :user')
+        return $this->createTranslatableQueryBuilder('i')
+            ->where(':scene MEMBER OF i.scenes')
+            ->andWhere('i.createdBy = :user')
             ->orderBy('t.name', 'ASC')
             ->setParameter('scene', $scene)
             ->setParameter('user', $user)
@@ -30,17 +30,16 @@ class LocationRepository extends TranslatableRepository
 
     public function byCurrentUserRelatedQueryBuilder(User $user, Scene $scene): QueryBuilder
     {
-        $qb = $this->createTranslatableQueryBuilder('l');
-        return $qb->leftJoin('l.scenes', 's')
-            ->where('l.createdBy = :user')
+        $qb = $this->createTranslatableQueryBuilder('i');
+        return $qb->leftJoin('i.scenes', 's')
+            ->where('i.createdBy = :user')
             ->andWhere(
                 $qb->expr()->andX(
-                    ':scene NOT MEMBER OF l.scenes',
+                    ':scene NOT MEMBER OF i.scenes',
                     's.chapter = :chapter'
                 )
             )
-            ->andWhere(':scene NOT MEMBER OF l.scenes')
-            ->orWhere('s.id IS NULL')
+            ->andWhere(':scene NOT MEMBER OF i.scenes')
             ->orderBy('t.name', 'ASC')
             ->setParameter('chapter', $scene->getChapter())
             ->setParameter('scene', $scene)
@@ -50,10 +49,10 @@ class LocationRepository extends TranslatableRepository
 
     public function byCurrentUserRelatedToScenesQueryBuilder(User $user, array $scenes): QueryBuilder
     {
-        return $this->createTranslatableQueryBuilder('l')
-            ->join('l.scenes', 's')
-            ->where('l.createdBy = :user')
-            ->andWhere(':scenes MEMBER OF l.scenes')
+        return $this->createTranslatableQueryBuilder('i')
+            ->join('i.scenes', 's')
+            ->where('i.createdBy = :user')
+            ->andWhere(':scenes MEMBER OF i.scenes')
             ->orderBy('t.name', 'ASC')
             ->setParameter('scenes', $scenes)
             ->setParameter('user', $user)

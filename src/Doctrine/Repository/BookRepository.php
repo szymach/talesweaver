@@ -2,59 +2,24 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Doctrine;
+namespace Doctrine\Repository;
 
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use Domain\Entity\Scene;
 use Domain\Entity\User;
 use Ramsey\Uuid\UuidInterface;
 
-class ItemRepository extends TranslatableRepository
+class BookRepository extends TranslatableRepository
 {
     /**
      * @var int
      */
     private $joinAliasCount = 0;
 
-    public function byCurrentUserForSceneQueryBuilder(User $user, Scene $scene): QueryBuilder
+    public function createByUserQueryBuilder(User $user): QueryBuilder
     {
-        return $this->createTranslatableQueryBuilder('i')
-            ->where(':scene MEMBER OF i.scenes')
-            ->andWhere('i.createdBy = :user')
-            ->orderBy('t.name', 'ASC')
-            ->setParameter('scene', $scene)
-            ->setParameter('user', $user)
-        ;
-    }
-
-    public function byCurrentUserRelatedQueryBuilder(User $user, Scene $scene): QueryBuilder
-    {
-        $qb = $this->createTranslatableQueryBuilder('i');
-        return $qb->leftJoin('i.scenes', 's')
-            ->where('i.createdBy = :user')
-            ->andWhere(
-                $qb->expr()->andX(
-                    ':scene NOT MEMBER OF i.scenes',
-                    's.chapter = :chapter'
-                )
-            )
-            ->andWhere(':scene NOT MEMBER OF i.scenes')
-            ->orderBy('t.name', 'ASC')
-            ->setParameter('chapter', $scene->getChapter())
-            ->setParameter('scene', $scene)
-            ->setParameter('user', $user)
-        ;
-    }
-
-    public function byCurrentUserRelatedToScenesQueryBuilder(User $user, array $scenes): QueryBuilder
-    {
-        return $this->createTranslatableQueryBuilder('i')
-            ->join('i.scenes', 's')
-            ->where('i.createdBy = :user')
-            ->andWhere(':scenes MEMBER OF i.scenes')
-            ->orderBy('t.name', 'ASC')
-            ->setParameter('scenes', $scenes)
+        return $this->createQueryBuilder('b')
+            ->where('b.createdBy = :user')
             ->setParameter('user', $user)
         ;
     }

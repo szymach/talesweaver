@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Doctrine;
+namespace Doctrine\Repository;
 
 use DateTimeImmutable;
 use Doctrine\ORM\EntityRepository;

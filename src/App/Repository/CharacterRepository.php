@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Repository\Doctrine\CharacterRepository as DoctrineRepository;
 use App\Repository\Interfaces\FindableByIdRepository;
 use App\Security\UserProvider;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Repository\CharacterRepository as DoctrineRepository;
 use Domain\Entity\Scene;
 use Ramsey\Uuid\UuidInterface;
 

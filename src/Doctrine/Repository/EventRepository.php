@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Doctrine;
+namespace Doctrine\Repository;
 
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
@@ -10,50 +10,33 @@ use Domain\Entity\Scene;
 use Domain\Entity\User;
 use Ramsey\Uuid\UuidInterface;
 
-class CharacterRepository extends TranslatableRepository
+class EventRepository extends TranslatableRepository
 {
     /**
      * @var int
      */
     private $joinAliasCount = 0;
 
-    public function byCurrentUserForSceneQueryBuilder(User $user, Scene $scene): QueryBuilder
+    public function createForSceneQueryBuilder(User $user, Scene $scene): QueryBuilder
     {
-        return $this->createTranslatableQueryBuilder('c')
-            ->addSelect('t')
-            ->andWhere(':scene MEMBER OF c.scenes')
-            ->andWhere('c.createdBy = :user')
+        return $this->createTranslatableQueryBuilder('e')
+            ->where('e.scene = :scene')
+            ->andWhere('e.createdBy = :user')
             ->orderBy('t.name', 'ASC')
-            ->setParameter('user', $user)
-            ->setParameter('scene', $scene)
-        ;
-    }
-
-    public function byCurrentUserRelatedQueryBuilder(User $user, Scene $scene): QueryBuilder
-    {
-        $qb = $this->createTranslatableQueryBuilder('c');
-        return $qb->leftJoin('c.scenes', 's')
-            ->andWhere('c.createdBy = :user')
-            ->andWhere($qb->expr()->andX(
-                ':scene NOT MEMBER OF c.scenes',
-                's.chapter = :chapter'
-            ))
-            ->orderBy('t.name', 'ASC')
-            ->setParameter('chapter', $scene->getChapter())
             ->setParameter('scene', $scene)
             ->setParameter('user', $user)
         ;
     }
 
-    public function byCurrentUserRelatedToScenesQueryBuilder(User $user, array $scenes): QueryBuilder
+    public function findInEventsById(User $user, UuidInterface $id): array
     {
-        return $this->createTranslatableQueryBuilder('c')
-            ->join('c.scenes', 's')
-            ->andWhere('c.createdBy = :user')
-            ->andWhere(':scenes MEMBER OF c.scenes')
-            ->orderBy('t.name', 'ASC')
-            ->setParameter('scenes', $scenes)
+        return $this->createQueryBuilder('e')
+            ->where('e.model LIKE :id')
+            ->andWhere('e.createdBy = :user')
+            ->setParameter('id', sprintf('%%"%s"%%', $id))
             ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult()
         ;
     }
 

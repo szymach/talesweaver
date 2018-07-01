@@ -2,81 +2,42 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Doctrine;
+namespace Doctrine\Repository;
 
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use Domain\Entity\Chapter;
+use Domain\Entity\Book;
 use Domain\Entity\User;
 use Ramsey\Uuid\UuidInterface;
 
-class SceneRepository extends TranslatableRepository
+class ChapterRepository extends TranslatableRepository
 {
-    public function byCurrentUserStandaloneQueryBuilder(User $user): QueryBuilder
+    public function allAvailableByUserQueryBuilder(User $user): QueryBuilder
     {
-        return $this->createQueryBuilder('s')
-            ->where('s.createdBy = :user')
-            ->andWhere('s.chapter IS NULL')
-            ->orderBy('s.createdAt')
+        return $this->createQueryBuilder('c')
+            ->where('c.createdBy = :user')
+            ->orderBy('c.book')
             ->setParameter('user', $user)
         ;
     }
 
-    public function byCurrentUserForChapterQb(User $user, Chapter $chapter): QueryBuilder
+    public function byCurrentUserQueryBuilder(User $user): QueryBuilder
     {
-        return $this->createQueryBuilder('s')
-            ->where('s.chapter = :chapter')
-            ->andWhere('s.createdBy = :user')
-            ->orderBy('s.createdAt')
-            ->setParameter('chapter', $chapter)
+        return $this->createQueryBuilder('c')
+            ->where('c.createdBy = :user')
+            ->andWhere('c.book IS NULL')
             ->setParameter('user', $user)
         ;
     }
 
-    public function firstCharacterOccurence(User $user, UuidInterface $id): string
+    public function byCurrentUserForBookQueryBuilder(User $user, Book $book): QueryBuilder
     {
-        return $this->createFirstOccurenceQueryBuilder($user, $id)
-            ->join('s.characters', 'c')
-            ->andWhere('c MEMBER OF s.characters')
-            ->andWhere('c.id = :id')
-            ->getQuery()
-            ->getSingleScalarResult()
-        ;
-    }
-
-    public function firstItemOccurence(User $user, UuidInterface $id): string
-    {
-        return $this->createFirstOccurenceQueryBuilder($user, $id)
-            ->join('s.items', 'i')
-            ->andWhere('i MEMBER OF s.items')
-            ->andWhere('i.id = :id')
-            ->getQuery()
-            ->getSingleScalarResult()
-        ;
-    }
-
-    public function firstLocationOccurence(User $user, UuidInterface $id): string
-    {
-        return $this->createFirstOccurenceQueryBuilder($user, $id)
-            ->join('s.locations', 'l')
-            ->andWhere('l MEMBER OF s.locations')
-            ->andWhere('l.id = :id')
-            ->getQuery()
-            ->getSingleScalarResult()
-        ;
-    }
-
-    private function createFirstOccurenceQueryBuilder(User $user, UuidInterface $id): QueryBuilder
-    {
-        return $this->getEntityManager()
-            ->createQueryBuilder()
-            ->select('st.title')
-            ->from($this->getEntityName(), 's')
-            ->join('s.translations', 'st')
-            ->where('s.createdBy = :user')
-            ->setParameter('id', $id)
+        return $this->createQueryBuilder('c')
+            ->where('c.book = :book')
+            ->andWhere('c.createdBy = :user')
+            ->orderBy('c.createdAt')
+            ->setParameter('book', $book)
             ->setParameter('user', $user)
-            ->setMaxResults(1)
         ;
     }
 
