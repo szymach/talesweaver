@@ -52,8 +52,7 @@
     "webpack-sources": "^1.0.1"
   },
   "devDependencies": {
-    "cypress": "^2.0.0",
-    "webpack-bundle-analyzer": "^2.13.1"
+    "cypress": "^2.0.0"
   },
   "repository": {
     "type": "git",
