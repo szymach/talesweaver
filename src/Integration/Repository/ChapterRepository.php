@@ -10,9 +10,10 @@ use Talesweaver\Doctrine\Repository\ChapterRepository as DoctrineRepository;
 use Talesweaver\Domain\Book;
 use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
 use Talesweaver\Integration\Repository\Interfaces\LatestChangesAwareRepository;
+use Talesweaver\Integration\Repository\Interfaces\RequestSecuredRepository;
 use Talesweaver\Integration\Security\UserProvider;
 
-class ChapterRepository implements FindableByIdRepository, LatestChangesAwareRepository
+class ChapterRepository implements FindableByIdRepository, LatestChangesAwareRepository, RequestSecuredRepository
 {
     /**
      * @var DoctrineRepository

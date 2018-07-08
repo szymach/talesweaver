@@ -9,9 +9,10 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Doctrine\Repository\EventRepository as DoctrineRepository;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
+use Talesweaver\Integration\Repository\Interfaces\RequestSecuredRepository;
 use Talesweaver\Integration\Security\UserProvider;
 
-class EventRepository implements FindableByIdRepository
+class EventRepository implements FindableByIdRepository, RequestSecuredRepository
 {
     /**
      * @var DoctrineRepository

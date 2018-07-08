@@ -9,9 +9,10 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Doctrine\Repository\BookRepository as DoctrineRepository;
 use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
 use Talesweaver\Integration\Repository\Interfaces\LatestChangesAwareRepository;
+use Talesweaver\Integration\Repository\Interfaces\RequestSecuredRepository;
 use Talesweaver\Integration\Security\UserProvider;
 
-class BookRepository implements FindableByIdRepository, LatestChangesAwareRepository
+class BookRepository implements FindableByIdRepository, LatestChangesAwareRepository, RequestSecuredRepository
 {
     /**
      * @var DoctrineRepository

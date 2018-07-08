@@ -11,9 +11,10 @@ use Talesweaver\Doctrine\Repository\SceneRepository as DoctrineRepository;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
 use Talesweaver\Integration\Repository\Interfaces\LatestChangesAwareRepository;
+use Talesweaver\Integration\Repository\Interfaces\RequestSecuredRepository;
 use Talesweaver\Integration\Security\UserProvider;
 
-class SceneRepository implements FindableByIdRepository, LatestChangesAwareRepository
+class SceneRepository implements FindableByIdRepository, LatestChangesAwareRepository, RequestSecuredRepository
 {
     /**
      * @var DoctrineRepository

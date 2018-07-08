@@ -1,84 +1,26 @@
 ---
 services:
     _defaults:
-        autowire: false
-        autoconfigure: false
+        autoconfigure: true
+        autowire: true
 
     # Entity listeners
     entity_listener.event:
         class: Talesweaver\Integration\JSON\ModelParserListener
-        autowire: true
+        autoconfigure: false
         tags:
             - { name: doctrine.orm.entity_listener }
 
-    # Doctrine repository
-    Talesweaver\Doctrine\Repository\BookRepository:
-        factory: ["@doctrine", getRepository]
-        arguments: [ Talesweaver\Domain\Book ]
-
-    Talesweaver\Doctrine\Repository\SceneRepository:
-        factory: ["@doctrine", getRepository]
-        arguments: [ Talesweaver\Domain\Scene ]
-
-    Talesweaver\Doctrine\Repository\CharacterRepository:
-        factory: ["@doctrine", getRepository]
-        arguments: [ Talesweaver\Domain\Character ]
-
-    Talesweaver\Doctrine\Repository\ItemRepository:
-        factory: ["@doctrine", getRepository]
-        arguments: [ Talesweaver\Domain\Item ]
-
-    Talesweaver\Doctrine\Repository\LocationRepository:
-        factory: ["@doctrine", getRepository]
-        arguments: [ Talesweaver\Domain\Location ]
-
-    Talesweaver\Doctrine\Repository\ChapterRepository:
-        factory: ["@doctrine", getRepository]
-        arguments: [ Talesweaver\Domain\Chapter ]
-
-    Talesweaver\Doctrine\Repository\EventRepository:
-        factory: ["@doctrine", getRepository]
-        arguments: [ Talesweaver\Domain\Event ]
-
-    Talesweaver\Doctrine\Repository\UserRepository:
-        factory: ["@doctrine", getRepository]
-        arguments: [ Talesweaver\Domain\User ]
-
-    Talesweaver\Doctrine\Repository\PasswordResetTokenRepository:
-        factory: ["@doctrine", getRepository]
-        arguments: [ Talesweaver\Domain\User\PasswordResetToken ]
+    # Entity repository
+    Talesweaver\Doctrine\Repository\:
+        resource: "../../src/Doctrine/Repository/*"
+        autoconfigure: true
+        autowire: true
 
     # Repository
-    Talesweaver\Integration\Repository\BookRepository:
-        autowire: true
-        tags: ['app.param_converter.repository']
+    _instanceof:
+        Talesweaver\Integration\Repository\Interfaces\RequestSecuredRepository:
+            tags: ['app.param_converter.repository']
 
-    Talesweaver\Integration\Repository\SceneRepository:
-        autowire: true
-        tags: ['app.param_converter.repository']
-
-    Talesweaver\Integration\Repository\CharacterRepository:
-        autowire: true
-        tags: ['app.param_converter.repository']
-
-    Talesweaver\Integration\Repository\ItemRepository:
-        autowire: true
-        tags: ['app.param_converter.repository']
-
-    Talesweaver\Integration\Repository\LocationRepository:
-        autowire: true
-        tags: ['app.param_converter.repository']
-
-    Talesweaver\Integration\Repository\ChapterRepository:
-        autowire: true
-        tags: ['app.param_converter.repository']
-
-    Talesweaver\Integration\Repository\EventRepository:
-        autowire: true
-        tags: ['app.param_converter.repository']
-
-    Talesweaver\Integration\Repository\UserRepository:
-        autowire: true
-
-    Talesweaver\Integration\Repository\PasswordResetTokenRepository:
-        autowire: true
+    Talesweaver\Integration\Repository\:
+        resource: "../../src/Integration/Repository/*"

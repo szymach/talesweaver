@@ -9,9 +9,10 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Doctrine\Repository\CharacterRepository as DoctrineRepository;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
+use Talesweaver\Integration\Repository\Interfaces\RequestSecuredRepository;
 use Talesweaver\Integration\Security\UserProvider;
 
-class CharacterRepository implements FindableByIdRepository
+class CharacterRepository implements FindableByIdRepository, RequestSecuredRepository
 {
     /**
      * @var DoctrineRepository

@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace Talesweaver\Doctrine\Repository;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Book;
+use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\User;
 
-class ChapterRepository extends TranslatableRepository
+class ChapterRepository extends TranslatableServiceRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Chapter::class);
+    }
+
     public function allAvailableByUserQueryBuilder(User $user): QueryBuilder
     {
         return $this->createQueryBuilder('c')

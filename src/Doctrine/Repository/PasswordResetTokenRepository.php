@@ -5,10 +5,17 @@ declare(strict_types=1);
 namespace Talesweaver\Doctrine\Repository;
 
 use DateTimeImmutable;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Persistence\ManagerRegistry;
+use Talesweaver\Domain\User\PasswordResetToken;
 
-class PasswordResetTokenRepository extends EntityRepository
+class PasswordResetTokenRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, PasswordResetToken::class);
+    }
+
     public function findCreationDateOfPrevious(string $email): ?DateTimeImmutable
     {
         $date = $this->getEntityManager()

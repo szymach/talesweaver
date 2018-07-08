@@ -4,18 +4,24 @@ declare(strict_types=1);
 
 namespace Talesweaver\Doctrine\Repository;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository;
 use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Domain\Book;
 use Talesweaver\Domain\User;
 
-class BookRepository extends TranslatableRepository
+class BookRepository extends TranslatableServiceRepository
 {
     /**
      * @var int
      */
     private $joinAliasCount = 0;
+
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Book::class);
+    }
 
     public function createByUserQueryBuilder(User $user): QueryBuilder
     {

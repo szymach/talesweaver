@@ -4,19 +4,25 @@ declare(strict_types=1);
 
 namespace Talesweaver\Doctrine\Repository;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository;
 use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\User;
 
-class EventRepository extends TranslatableRepository
+class EventRepository extends TranslatableServiceRepository
 {
     /**
      * @var int
      */
     private $joinAliasCount = 0;
+
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Event::class);
+    }
 
     public function createForSceneQueryBuilder(User $user, Scene $scene): QueryBuilder
     {
