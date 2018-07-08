@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Templating\Item;
 
-use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Pagination\Item\RelatedPaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Integration\Pagination\Item\RelatedPaginator;
 
 class RelatedListView
 {

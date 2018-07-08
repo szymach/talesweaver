@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Controller\Security;
 
-use Talesweaver\Integration\Form\Security\ChangePasswordType;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Talesweaver\Domain\User;
-use Talesweaver\Application\Security\Command\ChangePassword;
 use SimpleBus\Message\Bus\MessageBus;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Talesweaver\Application\Security\Command\ChangePassword;
+use Talesweaver\Domain\User;
+use Talesweaver\Integration\Form\Security\ChangePasswordType;
 
 class ChangePasswordController
 {

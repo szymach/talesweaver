@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Controller\Book;
 
-use Talesweaver\Integration\Templating\Book\ChaptersListView;
 use Talesweaver\Domain\Book;
+use Talesweaver\Integration\Templating\Book\ChaptersListView;
 
 class ChaptersListController
 {

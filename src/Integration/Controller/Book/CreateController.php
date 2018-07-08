@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Controller\Book;
 
-use Talesweaver\Integration\Form\Book\CreateType;
-use Talesweaver\Integration\Routing\RedirectToEdit;
-use Talesweaver\Integration\Templating\SimpleFormView;
-use Talesweaver\Application\Book\Create\Command;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Talesweaver\Application\Book\Create\Command;
+use Talesweaver\Integration\Form\Book\CreateType;
+use Talesweaver\Integration\Routing\RedirectToEdit;
+use Talesweaver\Integration\Templating\SimpleFormView;
 
 class CreateController
 {

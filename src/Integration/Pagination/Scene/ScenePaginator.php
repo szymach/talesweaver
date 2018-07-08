@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Pagination\Scene;
 
-use Talesweaver\Integration\Repository\SceneRepository;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
+use Talesweaver\Integration\Repository\SceneRepository;
 
 class ScenePaginator
 {

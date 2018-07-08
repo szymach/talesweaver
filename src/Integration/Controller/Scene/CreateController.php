@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Controller\Scene;
 
-use Talesweaver\Integration\Form\Scene\CreateType;
-use Talesweaver\Integration\Routing\RedirectToEdit;
-use Talesweaver\Integration\Templating\SimpleFormView;
-use Talesweaver\Domain\Chapter;
-use Talesweaver\Application\Scene\Create\Command;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Talesweaver\Application\Scene\Create\Command;
+use Talesweaver\Domain\Chapter;
+use Talesweaver\Integration\Form\Scene\CreateType;
+use Talesweaver\Integration\Routing\RedirectToEdit;
+use Talesweaver\Integration\Templating\SimpleFormView;
 
 class CreateController
 {

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Templating\Item;
 
-use Talesweaver\Integration\Pagination\Item\ItemPaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Talesweaver\Domain\Scene;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Integration\Pagination\Item\ItemPaginator;
 
 class ListView
 {

@@ -4,14 +4,10 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Validation\Constraints;
 
-use Talesweaver\Integration\Repository\BookRepository;
-use Talesweaver\Integration\Repository\ChapterRepository;
-use Talesweaver\Integration\Repository\CharacterRepository;
-use Talesweaver\Integration\Repository\EventRepository;
-use Talesweaver\Integration\Repository\ItemRepository;
-use Talesweaver\Integration\Repository\LocationRepository;
-use Talesweaver\Integration\Repository\SceneRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Character;
@@ -19,9 +15,13 @@ use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
-use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ConstraintValidator;
+use Talesweaver\Integration\Repository\BookRepository;
+use Talesweaver\Integration\Repository\ChapterRepository;
+use Talesweaver\Integration\Repository\CharacterRepository;
+use Talesweaver\Integration\Repository\EventRepository;
+use Talesweaver\Integration\Repository\ItemRepository;
+use Talesweaver\Integration\Repository\LocationRepository;
+use Talesweaver\Integration\Repository\SceneRepository;
 
 class UniqueDTOValidator extends ConstraintValidator
 {

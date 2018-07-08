@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Event\Create;
 
-use Talesweaver\Domain\Scene;
 use JsonSerializable;
+use Talesweaver\Domain\Scene;
 
 class DTO
 {

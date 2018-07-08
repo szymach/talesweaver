@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Controller\Chapter;
 
-use Talesweaver\Integration\Form\Chapter\EditType;
-use Talesweaver\Integration\Routing\RedirectToEdit;
-use Talesweaver\Integration\Templating\Chapter\EditView;
-use Talesweaver\Application\Chapter\Edit\Command;
-use Talesweaver\Application\Chapter\Edit\DTO;
-use Talesweaver\Domain\Chapter;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Talesweaver\Application\Chapter\Edit\Command;
+use Talesweaver\Application\Chapter\Edit\DTO;
+use Talesweaver\Domain\Chapter;
+use Talesweaver\Integration\Form\Chapter\EditType;
+use Talesweaver\Integration\Routing\RedirectToEdit;
+use Talesweaver\Integration\Templating\Chapter\EditView;
 
 class EditController
 {

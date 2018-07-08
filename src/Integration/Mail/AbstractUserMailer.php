@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Mail;
 
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Talesweaver\Domain\User;
 use Swift_Mailer;
 use Swift_Message;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Talesweaver\Domain\User;
 
 class AbstractUserMailer
 {

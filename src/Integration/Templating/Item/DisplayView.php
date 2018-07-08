@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Templating\Item;
 
-use Talesweaver\Domain\Item;
-use Talesweaver\Integration\Timeline\ItemTimeline;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Talesweaver\Domain\Item;
+use Talesweaver\Integration\Timeline\ItemTimeline;
 
 class DisplayView
 {

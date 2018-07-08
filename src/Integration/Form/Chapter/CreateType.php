@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Form\Chapter;
 
-use Talesweaver\Integration\Repository\BookRepository;
-use Talesweaver\Application\Chapter\Create\DTO;
-use Talesweaver\Domain\Book;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Talesweaver\Application\Chapter\Create\DTO;
+use Talesweaver\Domain\Book;
+use Talesweaver\Integration\Repository\BookRepository;
 
 class CreateType extends AbstractType
 {

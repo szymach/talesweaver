@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Timeline;
 
-use Talesweaver\Integration\Repository\EventRepository;
-use Talesweaver\Integration\Repository\SceneRepository;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Event\Meeting;
-use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Integration\Repository\EventRepository;
+use Talesweaver\Integration\Repository\SceneRepository;
 use function mb_strtolower;
 
 abstract class TimelineFormatter

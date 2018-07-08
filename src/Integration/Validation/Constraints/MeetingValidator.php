@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Validation\Constraints;
 
-use Talesweaver\Domain\Event\Meeting;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Talesweaver\Domain\Event\Meeting;
 
 class MeetingValidator extends ConstraintValidator
 {
@@ -15,7 +15,7 @@ class MeetingValidator extends ConstraintValidator
      */
     public function validate($meeting, Constraint $constraint)
     {
-        if (!$meeting->getRoot() || !$meeting->getRelation()) {
+        if (null === $meeting->getRoot() || null === $meeting->getRelation()) {
             return;
         }
 

@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\JSON;
 
-use Talesweaver\Integration\Repository\CharacterRepository;
-use Talesweaver\Integration\Repository\ItemRepository;
-use Talesweaver\Integration\Repository\LocationRepository;
+use JsonSerializable;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Location;
-use JsonSerializable;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Talesweaver\Integration\Repository\CharacterRepository;
+use Talesweaver\Integration\Repository\ItemRepository;
+use Talesweaver\Integration\Repository\LocationRepository;
 
 class EventParser
 {

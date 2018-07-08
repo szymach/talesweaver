@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Location\Delete;
 
-use Talesweaver\Domain\Location;
 use Doctrine\Common\Persistence\ObjectManager;
+use Talesweaver\Domain\Location;
 
 class CommandHandler
 {

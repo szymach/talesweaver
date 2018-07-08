@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Form\Event;
 
-use Talesweaver\Domain\Character;
-use Talesweaver\Domain\Location;
-use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Repository\CharacterRepository;
-use Talesweaver\Integration\Repository\LocationRepository;
-use Talesweaver\Domain\Event\Meeting;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Talesweaver\Domain\Character;
+use Talesweaver\Domain\Event\Meeting;
+use Talesweaver\Domain\Location;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Integration\Repository\CharacterRepository;
+use Talesweaver\Integration\Repository\LocationRepository;
 
 class MeetingType extends AbstractType
 {

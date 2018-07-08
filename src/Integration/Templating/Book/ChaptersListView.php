@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Templating\Book;
 
-use Talesweaver\Domain\Book;
-use Talesweaver\Integration\Form\Chapter\CreateType;
-use Talesweaver\Integration\Pagination\Book\ChapterPaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Talesweaver\Application\Chapter\Create\DTO;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\RouterInterface;
+use Talesweaver\Application\Chapter\Create\DTO;
+use Talesweaver\Domain\Book;
+use Talesweaver\Integration\Form\Chapter\CreateType;
+use Talesweaver\Integration\Pagination\Book\ChapterPaginator;
 
 class ChaptersListView
 {

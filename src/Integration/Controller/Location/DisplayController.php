@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Controller\Location;
 
-use Talesweaver\Integration\Templating\Location\DisplayView;
 use Talesweaver\Domain\Location;
+use Talesweaver\Integration\Templating\Location\DisplayView;
 
 class DisplayController
 {

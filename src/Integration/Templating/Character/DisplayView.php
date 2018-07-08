@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Templating\Character;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Talesweaver\Integration\Timeline\CharacterTimeline;
-use Talesweaver\Domain\Character;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Talesweaver\Domain\Character;
+use Talesweaver\Integration\Timeline\CharacterTimeline;
 
 class DisplayView
 {

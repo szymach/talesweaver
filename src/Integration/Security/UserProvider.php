@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Security;
 
-use Talesweaver\Domain\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Talesweaver\Domain\User;
 
 class UserProvider
 {

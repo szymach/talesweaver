@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Templating\Event;
 
-use Talesweaver\Integration\Enum\SceneEvents;
-use Talesweaver\Integration\Pagination\EventPaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Talesweaver\Domain\Scene;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Integration\Pagination\EventPaginator;
 
 class ListView
 {

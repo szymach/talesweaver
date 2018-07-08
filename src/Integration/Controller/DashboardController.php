@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Controller;
 
-use Talesweaver\Integration\Templating\DashboardView;
 use Symfony\Component\HttpFoundation\Request;
+use Talesweaver\Integration\Templating\DashboardView;
 
 class DashboardController
 {

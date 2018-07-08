@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Templating\Book;
 
-use Talesweaver\Integration\Form\Chapter\CreateType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Talesweaver\Application\Chapter\Create\DTO;
-use Talesweaver\Domain\Book;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
+use Talesweaver\Application\Chapter\Create\DTO;
+use Talesweaver\Domain\Book;
+use Talesweaver\Integration\Form\Chapter\CreateType;
 
 class EditView
 {

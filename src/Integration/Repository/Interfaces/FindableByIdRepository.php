@@ -7,6 +7,5 @@ namespace Talesweaver\Integration\Repository\Interfaces;
 interface FindableByIdRepository
 {
     public function getClassName(): string;
-
     public function find(string $id);
 }

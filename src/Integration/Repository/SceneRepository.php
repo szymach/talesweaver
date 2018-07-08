@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Repository;
 
+use Doctrine\ORM\QueryBuilder;
+use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Talesweaver\Doctrine\Repository\SceneRepository as DoctrineRepository;
+use Talesweaver\Domain\Chapter;
 use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
 use Talesweaver\Integration\Repository\Interfaces\LatestChangesAwareRepository;
 use Talesweaver\Integration\Security\UserProvider;
-use Doctrine\ORM\QueryBuilder;
-use Talesweaver\Doctrine\Repository\SceneRepository as DoctrineRepository;
-use Talesweaver\Domain\Chapter;
-use Ramsey\Uuid\UuidInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class SceneRepository implements FindableByIdRepository, LatestChangesAwareRepository
 {

@@ -7,9 +7,9 @@ namespace Talesweaver\Application\Item\Edit;
 use Talesweaver\Application\Messages\EditionSuccessMessage;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
+use Talesweaver\Application\Security\UserAccessInterface;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\User;
-use Talesweaver\Application\Security\UserAccessInterface;
 
 class Command implements MessageCommandInterface, UserAccessInterface
 {

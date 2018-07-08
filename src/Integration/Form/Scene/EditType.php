@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Form\Scene;
 
-use Talesweaver\Integration\Repository\ChapterRepository;
-use Talesweaver\Domain\Chapter;
-use Talesweaver\Application\Scene\Edit\DTO;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -16,6 +13,9 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Talesweaver\Application\Scene\Edit\DTO;
+use Talesweaver\Domain\Chapter;
+use Talesweaver\Integration\Repository\ChapterRepository;
 
 class EditType extends AbstractType
 {

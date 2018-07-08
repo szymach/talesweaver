@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Controller\Security;
 
-use Talesweaver\Integration\Form\Security\ResetPasswordRequestType;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Talesweaver\Application\Security\Command\GeneratePasswordResetToken;
 use SimpleBus\Message\Bus\MessageBus;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
+use Talesweaver\Application\Security\Command\GeneratePasswordResetToken;
+use Talesweaver\Integration\Form\Security\ResetPasswordRequestType;
 
 class ResetPasswordRequestController
 {

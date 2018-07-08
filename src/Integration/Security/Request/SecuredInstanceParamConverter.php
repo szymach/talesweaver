@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Security\Request;
 
-use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
 use Ramsey\Uuid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
 
 class SecuredInstanceParamConverter implements ParamConverterInterface
 {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Controller\Event;
 
-use Talesweaver\Integration\Templating\Event\DisplayView;
 use Talesweaver\Domain\Event;
+use Talesweaver\Integration\Templating\Event\DisplayView;
 
 class DisplayController
 {

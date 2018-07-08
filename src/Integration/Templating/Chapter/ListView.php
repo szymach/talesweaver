@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Templating\Chapter;
 
-use Talesweaver\Integration\Pagination\Chapter\ChapterPaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Talesweaver\Integration\Pagination\Chapter\ChapterPaginator;
 
 class ListView
 {

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Controller\Location;
 
-use Talesweaver\Domain\Location;
-use Talesweaver\Application\Location\Delete\Command;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Talesweaver\Application\Location\Delete\Command;
+use Talesweaver\Domain\Location;
 
 class DeleteController
 {

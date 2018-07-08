@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Controller\Scene;
 
-use Talesweaver\Integration\Templating\Scene\RelatedListView;
 use Talesweaver\Domain\Chapter;
+use Talesweaver\Integration\Templating\Scene\RelatedListView;
 
 class RelatedListController
 {

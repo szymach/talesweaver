@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\JSON;
 
-use Talesweaver\Integration\JSON\EventParser;
-use Talesweaver\Domain\Event;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Talesweaver\Domain\Event;
+use Talesweaver\Integration\JSON\EventParser;
 
 class ModelParserListener
 {

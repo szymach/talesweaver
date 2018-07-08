@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Templating\Chapter;
 
-use Talesweaver\Integration\Form\Scene\CreateType;
-use Talesweaver\Integration\Pagination\Chapter\ScenePaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Talesweaver\Domain\Chapter;
-use Talesweaver\Application\Scene\Create\DTO;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
+use Talesweaver\Application\Scene\Create\DTO;
+use Talesweaver\Domain\Chapter;
+use Talesweaver\Integration\Form\Scene\CreateType;
+use Talesweaver\Integration\Pagination\Chapter\ScenePaginator;
 
 class ScenesListView
 {

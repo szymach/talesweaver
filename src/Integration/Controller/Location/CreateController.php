@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Controller\Location;
 
-use Talesweaver\Integration\Form\Location\CreateType;
-use Talesweaver\Integration\Templating\Location\FormView;
-use Talesweaver\Domain\Scene;
-use Talesweaver\Application\Location\Create\Command;
-use Talesweaver\Application\Location\Create\DTO;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
+use Talesweaver\Application\Location\Create\Command;
+use Talesweaver\Application\Location\Create\DTO;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Integration\Form\Location\CreateType;
+use Talesweaver\Integration\Templating\Location\FormView;
 
 class CreateController
 {

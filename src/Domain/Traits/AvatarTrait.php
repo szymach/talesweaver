@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Talesweaver\Domain\Traits;
 
+use FSi\DoctrineExtensions\Uploadable\File;
 use SplFileInfo;
 
 trait AvatarTrait
 {
     /**
-     * @var SplFileInfo
+     * @var File|SplFileInfo
      */
     private $avatar;
 

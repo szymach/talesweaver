@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Templating\Chapter;
 
-use Talesweaver\Domain\Chapter;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Talesweaver\Domain\Chapter;
 
 class DisplayView
 {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Controller\Event;
 
-use Talesweaver\Integration\Templating\Event\ListView;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Integration\Templating\Event\ListView;
 
 class ListController
 {

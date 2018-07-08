@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Enum;
 
-use Talesweaver\Integration\Form\Event\MeetingType;
-use Talesweaver\Domain\Event\Meeting;
 use InvalidArgumentException;
+use Talesweaver\Domain\Event\Meeting;
+use Talesweaver\Integration\Form\Event\MeetingType;
 
 final class SceneEvents
 {

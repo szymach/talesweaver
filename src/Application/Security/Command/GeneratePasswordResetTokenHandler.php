@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Security\Command;
 
-use Talesweaver\Integration\Mail\PasswordResetMailer;
-use Talesweaver\Integration\Repository\PasswordResetTokenRepository;
-use Talesweaver\Integration\Repository\UserRepository;
 use DateInterval;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
+use Talesweaver\Integration\Mail\PasswordResetMailer;
+use Talesweaver\Integration\Repository\PasswordResetTokenRepository;
+use Talesweaver\Integration\Repository\UserRepository;
 use function generate_user_token;
 
 class GeneratePasswordResetTokenHandler

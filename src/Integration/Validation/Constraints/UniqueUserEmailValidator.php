@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Validation\Constraints;
 
-use Talesweaver\Integration\Repository\UserRepository;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Talesweaver\Integration\Repository\UserRepository;
 
 class UniqueUserEmailValidator extends ConstraintValidator
 {

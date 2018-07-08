@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Controller\Character;
 
-use Talesweaver\Domain\Character;
-use Talesweaver\Domain\Scene;
-use Talesweaver\Application\Character\AddToScene\Command;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Talesweaver\Application\Character\AddToScene\Command;
+use Talesweaver\Domain\Character;
+use Talesweaver\Domain\Scene;
 
 class AddToSceneController
 {

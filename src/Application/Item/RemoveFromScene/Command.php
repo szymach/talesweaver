@@ -7,10 +7,10 @@ namespace Talesweaver\Application\Item\RemoveFromScene;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Application\Messages\RemovedFromSceneSuccessMessage;
+use Talesweaver\Application\Security\UserAccessInterface;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\User;
-use Talesweaver\Application\Security\UserAccessInterface;
 
 class Command implements MessageCommandInterface, UserAccessInterface
 {

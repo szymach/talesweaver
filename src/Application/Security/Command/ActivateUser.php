@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Security\Command;
 
+use DomainException;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\User;
-use DomainException;
 
 class ActivateUser implements MessageCommandInterface
 {

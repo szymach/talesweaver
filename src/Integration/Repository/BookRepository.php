@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Repository;
 
+use Doctrine\ORM\QueryBuilder;
+use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Doctrine\Repository\BookRepository as DoctrineRepository;
 use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
 use Talesweaver\Integration\Repository\Interfaces\LatestChangesAwareRepository;
 use Talesweaver\Integration\Security\UserProvider;
-use Doctrine\ORM\QueryBuilder;
-use Talesweaver\Doctrine\Repository\BookRepository as DoctrineRepository;
-use Ramsey\Uuid\UuidInterface;
 
 class BookRepository implements FindableByIdRepository, LatestChangesAwareRepository
 {

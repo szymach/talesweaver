@@ -4,6 +4,16 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Templating\Scene;
 
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Talesweaver\Application\Scene\Create\DTO;
+use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Enum\SceneEvents;
 use Talesweaver\Integration\Form\Scene\CreateType;
 use Talesweaver\Integration\Pagination\Chapter\ScenePaginator;
@@ -11,16 +21,6 @@ use Talesweaver\Integration\Pagination\Character\CharacterPaginator;
 use Talesweaver\Integration\Pagination\EventPaginator;
 use Talesweaver\Integration\Pagination\Item\ItemPaginator;
 use Talesweaver\Integration\Pagination\Location\LocationPaginator;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Talesweaver\Domain\Chapter;
-use Talesweaver\Domain\Scene;
-use Talesweaver\Application\Scene\Create\DTO;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class EditView
 {

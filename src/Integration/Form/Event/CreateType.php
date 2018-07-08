@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Form\Event;
 
-use Talesweaver\Domain\Scene;
-use Talesweaver\Application\Event\Create\DTO;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Talesweaver\Application\Event\Create\DTO;
+use Talesweaver\Domain\Scene;
 
 class CreateType extends AbstractType
 {

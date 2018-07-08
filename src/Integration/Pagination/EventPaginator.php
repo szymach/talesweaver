@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Pagination;
 
-use Talesweaver\Integration\Repository\EventRepository;
-use Talesweaver\Domain\Scene;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Integration\Repository\EventRepository;
 
 class EventPaginator
 {

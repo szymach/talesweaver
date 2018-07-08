@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Templating;
 
+use DateTimeImmutable;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Talesweaver\Domain\Book;
+use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Repository\BookRepository;
 use Talesweaver\Integration\Repository\ChapterRepository;
 use Talesweaver\Integration\Repository\Interfaces\LatestChangesAwareRepository;
 use Talesweaver\Integration\Repository\SceneRepository;
-use DateTimeImmutable;
-use Talesweaver\Domain\Book;
-use Talesweaver\Domain\Chapter;
-use Talesweaver\Domain\Scene;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Component\HttpFoundation\Response;
 
 class DashboardView
 {

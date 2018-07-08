@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Repository;
 
-use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
-use Talesweaver\Integration\Security\UserProvider;
 use Doctrine\ORM\QueryBuilder;
+use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Doctrine\Repository\EventRepository as DoctrineRepository;
 use Talesweaver\Domain\Scene;
-use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
+use Talesweaver\Integration\Security\UserProvider;
 
 class EventRepository implements FindableByIdRepository
 {

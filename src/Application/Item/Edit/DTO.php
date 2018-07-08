@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Talesweaver\Application\Item\Edit;
 
 use Doctrine\Common\Collections\Collection;
-use Talesweaver\Domain\Item;
-use Talesweaver\Domain\Scene;
 use FSi\DoctrineExtensions\Uploadable\File;
 use Ramsey\Uuid\UuidInterface;
 use SplFileInfo;
+use Talesweaver\Domain\Item;
+use Talesweaver\Domain\Scene;
 
 class DTO
 {

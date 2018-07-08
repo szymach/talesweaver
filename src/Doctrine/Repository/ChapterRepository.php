@@ -6,10 +6,10 @@ namespace Talesweaver\Doctrine\Repository;
 
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use Talesweaver\Domain\Book;
-use Talesweaver\Domain\User;
 use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository;
 use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Domain\Book;
+use Talesweaver\Domain\User;
 
 class ChapterRepository extends TranslatableRepository
 {

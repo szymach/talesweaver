@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Controller\Item;
 
-use Talesweaver\Integration\Templating\Item\ListView;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Integration\Templating\Item\ListView;
 
 class ListController
 {

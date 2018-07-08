@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Character\Create;
 
-use Talesweaver\Domain\Character;
 use Doctrine\Common\Persistence\ObjectManager;
+use Talesweaver\Domain\Character;
 
 class CommandHandler
 {

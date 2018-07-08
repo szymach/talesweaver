@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Controller\Character;
 
-use Talesweaver\Integration\Form\Character\EditType;
-use Talesweaver\Integration\Templating\Character\FormView;
-use Talesweaver\Application\Character\Edit\Command;
-use Talesweaver\Application\Character\Edit\DTO;
-use Talesweaver\Domain\Character;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
+use Talesweaver\Application\Character\Edit\Command;
+use Talesweaver\Application\Character\Edit\DTO;
+use Talesweaver\Domain\Character;
+use Talesweaver\Integration\Form\Character\EditType;
+use Talesweaver\Integration\Templating\Character\FormView;
 
 class EditController
 {

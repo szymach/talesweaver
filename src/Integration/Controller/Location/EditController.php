@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Controller\Location;
 
-use Talesweaver\Integration\Form\Location\EditType;
-use Talesweaver\Integration\Templating\Location\FormView;
-use Talesweaver\Domain\Location;
-use Talesweaver\Application\Location\Edit\Command;
-use Talesweaver\Application\Location\Edit\DTO;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
+use Talesweaver\Application\Location\Edit\Command;
+use Talesweaver\Application\Location\Edit\DTO;
+use Talesweaver\Domain\Location;
+use Talesweaver\Integration\Form\Location\EditType;
+use Talesweaver\Integration\Templating\Location\FormView;
 
 class EditController
 {

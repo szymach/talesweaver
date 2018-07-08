@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Pagination\Chapter;
 
-use Talesweaver\Integration\Repository\ChapterRepository;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
+use Talesweaver\Integration\Repository\ChapterRepository;
 
 class ChapterPaginator
 {

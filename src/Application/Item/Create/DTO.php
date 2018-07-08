@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Item\Create;
 
-use Talesweaver\Domain\Scene;
 use FSi\DoctrineExtensions\Uploadable\File;
 use SplFileInfo;
+use Talesweaver\Domain\Scene;
 
 class DTO
 {

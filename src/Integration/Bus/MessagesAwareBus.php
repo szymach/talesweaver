@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Bus;
 
-use Talesweaver\Application\Messages\MessageCommandInterface;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface;
+use Talesweaver\Application\Messages\MessageCommandInterface;
 
 class MessagesAwareBus implements MessageBus
 {

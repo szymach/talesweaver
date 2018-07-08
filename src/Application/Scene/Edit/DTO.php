@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Scene\Edit;
 
+use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
-use Ramsey\Uuid\UuidInterface;
 
 class DTO
 {

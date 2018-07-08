@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Controller\Character;
 
-use Talesweaver\Integration\Templating\Character\DisplayView;
 use Talesweaver\Domain\Character;
+use Talesweaver\Integration\Templating\Character\DisplayView;
 
 class DisplayController
 {

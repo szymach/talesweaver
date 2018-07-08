@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Talesweaver\Domain\Event;
 
+use DomainException;
+use JsonSerializable;
 use Talesweaver\Application\Security\UserAccessInterface;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\User;
-use DomainException;
-use JsonSerializable;
 
 class Meeting implements JsonSerializable, UserAccessInterface
 {

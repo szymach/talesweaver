@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Controller\Scene;
 
-use Talesweaver\Integration\Routing\RedirectToEdit;
-use Talesweaver\Integration\Routing\RedirectToList;
-use Talesweaver\Domain\Scene;
-use Talesweaver\Application\Scene\Delete\Command;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Talesweaver\Application\Scene\Delete\Command;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Integration\Routing\RedirectToEdit;
+use Talesweaver\Integration\Routing\RedirectToList;
 
 class DeleteController
 {

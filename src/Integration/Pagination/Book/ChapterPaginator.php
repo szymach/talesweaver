@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Pagination\Book;
 
-use Talesweaver\Integration\Repository\ChapterRepository;
-use Talesweaver\Domain\Book;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
+use Talesweaver\Domain\Book;
+use Talesweaver\Integration\Repository\ChapterRepository;
 
 class ChapterPaginator
 {
@@ -21,7 +21,7 @@ class ChapterPaginator
         $this->repository = $repository;
     }
 
-    public function getResults(Book $book, int $page, int $maxPerPage = 8): Pagerfanta
+    public function getResults(Book $book, int $page, int $maxPerPage = 3): Pagerfanta
     {
         $pager = new Pagerfanta(new DoctrineORMAdapter($this->repository->createForBookQb($book)));
         $pager->setMaxPerPage($maxPerPage);

@@ -7,13 +7,13 @@ namespace Talesweaver\Integration\DataFixtures\ORM;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\User;
-use Ramsey\Uuid\Uuid;
 
 class LoadStandaloneChapterData implements ORMFixtureInterface, OrderedFixtureInterface
 {

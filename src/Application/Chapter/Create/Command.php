@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Chapter\Create;
 
+use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Messages\CreationSuccessMessage;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
-use Talesweaver\Domain\User;
 use Talesweaver\Application\Security\Traits\UserAwareTrait;
 use Talesweaver\Application\Security\UserAccessInterface;
 use Talesweaver\Application\Security\UserAwareInterface;
-use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Domain\User;
 
 class Command implements MessageCommandInterface, UserAccessInterface, UserAwareInterface
 {

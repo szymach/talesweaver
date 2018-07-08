@@ -7,10 +7,10 @@ namespace Talesweaver\Integration\DataFixtures\ORM;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\User;
-use Ramsey\Uuid\Uuid;
 
 class LoandStandaloneBookData implements ORMFixtureInterface, OrderedFixtureInterface
 {

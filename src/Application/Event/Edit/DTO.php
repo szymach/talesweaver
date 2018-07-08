@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Event\Edit;
 
-use Talesweaver\Domain\Event;
 use JsonSerializable;
 use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Domain\Event;
 
 class DTO
 {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Event\Create;
 
-use Talesweaver\Domain\Event;
 use Doctrine\Common\Persistence\ObjectManager;
+use Talesweaver\Domain\Event;
 
 class CommandHandler
 {

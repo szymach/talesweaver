@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Templating\Location;
 
-use Talesweaver\Domain\Location;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Talesweaver\Integration\Timeline\LocationTimeline;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Talesweaver\Domain\Location;
+use Talesweaver\Integration\Timeline\LocationTimeline;
 
 class DisplayView
 {

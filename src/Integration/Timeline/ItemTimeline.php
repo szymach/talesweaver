@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Timeline;
 
-use Talesweaver\Integration\Repository\SceneRepository;
 use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Integration\Repository\SceneRepository;
 
 class ItemTimeline extends TimelineFormatter
 {

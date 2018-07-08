@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Doctrine\Repository;
 
-use Talesweaver\Domain\User;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
+use Talesweaver\Domain\User;
 
 class UserRepository extends EntityRepository
 {

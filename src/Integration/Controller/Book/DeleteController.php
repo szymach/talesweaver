@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Controller\Book;
 
-use Talesweaver\Integration\Routing\RedirectToList;
+use SimpleBus\Message\Bus\MessageBus;
 use Talesweaver\Application\Book\Delete\Command;
 use Talesweaver\Domain\Book;
-use SimpleBus\Message\Bus\MessageBus;
+use Talesweaver\Integration\Routing\RedirectToList;
 
 class DeleteController
 {
