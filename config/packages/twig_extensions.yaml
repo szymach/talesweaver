@@ -4,8 +4,8 @@ services:
         autowire: true
         autoconfigure: true
 
-    App\Twig\:
-        resource: "../../src/App/Twig/*"
+    Integration\Twig\:
+        resource: "../../src/Integration/Twig/*"
         tags:
             - { name: twig.extension }
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Helper;
+namespace Integration\Tests\Helper;
 
 use Codeception\Module;
 use Doctrine\ORM\EntityManagerInterface;

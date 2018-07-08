@@ -11,7 +11,8 @@ services:
         autowire: true
         autoconfigure: true
         bind:
-            $environment: '%kernel.environment%'
+            $environment: "%kernel.environment%"
+            $mailerFrom: "%mailer_from%"
 
     Knp\Menu\FactoryInterface: "@knp_menu.factory"
     Knp\Snappy\GeneratorInterface: "@knp_snappy.pdf"
@@ -19,33 +20,25 @@ services:
     Symfony\Component\HttpFoundation\Session\Session: "@session"
     Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface: '@security.user_password_encoder.generic'
 
-    App\Controller\:
-        resource: "../src/App/Controller/*"
+    Integration\Controller\:
+        resource: "../src/Integration/Controller/*"
         public: true
 
-    App\DataFixtures\ORM\:
-        resource: "../src/App/DataFixtures/ORM/*"
+    Integration\DataFixtures\ORM\:
+        resource: "../src/Integration/DataFixtures/ORM/*"
         tags: ['doctrine.fixture.orm']
 
-    App\Mail\PasswordResetMailer:
-        arguments:
-            $mailerFrom: "%mailer_from%"
-
-    App\Mail\RegistrationMailer:
-        arguments:
-            $mailerFrom: "%mailer_from%"
-
-    App\:
-        resource: "../src/App/{Form,JSON,Menu,Pagination,Routing,Templating,Timeline,Security,Validation}/*"
-        exclude: "../src/App/Security/function/*"
+    Integration\:
+        resource: "../src/Integration/{Form,JSON,Mail,Menu,Pagination,Routing,Templating,Timeline,Security,Validation}/*"
+        exclude: "../src/Integration/Security/function/*"
 
     # Do not remove, because it is not explicitly used and is removed from the container
-    App\JSON\EventParser:
+    Integration\JSON\EventParser:
         public: true
 
     # Menu
     app.menu.builder:
-        class: App\Menu\Builder
+        class: Integration\Menu\Builder
 
     app.menu.main:
         class: Knp\Menu\MenuItem
@@ -55,30 +48,30 @@ services:
 
     # Bus
     transaction_wrapped_command_bus:
-        class:     App\Bus\TransactionWrappedBus
+        class:     Integration\Bus\TransactionWrappedBus
         decorates: command_bus
         arguments: ['@transaction_wrapped_command_bus.inner']
 
     user_aware_command_bus:
-        class:     App\Bus\UserAwareBus
+        class:     Integration\Bus\UserAwareBus
         decorates: transaction_wrapped_command_bus
         arguments: ['@user_aware_command_bus.inner']
 
     user_access_command_bus:
-        class:     App\Bus\UserAccessBus
+        class:     Integration\Bus\UserAccessBus
         decorates: user_aware_command_bus
         arguments: ['@user_access_command_bus.inner']
 
     messages_aware_bus:
-        class:     App\Bus\MessagesAwareBus
+        class:     Integration\Bus\MessagesAwareBus
         decorates: user_access_command_bus
         arguments: ['@messages_aware_bus.inner']
 
     # Security
     app.security.login_form_authenticator:
-        class: App\Security\LoginFormAuthenticator
+        class: Integration\Security\LoginFormAuthenticator
 
-    App\Security\Request\SecuredInstanceParamConverter:
+    Integration\Security\Request\SecuredInstanceParamConverter:
         arguments: [[]]
         autowire: false
         autoconfigure: false

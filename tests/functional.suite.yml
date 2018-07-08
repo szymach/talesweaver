@@ -2,9 +2,11 @@ actor: FunctionalTester
 modules:
     enabled:
         - Symfony:
-            app_path: 'src/App'
-            var_path: 'var'
+            app_path: 'src/Integration'
+            cache_router: true
             environment: 'test'
+            kernel_class: 'Integration\Kernel'
+            var_path: 'var'
         - Doctrine2:
             depends: Symfony
-        - \App\Tests\Helper\Functional
+        - \Integration\Tests\Helper\Functional

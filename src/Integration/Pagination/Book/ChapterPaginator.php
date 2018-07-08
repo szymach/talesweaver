@@ -1,0 +1,32 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Integration\Pagination\Book;
+
+use Integration\Repository\ChapterRepository;
+use Domain\Book;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
+
+class ChapterPaginator
+{
+    /**
+     * @var ChapterRepository
+     */
+    private $repository;
+
+    public function __construct(ChapterRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function getResults(Book $book, int $page, int $maxPerPage = 8): Pagerfanta
+    {
+        $pager = new Pagerfanta(new DoctrineORMAdapter($this->repository->createForBookQb($book)));
+        $pager->setMaxPerPage($maxPerPage);
+        $pager->setCurrentPage($page);
+
+        return $pager;
+    }
+}

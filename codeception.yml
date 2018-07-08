@@ -1,4 +1,4 @@
-namespace: App\Tests
+namespace: Integration\Tests
 actor_suffix: Tester
 params:
     - .env

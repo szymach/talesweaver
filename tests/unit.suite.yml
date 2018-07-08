@@ -2,10 +2,11 @@ actor: UnitTester
 modules:
     enabled:
         - Asserts
-        - \App\Tests\Helper\Unit
+        - \Integration\Tests\Helper\Unit
         - Doctrine2:
             depends: Symfony
         - Symfony:
-            app_path: 'src/App'
-            var_path: 'var'
+            app_path: 'src/Integration'
             environment: 'test'
+            kernel_class: 'Integration\Kernel'
+            var_path: 'var'

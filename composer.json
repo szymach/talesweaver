@@ -11,20 +11,20 @@
     ],
     "autoload": {
         "psr-4": {
-            "App\\": "src/App/",
             "Application\\": "src/Application/",
             "Doctrine\\": "src/Doctrine/",
-            "Domain\\": "src/Domain/"
+            "Domain\\": "src/Domain/",
+            "Integration\\": "src/Integration/"
         },
-        "files": ["src/App/Security/function/generate_user_token.php"]
+        "files": ["src/Integration/Security/function/generate_user_token.php"]
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": [
-                "tests/functional/App",
-                "tests/unit/App"
-            ],
-            "Domain\\Tests\\": ["tests/unit/Domain"]
+            "Domain\\Tests\\": ["tests/unit/Domain"],
+            "Integration\\Tests\\": [
+                "tests/functional/Integration",
+                "tests/unit/Integration"
+            ]
         }
     },
     "require": {

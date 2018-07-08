@@ -33,7 +33,7 @@
         </many-to-one>
 
         <entity-listeners>
-            <entity-listener class="App\JSON\ModelParserListener">
+            <entity-listener class="Integration\JSON\ModelParserListener">
                 <lifecycle-callback type="postLoad" method="postLoad"/>
             </entity-listener>
         </entity-listeners>

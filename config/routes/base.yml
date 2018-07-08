@@ -1,11 +1,11 @@
 ---
 index:
     path: /
-    controller: App\Controller\DashboardController
+    controller: Integration\Controller\DashboardController
     methods:  GET
 
 alerts:
     path: /alerts
-    controller: App\Controller\AlertsController
+    controller: Integration\Controller\AlertsController
     methods:  GET
     condition: "request.isXmlHttpRequest()"

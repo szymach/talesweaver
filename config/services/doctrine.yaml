@@ -6,7 +6,7 @@ services:
 
     # Entity listeners
     entity_listener.event:
-        class: App\JSON\ModelParserListener
+        class: Integration\JSON\ModelParserListener
         autowire: true
         tags:
             - { name: doctrine.orm.entity_listener }
@@ -49,36 +49,36 @@ services:
         arguments: [ Domain\User\PasswordResetToken ]
 
     # Repository
-    App\Repository\BookRepository:
+    Integration\Repository\BookRepository:
         autowire: true
         tags: ['app.param_converter.repository']
 
-    App\Repository\SceneRepository:
+    Integration\Repository\SceneRepository:
         autowire: true
         tags: ['app.param_converter.repository']
 
-    App\Repository\CharacterRepository:
+    Integration\Repository\CharacterRepository:
         autowire: true
         tags: ['app.param_converter.repository']
 
-    App\Repository\ItemRepository:
+    Integration\Repository\ItemRepository:
         autowire: true
         tags: ['app.param_converter.repository']
 
-    App\Repository\LocationRepository:
+    Integration\Repository\LocationRepository:
         autowire: true
         tags: ['app.param_converter.repository']
 
-    App\Repository\ChapterRepository:
+    Integration\Repository\ChapterRepository:
         autowire: true
         tags: ['app.param_converter.repository']
 
-    App\Repository\EventRepository:
+    Integration\Repository\EventRepository:
         autowire: true
         tags: ['app.param_converter.repository']
 
-    App\Repository\UserRepository:
+    Integration\Repository\UserRepository:
         autowire: true
 
-    App\Repository\PasswordResetTokenRepository:
+    Integration\Repository\PasswordResetTokenRepository:
         autowire: true

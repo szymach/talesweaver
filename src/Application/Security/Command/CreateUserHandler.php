@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Application\Security\Command;
 
 use Domain\User;
-use App\Mail\RegistrationMailer;
+use Integration\Mail\RegistrationMailer;
 use Doctrine\ORM\EntityManagerInterface;
 use function generate_user_token;
 

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Helper;
+namespace Integration\Tests\Helper;
 
-use App\Repository\Doctrine\UserRepository;
-use App\Tests\FunctionalTester;
+use Integration\Repository\Doctrine\UserRepository;
+use Integration\Tests\FunctionalTester;
 use Codeception\Module;
 use Codeception\Module\Symfony;
 use Doctrine\ORM\EntityManagerInterface;

@@ -1,7 +1,7 @@
 ---
 Application\Event\Create\DTO:
     constraints:
-        - App\Validation\Constraints\UniqueDTO:
+        - Integration\Validation\Constraints\UniqueDTO:
             fields: { name: 't.name', scene: 'e.scene' }
             repositoryMethod: entityExists
             path: name
@@ -18,7 +18,7 @@ Application\Event\Create\DTO:
 
 Application\Event\Edit\DTO:
     constraints:
-        - App\Validation\Constraints\UniqueDTO:
+        - Integration\Validation\Constraints\UniqueDTO:
             fields: { name: 't.name', scene: 'e.scene' }
             repositoryMethod: entityExists
             id: id
@@ -34,7 +34,7 @@ Application\Event\Edit\DTO:
 
 Domain\Event\Meeting:
     constraints:
-        - App\Validation\Constraints\Meeting: ~
+        - Integration\Validation\Constraints\Meeting: ~
     properties:
         root:
             - NotBlank: ~

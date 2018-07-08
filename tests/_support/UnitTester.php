@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests;
+namespace Integration\Tests;
 
 /**
  * @method void wantToTest($text)

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Application\Security\Command;
 
-use App\Mail\PasswordResetMailer;
-use App\Repository\PasswordResetTokenRepository;
-use App\Repository\UserRepository;
+use Integration\Mail\PasswordResetMailer;
+use Integration\Repository\PasswordResetTokenRepository;
+use Integration\Repository\UserRepository;
 use DateInterval;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;

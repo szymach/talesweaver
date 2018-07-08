@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests;
+namespace Integration\Tests;
 
-use App\Tests\_generated\FunctionalTesterActions;
+use Integration\Tests\_generated\FunctionalTesterActions;
 use Codeception\Actor;
 use Codeception\Lib\Friend;
 use Doctrine\ORM\EntityManagerInterface;

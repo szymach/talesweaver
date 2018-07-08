@@ -1,7 +1,7 @@
 ---
 Application\Scene\Create\DTO:
     constraints:
-        - App\Validation\Constraints\UniqueDTO:
+        - Integration\Validation\Constraints\UniqueDTO:
             fields: { title: 't.title', chapter: 'e.chapter' }
             repositoryMethod: entityExists
             path: title
@@ -13,7 +13,7 @@ Application\Scene\Create\DTO:
 
 Application\Scene\Edit\DTO:
     constraints:
-        - App\Validation\Constraints\UniqueDTO:
+        - Integration\Validation\Constraints\UniqueDTO:
             fields: { title: 't.title', chapter: 'e.chapter' }
             id: id
             repositoryMethod: entityExists

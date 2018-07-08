@@ -1,35 +1,35 @@
 ---
 scene_create:
     path: /create/{page}
-    defaults: { _controller: App\Controller\Scene\CreateController, page: 1 }
+    defaults: { _controller: Integration\Controller\Scene\CreateController, page: 1 }
     methods:  [GET, POST]
 
 scene_edit:
     path: /edit/{id}
-    defaults: { _controller: App\Controller\Scene\EditController }
+    defaults: { _controller: Integration\Controller\Scene\EditController }
     methods:  [GET, POST]
 
 scene_list:
     path: /list/{page}
-    defaults: { _controller: App\Controller\Scene\ListController, page: 1 }
+    defaults: { _controller: Integration\Controller\Scene\ListController, page: 1 }
     methods:  GET
 
 scene_related_list:
     path: /related-list/{id}/{page}
-    defaults: { _controller: App\Controller\Scene\RelatedListController, page: 1 }
+    defaults: { _controller: Integration\Controller\Scene\RelatedListController, page: 1 }
     methods:  GET
 
 scene_delete:
     path: /delete/{id}/{page}
-    defaults: { _controller: App\Controller\Scene\DeleteController, page: 1 }
+    defaults: { _controller: Integration\Controller\Scene\DeleteController, page: 1 }
     methods:  GET
 
 scene_display:
     path: /display/{id}
-    defaults: { _controller: App\Controller\Scene\DisplayController }
+    defaults: { _controller: Integration\Controller\Scene\DisplayController }
     methods:  GET
 
 scene_pdf:
     path: /pdf/{id}
-    defaults: { _controller: App\Controller\Scene\PdfController }
+    defaults: { _controller: Integration\Controller\Scene\PdfController }
     methods:  GET

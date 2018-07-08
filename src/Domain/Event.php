@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain;
 
-use App\JSON\EventParser;
+use Integration\JSON\EventParser;
 use Assert\Assertion;
 use DateTimeImmutable;
 use Domain\Traits\CreatedByTrait;

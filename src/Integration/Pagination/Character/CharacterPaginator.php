@@ -1,0 +1,32 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Integration\Pagination\Character;
+
+use Integration\Repository\CharacterRepository;
+use Domain\Scene;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
+
+class CharacterPaginator
+{
+    /**
+     * @var CharacterRepository
+     */
+    private $repository;
+
+    public function __construct(CharacterRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function getResults(Scene $scene, int $page = 1, int $maxPerPage = 3): Pagerfanta
+    {
+        $pager = new Pagerfanta(new DoctrineORMAdapter($this->repository->createForSceneQueryBuilder($scene)));
+        $pager->setMaxPerPage($maxPerPage);
+        $pager->setCurrentPage($page);
+
+        return $pager;
+    }
+}

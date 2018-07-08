@@ -1,40 +1,40 @@
 ---
 item_new:
     path: /new/{id}
-    defaults: { _controller: App\Controller\Item\CreateController }
+    defaults: { _controller: Integration\Controller\Item\CreateController }
     methods:  [GET, POST]
 
 item_edit:
     path: /edit/{id}
-    defaults: { _controller: App\Controller\Item\EditController }
+    defaults: { _controller: Integration\Controller\Item\EditController }
     methods:  [GET, POST]
 
 item_list:
     path: /list/{id}/{page}
-    defaults: { _controller: App\Controller\Item\ListController, page: 1 }
+    defaults: { _controller: Integration\Controller\Item\ListController, page: 1 }
     methods:  GET
 
 item_delete:
     path: /delete/{id}
-    defaults: { _controller: App\Controller\Item\DeleteController }
+    defaults: { _controller: Integration\Controller\Item\DeleteController }
     methods:  GET
 
 item_display:
     path: /display/{id}
-    defaults: { _controller: App\Controller\Item\DisplayController }
+    defaults: { _controller: Integration\Controller\Item\DisplayController }
     methods:  GET
 
 item_related:
     path: /related/{id}/{page}
-    defaults: { _controller: App\Controller\Item\ListRelatedController, page: 1 }
+    defaults: { _controller: Integration\Controller\Item\ListRelatedController, page: 1 }
     methods:  GET
 
 item_add_to_scene:
     path: /add-to-scene/{scene_id}/{item_id}
-    defaults: { _controller: App\Controller\Item\AddToSceneController }
+    defaults: { _controller: Integration\Controller\Item\AddToSceneController }
     methods:  GET
 
 item_remove_from_scene:
     path: /remove-from-scene/{scene_id}/{item_id}
-    defaults: { _controller: App\Controller\Item\RemoveFromSceneController }
+    defaults: { _controller: Integration\Controller\Item\RemoveFromSceneController }
     methods:  GET
