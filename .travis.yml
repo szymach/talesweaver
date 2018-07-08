@@ -1,24 +1,20 @@
 language: php
-
+php: 7.2
+sudo: false
 cache:
     yarn: true
     directories:
         - node_modules
         - vendor
-
-sudo: false
-
 addons:
     apt:
         sources:
             - mysql-5.7-trusty
         packages:
             - mysql-server
-
-matrix:
-    include:
-        - php: 7.2
-          env: SYMFONY_DEPRECATIONS_HELPER=weak
+env:
+    global:
+        - SYMFONY_DEPRECATIONS_HELPER=weak
 
 before_install:
     - phpenv config-rm xdebug.ini
