@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Form;
 
-use Talesweaver\Domain\Scene;
 use Ramsey\Uuid\Uuid;
+use Talesweaver\Domain\Scene;
 
 trait CreateSceneTrait
 {
-    private function getScene() : Scene
+    private function getScene(): Scene
     {
         $scene = new Scene(Uuid::uuid4(), 'Scena', null, $this->tester->getUser());
         $scene->setLocale('pl');

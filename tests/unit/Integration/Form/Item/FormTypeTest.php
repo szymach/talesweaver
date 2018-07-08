@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Form\Item;
 
+use Codeception\Test\Unit;
+use Ramsey\Uuid\Uuid;
+use Talesweaver\Application\Item\Create;
+use Talesweaver\Application\Item\Edit;
+use Talesweaver\Domain\Item;
 use Talesweaver\Integration\Form\Item\CreateType;
 use Talesweaver\Integration\Form\Item\EditType;
 use Talesweaver\Tests\Integration\Form\CreateSceneTrait;
-use Codeception\Test\Unit;
-use Talesweaver\Domain\Item;
-use Talesweaver\Application\Item\Create;
-use Talesweaver\Application\Item\Edit;
-use Ramsey\Uuid\Uuid;
 use UnitTester;
 
 class FormTypeTest extends Unit
 {
     use CreateSceneTrait;
 
-    const NAME_PL = 'Przedmiot';
-    const DESCRIPTION_PL = 'Opis przedmiotu';
+    private const NAME_PL = 'Przedmiot';
+    private const DESCRIPTION_PL = 'Opis przedmiotu';
 
     /**
      * @var UnitTester

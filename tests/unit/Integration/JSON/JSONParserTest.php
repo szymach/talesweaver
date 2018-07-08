@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\JSON;
 
+use PHPUnit\Framework\TestCase;
+use Prophecy\Prophecy\ObjectProphecy;
+use Symfony\Component\PropertyAccess\PropertyAccess;
+use Talesweaver\Domain\Character;
+use Talesweaver\Domain\Event;
+use Talesweaver\Domain\Event\Meeting;
+use Talesweaver\Domain\Location;
+use Talesweaver\Domain\User;
 use Talesweaver\Integration\JSON\EventParser;
 use Talesweaver\Integration\Repository\CharacterRepository;
 use Talesweaver\Integration\Repository\ItemRepository;
 use Talesweaver\Integration\Repository\LocationRepository;
-use Talesweaver\Domain\Character;
-use Talesweaver\Domain\Event;
-use Talesweaver\Domain\Location;
-use Talesweaver\Domain\User;
-use Talesweaver\Domain\Event\Meeting;
-use PHPUnit\Framework\TestCase;
-use Prophecy\Prophecy\ObjectProphecy;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class JSONParserTest extends TestCase
 {

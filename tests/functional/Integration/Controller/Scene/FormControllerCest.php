@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Controller\Scene;
 
-use Talesweaver\Tests\FunctionalTester;
+use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
-use Ramsey\Uuid\Uuid;
+use Talesweaver\Tests\FunctionalTester;
 
 class FormControllerCest
 {

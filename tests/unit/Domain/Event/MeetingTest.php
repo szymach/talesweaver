@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Talesweaver\Domain\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Talesweaver\Domain\Character;
+use Talesweaver\Domain\Event\Meeting;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\User;
-use Talesweaver\Domain\Event\Meeting;
-use PHPUnit\Framework\TestCase;
 
 class MeetingTest extends TestCase
 {

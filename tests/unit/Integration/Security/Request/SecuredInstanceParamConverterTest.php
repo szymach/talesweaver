@@ -4,11 +4,6 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Security\Request;
 
-use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
-use Talesweaver\Integration\Security\Request\SecuredInstanceParamConverter;
-use Talesweaver\Domain\Book;
-use Talesweaver\Domain\Chapter;
-use Talesweaver\Domain\Scene;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -16,6 +11,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInte
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Talesweaver\Domain\Book;
+use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
+use Talesweaver\Integration\Security\Request\SecuredInstanceParamConverter;
 
 class SecuredInstanceParamConverterTest extends TestCase
 {

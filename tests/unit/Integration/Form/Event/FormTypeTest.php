@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Form\Event;
 
+use Codeception\Test\Unit;
+use Ramsey\Uuid\Uuid;
+use Symfony\Component\Form\FormInterface;
+use Talesweaver\Application\Event\Create;
+use Talesweaver\Application\Event\Edit;
+use Talesweaver\Domain\Character;
+use Talesweaver\Domain\Event;
+use Talesweaver\Domain\Event\Meeting;
+use Talesweaver\Domain\Location;
+use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Form\Event\CreateType;
 use Talesweaver\Integration\Form\Event\EditType;
 use Talesweaver\Integration\Form\Event\MeetingType;
 use Talesweaver\Tests\Integration\Form\CreateCharacterTrait;
 use Talesweaver\Tests\Integration\Form\CreateLocationTrait;
 use Talesweaver\Tests\Integration\Form\CreateSceneTrait;
-use Talesweaver\Application\Event\Create;
-use Talesweaver\Application\Event\Edit;
-use Codeception\Test\Unit;
-use Talesweaver\Domain\Character;
-use Talesweaver\Domain\Event;
-use Talesweaver\Domain\Event\Meeting;
-use Talesweaver\Domain\Location;
-use Talesweaver\Domain\Scene;
-use Ramsey\Uuid\Uuid;
-use Symfony\Component\Form\FormInterface;
 use UnitTester;
 
 class FormTypeTest extends Unit

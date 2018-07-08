@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Talesweaver\Domain\Tests\Entity\Character;
 
 use Assert;
-use Talesweaver\Domain\Character;
-use Talesweaver\Domain\Scene;
-use Talesweaver\Domain\User;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Domain\Character;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\User;
 
 class BasePropertiesTest extends TestCase
 {

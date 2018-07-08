@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Controller\Security;
 
-use Talesweaver\Tests\FunctionalTester;
 use Talesweaver\Domain\User;
 use Talesweaver\Domain\User\ActivationToken;
+use Talesweaver\Tests\FunctionalTester;
 
 class RegisterControllerCest
 {

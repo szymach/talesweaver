@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Controller\Chapter;
 
-use Talesweaver\Tests\FunctionalTester;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Tests\FunctionalTester;
 
 class FormControllerCest
 {

@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Form\Scene;
 
-use Talesweaver\Integration\Form\Scene\CreateType;
-use Talesweaver\Integration\Form\Scene\EditType;
 use Codeception\Test\Unit;
-use Talesweaver\Domain\Scene;
+use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Scene\Create;
 use Talesweaver\Application\Scene\Edit;
-use Ramsey\Uuid\Uuid;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Integration\Form\Scene\CreateType;
+use Talesweaver\Integration\Form\Scene\EditType;
 use UnitTester;
 
 class FormTypeTest extends Unit
 {
-    const TITLE_PL = 'Scena';
-    const TEXT_PL = 'Treść sceny';
+    private const TITLE_PL = 'Scena';
+    private const TEXT_PL = 'Treść sceny';
 
     /**
      * @var UnitTester

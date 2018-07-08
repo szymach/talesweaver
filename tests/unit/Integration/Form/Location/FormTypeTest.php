@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Form\Location;
 
+use Codeception\Test\Unit;
+use Talesweaver\Application\Location\Create;
+use Talesweaver\Application\Location\Edit;
 use Talesweaver\Integration\Form\Location\CreateType;
 use Talesweaver\Integration\Form\Location\EditType;
 use Talesweaver\Tests\Integration\Form\CreateLocationTrait;
 use Talesweaver\Tests\Integration\Form\CreateSceneTrait;
-use Codeception\Test\Unit;
-use Talesweaver\Application\Location\Create;
-use Talesweaver\Application\Location\Edit;
 use UnitTester;
 
 class FormTypeTest extends Unit
 {
     use CreateLocationTrait, CreateSceneTrait;
 
-    const NAME_PL = 'Miejsce';
-    const DESCRIPTION_PL = 'Opis miejsca';
+    private const NAME_PL = 'Miejsce';
+    private const DESCRIPTION_PL = 'Opis miejsca';
 
     /**
      * @var UnitTester

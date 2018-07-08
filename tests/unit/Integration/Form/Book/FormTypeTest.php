@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Form\Book;
 
-use Talesweaver\Integration\Form\Book\CreateType;
-use Talesweaver\Integration\Form\Book\EditType;
+use Codeception\Test\Unit;
+use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Book\Create;
 use Talesweaver\Application\Book\Edit;
-use Codeception\Test\Unit;
 use Talesweaver\Domain\Book;
-use Ramsey\Uuid\Uuid;
+use Talesweaver\Integration\Form\Book\CreateType;
+use Talesweaver\Integration\Form\Book\EditType;
 use UnitTester;
 
 class FormTypeTest extends Unit
 {
-    const TITLE_PL = 'Książka';
-    const DESCRIPTION_PL = 'Opis';
+    private const TITLE_PL = 'Książka';
+    private const DESCRIPTION_PL = 'Opis';
 
     /**
      * @var UnitTester

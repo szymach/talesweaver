@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Controller\Security;
 
-use Talesweaver\Tests\FunctionalTester;
 use Assert\Assertion;
+use Talesweaver\Tests\FunctionalTester;
 
 class ActivationControllerCest
 {

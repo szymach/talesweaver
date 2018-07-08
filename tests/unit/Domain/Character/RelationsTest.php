@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Talesweaver\Domain\Tests\Entity\Character;
 
+use DomainException;
+use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\User;
-use DomainException;
-use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\UuidInterface;
 
 class RelationsTest extends TestCase
 {

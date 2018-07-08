@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Form\Character;
 
+use Codeception\Test\Unit;
+use Talesweaver\Application\Character\Create;
+use Talesweaver\Application\Character\Edit;
 use Talesweaver\Integration\Form\Character\CreateType;
 use Talesweaver\Integration\Form\Character\EditType;
 use Talesweaver\Tests\Integration\Form\CreateCharacterTrait;
 use Talesweaver\Tests\Integration\Form\CreateSceneTrait;
-use Codeception\Test\Unit;
-use Talesweaver\Application\Character\Create;
-use Talesweaver\Application\Character\Edit;
 use UnitTester;
 
 class FormTypeTest extends Unit
 {
     use CreateCharacterTrait, CreateSceneTrait;
 
-    const NAME_PL = 'Postać';
-    const DESCRIPTION_PL = 'Opis postaci';
+    private const NAME_PL = 'Postać';
+    private const DESCRIPTION_PL = 'Opis postaci';
 
     /**
      * @var UnitTester

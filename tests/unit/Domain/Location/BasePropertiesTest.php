@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Talesweaver\Domain\Tests\Entity\Location;
 
 use Assert;
-use Talesweaver\Domain\Location;
-use Talesweaver\Domain\Scene;
-use Talesweaver\Domain\User;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
 use stdClass;
+use Talesweaver\Domain\Location;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\User;
 
 class BasePropertiesTest extends TestCase
 {

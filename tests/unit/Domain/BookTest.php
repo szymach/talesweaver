@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Talesweaver\Domain\Tests;
 
 use Assert\InvalidArgumentException;
-use Talesweaver\Domain\Book;
-use Talesweaver\Domain\User;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Domain\Book;
+use Talesweaver\Domain\User;
 
 class BookTest extends TestCase
 {

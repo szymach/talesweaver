@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Bus;
 
-use Talesweaver\Application\Messages\Message;
-use Talesweaver\Application\Messages\MessageCommandInterface;
-use Talesweaver\Integration\Bus\MessagesAwareBus;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SimpleBus\Message\Bus\MessageBus;
@@ -14,6 +11,9 @@ use stdClass;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface;
+use Talesweaver\Application\Messages\Message;
+use Talesweaver\Application\Messages\MessageCommandInterface;
+use Talesweaver\Integration\Bus\MessagesAwareBus;
 
 class MessagesAwareBusTest extends TestCase
 {

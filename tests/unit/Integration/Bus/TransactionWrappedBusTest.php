@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Bus;
 
-use Talesweaver\Integration\Bus\TransactionWrappedBus;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -12,6 +11,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SimpleBus\Message\Bus\MessageBus;
 use stdClass;
+use Talesweaver\Integration\Bus\TransactionWrappedBus;
 
 class TransactionWrappedBusTest extends TestCase
 {

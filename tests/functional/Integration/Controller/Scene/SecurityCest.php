@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Controller\Scene;
 
-use Talesweaver\Tests\FunctionalTester;
-use Talesweaver\Domain\Scene;
 use Ramsey\Uuid\Uuid;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Tests\FunctionalTester;
 
 class SecurityCest
 {

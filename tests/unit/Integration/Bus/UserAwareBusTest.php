@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Bus;
 
-use Talesweaver\Integration\Bus\UserAwareBus;
-use Talesweaver\Domain\User;
-use Talesweaver\Application\Security\UserAwareInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
@@ -14,6 +11,9 @@ use SimpleBus\Message\Bus\MessageBus;
 use stdClass;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Talesweaver\Application\Security\UserAwareInterface;
+use Talesweaver\Domain\User;
+use Talesweaver\Integration\Bus\UserAwareBus;
 
 class UserAwareBusTest extends TestCase
 {

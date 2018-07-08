@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Bus;
 
-use Talesweaver\Integration\Bus\UserAccessBus;
-use Talesweaver\Domain\User;
-use Talesweaver\Application\Security\UserAccessInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
@@ -15,6 +12,9 @@ use stdClass;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Talesweaver\Application\Security\UserAccessInterface;
+use Talesweaver\Domain\User;
+use Talesweaver\Integration\Bus\UserAccessBus;
 
 class UserAccessBusTest extends TestCase
 {
