@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Timeline;
+namespace Talesweaver\Integration\Timeline;
 
-use Integration\Repository\SceneRepository;
+use Talesweaver\Integration\Repository\SceneRepository;
 use Ramsey\Uuid\UuidInterface;
 
 class LocationTimeline extends TimelineFormatter

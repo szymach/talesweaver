@@ -5,8 +5,8 @@ modules:
             app_path: 'src/Integration'
             cache_router: true
             environment: 'test'
-            kernel_class: 'Integration\Kernel'
+            kernel_class: 'Talesweaver\Integration\Kernel'
             var_path: 'var'
         - Doctrine2:
             depends: Symfony
-        - \Integration\Tests\Helper\Functional
+        - \Talesweaver\Tests\Helper\Functional

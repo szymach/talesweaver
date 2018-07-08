@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Chapter;
+namespace Talesweaver\Integration\Controller\Chapter;
 
-use Integration\Routing\RedirectToEdit;
-use Integration\Routing\RedirectToList;
-use Application\Chapter\Delete\Command;
-use Domain\Chapter;
+use Talesweaver\Integration\Routing\RedirectToEdit;
+use Talesweaver\Integration\Routing\RedirectToList;
+use Talesweaver\Application\Chapter\Delete\Command;
+use Talesweaver\Domain\Chapter;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

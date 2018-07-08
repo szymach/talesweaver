@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Integration\Templating\Event;
+namespace Talesweaver\Integration\Templating\Event;
 
-use Integration\Enum\SceneEvents;
-use Integration\Pagination\EventPaginator;
+use Talesweaver\Integration\Enum\SceneEvents;
+use Talesweaver\Integration\Pagination\EventPaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Domain\Scene;
+use Talesweaver\Domain\Scene;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ListView

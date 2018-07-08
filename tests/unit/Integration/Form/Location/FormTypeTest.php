@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Integration\Tests\Form\Location;
+namespace Talesweaver\Tests\Integration\Form\Location;
 
-use Integration\Form\Location\CreateType;
-use Integration\Form\Location\EditType;
-use Integration\Tests\Form\CreateLocationTrait;
-use Integration\Tests\Form\CreateSceneTrait;
+use Talesweaver\Integration\Form\Location\CreateType;
+use Talesweaver\Integration\Form\Location\EditType;
+use Talesweaver\Tests\Integration\Form\CreateLocationTrait;
+use Talesweaver\Tests\Integration\Form\CreateSceneTrait;
 use Codeception\Test\Unit;
-use Application\Location\Create;
-use Application\Location\Edit;
+use Talesweaver\Application\Location\Create;
+use Talesweaver\Application\Location\Edit;
 use UnitTester;
 
 class FormTypeTest extends Unit

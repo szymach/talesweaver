@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Character;
+namespace Talesweaver\Integration\Controller\Character;
 
-use Integration\Templating\Character\DisplayView;
-use Domain\Character;
+use Talesweaver\Integration\Templating\Character\DisplayView;
+use Talesweaver\Domain\Character;
 
 class DisplayController
 {

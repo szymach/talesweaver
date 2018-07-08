@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Location;
+namespace Talesweaver\Integration\Controller\Location;
 
-use Integration\Templating\Location\RelatedListView;
-use Domain\Scene;
+use Talesweaver\Integration\Templating\Location\RelatedListView;
+use Talesweaver\Domain\Scene;
 
 class ListRelatedController
 {

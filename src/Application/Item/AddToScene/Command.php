@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Application\Item\AddToScene;
+namespace Talesweaver\Application\Item\AddToScene;
 
-use Application\Messages\AddedToSceneSuccessMessage;
-use Application\Messages\Message;
-use Application\Messages\MessageCommandInterface;
-use Application\Security\UserAccessInterface;
-use Domain\Item;
-use Domain\Scene;
-use Domain\User;
+use Talesweaver\Application\Messages\AddedToSceneSuccessMessage;
+use Talesweaver\Application\Messages\Message;
+use Talesweaver\Application\Messages\MessageCommandInterface;
+use Talesweaver\Application\Security\UserAccessInterface;
+use Talesweaver\Domain\Item;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\User;
 
 class Command implements MessageCommandInterface, UserAccessInterface
 {

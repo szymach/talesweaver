@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Integration\Tests\Form\Chapter;
+namespace Talesweaver\Tests\Integration\Form\Chapter;
 
-use Integration\Form\Chapter\CreateType;
-use Integration\Form\Chapter\EditType;
+use Talesweaver\Integration\Form\Chapter\CreateType;
+use Talesweaver\Integration\Form\Chapter\EditType;
 use Codeception\Test\Unit;
-use Application\Chapter\Create;
-use Application\Chapter\Edit;
-use Domain\Chapter;
+use Talesweaver\Application\Chapter\Create;
+use Talesweaver\Application\Chapter\Edit;
+use Talesweaver\Domain\Chapter;
 use Ramsey\Uuid\Uuid;
 use UnitTester;
 

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Pagination;
+namespace Talesweaver\Integration\Pagination;
 
-use Integration\Repository\EventRepository;
-use Domain\Scene;
+use Talesweaver\Integration\Repository\EventRepository;
+use Talesweaver\Domain\Scene;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 

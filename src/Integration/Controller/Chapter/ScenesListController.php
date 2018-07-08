@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Chapter;
+namespace Talesweaver\Integration\Controller\Chapter;
 
-use Integration\Templating\Chapter\ScenesListView;
-use Domain\Chapter;
+use Talesweaver\Integration\Templating\Chapter\ScenesListView;
+use Talesweaver\Domain\Chapter;
 
 class ScenesListController
 {

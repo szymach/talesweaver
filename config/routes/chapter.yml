@@ -1,36 +1,36 @@
 ---
 chapter_create:
     path: /create/{page}
-    defaults: { _controller: Integration\Controller\Chapter\CreateController, page: 1 }
+    defaults: { _controller: Talesweaver\Integration\Controller\Chapter\CreateController, page: 1 }
     methods:  [GET, POST]
 
 chapter_edit:
     path: /edit/{id}/{page}
-    defaults: { _controller: Integration\Controller\Chapter\EditController, page: 1 }
+    defaults: { _controller: Talesweaver\Integration\Controller\Chapter\EditController, page: 1 }
     methods:  [GET, POST]
 
 chapter_list:
     path: /list/{page}
-    defaults: { _controller: Integration\Controller\Chapter\ListController, page: 1 }
+    defaults: { _controller: Talesweaver\Integration\Controller\Chapter\ListController, page: 1 }
     methods:  GET
 
 chapter_scenes_list:
     path: /scenes/{id}/{page}
-    defaults: { _controller: Integration\Controller\Chapter\ScenesListController, page: 1 }
+    defaults: { _controller: Talesweaver\Integration\Controller\Chapter\ScenesListController, page: 1 }
     condition: "request.isXmlHttpRequest()"
     methods:  GET
 
 chapter_delete:
     path: /delete/{id}/{page}
-    defaults: { _controller: Integration\Controller\Chapter\DeleteController, page: 1 }
+    defaults: { _controller: Talesweaver\Integration\Controller\Chapter\DeleteController, page: 1 }
     methods:  GET
 
 chapter_display:
     path: /display/{id}
-    defaults: { _controller: Integration\Controller\Chapter\DisplayController }
+    defaults: { _controller: Talesweaver\Integration\Controller\Chapter\DisplayController }
     methods:  GET
 
 chapter_pdf:
     path: /pdf/{id}
-    defaults: { _controller: Integration\Controller\Chapter\PdfController }
+    defaults: { _controller: Talesweaver\Integration\Controller\Chapter\PdfController }
     methods:  GET

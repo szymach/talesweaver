@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Templating\Chapter;
+namespace Talesweaver\Integration\Templating\Chapter;
 
-use Domain\Chapter;
+use Talesweaver\Domain\Chapter;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 

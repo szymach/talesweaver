@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Integration\Form\Chapter;
+namespace Talesweaver\Integration\Form\Chapter;
 
-use Integration\Repository\BookRepository;
-use Application\Chapter\Create\DTO;
-use Domain\Book;
+use Talesweaver\Integration\Repository\BookRepository;
+use Talesweaver\Application\Chapter\Create\DTO;
+use Talesweaver\Domain\Book;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

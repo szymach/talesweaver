@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Scene;
+namespace Talesweaver\Integration\Controller\Scene;
 
-use Integration\Form\Scene\EditType;
-use Integration\Routing\Scene\EditResponse;
-use Integration\Templating\Scene\EditView;
-use Domain\Scene;
-use Application\Scene\Edit\Command;
-use Application\Scene\Edit\DTO;
+use Talesweaver\Integration\Form\Scene\EditType;
+use Talesweaver\Integration\Routing\Scene\EditResponse;
+use Talesweaver\Integration\Templating\Scene\EditView;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Application\Scene\Edit\Command;
+use Talesweaver\Application\Scene\Edit\DTO;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Tests\Controller\Security;
+namespace Talesweaver\Tests\Integration\Controller\Security;
 
-use Integration\Tests\FunctionalTester;
+use Talesweaver\Tests\FunctionalTester;
 use Assert\Assertion;
 
 class ActivationControllerCest

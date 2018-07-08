@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Integration\Repository;
+namespace Talesweaver\Integration\Repository;
 
-use Integration\Repository\Interfaces\FindableByIdRepository;
-use Integration\Security\UserProvider;
+use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
+use Talesweaver\Integration\Security\UserProvider;
 use Doctrine\ORM\QueryBuilder;
-use Doctrine\Repository\LocationRepository as DoctrineRepository;
-use Domain\Scene;
+use Talesweaver\Doctrine\Repository\LocationRepository as DoctrineRepository;
+use Talesweaver\Domain\Scene;
 use Ramsey\Uuid\UuidInterface;
 
 class LocationRepository implements FindableByIdRepository

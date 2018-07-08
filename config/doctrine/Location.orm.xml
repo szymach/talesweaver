@@ -4,7 +4,7 @@
                   xmlns:fsi="http://fsi.pl/schemas/orm/doctrine-extensions-mapping"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
 >
-    <entity repository-class="Doctrine\Repository\LocationRepository" name="Domain\Location">
+    <entity repository-class="Talesweaver\Doctrine\Repository\LocationRepository" name="Talesweaver\Domain\Location">
 
         <fsi:translatable-locale field="locale" />
         <fsi:translatable-field field="name" mappedBy="translations" />
@@ -15,19 +15,19 @@
         <field name="createdAt" type="datetime"/>
         <field name="updatedAt" type="datetime" nullable="true"/>
 
-        <one-to-many field="translations" target-entity="Domain\Translation\LocationTranslation" mapped-by="location">
+        <one-to-many field="translations" target-entity="Talesweaver\Domain\Translation\LocationTranslation" mapped-by="location">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
             </cascade>
         </one-to-many>
 
-        <many-to-one field="createdBy" target-entity="Domain\User">
+        <many-to-one field="createdBy" target-entity="Talesweaver\Domain\User">
             <join-columns>
                 <join-column on-delete="CASCADE"/>
             </join-columns>
         </many-to-one>
 
-        <many-to-many field="scenes" target-entity="Domain\Scene" mapped-by="locations"/>
+        <many-to-many field="scenes" target-entity="Talesweaver\Domain\Scene" mapped-by="locations"/>
     </entity>
 </doctrine-mapping>

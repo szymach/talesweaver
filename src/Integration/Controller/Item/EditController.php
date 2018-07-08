@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Item;
+namespace Talesweaver\Integration\Controller\Item;
 
-use Integration\Form\Item\EditType;
-use Integration\Templating\Item\FormView;
-use Domain\Item;
-use Application\Item\Edit\Command;
-use Application\Item\Edit\DTO;
+use Talesweaver\Integration\Form\Item\EditType;
+use Talesweaver\Integration\Templating\Item\FormView;
+use Talesweaver\Domain\Item;
+use Talesweaver\Application\Item\Edit\Command;
+use Talesweaver\Application\Item\Edit\DTO;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

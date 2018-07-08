@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Integration\Tests\Form\Scene;
+namespace Talesweaver\Tests\Integration\Form\Scene;
 
-use Integration\Form\Scene\CreateType;
-use Integration\Form\Scene\EditType;
+use Talesweaver\Integration\Form\Scene\CreateType;
+use Talesweaver\Integration\Form\Scene\EditType;
 use Codeception\Test\Unit;
-use Domain\Scene;
-use Application\Scene\Create;
-use Application\Scene\Edit;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Application\Scene\Create;
+use Talesweaver\Application\Scene\Edit;
 use Ramsey\Uuid\Uuid;
 use UnitTester;
 

@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Tests\Helper;
+namespace Talesweaver\Tests\Helper;
 
 use Codeception\Module;
 use Doctrine\ORM\EntityManagerInterface;
-use Domain\User;
 use FSi\DoctrineExtensions\Translatable\TranslatableListener;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -14,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
+use Talesweaver\Domain\User;
 use function generate_user_token;
 
 /**

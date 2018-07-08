@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Form\Security;
+namespace Talesweaver\Integration\Form\Security;
 
-use Integration\Validation\Constraints\UniqueUserEmail;
+use Talesweaver\Integration\Validation\Constraints\UniqueUserEmail;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;

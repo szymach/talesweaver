@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Form\Book;
+namespace Talesweaver\Integration\Form\Book;
 
-use Application\Book\Edit\DTO;
+use Talesweaver\Application\Book\Edit\DTO;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;

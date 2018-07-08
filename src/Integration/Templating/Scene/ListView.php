@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Templating\Scene;
+namespace Talesweaver\Integration\Templating\Scene;
 
-use Integration\Pagination\Scene\ScenePaginator;
+use Talesweaver\Integration\Pagination\Scene\ScenePaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 

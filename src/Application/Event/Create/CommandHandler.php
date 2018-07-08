@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Application\Event\Create;
+namespace Talesweaver\Application\Event\Create;
 
-use Domain\Event;
+use Talesweaver\Domain\Event;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class CommandHandler

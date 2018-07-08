@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Pagination\Character;
+namespace Talesweaver\Integration\Pagination\Character;
 
-use Integration\Repository\CharacterRepository;
-use Domain\Scene;
+use Talesweaver\Integration\Repository\CharacterRepository;
+use Talesweaver\Domain\Scene;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 

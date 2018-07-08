@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Templating\Location;
+namespace Talesweaver\Integration\Templating\Location;
 
-use Domain\Scene;
-use Integration\Pagination\Location\LocationPaginator;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Integration\Pagination\Location\LocationPaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Domain;
+namespace Talesweaver\Domain;
 
 use Assert\Assertion;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Domain\Traits\AvatarTrait;
-use Domain\Traits\CreatedByTrait;
-use Domain\Traits\TimestampableTrait;
-use Domain\Traits\TranslatableTrait;
+use Talesweaver\Domain\Traits\AvatarTrait;
+use Talesweaver\Domain\Traits\CreatedByTrait;
+use Talesweaver\Domain\Traits\TimestampableTrait;
+use Talesweaver\Domain\Traits\TranslatableTrait;
 use DomainException;
 use FSi\DoctrineExtensions\Uploadable\File;
 use InvalidArgumentException;

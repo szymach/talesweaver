@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Validation\Constraints;
+namespace Talesweaver\Integration\Validation\Constraints;
 
-use Integration\Repository\UserRepository;
+use Talesweaver\Integration\Repository\UserRepository;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 

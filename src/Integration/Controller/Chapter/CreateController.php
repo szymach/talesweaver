@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Chapter;
+namespace Talesweaver\Integration\Controller\Chapter;
 
-use Integration\Form\Chapter\CreateType;
-use Integration\Routing\RedirectToEdit;
-use Integration\Templating\SimpleFormView;
-use Application\Chapter\Create\Command;
-use Application\Chapter\Create\DTO;
-use Domain\Book;
+use Talesweaver\Integration\Form\Chapter\CreateType;
+use Talesweaver\Integration\Routing\RedirectToEdit;
+use Talesweaver\Integration\Templating\SimpleFormView;
+use Talesweaver\Application\Chapter\Create\Command;
+use Talesweaver\Application\Chapter\Create\DTO;
+use Talesweaver\Domain\Book;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;

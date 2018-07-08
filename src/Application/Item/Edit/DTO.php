@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Application\Item\Edit;
+namespace Talesweaver\Application\Item\Edit;
 
 use Doctrine\Common\Collections\Collection;
-use Domain\Item;
-use Domain\Scene;
+use Talesweaver\Domain\Item;
+use Talesweaver\Domain\Scene;
 use FSi\DoctrineExtensions\Uploadable\File;
 use Ramsey\Uuid\UuidInterface;
 use SplFileInfo;

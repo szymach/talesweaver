@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Pagination\Location;
+namespace Talesweaver\Integration\Pagination\Location;
 
-use Integration\Repository\LocationRepository;
-use Domain\Scene;
+use Talesweaver\Integration\Repository\LocationRepository;
+use Talesweaver\Domain\Scene;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 

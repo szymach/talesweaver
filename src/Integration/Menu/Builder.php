@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Integration\Menu;
+namespace Talesweaver\Integration\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Domain;
+namespace Talesweaver\Domain;
 
-use Domain\User\ActivationToken;
-use Domain\User\PasswordResetToken;
+use Talesweaver\Domain\User\ActivationToken;
+use Talesweaver\Domain\User\PasswordResetToken;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use DomainException;

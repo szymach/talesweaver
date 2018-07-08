@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Integration\Tests\Bus;
+namespace Talesweaver\Tests\Integration\Bus;
 
-use Integration\Bus\UserAwareBus;
-use Domain\User;
-use Application\Security\UserAwareInterface;
+use Talesweaver\Integration\Bus\UserAwareBus;
+use Talesweaver\Domain\User;
+use Talesweaver\Application\Security\UserAwareInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;

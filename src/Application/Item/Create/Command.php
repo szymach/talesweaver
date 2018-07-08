@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Application\Item\Create;
+namespace Talesweaver\Application\Item\Create;
 
-use Application\Messages\CreationSuccessMessage;
-use Application\Messages\Message;
-use Application\Messages\MessageCommandInterface;
-use Domain\User;
-use Application\Security\Traits\UserAwareTrait;
-use Application\Security\UserAccessInterface;
-use Application\Security\UserAwareInterface;
+use Talesweaver\Application\Messages\CreationSuccessMessage;
+use Talesweaver\Application\Messages\Message;
+use Talesweaver\Application\Messages\MessageCommandInterface;
+use Talesweaver\Domain\User;
+use Talesweaver\Application\Security\Traits\UserAwareTrait;
+use Talesweaver\Application\Security\UserAccessInterface;
+use Talesweaver\Application\Security\UserAwareInterface;
 use Ramsey\Uuid\UuidInterface;
 
 class Command implements MessageCommandInterface, UserAccessInterface, UserAwareInterface

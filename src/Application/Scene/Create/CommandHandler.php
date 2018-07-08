@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Application\Scene\Create;
+namespace Talesweaver\Application\Scene\Create;
 
-use Domain\Scene;
+use Talesweaver\Domain\Scene;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class CommandHandler

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Integration\DataFixtures\ORM;
+namespace Talesweaver\Integration\DataFixtures\ORM;
 
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Domain\User;
+use Talesweaver\Domain\User;
 use function generate_user_token;
 
 class LoadUserData implements ORMFixtureInterface, OrderedFixtureInterface

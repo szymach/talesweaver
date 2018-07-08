@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Application\Character\RemoveFromScene;
+namespace Talesweaver\Application\Character\RemoveFromScene;
 
-use Application\Messages\Message;
-use Application\Messages\MessageCommandInterface;
-use Application\Messages\RemovedFromSceneSuccessMessage;
-use Domain\Character;
-use Domain\Scene;
-use Domain\User;
-use Application\Security\UserAccessInterface;
+use Talesweaver\Application\Messages\Message;
+use Talesweaver\Application\Messages\MessageCommandInterface;
+use Talesweaver\Application\Messages\RemovedFromSceneSuccessMessage;
+use Talesweaver\Domain\Character;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\User;
+use Talesweaver\Application\Security\UserAccessInterface;
 
 class Command implements MessageCommandInterface, UserAccessInterface
 {

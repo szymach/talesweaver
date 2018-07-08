@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Application\Chapter\Delete;
+namespace Talesweaver\Application\Chapter\Delete;
 
-use Domain\Chapter;
+use Talesweaver\Domain\Chapter;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class CommandHandler

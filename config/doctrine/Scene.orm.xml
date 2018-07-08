@@ -4,7 +4,7 @@
                   xmlns:fsi="http://fsi.pl/schemas/orm/doctrine-extensions-mapping"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
 >
-    <entity repository-class="Doctrine\Repository\SceneRepository" name="Domain\Scene">
+    <entity repository-class="Talesweaver\Doctrine\Repository\SceneRepository" name="Talesweaver\Domain\Scene">
 
         <fsi:translatable-locale field="locale" />
         <fsi:translatable-field field="title" mappedBy="translations" />
@@ -14,21 +14,21 @@
         <field name="createdAt" type="datetime"/>
         <field name="updatedAt" type="datetime" nullable="true"/>
 
-        <one-to-many field="translations" target-entity="Domain\Translation\SceneTranslation" mapped-by="scene">
+        <one-to-many field="translations" target-entity="Talesweaver\Domain\Translation\SceneTranslation" mapped-by="scene">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
             </cascade>
         </one-to-many>
 
-        <many-to-one field="chapter" target-entity="Domain\Chapter" inversed-by="scenes">
+        <many-to-one field="chapter" target-entity="Talesweaver\Domain\Chapter" inversed-by="scenes">
             <join-column on-delete="CASCADE"/>
         </many-to-one>
-        <many-to-one field="createdBy" target-entity="Domain\User">
+        <many-to-one field="createdBy" target-entity="Talesweaver\Domain\User">
             <join-column on-delete="CASCADE"/>
         </many-to-one>
 
-        <many-to-many field="characters" target-entity="Domain\Character" inversed-by="scenes">
+        <many-to-many field="characters" target-entity="Talesweaver\Domain\Character" inversed-by="scenes">
             <cascade>
                 <cascade-persist/>
             </cascade>
@@ -41,7 +41,7 @@
                 </inverse-join-columns>
             </join-table>
         </many-to-many>
-        <many-to-many field="items" target-entity="Domain\Item" inversed-by="scenes">
+        <many-to-many field="items" target-entity="Talesweaver\Domain\Item" inversed-by="scenes">
             <cascade>
                 <cascade-persist/>
             </cascade>
@@ -54,7 +54,7 @@
                 </inverse-join-columns>
             </join-table>
         </many-to-many>
-        <many-to-many field="locations" target-entity="Domain\Location" inversed-by="scenes">
+        <many-to-many field="locations" target-entity="Talesweaver\Domain\Location" inversed-by="scenes">
             <cascade>
                 <cascade-persist/>
             </cascade>

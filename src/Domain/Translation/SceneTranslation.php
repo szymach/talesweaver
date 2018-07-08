@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Domain\Translation;
+namespace Talesweaver\Domain\Translation;
 
-use Domain\Scene;
-use Domain\Traits\LocaleTrait;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\Traits\LocaleTrait;
 
 class SceneTranslation
 {

@@ -1,11 +1,11 @@
 ---
-Application\Event\Create\DTO:
+Talesweaver\Application\Event\Create\DTO:
     constraints:
-        - Integration\Validation\Constraints\UniqueDTO:
+        - Talesweaver\Integration\Validation\Constraints\UniqueDTO:
             fields: { name: 't.name', scene: 'e.scene' }
             repositoryMethod: entityExists
             path: name
-            entityClass: Domain\Event
+            entityClass: Talesweaver\Domain\Event
             message: event.exists
     properties:
         name:
@@ -16,14 +16,14 @@ Application\Event\Create\DTO:
         scene:
             - NotBlank: ~
 
-Application\Event\Edit\DTO:
+Talesweaver\Application\Event\Edit\DTO:
     constraints:
-        - Integration\Validation\Constraints\UniqueDTO:
+        - Talesweaver\Integration\Validation\Constraints\UniqueDTO:
             fields: { name: 't.name', scene: 'e.scene' }
             repositoryMethod: entityExists
             id: id
             path: name
-            entityClass: Domain\Event
+            entityClass: Talesweaver\Domain\Event
             message: event.exists
     properties:
         name:
@@ -32,9 +32,9 @@ Application\Event\Edit\DTO:
             - NotBlank: ~
             - Valid: ~
 
-Domain\Event\Meeting:
+Talesweaver\Domain\Event\Meeting:
     constraints:
-        - Integration\Validation\Constraints\Meeting: ~
+        - Talesweaver\Integration\Validation\Constraints\Meeting: ~
     properties:
         root:
             - NotBlank: ~

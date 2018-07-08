@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Integration\DataFixtures\ORM;
+namespace Talesweaver\Integration\DataFixtures\ORM;
 
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Domain\Character;
-use Domain\Location;
-use Domain\Scene;
-use Domain\User;
+use Talesweaver\Domain\Character;
+use Talesweaver\Domain\Location;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\User;
 use Ramsey\Uuid\Uuid;
 
 class LoadStandaloneSceneData implements ORMFixtureInterface, OrderedFixtureInterface

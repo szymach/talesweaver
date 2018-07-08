@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Integration\Tests\JSON;
+namespace Talesweaver\Tests\Integration\JSON;
 
-use Integration\JSON\EventParser;
-use Integration\Repository\CharacterRepository;
-use Integration\Repository\ItemRepository;
-use Integration\Repository\LocationRepository;
-use Domain\Character;
-use Domain\Event;
-use Domain\Location;
-use Domain\User;
-use Domain\Event\Meeting;
+use Talesweaver\Integration\JSON\EventParser;
+use Talesweaver\Integration\Repository\CharacterRepository;
+use Talesweaver\Integration\Repository\ItemRepository;
+use Talesweaver\Integration\Repository\LocationRepository;
+use Talesweaver\Domain\Character;
+use Talesweaver\Domain\Event;
+use Talesweaver\Domain\Location;
+use Talesweaver\Domain\User;
+use Talesweaver\Domain\Event\Meeting;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\PropertyAccess\PropertyAccess;

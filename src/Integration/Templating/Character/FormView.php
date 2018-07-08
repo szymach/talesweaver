@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Integration\Templating\Character;
+namespace Talesweaver\Integration\Templating\Character;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormInterface;

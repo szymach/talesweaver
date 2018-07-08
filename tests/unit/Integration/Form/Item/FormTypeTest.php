@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Integration\Tests\Form\Item;
+namespace Talesweaver\Tests\Integration\Form\Item;
 
-use Integration\Form\Item\CreateType;
-use Integration\Form\Item\EditType;
-use Integration\Tests\Form\CreateSceneTrait;
+use Talesweaver\Integration\Form\Item\CreateType;
+use Talesweaver\Integration\Form\Item\EditType;
+use Talesweaver\Tests\Integration\Form\CreateSceneTrait;
 use Codeception\Test\Unit;
-use Domain\Item;
-use Application\Item\Create;
-use Application\Item\Edit;
+use Talesweaver\Domain\Item;
+use Talesweaver\Application\Item\Create;
+use Talesweaver\Application\Item\Edit;
 use Ramsey\Uuid\Uuid;
 use UnitTester;
 

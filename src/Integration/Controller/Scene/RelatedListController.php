@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Scene;
+namespace Talesweaver\Integration\Controller\Scene;
 
-use Integration\Templating\Scene\RelatedListView;
-use Domain\Chapter;
+use Talesweaver\Integration\Templating\Scene\RelatedListView;
+use Talesweaver\Domain\Chapter;
 
 class RelatedListController
 {

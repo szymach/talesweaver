@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Domain\Traits;
+namespace Talesweaver\Domain\Traits;
 
-use Domain\User;
+use Talesweaver\Domain\User;
 
 trait CreatedByTrait
 {

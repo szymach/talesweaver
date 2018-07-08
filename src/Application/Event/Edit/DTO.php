@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Application\Event\Edit;
+namespace Talesweaver\Application\Event\Edit;
 
-use Domain\Event;
+use Talesweaver\Domain\Event;
 use JsonSerializable;
 use Ramsey\Uuid\UuidInterface;
 

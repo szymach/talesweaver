@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Domain\Tests;
+namespace Talesweaver\Domain\Tests;
 
-use Domain\Character;
-use Domain\Location;
-use Domain\User;
-use Domain\Event\Meeting;
+use Talesweaver\Domain\Character;
+use Talesweaver\Domain\Location;
+use Talesweaver\Domain\User;
+use Talesweaver\Domain\Event\Meeting;
 use PHPUnit\Framework\TestCase;
 
 class MeetingTest extends TestCase

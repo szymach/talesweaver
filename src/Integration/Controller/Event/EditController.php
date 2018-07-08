@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Event;
+namespace Talesweaver\Integration\Controller\Event;
 
-use Integration\Enum\SceneEvents;
-use Integration\Form\Event\EditType;
-use Integration\Templating\Event\FormView;
-use Application\Event\Edit\Command;
-use Application\Event\Edit\DTO;
-use Domain\Event;
+use Talesweaver\Integration\Enum\SceneEvents;
+use Talesweaver\Integration\Form\Event\EditType;
+use Talesweaver\Integration\Templating\Event\FormView;
+use Talesweaver\Application\Event\Edit\Command;
+use Talesweaver\Application\Event\Edit\DTO;
+use Talesweaver\Domain\Event;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

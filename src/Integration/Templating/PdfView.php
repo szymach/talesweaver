@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Integration\Templating;
+namespace Talesweaver\Integration\Templating;
 
 use Knp\Snappy\GeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;

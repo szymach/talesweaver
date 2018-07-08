@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Integration\Routing;
+namespace Talesweaver\Integration\Routing;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Domain;
+namespace Talesweaver\Domain;
 
-use Integration\JSON\EventParser;
+use Talesweaver\Integration\JSON\EventParser;
 use Assert\Assertion;
 use DateTimeImmutable;
-use Domain\Traits\CreatedByTrait;
-use Domain\Traits\TimestampableTrait;
-use Domain\Traits\TranslatableTrait;
+use Talesweaver\Domain\Traits\CreatedByTrait;
+use Talesweaver\Domain\Traits\TimestampableTrait;
+use Talesweaver\Domain\Traits\TranslatableTrait;
 use JsonSerializable;
 use Ramsey\Uuid\UuidInterface;
 

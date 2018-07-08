@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Integration\Form\Scene;
+namespace Talesweaver\Integration\Form\Scene;
 
-use Integration\Repository\ChapterRepository;
-use Domain\Chapter;
-use Application\Scene\Create\DTO;
+use Talesweaver\Integration\Repository\ChapterRepository;
+use Talesweaver\Domain\Chapter;
+use Talesweaver\Application\Scene\Create\DTO;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

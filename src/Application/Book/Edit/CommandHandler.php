@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\Book\Edit;
+namespace Talesweaver\Application\Book\Edit;
 
 class CommandHandler
 {

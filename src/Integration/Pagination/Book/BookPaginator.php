@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Pagination\Book;
+namespace Talesweaver\Integration\Pagination\Book;
 
-use Integration\Repository\BookRepository;
+use Talesweaver\Integration\Repository\BookRepository;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 

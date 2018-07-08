@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Domain\Translation;
+namespace Talesweaver\Domain\Translation;
 
-use Domain\Item;
-use Domain\Traits\LocaleTrait;
+use Talesweaver\Domain\Item;
+use Talesweaver\Domain\Traits\LocaleTrait;
 
 class ItemTranslation
 {

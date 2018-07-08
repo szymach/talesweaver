@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Integration\Repository\Interfaces;
+namespace Talesweaver\Integration\Repository\Interfaces;
 
 interface FindableByIdRepository
 {

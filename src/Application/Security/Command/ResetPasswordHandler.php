@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\Security\Command;
+namespace Talesweaver\Application\Security\Command;
 
 class ResetPasswordHandler
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Security;
+namespace Talesweaver\Integration\Controller\Security;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;

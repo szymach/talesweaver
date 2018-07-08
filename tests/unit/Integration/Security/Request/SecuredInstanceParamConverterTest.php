@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Integration\Tests\Security\Request;
+namespace Talesweaver\Tests\Integration\Security\Request;
 
-use Integration\Repository\Interfaces\FindableByIdRepository;
-use Integration\Security\Request\SecuredInstanceParamConverter;
-use Domain\Book;
-use Domain\Chapter;
-use Domain\Scene;
+use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
+use Talesweaver\Integration\Security\Request\SecuredInstanceParamConverter;
+use Talesweaver\Domain\Book;
+use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\Scene;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -126,7 +126,7 @@ class SecuredInstanceParamConverterTest extends TestCase
         $configuration->expects($this->once())->method('getClass')->willReturn(Scene::class);
 
         $this->expectException(NotFoundHttpException::class);
-        $this->expectExceptionMessage('Invalid UUID "1" for class "Domain\Scene"!');
+        $this->expectExceptionMessage('Invalid UUID "1" for class "Talesweaver\Domain\Scene"!');
 
         $converter = new SecuredInstanceParamConverter([]);
         $converter->apply($request, $configuration);
@@ -151,7 +151,7 @@ class SecuredInstanceParamConverterTest extends TestCase
 
         $this->expectException(NotFoundHttpException::class);
         $this->expectExceptionMessage(
-            sprintf('Could not find object of class "Domain\Scene" for id "%s"', $id)
+            sprintf('Could not find object of class "Talesweaver\Domain\Scene" for id "%s"', $id)
         );
 
         $converter = new SecuredInstanceParamConverter([$repository]);

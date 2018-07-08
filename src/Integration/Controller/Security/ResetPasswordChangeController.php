@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Security;
+namespace Talesweaver\Integration\Controller\Security;
 
-use Integration\Form\Security\ResetPasswordChangeType;
-use Integration\Repository\PasswordResetTokenRepository;
+use Talesweaver\Integration\Form\Security\ResetPasswordChangeType;
+use Talesweaver\Integration\Repository\PasswordResetTokenRepository;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Domain\User\PasswordResetToken;
-use Application\Security\Command\ResetPassword;
+use Talesweaver\Domain\User\PasswordResetToken;
+use Talesweaver\Application\Security\Command\ResetPassword;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;

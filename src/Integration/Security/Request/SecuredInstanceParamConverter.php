@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Security\Request;
+namespace Talesweaver\Integration\Security\Request;
 
-use Integration\Repository\Interfaces\FindableByIdRepository;
+use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
 use Ramsey\Uuid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;

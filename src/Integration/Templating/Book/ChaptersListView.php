@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Integration\Templating\Book;
+namespace Talesweaver\Integration\Templating\Book;
 
-use Domain\Book;
-use Integration\Form\Chapter\CreateType;
-use Integration\Pagination\Book\ChapterPaginator;
+use Talesweaver\Domain\Book;
+use Talesweaver\Integration\Form\Chapter\CreateType;
+use Talesweaver\Integration\Pagination\Book\ChapterPaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Application\Chapter\Create\DTO;
+use Talesweaver\Application\Chapter\Create\DTO;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

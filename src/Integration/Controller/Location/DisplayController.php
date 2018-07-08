@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Location;
+namespace Talesweaver\Integration\Controller\Location;
 
-use Integration\Templating\Location\DisplayView;
-use Domain\Location;
+use Talesweaver\Integration\Templating\Location\DisplayView;
+use Talesweaver\Domain\Location;
 
 class DisplayController
 {

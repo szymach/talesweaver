@@ -1,4 +1,4 @@
-namespace: Integration\Tests
+namespace: Talesweaver\Tests
 actor_suffix: Tester
 params:
     - .env

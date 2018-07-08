@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Templating\Event;
+namespace Talesweaver\Integration\Templating\Event;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Domain\Event;
+use Talesweaver\Domain\Event;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DisplayView

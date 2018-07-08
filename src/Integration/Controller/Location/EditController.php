@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Location;
+namespace Talesweaver\Integration\Controller\Location;
 
-use Integration\Form\Location\EditType;
-use Integration\Templating\Location\FormView;
-use Domain\Location;
-use Application\Location\Edit\Command;
-use Application\Location\Edit\DTO;
+use Talesweaver\Integration\Form\Location\EditType;
+use Talesweaver\Integration\Templating\Location\FormView;
+use Talesweaver\Domain\Location;
+use Talesweaver\Application\Location\Edit\Command;
+use Talesweaver\Application\Location\Edit\DTO;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

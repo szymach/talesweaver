@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Domain\Event;
+namespace Talesweaver\Domain\Event;
 
-use Application\Security\UserAccessInterface;
-use Domain\Character;
-use Domain\Location;
-use Domain\User;
+use Talesweaver\Application\Security\UserAccessInterface;
+use Talesweaver\Domain\Character;
+use Talesweaver\Domain\Location;
+use Talesweaver\Domain\User;
 use DomainException;
 use JsonSerializable;
 

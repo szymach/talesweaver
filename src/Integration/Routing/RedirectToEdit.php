@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Integration\Routing;
+namespace Talesweaver\Integration\Routing;
 
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;

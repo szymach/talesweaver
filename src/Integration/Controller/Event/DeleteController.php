@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Event;
+namespace Talesweaver\Integration\Controller\Event;
 
-use Application\Event\Delete\Command;
-use Domain\Event;
+use Talesweaver\Application\Event\Delete\Command;
+use Talesweaver\Domain\Event;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\Location\RemoveFromScene;
+namespace Talesweaver\Application\Location\RemoveFromScene;
 
 class CommandHandler
 {

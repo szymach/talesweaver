@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Integration\Tests\Form\Character;
+namespace Talesweaver\Tests\Integration\Form\Character;
 
-use Integration\Form\Character\CreateType;
-use Integration\Form\Character\EditType;
-use Integration\Tests\Form\CreateCharacterTrait;
-use Integration\Tests\Form\CreateSceneTrait;
+use Talesweaver\Integration\Form\Character\CreateType;
+use Talesweaver\Integration\Form\Character\EditType;
+use Talesweaver\Tests\Integration\Form\CreateCharacterTrait;
+use Talesweaver\Tests\Integration\Form\CreateSceneTrait;
 use Codeception\Test\Unit;
-use Application\Character\Create;
-use Application\Character\Edit;
+use Talesweaver\Application\Character\Create;
+use Talesweaver\Application\Character\Edit;
 use UnitTester;
 
 class FormTypeTest extends Unit

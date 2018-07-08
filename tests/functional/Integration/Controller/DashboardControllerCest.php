@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Tests\Controller;
+namespace Talesweaver\Tests\Integration\Controller;
 
-use Integration\Tests\FunctionalTester;
+use Talesweaver\Tests\FunctionalTester;
 
 class DashboardControllerCest
 {

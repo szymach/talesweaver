@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Repository;
+namespace Talesweaver\Integration\Repository;
 
 use DateTimeImmutable;
-use Doctrine\Repository\PasswordResetTokenRepository as DoctrineRepository;
+use Talesweaver\Doctrine\Repository\PasswordResetTokenRepository as DoctrineRepository;
 
 class PasswordResetTokenRepository
 {

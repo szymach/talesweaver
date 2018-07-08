@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Integration\Validation\Constraints;
+namespace Talesweaver\Integration\Validation\Constraints;
 
-use Integration\Repository\BookRepository;
-use Integration\Repository\ChapterRepository;
-use Integration\Repository\CharacterRepository;
-use Integration\Repository\EventRepository;
-use Integration\Repository\ItemRepository;
-use Integration\Repository\LocationRepository;
-use Integration\Repository\SceneRepository;
+use Talesweaver\Integration\Repository\BookRepository;
+use Talesweaver\Integration\Repository\ChapterRepository;
+use Talesweaver\Integration\Repository\CharacterRepository;
+use Talesweaver\Integration\Repository\EventRepository;
+use Talesweaver\Integration\Repository\ItemRepository;
+use Talesweaver\Integration\Repository\LocationRepository;
+use Talesweaver\Integration\Repository\SceneRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Domain\Book;
-use Domain\Chapter;
-use Domain\Character;
-use Domain\Event;
-use Domain\Item;
-use Domain\Location;
-use Domain\Scene;
+use Talesweaver\Domain\Book;
+use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\Character;
+use Talesweaver\Domain\Event;
+use Talesweaver\Domain\Item;
+use Talesweaver\Domain\Location;
+use Talesweaver\Domain\Scene;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;

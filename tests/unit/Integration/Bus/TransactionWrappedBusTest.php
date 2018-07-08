@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Tests\Bus;
+namespace Talesweaver\Tests\Integration\Bus;
 
-use Integration\Bus\TransactionWrappedBus;
+use Talesweaver\Integration\Bus\TransactionWrappedBus;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;

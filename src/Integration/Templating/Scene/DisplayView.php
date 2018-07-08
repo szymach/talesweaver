@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Templating\Scene;
+namespace Talesweaver\Integration\Templating\Scene;
 
-use Domain\Scene;
+use Talesweaver\Domain\Scene;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 

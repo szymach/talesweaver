@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Integration\Templating\Character;
+namespace Talesweaver\Integration\Templating\Character;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Integration\Timeline\CharacterTimeline;
-use Domain\Character;
+use Talesweaver\Integration\Timeline\CharacterTimeline;
+use Talesweaver\Domain\Character;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DisplayView

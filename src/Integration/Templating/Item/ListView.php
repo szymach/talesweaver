@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Integration\Templating\Item;
+namespace Talesweaver\Integration\Templating\Item;
 
-use Integration\Pagination\Item\ItemPaginator;
+use Talesweaver\Integration\Pagination\Item\ItemPaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Domain\Scene;
+use Talesweaver\Domain\Scene;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ListView

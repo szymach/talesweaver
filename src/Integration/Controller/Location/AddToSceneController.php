@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Location;
+namespace Talesweaver\Integration\Controller\Location;
 
-use Domain\Location;
-use Domain\Scene;
-use Application\Location\AddToScene\Command;
+use Talesweaver\Domain\Location;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Application\Location\AddToScene\Command;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\JsonResponse;

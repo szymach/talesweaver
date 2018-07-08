@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\Item\AddToScene;
+namespace Talesweaver\Application\Item\AddToScene;
 
 class CommandHandler
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Templating\Item;
+namespace Talesweaver\Integration\Templating\Item;
 
-use Domain\Scene;
-use Integration\Pagination\Item\RelatedPaginator;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Integration\Pagination\Item\RelatedPaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 

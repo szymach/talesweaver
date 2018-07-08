@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Application\Security\Traits;
+namespace Talesweaver\Application\Security\Traits;
 
-use Domain\User;
+use Talesweaver\Domain\User;
 
 trait UserAwareTrait
 {

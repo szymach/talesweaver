@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Pagination\Scene;
+namespace Talesweaver\Integration\Pagination\Scene;
 
-use Integration\Repository\SceneRepository;
+use Talesweaver\Integration\Repository\SceneRepository;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 

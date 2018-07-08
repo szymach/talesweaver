@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Bus;
+namespace Talesweaver\Integration\Bus;
 
-use Application\Security\UserAwareInterface;
-use Domain\User;
+use Talesweaver\Application\Security\UserAwareInterface;
+use Talesweaver\Domain\User;
 use RuntimeException;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;

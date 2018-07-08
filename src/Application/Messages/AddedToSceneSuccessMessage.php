@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\Messages;
+namespace Talesweaver\Application\Messages;
 
 class AddedToSceneSuccessMessage extends Message
 {

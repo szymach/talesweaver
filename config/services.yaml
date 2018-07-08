@@ -20,25 +20,25 @@ services:
     Symfony\Component\HttpFoundation\Session\Session: "@session"
     Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface: '@security.user_password_encoder.generic'
 
-    Integration\Controller\:
+    Talesweaver\Integration\Controller\:
         resource: "../src/Integration/Controller/*"
         public: true
 
-    Integration\DataFixtures\ORM\:
+    Talesweaver\Integration\DataFixtures\ORM\:
         resource: "../src/Integration/DataFixtures/ORM/*"
         tags: ['doctrine.fixture.orm']
 
-    Integration\:
+    Talesweaver\Integration\:
         resource: "../src/Integration/{Form,JSON,Mail,Menu,Pagination,Routing,Templating,Timeline,Security,Validation}/*"
         exclude: "../src/Integration/Security/function/*"
 
     # Do not remove, because it is not explicitly used and is removed from the container
-    Integration\JSON\EventParser:
+    Talesweaver\Integration\JSON\EventParser:
         public: true
 
     # Menu
     app.menu.builder:
-        class: Integration\Menu\Builder
+        class: Talesweaver\Integration\Menu\Builder
 
     app.menu.main:
         class: Knp\Menu\MenuItem
@@ -48,30 +48,30 @@ services:
 
     # Bus
     transaction_wrapped_command_bus:
-        class:     Integration\Bus\TransactionWrappedBus
+        class:     Talesweaver\Integration\Bus\TransactionWrappedBus
         decorates: command_bus
         arguments: ['@transaction_wrapped_command_bus.inner']
 
     user_aware_command_bus:
-        class:     Integration\Bus\UserAwareBus
+        class:     Talesweaver\Integration\Bus\UserAwareBus
         decorates: transaction_wrapped_command_bus
         arguments: ['@user_aware_command_bus.inner']
 
     user_access_command_bus:
-        class:     Integration\Bus\UserAccessBus
+        class:     Talesweaver\Integration\Bus\UserAccessBus
         decorates: user_aware_command_bus
         arguments: ['@user_access_command_bus.inner']
 
     messages_aware_bus:
-        class:     Integration\Bus\MessagesAwareBus
+        class:     Talesweaver\Integration\Bus\MessagesAwareBus
         decorates: user_access_command_bus
         arguments: ['@messages_aware_bus.inner']
 
     # Security
     app.security.login_form_authenticator:
-        class: Integration\Security\LoginFormAuthenticator
+        class: Talesweaver\Integration\Security\LoginFormAuthenticator
 
-    Integration\Security\Request\SecuredInstanceParamConverter:
+    Talesweaver\Integration\Security\Request\SecuredInstanceParamConverter:
         arguments: [[]]
         autowire: false
         autoconfigure: false

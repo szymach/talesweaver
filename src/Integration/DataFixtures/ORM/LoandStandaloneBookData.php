@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Integration\DataFixtures\ORM;
+namespace Talesweaver\Integration\DataFixtures\ORM;
 
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Domain\Book;
-use Domain\Chapter;
-use Domain\User;
+use Talesweaver\Domain\Book;
+use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\User;
 use Ramsey\Uuid\Uuid;
 
 class LoandStandaloneBookData implements ORMFixtureInterface, OrderedFixtureInterface

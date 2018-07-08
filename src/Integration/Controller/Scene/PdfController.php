@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Scene;
+namespace Talesweaver\Integration\Controller\Scene;
 
-use Integration\Templating\PdfView;
-use Domain\Scene;
+use Talesweaver\Integration\Templating\PdfView;
+use Talesweaver\Domain\Scene;
 
 class PdfController
 {

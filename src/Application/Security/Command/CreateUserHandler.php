@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Application\Security\Command;
+namespace Talesweaver\Application\Security\Command;
 
-use Domain\User;
-use Integration\Mail\RegistrationMailer;
+use Talesweaver\Domain\User;
+use Talesweaver\Integration\Mail\RegistrationMailer;
 use Doctrine\ORM\EntityManagerInterface;
 use function generate_user_token;
 

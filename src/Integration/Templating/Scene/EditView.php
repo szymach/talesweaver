@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Integration\Templating\Scene;
+namespace Talesweaver\Integration\Templating\Scene;
 
-use Integration\Enum\SceneEvents;
-use Integration\Form\Scene\CreateType;
-use Integration\Pagination\Chapter\ScenePaginator;
-use Integration\Pagination\Character\CharacterPaginator;
-use Integration\Pagination\EventPaginator;
-use Integration\Pagination\Item\ItemPaginator;
-use Integration\Pagination\Location\LocationPaginator;
+use Talesweaver\Integration\Enum\SceneEvents;
+use Talesweaver\Integration\Form\Scene\CreateType;
+use Talesweaver\Integration\Pagination\Chapter\ScenePaginator;
+use Talesweaver\Integration\Pagination\Character\CharacterPaginator;
+use Talesweaver\Integration\Pagination\EventPaginator;
+use Talesweaver\Integration\Pagination\Item\ItemPaginator;
+use Talesweaver\Integration\Pagination\Location\LocationPaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Domain\Chapter;
-use Domain\Scene;
-use Application\Scene\Create\DTO;
+use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Application\Scene\Create\DTO;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;

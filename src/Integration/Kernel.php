@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration;
+namespace Talesweaver\Integration;
 
-use Integration\Security\Request\SecuredInstanceParamConverter;
+use Talesweaver\Integration\Security\Request\SecuredInstanceParamConverter;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;

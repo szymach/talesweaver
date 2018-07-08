@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Event;
+namespace Talesweaver\Integration\Controller\Event;
 
-use Integration\Templating\Event\DisplayView;
-use Domain\Event;
+use Talesweaver\Integration\Templating\Event\DisplayView;
+use Talesweaver\Domain\Event;
 
 class DisplayController
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Application\Scene\Create;
+namespace Talesweaver\Application\Scene\Create;
 
-use Domain\Chapter;
+use Talesweaver\Domain\Chapter;
 
 class DTO
 {

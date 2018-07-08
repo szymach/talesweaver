@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Application\Security\Command;
+namespace Talesweaver\Application\Security\Command;
 
-use Application\Messages\Message;
-use Application\Messages\MessageCommandInterface;
-use Domain\User;
+use Talesweaver\Application\Messages\Message;
+use Talesweaver\Application\Messages\MessageCommandInterface;
+use Talesweaver\Domain\User;
 
 class ChangePassword implements MessageCommandInterface
 {

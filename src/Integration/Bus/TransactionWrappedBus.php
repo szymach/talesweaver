@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Integration\Bus;
+namespace Talesweaver\Integration\Bus;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SimpleBus\Message\Bus\MessageBus;

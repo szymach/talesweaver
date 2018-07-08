@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Application\Character\Delete;
+namespace Talesweaver\Application\Character\Delete;
 
-use Application\Messages\DeletionSuccessMessage;
-use Application\Messages\Message;
-use Application\Messages\MessageCommandInterface;
-use Domain\Character;
-use Domain\User;
-use Application\Security\UserAccessInterface;
+use Talesweaver\Application\Messages\DeletionSuccessMessage;
+use Talesweaver\Application\Messages\Message;
+use Talesweaver\Application\Messages\MessageCommandInterface;
+use Talesweaver\Domain\Character;
+use Talesweaver\Domain\User;
+use Talesweaver\Application\Security\UserAccessInterface;
 use Ramsey\Uuid\UuidInterface;
 
 class Command implements MessageCommandInterface, UserAccessInterface

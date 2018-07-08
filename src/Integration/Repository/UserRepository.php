@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Repository;
+namespace Talesweaver\Integration\Repository;
 
-use Doctrine\Repository\UserRepository as DoctrineRepository;
-use Domain\User;
+use Talesweaver\Doctrine\Repository\UserRepository as DoctrineRepository;
+use Talesweaver\Domain\User;
 
 class UserRepository
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Application\Location\Delete;
+namespace Talesweaver\Application\Location\Delete;
 
-use Domain\Location;
+use Talesweaver\Domain\Location;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class CommandHandler

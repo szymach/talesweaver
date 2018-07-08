@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Security;
+namespace Talesweaver\Integration\Security;
 
-use Domain\User;
+use Talesweaver\Domain\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 

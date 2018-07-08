@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Application\Security;
+namespace Talesweaver\Application\Security;
 
-use Domain\User;
+use Talesweaver\Domain\User;
 
 interface UserAccessInterface
 {

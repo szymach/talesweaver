@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Item;
+namespace Talesweaver\Integration\Controller\Item;
 
-use Integration\Form\Item\CreateType;
-use Integration\Templating\Item\FormView;
-use Domain\Scene;
-use Application\Item\Create\Command;
-use Application\Item\Create\DTO;
+use Talesweaver\Integration\Form\Item\CreateType;
+use Talesweaver\Integration\Templating\Item\FormView;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Application\Item\Create\Command;
+use Talesweaver\Application\Item\Create\DTO;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;

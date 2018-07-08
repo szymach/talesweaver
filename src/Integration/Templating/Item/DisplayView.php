@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Templating\Item;
+namespace Talesweaver\Integration\Templating\Item;
 
-use Domain\Item;
-use Integration\Timeline\ItemTimeline;
+use Talesweaver\Domain\Item;
+use Talesweaver\Integration\Timeline\ItemTimeline;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 

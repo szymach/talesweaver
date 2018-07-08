@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Application\Location\Create;
+namespace Talesweaver\Application\Location\Create;
 
-use Domain\Scene;
+use Talesweaver\Domain\Scene;
 use FSi\DoctrineExtensions\Uploadable\File;
 use SplFileInfo;
 

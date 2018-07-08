@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Integration\Templating\Location;
+namespace Talesweaver\Integration\Templating\Location;
 
-use Domain\Location;
+use Talesweaver\Domain\Location;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Integration\Timeline\LocationTimeline;
+use Talesweaver\Integration\Timeline\LocationTimeline;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DisplayView

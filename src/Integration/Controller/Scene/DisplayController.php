@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Scene;
+namespace Talesweaver\Integration\Controller\Scene;
 
-use Integration\Templating\Scene\DisplayView;
-use Domain\Scene;
+use Talesweaver\Integration\Templating\Scene\DisplayView;
+use Talesweaver\Domain\Scene;
 
 class DisplayController
 {

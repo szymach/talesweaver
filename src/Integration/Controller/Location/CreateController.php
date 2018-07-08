@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Location;
+namespace Talesweaver\Integration\Controller\Location;
 
-use Integration\Form\Location\CreateType;
-use Integration\Templating\Location\FormView;
-use Domain\Scene;
-use Application\Location\Create\Command;
-use Application\Location\Create\DTO;
+use Talesweaver\Integration\Form\Location\CreateType;
+use Talesweaver\Integration\Templating\Location\FormView;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Application\Location\Create\Command;
+use Talesweaver\Application\Location\Create\DTO;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;

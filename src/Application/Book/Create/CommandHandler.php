@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Application\Book\Create;
+namespace Talesweaver\Application\Book\Create;
 
-use Domain\Book;
+use Talesweaver\Domain\Book;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class CommandHandler

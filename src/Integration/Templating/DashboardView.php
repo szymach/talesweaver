@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Integration\Templating;
+namespace Talesweaver\Integration\Templating;
 
-use Integration\Repository\BookRepository;
-use Integration\Repository\ChapterRepository;
-use Integration\Repository\Interfaces\LatestChangesAwareRepository;
-use Integration\Repository\SceneRepository;
+use Talesweaver\Integration\Repository\BookRepository;
+use Talesweaver\Integration\Repository\ChapterRepository;
+use Talesweaver\Integration\Repository\Interfaces\LatestChangesAwareRepository;
+use Talesweaver\Integration\Repository\SceneRepository;
 use DateTimeImmutable;
-use Domain\Book;
-use Domain\Chapter;
-use Domain\Scene;
+use Talesweaver\Domain\Book;
+use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\Scene;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 

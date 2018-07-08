@@ -1,40 +1,40 @@
 ---
 location_new:
     path: /new/{id}
-    defaults: { _controller: Integration\Controller\Location\CreateController }
+    defaults: { _controller: Talesweaver\Integration\Controller\Location\CreateController }
     methods:  [GET, POST]
 
 location_edit:
     path: /edit/{id}
-    defaults: { _controller: Integration\Controller\Location\EditController }
+    defaults: { _controller: Talesweaver\Integration\Controller\Location\EditController }
     methods:  [GET, POST]
 
 location_list:
     path: /list/{id}/{page}
-    defaults: { _controller: Integration\Controller\Location\ListController, page: 1 }
+    defaults: { _controller: Talesweaver\Integration\Controller\Location\ListController, page: 1 }
     methods:  GET
 
 location_delete:
     path: /delete/{id}
-    defaults: { _controller: Integration\Controller\Location\DeleteController }
+    defaults: { _controller: Talesweaver\Integration\Controller\Location\DeleteController }
     methods:  GET
 
 location_display:
     path: /display/{id}
-    defaults: { _controller: Integration\Controller\Location\DisplayController }
+    defaults: { _controller: Talesweaver\Integration\Controller\Location\DisplayController }
     methods:  GET
 
 location_related:
     path: /related/{id}/{page}
-    defaults: { _controller: Integration\Controller\Location\ListRelatedController, page: 1 }
+    defaults: { _controller: Talesweaver\Integration\Controller\Location\ListRelatedController, page: 1 }
     methods:  GET
 
 location_add_to_scene:
     path: /add-to-scene/{scene_id}/{location_id}
-    defaults: { _controller: Integration\Controller\Location\AddToSceneController }
+    defaults: { _controller: Talesweaver\Integration\Controller\Location\AddToSceneController }
     methods:  GET
 
 location_remove_from_scene:
     path: /remove-from-scene/{scene_id}/{location_id}
-    defaults: { _controller: Integration\Controller\Location\RemoveFromSceneController }
+    defaults: { _controller: Talesweaver\Integration\Controller\Location\RemoveFromSceneController }
     methods:  GET

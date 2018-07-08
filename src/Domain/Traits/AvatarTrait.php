@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Traits;
+namespace Talesweaver\Domain\Traits;
 
 use SplFileInfo;
 

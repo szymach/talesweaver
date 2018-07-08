@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Application\Event\Delete;
+namespace Talesweaver\Application\Event\Delete;
 
-use Domain\Event;
+use Talesweaver\Domain\Event;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class CommandHandler

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Security;
+namespace Talesweaver\Integration\Controller\Security;
 
-use Integration\Form\Security\RegisterType;
+use Talesweaver\Integration\Form\Security\RegisterType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Application\Security\Command\CreateUser;
+use Talesweaver\Application\Security\Command\CreateUser;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;

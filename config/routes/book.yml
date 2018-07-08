@@ -1,26 +1,26 @@
 ---
 book_create:
     path: /create/{page}
-    defaults: { _controller: Integration\Controller\Book\CreateController, page: 1 }
+    defaults: { _controller: Talesweaver\Integration\Controller\Book\CreateController, page: 1 }
     methods:  [GET, POST]
 
 book_edit:
     path: /edit/{id}/{page}
-    defaults: { _controller: Integration\Controller\Book\EditController, page: 1 }
+    defaults: { _controller: Talesweaver\Integration\Controller\Book\EditController, page: 1 }
     methods:  [GET, POST]
 
 book_list:
     path: /list/{page}
-    defaults: { _controller: Integration\Controller\Book\ListController, page: 1 }
+    defaults: { _controller: Talesweaver\Integration\Controller\Book\ListController, page: 1 }
     methods:  GET
 
 book_delete:
     path: /delete/{id}/{page}
-    defaults: { _controller: Integration\Controller\Book\DeleteController, page: 1 }
+    defaults: { _controller: Talesweaver\Integration\Controller\Book\DeleteController, page: 1 }
     methods:  GET
 
 book_chapter_list:
     path: /chapters/{id}/{page}
-    defaults: { _controller: Integration\Controller\Book\ChaptersListController, page: 1 }
+    defaults: { _controller: Talesweaver\Integration\Controller\Book\ChaptersListController, page: 1 }
     condition: "request.isXmlHttpRequest()"
     methods:  GET

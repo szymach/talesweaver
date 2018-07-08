@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Application\Security\Command;
+namespace Talesweaver\Application\Security\Command;
 
-use Integration\Mail\PasswordResetMailer;
-use Integration\Repository\PasswordResetTokenRepository;
-use Integration\Repository\UserRepository;
+use Talesweaver\Integration\Mail\PasswordResetMailer;
+use Talesweaver\Integration\Repository\PasswordResetTokenRepository;
+use Talesweaver\Integration\Repository\UserRepository;
 use DateInterval;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;

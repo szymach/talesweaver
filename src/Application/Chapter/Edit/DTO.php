@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Application\Chapter\Edit;
+namespace Talesweaver\Application\Chapter\Edit;
 
-use Domain\Book;
-use Domain\Chapter;
+use Talesweaver\Domain\Book;
+use Talesweaver\Domain\Chapter;
 use Ramsey\Uuid\UuidInterface;
 
 class DTO

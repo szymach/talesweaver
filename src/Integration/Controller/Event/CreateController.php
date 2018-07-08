@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Event;
+namespace Talesweaver\Integration\Controller\Event;
 
-use Integration\Enum\SceneEvents;
-use Integration\Form\Event\CreateType;
-use Integration\Templating\Event\FormView;
-use Application\Event\Create\Command;
-use Application\Event\Create\DTO;
-use Domain\Scene;
+use Talesweaver\Integration\Enum\SceneEvents;
+use Talesweaver\Integration\Form\Event\CreateType;
+use Talesweaver\Integration\Templating\Event\FormView;
+use Talesweaver\Application\Event\Create\Command;
+use Talesweaver\Application\Event\Create\DTO;
+use Talesweaver\Domain\Scene;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;

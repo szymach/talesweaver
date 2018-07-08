@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Application\Event\Create;
+namespace Talesweaver\Application\Event\Create;
 
-use Domain\Scene;
+use Talesweaver\Domain\Scene;
 use JsonSerializable;
 
 class DTO

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller;
+namespace Talesweaver\Integration\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

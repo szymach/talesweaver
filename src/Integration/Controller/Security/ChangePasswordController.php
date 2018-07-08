@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Security;
+namespace Talesweaver\Integration\Controller\Security;
 
-use Integration\Form\Security\ChangePasswordType;
+use Talesweaver\Integration\Form\Security\ChangePasswordType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Domain\User;
-use Application\Security\Command\ChangePassword;
+use Talesweaver\Domain\User;
+use Talesweaver\Application\Security\Command\ChangePassword;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;

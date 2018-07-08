@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Application\Item\Edit;
+namespace Talesweaver\Application\Item\Edit;
 
-use Application\Messages\EditionSuccessMessage;
-use Application\Messages\Message;
-use Application\Messages\MessageCommandInterface;
-use Domain\Item;
-use Domain\User;
-use Application\Security\UserAccessInterface;
+use Talesweaver\Application\Messages\EditionSuccessMessage;
+use Talesweaver\Application\Messages\Message;
+use Talesweaver\Application\Messages\MessageCommandInterface;
+use Talesweaver\Domain\Item;
+use Talesweaver\Domain\User;
+use Talesweaver\Application\Security\UserAccessInterface;
 
 class Command implements MessageCommandInterface, UserAccessInterface
 {

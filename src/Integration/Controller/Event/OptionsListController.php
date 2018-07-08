@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Event;
+namespace Talesweaver\Integration\Controller\Event;
 
-use Integration\Templating\Event\OptionsListView;
-use Domain\Scene;
+use Talesweaver\Integration\Templating\Event\OptionsListView;
+use Talesweaver\Domain\Scene;
 
 class OptionsListController
 {

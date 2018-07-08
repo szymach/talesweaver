@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Integration\JSON;
+namespace Talesweaver\Integration\JSON;
 
-use Integration\Repository\CharacterRepository;
-use Integration\Repository\ItemRepository;
-use Integration\Repository\LocationRepository;
-use Domain\Character;
-use Domain\Event;
-use Domain\Item;
-use Domain\Location;
+use Talesweaver\Integration\Repository\CharacterRepository;
+use Talesweaver\Integration\Repository\ItemRepository;
+use Talesweaver\Integration\Repository\LocationRepository;
+use Talesweaver\Domain\Character;
+use Talesweaver\Domain\Event;
+use Talesweaver\Domain\Item;
+use Talesweaver\Domain\Location;
 use JsonSerializable;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 

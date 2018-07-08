@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Integration\Twig;
+namespace Talesweaver\Integration\Twig;
 
 use JsonSerializable;
 use Twig\Extension\AbstractExtension;

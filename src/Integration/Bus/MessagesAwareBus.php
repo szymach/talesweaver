@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Bus;
+namespace Talesweaver\Integration\Bus;
 
-use Application\Messages\MessageCommandInterface;
+use Talesweaver\Application\Messages\MessageCommandInterface;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface;

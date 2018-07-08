@@ -1,11 +1,11 @@
 ---
-Application\Character\Create\DTO:
+Talesweaver\Application\Character\Create\DTO:
     constraints:
-        - Integration\Validation\Constraints\UniqueDTO:
+        - Talesweaver\Integration\Validation\Constraints\UniqueDTO:
             fields: { name: 't.name', scene: 'e.scenes' }
             repositoryMethod: entityExists
             path: name
-            entityClass: Domain\Character
+            entityClass: Talesweaver\Domain\Character
             message: character.exists
     properties:
         avatar:
@@ -13,14 +13,14 @@ Application\Character\Create\DTO:
         name:
             - NotBlank: ~
 
-Application\Character\Edit\DTO:
+Talesweaver\Application\Character\Edit\DTO:
     constraints:
-        - Integration\Validation\Constraints\UniqueDTO:
+        - Talesweaver\Integration\Validation\Constraints\UniqueDTO:
             fields: { name: 't.name', scenes: 'e.scenes' }
             id: id
             repositoryMethod: entityExists
             path: name
-            entityClass: Domain\Character
+            entityClass: Talesweaver\Domain\Character
             message: character.exists
     properties:
         avatar:

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Application\Location\Edit;
+namespace Talesweaver\Application\Location\Edit;
 
 use Doctrine\Common\Collections\Collection;
-use Domain\Location;
-use Domain\Scene;
+use Talesweaver\Domain\Location;
+use Talesweaver\Domain\Scene;
 use FSi\DoctrineExtensions\Uploadable\File;
 use Ramsey\Uuid\UuidInterface;
 use SplFileInfo;

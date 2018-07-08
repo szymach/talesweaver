@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Integration\Tests;
+namespace Talesweaver\Tests;
 
-use Integration\Tests\_generated\FunctionalTesterActions;
+use Talesweaver\Tests\_generated\FunctionalTesterActions;
 use Codeception\Actor;
 use Codeception\Lib\Friend;
 use Doctrine\ORM\EntityManagerInterface;
-use Domain\User;
-use Domain\User\PasswordResetToken;
+use Talesweaver\Domain\User;
+use Talesweaver\Domain\User\PasswordResetToken;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\RouterInterface;

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Domain\User;
+namespace Talesweaver\Domain\User;
 
 use DateInterval;
 use DateTimeImmutable;
-use Domain\User;
+use Talesweaver\Domain\User;
 
 class PasswordResetToken
 {

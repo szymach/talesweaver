@@ -1,9 +1,9 @@
 <?php
 
-namespace Application\Security\Command;
+namespace Talesweaver\Application\Security\Command;
 
-use Application\Messages\Message;
-use Application\Messages\MessageCommandInterface;
+use Talesweaver\Application\Messages\Message;
+use Talesweaver\Application\Messages\MessageCommandInterface;
 
 class CreateUser implements MessageCommandInterface
 {

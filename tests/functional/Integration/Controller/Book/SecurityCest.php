@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Tests\Controller\Book;
+namespace Talesweaver\Tests\Integration\Controller\Book;
 
-use Integration\Tests\FunctionalTester;
-use Domain\Book;
+use Talesweaver\Tests\FunctionalTester;
+use Talesweaver\Domain\Book;
 use Ramsey\Uuid\Uuid;
 
 class SecurityCest

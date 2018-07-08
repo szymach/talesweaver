@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Tests\Form;
+namespace Talesweaver\Tests\Integration\Form;
 
-use Domain\Character;
-use Domain\Scene;
+use Talesweaver\Domain\Character;
+use Talesweaver\Domain\Scene;
 use Ramsey\Uuid\Uuid;
 
 trait CreateCharacterTrait

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Doctrine\Repository;
+namespace Talesweaver\Doctrine\Repository;
 
 use DateTimeImmutable;
 use Doctrine\ORM\EntityRepository;

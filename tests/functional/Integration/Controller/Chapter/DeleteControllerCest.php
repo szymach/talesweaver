@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Tests\Controller\Chapter;
+namespace Talesweaver\Tests\Integration\Controller\Chapter;
 
-use Integration\Tests\FunctionalTester;
-use Domain\Chapter;
+use Talesweaver\Tests\FunctionalTester;
+use Talesweaver\Domain\Chapter;
 use Ramsey\Uuid\Uuid;
 
 class DeleteControllerCest

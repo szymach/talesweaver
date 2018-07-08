@@ -11,20 +11,21 @@
     ],
     "autoload": {
         "psr-4": {
-            "Application\\": "src/Application/",
-            "Doctrine\\": "src/Doctrine/",
-            "Domain\\": "src/Domain/",
-            "Integration\\": "src/Integration/"
+            "Talesweaver\\Application\\": "src/Application/",
+            "Talesweaver\\Doctrine\\": "src/Doctrine/",
+            "Talesweaver\\Domain\\": "src/Domain/",
+            "Talesweaver\\Integration\\": "src/Integration/"
         },
         "files": ["src/Integration/Security/function/generate_user_token.php"]
     },
     "autoload-dev": {
         "psr-4": {
-            "Domain\\Tests\\": ["tests/unit/Domain"],
-            "Integration\\Tests\\": [
+            "Talesweaver\\Tests\\Domain\\": ["tests/unit/Domain"],
+            "Talesweaver\\Tests\\Integration\\": [
                 "tests/functional/Integration",
                 "tests/unit/Integration"
-            ]
+            ],
+            "Talesweaver\\Tests\\Helper\\": ["tests/_support/Helper"]
         }
     },
     "require": {

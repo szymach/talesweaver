@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Form\Character;
+namespace Talesweaver\Integration\Form\Character;
 
-use Application\Character\Edit\DTO;
+use Talesweaver\Application\Character\Edit\DTO;
 use FSi\Bundle\DoctrineExtensionsBundle\Form\Type\FSi\ImageType;
 use FSi\Bundle\DoctrineExtensionsBundle\Form\Type\FSi\RemovableFileType;
 use Symfony\Component\Form\AbstractType;

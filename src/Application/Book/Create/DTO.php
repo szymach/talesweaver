@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\Book\Create;
+namespace Talesweaver\Application\Book\Create;
 
 class DTO
 {

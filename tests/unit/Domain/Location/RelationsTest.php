@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Domain\Tests\Entity\Location;
+namespace Talesweaver\Domain\Tests\Entity\Location;
 
-use Domain\Book;
-use Domain\Chapter;
-use Domain\Location;
-use Domain\Scene;
-use Domain\User;
+use Talesweaver\Domain\Book;
+use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\Location;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\User;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;

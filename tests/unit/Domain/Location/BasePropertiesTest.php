@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Domain\Tests\Entity\Location;
+namespace Talesweaver\Domain\Tests\Entity\Location;
 
 use Assert;
-use Domain\Location;
-use Domain\Scene;
-use Domain\User;
+use Talesweaver\Domain\Location;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\User;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;

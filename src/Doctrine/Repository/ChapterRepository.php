@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Doctrine\Repository;
+namespace Talesweaver\Doctrine\Repository;
 
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use Domain\Book;
-use Domain\User;
+use Talesweaver\Domain\Book;
+use Talesweaver\Domain\User;
 use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository;
 use Ramsey\Uuid\UuidInterface;
 

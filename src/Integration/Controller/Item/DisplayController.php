@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Item;
+namespace Talesweaver\Integration\Controller\Item;
 
-use Integration\Templating\Item\DisplayView;
-use Domain\Item;
+use Talesweaver\Integration\Templating\Item\DisplayView;
+use Talesweaver\Domain\Item;
 
 class DisplayController
 {

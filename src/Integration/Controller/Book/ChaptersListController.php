@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Book;
+namespace Talesweaver\Integration\Controller\Book;
 
-use Integration\Templating\Book\ChaptersListView;
-use Domain\Book;
+use Talesweaver\Integration\Templating\Book\ChaptersListView;
+use Talesweaver\Domain\Book;
 
 class ChaptersListController
 {

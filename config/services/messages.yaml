@@ -7,168 +7,168 @@ services:
 
     # User handlers
     app.command.user.create:
-        class: Application\Security\Command\CreateUserHandler
+        class: Talesweaver\Application\Security\Command\CreateUserHandler
         tags:
-            - { name: command_handler, handles: Application\Security\Command\CreateUser }
+            - { name: command_handler, handles: Talesweaver\Application\Security\Command\CreateUser }
 
     app.command.user.activate:
-        class: Application\Security\Command\ActivateUserHandler
+        class: Talesweaver\Application\Security\Command\ActivateUserHandler
         tags:
-            - { name: command_handler, handles: Application\Security\Command\ActivateUser }
+            - { name: command_handler, handles: Talesweaver\Application\Security\Command\ActivateUser }
 
     app.command.user.password_reset.request:
-        class: Application\Security\Command\GeneratePasswordResetTokenHandler
+        class: Talesweaver\Application\Security\Command\GeneratePasswordResetTokenHandler
         tags:
-            - { name: command_handler, handles: Application\Security\Command\GeneratePasswordResetToken }
+            - { name: command_handler, handles: Talesweaver\Application\Security\Command\GeneratePasswordResetToken }
 
     app.command.user.password_reset.change:
-        class: Application\Security\Command\ResetPasswordHandler
+        class: Talesweaver\Application\Security\Command\ResetPasswordHandler
         tags:
-            - { name: command_handler, handles: Application\Security\Command\ResetPassword }
+            - { name: command_handler, handles: Talesweaver\Application\Security\Command\ResetPassword }
 
     app.command.user.change_password:
-        class: Application\Security\Command\ChangePasswordHandler
+        class: Talesweaver\Application\Security\Command\ChangePasswordHandler
         tags:
-            - { name: command_handler, handles: Application\Security\Command\ChangePassword }
+            - { name: command_handler, handles: Talesweaver\Application\Security\Command\ChangePassword }
 
     # Book handlers
     app.command.book.create:
-        class: Application\Book\Create\CommandHandler
+        class: Talesweaver\Application\Book\Create\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Book\Create\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Book\Create\Command }
 
     app.command.book.edit:
-        class: Application\Book\Edit\CommandHandler
+        class: Talesweaver\Application\Book\Edit\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Book\Edit\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Book\Edit\Command }
 
     app.command.book.delete:
-        class: Application\Book\Delete\CommandHandler
+        class: Talesweaver\Application\Book\Delete\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Book\Delete\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Book\Delete\Command }
 
     # Chapter handles
     app.command.chapter.create:
-        class: Application\Chapter\Create\CommandHandler
+        class: Talesweaver\Application\Chapter\Create\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Chapter\Create\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Chapter\Create\Command }
 
     app.command.chapter.edit:
-        class: Application\Chapter\Edit\CommandHandler
+        class: Talesweaver\Application\Chapter\Edit\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Chapter\Edit\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Chapter\Edit\Command }
 
     app.command.chapter.delete:
-        class: Application\Chapter\Delete\CommandHandler
+        class: Talesweaver\Application\Chapter\Delete\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Chapter\Delete\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Chapter\Delete\Command }
 
     # Scene handles
     app.command.scene.create:
-        class: Application\Scene\Create\CommandHandler
+        class: Talesweaver\Application\Scene\Create\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Scene\Create\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Scene\Create\Command }
 
     app.command.scene.edit:
-        class: Application\Scene\Edit\CommandHandler
+        class: Talesweaver\Application\Scene\Edit\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Scene\Edit\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Scene\Edit\Command }
 
     app.command.scene.delete:
-        class: Application\Scene\Delete\CommandHandler
+        class: Talesweaver\Application\Scene\Delete\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Scene\Delete\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Scene\Delete\Command }
 
     # Event handlers
     app.command.event.create:
-        class: Application\Event\Create\CommandHandler
+        class: Talesweaver\Application\Event\Create\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Event\Create\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Event\Create\Command }
 
     app.command.event.edit:
-        class: Application\Event\Edit\CommandHandler
+        class: Talesweaver\Application\Event\Edit\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Event\Edit\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Event\Edit\Command }
 
     app.command.event.delete:
-        class: Application\Event\Delete\CommandHandler
+        class: Talesweaver\Application\Event\Delete\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Event\Delete\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Event\Delete\Command }
 
     # Character handlers
     app.command.character.create:
-        class: Application\Character\Create\CommandHandler
+        class: Talesweaver\Application\Character\Create\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Character\Create\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Character\Create\Command }
 
     app.command.character.add_to_scene:
-        class: Application\Character\AddToScene\CommandHandler
+        class: Talesweaver\Application\Character\AddToScene\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Character\AddToScene\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Character\AddToScene\Command }
 
     app.command.character.edit:
-        class: Application\Character\Edit\CommandHandler
+        class: Talesweaver\Application\Character\Edit\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Character\Edit\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Character\Edit\Command }
 
     app.command.character.delete:
-        class: Application\Character\Delete\CommandHandler
+        class: Talesweaver\Application\Character\Delete\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Character\Delete\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Character\Delete\Command }
 
     app.command.character.remove_from_scene:
-        class: Application\Character\RemoveFromScene\CommandHandler
+        class: Talesweaver\Application\Character\RemoveFromScene\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Character\RemoveFromScene\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Character\RemoveFromScene\Command }
 
     #  Item handlers
     app.command.item.create:
-        class: Application\Item\Create\CommandHandler
+        class: Talesweaver\Application\Item\Create\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Item\Create\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Item\Create\Command }
 
     app.command.item.add_to_scene:
-        class: Application\Item\AddToScene\CommandHandler
+        class: Talesweaver\Application\Item\AddToScene\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Item\AddToScene\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Item\AddToScene\Command }
 
     app.command.item.edit:
-        class: Application\Item\Edit\CommandHandler
+        class: Talesweaver\Application\Item\Edit\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Item\Edit\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Item\Edit\Command }
 
     app.command.item.delete:
-        class: Application\Item\Delete\CommandHandler
+        class: Talesweaver\Application\Item\Delete\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Item\Delete\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Item\Delete\Command }
 
     app.command.item.remove_from_scene:
-        class: Application\Item\RemoveFromScene\CommandHandler
+        class: Talesweaver\Application\Item\RemoveFromScene\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Item\RemoveFromScene\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Item\RemoveFromScene\Command }
 
     #  Location handlers
     app.command.location.create:
-        class: Application\Location\Create\CommandHandler
+        class: Talesweaver\Application\Location\Create\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Location\Create\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Location\Create\Command }
 
     app.command.location.add_to_scene:
-        class: Application\Location\AddToScene\CommandHandler
+        class: Talesweaver\Application\Location\AddToScene\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Location\AddToScene\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Location\AddToScene\Command }
 
     app.command.location.edit:
-        class: Application\Location\Edit\CommandHandler
+        class: Talesweaver\Application\Location\Edit\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Location\Edit\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Location\Edit\Command }
 
     app.command.location.delete:
-        class: Application\Location\Delete\CommandHandler
+        class: Talesweaver\Application\Location\Delete\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Location\Delete\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Location\Delete\Command }
 
     app.command.location.remove_from_scene:
-        class: Application\Location\RemoveFromScene\CommandHandler
+        class: Talesweaver\Application\Location\RemoveFromScene\CommandHandler
         tags:
-            - { name: command_handler, handles: Application\Location\RemoveFromScene\Command }
+            - { name: command_handler, handles: Talesweaver\Application\Location\RemoveFromScene\Command }

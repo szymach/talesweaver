@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Integration\Form\Security;
+namespace Talesweaver\Integration\Form\Security;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;

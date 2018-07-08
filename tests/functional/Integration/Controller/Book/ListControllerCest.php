@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Tests\Controller\Book;
+namespace Talesweaver\Tests\Integration\Controller\Book;
 
-use Integration\Tests\FunctionalTester;
+use Talesweaver\Tests\FunctionalTester;
 
 class ListControllerCest
 {

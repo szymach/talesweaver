@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller;
+namespace Talesweaver\Integration\Controller;
 
-use Integration\Templating\DashboardView;
+use Talesweaver\Integration\Templating\DashboardView;
 use Symfony\Component\HttpFoundation\Request;
 
 class DashboardController

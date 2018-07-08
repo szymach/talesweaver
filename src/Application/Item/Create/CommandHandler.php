@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Application\Item\Create;
+namespace Talesweaver\Application\Item\Create;
 
-use Domain\Item;
+use Talesweaver\Domain\Item;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class CommandHandler

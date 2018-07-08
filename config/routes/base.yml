@@ -1,11 +1,11 @@
 ---
 index:
     path: /
-    controller: Integration\Controller\DashboardController
+    controller: Talesweaver\Integration\Controller\DashboardController
     methods:  GET
 
 alerts:
     path: /alerts
-    controller: Integration\Controller\AlertsController
+    controller: Talesweaver\Integration\Controller\AlertsController
     methods:  GET
     condition: "request.isXmlHttpRequest()"

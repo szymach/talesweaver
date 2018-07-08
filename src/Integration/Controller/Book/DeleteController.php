@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Book;
+namespace Talesweaver\Integration\Controller\Book;
 
-use Integration\Routing\RedirectToList;
-use Application\Book\Delete\Command;
-use Domain\Book;
+use Talesweaver\Integration\Routing\RedirectToList;
+use Talesweaver\Application\Book\Delete\Command;
+use Talesweaver\Domain\Book;
 use SimpleBus\Message\Bus\MessageBus;
 
 class DeleteController

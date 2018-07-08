@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Security;
+namespace Talesweaver\Integration\Controller\Security;
 
-use Integration\Repository\UserRepository;
-use Application\Security\Command\ActivateUser;
+use Talesweaver\Integration\Repository\UserRepository;
+use Talesweaver\Application\Security\Command\ActivateUser;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

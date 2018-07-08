@@ -2,11 +2,11 @@ actor: UnitTester
 modules:
     enabled:
         - Asserts
-        - \Integration\Tests\Helper\Unit
+        - \Talesweaver\Tests\Helper\Unit
         - Doctrine2:
             depends: Symfony
         - Symfony:
             app_path: 'src/Integration'
             environment: 'test'
-            kernel_class: 'Integration\Kernel'
+            kernel_class: 'Talesweaver\Integration\Kernel'
             var_path: 'var'

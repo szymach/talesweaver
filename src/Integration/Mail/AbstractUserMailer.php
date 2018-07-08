@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Mail;
+namespace Talesweaver\Integration\Mail;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Domain\User;
+use Talesweaver\Domain\User;
 use Swift_Mailer;
 use Swift_Message;
 use Symfony\Component\Translation\TranslatorInterface;

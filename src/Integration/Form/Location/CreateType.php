@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Form\Location;
+namespace Talesweaver\Integration\Form\Location;
 
-use Application\Location\Create\DTO;
+use Talesweaver\Application\Location\Create\DTO;
 use FSi\Bundle\DoctrineExtensionsBundle\Form\Type\FSi\ImageType;
 use FSi\Bundle\DoctrineExtensionsBundle\Form\Type\FSi\RemovableFileType;
 use Symfony\Component\Form\AbstractType;

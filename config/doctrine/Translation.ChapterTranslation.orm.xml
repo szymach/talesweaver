@@ -4,7 +4,7 @@
                   xmlns:fsi="http://fsi.pl/schemas/orm/doctrine-extensions-mapping"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
 >
-    <entity name="Domain\Translation\ChapterTranslation">
+    <entity name="Talesweaver\Domain\Translation\ChapterTranslation">
 
         <id name="id" type="integer">
             <generator strategy="IDENTITY"/>
@@ -14,7 +14,7 @@
             <fsi:translatable-locale />
         </field>
 
-        <many-to-one field="chapter" target-entity="Domain\Chapter" inversed-by="translations">
+        <many-to-one field="chapter" target-entity="Talesweaver\Domain\Chapter" inversed-by="translations">
             <join-columns>
                 <join-column on-delete="CASCADE"/>
             </join-columns>

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Integration\Templating\Book;
+namespace Talesweaver\Integration\Templating\Book;
 
-use Integration\Form\Chapter\CreateType;
+use Talesweaver\Integration\Form\Chapter\CreateType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Application\Chapter\Create\DTO;
-use Domain\Book;
+use Talesweaver\Application\Chapter\Create\DTO;
+use Talesweaver\Domain\Book;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;

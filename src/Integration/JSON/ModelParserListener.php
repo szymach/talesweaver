@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\JSON;
+namespace Talesweaver\Integration\JSON;
 
-use Integration\JSON\EventParser;
-use Domain\Event;
+use Talesweaver\Integration\JSON\EventParser;
+use Talesweaver\Domain\Event;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

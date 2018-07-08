@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Templating\Chapter;
+namespace Talesweaver\Integration\Templating\Chapter;
 
-use Integration\Pagination\Chapter\ChapterPaginator;
+use Talesweaver\Integration\Pagination\Chapter\ChapterPaginator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 

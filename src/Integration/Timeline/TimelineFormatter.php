@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Integration\Timeline;
+namespace Talesweaver\Integration\Timeline;
 
-use Integration\Repository\EventRepository;
-use Integration\Repository\SceneRepository;
+use Talesweaver\Integration\Repository\EventRepository;
+use Talesweaver\Integration\Repository\SceneRepository;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Domain\Event;
-use Domain\Event\Meeting;
+use Talesweaver\Domain\Event;
+use Talesweaver\Domain\Event\Meeting;
 use Ramsey\Uuid\UuidInterface;
 use function mb_strtolower;
 

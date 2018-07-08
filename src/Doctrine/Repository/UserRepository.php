@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Doctrine\Repository;
+namespace Talesweaver\Doctrine\Repository;
 
-use Domain\User;
+use Talesweaver\Domain\User;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 

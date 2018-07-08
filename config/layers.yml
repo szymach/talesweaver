@@ -1,0 +1,40 @@
+---
+paths:
+  - ./src
+exclude_files: ~
+layers:
+  - name: Application
+    collectors:
+      - type: className
+        regex: Talesweaver\\Application\\.*
+  - name: Doctrine
+    collectors:
+      - type: className
+        regex: Talesweaver\\Doctrine\\.*
+  - name: Domain
+    collectors:
+      - type: className
+        regex: Talesweaver\\Domain\\.*
+  - name: Integrations
+    collectors:
+      - type: className
+        regex: Talesweaver\\ORMIntegration\\.*
+  - name: Tests
+    collectors:
+      - type: className
+        regex: Talesweaver\\Tests\\.*
+ruleset:
+  Application:
+    - Domain
+  Doctrine:
+    - Domain
+  Domain: ~
+  Integration:
+    - Application
+    - Doctrine
+    - Domain
+  Tests:
+    - Application
+    - Domain
+    - Doctrine
+    - Integration

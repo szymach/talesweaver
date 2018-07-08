@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Security;
+namespace Talesweaver\Integration\Security;
 
-use Domain\User;
+use Talesweaver\Domain\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

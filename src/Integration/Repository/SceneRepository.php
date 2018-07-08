@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Integration\Repository;
+namespace Talesweaver\Integration\Repository;
 
-use Integration\Repository\Interfaces\FindableByIdRepository;
-use Integration\Repository\Interfaces\LatestChangesAwareRepository;
-use Integration\Security\UserProvider;
+use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
+use Talesweaver\Integration\Repository\Interfaces\LatestChangesAwareRepository;
+use Talesweaver\Integration\Security\UserProvider;
 use Doctrine\ORM\QueryBuilder;
-use Doctrine\Repository\SceneRepository as DoctrineRepository;
-use Domain\Chapter;
+use Talesweaver\Doctrine\Repository\SceneRepository as DoctrineRepository;
+use Talesweaver\Domain\Chapter;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 

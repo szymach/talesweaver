@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Integration\Routing\Scene;
+namespace Talesweaver\Integration\Routing\Scene;
 
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

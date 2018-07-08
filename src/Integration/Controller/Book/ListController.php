@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Book;
+namespace Talesweaver\Integration\Controller\Book;
 
-use Integration\Templating\Book\ListView;
+use Talesweaver\Integration\Templating\Book\ListView;
 
 class ListController
 {

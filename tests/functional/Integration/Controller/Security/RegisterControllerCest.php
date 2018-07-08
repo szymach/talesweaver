@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Integration\Tests\Controller\Security;
+namespace Talesweaver\Tests\Integration\Controller\Security;
 
-use Integration\Tests\FunctionalTester;
-use Domain\User;
-use Domain\User\ActivationToken;
+use Talesweaver\Tests\FunctionalTester;
+use Talesweaver\Domain\User;
+use Talesweaver\Domain\User\ActivationToken;
 
 class RegisterControllerCest
 {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Integration\Controller\Book;
+namespace Talesweaver\Integration\Controller\Book;
 
-use Integration\Form\Book\CreateType;
-use Integration\Routing\RedirectToEdit;
-use Integration\Templating\SimpleFormView;
-use Application\Book\Create\Command;
+use Talesweaver\Integration\Form\Book\CreateType;
+use Talesweaver\Integration\Routing\RedirectToEdit;
+use Talesweaver\Integration\Templating\SimpleFormView;
+use Talesweaver\Application\Book\Create\Command;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;

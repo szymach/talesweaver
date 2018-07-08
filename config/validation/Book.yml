@@ -1,24 +1,24 @@
 ---
-Application\Book\Create\DTO:
+Talesweaver\Application\Book\Create\DTO:
     constraints:
-        - Integration\Validation\Constraints\UniqueDTO:
+        - Talesweaver\Integration\Validation\Constraints\UniqueDTO:
             fields: { title: 't.title' }
             repositoryMethod: entityExists
             path: title
-            entityClass: Domain\Book
+            entityClass: Talesweaver\Domain\Book
             message: book.exists
     properties:
         title:
             - NotBlank: ~
 
-Application\Book\Edit\DTO:
+Talesweaver\Application\Book\Edit\DTO:
     constraints:
-        - Integration\Validation\Constraints\UniqueDTO:
+        - Talesweaver\Integration\Validation\Constraints\UniqueDTO:
             fields: { title: 't.title' }
             id: id
             repositoryMethod: entityExists
             path: title
-            entityClass: Domain\Book
+            entityClass: Talesweaver\Domain\Book
             message: book.exists
     properties:
         title:

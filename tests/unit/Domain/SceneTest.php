@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Domain\Tests;
+namespace Talesweaver\Domain\Tests;
 
 use Assert\InvalidArgumentException;
-use Domain\Scene;
-use Domain\User;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\User;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
 

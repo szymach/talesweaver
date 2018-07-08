@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Mail;
+namespace Talesweaver\Integration\Mail;
 
-use Domain\User;
+use Talesweaver\Domain\User;
 
 class RegistrationMailer extends AbstractUserMailer
 {

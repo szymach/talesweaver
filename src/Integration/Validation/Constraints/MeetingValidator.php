@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Integration\Validation\Constraints;
+namespace Talesweaver\Integration\Validation\Constraints;
 
-use Domain\Event\Meeting;
+use Talesweaver\Domain\Event\Meeting;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 

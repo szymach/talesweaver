@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Integration\Tests\Controller\Scene;
+namespace Talesweaver\Tests\Integration\Controller\Scene;
 
-use Integration\Tests\FunctionalTester;
-use Domain\Chapter;
-use Domain\Scene;
+use Talesweaver\Tests\FunctionalTester;
+use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\Scene;
 use Ramsey\Uuid\Uuid;
 
 class FormControllerCest

@@ -6,79 +6,79 @@ services:
 
     # Entity listeners
     entity_listener.event:
-        class: Integration\JSON\ModelParserListener
+        class: Talesweaver\Integration\JSON\ModelParserListener
         autowire: true
         tags:
             - { name: doctrine.orm.entity_listener }
 
     # Doctrine repository
-    Doctrine\Repository\BookRepository:
+    Talesweaver\Doctrine\Repository\BookRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ Domain\Book ]
+        arguments: [ Talesweaver\Domain\Book ]
 
-    Doctrine\Repository\SceneRepository:
+    Talesweaver\Doctrine\Repository\SceneRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ Domain\Scene ]
+        arguments: [ Talesweaver\Domain\Scene ]
 
-    Doctrine\Repository\CharacterRepository:
+    Talesweaver\Doctrine\Repository\CharacterRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ Domain\Character ]
+        arguments: [ Talesweaver\Domain\Character ]
 
-    Doctrine\Repository\ItemRepository:
+    Talesweaver\Doctrine\Repository\ItemRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ Domain\Item ]
+        arguments: [ Talesweaver\Domain\Item ]
 
-    Doctrine\Repository\LocationRepository:
+    Talesweaver\Doctrine\Repository\LocationRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ Domain\Location ]
+        arguments: [ Talesweaver\Domain\Location ]
 
-    Doctrine\Repository\ChapterRepository:
+    Talesweaver\Doctrine\Repository\ChapterRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ Domain\Chapter ]
+        arguments: [ Talesweaver\Domain\Chapter ]
 
-    Doctrine\Repository\EventRepository:
+    Talesweaver\Doctrine\Repository\EventRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ Domain\Event ]
+        arguments: [ Talesweaver\Domain\Event ]
 
-    Doctrine\Repository\UserRepository:
+    Talesweaver\Doctrine\Repository\UserRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ Domain\User ]
+        arguments: [ Talesweaver\Domain\User ]
 
-    Doctrine\Repository\PasswordResetTokenRepository:
+    Talesweaver\Doctrine\Repository\PasswordResetTokenRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ Domain\User\PasswordResetToken ]
+        arguments: [ Talesweaver\Domain\User\PasswordResetToken ]
 
     # Repository
-    Integration\Repository\BookRepository:
+    Talesweaver\Integration\Repository\BookRepository:
         autowire: true
         tags: ['app.param_converter.repository']
 
-    Integration\Repository\SceneRepository:
+    Talesweaver\Integration\Repository\SceneRepository:
         autowire: true
         tags: ['app.param_converter.repository']
 
-    Integration\Repository\CharacterRepository:
+    Talesweaver\Integration\Repository\CharacterRepository:
         autowire: true
         tags: ['app.param_converter.repository']
 
-    Integration\Repository\ItemRepository:
+    Talesweaver\Integration\Repository\ItemRepository:
         autowire: true
         tags: ['app.param_converter.repository']
 
-    Integration\Repository\LocationRepository:
+    Talesweaver\Integration\Repository\LocationRepository:
         autowire: true
         tags: ['app.param_converter.repository']
 
-    Integration\Repository\ChapterRepository:
+    Talesweaver\Integration\Repository\ChapterRepository:
         autowire: true
         tags: ['app.param_converter.repository']
 
-    Integration\Repository\EventRepository:
+    Talesweaver\Integration\Repository\EventRepository:
         autowire: true
         tags: ['app.param_converter.repository']
 
-    Integration\Repository\UserRepository:
+    Talesweaver\Integration\Repository\UserRepository:
         autowire: true
 
-    Integration\Repository\PasswordResetTokenRepository:
+    Talesweaver\Integration\Repository\PasswordResetTokenRepository:
         autowire: true

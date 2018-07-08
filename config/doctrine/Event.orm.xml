@@ -4,7 +4,7 @@
                   xmlns:fsi="http://fsi.pl/schemas/orm/doctrine-extensions-mapping"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
 >
-    <entity repository-class="Doctrine\Repository\EventRepository" name="Domain\Event" table="event_entity">
+    <entity repository-class="Talesweaver\Doctrine\Repository\EventRepository" name="Talesweaver\Domain\Event" table="event_entity">
 
         <fsi:translatable-locale field="locale" />
         <fsi:translatable-field field="name" mappedBy="translations" />
@@ -14,26 +14,26 @@
         <field name="updatedAt" type="datetime" nullable="true"/>
         <field name="model" type="json_array" column="model"/>
 
-        <one-to-many field="translations" target-entity="Domain\Translation\EventTranslation" mapped-by="event">
+        <one-to-many field="translations" target-entity="Talesweaver\Domain\Translation\EventTranslation" mapped-by="event">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
             </cascade>
         </one-to-many>
 
-        <many-to-one field="scene" target-entity="Domain\Scene">
+        <many-to-one field="scene" target-entity="Talesweaver\Domain\Scene">
             <join-columns>
                 <join-column on-delete="CASCADE"/>
             </join-columns>
         </many-to-one>
-        <many-to-one field="createdBy" target-entity="Domain\User">
+        <many-to-one field="createdBy" target-entity="Talesweaver\Domain\User">
             <join-columns>
                 <join-column on-delete="CASCADE"/>
             </join-columns>
         </many-to-one>
 
         <entity-listeners>
-            <entity-listener class="Integration\JSON\ModelParserListener">
+            <entity-listener class="Talesweaver\Integration\JSON\ModelParserListener">
                 <lifecycle-callback type="postLoad" method="postLoad"/>
             </entity-listener>
         </entity-listeners>

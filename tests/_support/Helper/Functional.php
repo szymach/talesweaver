@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Integration\Tests\Helper;
+namespace Talesweaver\Tests\Helper;
 
-use Integration\Repository\Doctrine\UserRepository;
-use Integration\Tests\FunctionalTester;
 use Codeception\Module;
 use Codeception\Module\Symfony;
 use Doctrine\ORM\EntityManagerInterface;
-use Domain\User;
 use FSi\DoctrineExtensions\Translatable\TranslatableListener;
+use Talesweaver\Domain\User;
+use Talesweaver\Integration\Repository\Doctrine\UserRepository;
+use Talesweaver\Tests\FunctionalTester;
 
 class Functional extends Module
 {

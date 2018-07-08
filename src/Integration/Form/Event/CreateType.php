@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Integration\Form\Event;
+namespace Talesweaver\Integration\Form\Event;
 
-use Domain\Scene;
-use Application\Event\Create\DTO;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Application\Event\Create\DTO;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;

@@ -114,9 +114,9 @@ dashboard:
         bottom: Wybierz jedną z pozycji u góry by rozpocząć pracę.
     timeline: Ostatnie zmiany
     type:
-        'Domain\Book': Książka
-        'Domain\Chapter': Rozdział
-        'Domain\Scene': Scena
+        'Talesweaver\Domain\Book': Książka
+        'Talesweaver\Domain\Chapter': Rozdział
+        'Talesweaver\Domain\Scene': Scena
     updated:
         0: Dodano
         1: Zaktualizowano
@@ -223,7 +223,7 @@ event:
         edit: Edycja wydarzenia
     actions:
         create: Nowe wydarzenie
-    'Domain\Event\Meeting':
+    'Talesweaver\Domain\Event\Meeting':
         name: Spotkanie
         create: Nowe spotkanie
         description:
@@ -238,9 +238,9 @@ event:
         title: Wybierz wydarzenie do dodania
     timeline:
         creation:
-            'Domain\Character': 'Pojawił się w scene:'
-            'Domain\Item': 'Pojawił się w scene:'
-            'Domain\Location': 'Pojawiło się w scene:'
+            'Talesweaver\Domain\Character': 'Pojawił się w scene:'
+            'Talesweaver\Domain\Item': 'Pojawił się w scene:'
+            'Talesweaver\Domain\Location': 'Pojawiło się w scene:'
     alert:
         created: 'Pomyślnie dodano nowe wydarzenie o nazwie "%title%".'
         edit: Zapisano zmiany w wydarzeniu.
