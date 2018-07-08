@@ -7,7 +7,7 @@ namespace Talesweaver\Application\Item\AddToScene;
 use Talesweaver\Application\Messages\AddedToSceneSuccessMessage;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
-use Talesweaver\Application\Security\UserAccessInterface;
+use Talesweaver\Domain\Security\UserAccessInterface;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\User;

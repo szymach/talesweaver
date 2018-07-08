@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Application\Security;
+namespace Talesweaver\Domain\Security;
 
 use Talesweaver\Domain\User;
 

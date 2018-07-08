@@ -12,7 +12,7 @@ use stdClass;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Talesweaver\Application\Security\UserAccessInterface;
+use Talesweaver\Domain\Security\UserAccessInterface;
 use Talesweaver\Domain\User;
 use Talesweaver\Integration\Bus\UserAccessBus;
 

@@ -9,7 +9,7 @@ use Talesweaver\Application\Messages\CreationSuccessMessage;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Application\Security\Traits\UserAwareTrait;
-use Talesweaver\Application\Security\UserAwareInterface;
+use Talesweaver\Domain\Security\UserAwareInterface;
 
 class Command implements MessageCommandInterface, UserAwareInterface
 {

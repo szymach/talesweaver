@@ -6,7 +6,7 @@ namespace Talesweaver\Domain\Event;
 
 use DomainException;
 use JsonSerializable;
-use Talesweaver\Application\Security\UserAccessInterface;
+use Talesweaver\Domain\Security\UserAccessInterface;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\User;

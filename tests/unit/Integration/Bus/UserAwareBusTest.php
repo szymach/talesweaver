@@ -11,7 +11,7 @@ use SimpleBus\Message\Bus\MessageBus;
 use stdClass;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Talesweaver\Application\Security\UserAwareInterface;
+use Talesweaver\Domain\Security\UserAwareInterface;
 use Talesweaver\Domain\User;
 use Talesweaver\Integration\Bus\UserAwareBus;
 

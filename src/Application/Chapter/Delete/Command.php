@@ -8,7 +8,7 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Messages\DeletionSuccessMessage;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
-use Talesweaver\Application\Security\UserAccessInterface;
+use Talesweaver\Domain\Security\UserAccessInterface;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\User;
 

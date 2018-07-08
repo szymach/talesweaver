@@ -19,8 +19,9 @@ env:
 before_install:
     - phpenv config-rm xdebug.ini
     - echo 'date.timezone = "Europe/Warsaw"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-    - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.7.0
-    - export PATH=$HOME/.yarn/bin:$PATH
+    - "curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.7.0"
+    - "export PATH=$HOME/.yarn/bin:$PATH"
+    - "[ -f vendor/bin/deptrac.phar ] || curl -LS http://get.sensiolabs.de/deptrac.phar -o vendor/bin/deptrac.phar && chmod +x vendor/bin/deptrac.phar"
 
 install:
     - composer install -n
@@ -33,6 +34,7 @@ install:
 
 script:
     - vendor/bin/phpcs
+    - vendor/bin/deptrac.phar analyze --formatter-graphviz=0 config/layers.yml
     - bin/console lint:yaml config
     - bin/console lint:yaml translations
     - bin/console lint:twig templates
