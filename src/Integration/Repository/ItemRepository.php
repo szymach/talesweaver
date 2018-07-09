@@ -7,12 +7,13 @@ namespace Talesweaver\Integration\Repository;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Doctrine\Repository\ItemRepository as DoctrineRepository;
+use Talesweaver\Domain\Item;
+use Talesweaver\Domain\Items;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
 use Talesweaver\Integration\Repository\Interfaces\RequestSecuredRepository;
 use Talesweaver\Integration\Security\UserProvider;
 
-class ItemRepository implements FindableByIdRepository, RequestSecuredRepository
+class ItemRepository implements Items, RequestSecuredRepository
 {
     /**
      * @var DoctrineRepository
@@ -35,12 +36,28 @@ class ItemRepository implements FindableByIdRepository, RequestSecuredRepository
         return $this->doctrineRepository->getClassName();
     }
 
-    public function find(string $id)
+    public function find(UuidInterface $id): ?Item
     {
         return $this->doctrineRepository->findOneBy([
             'id' => $id,
             'createdBy' => $this->userProvider->fetchCurrentUser()
         ]);
+    }
+
+    public function findAll(): array
+    {
+        return $this->doctrineRepository->findAll();
+    }
+
+    public function remove(UuidInterface $id): void
+    {
+        $this->doctrineRepository
+            ->createQueryBuilder('i')
+            ->delete()
+            ->where('i.id = :id')
+            ->getQuery()
+            ->execute(['id' => (string) $id])
+        ;
     }
 
     public function createForSceneQueryBuilder(Scene $scene): QueryBuilder

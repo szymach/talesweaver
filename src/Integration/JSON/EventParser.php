@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\JSON;
 
 use JsonSerializable;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event;
@@ -69,6 +70,6 @@ class EventParser
             return;
         }
 
-        $this->propertAccessor->setValue($model, $field, $this->repositories[$class]->find($id));
+        $this->propertAccessor->setValue($model, $field, $this->repositories[$class]->find(Uuid::fromString($id)));
     }
 }

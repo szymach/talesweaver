@@ -8,12 +8,13 @@ use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Doctrine\Repository\ChapterRepository as DoctrineRepository;
 use Talesweaver\Domain\Book;
-use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
+use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\Chapters;
 use Talesweaver\Integration\Repository\Interfaces\LatestChangesAwareRepository;
 use Talesweaver\Integration\Repository\Interfaces\RequestSecuredRepository;
 use Talesweaver\Integration\Security\UserProvider;
 
-class ChapterRepository implements FindableByIdRepository, LatestChangesAwareRepository, RequestSecuredRepository
+class ChapterRepository implements Chapters, LatestChangesAwareRepository, RequestSecuredRepository
 {
     /**
      * @var DoctrineRepository
@@ -36,12 +37,28 @@ class ChapterRepository implements FindableByIdRepository, LatestChangesAwareRep
         return $this->doctrineRepository->getClassName();
     }
 
-    public function find(string $id)
+    public function find(UuidInterface $id): ?Chapter
     {
         return $this->doctrineRepository->findOneBy([
-            'id' => $id,
+            'id' => (string) $id,
             'createdBy' => $this->userProvider->fetchCurrentUser()
         ]);
+    }
+
+    public function findAll(): array
+    {
+        return $this->doctrineRepository->findAll();
+    }
+
+    public function remove(UuidInterface $id): void
+    {
+        $this->doctrineRepository
+            ->createQueryBuilder('c')
+            ->delete()
+            ->where('c.id = :id')
+            ->getQuery()
+            ->execute(['id' => (string) $id])
+        ;
     }
 
     public function createAllAvailableQueryBuilder(): QueryBuilder

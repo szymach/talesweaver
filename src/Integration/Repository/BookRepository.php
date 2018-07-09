@@ -7,12 +7,13 @@ namespace Talesweaver\Integration\Repository;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Doctrine\Repository\BookRepository as DoctrineRepository;
-use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
+use Talesweaver\Domain\Book;
+use Talesweaver\Domain\Books;
 use Talesweaver\Integration\Repository\Interfaces\LatestChangesAwareRepository;
 use Talesweaver\Integration\Repository\Interfaces\RequestSecuredRepository;
 use Talesweaver\Integration\Security\UserProvider;
 
-class BookRepository implements FindableByIdRepository, LatestChangesAwareRepository, RequestSecuredRepository
+class BookRepository implements Books, LatestChangesAwareRepository, RequestSecuredRepository
 {
     /**
      * @var DoctrineRepository
@@ -35,12 +36,28 @@ class BookRepository implements FindableByIdRepository, LatestChangesAwareReposi
         return $this->doctrineRepository->getClassName();
     }
 
-    public function find(string $id)
+    public function find(UuidInterface $id): ?Book
     {
         return $this->doctrineRepository->findOneBy([
-            'id' => $id,
+            'id' => (string) $id,
             'createdBy' => $this->userProvider->fetchCurrentUser()
         ]);
+    }
+
+    public function findAll(): array
+    {
+        return $this->doctrineRepository->findAll();
+    }
+
+    public function remove(UuidInterface $id): void
+    {
+        $this->doctrineRepository
+            ->createQueryBuilder('d')
+            ->delete()
+            ->where('d.id = :id')
+            ->getQuery()
+            ->execute(['id' => (string) $id])
+        ;
     }
 
     public function createQueryBuilder(): QueryBuilder

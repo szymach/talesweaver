@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Talesweaver\Application\Security\Command\ActivateUser;
-use Talesweaver\Integration\Repository\UserRepository;
+use Talesweaver\Doctrine\Repository\UserRepository;
 
 class ActivationController
 {

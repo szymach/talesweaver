@@ -16,6 +16,16 @@ class PasswordResetTokenRepository extends ServiceEntityRepository
         parent::__construct($registry, PasswordResetToken::class);
     }
 
+    public function findOneByEmail(string $email): ?PasswordResetToken
+    {
+        return $this->findOneBy(['email' => $email]);
+    }
+
+    public function findOneByCode(string $code): ?PasswordResetToken
+    {
+        return $this->findOneBy(['value' => $code]);
+    }
+
     public function findCreationDateOfPrevious(string $email): ?DateTimeImmutable
     {
         $date = $this->getEntityManager()

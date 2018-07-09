@@ -26,4 +26,9 @@ class UserRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+
+    public function findOneByUsername(string $username): ?User
+    {
+        return $this->findOneBy(['username' => $username]);
+    }
 }

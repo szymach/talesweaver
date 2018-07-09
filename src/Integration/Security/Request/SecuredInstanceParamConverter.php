@@ -9,12 +9,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
+use Talesweaver\Integration\Repository\Interfaces\RequestSecuredRepository;
 
 class SecuredInstanceParamConverter implements ParamConverterInterface
 {
     /**
-     * @var FindableByIdRepository[]
+     * @var RequestSecuredRepository[]
      */
     private $repositories;
 
@@ -22,7 +22,7 @@ class SecuredInstanceParamConverter implements ParamConverterInterface
     {
         $this->repositories = array_reduce(
             $repositories,
-            function (array $accumulator, FindableByIdRepository $repository): array {
+            function (array $accumulator, RequestSecuredRepository $repository): array {
                 $accumulator[$repository->getClassName()] = $repository;
                 return $accumulator;
             },
@@ -69,7 +69,7 @@ class SecuredInstanceParamConverter implements ParamConverterInterface
 
     private function find(string $class, string $id): ?object
     {
-        return $this->repositories[$class]->find($id);
+        return $this->repositories[$class]->find(Uuid::fromString($id));
     }
 
     private function getId(Request $request, ParamConverter $configuration)

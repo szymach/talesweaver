@@ -12,9 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Talesweaver\Application\Security\Command\ResetPassword;
+use Talesweaver\Doctrine\Repository\PasswordResetTokenRepository;
 use Talesweaver\Domain\User\PasswordResetToken;
 use Talesweaver\Integration\Form\Security\ResetPasswordChangeType;
-use Talesweaver\Integration\Repository\PasswordResetTokenRepository;
 
 class ResetPasswordChangeController
 {
@@ -61,10 +61,8 @@ class ResetPasswordChangeController
     {
         $token = $this->getToken($code);
         $form = $this->formFactory->create(ResetPasswordChangeType::class);
-        if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->commandBus->handle(
-                new ResetPassword($token, $form->getData()['password'])
-            );
+        if (true === $form->handleRequest($request)->isSubmitted() && true === $form->isValid()) {
+            $this->commandBus->handle(new ResetPassword($token, $form->getData()['password']));
 
             return new RedirectResponse($this->router->generate('index'));
         }
@@ -77,20 +75,19 @@ class ResetPasswordChangeController
 
     private function getToken(string $code): PasswordResetToken
     {
-        /* @var $token PasswordResetToken */
         $token = $this->resetPasswordTokenRepository->findOneByCode($code);
-        if (!$token) {
+        if (null === $token) {
             $this->throwNotFoundException(
                 'No password reset token found for code "%s".',
                 $code
             );
         }
 
-        if (!$token->isValid()) {
+        if (false === $token->isValid()) {
             $this->throwNotFoundException('Token for code "%s" has expired.', $code);
         }
 
-        if (!$token->isActive()) {
+        if (false === $token->isActive()) {
             $this->throwNotFoundException(
                 'Token for code "%s" has already been used or made obsolete.',
                 $code

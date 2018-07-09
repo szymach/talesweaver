@@ -9,12 +9,13 @@ use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Talesweaver\Doctrine\Repository\SceneRepository as DoctrineRepository;
 use Talesweaver\Domain\Chapter;
-use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
+use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\Scenes;
 use Talesweaver\Integration\Repository\Interfaces\LatestChangesAwareRepository;
 use Talesweaver\Integration\Repository\Interfaces\RequestSecuredRepository;
 use Talesweaver\Integration\Security\UserProvider;
 
-class SceneRepository implements FindableByIdRepository, LatestChangesAwareRepository, RequestSecuredRepository
+class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSecuredRepository
 {
     /**
      * @var DoctrineRepository
@@ -37,12 +38,28 @@ class SceneRepository implements FindableByIdRepository, LatestChangesAwareRepos
         return $this->doctrineRepository->getClassName();
     }
 
-    public function find(string $id)
+    public function find(UuidInterface $id): ?Scene
     {
         return $this->doctrineRepository->findOneBy([
             'id' => $id,
             'createdBy' => $this->userProvider->fetchCurrentUser()
         ]);
+    }
+
+    public function findAll(): array
+    {
+        return $this->doctrineRepository->findAll();
+    }
+
+    public function remove(UuidInterface $id): void
+    {
+        $this->doctrineRepository
+            ->createQueryBuilder('s')
+            ->delete()
+            ->where('s.id = :id')
+            ->getQuery()
+            ->execute(['id' => (string) $id])
+        ;
     }
 
     public function createStandaloneQueryBuilder(): QueryBuilder

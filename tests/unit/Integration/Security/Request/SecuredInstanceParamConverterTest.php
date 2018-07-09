@@ -14,7 +14,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
+use Talesweaver\Integration\Repository\BookRepository;
+use Talesweaver\Integration\Repository\ChapterRepository;
+use Talesweaver\Integration\Repository\SceneRepository;
 use Talesweaver\Integration\Security\Request\SecuredInstanceParamConverter;
 
 class SecuredInstanceParamConverterTest extends TestCase
@@ -26,12 +28,12 @@ class SecuredInstanceParamConverterTest extends TestCase
 
     public function testSupports()
     {
-        $repository = $this->createMock(FindableByIdRepository::class);
+        $repository = $this->createMock(BookRepository::class);
         $repository->expects($this->once())->method('getClassName')->willReturn(Book::class);
 
         $converter = new SecuredInstanceParamConverter([$repository]);
 
-        $configuration = $this->getMockBuilder(ParamConverter::class)->disableOriginalConstructor()->getMock();
+        $configuration = $this->createMock(ParamConverter::class);
         $configuration->expects($this->once())->method('getClass')->willReturn(Book::class);
 
         $this->assertTrue($converter->supports($configuration));
@@ -39,12 +41,12 @@ class SecuredInstanceParamConverterTest extends TestCase
 
     public function testNotSupporting()
     {
-        $repository = $this->createMock(FindableByIdRepository::class);
+        $repository = $this->createMock(ChapterRepository::class);
         $repository->expects($this->once())->method('getClassName')->willReturn(Chapter::class);
 
         $converter = new SecuredInstanceParamConverter([$repository]);
 
-        $configuration = $this->getMockBuilder(ParamConverter::class)->disableOriginalConstructor()->getMock();
+        $configuration = $this->createMock(ParamConverter::class);
         $configuration->expects($this->once())->method('getClass')->willReturn(Book::class);
 
         $this->assertFalse($converter->supports($configuration));
@@ -53,8 +55,8 @@ class SecuredInstanceParamConverterTest extends TestCase
     public function testSuccessfulApplication()
     {
         $id = (string) Uuid::uuid4();
-        $chapter = $this->getMockBuilder(Chapter::class)->disableOriginalConstructor()->getMock();
-        $repository = $this->createMock(FindableByIdRepository::class);
+        $chapter = $this->createMock(Chapter::class);
+        $repository = $this->createMock(ChapterRepository::class);
         $repository->expects($this->once())->method('getClassName')->willReturn(Chapter::class);
         $repository->expects($this->once())->method('find')->with($id)->willReturn($chapter);
 
@@ -64,7 +66,7 @@ class SecuredInstanceParamConverterTest extends TestCase
         $request = $this->createMock(Request::class);
         $request->attributes = $attributes;
 
-        $configuration = $this->getMockBuilder(ParamConverter::class)->disableOriginalConstructor()->getMock();
+        $configuration = $this->createMock(ParamConverter::class);
         $configuration->expects($this->once())->method('getOptions')->willReturn([]);
         $configuration->expects($this->once())->method('getClass')->willReturn(Chapter::class);
         $configuration->expects($this->once())->method('getName')->willReturn('book');
@@ -76,8 +78,8 @@ class SecuredInstanceParamConverterTest extends TestCase
     public function testSuccessfulApplicationWithCustomId()
     {
         $id = (string) Uuid::uuid4();
-        $chapter = $this->getMockBuilder(Chapter::class)->disableOriginalConstructor()->getMock();
-        $repository = $this->createMock(FindableByIdRepository::class);
+        $chapter = $this->createMock(Chapter::class);
+        $repository = $this->createMock(ChapterRepository::class);
         $repository->expects($this->once())->method('getClassName')->willReturn(Chapter::class);
         $repository->expects($this->once())->method('find')->with($id)->willReturn($chapter);
 
@@ -87,7 +89,7 @@ class SecuredInstanceParamConverterTest extends TestCase
         $request = $this->createMock(Request::class);
         $request->attributes = $attributes;
 
-        $configuration = $this->getMockBuilder(ParamConverter::class)->disableOriginalConstructor()->getMock();
+        $configuration = $this->createMock(ParamConverter::class);
         $configuration->expects($this->once())->method('getOptions')->willReturn(['id' => 'custom_id']);
         $configuration->expects($this->once())->method('getClass')->willReturn(Chapter::class);
         $configuration->expects($this->once())->method('getName')->willReturn('book');
@@ -122,7 +124,7 @@ class SecuredInstanceParamConverterTest extends TestCase
         $attributes->expects($this->never())->method('set');
         $request = $this->createMock(Request::class);
         $request->attributes = $attributes;
-        $configuration = $this->getMockBuilder(ParamConverter::class)->disableOriginalConstructor()->getMock();
+        $configuration = $this->createMock(ParamConverter::class);
         $configuration->expects($this->once())->method('getClass')->willReturn(Scene::class);
 
         $this->expectException(NotFoundHttpException::class);
@@ -135,7 +137,7 @@ class SecuredInstanceParamConverterTest extends TestCase
     public function testExceptionWhenObjectNotFound()
     {
         $id = (string) Uuid::uuid4();
-        $repository = $this->createMock(FindableByIdRepository::class);
+        $repository = $this->createMock(SceneRepository::class);
         $repository->expects($this->once())->method('getClassName')->willReturn(Scene::class);
         $repository->expects($this->once())->method('find')->with($id)->willReturn(null);
 
@@ -145,7 +147,7 @@ class SecuredInstanceParamConverterTest extends TestCase
         $request = $this->createMock(Request::class);
         $request->attributes = $attributes;
 
-        $configuration = $this->getMockBuilder(ParamConverter::class)->disableOriginalConstructor()->getMock();
+        $configuration = $this->createMock(ParamConverter::class);
         $configuration->expects($this->exactly(2))->method('getClass')->willReturn(Scene::class);
         $configuration->expects($this->once())->method('getOptions')->willReturn([]);
 

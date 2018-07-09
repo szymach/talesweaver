@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Talesweaver\Tests\Integration\JSON;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event;
@@ -47,9 +49,9 @@ class JSONParserTest extends TestCase
     {
         $event = $this->createEvent([
             Meeting::class => [
-                'root' => [Character::class => '1'],
-                'location' => [Location::class => '1'],
-                'relation' => [Character::class => '2']
+                'root' => [Character::class => 'f81b3a85-9150-4407-8d89-1edc1fabcbc1'],
+                'location' => [Location::class => 'cffb5576-88ad-4053-8394-479af36a833f'],
+                'relation' => [Character::class => '0e984272-0436-4f3c-ae10-228e9916be77']
             ]
         ]);
 
@@ -63,9 +65,13 @@ class JSONParserTest extends TestCase
         /* @var $location Location */
         $location = $this->prophesize(Location::class);
         $location->getCreatedBy()->shouldBeCalled()->willReturn($author);
-        $this->characterRepository->find('1')->shouldBeCalled()->willReturn($root->reveal());
-        $this->characterRepository->find('2')->shouldBeCalled()->willReturn($relation->reveal());
-        $this->locationRepository->find('1')->shouldBeCalled()->willReturn($location->reveal());
+        $this->characterRepository->find(Argument::that(function (UuidInterface $id): bool {
+            return 'f81b3a85-9150-4407-8d89-1edc1fabcbc1' === $id->toString();
+        }))->shouldBeCalled()->willReturn($root->reveal());
+        $this->characterRepository->find(Argument::that(function (UuidInterface $id): bool {
+            return '0e984272-0436-4f3c-ae10-228e9916be77' === $id->toString();
+        }))->shouldBeCalled()->willReturn($relation->reveal());
+        $this->locationRepository->find(Argument::type(UuidInterface::class))->shouldBeCalled()->willReturn($location->reveal());
 
         /* @var $parsedModel Meeting */
         $parsedModel = $this->createParser()->parse($event);

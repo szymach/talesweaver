@@ -7,12 +7,13 @@ namespace Talesweaver\Integration\Repository;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Doctrine\Repository\LocationRepository as DoctrineRepository;
+use Talesweaver\Domain\Location;
+use Talesweaver\Domain\Locations;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Repository\Interfaces\FindableByIdRepository;
 use Talesweaver\Integration\Repository\Interfaces\RequestSecuredRepository;
 use Talesweaver\Integration\Security\UserProvider;
 
-class LocationRepository implements FindableByIdRepository, RequestSecuredRepository
+class LocationRepository implements Locations, RequestSecuredRepository
 {
     /**
      * @var DoctrineRepository
@@ -35,12 +36,28 @@ class LocationRepository implements FindableByIdRepository, RequestSecuredReposi
         return $this->doctrineRepository->getClassName();
     }
 
-    public function find(string $id)
+    public function find(UuidInterface $id): ?Location
     {
         return $this->doctrineRepository->findOneBy([
             'id' => $id,
             'createdBy' => $this->userProvider->fetchCurrentUser()
         ]);
+    }
+
+    public function findAll(): array
+    {
+        return $this->doctrineRepository->findAll();
+    }
+
+    public function remove(UuidInterface $id): void
+    {
+        $this->doctrineRepository
+            ->createQueryBuilder('l')
+            ->delete()
+            ->where('l.id = :id')
+            ->getQuery()
+            ->execute(['id' => (string) $id])
+        ;
     }
 
     public function createForSceneQueryBuilder(Scene $scene): QueryBuilder

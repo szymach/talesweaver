@@ -6,7 +6,7 @@ namespace Talesweaver\Integration\Validation\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Talesweaver\Integration\Repository\UserRepository;
+use Talesweaver\Doctrine\Repository\UserRepository;
 
 class UniqueUserEmailValidator extends ConstraintValidator
 {
@@ -22,11 +22,11 @@ class UniqueUserEmailValidator extends ConstraintValidator
 
     public function validate($email, Constraint $constraint)
     {
-        if (!is_string($email) || $email === '' || strpos($email, '@') === false) {
+        if (false === is_string($email) || '' === $email || false === strpos($email, '@')) {
             return;
         }
 
-        if ($this->repository->findOneByUsername($email)) {
+        if (null !== $this->repository->findOneByUsername($email)) {
             $this->context->buildViolation($constraint->message)->addViolation();
         }
     }

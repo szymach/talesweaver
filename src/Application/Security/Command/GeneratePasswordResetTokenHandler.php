@@ -8,9 +8,9 @@ use DateInterval;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
+use Talesweaver\Doctrine\Repository\PasswordResetTokenRepository;
+use Talesweaver\Doctrine\Repository\UserRepository;
 use Talesweaver\Integration\Mail\PasswordResetMailer;
-use Talesweaver\Integration\Repository\PasswordResetTokenRepository;
-use Talesweaver\Integration\Repository\UserRepository;
 use function generate_user_token;
 
 class GeneratePasswordResetTokenHandler
