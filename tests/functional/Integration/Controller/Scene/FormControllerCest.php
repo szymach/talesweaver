@@ -40,9 +40,7 @@ class FormControllerCest
         $I->amOnPage(self::CREATE_URL);
         $I->submitForm(self::CREATE_FORM, ['create[title]' => self::TITLE_PL]);
 
-        $scene = $I->grabEntityFromRepository(Scene::class, [
-            'translations' => ['title' => self::TITLE_PL]
-        ]);
+        $scene = $I->grabEntityFromRepository(Scene::class, ['translations' => ['title' => self::TITLE_PL]]);
         $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $scene->getId()));
         $I->canSeeAlert(sprintf('Pomyślnie dodano nową scenę o tytule "%s"', self::TITLE_PL));
         $I->seeElement(self::EDIT_FORM);
@@ -68,10 +66,10 @@ class FormControllerCest
     public function nextSceneForm(FunctionalTester $I)
     {
         $user = $I->getUser();
-        $chapter = new Chapter(Uuid::uuid4(), 'Rozdział', null, $user);
+        $chapter = new Chapter(Uuid::uuid4(), 'Rozdział', null, $user->getAuthor());
         $I->persistEntity($chapter);
         $id = Uuid::uuid4();
-        $I->persistEntity(new Scene($id, self::TITLE_PL, $chapter, $user));
+        $I->persistEntity(new Scene($id, self::TITLE_PL, $chapter, $user->getAuthor()));
 
         $I->cantSeeInRepository(Scene::class, ['translations' => ['title' => self::NEW_TITLE_PL]]);
         $I->loginAsUser();

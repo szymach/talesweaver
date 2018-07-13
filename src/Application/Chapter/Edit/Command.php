@@ -41,7 +41,7 @@ class Command implements MessageCommandInterface, UserAccessInterface
 
     public function isAllowed(User $user): bool
     {
-        return $user->getId() === $this->chapter->getCreatedBy()->getId();
+        return $user->getAuthor()->getId() === $this->chapter->getCreatedBy()->getId();
     }
 
     public function getMessage(): Message

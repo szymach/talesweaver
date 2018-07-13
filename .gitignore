@@ -8,9 +8,6 @@ var/log/*
 # Parameters
 .env
 
-bin/*
-!bin/console
-
 # Assets and user uploads
 node_modules/
 public/assets/

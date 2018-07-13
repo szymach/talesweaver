@@ -50,7 +50,7 @@ class Command implements MessageCommandInterface, UserAccessInterface, UserAware
             return $this->dto->getModel()->isAllowed($user);
         }
 
-        return $user->getId() === $this->dto->getScene()->getCreatedBy()->getId()
+        return $user->getAuthor()->getId() === $this->dto->getScene()->getCreatedBy()->getId()
             && $modelAccess
         ;
     }

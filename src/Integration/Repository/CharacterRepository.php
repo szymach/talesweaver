@@ -7,11 +7,11 @@ namespace Talesweaver\Integration\Repository;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Doctrine\Repository\CharacterRepository as DoctrineRepository;
+use Talesweaver\Doctrine\UserProvider;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Characters;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Repository\Interfaces\RequestSecuredRepository;
-use Talesweaver\Integration\Security\UserProvider;
 
 class CharacterRepository implements Characters, RequestSecuredRepository
 {
@@ -40,7 +40,7 @@ class CharacterRepository implements Characters, RequestSecuredRepository
     {
         return $this->doctrineRepository->findOneBy([
             'id' => $id,
-            'createdBy' => $this->userProvider->fetchCurrentUser()
+            'createdBy' => $this->userProvider->fetchCurrentUser()->getAuthor()
         ]);
     }
 

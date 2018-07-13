@@ -1,10 +1,10 @@
 security:
     encoders:
-        Talesweaver\Domain\User: bcrypt
+        Talesweaver\Integration\Doctrine\Entity\User: bcrypt
 
     providers:
         database_users:
-            entity: { class: Talesweaver\Domain\User, property: username }
+            id: Talesweaver\Integration\Security\UserProvider
 
     firewalls:
         dev:

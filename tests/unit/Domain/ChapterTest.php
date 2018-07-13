@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 
 class ChapterTest extends TestCase
 {

@@ -44,7 +44,7 @@ class RegisterControllerCest
         $I->click(self::SUBMIT);
 
         $I->canSeeCurrentUrlEquals(self::LOGIN_URL);
-        $I->seeInRepository(User::class, ['username' => self::EMAIL, 'active' => false]);
+        $I->seeInRepository(User::class, ['author' => ['username' => self::EMAIL], 'active' => false]);
         $I->seeInRepository(ActivationToken::class);
         $I->canSeeAlert(
             'Pomyślnie zarejstrowano konto w aplikacji Bajkopisarz! Na podane'

@@ -8,12 +8,11 @@ services:
     entity_listener.event:
         class: Talesweaver\Integration\JSON\ModelParserListener
         autoconfigure: false
-        tags:
-            - { name: doctrine.orm.entity_listener }
+        tags: [{ name: doctrine.orm.entity_listener }]
 
     # Entity repository
-    Talesweaver\Doctrine\Repository\:
-        resource: "../../src/Doctrine/Repository/*"
+    Talesweaver\Doctrine\:
+        resource: "../../src/Doctrine/*"
 
     Talesweaver\Integration\Doctrine\Repository\:
         resource: "../../src/Integration/Doctrine/Repository/*"

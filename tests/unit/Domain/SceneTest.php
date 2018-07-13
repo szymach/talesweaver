@@ -8,7 +8,7 @@ use Assert\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 
 class SceneTest extends TestCase
 {

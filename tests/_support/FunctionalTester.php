@@ -7,12 +7,14 @@ namespace Talesweaver\Tests;
 use Codeception\Actor;
 use Codeception\Lib\Friend;
 use Doctrine\ORM\EntityManagerInterface;
+use Ramsey\Uuid\Uuid;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Talesweaver\Domain\User\PasswordResetToken;
+use Talesweaver\Domain\Author;
+use Talesweaver\Integration\Doctrine\Entity\PasswordResetToken;
 use Talesweaver\Integration\Doctrine\Entity\User;
 use Talesweaver\Tests\_generated\FunctionalTesterActions;
 use function generate_user_token;
@@ -67,10 +69,10 @@ class FunctionalTester extends Actor
     public function getUser(bool $active = true, string $username = self::USER_EMAIL): User
     {
         $manager = $this->getEntityManager();
-        $user = $manager->getRepository(User::class)->findOneBy(['username' => $username]);
+        $user = $manager->getRepository(User::class)->findOneByUsername($username);
         if (null === $user) {
             $user = new User(
-                $username,
+                new Author(Uuid::uuid4(), $username),
                 password_hash(self::USER_PASSWORD, PASSWORD_BCRYPT),
                 generate_user_token()
             );

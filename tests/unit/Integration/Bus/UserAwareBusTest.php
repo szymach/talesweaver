@@ -12,7 +12,7 @@ use stdClass;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Talesweaver\Domain\Security\UserAwareInterface;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 use Talesweaver\Integration\Bus\UserAwareBus;
 
 class UserAwareBusTest extends TestCase

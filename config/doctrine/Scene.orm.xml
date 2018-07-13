@@ -24,7 +24,7 @@
         <many-to-one field="chapter" target-entity="Talesweaver\Domain\Chapter" inversed-by="scenes">
             <join-column on-delete="CASCADE"/>
         </many-to-one>
-        <many-to-one field="createdBy" target-entity="Talesweaver\Integration\Doctrine\Entity\User">
+        <many-to-one field="createdBy" target-entity="Talesweaver\Domain\Author">
             <join-column on-delete="CASCADE"/>
         </many-to-one>
 

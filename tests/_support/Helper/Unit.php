@@ -84,7 +84,7 @@ class Unit extends Module
 
     public function getEntityManager(): EntityManagerInterface
     {
-        return $this->getModule('Doctrine')->_getEntityManager();
+        return $this->getModule('Doctrine2')->_getEntityManager();
     }
 
     public function getFormFactory(): FormFactoryInterface

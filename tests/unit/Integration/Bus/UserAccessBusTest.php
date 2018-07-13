@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Talesweaver\Domain\Security\UserAccessInterface;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 use Talesweaver\Integration\Bus\UserAccessBus;
 
 class UserAccessBusTest extends TestCase

@@ -7,12 +7,12 @@ namespace Talesweaver\Integration\Repository;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Doctrine\Repository\ChapterRepository as DoctrineRepository;
+use Talesweaver\Doctrine\UserProvider;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Chapters;
 use Talesweaver\Integration\Repository\Interfaces\LatestChangesAwareRepository;
 use Talesweaver\Integration\Repository\Interfaces\RequestSecuredRepository;
-use Talesweaver\Integration\Security\UserProvider;
 
 class ChapterRepository implements Chapters, LatestChangesAwareRepository, RequestSecuredRepository
 {
@@ -41,7 +41,7 @@ class ChapterRepository implements Chapters, LatestChangesAwareRepository, Reque
     {
         return $this->doctrineRepository->findOneBy([
             'id' => (string) $id,
-            'createdBy' => $this->userProvider->fetchCurrentUser()
+            'createdBy' => $this->userProvider->fetchCurrentUser()->getAuthor()
         ]);
     }
 

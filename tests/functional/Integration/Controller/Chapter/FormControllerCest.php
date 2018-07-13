@@ -41,10 +41,7 @@ class FormControllerCest
             'translations' => ['title' => self::TITLE_PL]
         ]);
         $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $chapter->getId()));
-        $I->canSeeAlert(sprintf(
-            'Pomyślnie dodano nowy rozdział o tytule "%s"',
-            self::TITLE_PL
-        ));
+        $I->canSeeAlert(sprintf('Pomyślnie dodano nowy rozdział o tytule "%s"', self::TITLE_PL));
         $I->seeElement(self::EDIT_FORM);
         $I->seeInTitle(self::TITLE_PL);
         $I->seeElement(self::SCENE_CREATE_FORM);
@@ -61,9 +58,6 @@ class FormControllerCest
         ]);
         $I->seeCurrentUrlEquals(sprintf(self::SCENE_EDIT_URL, $scene->getId()));
         $I->seeInTitle(self::SCENE_TITLE_PL);
-        $I->canSeeAlert(sprintf(
-            'Pomyślnie dodano nową scenę o tytule "%s"',
-            self::SCENE_TITLE_PL
-        ));
+        $I->canSeeAlert(sprintf('Pomyślnie dodano nową scenę o tytule "%s"', self::SCENE_TITLE_PL));
     }
 }

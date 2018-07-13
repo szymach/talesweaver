@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event\Meeting;
 use Talesweaver\Domain\Location;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 
 class MeetingTest extends TestCase
 {

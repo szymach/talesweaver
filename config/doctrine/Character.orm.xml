@@ -22,7 +22,7 @@
             </cascade>
         </one-to-many>
 
-        <many-to-one field="createdBy" target-entity="Talesweaver\Integration\Doctrine\Entity\User">
+        <many-to-one field="createdBy" target-entity="Talesweaver\Domain\Author">
             <join-column on-delete="CASCADE"/>
         </many-to-one>
 

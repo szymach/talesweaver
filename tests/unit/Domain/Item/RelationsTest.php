@@ -11,7 +11,7 @@ use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 
 class RelationsTest extends TestCase
 {

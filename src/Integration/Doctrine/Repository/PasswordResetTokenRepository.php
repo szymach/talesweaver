@@ -7,6 +7,7 @@ namespace Talesweaver\Integration\Doctrine\Repository;
 use DateTimeImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query\Expr\Join;
 use Talesweaver\Integration\Doctrine\Entity\PasswordResetToken;
 
 class PasswordResetTokenRepository extends ServiceEntityRepository
@@ -33,8 +34,8 @@ class PasswordResetTokenRepository extends ServiceEntityRepository
             ->select('pt.createdAt AS creationDate')
             ->from($this->getEntityName(), 'pt')
             ->join('pt.user', 'u')
+            ->join('u.author', 'a', Join::WITH, 'a.username = :email')
             ->where('pt.active = true')
-            ->andWhere('u.username = :email')
             ->orderBy('pt.createdAt', 'DESC')
             ->setParameter('email', $email)
             ->getQuery()
@@ -51,7 +52,7 @@ class PasswordResetTokenRepository extends ServiceEntityRepository
             ->select('pt.id')
             ->from($this->getEntityName(), 'pt')
             ->join('pt.user', 'u')
-            ->where('u.username = :email')
+            ->join('u.author', 'a', Join::WITH, 'a.username = :email')
             ->setParameter('email', $email)
             ->getQuery()
             ->getResult()

@@ -26,7 +26,7 @@
                 <join-column on-delete="CASCADE"/>
             </join-columns>
         </many-to-one>
-        <many-to-one field="createdBy" target-entity="Talesweaver\Integration\Doctrine\Entity\User">
+        <many-to-one field="createdBy" target-entity="Talesweaver\Domain\Author">
             <join-columns>
                 <join-column on-delete="CASCADE"/>
             </join-columns>

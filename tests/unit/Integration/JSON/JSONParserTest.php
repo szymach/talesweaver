@@ -13,7 +13,7 @@ use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Event\Meeting;
 use Talesweaver\Domain\Location;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 use Talesweaver\Integration\JSON\EventParser;
 use Talesweaver\Integration\Repository\CharacterRepository;
 use Talesweaver\Integration\Repository\ItemRepository;

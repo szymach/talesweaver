@@ -4,29 +4,43 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Security;
 
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Integration\Doctrine\Repository\UserRepository;
 
-class UserProvider
+class UserProvider implements UserProviderInterface
 {
     /**
-     * @var TokenStorageInterface
+     * @var UserRepository
      */
-    private $tokenStorage;
+    private $repository;
 
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct(UserRepository $repository)
     {
-        $this->tokenStorage = $tokenStorage;
+        $this->repository = $repository;
     }
 
-    public function fetchCurrentUser(): User
+    public function loadUserByUsername($username): UserInterface
     {
-        $token = $this->tokenStorage->getToken();
-        if (null === $token || null === $token->getUser()) {
-            throw new AccessDeniedException('No currently logged in user!');
+        $user = $this->repository->findOneByUsername($username);
+        if (null === $user) {
+            throw new UsernameNotFoundException(
+                sprintf('Username "%s" does not exist.', $username)
+            );
         }
 
-        return $token->getUser();
+        return $user;
+    }
+
+    public function refreshUser(UserInterface $user): UserInterface
+    {
+        return $this->repository->findOneByUsername($user->getUsername());
+    }
+
+    public function supportsClass($class): bool
+    {
+        return User::class === $class;
     }
 }

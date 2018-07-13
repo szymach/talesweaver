@@ -45,7 +45,7 @@ class Command implements MessageCommandInterface, UserAccessInterface, UserAware
 
     public function isAllowed(User $user): bool
     {
-        return $user->getId() === $this->dto->getScene()->getCreatedBy()->getId();
+        return $user->getAuthor()->getId() === $this->dto->getScene()->getCreatedBy()->getId();
     }
 
     public function getMessage(): Message
