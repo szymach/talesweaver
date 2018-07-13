@@ -56,6 +56,9 @@
             "ref": "2ea6070ecf365f9a801ccaed4b31d4a3b7af5693"
         }
     },
+    "doctrine/event-manager": {
+        "version": "v1.0.0"
+    },
     "doctrine/inflector": {
         "version": "v1.2.0"
     },
@@ -67,6 +70,12 @@
     },
     "doctrine/orm": {
         "version": "v2.6.0"
+    },
+    "doctrine/persistence": {
+        "version": "v1.0.0"
+    },
+    "doctrine/reflection": {
+        "version": "v1.0.0"
     },
     "egulias/email-validator": {
         "version": "2.1.3"
@@ -367,6 +376,15 @@
     },
     "symfony/options-resolver": {
         "version": "v4.0.2"
+    },
+    "symfony/phpunit-bridge": {
+        "version": "4.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.1",
+            "ref": "2955e26d3818b803d82b5de05d91805df5994d3a"
+        }
     },
     "symfony/polyfill-apcu": {
         "version": "v1.6.0"

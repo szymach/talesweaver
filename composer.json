@@ -67,6 +67,7 @@
         "symfony/css-selector": "^4.1",
         "symfony/debug-bundle": "^4.1",
         "symfony/dotenv": "^4.1",
+        "symfony/phpunit-bridge": "^4.1",
         "symfony/web-profiler-bundle": "^4.1",
         "symfony/web-server-bundle": "^4.1",
         "vlucas/phpdotenv": "^2.4"
