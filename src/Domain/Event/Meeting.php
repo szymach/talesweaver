@@ -6,9 +6,10 @@ namespace Talesweaver\Domain\Event;
 
 use DomainException;
 use JsonSerializable;
-use Talesweaver\Domain\Security\UserAccessInterface;
+use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Location;
+use Talesweaver\Domain\Security\UserAccessInterface;
 use Talesweaver\Integration\Doctrine\Entity\User;
 
 class Meeting implements JsonSerializable, UserAccessInterface
@@ -41,9 +42,10 @@ class Meeting implements JsonSerializable, UserAccessInterface
 
     public function isAllowed(User $user): bool
     {
-        return (null !== $this->root && $this->root->getCreatedBy() === $user)
-            && (null !== $this->location && $this->location->getCreatedBy() === $user)
-            && (null !== $this->relation && $this->relation->getCreatedBy() === $user)
+        $author = $user->getAuthor();
+        return (null !== $this->root && $this->root->getCreatedBy() === $author)
+            && (null !== $this->location && $this->location->getCreatedBy() === $author)
+            && (null !== $this->relation && $this->relation->getCreatedBy() === $author)
         ;
     }
 
@@ -102,15 +104,15 @@ class Meeting implements JsonSerializable, UserAccessInterface
     private function throwAuthorMismatchException(
         string $field1,
         string $field2,
-        User $field1Author,
-        User $field2Author
+        Author $field1Author,
+        Author $field2Author
     ): void {
         throw new DomainException(sprintf(
             'Author mismatch for fields "%s" (user: "%s") and "%s" (user: "%s")',
             $field1,
-            $field1Author->getId(),
+            $field1Author->getId()->toString(),
             $field2,
-            $field2Author->getId()
+            $field2Author->getId()->toString()
         ));
     }
 }

@@ -8,19 +8,21 @@ use Assert;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Doctrine\Entity\User;
 
 class BasePropertiesTest extends TestCase
 {
     public function testEmptyTitle()
     {
         $this->expectException(Assert\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Cannot create an item without a name for author "2"!');
+        $this->expectExceptionMessage('Cannot create an item without a name for author "item id"!');
 
-        $author = $this->createMock(User::class);
-        $author->expects($this->once())->method('getId')->willReturn(2);
+        $id = $this->createMock(UuidInterface::class);
+        $id->expects($this->once())->method('toString')->willReturn('item id');
+        $author = $this->createMock(Author::class);
+        $author->expects($this->once())->method('getId')->willReturn($id);
         new Item(
             $this->createMock(UuidInterface::class),
             $this->createMock(Scene::class),
@@ -47,7 +49,7 @@ class BasePropertiesTest extends TestCase
             'item',
             null,
             'text',
-            $this->createMock(User::class)
+            $this->createMock(Author::class)
         );
     }
 
@@ -67,7 +69,7 @@ class BasePropertiesTest extends TestCase
             'item',
             null,
             null,
-            $this->createMock(User::class)
+            $this->createMock(Author::class)
         );
         $item->edit('item', '', 'avatar');
     }
@@ -86,7 +88,7 @@ class BasePropertiesTest extends TestCase
             'item',
             null,
             null,
-            $this->createMock(User::class)
+            $this->createMock(Author::class)
         );
         $item->edit('', null, null);
     }
@@ -102,7 +104,7 @@ class BasePropertiesTest extends TestCase
             'Item properly created',
             '',
             null,
-            $this->createMock(User::class)
+            $this->createMock(Author::class)
         );
         $this->assertContains($scene, $item->getScenes());
     }

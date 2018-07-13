@@ -8,10 +8,11 @@ use Assert\Assertion;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use DomainException;
+use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Traits\CreatedByTrait;
 use Talesweaver\Domain\Traits\TimestampableTrait;
 use Talesweaver\Domain\Traits\TranslatableTrait;
-use Ramsey\Uuid\UuidInterface;
 
 class Chapter
 {
@@ -116,18 +117,14 @@ class Chapter
             $author->getUsername()
         ));
 
-        if (null !== $book) {
-            Assertion::eq(
-                $author->getId(),
-                $book->getCreatedBy()->getId(),
-                sprintf(
-                    'Chapter for user "%s" with title "%s" cannot be assigned to book "%s", whose author is "%s"',
-                    $author->getId(),
-                    $title,
-                    $book->getId()->toString(),
-                    $book->getCreatedBy()->getId()
-                )
-            );
+        if (null !== $book && $author->getId() !== $book->getCreatedBy()->getId()) {
+            throw new DomainException(sprintf(
+                'Chapter for user "%s" with title "%s" cannot be assigned to book "%s", whose author is "%s"',
+                $author->getId()->toString(),
+                $title,
+                $book->getId()->toString(),
+                $book->getCreatedBy()->getId()->toString()
+            ));
         }
     }
 
@@ -138,18 +135,14 @@ class Chapter
             $this->id->toString()
         ));
 
-        if (null !== $book) {
-            Assertion::eq(
-                $this->createdBy,
-                $book->getCreatedBy(),
-                sprintf(
-                    'Chapter for user "%s" with title "%s" cannot be assigned to book "%s", whose author is "%s"',
-                    $this->createdBy->getId(),
-                    $title,
-                    $book->getId()->toString(),
-                    $book->getCreatedBy()->getId()
-                )
-            );
+        if (null !== $book && $this->createdBy->getId() !== $book->getCreatedBy()->getId()) {
+            throw new DomainException(sprintf(
+                'Chapter for user "%s" with title "%s" cannot be assigned to book "%s", whose author is "%s"',
+                $this->createdBy->getId()->toString(),
+                $title,
+                $book->getId()->toString(),
+                $book->getCreatedBy()->getId()->toString()
+            ));
         }
     }
 }

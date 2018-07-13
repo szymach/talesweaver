@@ -53,7 +53,7 @@ class Event
     ) {
         Assertion::notBlank($name, sprintf(
             'Cannot create an event without a name for author "%s" and scene "%s"!',
-            $author->getId(),
+            $author->getId()->toString(),
             $scene->getId()->toString()
         ));
 

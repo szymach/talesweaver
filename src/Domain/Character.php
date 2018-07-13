@@ -38,19 +38,9 @@ class Character
     private $description;
 
     /**
-     * @var Book
-     */
-    private $book;
-
-    /**
      * @var Scene[]|Collection
      */
     private $scenes;
-
-    /**
-     * @var Chapter[]|Collection
-     */
-    private $chapters;
 
     /**
      * @param UuidInterface $id
@@ -70,7 +60,7 @@ class Character
     ) {
         Assertion::notBlank($name, sprintf(
             'Cannot create a character without a name for user "%s"!',
-            $author->getId()
+            $author->getId()->toString()
         ));
         $this->validateAvatar($id, $avatar);
 

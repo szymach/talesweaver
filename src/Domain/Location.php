@@ -65,7 +65,7 @@ class Location
     ) {
         Assertion::notBlank($name, sprintf(
             'Cannot create a location without a name for author "%s"!',
-            $author->getId()
+            $author->getId()->toString()
         ));
         $this->validateAvatar($id, $avatar);
 

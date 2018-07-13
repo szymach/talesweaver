@@ -8,9 +8,9 @@ use Assert\InvalidArgumentException;
 use JsonSerializable;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Doctrine\Entity\User;
 
 class EventTest extends TestCase
 {
@@ -18,11 +18,13 @@ class EventTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Cannot create an event without a name for author "1" and scene "uuid id"!'
+            'Cannot create an event without a name for author "event author id" and scene "uuid id"!'
         );
 
-        $user = $this->createMock(User::class);
-        $user->expects($this->once())->method('getId')->willReturn(1);
+        $authorId = $this->createMock(UuidInterface::class);
+        $authorId->expects($this->once())->method('toString')->willReturn('event author id');
+        $author = $this->createMock(Author::class);
+        $author->expects($this->once())->method('getId')->willReturn($authorId);
 
         $sceneId = $this->createMock(UuidInterface::class);
         $sceneId->expects($this->once())->method('toString')->willReturn('uuid id');
@@ -34,7 +36,7 @@ class EventTest extends TestCase
             '',
             $this->createMock(JsonSerializable::class),
             $scene,
-            $user
+            $author
         );
     }
 
@@ -51,7 +53,7 @@ class EventTest extends TestCase
             'Title',
             $model,
             $this->createMock(Scene::class),
-            $this->createMock(User::class)
+            $this->createMock(Author::class)
         );
 
         $event->edit('', $model);

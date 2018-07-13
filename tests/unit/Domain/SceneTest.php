@@ -7,8 +7,8 @@ namespace Talesweaver\Domain\Tests;
 use Assert\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Doctrine\Entity\User;
 
 class SceneTest extends TestCase
 {
@@ -17,7 +17,7 @@ class SceneTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Cannot create a scene without a title for author "user"!');
 
-        $user = $this->createMock(User::class);
+        $user = $this->createMock(Author::class);
         $user->expects($this->once())->method('getUsername')->willReturn('user');
         new Scene($this->createMock(UuidInterface::class), '', null, $user);
     }
@@ -29,7 +29,7 @@ class SceneTest extends TestCase
 
         $id = $this->createMock(UuidInterface::class);
         $id->expects($this->once())->method('toString')->willReturn('scene id');
-        $scene = new Scene($id, 'scene', null, $this->createMock(User::class));
+        $scene = new Scene($id, 'scene', null, $this->createMock(Author::class));
         $scene->edit('', null, null);
     }
 }

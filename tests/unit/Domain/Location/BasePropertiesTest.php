@@ -9,19 +9,21 @@ use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
 use stdClass;
+use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Doctrine\Entity\User;
 
 class BasePropertiesTest extends TestCase
 {
     public function testEmptyTitle()
     {
         $this->expectException(Assert\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Cannot create a location without a name for author "4"!');
+        $this->expectExceptionMessage('Cannot create a location without a name for author "location id"!');
 
-        $author = $this->createMock(User::class);
-        $author->expects($this->once())->method('getId')->willReturn(4);
+        $id = $this->createMock(UuidInterface::class);
+        $id->expects($this->once())->method('toString')->willReturn('location id');
+        $author = $this->createMock(Author::class);
+        $author->expects($this->once())->method('getId')->willReturn($id);
         new Location(
             $this->createMock(UuidInterface::class),
             $this->createMock(Scene::class),
@@ -48,7 +50,7 @@ class BasePropertiesTest extends TestCase
             'location',
             null,
             new stdClass(),
-            $this->createMock(User::class)
+            $this->createMock(Author::class)
         );
     }
 
@@ -68,7 +70,7 @@ class BasePropertiesTest extends TestCase
             'new location',
             null,
             null,
-            $this->createMock(User::class)
+            $this->createMock(Author::class)
         );
         $location->edit('edited location', '', new stdClass());
     }
@@ -86,7 +88,7 @@ class BasePropertiesTest extends TestCase
             'location',
             null,
             null,
-            $this->createMock(User::class)
+            $this->createMock(Author::class)
         );
         $location->edit('', null, null);
     }
@@ -102,7 +104,7 @@ class BasePropertiesTest extends TestCase
             'Location properly created',
             '',
             null,
-            $this->createMock(User::class)
+            $this->createMock(Author::class)
         );
         $this->assertContains($scene, $location->getScenes());
     }

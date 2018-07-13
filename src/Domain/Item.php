@@ -65,7 +65,7 @@ class Item
     ) {
         Assertion::notBlank($name, sprintf(
             'Cannot create an item without a name for author "%s"!',
-            $author->getId()
+            $author->getId()->toString()
         ));
         $this->validateAvatar($id, $avatar);
 

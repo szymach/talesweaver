@@ -7,11 +7,11 @@ namespace Talesweaver\Domain\Tests\Entity\Location;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Doctrine\Entity\User;
 
 class RelationsTest extends TestCase
 {
@@ -42,7 +42,7 @@ class RelationsTest extends TestCase
             'Location with inconsistent scenes',
             '',
             null,
-            $this->createMock(User::class)
+            $this->createMock(Author::class)
         );
         $location->addScene($sceneUnassigned);
     }
@@ -85,7 +85,7 @@ class RelationsTest extends TestCase
             'Location with inconsistent chapters',
             '',
             null,
-            $this->createMock(User::class)
+            $this->createMock(Author::class)
         );
         $location->addScene($sceneWithADifferentBook);
     }
