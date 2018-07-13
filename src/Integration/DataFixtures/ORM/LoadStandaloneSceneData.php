@@ -19,19 +19,22 @@ class LoadStandaloneSceneData implements ORMFixtureInterface, OrderedFixtureInte
 
     public function load(ObjectManager $manager)
     {
+        /* @var $user User */
         $user = $manager->getRepository(User::class)->findOneBy([]);
-        $scene = new Scene(Uuid::uuid4(), 'Scena', null, $user);
+        $author = $user->getAuthor();
+
+        $scene = new Scene(Uuid::uuid4(), 'Scena', null, $author);
         $scene->setLocale(self::LOCALE);
 
-        $character1 = new Character(Uuid::uuid4(), $scene, 'Postać do spotkania 1', '', null, $user);
-        $character2 = new Character(Uuid::uuid4(), $scene, 'Postać do spotkania 2', '', null, $user);
-        $character3 = new Character(Uuid::uuid4(), $scene, 'Postać do spotkania 3', '', null, $user);
+        $character1 = new Character(Uuid::uuid4(), $scene, 'Postać do spotkania 1', '', null, $author);
+        $character2 = new Character(Uuid::uuid4(), $scene, 'Postać do spotkania 2', '', null, $author);
+        $character3 = new Character(Uuid::uuid4(), $scene, 'Postać do spotkania 3', '', null, $author);
         $character1->setLocale(self::LOCALE);
         $character2->setLocale(self::LOCALE);
         $character3->setLocale(self::LOCALE);
 
-        $location1 = new Location(Uuid::uuid4(), $scene, 'Miejsce do spotkania 1', '', null, $user);
-        $location2 = new Location(Uuid::uuid4(), $scene, 'Miejsce do spotkania 2', '', null, $user);
+        $location1 = new Location(Uuid::uuid4(), $scene, 'Miejsce do spotkania 1', '', null, $author);
+        $location2 = new Location(Uuid::uuid4(), $scene, 'Miejsce do spotkania 2', '', null, $author);
         $location1->setLocale(self::LOCALE);
         $location2->setLocale(self::LOCALE);
 

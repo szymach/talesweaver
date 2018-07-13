@@ -18,12 +18,14 @@ class LoandStandaloneBookData implements ORMFixtureInterface, OrderedFixtureInte
 
     public function load(ObjectManager $manager)
     {
+        /* @var $user User */
         $user = $manager->getRepository(User::class)->findOneBy([]);
+        $author = $user->getAuthor();
 
-        $book = new Book(Uuid::uuid4(), 'Książka', $user);
+        $book = new Book(Uuid::uuid4(), 'Książka', $author);
         $book->setLocale(self::LOCALE);
 
-        $chapter = new Chapter(Uuid::uuid4(), 'Rozdział 1', $book, $user);
+        $chapter = new Chapter(Uuid::uuid4(), 'Rozdział 1', $book, $author);
         $chapter->setLocale(self::LOCALE);
 
         $manager->persist($book);

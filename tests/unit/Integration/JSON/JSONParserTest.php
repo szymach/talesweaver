@@ -9,11 +9,11 @@ use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
+use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Event\Meeting;
 use Talesweaver\Domain\Location;
-use Talesweaver\Integration\Doctrine\Entity\User;
 use Talesweaver\Integration\JSON\EventParser;
 use Talesweaver\Integration\Repository\CharacterRepository;
 use Talesweaver\Integration\Repository\ItemRepository;
@@ -55,7 +55,7 @@ class JSONParserTest extends TestCase
             ]
         ]);
 
-        $author = $root = $this->prophesize(User::class);
+        $author = $this->prophesize(Author::class);
         /* @var $root Character */
         $root = $this->prophesize(Character::class);
         $root->getCreatedBy()->shouldBeCalled()->willReturn($author);

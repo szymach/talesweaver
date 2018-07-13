@@ -7,7 +7,11 @@ namespace Talesweaver\Tests\Integration\Form;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
+use UnitTester;
 
+/**
+ * @property UnitTester $tester
+ */
 trait CreateLocationTrait
 {
     private function getLocation(?Scene $scene = null): Location
@@ -18,7 +22,7 @@ trait CreateLocationTrait
             'Miejsce',
             null,
             null,
-            $this->tester->getUser()
+            $this->tester->getUser()->getAuthor()
         );
         $location->setLocale('pl');
 

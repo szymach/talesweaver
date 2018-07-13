@@ -7,6 +7,7 @@ namespace Talesweaver\Tests\Helper;
 use Codeception\Module;
 use Doctrine\ORM\EntityManagerInterface;
 use FSi\DoctrineExtensions\Translatable\TranslatableListener;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,9 +49,9 @@ class Unit extends Module
     public function getUser(): User
     {
         $manager = $this->getEntityManager();
-        $user = $manager->getRepository(User::class)->findOneBy(['username' => self::USER_EMAIL]);
+        $user = $manager->getRepository(User::class)->findOneByUsername(self::USER_EMAIL);
         if (null === $user) {
-            $user = new User(new Author(self::USER_EMAIL), 'password', generate_user_token());
+            $user = new User(new Author(Uuid::uuid4(), self::USER_EMAIL), 'password', generate_user_token());
             $user->activate();
             $manager->persist($user);
             $manager->flush();

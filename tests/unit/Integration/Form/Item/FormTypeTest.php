@@ -104,7 +104,7 @@ class FormTypeTest extends Unit
             self::NAME_PL,
             null,
             null,
-            $this->tester->getUser()
+            $this->tester->getUser()->getAuthor()
         );
     }
 }

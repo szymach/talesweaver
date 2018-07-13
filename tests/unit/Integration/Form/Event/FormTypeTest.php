@@ -199,7 +199,7 @@ class FormTypeTest extends Unit
             self::NAME_PL,
             new Meeting(),
             $this->getScene(),
-            $this->tester->getUser()
+            $this->tester->getUser()->getAuthor()
         );
     }
 }

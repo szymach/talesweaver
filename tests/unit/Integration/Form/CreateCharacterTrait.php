@@ -7,7 +7,11 @@ namespace Talesweaver\Tests\Integration\Form;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Scene;
+use UnitTester;
 
+/**
+ * @property UnitTester $tester
+ */
 trait CreateCharacterTrait
 {
     private function getCharacter(?Scene $scene = null): Character
@@ -18,7 +22,7 @@ trait CreateCharacterTrait
             'Postać',
             null,
             null,
-            $this->tester->getUser()
+            $this->tester->getUser()->getAuthor()
         );
         $character->setLocale('pl');
 
