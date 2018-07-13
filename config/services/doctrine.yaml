@@ -14,8 +14,9 @@ services:
     # Entity repository
     Talesweaver\Doctrine\Repository\:
         resource: "../../src/Doctrine/Repository/*"
-        autoconfigure: true
-        autowire: true
+
+    Talesweaver\Integration\Doctrine\Repository\:
+        resource: "../../src/Integration/Doctrine/Repository/*"
 
     # Repository
     _instanceof:

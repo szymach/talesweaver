@@ -11,7 +11,7 @@ use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Application\Security\Traits\UserAwareTrait;
 use Talesweaver\Domain\Security\UserAccessInterface;
 use Talesweaver\Domain\Security\UserAwareInterface;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 
 class Command implements MessageCommandInterface, UserAccessInterface, UserAwareInterface
 {

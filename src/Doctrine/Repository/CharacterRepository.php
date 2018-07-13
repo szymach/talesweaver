@@ -10,7 +10,7 @@ use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 
 class CharacterRepository extends TranslatableServiceRepository
 {
@@ -29,9 +29,9 @@ class CharacterRepository extends TranslatableServiceRepository
         return $this->createTranslatableQueryBuilder('c')
             ->addSelect('t')
             ->andWhere(':scene MEMBER OF c.scenes')
-            ->andWhere('c.createdBy = :user')
+            ->andWhere('c.createdBy = :author')
             ->orderBy('t.name', 'ASC')
-            ->setParameter('user', $user)
+            ->setParameter('author', $user->getAuthor())
             ->setParameter('scene', $scene)
         ;
     }
@@ -40,7 +40,7 @@ class CharacterRepository extends TranslatableServiceRepository
     {
         $qb = $this->createTranslatableQueryBuilder('c');
         return $qb->leftJoin('c.scenes', 's')
-            ->andWhere('c.createdBy = :user')
+            ->andWhere('c.createdBy = :author')
             ->andWhere($qb->expr()->andX(
                 ':scene NOT MEMBER OF c.scenes',
                 's.chapter = :chapter'
@@ -48,7 +48,7 @@ class CharacterRepository extends TranslatableServiceRepository
             ->orderBy('t.name', 'ASC')
             ->setParameter('chapter', $scene->getChapter())
             ->setParameter('scene', $scene)
-            ->setParameter('user', $user)
+            ->setParameter('author', $user->getAuthor())
         ;
     }
 
@@ -56,11 +56,11 @@ class CharacterRepository extends TranslatableServiceRepository
     {
         return $this->createTranslatableQueryBuilder('c')
             ->join('c.scenes', 's')
-            ->andWhere('c.createdBy = :user')
+            ->andWhere('c.createdBy = :author')
             ->andWhere(':scenes MEMBER OF c.scenes')
             ->orderBy('t.name', 'ASC')
             ->setParameter('scenes', $scenes)
-            ->setParameter('user', $user)
+            ->setParameter('author', $user->getAuthor())
         ;
     }
 
@@ -78,10 +78,10 @@ class CharacterRepository extends TranslatableServiceRepository
             ->addSelect(sprintf('t.%s AS label', $label))
             ->from($this->getEntityName(), 'e')
             ->join('e.translations', 't', Join::WITH, 't.locale = :locale')
-            ->where('e.createdBy = :user')
+            ->where('e.createdBy = :author')
             ->orderBy('date', 'DESC')
             ->setParameter('locale', $locale)
-            ->setParameter('user', $user)
+            ->setParameter('author', $user->getAuthor())
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
@@ -95,8 +95,8 @@ class CharacterRepository extends TranslatableServiceRepository
             ->select('COUNT(e.id)')
             ->from($this->getEntityName(), 'e')
             ->join('e.translations', 't')
-            ->where('e.createdBy = :user')
-            ->setParameter('user', $user)
+            ->where('e.createdBy = :author')
+            ->setParameter('author', $user->getAuthor())
         ;
 
         if (null !== $id) {

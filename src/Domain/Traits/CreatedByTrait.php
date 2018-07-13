@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Talesweaver\Domain\Traits;
 
-use Talesweaver\Domain\User;
+use Talesweaver\Domain\Author;
 
 trait CreatedByTrait
 {
     /**
-     * @var User
+     * @var Author
      */
     private $createdBy;
 
-    public function getCreatedBy(): User
+    public function getCreatedBy(): Author
     {
         return $this->createdBy;
     }

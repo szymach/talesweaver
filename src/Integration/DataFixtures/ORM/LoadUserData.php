@@ -7,7 +7,7 @@ namespace Talesweaver\Integration\DataFixtures\ORM;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 use function generate_user_token;
 
 class LoadUserData implements ORMFixtureInterface, OrderedFixtureInterface

@@ -27,7 +27,7 @@ class CommandHandler
                 $command->getData()->getName(),
                 $command->getData()->getModel(),
                 $command->getData()->getScene(),
-                $command->getUser()
+                $command->getUser()->getAuthor()
             )
         );
     }

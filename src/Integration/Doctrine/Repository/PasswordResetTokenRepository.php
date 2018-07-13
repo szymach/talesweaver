@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Doctrine\Repository;
+namespace Talesweaver\Integration\Doctrine\Repository;
 
 use DateTimeImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Talesweaver\Domain\User\PasswordResetToken;
+use Talesweaver\Integration\Doctrine\Entity\PasswordResetToken;
 
 class PasswordResetTokenRepository extends ServiceEntityRepository
 {

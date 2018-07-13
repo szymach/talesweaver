@@ -8,7 +8,7 @@ use Codeception\Module;
 use Codeception\Module\Symfony;
 use Doctrine\ORM\EntityManagerInterface;
 use FSi\DoctrineExtensions\Translatable\TranslatableListener;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 use Talesweaver\Integration\Repository\Doctrine\UserRepository;
 use Talesweaver\Tests\FunctionalTester;
 
@@ -48,8 +48,8 @@ class Functional extends Module
         $manager = $this->getSymfony()->grabService('doctrine.orm.entity_manager');
         /* @var $userRepository UserRepository */
         $userRepository = $manager->getRepository(User::class);
-        $user = $userRepository->findOneBy(['username' => FunctionalTester::USER_EMAIL]);
-        if (!$user) {
+        $user = $userRepository->findOneByUsername(FunctionalTester::USER_EMAIL);
+        if (null === $user) {
             return;
         }
 

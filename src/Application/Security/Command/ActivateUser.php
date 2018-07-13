@@ -7,7 +7,7 @@ namespace Talesweaver\Application\Security\Command;
 use DomainException;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 
 class ActivateUser implements MessageCommandInterface
 {

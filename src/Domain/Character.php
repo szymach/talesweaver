@@ -58,7 +58,7 @@ class Character
      * @param string $name
      * @param string|null $description
      * @param File|SplFileInfo|null $avatar
-     * @param User $author
+     * @param Author $author
      */
     public function __construct(
         UuidInterface $id,
@@ -66,7 +66,7 @@ class Character
         string $name,
         ?string $description,
         $avatar,
-        User $author
+        Author $author
     ) {
         Assertion::notBlank($name, sprintf(
             'Cannot create a character without a name for user "%s"!',

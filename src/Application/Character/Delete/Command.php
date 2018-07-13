@@ -8,7 +8,7 @@ use Talesweaver\Application\Messages\DeletionSuccessMessage;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\Character;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 use Talesweaver\Domain\Security\UserAccessInterface;
 use Ramsey\Uuid\UuidInterface;
 

@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Domain\User;
+namespace Talesweaver\Integration\Doctrine\Entity;
 
 use DateInterval;
 use DateTimeImmutable;
-use Talesweaver\Domain\User;
 
 class PasswordResetToken
 {

@@ -9,7 +9,7 @@ use JsonSerializable;
 use Talesweaver\Domain\Security\UserAccessInterface;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Location;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 
 class Meeting implements JsonSerializable, UserAccessInterface
 {

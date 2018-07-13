@@ -53,7 +53,7 @@ class Item
      * @param string $name
      * @param string|null $description
      * @param File|SplFileInfo|null $avatar
-     * @param User $author
+     * @param Author $author
      */
     public function __construct(
         UuidInterface $id,
@@ -61,7 +61,7 @@ class Item
         string $name,
         ?string $description,
         $avatar,
-        User $author
+        Author $author
     ) {
         Assertion::notBlank($name, sprintf(
             'Cannot create an item without a name for author "%s"!',

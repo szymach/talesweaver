@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Mail;
 
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 
 class RegistrationMailer extends AbstractUserMailer
 {

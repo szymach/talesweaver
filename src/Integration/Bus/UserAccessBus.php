@@ -9,7 +9,7 @@ use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Talesweaver\Domain\Security\UserAccessInterface;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 
 class UserAccessBus implements MessageBus
 {

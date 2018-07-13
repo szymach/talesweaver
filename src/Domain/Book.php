@@ -40,9 +40,9 @@ class Book
     /**
      * @param UuidInterface $id
      * @param string $title
-     * @param User $author
+     * @param Author $author
      */
-    public function __construct(UuidInterface $id, string $title, User $author)
+    public function __construct(UuidInterface $id, string $title, Author $author)
     {
         Assertion::notBlank($title, sprintf(
             'Cannot create a book without a title for author "%s"!',

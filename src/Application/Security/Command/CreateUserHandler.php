@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Talesweaver\Application\Security\Command;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Talesweaver\Domain\User;
+use Ramsey\Uuid\Uuid;
+use Talesweaver\Domain\Author;
+use Talesweaver\Integration\Doctrine\Entity\User;
 use Talesweaver\Integration\Mail\RegistrationMailer;
 use function generate_user_token;
 
@@ -30,7 +32,7 @@ class CreateUserHandler
     public function handle(CreateUser $command)
     {
         $user = new User(
-            $command->getUsername(),
+            new Author(Uuid::uuid4(), $command->getUsername()),
             password_hash($command->getPassword(), PASSWORD_BCRYPT),
             generate_user_token()
         );

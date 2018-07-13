@@ -11,7 +11,7 @@ use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 
 class LoadStandaloneSceneData implements ORMFixtureInterface, OrderedFixtureInterface
 {

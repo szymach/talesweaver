@@ -10,7 +10,7 @@ use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 
 class EventRepository extends TranslatableServiceRepository
 {
@@ -28,10 +28,10 @@ class EventRepository extends TranslatableServiceRepository
     {
         return $this->createTranslatableQueryBuilder('e')
             ->where('e.scene = :scene')
-            ->andWhere('e.createdBy = :user')
+            ->andWhere('e.createdBy = :author')
             ->orderBy('t.name', 'ASC')
             ->setParameter('scene', $scene)
-            ->setParameter('user', $user)
+            ->setParameter('author', $user->getAuthor())
         ;
     }
 
@@ -39,9 +39,9 @@ class EventRepository extends TranslatableServiceRepository
     {
         return $this->createQueryBuilder('e')
             ->where('e.model LIKE :id')
-            ->andWhere('e.createdBy = :user')
+            ->andWhere('e.createdBy = :author')
             ->setParameter('id', sprintf('%%"%s"%%', $id))
-            ->setParameter('user', $user)
+            ->setParameter('author', $user->getAuthor())
             ->getQuery()
             ->getResult()
         ;
@@ -61,10 +61,10 @@ class EventRepository extends TranslatableServiceRepository
             ->addSelect(sprintf('t.%s AS label', $label))
             ->from($this->getEntityName(), 'e')
             ->join('e.translations', 't', Join::WITH, 't.locale = :locale')
-            ->where('e.createdBy = :user')
+            ->where('e.createdBy = :author')
             ->orderBy('date', 'DESC')
             ->setParameter('locale', $locale)
-            ->setParameter('user', $user)
+            ->setParameter('author', $user->getAuthor())
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
@@ -78,8 +78,8 @@ class EventRepository extends TranslatableServiceRepository
             ->select('COUNT(e.id)')
             ->from($this->getEntityName(), 'e')
             ->join('e.translations', 't')
-            ->where('e.createdBy = :user')
-            ->setParameter('user', $user)
+            ->where('e.createdBy = :author')
+            ->setParameter('author', $user->getAuthor())
         ;
 
         if (null !== $id) {

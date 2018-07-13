@@ -42,14 +42,14 @@ class Event
      * @param string $name
      * @param JsonSerializable $model
      * @param Scene $scene
-     * @param User $author
+     * @param Author $author
      */
     public function __construct(
         UuidInterface $id,
         string $name,
         JsonSerializable $model,
         Scene $scene,
-        User $author
+        Author $author
     ) {
         Assertion::notBlank($name, sprintf(
             'Cannot create an event without a name for author "%s" and scene "%s"!',

@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Domain;
+namespace Talesweaver\Integration\Doctrine\Entity;
 
-use Talesweaver\Domain\User\ActivationToken;
-use Talesweaver\Domain\User\PasswordResetToken;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use DomainException;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Talesweaver\Domain\Author;
+use Talesweaver\Integration\Doctrine\Entity\ActivationToken;
+use Talesweaver\Integration\Doctrine\Entity\PasswordResetToken;
 
 class User implements UserInterface
 {
@@ -21,9 +22,9 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @var string
+     * @var Author
      */
-    private $username;
+    private $author;
 
     /**
      * @var string
@@ -51,16 +52,16 @@ class User implements UserInterface
     private $passwordResetTokens;
 
     /**
-     * @param string $username
+     * @param Author $author
      * @param string $password
      * @param string $activationToken
      */
     public function __construct(
-        string $username,
+        Author $author,
         string $password,
         string $activationToken
     ) {
-        $this->username = $username;
+        $this->author = $author;
         $this->password = $password;
         $this->roles = [self::ROLE_USER];
         $this->activationTokens = new ArrayCollection([new ActivationToken($this, $activationToken)]);
@@ -77,9 +78,14 @@ class User implements UserInterface
         return $this->id;
     }
 
+    public function getAuthor(): Author
+    {
+        return $this->author;
+    }
+
     public function getUsername(): string
     {
-        return $this->username;
+        return $this->author->getUsername();
     }
 
     public function getPassword(): string

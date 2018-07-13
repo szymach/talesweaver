@@ -13,7 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
-use Talesweaver\Domain\User;
+use Talesweaver\Domain\Author;
+use Talesweaver\Integration\Doctrine\Entity\User;
 use function generate_user_token;
 
 /**
@@ -49,7 +50,7 @@ class Unit extends Module
         $manager = $this->getEntityManager();
         $user = $manager->getRepository(User::class)->findOneBy(['username' => self::USER_EMAIL]);
         if (null === $user) {
-            $user = new User(self::USER_EMAIL, 'password', generate_user_token());
+            $user = new User(new Author(self::USER_EMAIL), 'password', generate_user_token());
             $user->activate();
             $manager->persist($user);
             $manager->flush();
@@ -83,7 +84,7 @@ class Unit extends Module
 
     public function getEntityManager(): EntityManagerInterface
     {
-        return $this->getModule('Doctrine2')->_getEntityManager();
+        return $this->getModule('Doctrine')->_getEntityManager();
     }
 
     public function getFormFactory(): FormFactoryInterface

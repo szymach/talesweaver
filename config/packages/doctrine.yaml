@@ -15,3 +15,9 @@ doctrine:
                 dir: '%kernel.project_dir%/config/doctrine'
                 prefix: 'Talesweaver\Domain'
                 alias: Domain
+            Integration:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Integration/Doctrine/mapping'
+                prefix: 'Talesweaver\Integration\Doctrine\Entity'
+                alias: Integration

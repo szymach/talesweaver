@@ -53,7 +53,7 @@ class Location
      * @param string $name
      * @param string|null $description
      * @param File|SplFileInfo|null $avatar
-     * @param User $author
+     * @param Author $author
      */
     public function __construct(
         UuidInterface $id,
@@ -61,7 +61,7 @@ class Location
         string $name,
         ?string $description,
         $avatar,
-        User $author
+        Author $author
     ) {
         Assertion::notBlank($name, sprintf(
             'Cannot create a location without a name for author "%s"!',

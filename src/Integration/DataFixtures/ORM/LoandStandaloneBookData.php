@@ -10,7 +10,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 
 class LoandStandaloneBookData implements ORMFixtureInterface, OrderedFixtureInterface
 {

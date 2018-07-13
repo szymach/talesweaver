@@ -6,7 +6,7 @@ namespace Talesweaver\Application\Security\Command;
 
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
-use Talesweaver\Domain\User\PasswordResetToken;
+use Talesweaver\Integration\Doctrine\Entity\PasswordResetToken;
 
 class ResetPassword implements MessageCommandInterface
 {

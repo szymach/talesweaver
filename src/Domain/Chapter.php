@@ -37,7 +37,7 @@ class Chapter
      */
     private $scenes;
 
-    public function __construct(UuidInterface $id, string $title, ?Book $book, User $author)
+    public function __construct(UuidInterface $id, string $title, ?Book $book, Author $author)
     {
         $this->assertCorrectConstructorData($title, $author, $book);
 
@@ -109,7 +109,7 @@ class Chapter
         $this->scenes->removeElement($scene);
     }
 
-    private function assertCorrectConstructorData(string $title, User $author, ?Book $book): void
+    private function assertCorrectConstructorData(string $title, Author $author, ?Book $book): void
     {
         Assertion::notBlank($title, sprintf(
             'Cannot create a chapter without a title for author "%s"!',

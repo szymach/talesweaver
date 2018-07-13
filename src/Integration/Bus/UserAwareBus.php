@@ -8,7 +8,7 @@ use RuntimeException;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Talesweaver\Domain\Security\UserAwareInterface;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 
 class UserAwareBus implements MessageBus
 {

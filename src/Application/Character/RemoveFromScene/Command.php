@@ -10,7 +10,7 @@ use Talesweaver\Application\Messages\RemovedFromSceneSuccessMessage;
 use Talesweaver\Domain\Security\UserAccessInterface;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 
 class Command implements MessageCommandInterface, UserAccessInterface
 {

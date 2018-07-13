@@ -9,7 +9,7 @@ use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Book;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 
 class BookRepository extends TranslatableServiceRepository
 {
@@ -26,8 +26,8 @@ class BookRepository extends TranslatableServiceRepository
     public function createByUserQueryBuilder(User $user): QueryBuilder
     {
         return $this->createQueryBuilder('b')
-            ->where('b.createdBy = :user')
-            ->setParameter('user', $user)
+            ->where('b.createdBy = :author')
+            ->setParameter('author', $user->getAuthor())
         ;
     }
 
@@ -45,10 +45,10 @@ class BookRepository extends TranslatableServiceRepository
             ->addSelect(sprintf('t.%s AS label', $label))
             ->from($this->getEntityName(), 'e')
             ->join('e.translations', 't', Join::WITH, 't.locale = :locale')
-            ->where('e.createdBy = :user')
+            ->where('e.createdBy = :author')
             ->orderBy('date', 'DESC')
             ->setParameter('locale', $locale)
-            ->setParameter('user', $user)
+            ->setParameter('author', $user->getAuthor())
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
@@ -62,8 +62,8 @@ class BookRepository extends TranslatableServiceRepository
             ->select('COUNT(e.id)')
             ->from($this->getEntityName(), 'e')
             ->join('e.translations', 't')
-            ->where('e.createdBy = :user')
-            ->setParameter('user', $user)
+            ->where('e.createdBy = :author')
+            ->setParameter('author', $user->getAuthor())
         ;
 
         if (null !== $id) {

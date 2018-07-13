@@ -12,8 +12,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Talesweaver\Domain\User;
 use Talesweaver\Domain\User\PasswordResetToken;
+use Talesweaver\Integration\Doctrine\Entity\User;
 use Talesweaver\Tests\_generated\FunctionalTesterActions;
 use function generate_user_token;
 

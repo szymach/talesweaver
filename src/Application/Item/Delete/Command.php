@@ -10,7 +10,7 @@ use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\Security\UserAccessInterface;
 use Talesweaver\Domain\Item;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 
 class Command implements MessageCommandInterface, UserAccessInterface
 {

@@ -6,7 +6,7 @@ namespace Talesweaver\Integration\Validation\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Talesweaver\Doctrine\Repository\UserRepository;
+use Talesweaver\Integration\Doctrine\Repository\UserRepository;
 
 class UniqueUserEmailValidator extends ConstraintValidator
 {

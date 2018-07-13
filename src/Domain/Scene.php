@@ -56,9 +56,9 @@ class Scene
      * @param UuidInterface $id
      * @param string $title
      * @param Chapter|null $chapter
-     * @param User $author
+     * @param Author $author
      */
-    public function __construct(UuidInterface $id, string $title, ?Chapter $chapter, User $author)
+    public function __construct(UuidInterface $id, string $title, ?Chapter $chapter, Author $author)
     {
         Assertion::notBlank($title, sprintf(
             'Cannot create a scene without a title for author "%s"!',

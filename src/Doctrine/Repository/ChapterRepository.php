@@ -10,7 +10,7 @@ use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 
 class ChapterRepository extends TranslatableServiceRepository
 {
@@ -22,18 +22,18 @@ class ChapterRepository extends TranslatableServiceRepository
     public function allAvailableByUserQueryBuilder(User $user): QueryBuilder
     {
         return $this->createQueryBuilder('c')
-            ->where('c.createdBy = :user')
+            ->where('c.createdBy = :author')
             ->orderBy('c.book')
-            ->setParameter('user', $user)
+            ->setParameter('author', $user->getAuthor())
         ;
     }
 
     public function byCurrentUserQueryBuilder(User $user): QueryBuilder
     {
         return $this->createQueryBuilder('c')
-            ->where('c.createdBy = :user')
+            ->where('c.createdBy = :author')
             ->andWhere('c.book IS NULL')
-            ->setParameter('user', $user)
+            ->setParameter('author', $user->getAuthor())
         ;
     }
 
@@ -41,10 +41,10 @@ class ChapterRepository extends TranslatableServiceRepository
     {
         return $this->createQueryBuilder('c')
             ->where('c.book = :book')
-            ->andWhere('c.createdBy = :user')
+            ->andWhere('c.createdBy = :author')
             ->orderBy('c.createdAt')
             ->setParameter('book', $book)
-            ->setParameter('user', $user)
+            ->setParameter('author', $user->getAuthor())
         ;
     }
 
@@ -62,10 +62,10 @@ class ChapterRepository extends TranslatableServiceRepository
             ->addSelect(sprintf('t.%s AS label', $label))
             ->from($this->getEntityName(), 'e')
             ->join('e.translations', 't', Join::WITH, 't.locale = :locale')
-            ->where('e.createdBy = :user')
+            ->where('e.createdBy = :author')
             ->orderBy('date', 'DESC')
             ->setParameter('locale', $locale)
-            ->setParameter('user', $user)
+            ->setParameter('author', $user->getAuthor())
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
@@ -79,8 +79,8 @@ class ChapterRepository extends TranslatableServiceRepository
             ->select('COUNT(e.id)')
             ->from($this->getEntityName(), 'e')
             ->join('e.translations', 't')
-            ->where('e.createdBy = :user')
-            ->setParameter('user', $user)
+            ->where('e.createdBy = :author')
+            ->setParameter('author', $user->getAuthor())
         ;
 
         if (null !== $id) {

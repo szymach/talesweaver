@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Security\Traits;
 
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 
 trait UserAwareTrait
 {

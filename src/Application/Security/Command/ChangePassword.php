@@ -6,7 +6,7 @@ namespace Talesweaver\Application\Security\Command;
 
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 
 class ChangePassword implements MessageCommandInterface
 {

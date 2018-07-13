@@ -28,10 +28,8 @@ class FormSecurityCest
         $otherUser = $I->getUser(true, self::OTHER_USER_USERNAME);
         $otherUsersBookId = Uuid::uuid4();
 
-        $I->persistEntity(new Book(Uuid::uuid4(), self::BOOK_TITLE, $I->getUser()));
-        $I->persistEntity(
-            new Book($otherUsersBookId, self::BOOK_TITLE, $otherUser)
-        );
+        $I->persistEntity(new Book(Uuid::uuid4(), self::BOOK_TITLE, $I->getUser()->getAuthor()));
+        $I->persistEntity(new Book($otherUsersBookId, self::BOOK_TITLE, $otherUser->getAuthor()));
         $I->flushToDatabase();
 
         $I->amOnPage(self::CREATE_URL);
@@ -50,13 +48,11 @@ class FormSecurityCest
         $otherUser = $I->getUser(true, self::OTHER_USER_USERNAME);
         $otherUsersBookId = Uuid::uuid4();
 
-        $book = new Book(Uuid::uuid4(), self::BOOK_TITLE, $I->getUser());
+        $book = new Book(Uuid::uuid4(), self::BOOK_TITLE, $I->getUser()->getAuthor());
         $I->persistEntity($book);
-        $I->persistEntity(
-            new Book($otherUsersBookId, self::BOOK_TITLE, $otherUser)
-        );
+        $I->persistEntity(new Book($otherUsersBookId, self::BOOK_TITLE, $otherUser->getAuthor()));
         $chapterId = Uuid::uuid4();
-        $I->persistEntity(new Chapter($chapterId, self::CHAPTER_TITLE, $book, $I->getUser()));
+        $I->persistEntity(new Chapter($chapterId, self::CHAPTER_TITLE, $book, $I->getUser()->getAuthor()));
         $I->flushToDatabase();
 
         $I->amOnPage(self::CREATE_URL);

@@ -10,7 +10,7 @@ use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Doctrine\Entity\User;
 
 class SceneRepository extends TranslatableServiceRepository
 {
@@ -22,10 +22,10 @@ class SceneRepository extends TranslatableServiceRepository
     public function byCurrentUserStandaloneQueryBuilder(User $user): QueryBuilder
     {
         return $this->createQueryBuilder('s')
-            ->where('s.createdBy = :user')
+            ->where('s.createdBy = :author')
             ->andWhere('s.chapter IS NULL')
             ->orderBy('s.createdAt')
-            ->setParameter('user', $user)
+            ->setParameter('author', $user->getAuthor())
         ;
     }
 
@@ -33,10 +33,10 @@ class SceneRepository extends TranslatableServiceRepository
     {
         return $this->createQueryBuilder('s')
             ->where('s.chapter = :chapter')
-            ->andWhere('s.createdBy = :user')
+            ->andWhere('s.createdBy = :author')
             ->orderBy('s.createdAt')
             ->setParameter('chapter', $chapter)
-            ->setParameter('user', $user)
+            ->setParameter('author', $user->getAuthor())
         ;
     }
 
@@ -80,9 +80,9 @@ class SceneRepository extends TranslatableServiceRepository
             ->select('st.title')
             ->from($this->getEntityName(), 's')
             ->join('s.translations', 'st')
-            ->where('s.createdBy = :user')
+            ->where('s.createdBy = :author')
             ->setParameter('id', $id)
-            ->setParameter('user', $user)
+            ->setParameter('author', $user->getAuthor())
             ->setMaxResults(1)
         ;
     }
@@ -101,10 +101,10 @@ class SceneRepository extends TranslatableServiceRepository
             ->addSelect(sprintf('t.%s AS label', $label))
             ->from($this->getEntityName(), 'e')
             ->join('e.translations', 't', Join::WITH, 't.locale = :locale')
-            ->where('e.createdBy = :user')
+            ->where('e.createdBy = :author')
             ->orderBy('date', 'DESC')
             ->setParameter('locale', $locale)
-            ->setParameter('user', $user)
+            ->setParameter('author', $user->getAuthor())
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
@@ -118,8 +118,8 @@ class SceneRepository extends TranslatableServiceRepository
             ->select('COUNT(e.id)')
             ->from($this->getEntityName(), 'e')
             ->join('e.translations', 't')
-            ->where('e.createdBy = :user')
-            ->setParameter('user', $user)
+            ->where('e.createdBy = :author')
+            ->setParameter('author', $user->getAuthor())
         ;
 
         if (null !== $id) {
