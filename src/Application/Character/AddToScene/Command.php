@@ -43,7 +43,7 @@ class Command implements MessageCommandInterface, UserAccessInterface
     public function isAllowed(User $user): bool
     {
         return $this->scene->getCreatedBy()->getId() === $this->character->getCreatedBy()->getId()
-            && $user->getId() === $this->character->getCreatedBy()->getId()
+            && $user->getAuthor()->getId() === $this->character->getCreatedBy()->getId()
         ;
     }
 

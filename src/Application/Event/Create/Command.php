@@ -45,14 +45,11 @@ class Command implements MessageCommandInterface, UserAccessInterface, UserAware
 
     public function isAllowed(User $user): bool
     {
-        $modelAccess = true;
         if ($this->dto->getModel() instanceof UserAccessInterface) {
             return $this->dto->getModel()->isAllowed($user);
         }
 
-        return $user->getAuthor()->getId() === $this->dto->getScene()->getCreatedBy()->getId()
-            && $modelAccess
-        ;
+        return $user->getAuthor()->getId() === $this->dto->getScene()->getCreatedBy()->getId();
     }
 
     public function getMessage(): Message
