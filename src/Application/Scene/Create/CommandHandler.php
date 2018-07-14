@@ -26,7 +26,7 @@ class CommandHandler
             $command->getId(),
             $command->getData()->getTitle(),
             $command->getData()->getChapter(),
-            $command->getUser()->getAuthor()
+            $command->getAuthor()
         );
         if (null !== $chapter) {
             $chapter->addScene($scene);

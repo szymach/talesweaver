@@ -7,10 +7,10 @@ namespace Talesweaver\Integration\Bus;
 use RuntimeException;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Talesweaver\Domain\Security\UserAwareInterface;
+use Talesweaver\Domain\Security\AuthorAwareInterface;
 use Talesweaver\Integration\Doctrine\Entity\User;
 
-class UserAwareBus implements MessageBus
+class AuthorAwareBus implements MessageBus
 {
     /**
      * @var MessageBus
@@ -30,7 +30,7 @@ class UserAwareBus implements MessageBus
 
     public function handle($message): void
     {
-        if (true === $message instanceof UserAwareInterface) {
+        if (true === $message instanceof AuthorAwareInterface) {
             $user = $this->getUser();
             if (null === $user) {
                 throw new RuntimeException(
@@ -38,7 +38,7 @@ class UserAwareBus implements MessageBus
                 );
             }
 
-            $message->setUser($user);
+            $message->setAuthor($user->getAuthor());
         }
 
         $this->messageBus->handle($message);

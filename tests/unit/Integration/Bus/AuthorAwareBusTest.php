@@ -11,11 +11,12 @@ use SimpleBus\Message\Bus\MessageBus;
 use stdClass;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Talesweaver\Domain\Security\UserAwareInterface;
+use Talesweaver\Domain\Author;
+use Talesweaver\Domain\Security\AuthorAwareInterface;
+use Talesweaver\Integration\Bus\AuthorAwareBus;
 use Talesweaver\Integration\Doctrine\Entity\User;
-use Talesweaver\Integration\Bus\UserAwareBus;
 
-class UserAwareBusTest extends TestCase
+class AuthorAwareBusTest extends TestCase
 {
     /**
      * @var MessageBus|MockObject
@@ -29,44 +30,46 @@ class UserAwareBusTest extends TestCase
 
     public function testNoUserException()
     {
-        $message = $this->createMock(UserAwareInterface::class);
-        $message->expects($this->never())->method('setUser');
+        $message = $this->createMock(AuthorAwareInterface::class);
+        $message->expects($this->never())->method('setAuthor');
 
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage(sprintf('No user set when executing command "%s"', get_class($message)));
 
         $this->messageBus->expects($this->never())->method('handle');
 
-        $bus = new UserAwareBus($this->messageBus, $this->tokenStorage);
+        $bus = new AuthorAwareBus($this->messageBus, $this->tokenStorage);
         $bus->handle($message);
     }
 
     public function testSkippingIncorrectMessageInstance()
     {
-        $message = $this->getMockBuilder(stdClass::class)->setMethods(['setUser'])->getMock();
-        $message->expects($this->never())->method('setUser');
+        $message = $this->getMockBuilder(stdClass::class)->setMethods(['setAuthor'])->getMock();
+        $message->expects($this->never())->method('setAuthor');
 
         $this->tokenStorage->expects($this->never())->method('getToken');
         $this->messageBus->expects($this->once())->method('handle')->with($message);
 
-        $bus = new UserAwareBus($this->messageBus, $this->tokenStorage);
+        $bus = new AuthorAwareBus($this->messageBus, $this->tokenStorage);
         $bus->handle($message);
     }
 
     public function testSettingUser()
     {
+        $author = $this->createMock(Author::class);
         $user = $this->createMock(User::class);
+        $user->expects($this->once())->method('getAuthor')->willReturn($author);
 
         $token = $this->createMock(TokenInterface::class);
         $token->expects($this->once())->method('getUser')->willReturn($user);
 
         $this->tokenStorage->expects($this->exactly(2))->method('getToken')->willReturn($token);
 
-        $message = $this->createMock(UserAwareInterface::class);
-        $message->expects($this->once())->method('setUser')->with($user);
+        $message = $this->createMock(AuthorAwareInterface::class);
+        $message->expects($this->once())->method('setAuthor')->with($author);
         $this->messageBus->expects($this->once())->method('handle')->with($message);
 
-        $bus = new UserAwareBus($this->messageBus, $this->tokenStorage);
+        $bus = new AuthorAwareBus($this->messageBus, $this->tokenStorage);
         $bus->handle($message);
     }
 

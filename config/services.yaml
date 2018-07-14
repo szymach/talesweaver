@@ -52,14 +52,14 @@ services:
         decorates: command_bus
         arguments: ['@transaction_wrapped_command_bus.inner']
 
-    user_aware_command_bus:
-        class:     Talesweaver\Integration\Bus\UserAwareBus
+    author_aware_command_bus:
+        class:     Talesweaver\Integration\Bus\AuthorAwareBus
         decorates: transaction_wrapped_command_bus
-        arguments: ['@user_aware_command_bus.inner']
+        arguments: ['@author_aware_command_bus.inner']
 
     user_access_command_bus:
         class:     Talesweaver\Integration\Bus\UserAccessBus
-        decorates: user_aware_command_bus
+        decorates: author_aware_command_bus
         arguments: ['@user_access_command_bus.inner']
 
     messages_aware_bus:

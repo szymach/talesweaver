@@ -8,14 +8,14 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Messages\CreationSuccessMessage;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
-use Talesweaver\Application\Security\Traits\UserAwareTrait;
+use Talesweaver\Application\Security\Traits\AuthorAwareTrait;
 use Talesweaver\Domain\Security\UserAccessInterface;
-use Talesweaver\Domain\Security\UserAwareInterface;
+use Talesweaver\Domain\Security\AuthorAwareInterface;
 use Talesweaver\Integration\Doctrine\Entity\User;
 
-class Command implements MessageCommandInterface, UserAccessInterface, UserAwareInterface
+class Command implements MessageCommandInterface, UserAccessInterface, AuthorAwareInterface
 {
-    use UserAwareTrait;
+    use AuthorAwareTrait;
 
     /**
      * @var UuidInterface

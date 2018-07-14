@@ -28,7 +28,7 @@ class CommandHandler
                 $command->getData()->getName(),
                 $command->getData()->getDescription(),
                 $command->getData()->getAvatar(),
-                $command->getUser()->getAuthor()
+                $command->getAuthor()
             )
         );
     }

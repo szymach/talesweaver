@@ -26,7 +26,7 @@ class CommandHandler
                 $command->getId(),
                 $command->getData()->getTitle(),
                 $command->getData()->getBook(),
-                $command->getUser()->getAuthor()
+                $command->getAuthor()
             )
         );
     }
