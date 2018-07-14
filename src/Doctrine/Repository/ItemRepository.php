@@ -4,25 +4,19 @@ declare(strict_types=1);
 
 namespace Talesweaver\Doctrine\Repository;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
+use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository;
 use Ramsey\Uuid\UuidInterface;
-use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Doctrine\Entity\User;
 
-class ItemRepository extends TranslatableServiceRepository
+class ItemRepository extends TranslatableRepository
 {
     /**
      * @var int
      */
     private $joinAliasCount = 0;
-
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Item::class);
-    }
 
     public function byCurrentUserForSceneQueryBuilder(User $user, Scene $scene): QueryBuilder
     {

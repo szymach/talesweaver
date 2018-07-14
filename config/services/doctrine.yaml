@@ -11,8 +11,33 @@ services:
         tags: [{ name: doctrine.orm.entity_listener }]
 
     # Entity repository
-    Talesweaver\Doctrine\:
-        resource: "../../src/Doctrine/*"
+    Talesweaver\Doctrine\Repository\BookRepository:
+        factory: ["@doctrine", getRepository]
+        arguments: [ Talesweaver\Domain\Book ]
+
+    Talesweaver\Doctrine\Repository\CharacterRepository:
+        factory: ["@doctrine", getRepository]
+        arguments: [ Talesweaver\Domain\Character ]
+
+    Talesweaver\Doctrine\Repository\ChapterRepository:
+        factory: ["@doctrine", getRepository]
+        arguments: [ Talesweaver\Domain\Chapter ]
+
+    Talesweaver\Doctrine\Repository\EventRepository:
+        factory: ["@doctrine", getRepository]
+        arguments: [ Talesweaver\Domain\Event ]
+
+    Talesweaver\Doctrine\Repository\ItemRepository:
+        factory: ["@doctrine", getRepository]
+        arguments: [ Talesweaver\Domain\Item ]
+
+    Talesweaver\Doctrine\Repository\LocationRepository:
+        factory: ["@doctrine", getRepository]
+        arguments: [ Talesweaver\Domain\Location ]
+
+    Talesweaver\Doctrine\Repository\SceneRepository:
+        factory: ["@doctrine", getRepository]
+        arguments: [ Talesweaver\Domain\Scene ]
 
     Talesweaver\Integration\Doctrine\Repository\:
         resource: "../../src/Integration/Doctrine/Repository/*"
@@ -24,3 +49,6 @@ services:
 
     Talesweaver\Integration\Repository\:
         resource: "../../src/Integration/Repository/*"
+
+    # User provider
+    Talesweaver\Doctrine\UserProvider: ~
