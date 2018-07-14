@@ -9,17 +9,13 @@ use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event\Meeting;
 use Talesweaver\Domain\Location;
-use Talesweaver\Integration\Doctrine\Entity\User;
 
 class MeetingTest extends TestCase
 {
     public function testAccessDeniedToUserWhenNoFieldsSet()
     {
         $model = new Meeting();
-
-        $user = $this->createMock(User::class);
-        $user->expects($this->once())->method('getAuthor')->willReturn($this->createMock(Author::class));
-        $this->assertFalse($model->isAllowed($user));
+        $this->assertFalse($model->isAllowed($this->createMock(Author::class)));
     }
 
     public function testAccessDeniedToUserWhenOnlyRootSet()
@@ -27,9 +23,7 @@ class MeetingTest extends TestCase
         $model = new Meeting();
         $model->setRoot($this->createMock(Character::class));
 
-        $user = $this->createMock(User::class);
-        $user->expects($this->once())->method('getAuthor')->willReturn($this->createMock(Author::class));
-        $this->assertFalse($model->isAllowed($user));
+        $this->assertFalse($model->isAllowed($this->createMock(Author::class)));
     }
 
     public function testAccessDeniedToUserWhenOnlyRelationSet()
@@ -37,9 +31,7 @@ class MeetingTest extends TestCase
         $model = new Meeting();
         $model->setRelation($this->createMock(Character::class));
 
-        $user = $this->createMock(User::class);
-        $user->expects($this->once())->method('getAuthor')->willReturn($this->createMock(Author::class));
-        $this->assertFalse($model->isAllowed($user));
+        $this->assertFalse($model->isAllowed($this->createMock(Author::class)));
     }
 
     public function testAccessDeniedToUserWhenOnlyLocationSet()
@@ -47,9 +39,7 @@ class MeetingTest extends TestCase
         $model = new Meeting();
         $model->setLocation($this->createMock(Location::class));
 
-        $user = $this->createMock(User::class);
-        $user->expects($this->once())->method('getAuthor')->willReturn($this->createMock(Author::class));
-        $this->assertFalse($model->isAllowed($user));
+        $this->assertFalse($model->isAllowed($this->createMock(Author::class)));
     }
 
     public function testAccessDeniedToUserWhenRootAndLocationSet()
@@ -65,9 +55,7 @@ class MeetingTest extends TestCase
         $model->setRoot($root);
         $model->setLocation($location);
 
-        $user = $this->createMock(User::class);
-        $user->expects($this->once())->method('getAuthor')->willReturn($author);
-        $this->assertFalse($model->isAllowed($user));
+        $this->assertFalse($model->isAllowed($author));
     }
 
     public function testAccessDeniedToUserWhenRootAndRelationSet()
@@ -83,9 +71,7 @@ class MeetingTest extends TestCase
         $model->setRoot($root);
         $model->setRelation($relation);
 
-        $user = $this->createMock(User::class);
-        $user->expects($this->once())->method('getAuthor')->willReturn($author);
-        $this->assertFalse($model->isAllowed($user));
+        $this->assertFalse($model->isAllowed($author));
     }
 
     public function testAccessDeniedToUserWhenRelationAndLocationSet()
@@ -101,9 +87,7 @@ class MeetingTest extends TestCase
         $model->setRoot($root);
         $model->setLocation($location);
 
-        $user = $this->createMock(User::class);
-        $user->expects($this->once())->method('getAuthor')->willReturn($author);
-        $this->assertFalse($model->isAllowed($user));
+        $this->assertFalse($model->isAllowed($author));
     }
 
     public function testUserAccessDeniedWhenRootIsAnotherUsers()
@@ -117,15 +101,13 @@ class MeetingTest extends TestCase
         $character2->expects($this->exactly(2))->method('getCreatedBy')->willReturn($author);
 
         $location = $this->createMock(Location::class);
-        $location->expects($this->exactly(1))->method('getCreatedBy')->willReturn($author);
+        $location->expects($this->once())->method('getCreatedBy')->willReturn($author);
 
         $model = new Meeting();
         $model->setRoot($character1);
         $model->setRelation($character2);
         $model->setLocation($location);
 
-        $user = $this->createMock(User::class);
-        $user->expects($this->once())->method('getAuthor')->willReturn($this->createMock(Author::class));
-        $this->assertFalse($model->isAllowed($user));
+        $this->assertFalse($model->isAllowed($this->createMock(Author::class)));
     }
 }

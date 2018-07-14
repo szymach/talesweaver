@@ -7,29 +7,29 @@ services:
 
     # User handlers
     app.command.user.create:
-        class: Talesweaver\Application\Security\Command\CreateUserHandler
+        class: Talesweaver\Integration\Command\CreateUserHandler
         tags:
-            - { name: command_handler, handles: Talesweaver\Application\Security\Command\CreateUser }
+            - { name: command_handler, handles: Talesweaver\Integration\Command\CreateUser }
 
     app.command.user.activate:
-        class: Talesweaver\Application\Security\Command\ActivateUserHandler
+        class: Talesweaver\Integration\Command\ActivateUserHandler
         tags:
-            - { name: command_handler, handles: Talesweaver\Application\Security\Command\ActivateUser }
+            - { name: command_handler, handles: Talesweaver\Integration\Command\ActivateUser }
 
     app.command.user.password_reset.request:
-        class: Talesweaver\Application\Security\Command\GeneratePasswordResetTokenHandler
+        class: Talesweaver\Integration\Command\GeneratePasswordResetTokenHandler
         tags:
-            - { name: command_handler, handles: Talesweaver\Application\Security\Command\GeneratePasswordResetToken }
+            - { name: command_handler, handles: Talesweaver\Integration\Command\GeneratePasswordResetToken }
 
     app.command.user.password_reset.change:
-        class: Talesweaver\Application\Security\Command\ResetPasswordHandler
+        class: Talesweaver\Integration\Command\ResetPasswordHandler
         tags:
-            - { name: command_handler, handles: Talesweaver\Application\Security\Command\ResetPassword }
+            - { name: command_handler, handles: Talesweaver\Integration\Command\ResetPassword }
 
     app.command.user.change_password:
-        class: Talesweaver\Application\Security\Command\ChangePasswordHandler
+        class: Talesweaver\Integration\Command\ChangePasswordHandler
         tags:
-            - { name: command_handler, handles: Talesweaver\Application\Security\Command\ChangePassword }
+            - { name: command_handler, handles: Talesweaver\Integration\Command\ChangePassword }
 
     # Book handlers
     app.command.book.create:

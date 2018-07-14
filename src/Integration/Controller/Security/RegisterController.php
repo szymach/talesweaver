@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
-use Talesweaver\Application\Security\Command\CreateUser;
+use Talesweaver\Integration\Command\CreateUser;
 use Talesweaver\Integration\Form\Security\RegisterType;
 
 class RegisterController

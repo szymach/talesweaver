@@ -8,7 +8,7 @@ use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
-use Talesweaver\Application\Security\Command\ActivateUser;
+use Talesweaver\Integration\Command\ActivateUser;
 use Talesweaver\Integration\Doctrine\Repository\UserRepository;
 
 class ActivationController
@@ -41,7 +41,7 @@ class ActivationController
     public function __invoke(string $code)
     {
         $user = $this->repository->findOneByActivationToken($code);
-        if (!$user) {
+        if (null === $user) {
             throw new NotFoundHttpException('No user for code "%s"');
         }
 
