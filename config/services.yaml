@@ -48,23 +48,23 @@ services:
 
     # Bus
     transaction_wrapped_command_bus:
-        class:     Talesweaver\Integration\Bus\TransactionWrappedBus
+        class: Talesweaver\Integration\Bus\TransactionWrappedBus
         decorates: command_bus
         arguments: ['@transaction_wrapped_command_bus.inner']
 
     author_aware_command_bus:
-        class:     Talesweaver\Integration\Bus\AuthorAwareBus
+        class: Talesweaver\Integration\Bus\AuthorAwareBus
         decorates: transaction_wrapped_command_bus
         arguments: ['@author_aware_command_bus.inner']
 
-    user_access_command_bus:
-        class:     Talesweaver\Integration\Bus\UserAccessBus
+    author_access_command_bus:
+        class: Talesweaver\Integration\Bus\AuthorAccessBus
         decorates: author_aware_command_bus
-        arguments: ['@user_access_command_bus.inner']
+        arguments: ['@author_access_command_bus.inner']
 
     messages_aware_bus:
-        class:     Talesweaver\Integration\Bus\MessagesAwareBus
-        decorates: user_access_command_bus
+        class: Talesweaver\Integration\Bus\MessagesAwareBus
+        decorates: author_access_command_bus
         arguments: ['@messages_aware_bus.inner']
 
     # Security
