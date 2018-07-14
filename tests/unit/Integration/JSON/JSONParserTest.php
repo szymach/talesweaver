@@ -38,7 +38,7 @@ class JSONParserTest extends TestCase
         ]);
 
         /* @var $parsedModel Meeting */
-        $parsedModel = $this->createParser()->parse($event);
+        $parsedModel = $this->createParser()->parse($event->getModel());
         $this->assertInstanceOf(Meeting::class, $parsedModel);
         $this->assertNull($parsedModel->getRoot());
         $this->assertNull($parsedModel->getRelation());
@@ -74,7 +74,7 @@ class JSONParserTest extends TestCase
         $this->locationRepository->find(Argument::type(UuidInterface::class))->shouldBeCalled()->willReturn($location->reveal());
 
         /* @var $parsedModel Meeting */
-        $parsedModel = $this->createParser()->parse($event);
+        $parsedModel = $this->createParser()->parse($event->getModel());
         $this->assertInstanceOf(Meeting::class, $parsedModel);
         $this->assertInstanceOf(Character::class, $parsedModel->getRoot());
         $this->assertInstanceOf(Character::class, $parsedModel->getRelation());

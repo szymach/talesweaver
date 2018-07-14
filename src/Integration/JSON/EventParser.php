@@ -41,9 +41,8 @@ class EventParser
         ];
     }
 
-    public function parse(Event $event): JsonSerializable
+    public function parse(array $modelData): JsonSerializable
     {
-        $modelData = $event->getModel();
         $modelClass = key($modelData);
         $model = new $modelClass();
         $this->setFields($model, reset($modelData));

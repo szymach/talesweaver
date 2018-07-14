@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Talesweaver\Domain;
 
-use Talesweaver\Integration\JSON\EventParser;
 use Assert\Assertion;
 use DateTimeImmutable;
+use JsonSerializable;
+use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Traits\CreatedByTrait;
 use Talesweaver\Domain\Traits\TimestampableTrait;
 use Talesweaver\Domain\Traits\TranslatableTrait;
-use JsonSerializable;
-use Ramsey\Uuid\UuidInterface;
 
 class Event
 {
@@ -82,9 +81,9 @@ class Event
         $this->update();
     }
 
-    public function parseModel(EventParser $parser): void
+    public function setParsedModel(JsonSerializable $model): void
     {
-        $this->model = $parser->parse($this);
+        $this->model = $model;
     }
 
     public function getId(): UuidInterface

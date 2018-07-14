@@ -23,6 +23,8 @@ class ModelParserListener
 
     public function postLoad(Event $entity, LifecycleEventArgs $event)
     {
-        $entity->parseModel($this->container->get(EventParser::class));
+        /* @var $parser EventParser */
+        $parser = $this->container->get(EventParser::class);
+        $entity->setParsedModel($parser->parse($event->getModel()));
     }
 }
