@@ -11,7 +11,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SimpleBus\Message\Bus\MessageBus;
 use stdClass;
-use Talesweaver\Integration\Bus\TransactionWrappedBus;
+use Talesweaver\Integration\Symfony\Bus\TransactionWrappedBus;
 
 class TransactionWrappedBusTest extends TestCase
 {

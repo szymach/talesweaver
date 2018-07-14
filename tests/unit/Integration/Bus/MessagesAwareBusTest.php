@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
-use Talesweaver\Integration\Bus\MessagesAwareBus;
+use Talesweaver\Integration\Symfony\Bus\MessagesAwareBus;
 
 class MessagesAwareBusTest extends TestCase
 {

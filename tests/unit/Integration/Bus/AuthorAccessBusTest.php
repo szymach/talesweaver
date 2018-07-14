@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
-use Talesweaver\Integration\Bus\AuthorAccessBus;
+use Talesweaver\Integration\Symfony\Bus\AuthorAccessBus;
 use Talesweaver\Integration\Doctrine\Entity\User;
 
 class AuthorAccessBusTest extends TestCase

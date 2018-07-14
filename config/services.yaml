@@ -48,22 +48,22 @@ services:
 
     # Bus
     transaction_wrapped_command_bus:
-        class: Talesweaver\Integration\Bus\TransactionWrappedBus
+        class: Talesweaver\Integration\Symfony\Bus\TransactionWrappedBus
         decorates: command_bus
         arguments: ['@transaction_wrapped_command_bus.inner']
 
     author_aware_command_bus:
-        class: Talesweaver\Integration\Bus\AuthorAwareBus
+        class: Talesweaver\Integration\Symfony\Bus\AuthorAwareBus
         decorates: transaction_wrapped_command_bus
         arguments: ['@author_aware_command_bus.inner']
 
     author_access_command_bus:
-        class: Talesweaver\Integration\Bus\AuthorAccessBus
+        class: Talesweaver\Integration\Symfony\Bus\AuthorAccessBus
         decorates: author_aware_command_bus
         arguments: ['@author_access_command_bus.inner']
 
     messages_aware_bus:
-        class: Talesweaver\Integration\Bus\MessagesAwareBus
+        class: Talesweaver\Integration\Symfony\Bus\MessagesAwareBus
         decorates: author_access_command_bus
         arguments: ['@messages_aware_bus.inner']
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Integration\Bus;
+namespace Talesweaver\Integration\Symfony\Bus;
 
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\Session\Session;

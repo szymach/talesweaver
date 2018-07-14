@@ -8,7 +8,7 @@ use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
-use Talesweaver\Integration\Bus\Command\ActivateUser;
+use Talesweaver\Integration\Symfony\Bus\Command\ActivateUser;
 use Talesweaver\Integration\Doctrine\Repository\UserRepository;
 
 class ActivationController

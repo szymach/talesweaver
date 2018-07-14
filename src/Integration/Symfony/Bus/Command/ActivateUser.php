@@ -2,28 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Integration\Bus\Command;
+namespace Talesweaver\Integration\Symfony\Bus\Command;
 
+use DomainException;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Integration\Doctrine\Entity\User;
 
-class ChangePassword implements MessageCommandInterface
+class ActivateUser implements MessageCommandInterface
 {
     /**
      * @var User
      */
     private $user;
 
-    /**
-     * @var string
-     */
-    private $newPassword;
-
-    public function __construct(User $user, string $newPassword)
+    public function __construct(User $user)
     {
+        if (true === $user->isActive()) {
+            throw new DomainException(sprintf('User "%s" is already active!', $user->getId()));
+        }
+
         $this->user = $user;
-        $this->newPassword = $newPassword;
     }
 
     public function getUser(): User
@@ -31,16 +30,11 @@ class ChangePassword implements MessageCommandInterface
         return $this->user;
     }
 
-    public function getNewPassword(): string
-    {
-        return $this->newPassword;
-    }
-
     public function getMessage(): Message
     {
         return new Message(
-            'security.change_password.alert.success',
-            [],
+            'security.activation.alert.success',
+            ['%username%' => $this->user->getUsername()],
             'success'
         );
     }

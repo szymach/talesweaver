@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Security\AuthorAwareInterface;
-use Talesweaver\Integration\Bus\AuthorAwareBus;
+use Talesweaver\Integration\Symfony\Bus\AuthorAwareBus;
 use Talesweaver\Integration\Doctrine\Entity\User;
 
 class AuthorAwareBusTest extends TestCase
