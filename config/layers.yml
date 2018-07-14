@@ -15,10 +15,10 @@ layers:
     collectors:
       - type: className
         regex: Talesweaver\\Domain\\.*
-  - name: Integrations
+  - name: Integration
     collectors:
       - type: className
-        regex: Talesweaver\\ORMIntegration\\.*
+        regex: Talesweaver\\Integration\\.*
   - name: Tests
     collectors:
       - type: className
