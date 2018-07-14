@@ -25,6 +25,6 @@ class ModelParserListener
     {
         /* @var $parser EventParser */
         $parser = $this->container->get(EventParser::class);
-        $entity->setParsedModel($parser->parse($event->getModel()));
+        $entity->setParsedModel($parser->parse($entity->getModel()));
     }
 }

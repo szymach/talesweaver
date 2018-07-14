@@ -36,7 +36,7 @@ class SceneRepository extends TranslatableRepository
 
     public function firstCharacterOccurence(Author $author, UuidInterface $id): string
     {
-        return $this->createFirstOccurenceQueryBuilder($user, $id)
+        return $this->createFirstOccurenceQueryBuilder($author, $id)
             ->join('s.characters', 'c')
             ->andWhere('c MEMBER OF s.characters')
             ->andWhere('c.id = :id')
@@ -47,7 +47,7 @@ class SceneRepository extends TranslatableRepository
 
     public function firstItemOccurence(Author $author, UuidInterface $id): string
     {
-        return $this->createFirstOccurenceQueryBuilder($user, $id)
+        return $this->createFirstOccurenceQueryBuilder($author, $id)
             ->join('s.items', 'i')
             ->andWhere('i MEMBER OF s.items')
             ->andWhere('i.id = :id')
@@ -58,7 +58,7 @@ class SceneRepository extends TranslatableRepository
 
     public function firstLocationOccurence(Author $author, UuidInterface $id): string
     {
-        return $this->createFirstOccurenceQueryBuilder($user, $id)
+        return $this->createFirstOccurenceQueryBuilder($author, $id)
             ->join('s.locations', 'l')
             ->andWhere('l MEMBER OF s.locations')
             ->andWhere('l.id = :id')
