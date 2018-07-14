@@ -6,7 +6,7 @@ services:
 
     # Entity listeners
     entity_listener.event:
-        class: Talesweaver\Integration\JSON\ModelParserListener
+        class: Talesweaver\Integration\Doctrine\Listener\ModelParserListener
         autoconfigure: false
         tags: [{ name: doctrine.orm.entity_listener }]
 

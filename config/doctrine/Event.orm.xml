@@ -33,7 +33,7 @@
         </many-to-one>
 
         <entity-listeners>
-            <entity-listener class="Talesweaver\Integration\JSON\ModelParserListener">
+            <entity-listener class="Talesweaver\Integration\Doctrine\Listener\ModelParserListener">
                 <lifecycle-callback type="postLoad" method="postLoad"/>
             </entity-listener>
         </entity-listeners>
