@@ -24,8 +24,8 @@ services:
         resource: "../src/Integration/Symfony/Controller/*"
         public: true
 
-    Talesweaver\Integration\DataFixtures\ORM\:
-        resource: "../src/Integration/DataFixtures/ORM/*"
+    Talesweaver\Integration\Doctrine\DataFixtures\ORM\:
+        resource: "../src/Integration/Doctrine/DataFixtures/ORM/*"
         tags: ['doctrine.fixture.orm']
 
     Talesweaver\Integration\Symfony\:
