@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Application\Security\Command;
+namespace Talesweaver\Integration\Command;
 
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;

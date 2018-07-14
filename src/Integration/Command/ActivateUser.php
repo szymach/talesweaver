@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Application\Security\Command;
+namespace Talesweaver\Integration\Command;
 
 use DomainException;
 use Talesweaver\Application\Messages\Message;
@@ -18,10 +18,8 @@ class ActivateUser implements MessageCommandInterface
 
     public function __construct(User $user)
     {
-        if ($user->isActive()) {
-            throw new DomainException(
-                sprintf('User "%s" is already active!', $user->getId())
-            );
+        if (true === $user->isActive()) {
+            throw new DomainException(sprintf('User "%s" is already active!', $user->getId()));
         }
 
         $this->user = $user;

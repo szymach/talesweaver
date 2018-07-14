@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Application\Security\Command;
+namespace Talesweaver\Integration\Command;
 
 use DateInterval;
 use DateTimeImmutable;
