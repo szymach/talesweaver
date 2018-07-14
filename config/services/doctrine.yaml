@@ -49,6 +49,3 @@ services:
 
     Talesweaver\Integration\Repository\:
         resource: "../../src/Integration/Repository/*"
-
-    # User provider
-    Talesweaver\Doctrine\UserProvider: ~

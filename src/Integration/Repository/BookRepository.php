@@ -7,11 +7,11 @@ namespace Talesweaver\Integration\Repository;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Doctrine\Repository\BookRepository as DoctrineRepository;
-use Talesweaver\Doctrine\UserProvider;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Books;
 use Talesweaver\Integration\Repository\Interfaces\LatestChangesAwareRepository;
 use Talesweaver\Integration\Repository\Interfaces\RequestSecuredRepository;
+use Talesweaver\Integration\Repository\Provider\UserProvider;
 
 class BookRepository implements Books, LatestChangesAwareRepository, RequestSecuredRepository
 {

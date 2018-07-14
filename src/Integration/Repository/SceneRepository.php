@@ -8,12 +8,12 @@ use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Talesweaver\Doctrine\Repository\SceneRepository as DoctrineRepository;
-use Talesweaver\Doctrine\UserProvider;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\Scenes;
 use Talesweaver\Integration\Repository\Interfaces\LatestChangesAwareRepository;
 use Talesweaver\Integration\Repository\Interfaces\RequestSecuredRepository;
+use Talesweaver\Integration\Repository\Provider\UserProvider;
 
 class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSecuredRepository
 {

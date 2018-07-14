@@ -7,11 +7,11 @@ namespace Talesweaver\Integration\Repository;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Doctrine\Repository\EventRepository as DoctrineRepository;
-use Talesweaver\Doctrine\UserProvider;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Events;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Repository\Interfaces\RequestSecuredRepository;
+use Talesweaver\Integration\Repository\Provider\UserProvider;
 
 class EventRepository implements Events, RequestSecuredRepository
 {
