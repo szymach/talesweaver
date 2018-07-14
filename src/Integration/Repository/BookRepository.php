@@ -39,8 +39,8 @@ class BookRepository implements Books, LatestChangesAwareRepository, RequestSecu
     public function find(UuidInterface $id): ?Book
     {
         return $this->doctrineRepository->findOneBy([
-            'id' => (string) $id,
-            'createdBy' => $this->userProvider->fetchCurrentUser()->getAuthor()
+            'id' => $id->toString(),
+            'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
         ]);
     }
 
@@ -56,21 +56,21 @@ class BookRepository implements Books, LatestChangesAwareRepository, RequestSecu
             ->delete()
             ->where('d.id = :id')
             ->getQuery()
-            ->execute(['id' => (string) $id])
+            ->execute(['id' => $id->toString()])
         ;
     }
 
     public function createQueryBuilder(): QueryBuilder
     {
-        return $this->doctrineRepository->createByUserQueryBuilder(
-            $this->userProvider->fetchCurrentUser()
+        return $this->doctrineRepository->createByAuthorQueryBuilder(
+            $this->userProvider->fetchCurrentUsersAuthor()
         );
     }
 
     public function findLatest(string $locale, string $label = 'title', int $limit = 5): array
     {
         return $this->doctrineRepository->findLatest(
-            $this->userProvider->fetchCurrentUser(),
+            $this->userProvider->fetchCurrentUsersAuthor(),
             $locale,
             $label,
             $limit
@@ -80,7 +80,7 @@ class BookRepository implements Books, LatestChangesAwareRepository, RequestSecu
     public function entityExists(array $parameters, ?UuidInterface $id): bool
     {
         return $this->doctrineRepository->entityExists(
-            $this->userProvider->fetchCurrentUser(),
+            $this->userProvider->fetchCurrentUsersAuthor(),
             $parameters,
             $id
         );

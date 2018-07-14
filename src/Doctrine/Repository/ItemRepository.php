@@ -8,8 +8,8 @@ use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository;
 use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Doctrine\Entity\User;
 
 class ItemRepository extends TranslatableRepository
 {
@@ -18,18 +18,18 @@ class ItemRepository extends TranslatableRepository
      */
     private $joinAliasCount = 0;
 
-    public function byCurrentUserForSceneQueryBuilder(User $user, Scene $scene): QueryBuilder
+    public function byCurrentAuthorForSceneQueryBuilder(Author $author, Scene $scene): QueryBuilder
     {
         return $this->createTranslatableQueryBuilder('i')
             ->where(':scene MEMBER OF i.scenes')
             ->andWhere('i.createdBy = :author')
             ->orderBy('t.name', 'ASC')
             ->setParameter('scene', $scene)
-            ->setParameter('author', $user->getAuthor())
+            ->setParameter('author', $author)
         ;
     }
 
-    public function byCurrentUserRelatedQueryBuilder(User $user, Scene $scene): QueryBuilder
+    public function byCurrentAuthorRelatedQueryBuilder(Author $author, Scene $scene): QueryBuilder
     {
         $qb = $this->createTranslatableQueryBuilder('i');
         return $qb->leftJoin('i.scenes', 's')
@@ -44,11 +44,11 @@ class ItemRepository extends TranslatableRepository
             ->orderBy('t.name', 'ASC')
             ->setParameter('chapter', $scene->getChapter())
             ->setParameter('scene', $scene)
-            ->setParameter('author', $user->getAuthor())
+            ->setParameter('author', $author)
         ;
     }
 
-    public function byCurrentUserRelatedToScenesQueryBuilder(User $user, array $scenes): QueryBuilder
+    public function byCurrentAuthorRelatedToScenesQueryBuilder(Author $author, array $scenes): QueryBuilder
     {
         return $this->createTranslatableQueryBuilder('i')
             ->join('i.scenes', 's')
@@ -56,12 +56,12 @@ class ItemRepository extends TranslatableRepository
             ->andWhere(':scenes MEMBER OF i.scenes')
             ->orderBy('t.name', 'ASC')
             ->setParameter('scenes', $scenes)
-            ->setParameter('author', $user->getAuthor())
+            ->setParameter('author', $author)
         ;
     }
 
     public function findLatest(
-        User $user,
+        Author $author,
         string $locale,
         string $label = 'title',
         int $limit = 5
@@ -77,14 +77,14 @@ class ItemRepository extends TranslatableRepository
             ->where('e.createdBy = :author')
             ->orderBy('date', 'DESC')
             ->setParameter('locale', $locale)
-            ->setParameter('author', $user->getAuthor())
+            ->setParameter('author', $author)
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
         ;
     }
 
-    public function entityExists(User $user, array $parameters, ?UuidInterface $id): bool
+    public function entityExists(Author $author, array $parameters, ?UuidInterface $id): bool
     {
         $qb = $this->getEntityManager()
             ->createQueryBuilder()
@@ -92,7 +92,7 @@ class ItemRepository extends TranslatableRepository
             ->from($this->getEntityName(), 'e')
             ->join('e.translations', 't')
             ->where('e.createdBy = :author')
-            ->setParameter('author', $user->getAuthor())
+            ->setParameter('author', $author)
         ;
 
         if (null !== $id) {
@@ -118,6 +118,6 @@ class ItemRepository extends TranslatableRepository
             }
         }
 
-        return (int) $qb->getQuery()->getSingleScalarResult() !== 0;
+        return 0 !== (int) $qb->getQuery()->getSingleScalarResult();
     }
 }

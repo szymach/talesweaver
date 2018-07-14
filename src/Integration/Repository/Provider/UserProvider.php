@@ -6,6 +6,7 @@ namespace Talesweaver\Integration\Repository\Provider;
 
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Talesweaver\Domain\Author;
 use Talesweaver\Integration\Doctrine\Entity\User;
 
 class UserProvider
@@ -20,13 +21,15 @@ class UserProvider
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function fetchCurrentUser(): User
+    public function fetchCurrentUsersAuthor(): Author
     {
         $token = $this->tokenStorage->getToken();
         if (null === $token || null === $token->getUser()) {
             throw new AccessDeniedException('No currently logged in user!');
         }
 
-        return $token->getUser();
+        /* @var $user User */
+        $user = $token->getUser();
+        return $user->getAuthor();
     }
 }

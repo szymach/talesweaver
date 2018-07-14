@@ -40,7 +40,7 @@ class ItemRepository implements Items, RequestSecuredRepository
     {
         return $this->doctrineRepository->findOneBy([
             'id' => $id,
-            'createdBy' => $this->userProvider->fetchCurrentUser()->getAuthor()
+            'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
         ]);
     }
 
@@ -56,30 +56,30 @@ class ItemRepository implements Items, RequestSecuredRepository
             ->delete()
             ->where('i.id = :id')
             ->getQuery()
-            ->execute(['id' => (string) $id])
+            ->execute(['id' => $id->toString()])
         ;
     }
 
     public function createForSceneQueryBuilder(Scene $scene): QueryBuilder
     {
-        return $this->doctrineRepository->byCurrentUserForSceneQueryBuilder(
-            $this->userProvider->fetchCurrentUser(),
+        return $this->doctrineRepository->byCurrentAuthorForSceneQueryBuilder(
+            $this->userProvider->fetchCurrentUsersAuthor(),
             $scene
         );
     }
 
     public function createRelatedQueryBuilder(Scene $scene): QueryBuilder
     {
-        return $this->doctrineRepository->byCurrentUserRelatedQueryBuilder(
-            $this->userProvider->fetchCurrentUser(),
+        return $this->doctrineRepository->byCurrentAuthorRelatedQueryBuilder(
+            $this->userProvider->fetchCurrentUsersAuthor(),
             $scene
         );
     }
 
     public function createRelatedToScenesQueryBuilder(array $scenes): QueryBuilder
     {
-        return $this->doctrineRepository->byCurrentUserRelatedToScenesQueryBuilder(
-            $this->userProvider->fetchCurrentUser(),
+        return $this->doctrineRepository->byCurrentAuthorRelatedToScenesQueryBuilder(
+            $this->userProvider->fetchCurrentUsersAuthor(),
             $scenes
         );
     }
@@ -87,7 +87,7 @@ class ItemRepository implements Items, RequestSecuredRepository
     public function entityExists(array $parameters, ?UuidInterface $id): bool
     {
         return $this->doctrineRepository->entityExists(
-            $this->userProvider->fetchCurrentUser(),
+            $this->userProvider->fetchCurrentUsersAuthor(),
             $parameters,
             $id
         );

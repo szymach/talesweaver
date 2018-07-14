@@ -42,7 +42,7 @@ class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSe
     {
         return $this->doctrineRepository->findOneBy([
             'id' => $id,
-            'createdBy' => $this->userProvider->fetchCurrentUser()->getAuthor()
+            'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
         ]);
     }
 
@@ -58,21 +58,21 @@ class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSe
             ->delete()
             ->where('s.id = :id')
             ->getQuery()
-            ->execute(['id' => (string) $id])
+            ->execute(['id' => $id->toString()])
         ;
     }
 
     public function createStandaloneQueryBuilder(): QueryBuilder
     {
-        return $this->doctrineRepository->byCurrentUserStandaloneQueryBuilder(
-            $this->userProvider->fetchCurrentUser()
+        return $this->doctrineRepository->byCurrentAuthorStandaloneQueryBuilder(
+            $this->userProvider->fetchCurrentUsersAuthor()
         );
     }
 
     public function createForChapterQb(Chapter $chapter): QueryBuilder
     {
-        return $this->doctrineRepository->byCurrentUserForChapterQb(
-            $this->userProvider->fetchCurrentUser(),
+        return $this->doctrineRepository->byCurrentAuthorForChapterQb(
+            $this->userProvider->fetchCurrentUsersAuthor(),
             $chapter
         );
     }
@@ -80,7 +80,7 @@ class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSe
     public function findLatest(string $locale, string $label = 'title', int $limit = 5): array
     {
         return $this->doctrineRepository->findLatest(
-            $this->userProvider->fetchCurrentUser(),
+            $this->userProvider->fetchCurrentUsersAuthor(),
             $locale,
             $label,
             $limit
@@ -90,7 +90,7 @@ class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSe
     public function entityExists(array $parameters, ?UuidInterface $id): bool
     {
         return $this->doctrineRepository->entityExists(
-            $this->userProvider->fetchCurrentUser(),
+            $this->userProvider->fetchCurrentUsersAuthor(),
             $parameters,
             $id
         );
@@ -98,7 +98,7 @@ class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSe
 
     public function firstCharacterOccurence(UuidInterface $id): string
     {
-        $currentUser = $this->userProvider->fetchCurrentUser();
+        $currentUser = $this->userProvider->fetchCurrentUsersAuthor();
         $result = $this->doctrineRepository->firstCharacterOccurence($currentUser, $id);
         if (null === $result) {
             throw new AccessDeniedException(sprintf(
@@ -113,7 +113,7 @@ class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSe
 
     public function firstItemOccurence(UuidInterface $id): string
     {
-        $currentUser = $this->userProvider->fetchCurrentUser();
+        $currentUser = $this->userProvider->fetchCurrentUsersAuthor();
         $result = $this->doctrineRepository->firstItemOccurence($currentUser, $id);
         if (null === $result) {
             throw new AccessDeniedException(sprintf(
@@ -128,7 +128,7 @@ class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSe
 
     public function firstLocationOccurence(UuidInterface $id): string
     {
-        $currentUser = $this->userProvider->fetchCurrentUser();
+        $currentUser = $this->userProvider->fetchCurrentUsersAuthor();
         $result = $this->doctrineRepository->firstLocationOccurence($currentUser, $id);
         if (null === $result) {
             throw new AccessDeniedException(sprintf(

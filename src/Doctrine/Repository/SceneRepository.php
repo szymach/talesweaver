@@ -8,33 +8,33 @@ use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository;
 use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Chapter;
-use Talesweaver\Integration\Doctrine\Entity\User;
 
 class SceneRepository extends TranslatableRepository
 {
-    public function byCurrentUserStandaloneQueryBuilder(User $user): QueryBuilder
+    public function byCurrentAuthorStandaloneQueryBuilder(Author $author): QueryBuilder
     {
         return $this->createQueryBuilder('s')
             ->where('s.createdBy = :author')
             ->andWhere('s.chapter IS NULL')
             ->orderBy('s.createdAt')
-            ->setParameter('author', $user->getAuthor())
+            ->setParameter('author', $author)
         ;
     }
 
-    public function byCurrentUserForChapterQb(User $user, Chapter $chapter): QueryBuilder
+    public function byCurrentAuthorForChapterQb(Author $author, Chapter $chapter): QueryBuilder
     {
         return $this->createQueryBuilder('s')
             ->where('s.chapter = :chapter')
             ->andWhere('s.createdBy = :author')
             ->orderBy('s.createdAt')
             ->setParameter('chapter', $chapter)
-            ->setParameter('author', $user->getAuthor())
+            ->setParameter('author', $author)
         ;
     }
 
-    public function firstCharacterOccurence(User $user, UuidInterface $id): string
+    public function firstCharacterOccurence(Author $author, UuidInterface $id): string
     {
         return $this->createFirstOccurenceQueryBuilder($user, $id)
             ->join('s.characters', 'c')
@@ -45,7 +45,7 @@ class SceneRepository extends TranslatableRepository
         ;
     }
 
-    public function firstItemOccurence(User $user, UuidInterface $id): string
+    public function firstItemOccurence(Author $author, UuidInterface $id): string
     {
         return $this->createFirstOccurenceQueryBuilder($user, $id)
             ->join('s.items', 'i')
@@ -56,7 +56,7 @@ class SceneRepository extends TranslatableRepository
         ;
     }
 
-    public function firstLocationOccurence(User $user, UuidInterface $id): string
+    public function firstLocationOccurence(Author $author, UuidInterface $id): string
     {
         return $this->createFirstOccurenceQueryBuilder($user, $id)
             ->join('s.locations', 'l')
@@ -67,7 +67,7 @@ class SceneRepository extends TranslatableRepository
         ;
     }
 
-    private function createFirstOccurenceQueryBuilder(User $user, UuidInterface $id): QueryBuilder
+    private function createFirstOccurenceQueryBuilder(Author $author, UuidInterface $id): QueryBuilder
     {
         return $this->getEntityManager()
             ->createQueryBuilder()
@@ -76,13 +76,13 @@ class SceneRepository extends TranslatableRepository
             ->join('s.translations', 'st')
             ->where('s.createdBy = :author')
             ->setParameter('id', $id)
-            ->setParameter('author', $user->getAuthor())
+            ->setParameter('author', $author)
             ->setMaxResults(1)
         ;
     }
 
     public function findLatest(
-        User $user,
+        Author $author,
         string $locale,
         string $label = 'title',
         int $limit = 5
@@ -98,14 +98,14 @@ class SceneRepository extends TranslatableRepository
             ->where('e.createdBy = :author')
             ->orderBy('date', 'DESC')
             ->setParameter('locale', $locale)
-            ->setParameter('author', $user->getAuthor())
+            ->setParameter('author', $author)
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
         ;
     }
 
-    public function entityExists(User $user, array $parameters, ?UuidInterface $id): bool
+    public function entityExists(Author $author, array $parameters, ?UuidInterface $id): bool
     {
         $qb = $this->getEntityManager()
             ->createQueryBuilder()
@@ -113,7 +113,7 @@ class SceneRepository extends TranslatableRepository
             ->from($this->getEntityName(), 'e')
             ->join('e.translations', 't')
             ->where('e.createdBy = :author')
-            ->setParameter('author', $user->getAuthor())
+            ->setParameter('author', $author)
         ;
 
         if (null !== $id) {
@@ -139,6 +139,6 @@ class SceneRepository extends TranslatableRepository
             }
         }
 
-        return (int) $qb->getQuery()->getSingleScalarResult() !== 0;
+        return 0 !== (int) $qb->getQuery()->getSingleScalarResult();
     }
 }

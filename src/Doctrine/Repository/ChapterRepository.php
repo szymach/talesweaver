@@ -8,42 +8,42 @@ use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository;
 use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Book;
-use Talesweaver\Integration\Doctrine\Entity\User;
 
 class ChapterRepository extends TranslatableRepository
 {
-    public function allAvailableByUserQueryBuilder(User $user): QueryBuilder
+    public function allAvailableByAuthorQueryBuilder(Author $author): QueryBuilder
     {
         return $this->createQueryBuilder('c')
             ->where('c.createdBy = :author')
             ->orderBy('c.book')
-            ->setParameter('author', $user->getAuthor())
+            ->setParameter('author', $author)
         ;
     }
 
-    public function byCurrentUserQueryBuilder(User $user): QueryBuilder
+    public function byCurrentAuthorQueryBuilder(Author $author): QueryBuilder
     {
         return $this->createQueryBuilder('c')
             ->where('c.createdBy = :author')
             ->andWhere('c.book IS NULL')
-            ->setParameter('author', $user->getAuthor())
+            ->setParameter('author', $author)
         ;
     }
 
-    public function byCurrentUserForBookQueryBuilder(User $user, Book $book): QueryBuilder
+    public function byCurrentAuthorForBookQueryBuilder(Author $author, Book $book): QueryBuilder
     {
         return $this->createQueryBuilder('c')
             ->where('c.book = :book')
             ->andWhere('c.createdBy = :author')
             ->orderBy('c.createdAt')
             ->setParameter('book', $book)
-            ->setParameter('author', $user->getAuthor())
+            ->setParameter('author', $author)
         ;
     }
 
     public function findLatest(
-        User $user,
+        Author $author,
         string $locale,
         string $label = 'title',
         int $limit = 5
@@ -59,14 +59,14 @@ class ChapterRepository extends TranslatableRepository
             ->where('e.createdBy = :author')
             ->orderBy('date', 'DESC')
             ->setParameter('locale', $locale)
-            ->setParameter('author', $user->getAuthor())
+            ->setParameter('author', $author)
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
         ;
     }
 
-    public function entityExists(User $user, array $parameters, ?UuidInterface $id): bool
+    public function entityExists(Author $author, array $parameters, ?UuidInterface $id): bool
     {
         $qb = $this->getEntityManager()
             ->createQueryBuilder()
@@ -74,7 +74,7 @@ class ChapterRepository extends TranslatableRepository
             ->from($this->getEntityName(), 'e')
             ->join('e.translations', 't')
             ->where('e.createdBy = :author')
-            ->setParameter('author', $user->getAuthor())
+            ->setParameter('author', $author)
         ;
 
         if (null !== $id) {
@@ -100,6 +100,6 @@ class ChapterRepository extends TranslatableRepository
             }
         }
 
-        return (int) $qb->getQuery()->getSingleScalarResult() !== 0;
+        return 0 !== (int) $qb->getQuery()->getSingleScalarResult();
     }
 }

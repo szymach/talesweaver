@@ -40,7 +40,7 @@ class EventRepository implements Events, RequestSecuredRepository
     {
         return $this->doctrineRepository->findOneBy([
             'id' => $id,
-            'createdBy' => $this->userProvider->fetchCurrentUser()->getAuthor()
+            'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
         ]);
     }
 
@@ -56,14 +56,14 @@ class EventRepository implements Events, RequestSecuredRepository
             ->delete()
             ->where('e.id = :id')
             ->getQuery()
-            ->execute(['id' => (string) $id])
+            ->execute(['id' => $id->toString()])
         ;
     }
 
     public function createForSceneQueryBuilder(Scene $scene): QueryBuilder
     {
         return $this->doctrineRepository->createForSceneQueryBuilder(
-            $this->userProvider->fetchCurrentUser(),
+            $this->userProvider->fetchCurrentUsersAuthor(),
             $scene
         );
     }
@@ -71,7 +71,7 @@ class EventRepository implements Events, RequestSecuredRepository
     public function findInEventsById(UuidInterface $id): array
     {
         return $this->doctrineRepository->findInEventsById(
-            $this->userProvider->fetchCurrentUser(),
+            $this->userProvider->fetchCurrentUsersAuthor(),
             $id
         );
     }
@@ -79,7 +79,7 @@ class EventRepository implements Events, RequestSecuredRepository
     public function entityExists(array $parameters, ?UuidInterface $id): bool
     {
         return $this->doctrineRepository->entityExists(
-            $this->userProvider->fetchCurrentUser(),
+            $this->userProvider->fetchCurrentUsersAuthor(),
             $parameters,
             $id
         );

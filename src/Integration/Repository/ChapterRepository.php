@@ -40,8 +40,8 @@ class ChapterRepository implements Chapters, LatestChangesAwareRepository, Reque
     public function find(UuidInterface $id): ?Chapter
     {
         return $this->doctrineRepository->findOneBy([
-            'id' => (string) $id,
-            'createdBy' => $this->userProvider->fetchCurrentUser()->getAuthor()
+            'id' => $id->toString(),
+            'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
         ]);
     }
 
@@ -57,28 +57,28 @@ class ChapterRepository implements Chapters, LatestChangesAwareRepository, Reque
             ->delete()
             ->where('c.id = :id')
             ->getQuery()
-            ->execute(['id' => (string) $id])
+            ->execute(['id' => $id->toString()])
         ;
     }
 
     public function createAllAvailableQueryBuilder(): QueryBuilder
     {
-        return $this->doctrineRepository->allAvailableByUserQueryBuilder(
-            $this->userProvider->fetchCurrentUser()
+        return $this->doctrineRepository->allAvailableByAuthorQueryBuilder(
+            $this->userProvider->fetchCurrentUsersAuthor()
         );
     }
 
     public function createStandaloneQueryBuilder(): QueryBuilder
     {
-        return $this->doctrineRepository->byCurrentUserQueryBuilder(
-            $this->userProvider->fetchCurrentUser()
+        return $this->doctrineRepository->byCurrentAuthorQueryBuilder(
+            $this->userProvider->fetchCurrentUsersAuthor()
         );
     }
 
     public function createForBookQb(Book $book): QueryBuilder
     {
-        return $this->doctrineRepository->byCurrentUserForBookQueryBuilder(
-            $this->userProvider->fetchCurrentUser(),
+        return $this->doctrineRepository->byCurrentAuthorForBookQueryBuilder(
+            $this->userProvider->fetchCurrentUsersAuthor(),
             $book
         );
     }
@@ -86,7 +86,7 @@ class ChapterRepository implements Chapters, LatestChangesAwareRepository, Reque
     public function findLatest(string $locale, string $label = 'title', int $limit = 5): array
     {
         return $this->doctrineRepository->findLatest(
-            $this->userProvider->fetchCurrentUser(),
+            $this->userProvider->fetchCurrentUsersAuthor(),
             $locale,
             $label,
             $limit
@@ -96,7 +96,7 @@ class ChapterRepository implements Chapters, LatestChangesAwareRepository, Reque
     public function entityExists(array $parameters, ?UuidInterface $id): bool
     {
         return $this->doctrineRepository->entityExists(
-            $this->userProvider->fetchCurrentUser(),
+            $this->userProvider->fetchCurrentUsersAuthor(),
             $parameters,
             $id
         );

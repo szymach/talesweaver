@@ -8,7 +8,7 @@ use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository;
 use Ramsey\Uuid\UuidInterface;
-use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Domain\Author;
 
 class BookRepository extends TranslatableRepository
 {
@@ -17,16 +17,13 @@ class BookRepository extends TranslatableRepository
      */
     private $joinAliasCount = 0;
 
-    public function createByUserQueryBuilder(User $user): QueryBuilder
+    public function createByAuthorQueryBuilder(Author $author): QueryBuilder
     {
-        return $this->createQueryBuilder('b')
-            ->where('b.createdBy = :author')
-            ->setParameter('author', $user->getAuthor())
-        ;
+        return $this->createQueryBuilder('b')->where('b.createdBy = :author')->setParameter('author', $author);
     }
 
     public function findLatest(
-        User $user,
+        Author $author,
         string $locale,
         string $label = 'title',
         int $limit = 5
@@ -42,14 +39,14 @@ class BookRepository extends TranslatableRepository
             ->where('e.createdBy = :author')
             ->orderBy('date', 'DESC')
             ->setParameter('locale', $locale)
-            ->setParameter('author', $user->getAuthor())
+            ->setParameter('author', $author)
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
         ;
     }
 
-    public function entityExists(User $user, array $parameters, ?UuidInterface $id): bool
+    public function entityExists(Author $author, array $parameters, ?UuidInterface $id): bool
     {
         $qb = $this->getEntityManager()
             ->createQueryBuilder()
@@ -57,7 +54,7 @@ class BookRepository extends TranslatableRepository
             ->from($this->getEntityName(), 'e')
             ->join('e.translations', 't')
             ->where('e.createdBy = :author')
-            ->setParameter('author', $user->getAuthor())
+            ->setParameter('author', $author)
         ;
 
         if (null !== $id) {
@@ -83,6 +80,6 @@ class BookRepository extends TranslatableRepository
             }
         }
 
-        return (int) $qb->getQuery()->getSingleScalarResult() !== 0;
+        return 0 !== (int) $qb->getQuery()->getSingleScalarResult();
     }
 }
