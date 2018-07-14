@@ -1,6 +1,6 @@
 <?php
 
-namespace Talesweaver\Integration\Command;
+namespace Talesweaver\Integration\Bus\Command;
 
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;

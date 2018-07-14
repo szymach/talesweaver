@@ -7,29 +7,29 @@ services:
 
     # User handlers
     app.command.user.create:
-        class: Talesweaver\Integration\Command\CreateUserHandler
+        class: Talesweaver\Integration\Bus\Command\CreateUserHandler
         tags:
-            - { name: command_handler, handles: Talesweaver\Integration\Command\CreateUser }
+            - { name: command_handler, handles: Talesweaver\Integration\Bus\Command\CreateUser }
 
     app.command.user.activate:
-        class: Talesweaver\Integration\Command\ActivateUserHandler
+        class: Talesweaver\Integration\Bus\Command\ActivateUserHandler
         tags:
-            - { name: command_handler, handles: Talesweaver\Integration\Command\ActivateUser }
+            - { name: command_handler, handles: Talesweaver\Integration\Bus\Command\ActivateUser }
 
     app.command.user.password_reset.request:
-        class: Talesweaver\Integration\Command\GeneratePasswordResetTokenHandler
+        class: Talesweaver\Integration\Bus\Command\GeneratePasswordResetTokenHandler
         tags:
-            - { name: command_handler, handles: Talesweaver\Integration\Command\GeneratePasswordResetToken }
+            - { name: command_handler, handles: Talesweaver\Integration\Bus\Command\GeneratePasswordResetToken }
 
     app.command.user.password_reset.change:
-        class: Talesweaver\Integration\Command\ResetPasswordHandler
+        class: Talesweaver\Integration\Bus\Command\ResetPasswordHandler
         tags:
-            - { name: command_handler, handles: Talesweaver\Integration\Command\ResetPassword }
+            - { name: command_handler, handles: Talesweaver\Integration\Bus\Command\ResetPassword }
 
     app.command.user.change_password:
-        class: Talesweaver\Integration\Command\ChangePasswordHandler
+        class: Talesweaver\Integration\Bus\Command\ChangePasswordHandler
         tags:
-            - { name: command_handler, handles: Talesweaver\Integration\Command\ChangePassword }
+            - { name: command_handler, handles: Talesweaver\Integration\Bus\Command\ChangePassword }
 
     # Book handlers
     app.command.book.create:

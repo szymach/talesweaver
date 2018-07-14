@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
-use Talesweaver\Integration\Command\GeneratePasswordResetToken;
+use Talesweaver\Integration\Bus\Command\GeneratePasswordResetToken;
 use Talesweaver\Integration\Symfony\Form\Security\ResetPasswordRequestType;
 
 class ResetPasswordRequestController

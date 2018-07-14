@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Talesweaver\Integration\Command\ChangePassword;
+use Talesweaver\Integration\Bus\Command\ChangePassword;
 use Talesweaver\Integration\Doctrine\Entity\User;
 use Talesweaver\Integration\Symfony\Form\Security\ChangePasswordType;
 

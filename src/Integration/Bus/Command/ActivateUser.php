@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Integration\Command;
+namespace Talesweaver\Integration\Bus\Command;
 
 use DomainException;
 use Talesweaver\Application\Messages\Message;
