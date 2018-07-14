@@ -8,6 +8,6 @@ class CommandHandler
 {
     public function handle(Command $command): void
     {
-        $command->perform();
+        $command->getBook()->edit($command->getDto()->getTitle(), $command->getDto()->getDescription());
     }
 }

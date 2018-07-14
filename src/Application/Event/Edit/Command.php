@@ -29,11 +29,6 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
         $this->dto = $dto;
     }
 
-    public function perform(): void
-    {
-        $this->event->edit($this->dto->getName(), $this->dto->getModel(), $this->dto->getScene());
-    }
-
     public function isAllowed(Author $author): bool
     {
         return $this->event->getCreatedBy()->getId() === $author->getId();
@@ -42,5 +37,15 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
     public function getMessage(): Message
     {
         return new EditionSuccessMessage('event');
+    }
+
+    public function getEvent(): Event
+    {
+        return $this->event;
+    }
+
+    public function getDto(): DTO
+    {
+        return $this->dto;
     }
 }

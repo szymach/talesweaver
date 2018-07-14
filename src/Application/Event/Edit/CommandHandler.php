@@ -8,6 +8,10 @@ class CommandHandler
 {
     public function handle(Command $command): void
     {
-        $command->perform();
+        $command->getEvent()->edit(
+            $command->getDto()->getName(),
+            $command->getDto()->getModel(),
+            $command->getDto()->getScene()
+        );
     }
 }

@@ -8,6 +8,10 @@ class CommandHandler
 {
     public function handle(Command $command)
     {
-        $command->perform();
+        $command->getItem()->edit(
+            $command->getDto()->getName(),
+            $command->getDto()->getDescription(),
+            $command->getDto()->getAvatar()
+        );
     }
 }

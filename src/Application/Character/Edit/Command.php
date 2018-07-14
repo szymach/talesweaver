@@ -29,15 +29,6 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
         $this->character = $character;
     }
 
-    public function perform(): void
-    {
-        $this->character->edit(
-            $this->dto->getName(),
-            $this->dto->getDescription(),
-            $this->dto->getAvatar()
-        );
-    }
-
     public function isAllowed(Author $author): bool
     {
         return $author->getId() === $this->character->getCreatedBy()->getId();
@@ -46,5 +37,15 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
     public function getMessage(): Message
     {
         return new EditionSuccessMessage('character');
+    }
+
+    public function getDto(): DTO
+    {
+        return $this->dto;
+    }
+
+    public function getCharacter(): Character
+    {
+        return $this->character;
     }
 }

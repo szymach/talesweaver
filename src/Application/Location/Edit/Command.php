@@ -29,15 +29,6 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
         $this->location = $location;
     }
 
-    public function perform(): void
-    {
-        $this->location->edit(
-            $this->dto->getName(),
-            $this->dto->getDescription(),
-            $this->dto->getAvatar()
-        );
-    }
-
     public function isAllowed(Author $author): bool
     {
         return $this->location->getCreatedBy()->getId() === $author->getId();
@@ -46,5 +37,15 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
     public function getMessage(): Message
     {
         return new EditionSuccessMessage('location');
+    }
+
+    public function getDto(): DTO
+    {
+        return $this->dto;
+    }
+
+    public function getLocation(): Location
+    {
+        return $this->location;
     }
 }

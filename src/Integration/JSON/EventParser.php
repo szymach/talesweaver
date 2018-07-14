@@ -8,7 +8,6 @@ use JsonSerializable;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Talesweaver\Domain\Character;
-use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Location;
 use Talesweaver\Integration\Repository\CharacterRepository;
