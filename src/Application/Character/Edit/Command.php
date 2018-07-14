@@ -7,11 +7,11 @@ namespace Talesweaver\Application\Character\Edit;
 use Talesweaver\Application\Messages\EditionSuccessMessage;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
-use Talesweaver\Domain\Security\UserAccessInterface;
+use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Character;
-use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Domain\Security\AuthorAccessInterface;
 
-class Command implements MessageCommandInterface, UserAccessInterface
+class Command implements AuthorAccessInterface, MessageCommandInterface
 {
     /**
      * @var DTO
@@ -38,9 +38,9 @@ class Command implements MessageCommandInterface, UserAccessInterface
         );
     }
 
-    public function isAllowed(User $user): bool
+    public function isAllowed(Author $author): bool
     {
-        return $user->getAuthor()->getId() === $this->character->getCreatedBy()->getId();
+        return $author->getId() === $this->character->getCreatedBy()->getId();
     }
 
     public function getMessage(): Message

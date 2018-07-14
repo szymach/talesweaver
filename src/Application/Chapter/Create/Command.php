@@ -9,11 +9,11 @@ use Talesweaver\Application\Messages\CreationSuccessMessage;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Application\Security\Traits\AuthorAwareTrait;
-use Talesweaver\Domain\Security\UserAccessInterface;
+use Talesweaver\Domain\Author;
+use Talesweaver\Domain\Security\AuthorAccessInterface;
 use Talesweaver\Domain\Security\AuthorAwareInterface;
-use Talesweaver\Integration\Doctrine\Entity\User;
 
-class Command implements MessageCommandInterface, UserAccessInterface, AuthorAwareInterface
+class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCommandInterface
 {
     use AuthorAwareTrait;
 
@@ -43,10 +43,13 @@ class Command implements MessageCommandInterface, UserAccessInterface, AuthorAwa
         return $this->dto;
     }
 
-    public function isAllowed(User $user): bool
+    /**
+     * @todo missing testcase
+     */
+    public function isAllowed(Author $author): bool
     {
         $book = $this->dto->getBook();
-        return !$book || $book->getCreatedBy()->getId() === $user->getId();
+        return null === $book || $book->getCreatedBy()->getId() === $author->getId();
     }
 
     public function getMessage(): Message

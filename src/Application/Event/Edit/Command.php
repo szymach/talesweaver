@@ -7,11 +7,11 @@ namespace Talesweaver\Application\Event\Edit;
 use Talesweaver\Application\Messages\EditionSuccessMessage;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
-use Talesweaver\Domain\Security\UserAccessInterface;
+use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Event;
-use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Domain\Security\AuthorAccessInterface;
 
-class Command implements MessageCommandInterface, UserAccessInterface
+class Command implements AuthorAccessInterface, MessageCommandInterface
 {
     /**
      * @var Event
@@ -34,9 +34,9 @@ class Command implements MessageCommandInterface, UserAccessInterface
         $this->event->edit($this->dto->getName(), $this->dto->getModel(), $this->dto->getScene());
     }
 
-    public function isAllowed(User $user): bool
+    public function isAllowed(Author $author): bool
     {
-        return $this->event->getCreatedBy()->getId() === $user->getAuthor()->getId();
+        return $this->event->getCreatedBy()->getId() === $author->getId();
     }
 
     public function getMessage(): Message

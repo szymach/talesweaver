@@ -8,10 +8,10 @@ use RuntimeException;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Talesweaver\Domain\Security\UserAccessInterface;
+use Talesweaver\Domain\Security\AuthorAccessInterface;
 use Talesweaver\Integration\Doctrine\Entity\User;
 
-class UserAccessBus implements MessageBus
+class AuthorAccessBus implements MessageBus
 {
     /**
      * @var MessageBus
@@ -26,7 +26,7 @@ class UserAccessBus implements MessageBus
 
     public function handle($message): void
     {
-        if (true === $message instanceof UserAccessInterface) {
+        if (true === $message instanceof AuthorAccessInterface) {
             $user = $this->getUser();
             if (null === $user) {
                 throw new RuntimeException(
@@ -34,7 +34,7 @@ class UserAccessBus implements MessageBus
                 );
             }
 
-            if (false === $message->isAllowed($user)) {
+            if (false === $message->isAllowed($user->getAuthor())) {
                 throw new AccessDeniedException(sprintf(
                     'Access denied to command "%s" for user "%s"',
                     get_class($message),

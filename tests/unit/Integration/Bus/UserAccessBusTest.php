@@ -12,9 +12,9 @@ use stdClass;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Talesweaver\Domain\Security\UserAccessInterface;
+use Talesweaver\Domain\Security\AuthorAccessInterface;
 use Talesweaver\Integration\Doctrine\Entity\User;
-use Talesweaver\Integration\Bus\UserAccessBus;
+use Talesweaver\Integration\Bus\AuthorAccessBus;
 
 class UserAccessBusTest extends TestCase
 {
@@ -30,13 +30,13 @@ class UserAccessBusTest extends TestCase
 
     public function testNoUserException()
     {
-        $message = $this->createMock(UserAccessInterface::class);
+        $message = $this->createMock(AuthorAccessInterface::class);
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage(sprintf('No user set when executing command "%s"', get_class($message)));
 
         $this->messageBus->expects($this->never())->method('handle');
 
-        $bus = new UserAccessBus($this->messageBus, $this->tokenStorage);
+        $bus = new AuthorAccessBus($this->messageBus, $this->tokenStorage);
         $bus->handle($message);
     }
 
@@ -47,7 +47,7 @@ class UserAccessBusTest extends TestCase
         $this->tokenStorage->expects($this->never())->method('getToken');
         $this->messageBus->expects($this->once())->method('handle')->with($message);
 
-        $bus = new UserAccessBus($this->messageBus, $this->tokenStorage);
+        $bus = new AuthorAccessBus($this->messageBus, $this->tokenStorage);
         $bus->handle($message);
     }
 
@@ -60,11 +60,11 @@ class UserAccessBusTest extends TestCase
 
         $this->tokenStorage->expects($this->exactly(2))->method('getToken')->willReturn($token);
 
-        $message = $this->createMock(UserAccessInterface::class);
+        $message = $this->createMock(AuthorAccessInterface::class);
         $message->expects($this->once())->method('isAllowed')->with($user)->willReturn(true);
         $this->messageBus->expects($this->once())->method('handle')->with($message);
 
-        $bus = new UserAccessBus($this->messageBus, $this->tokenStorage);
+        $bus = new AuthorAccessBus($this->messageBus, $this->tokenStorage);
         $bus->handle($message);
     }
 
@@ -80,7 +80,7 @@ class UserAccessBusTest extends TestCase
 
         $this->tokenStorage->expects($this->exactly(2))->method('getToken')->willReturn($token);
 
-        $message = $this->createMock(UserAccessInterface::class);
+        $message = $this->createMock(AuthorAccessInterface::class);
         $message->expects($this->once())->method('isAllowed')->with($user)->willReturn(false);
 
         $this->expectException(AccessDeniedException::class);
@@ -89,7 +89,7 @@ class UserAccessBusTest extends TestCase
             get_class($message)
         ));
 
-        $bus = new UserAccessBus($this->messageBus, $this->tokenStorage);
+        $bus = new AuthorAccessBus($this->messageBus, $this->tokenStorage);
         $bus->handle($message);
     }
 

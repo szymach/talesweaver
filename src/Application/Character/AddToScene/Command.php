@@ -7,12 +7,12 @@ namespace Talesweaver\Application\Character\AddToScene;
 use Talesweaver\Application\Messages\AddedToSceneSuccessMessage;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
-use Talesweaver\Domain\Security\UserAccessInterface;
+use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Domain\Security\AuthorAccessInterface;
 
-class Command implements MessageCommandInterface, UserAccessInterface
+class Command implements AuthorAccessInterface, MessageCommandInterface
 {
     /**
      * @var Scene
@@ -40,10 +40,10 @@ class Command implements MessageCommandInterface, UserAccessInterface
         return $this->character;
     }
 
-    public function isAllowed(User $user): bool
+    public function isAllowed(Author $author): bool
     {
         return $this->scene->getCreatedBy()->getId() === $this->character->getCreatedBy()->getId()
-            && $user->getAuthor()->getId() === $this->character->getCreatedBy()->getId()
+            && $author->getId() === $this->character->getCreatedBy()->getId()
         ;
     }
 

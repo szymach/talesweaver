@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Character\Delete;
 
+use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Messages\DeletionSuccessMessage;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
+use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Character;
-use Talesweaver\Integration\Doctrine\Entity\User;
-use Talesweaver\Domain\Security\UserAccessInterface;
-use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Domain\Security\AuthorAccessInterface;
 
-class Command implements MessageCommandInterface, UserAccessInterface
+class Command implements AuthorAccessInterface, MessageCommandInterface
 {
     /**
      * @var UuidInterface
@@ -41,9 +41,9 @@ class Command implements MessageCommandInterface, UserAccessInterface
         return $this->id;
     }
 
-    public function isAllowed(User $user): bool
+    public function isAllowed(Author $author): bool
     {
-        return $user->getAuthor()->getId() === $this->createdBy;
+        return $author->getId() === $this->createdBy;
     }
 
     public function getMessage(): Message

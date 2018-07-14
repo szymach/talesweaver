@@ -7,12 +7,12 @@ namespace Talesweaver\Application\Character\RemoveFromScene;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Application\Messages\RemovedFromSceneSuccessMessage;
-use Talesweaver\Domain\Security\UserAccessInterface;
+use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Domain\Security\AuthorAccessInterface;
 
-class Command implements MessageCommandInterface, UserAccessInterface
+class Command implements AuthorAccessInterface, MessageCommandInterface
 {
     /**
      * @var Character
@@ -40,10 +40,10 @@ class Command implements MessageCommandInterface, UserAccessInterface
         return $this->scene;
     }
 
-    public function isAllowed(User $user): bool
+    public function isAllowed(Author $author): bool
     {
         return $this->scene->getCreatedBy()->getId() === $this->character->getCreatedBy()->getId()
-            && $user->getAuthor()->getId() === $this->character->getCreatedBy()->getId()
+            && $author->getId() === $this->character->getCreatedBy()->getId()
         ;
     }
 

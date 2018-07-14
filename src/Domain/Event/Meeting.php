@@ -9,10 +9,9 @@ use JsonSerializable;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Location;
-use Talesweaver\Domain\Security\UserAccessInterface;
-use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Domain\Security\AuthorAccessInterface;
 
-class Meeting implements JsonSerializable, UserAccessInterface
+class Meeting implements JsonSerializable, AuthorAccessInterface
 {
     /**
      * @var Character
@@ -40,9 +39,8 @@ class Meeting implements JsonSerializable, UserAccessInterface
         ];
     }
 
-    public function isAllowed(User $user): bool
+    public function isAllowed(Author $author): bool
     {
-        $author = $user->getAuthor();
         return (null !== $this->root && $this->root->getCreatedBy() === $author)
             && (null !== $this->location && $this->location->getCreatedBy() === $author)
             && (null !== $this->relation && $this->relation->getCreatedBy() === $author)
