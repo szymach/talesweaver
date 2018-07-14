@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Character\AddToScene;
 
-use Talesweaver\Application\Messages\AddedToSceneSuccessMessage;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
+use Talesweaver\Application\Scene\Messages\AddedToSceneSuccessMessage;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Scene;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Application\Messages;
+namespace Talesweaver\Application\Scene\Messages;
 
 class RemovedFromSceneSuccessMessage extends Message
 {

@@ -6,7 +6,7 @@ namespace Talesweaver\Application\Character\RemoveFromScene;
 
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
-use Talesweaver\Application\Messages\RemovedFromSceneSuccessMessage;
+use Talesweaver\Application\Scene\Messages\RemovedFromSceneSuccessMessage;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Scene;
