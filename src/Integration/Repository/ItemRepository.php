@@ -6,7 +6,7 @@ namespace Talesweaver\Integration\Repository;
 
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
-use Talesweaver\Doctrine\Repository\ItemRepository as DoctrineRepository;
+use Talesweaver\DoctrineRepository\ItemRepository as DoctrineRepository;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Items;
 use Talesweaver\Domain\Scene;

@@ -4,7 +4,7 @@
                   xmlns:fsi="http://fsi.pl/schemas/orm/doctrine-extensions-mapping"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
 >
-    <entity repository-class="Talesweaver\Doctrine\Repository\CharacterRepository" name="Talesweaver\Domain\Character" table="character_entity">
+    <entity repository-class="Talesweaver\DoctrineRepository\CharacterRepository" name="Talesweaver\Domain\Character" table="character_entity">
 
         <fsi:translatable-locale field="locale" />
         <fsi:translatable-field field="name" mappedBy="translations" />

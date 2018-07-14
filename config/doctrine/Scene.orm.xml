@@ -4,7 +4,7 @@
                   xmlns:fsi="http://fsi.pl/schemas/orm/doctrine-extensions-mapping"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
 >
-    <entity repository-class="Talesweaver\Doctrine\Repository\SceneRepository" name="Talesweaver\Domain\Scene">
+    <entity repository-class="Talesweaver\DoctrineRepository\SceneRepository" name="Talesweaver\Domain\Scene">
 
         <fsi:translatable-locale field="locale" />
         <fsi:translatable-field field="title" mappedBy="translations" />

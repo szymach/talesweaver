@@ -7,10 +7,10 @@ layers:
     collectors:
       - type: className
         regex: Talesweaver\\Application\\.*
-  - name: Doctrine
+  - name: DoctrineRepository
     collectors:
       - type: className
-        regex: Talesweaver\\Doctrine\\.*
+        regex: Talesweaver\\DoctrineRepository\\.*
   - name: Domain
     collectors:
       - type: className
@@ -26,15 +26,15 @@ layers:
 ruleset:
   Application:
     - Domain
-  Doctrine:
+  DoctrineRepository:
     - Domain
   Domain: ~
   Integration:
     - Application
-    - Doctrine
+    - DoctrineRepository
     - Domain
   Tests:
     - Application
+    - DoctrineRepository
     - Domain
-    - Doctrine
     - Integration

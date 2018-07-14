@@ -2,24 +2,43 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Doctrine\Repository;
+namespace Talesweaver\DoctrineRepository;
 
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
+use Talesweaver\Domain\Scene;
 
-class BookRepository extends TranslatableRepository
+class EventRepository extends TranslatableRepository
 {
     /**
      * @var int
      */
     private $joinAliasCount = 0;
 
-    public function createByAuthorQueryBuilder(Author $author): QueryBuilder
+    public function createForSceneQueryBuilder(Author $author, Scene $scene): QueryBuilder
     {
-        return $this->createQueryBuilder('b')->where('b.createdBy = :author')->setParameter('author', $author);
+        return $this->createTranslatableQueryBuilder('e')
+            ->where('e.scene = :scene')
+            ->andWhere('e.createdBy = :author')
+            ->orderBy('t.name', 'ASC')
+            ->setParameter('scene', $scene)
+            ->setParameter('author', $author)
+        ;
+    }
+
+    public function findInEventsById(Author $author, UuidInterface $id): array
+    {
+        return $this->createQueryBuilder('e')
+            ->where('e.model LIKE :id')
+            ->andWhere('e.createdBy = :author')
+            ->setParameter('id', sprintf('%%"%s"%%', $id))
+            ->setParameter('author', $author)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
     public function findLatest(

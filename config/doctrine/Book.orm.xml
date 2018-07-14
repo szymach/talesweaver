@@ -4,7 +4,7 @@
                   xmlns:fsi="http://fsi.pl/schemas/orm/doctrine-extensions-mapping"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
 >
-    <entity repository-class="Talesweaver\Doctrine\Repository\BookRepository" name="Talesweaver\Domain\Book">
+    <entity repository-class="Talesweaver\DoctrineRepository\BookRepository" name="Talesweaver\Domain\Book">
 
         <fsi:translatable-locale field="locale" />
         <fsi:translatable-field field="title" mappedBy="translations" />

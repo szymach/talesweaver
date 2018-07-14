@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Doctrine\Repository;
+namespace Talesweaver\DoctrineRepository;
 
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
@@ -11,7 +11,7 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Scene;
 
-class ItemRepository extends TranslatableRepository
+class CharacterRepository extends TranslatableRepository
 {
     /**
      * @var int
@@ -20,27 +20,25 @@ class ItemRepository extends TranslatableRepository
 
     public function byCurrentAuthorForSceneQueryBuilder(Author $author, Scene $scene): QueryBuilder
     {
-        return $this->createTranslatableQueryBuilder('i')
-            ->where(':scene MEMBER OF i.scenes')
-            ->andWhere('i.createdBy = :author')
+        return $this->createTranslatableQueryBuilder('c')
+            ->addSelect('t')
+            ->andWhere(':scene MEMBER OF c.scenes')
+            ->andWhere('c.createdBy = :author')
             ->orderBy('t.name', 'ASC')
-            ->setParameter('scene', $scene)
             ->setParameter('author', $author)
+            ->setParameter('scene', $scene)
         ;
     }
 
     public function byCurrentAuthorRelatedQueryBuilder(Author $author, Scene $scene): QueryBuilder
     {
-        $qb = $this->createTranslatableQueryBuilder('i');
-        return $qb->leftJoin('i.scenes', 's')
-            ->where('i.createdBy = :author')
-            ->andWhere(
-                $qb->expr()->andX(
-                    ':scene NOT MEMBER OF i.scenes',
-                    's.chapter = :chapter'
-                )
-            )
-            ->andWhere(':scene NOT MEMBER OF i.scenes')
+        $qb = $this->createTranslatableQueryBuilder('c');
+        return $qb->leftJoin('c.scenes', 's')
+            ->andWhere('c.createdBy = :author')
+            ->andWhere($qb->expr()->andX(
+                ':scene NOT MEMBER OF c.scenes',
+                's.chapter = :chapter'
+            ))
             ->orderBy('t.name', 'ASC')
             ->setParameter('chapter', $scene->getChapter())
             ->setParameter('scene', $scene)
@@ -50,10 +48,10 @@ class ItemRepository extends TranslatableRepository
 
     public function byCurrentAuthorRelatedToScenesQueryBuilder(Author $author, array $scenes): QueryBuilder
     {
-        return $this->createTranslatableQueryBuilder('i')
-            ->join('i.scenes', 's')
-            ->where('i.createdBy = :author')
-            ->andWhere(':scenes MEMBER OF i.scenes')
+        return $this->createTranslatableQueryBuilder('c')
+            ->join('c.scenes', 's')
+            ->andWhere('c.createdBy = :author')
+            ->andWhere(':scenes MEMBER OF c.scenes')
             ->orderBy('t.name', 'ASC')
             ->setParameter('scenes', $scenes)
             ->setParameter('author', $author)

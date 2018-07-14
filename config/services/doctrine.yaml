@@ -11,31 +11,31 @@ services:
         tags: [{ name: doctrine.orm.entity_listener }]
 
     # Entity repository
-    Talesweaver\Doctrine\Repository\BookRepository:
+    Talesweaver\DoctrineRepository\BookRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ Talesweaver\Domain\Book ]
 
-    Talesweaver\Doctrine\Repository\CharacterRepository:
+    Talesweaver\DoctrineRepository\CharacterRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ Talesweaver\Domain\Character ]
 
-    Talesweaver\Doctrine\Repository\ChapterRepository:
+    Talesweaver\DoctrineRepository\ChapterRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ Talesweaver\Domain\Chapter ]
 
-    Talesweaver\Doctrine\Repository\EventRepository:
+    Talesweaver\DoctrineRepository\EventRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ Talesweaver\Domain\Event ]
 
-    Talesweaver\Doctrine\Repository\ItemRepository:
+    Talesweaver\DoctrineRepository\ItemRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ Talesweaver\Domain\Item ]
 
-    Talesweaver\Doctrine\Repository\LocationRepository:
+    Talesweaver\DoctrineRepository\LocationRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ Talesweaver\Domain\Location ]
 
-    Talesweaver\Doctrine\Repository\SceneRepository:
+    Talesweaver\DoctrineRepository\SceneRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ Talesweaver\Domain\Scene ]
 

@@ -2,42 +2,43 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Doctrine\Repository;
+namespace Talesweaver\DoctrineRepository;
 
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
-use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\Book;
 
-class EventRepository extends TranslatableRepository
+class ChapterRepository extends TranslatableRepository
 {
-    /**
-     * @var int
-     */
-    private $joinAliasCount = 0;
-
-    public function createForSceneQueryBuilder(Author $author, Scene $scene): QueryBuilder
+    public function allAvailableByAuthorQueryBuilder(Author $author): QueryBuilder
     {
-        return $this->createTranslatableQueryBuilder('e')
-            ->where('e.scene = :scene')
-            ->andWhere('e.createdBy = :author')
-            ->orderBy('t.name', 'ASC')
-            ->setParameter('scene', $scene)
+        return $this->createQueryBuilder('c')
+            ->where('c.createdBy = :author')
+            ->orderBy('c.book')
             ->setParameter('author', $author)
         ;
     }
 
-    public function findInEventsById(Author $author, UuidInterface $id): array
+    public function byCurrentAuthorQueryBuilder(Author $author): QueryBuilder
     {
-        return $this->createQueryBuilder('e')
-            ->where('e.model LIKE :id')
-            ->andWhere('e.createdBy = :author')
-            ->setParameter('id', sprintf('%%"%s"%%', $id))
+        return $this->createQueryBuilder('c')
+            ->where('c.createdBy = :author')
+            ->andWhere('c.book IS NULL')
             ->setParameter('author', $author)
-            ->getQuery()
-            ->getResult()
+        ;
+    }
+
+    public function byCurrentAuthorForBookQueryBuilder(Author $author, Book $book): QueryBuilder
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.book = :book')
+            ->andWhere('c.createdBy = :author')
+            ->orderBy('c.createdAt')
+            ->setParameter('book', $book)
+            ->setParameter('author', $author)
         ;
     }
 

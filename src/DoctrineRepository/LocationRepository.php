@@ -2,42 +2,61 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Doctrine\Repository;
+namespace Talesweaver\DoctrineRepository;
 
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
-use Talesweaver\Domain\Book;
+use Talesweaver\Domain\Scene;
 
-class ChapterRepository extends TranslatableRepository
+class LocationRepository extends TranslatableRepository
 {
-    public function allAvailableByAuthorQueryBuilder(Author $author): QueryBuilder
+    /**
+     * @var int
+     */
+    private $joinAliasCount = 0;
+
+    public function byCurrentAuthorForSceneQueryBuilder(Author $author, Scene $scene): QueryBuilder
     {
-        return $this->createQueryBuilder('c')
-            ->where('c.createdBy = :author')
-            ->orderBy('c.book')
+        return $this->createTranslatableQueryBuilder('l')
+            ->andWhere(':scene MEMBER OF l.scenes')
+            ->andWhere('l.createdBy = :author')
+            ->orderBy('t.name', 'ASC')
+            ->setParameter('scene', $scene)
             ->setParameter('author', $author)
         ;
     }
 
-    public function byCurrentAuthorQueryBuilder(Author $author): QueryBuilder
+    public function byCurrentAuthorRelatedQueryBuilder(Author $author, Scene $scene): QueryBuilder
     {
-        return $this->createQueryBuilder('c')
-            ->where('c.createdBy = :author')
-            ->andWhere('c.book IS NULL')
+        $qb = $this->createTranslatableQueryBuilder('l');
+        return $qb->leftJoin('l.scenes', 's')
+            ->where('l.createdBy = :author')
+            ->andWhere(
+                $qb->expr()->andX(
+                    ':scene NOT MEMBER OF l.scenes',
+                    's.chapter = :chapter'
+                )
+            )
+            ->andWhere(':scene NOT MEMBER OF l.scenes')
+            ->orWhere('s.id IS NULL')
+            ->orderBy('t.name', 'ASC')
+            ->setParameter('chapter', $scene->getChapter())
+            ->setParameter('scene', $scene)
             ->setParameter('author', $author)
         ;
     }
 
-    public function byCurrentAuthorForBookQueryBuilder(Author $author, Book $book): QueryBuilder
+    public function byCurrentAuthorRelatedToScenesQueryBuilder(Author $author, array $scenes): QueryBuilder
     {
-        return $this->createQueryBuilder('c')
-            ->where('c.book = :book')
-            ->andWhere('c.createdBy = :author')
-            ->orderBy('c.createdAt')
-            ->setParameter('book', $book)
+        return $this->createTranslatableQueryBuilder('l')
+            ->join('l.scenes', 's')
+            ->where('l.createdBy = :author')
+            ->andWhere(':scenes MEMBER OF l.scenes')
+            ->orderBy('t.name', 'ASC')
+            ->setParameter('scenes', $scenes)
             ->setParameter('author', $author)
         ;
     }

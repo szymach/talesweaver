@@ -6,7 +6,7 @@ namespace Talesweaver\Integration\Repository;
 
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
-use Talesweaver\Doctrine\Repository\BookRepository as DoctrineRepository;
+use Talesweaver\DoctrineRepository\BookRepository as DoctrineRepository;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Books;
 use Talesweaver\Integration\Repository\Interfaces\LatestChangesAwareRepository;

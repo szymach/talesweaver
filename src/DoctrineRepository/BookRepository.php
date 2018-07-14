@@ -2,63 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Doctrine\Repository;
+namespace Talesweaver\DoctrineRepository;
 
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
-use Talesweaver\Domain\Scene;
 
-class LocationRepository extends TranslatableRepository
+class BookRepository extends TranslatableRepository
 {
     /**
      * @var int
      */
     private $joinAliasCount = 0;
 
-    public function byCurrentAuthorForSceneQueryBuilder(Author $author, Scene $scene): QueryBuilder
+    public function createByAuthorQueryBuilder(Author $author): QueryBuilder
     {
-        return $this->createTranslatableQueryBuilder('l')
-            ->andWhere(':scene MEMBER OF l.scenes')
-            ->andWhere('l.createdBy = :author')
-            ->orderBy('t.name', 'ASC')
-            ->setParameter('scene', $scene)
-            ->setParameter('author', $author)
-        ;
-    }
-
-    public function byCurrentAuthorRelatedQueryBuilder(Author $author, Scene $scene): QueryBuilder
-    {
-        $qb = $this->createTranslatableQueryBuilder('l');
-        return $qb->leftJoin('l.scenes', 's')
-            ->where('l.createdBy = :author')
-            ->andWhere(
-                $qb->expr()->andX(
-                    ':scene NOT MEMBER OF l.scenes',
-                    's.chapter = :chapter'
-                )
-            )
-            ->andWhere(':scene NOT MEMBER OF l.scenes')
-            ->orWhere('s.id IS NULL')
-            ->orderBy('t.name', 'ASC')
-            ->setParameter('chapter', $scene->getChapter())
-            ->setParameter('scene', $scene)
-            ->setParameter('author', $author)
-        ;
-    }
-
-    public function byCurrentAuthorRelatedToScenesQueryBuilder(Author $author, array $scenes): QueryBuilder
-    {
-        return $this->createTranslatableQueryBuilder('l')
-            ->join('l.scenes', 's')
-            ->where('l.createdBy = :author')
-            ->andWhere(':scenes MEMBER OF l.scenes')
-            ->orderBy('t.name', 'ASC')
-            ->setParameter('scenes', $scenes)
-            ->setParameter('author', $author)
-        ;
+        return $this->createQueryBuilder('b')->where('b.createdBy = :author')->setParameter('author', $author);
     }
 
     public function findLatest(

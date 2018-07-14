@@ -12,7 +12,7 @@
     "autoload": {
         "psr-4": {
             "Talesweaver\\Application\\": "src/Application/",
-            "Talesweaver\\Doctrine\\": "src/Doctrine/",
+            "Talesweaver\\DoctrineRepository\\": "src/DoctrineRepository/",
             "Talesweaver\\Domain\\": "src/Domain/",
             "Talesweaver\\Integration\\": "src/Integration/"
         },
