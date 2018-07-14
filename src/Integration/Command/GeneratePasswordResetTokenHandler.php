@@ -10,7 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
 use Talesweaver\Integration\Doctrine\Repository\PasswordResetTokenRepository;
 use Talesweaver\Integration\Doctrine\Repository\UserRepository;
-use Talesweaver\Integration\Mail\PasswordResetMailer;
+use Talesweaver\Integration\Symfony\Mail\PasswordResetMailer;
 use function generate_user_token;
 
 class GeneratePasswordResetTokenHandler

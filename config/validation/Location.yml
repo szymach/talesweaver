@@ -1,7 +1,7 @@
 ---
 Talesweaver\Application\Location\Create\DTO:
     constraints:
-        - Talesweaver\Integration\Validation\Constraints\UniqueDTO:
+        - Talesweaver\Integration\Symfony\Validation\Constraints\UniqueDTO:
             fields: { name: 't.name', scene: 'e.scenes' }
             repositoryMethod: entityExists
             path: name
@@ -15,7 +15,7 @@ Talesweaver\Application\Location\Create\DTO:
 
 Talesweaver\Application\Location\Edit\DTO:
     constraints:
-        - Talesweaver\Integration\Validation\Constraints\UniqueDTO:
+        - Talesweaver\Integration\Symfony\Validation\Constraints\UniqueDTO:
             fields: { name: 't.name', scenes: 'e.scenes' }
             id: id
             repositoryMethod: entityExists

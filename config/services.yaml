@@ -20,25 +20,25 @@ services:
     Symfony\Component\HttpFoundation\Session\Session: "@session"
     Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface: '@security.user_password_encoder.generic'
 
-    Talesweaver\Integration\Controller\:
-        resource: "../src/Integration/Controller/*"
+    Talesweaver\Integration\Symfony\Controller\:
+        resource: "../src/Integration/Symfony/Controller/*"
         public: true
 
     Talesweaver\Integration\DataFixtures\ORM\:
         resource: "../src/Integration/DataFixtures/ORM/*"
         tags: ['doctrine.fixture.orm']
 
-    Talesweaver\Integration\:
-        resource: "../src/Integration/{Form,JSON,Mail,Menu,Pagination,Routing,Templating,Timeline,Security,Validation}/*"
-        exclude: "../src/Integration/Security/function/*"
+    Talesweaver\Integration\Symfony\:
+        resource: "../src/Integration/Symfony/{Form,JSON,Mail,Menu,Pagination,Routing,Templating,Timeline,Security,Validation}/*"
+        exclude: "../src/Integration/Symfony/Security/function/*"
 
     # Do not remove, because it is not explicitly used and is removed from the container
-    Talesweaver\Integration\JSON\EventParser:
+    Talesweaver\Integration\Symfony\JSON\EventParser:
         public: true
 
     # Menu
     app.menu.builder:
-        class: Talesweaver\Integration\Menu\Builder
+        class: Talesweaver\Integration\Symfony\Menu\Builder
 
     app.menu.main:
         class: Knp\Menu\MenuItem
@@ -69,9 +69,9 @@ services:
 
     # Security
     app.security.login_form_authenticator:
-        class: Talesweaver\Integration\Security\LoginFormAuthenticator
+        class: Talesweaver\Integration\Symfony\Security\LoginFormAuthenticator
 
-    Talesweaver\Integration\Security\Request\SecuredInstanceParamConverter:
+    Talesweaver\Integration\Symfony\Security\Request\SecuredInstanceParamConverter:
         arguments: [[]]
         autowire: false
         autoconfigure: false

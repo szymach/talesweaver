@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Author;
 use Talesweaver\Integration\Doctrine\Entity\User;
-use Talesweaver\Integration\Mail\RegistrationMailer;
+use Talesweaver\Integration\Symfony\Mail\RegistrationMailer;
 use function generate_user_token;
 
 class CreateUserHandler

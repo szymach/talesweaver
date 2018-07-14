@@ -9,8 +9,8 @@ use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Book\Create;
 use Talesweaver\Application\Book\Edit;
 use Talesweaver\Domain\Book;
-use Talesweaver\Integration\Form\Book\CreateType;
-use Talesweaver\Integration\Form\Book\EditType;
+use Talesweaver\Integration\Symfony\Form\Book\CreateType;
+use Talesweaver\Integration\Symfony\Form\Book\EditType;
 use UnitTester;
 
 class FormTypeTest extends Unit

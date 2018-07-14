@@ -14,10 +14,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Repository\BookRepository;
-use Talesweaver\Integration\Repository\ChapterRepository;
-use Talesweaver\Integration\Repository\SceneRepository;
-use Talesweaver\Integration\Security\Request\SecuredInstanceParamConverter;
+use Talesweaver\Integration\Symfony\Repository\BookRepository;
+use Talesweaver\Integration\Symfony\Repository\ChapterRepository;
+use Talesweaver\Integration\Symfony\Repository\SceneRepository;
+use Talesweaver\Integration\Symfony\Security\Request\SecuredInstanceParamConverter;
 
 class SecuredInstanceParamConverterTest extends TestCase
 {

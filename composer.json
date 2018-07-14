@@ -16,7 +16,7 @@
             "Talesweaver\\Domain\\": "src/Domain/",
             "Talesweaver\\Integration\\": "src/Integration/"
         },
-        "files": ["src/Integration/Security/function/generate_user_token.php"]
+        "files": ["src/Integration/Symfony/Security/function/generate_user_token.php"]
     },
     "autoload-dev": {
         "psr-4": {

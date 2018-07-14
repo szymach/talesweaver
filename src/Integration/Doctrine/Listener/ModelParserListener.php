@@ -7,7 +7,7 @@ namespace Talesweaver\Integration\Doctrine\Listener;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Talesweaver\Domain\Event;
-use Talesweaver\Integration\JSON\EventParser;
+use Talesweaver\Integration\Symfony\JSON\EventParser;
 
 class ModelParserListener
 {

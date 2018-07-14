@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration;
 
-use Talesweaver\Integration\Security\Request\SecuredInstanceParamConverter;
+use Talesweaver\Integration\Symfony\Security\Request\SecuredInstanceParamConverter;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;

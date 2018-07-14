@@ -14,10 +14,10 @@ use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Event\Meeting;
 use Talesweaver\Domain\Location;
-use Talesweaver\Integration\JSON\EventParser;
-use Talesweaver\Integration\Repository\CharacterRepository;
-use Talesweaver\Integration\Repository\ItemRepository;
-use Talesweaver\Integration\Repository\LocationRepository;
+use Talesweaver\Integration\Symfony\JSON\EventParser;
+use Talesweaver\Integration\Symfony\Repository\CharacterRepository;
+use Talesweaver\Integration\Symfony\Repository\ItemRepository;
+use Talesweaver\Integration\Symfony\Repository\LocationRepository;
 
 class JSONParserTest extends TestCase
 {

@@ -1,32 +1,32 @@
 ---
 event_list:
     path: /list/{id}/{page}
-    defaults: { _controller: Talesweaver\Integration\Controller\Event\ListController, page: 1 }
+    defaults: { _controller: Talesweaver\Integration\Symfony\Controller\Event\ListController, page: 1 }
     methods:  GET
 
 event_options:
     path: /options/{id}
-    defaults: { _controller: Talesweaver\Integration\Controller\Event\OptionsListController }
+    defaults: { _controller: Talesweaver\Integration\Symfony\Controller\Event\OptionsListController }
     methods:  GET
 
 event_add:
     path: /add/{id}/{model}
-    defaults: { _controller: Talesweaver\Integration\Controller\Event\CreateController }
+    defaults: { _controller: Talesweaver\Integration\Symfony\Controller\Event\CreateController }
     methods:  GET|POST
     requirements:
         model: .+
 
 event_edit:
     path: /edit/{id}
-    defaults: { _controller: Talesweaver\Integration\Controller\Event\EditController }
+    defaults: { _controller: Talesweaver\Integration\Symfony\Controller\Event\EditController }
     methods:  GET|POST
 
 event_display:
     path: /dsiplay/{id}
-    defaults: { _controller: Talesweaver\Integration\Controller\Event\DisplayController }
+    defaults: { _controller: Talesweaver\Integration\Symfony\Controller\Event\DisplayController }
     methods:  GET
 
 event_delete:
     path: /delete/{id}
-    defaults: { _controller: Talesweaver\Integration\Controller\Event\DeleteController }
+    defaults: { _controller: Talesweaver\Integration\Symfony\Controller\Event\DeleteController }
     methods:  GET

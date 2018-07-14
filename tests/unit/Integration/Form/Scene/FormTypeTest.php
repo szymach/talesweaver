@@ -9,8 +9,8 @@ use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Scene\Create;
 use Talesweaver\Application\Scene\Edit;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Form\Scene\CreateType;
-use Talesweaver\Integration\Form\Scene\EditType;
+use Talesweaver\Integration\Symfony\Form\Scene\CreateType;
+use Talesweaver\Integration\Symfony\Form\Scene\EditType;
 use UnitTester;
 
 class FormTypeTest extends Unit

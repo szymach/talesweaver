@@ -1,7 +1,7 @@
 ---
 Talesweaver\Application\Scene\Create\DTO:
     constraints:
-        - Talesweaver\Integration\Validation\Constraints\UniqueDTO:
+        - Talesweaver\Integration\Symfony\Validation\Constraints\UniqueDTO:
             fields: { title: 't.title', chapter: 'e.chapter' }
             repositoryMethod: entityExists
             path: title
@@ -13,7 +13,7 @@ Talesweaver\Application\Scene\Create\DTO:
 
 Talesweaver\Application\Scene\Edit\DTO:
     constraints:
-        - Talesweaver\Integration\Validation\Constraints\UniqueDTO:
+        - Talesweaver\Integration\Symfony\Validation\Constraints\UniqueDTO:
             fields: { title: 't.title', chapter: 'e.chapter' }
             id: id
             repositoryMethod: entityExists

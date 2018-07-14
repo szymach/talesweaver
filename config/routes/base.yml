@@ -1,11 +1,11 @@
 ---
 index:
     path: /
-    controller: Talesweaver\Integration\Controller\DashboardController
+    controller: Talesweaver\Integration\Symfony\Controller\DashboardController
     methods:  GET
 
 alerts:
     path: /alerts
-    controller: Talesweaver\Integration\Controller\AlertsController
+    controller: Talesweaver\Integration\Symfony\Controller\AlertsController
     methods:  GET
     condition: "request.isXmlHttpRequest()"

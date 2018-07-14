@@ -44,8 +44,8 @@ services:
 
     # Repository
     _instanceof:
-        Talesweaver\Integration\Repository\Interfaces\RequestSecuredRepository:
+        Talesweaver\Integration\Symfony\Repository\Interfaces\RequestSecuredRepository:
             tags: ['app.param_converter.repository']
 
-    Talesweaver\Integration\Repository\:
-        resource: "../../src/Integration/Repository/*"
+    Talesweaver\Integration\Symfony\Repository\:
+        resource: "../../src/Integration/Symfony/Repository/*"
