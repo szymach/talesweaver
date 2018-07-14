@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Scene\Messages;
 
+use Talesweaver\Application\Messages\Message;
+
 class AddedToSceneSuccessMessage extends Message
 {
     public function __construct(
