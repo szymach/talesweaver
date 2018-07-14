@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Integration\Symfony\Validation\Constraints;
+namespace Talesweaver\Integration\Symfony\Validation\Constraints\Event;
 
 use Symfony\Component\Validator\Constraint;
 

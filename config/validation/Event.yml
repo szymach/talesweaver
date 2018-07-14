@@ -34,7 +34,7 @@ Talesweaver\Application\Event\Edit\DTO:
 
 Talesweaver\Domain\Event\Meeting:
     constraints:
-        - Talesweaver\Integration\Symfony\Validation\Constraints\Meeting: ~
+        - Talesweaver\Integration\Symfony\Validation\Constraints\Event\Meeting: ~
     properties:
         root:
             - NotBlank: ~
