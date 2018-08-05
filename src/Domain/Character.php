@@ -8,15 +8,17 @@ use Assert\Assertion;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Talesweaver\Domain\Traits\AvatarTrait;
-use Talesweaver\Domain\Traits\CreatedByTrait;
-use Talesweaver\Domain\Traits\TimestampableTrait;
-use Talesweaver\Domain\Traits\TranslatableTrait;
 use DomainException;
 use FSi\DoctrineExtensions\Uploadable\File;
 use InvalidArgumentException;
 use Ramsey\Uuid\UuidInterface;
 use SplFileInfo;
+use Talesweaver\Domain\Traits\AvatarTrait;
+use Talesweaver\Domain\Traits\CreatedByTrait;
+use Talesweaver\Domain\Traits\TimestampableTrait;
+use Talesweaver\Domain\Traits\TranslatableTrait;
+use Talesweaver\Domain\ValueObject\LongText;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class Character
 {
@@ -28,12 +30,12 @@ class Character
     private $id;
 
     /**
-     * @var string
+     * @var ShortText
      */
     private $name;
 
     /**
-     * @var string
+     * @var LongText|null
      */
     private $description;
 
@@ -45,7 +47,7 @@ class Character
     /**
      * @param UuidInterface $id
      * @param Scene $scene
-     * @param string $name
+     * @param ShortText $name
      * @param string|null $description
      * @param File|SplFileInfo|null $avatar
      * @param Author $author
@@ -53,15 +55,11 @@ class Character
     public function __construct(
         UuidInterface $id,
         Scene $scene,
-        string $name,
-        ?string $description,
+        ShortText $name,
+        ?LongText $description,
         $avatar,
         Author $author
     ) {
-        Assertion::notBlank($name, sprintf(
-            'Cannot create a character without a name for user "%s"!',
-            $author->getId()->toString()
-        ));
         $this->validateAvatar($id, $avatar);
 
         $this->id = $id;
@@ -78,16 +76,16 @@ class Character
 
     public function __toString()
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     /**
-     * @param string $name
+     * @param ShortText $name
      * @param string|null $description
      * @param File|SplFileInfo|null $avatar
      * @return void
      */
-    public function edit(string $name, ?string $description, $avatar): void
+    public function edit(ShortText $name, ?LongText $description, $avatar): void
     {
         Assertion::notBlank($name, sprintf(
             'Tried to set an empty name on character with id "%s"!',
@@ -107,12 +105,12 @@ class Character
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): ShortText
     {
         return $this->name;
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): ?LongText
     {
         return $this->description;
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Controller\Security;
 
+use Talesweaver\Domain\ValueObject\Email;
 use Talesweaver\Integration\Doctrine\Entity\ActivationToken;
 use Talesweaver\Integration\Doctrine\Entity\User;
 use Talesweaver\Tests\FunctionalTester;
@@ -17,7 +18,7 @@ class RegisterControllerCest
     private const PASSWORD_FIELD = 'Hasło';
     private const REPEAT_PASSWORD_FIELD = 'Powtórz hasło';
 
-    private const EMAIL = 'username@example.com';
+    private const EMAIL = 'email@example.com';
     private const PASSWORD = 'haslo123';
     private const SHORT_PASSWORD = 'haslo';
     private const NOT_MATCHING_PASSWORD = 'haslo321';
@@ -44,7 +45,7 @@ class RegisterControllerCest
         $I->click(self::SUBMIT);
 
         $I->canSeeCurrentUrlEquals(self::LOGIN_URL);
-        $I->seeInRepository(User::class, ['author' => ['username' => self::EMAIL], 'active' => false]);
+        $I->seeInRepository(User::class, ['author' => ['email' => new Email(self::EMAIL)], 'active' => false]);
         $I->seeInRepository(ActivationToken::class);
         $I->canSeeAlert(
             'Pomyślnie zarejstrowano konto w aplikacji Bajkopisarz! Na podane'
@@ -62,7 +63,7 @@ class RegisterControllerCest
         $I->click(self::SUBMIT);
         $I->canSeeCurrentUrlEquals(self::FORM_URL);
         $I->seeNumberOfErrors(2);
-        $I->seeError('Ta wartość nie powinna być pusta.', 'register[username]');
+        $I->seeError('Ta wartość nie powinna być pusta.', 'register[email]');
         $I->seeError('Ta wartość nie powinna być pusta.', 'register[password][first]');
     }
 
@@ -75,7 +76,7 @@ class RegisterControllerCest
         $I->click(self::SUBMIT);
         $I->canSeeCurrentUrlEquals(self::FORM_URL);
         $I->seeNumberOfErrors(2);
-        $I->seeError('Ta wartość nie jest prawidłowym adresem email.', 'register[username]');
+        $I->seeError('Ta wartość nie jest prawidłowym adresem email.', 'register[email]');
         $I->seeError('Ta wartość jest zbyt krótka. Powinna mieć 6 lub więcej znaków.', 'register[password][first]');
 
         $I->amOnPage(self::FORM_URL);
@@ -84,7 +85,7 @@ class RegisterControllerCest
         $I->click(self::SUBMIT);
         $I->canSeeCurrentUrlEquals(self::FORM_URL);
         $I->seeNumberOfErrors(2);
-        $I->seeError('Ta wartość nie powinna być pusta.', 'register[username]');
+        $I->seeError('Ta wartość nie powinna być pusta.', 'register[email]');
         $I->seeError('Ta wartość jest nieprawidłowa.', 'register[password][first]');
 
         $I->amOnPage(self::FORM_URL);
@@ -92,7 +93,7 @@ class RegisterControllerCest
         $I->click(self::SUBMIT);
         $I->canSeeCurrentUrlEquals(self::FORM_URL);
         $I->seeNumberOfErrors(2);
-        $I->seeError('Ta wartość nie powinna być pusta.', 'register[username]');
+        $I->seeError('Ta wartość nie powinna być pusta.', 'register[email]');
         $I->seeError('Ta wartość jest nieprawidłowa.', 'register[password][first]');
     }
 }

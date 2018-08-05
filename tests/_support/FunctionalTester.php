@@ -14,8 +14,10 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Talesweaver\Domain\Author;
+use Talesweaver\Domain\ValueObject\Email;
 use Talesweaver\Integration\Doctrine\Entity\PasswordResetToken;
 use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Integration\Doctrine\Repository\UserRepository;
 use Talesweaver\Tests\_generated\FunctionalTesterActions;
 use function generate_user_token;
 
@@ -66,13 +68,12 @@ class FunctionalTester extends Actor
         $this->setCookie($session->getName(), $session->getId());
     }
 
-    public function getUser(bool $active = true, string $username = self::USER_EMAIL): User
+    public function getUser(bool $active = true, string $email = self::USER_EMAIL): User
     {
-        $manager = $this->getEntityManager();
-        $user = $manager->getRepository(User::class)->findOneByUsername($username);
+        $user = $this->getUserRepository()->findOneByEmail(new Email($email));
         if (null === $user) {
             $user = new User(
-                new Author(Uuid::uuid4(), $username),
+                new Author(Uuid::uuid4(), new Email($email)),
                 password_hash(self::USER_PASSWORD, PASSWORD_BCRYPT),
                 generate_user_token()
             );
@@ -140,6 +141,11 @@ class FunctionalTester extends Actor
     public function canSeeAlert(string $content, string $type = 'success'): void
     {
         $this->canSee($content, sprintf('.alert.alert-%s', $type));
+    }
+
+    public function getUserRepository(): UserRepository
+    {
+        return $this->getEntityManager()->getRepository(User::class);
     }
 
     public function getEntityManager(): EntityManagerInterface

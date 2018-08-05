@@ -52,7 +52,7 @@ class ResetPasswordRequestController
         $form = $this->formFactory->create(ResetPasswordRequestType::class);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->commandBus->handle(new GeneratePasswordResetToken(
-                $form->getData()['username']
+                $form->getData()['email']
             ));
 
             return new RedirectResponse($this->router->generate('index'));

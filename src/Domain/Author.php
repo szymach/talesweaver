@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Domain;
 
 use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Domain\ValueObject\Email;
 
 class Author
 {
@@ -14,14 +15,14 @@ class Author
     private $id;
 
     /**
-     * @var string
+     * @var Email
      */
-    private $username;
+    private $email;
 
-    public function __construct(UuidInterface $id, string $username)
+    public function __construct(UuidInterface $id, Email $email)
     {
         $this->id = $id;
-        $this->username = $username;
+        $this->email = $email;
     }
 
     public function getId(): UuidInterface
@@ -29,8 +30,8 @@ class Author
         return $this->id;
     }
 
-    public function getUsername(): string
+    public function getEmail(): Email
     {
-        return $this->username;
+        return $this->email;
     }
 }

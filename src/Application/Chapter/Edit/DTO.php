@@ -28,7 +28,7 @@ class DTO
     public function __construct(Chapter $chapter)
     {
         $this->id = $chapter->getId();
-        $this->title = $chapter->getTitle();
+        $this->title = (string) $chapter->getTitle();
         $this->book = $chapter->getBook();
     }
 

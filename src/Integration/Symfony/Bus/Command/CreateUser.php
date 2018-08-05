@@ -4,28 +4,29 @@ namespace Talesweaver\Integration\Symfony\Bus\Command;
 
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
+use Talesweaver\Domain\ValueObject\Email;
 
 class CreateUser implements MessageCommandInterface
 {
     /**
-     * @var string
+     * @var Email
      */
-    private $username;
+    private $email;
 
     /**
      * @var string
      */
     private $password;
 
-    public function __construct(string $username, string $password)
+    public function __construct(string $email, string $password)
     {
-        $this->username = $username;
+        $this->email = new Email($email);
         $this->password = $password;
     }
 
-    public function getUsername(): string
+    public function getEmail(): Email
     {
-        return $this->username;
+        return $this->email;
     }
 
     public function getPassword(): string
@@ -35,10 +36,6 @@ class CreateUser implements MessageCommandInterface
 
     public function getMessage(): Message
     {
-        return new Message(
-            'security.registration.alert.success',
-            [],
-            'success'
-        );
+        return new Message('security.registration.alert.success', [], 'success');
     }
 }

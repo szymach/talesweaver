@@ -9,7 +9,7 @@
         <id name="id" type="integer">
             <generator strategy="IDENTITY"/>
         </id>
-        <field name="title" type="text"/>
+        <field name="title" type="short_text"/>
         <field name="locale" length="2">
             <fsi:translatable-locale />
         </field>

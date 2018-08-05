@@ -52,7 +52,7 @@ class RegisterController
         $form = $this->formFactory->create(RegisterType::class);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $this->commandBus->handle(new CreateUser($data['username'], $data['password']));
+            $this->commandBus->handle(new CreateUser($data['email'], $data['password']));
 
             return new RedirectResponse($this->router->generate('login'));
         }

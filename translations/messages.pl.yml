@@ -29,7 +29,7 @@ security:
         register: Rejestracja
         password_reset: Resetowanie hasła
         submit: Zaloguj
-        username:
+        email:
             label: Email
             placeholder: Podaj swój adres email
         password:
@@ -38,7 +38,7 @@ security:
     registration:
         header: Rejestracja
         login: Logowanie
-        username:
+        email:
             label: Email
             placeholder: 'np. email@example.com'
         password:
@@ -60,12 +60,12 @@ security:
                 Na podane konto email wysłano wiadomość do aktywacji konta.
     activation:
         alert:
-            success: 'Pomyślnie aktywowano konto "%username%"! Możesz się teraz zalogować.'
+            success: 'Pomyślnie aktywowano konto "%email%"! Możesz się teraz zalogować.'
     reset_password:
         login: Logowanie
         request:
             header: Resetowanie hasła
-            username:
+            email:
                 label: Email
                 placeholder: Podaj adres e-mail swojego konta
             submit: Wyślij

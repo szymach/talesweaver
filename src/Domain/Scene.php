@@ -8,10 +8,12 @@ use Assert\Assertion;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Traits\CreatedByTrait;
 use Talesweaver\Domain\Traits\TimestampableTrait;
 use Talesweaver\Domain\Traits\TranslatableTrait;
-use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Domain\ValueObject\LongText;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class Scene
 {
@@ -23,12 +25,12 @@ class Scene
     private $id;
 
     /**
-     * @var string
+     * @var ShortText
      */
     private $title;
 
     /**
-     * @var string
+     * @var LongText
      */
     private $text;
 
@@ -54,15 +56,15 @@ class Scene
 
     /**
      * @param UuidInterface $id
-     * @param string $title
+     * @param ShortText $title
      * @param Chapter|null $chapter
      * @param Author $author
      */
-    public function __construct(UuidInterface $id, string $title, ?Chapter $chapter, Author $author)
+    public function __construct(UuidInterface $id, ShortText $title, ?Chapter $chapter, Author $author)
     {
         Assertion::notBlank($title, sprintf(
             'Cannot create a scene without a title for author "%s"!',
-            $author->getUsername()
+            $author->getEmail()
         ));
 
         $this->id = $id;
@@ -79,22 +81,17 @@ class Scene
 
     public function __toString()
     {
-        return $this->title ?? '';
+        return (string) $this->title;
     }
 
     /**
-     * @param string $title
-     * @param string|null $text
+     * @param ShortText $title
+     * @param LongText|null $text
      * @param Chapter|null $chapter
      * @return void
      */
-    public function edit(string $title, ?string $text, ?Chapter $chapter): void
+    public function edit(ShortText $title, ?LongText $text, ?Chapter $chapter): void
     {
-        Assertion::notBlank($title, sprintf(
-            'Tried to set an empty title on scene with id "%s"!',
-            $this->id->toString()
-        ));
-
         $this->title = $title;
         $this->text = $text;
         $this->chapter = $chapter;
@@ -107,12 +104,12 @@ class Scene
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): ShortText
     {
         return $this->title;
     }
 
-    public function getText(): ?string
+    public function getText(): ?LongText
     {
         return $this->text;
     }

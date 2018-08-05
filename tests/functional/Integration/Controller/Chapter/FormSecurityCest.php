@@ -7,6 +7,7 @@ namespace Talesweaver\Tests\Integration\Controller\Chapter;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Tests\FunctionalTester;
 
 class FormSecurityCest
@@ -28,8 +29,8 @@ class FormSecurityCest
         $otherUser = $I->getUser(true, self::OTHER_USER_USERNAME);
         $otherUsersBookId = Uuid::uuid4();
 
-        $I->persistEntity(new Book(Uuid::uuid4(), self::BOOK_TITLE, $I->getUser()->getAuthor()));
-        $I->persistEntity(new Book($otherUsersBookId, self::BOOK_TITLE, $otherUser->getAuthor()));
+        $I->persistEntity(new Book(Uuid::uuid4(), new ShortText(self::BOOK_TITLE), $I->getUser()->getAuthor()));
+        $I->persistEntity(new Book($otherUsersBookId, new ShortText(self::BOOK_TITLE), $otherUser->getAuthor()));
         $I->flushToDatabase();
 
         $I->amOnPage(self::CREATE_URL);
@@ -48,11 +49,11 @@ class FormSecurityCest
         $otherUser = $I->getUser(true, self::OTHER_USER_USERNAME);
         $otherUsersBookId = Uuid::uuid4();
 
-        $book = new Book(Uuid::uuid4(), self::BOOK_TITLE, $I->getUser()->getAuthor());
+        $book = new Book(Uuid::uuid4(), new ShortText(self::BOOK_TITLE), $I->getUser()->getAuthor());
         $I->persistEntity($book);
-        $I->persistEntity(new Book($otherUsersBookId, self::BOOK_TITLE, $otherUser->getAuthor()));
+        $I->persistEntity(new Book($otherUsersBookId, new ShortText(self::BOOK_TITLE), $otherUser->getAuthor()));
         $chapterId = Uuid::uuid4();
-        $I->persistEntity(new Chapter($chapterId, self::CHAPTER_TITLE, $book, $I->getUser()->getAuthor()));
+        $I->persistEntity(new Chapter($chapterId, new ShortText(self::CHAPTER_TITLE), $book, $I->getUser()->getAuthor()));
         $I->flushToDatabase();
 
         $I->amOnPage(self::CREATE_URL);

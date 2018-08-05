@@ -11,6 +11,7 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Traits\CreatedByTrait;
 use Talesweaver\Domain\Traits\TimestampableTrait;
 use Talesweaver\Domain\Traits\TranslatableTrait;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class Event
 {
@@ -27,7 +28,7 @@ class Event
     private $model;
 
     /**
-     * @var string
+     * @var ShortText
      */
     private $name;
 
@@ -38,24 +39,18 @@ class Event
 
     /**
      * @param UuidInterface $id
-     * @param string $name
+     * @param ShortText $name
      * @param JsonSerializable $model
      * @param Scene $scene
      * @param Author $author
      */
     public function __construct(
         UuidInterface $id,
-        string $name,
+        ShortText $name,
         JsonSerializable $model,
         Scene $scene,
         Author $author
     ) {
-        Assertion::notBlank($name, sprintf(
-            'Cannot create an event without a name for author "%s" and scene "%s"!',
-            $author->getId()->toString(),
-            $scene->getId()->toString()
-        ));
-
         $this->id = $id;
         $this->name = $name;
         $this->model = $model;
@@ -64,18 +59,18 @@ class Event
         $this->createdBy = $author;
     }
 
+    public function __toString()
+    {
+        return (string) $this->name;
+    }
+
     /**
-     * @param string $name
+     * @param ShortText $name
      * @param JsonSerializable $model
      * @return void
      */
-    public function edit(string $name, JsonSerializable $model): void
+    public function edit(ShortText $name, JsonSerializable $model): void
     {
-        Assertion::notBlank(
-            $name,
-            sprintf('Tried to set an empty name on event with id "%s"!', $this->id->toString())
-        );
-
         $this->name = $name;
         $this->model = $model;
         $this->update();
@@ -91,7 +86,7 @@ class Event
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): ShortText
     {
         return $this->name;
     }

@@ -34,7 +34,7 @@ class ActivateUser implements MessageCommandInterface
     {
         return new Message(
             'security.activation.alert.success',
-            ['%username%' => $this->user->getUsername()],
+            ['%email%' => $this->user->getUsername()],
             'success'
         );
     }

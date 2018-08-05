@@ -27,8 +27,8 @@ class DTO
     public function __construct(Book $book)
     {
         $this->id = $book->getId();
-        $this->title = $book->getTitle();
-        $this->description = $book->getDescription();
+        $this->title = (string) $book->getTitle();
+        $this->description = (string) $book->getDescription();
     }
 
     public function getId(): UuidInterface
@@ -36,7 +36,7 @@ class DTO
         return $this->id;
     }
 
-    public function setTitle(?string $title)
+    public function setTitle(?string $title): void
     {
         $this->title = $title;
     }

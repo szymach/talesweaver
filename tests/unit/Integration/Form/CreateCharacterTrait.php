@@ -7,6 +7,7 @@ namespace Talesweaver\Tests\Integration\Form;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\ValueObject\ShortText;
 use UnitTester;
 
 /**
@@ -19,7 +20,7 @@ trait CreateCharacterTrait
         $character = new Character(
             Uuid::uuid4(),
             $scene ?? $this->getScene(),
-            'Postać',
+            new ShortText('Postać'),
             null,
             null,
             $this->tester->getUser()->getAuthor()

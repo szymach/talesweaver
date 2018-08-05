@@ -9,6 +9,7 @@ use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Scene\Create;
 use Talesweaver\Application\Scene\Edit;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Scene\CreateType;
 use Talesweaver\Integration\Symfony\Form\Scene\EditType;
 use UnitTester;
@@ -27,9 +28,7 @@ class FormTypeTest extends Unit
     {
         $this->tester->loginAsUser();
         $form = $this->tester->createForm(CreateType::class);
-        $form->handleRequest($this->tester->getRequest([
-            'create' => ['title' => self::TITLE_PL]
-        ]));
+        $form->handleRequest($this->tester->getRequest(['create' => ['title' => self::TITLE_PL]]));
 
         $this->assertTrue($form->isSynchronized());
         $this->assertTrue($form->isSubmitted());
@@ -60,7 +59,7 @@ class FormTypeTest extends Unit
     public function testValidEditFormSubmission()
     {
         $this->tester->loginAsUser();
-        $scene = new Scene(Uuid::uuid4(), self::TITLE_PL, null, $this->tester->getUser()->getAuthor());
+        $scene = new Scene(Uuid::uuid4(), new ShortText(self::TITLE_PL), null, $this->tester->getUser()->getAuthor());
         $form = $this->tester->createForm(EditType::class, new Edit\DTO($scene));
         $form->handleRequest($this->tester->getRequest([
             'edit' => ['title' => self::TITLE_PL, 'text' => self::TEXT_PL]
@@ -79,7 +78,7 @@ class FormTypeTest extends Unit
     public function testInvalidEditFormSubmission()
     {
         $this->tester->loginAsUser();
-        $scene = new Scene(Uuid::uuid4(), self::TITLE_PL, null, $this->tester->getUser()->getAuthor());
+        $scene = new Scene(Uuid::uuid4(), new ShortText(self::TITLE_PL), null, $this->tester->getUser()->getAuthor());
         $form = $this->tester->createForm(EditType::class, new Edit\DTO($scene));
         $form->handleRequest($this->tester->getRequest([
             'edit' => ['title' => null, 'text' => null]

@@ -7,6 +7,7 @@ namespace Talesweaver\Tests\Integration\Form;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\ValueObject\ShortText;
 use UnitTester;
 
 /**
@@ -19,7 +20,7 @@ trait CreateLocationTrait
         $location = new Location(
             Uuid::uuid4(),
             $scene ?? $this->getScene(),
-            'Miejsce',
+            new ShortText('Miejsce'),
             null,
             null,
             $this->tester->getUser()->getAuthor()

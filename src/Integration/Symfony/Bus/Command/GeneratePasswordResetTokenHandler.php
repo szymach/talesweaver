@@ -8,6 +8,7 @@ use DateInterval;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
+use Talesweaver\Domain\ValueObject\Email;
 use Talesweaver\Integration\Doctrine\Repository\PasswordResetTokenRepository;
 use Talesweaver\Integration\Doctrine\Repository\UserRepository;
 use Talesweaver\Integration\Symfony\Mail\PasswordResetMailer;
@@ -50,24 +51,24 @@ class GeneratePasswordResetTokenHandler
     public function handle(GeneratePasswordResetToken $command): void
     {
         $email = $command->getEmail();
-        if ($this->isRequestTooSoon($email)) {
+        if (true === $this->isRequestTooSoon($email)) {
             return;
         }
 
         $this->tokenRepository->deactivatePreviousTokens($email);
 
-        $user = $this->userRepository->findOneByUsername($email);
-        if (!$user) {
-            throw new RuntimeException(sprintf('No user found for username "%s"', $email));
+        $user = $this->userRepository->findOneByEmail($email);
+        if (null === $user) {
+            throw new RuntimeException(sprintf('No user found for email "%s"', $email));
         }
         $user->addPasswordResetToken(generate_user_token());
         $this->mailer->send($user);
     }
 
-    private function isRequestTooSoon(string $email): bool
+    private function isRequestTooSoon(Email $email): bool
     {
         $previousTokenDate = $this->tokenRepository->findCreationDateOfPrevious($email);
-        if (!$previousTokenDate) {
+        if (null === $previousTokenDate) {
             return false;
         }
 

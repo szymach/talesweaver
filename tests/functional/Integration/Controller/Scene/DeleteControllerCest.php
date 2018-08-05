@@ -6,6 +6,7 @@ namespace Talesweaver\Tests\Integration\Controller\Scene;
 
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Tests\FunctionalTester;
 
 class DeleteControllerCest
@@ -17,7 +18,7 @@ class DeleteControllerCest
     {
         $I->loginAsUser();
         $id = Uuid::uuid4();
-        $I->persistEntity(new Scene($id, self::TITLE_PL, null, $I->getUser()->getAuthor()));
+        $I->persistEntity(new Scene($id, new ShortText(self::TITLE_PL), null, $I->getUser()->getAuthor()));
         $I->seeInRepository(Scene::class, ['id' => $id]);
 
         $I->amOnPage(self::LIST_URL);

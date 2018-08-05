@@ -41,9 +41,9 @@ class DTO
     public function __construct(Character $character)
     {
         $this->id = $character->getId();
-        $this->name = $character->getName();
+        $this->name = (string) $character->getName();
         $this->avatar = $character->getAvatar();
-        $this->description = $character->getDescription();
+        $this->description = (string) $character->getDescription();
         $this->scenes = $character->getScenes();
     }
 

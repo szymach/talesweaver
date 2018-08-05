@@ -7,6 +7,7 @@ namespace Talesweaver\Integration\Doctrine\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
+use Talesweaver\Domain\ValueObject\Email;
 use Talesweaver\Integration\Doctrine\Entity\User;
 
 class UserRepository extends ServiceEntityRepository
@@ -27,11 +28,11 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findOneByUsername(string $username): ?User
+    public function findOneByEmail(Email $email): ?User
     {
         return $this->createQueryBuilder('u')
-            ->join('u.author', 'a', Join::WITH, 'a.username = :username')
-            ->setParameter('username', $username)
+            ->join('u.author', 'a', Join::WITH, 'a.email = :email')
+            ->setParameter('email', $email)
             ->getQuery()
             ->getOneOrNullResult()
         ;

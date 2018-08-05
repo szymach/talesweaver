@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 namespace Talesweaver\Domain;
 
-use Assert\Assertion;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Talesweaver\Domain\Traits\AvatarTrait;
-use Talesweaver\Domain\Traits\CreatedByTrait;
-use Talesweaver\Domain\Traits\TimestampableTrait;
-use Talesweaver\Domain\Traits\TranslatableTrait;
 use DomainException;
 use FSi\DoctrineExtensions\Uploadable\File;
 use InvalidArgumentException;
 use Ramsey\Uuid\UuidInterface;
 use SplFileInfo;
+use Talesweaver\Domain\Traits\AvatarTrait;
+use Talesweaver\Domain\Traits\CreatedByTrait;
+use Talesweaver\Domain\Traits\TimestampableTrait;
+use Talesweaver\Domain\Traits\TranslatableTrait;
+use Talesweaver\Domain\ValueObject\LongText;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class Location
 {
@@ -50,23 +51,19 @@ class Location
     /**
      * @param UuidInterface $id
      * @param Scene $scene
-     * @param string $name
-     * @param string|null $description
+     * @param ShortText $name
+     * @param LongText|null $description
      * @param File|SplFileInfo|null $avatar
      * @param Author $author
      */
     public function __construct(
         UuidInterface $id,
         Scene $scene,
-        string $name,
-        ?string $description,
+        ShortText $name,
+        ?LongText $description,
         $avatar,
         Author $author
     ) {
-        Assertion::notBlank($name, sprintf(
-            'Cannot create a location without a name for author "%s"!',
-            $author->getId()->toString()
-        ));
         $this->validateAvatar($id, $avatar);
 
         $this->id = $id;
@@ -85,22 +82,17 @@ class Location
 
     public function __toString()
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     /**
-     * @param string $name
-     * @param string|null $description
+     * @param ShortText $name
+     * @param LongText|null $description
      * @param File|SplFileInfo|null $avatar
      * @return void
      */
-    public function edit(string $name, ?string $description, $avatar): void
+    public function edit(ShortText $name, ?LongText $description, $avatar): void
     {
-        Assertion::notBlank($name, sprintf(
-            'Tried to set an empty name on location with id "%s"!',
-            $this->id->toString()
-        ));
-
         $this->validateAvatar($this->id, $avatar);
 
         $this->name = $name;
@@ -115,12 +107,12 @@ class Location
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): ShortText
     {
         return $this->name;
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): ?LongText
     {
         return $this->description;
     }

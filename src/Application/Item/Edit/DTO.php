@@ -41,8 +41,8 @@ class DTO
     public function __construct(Item $item)
     {
         $this->id = $item->getId();
-        $this->name = $item->getName();
-        $this->description = $item->getDescription();
+        $this->name = (string) $item->getName();
+        $this->description = (string) $item->getDescription();
         $this->avatar = $item->getAvatar();
         $this->scenes = $item->getScenes();
     }

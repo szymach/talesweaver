@@ -9,6 +9,7 @@ use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Chapter\Create;
 use Talesweaver\Application\Chapter\Edit;
 use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Chapter\CreateType;
 use Talesweaver\Integration\Symfony\Form\Chapter\EditType;
 use UnitTester;
@@ -59,7 +60,7 @@ class FormTypeTest extends Unit
     public function testValidEditFormSubmission()
     {
         $this->tester->loginAsUser();
-        $chapter = new Chapter(Uuid::uuid4(), self::TITLE_PL, null, $this->tester->getUser()->getAuthor());
+        $chapter = new Chapter(Uuid::uuid4(), new ShortText(self::TITLE_PL), null, $this->tester->getUser()->getAuthor());
         $form = $this->tester->createForm(EditType::class, new Edit\DTO($chapter));
         $form->handleRequest($this->tester->getRequest(['edit' => ['title' => self::TITLE_PL]]));
 
@@ -75,7 +76,7 @@ class FormTypeTest extends Unit
     public function testInvalidEditFormSubmission()
     {
         $this->tester->loginAsUser();
-        $chapter = new Chapter(Uuid::uuid4(), self::TITLE_PL, null, $this->tester->getUser()->getAuthor());
+        $chapter = new Chapter(Uuid::uuid4(), new ShortText(self::TITLE_PL), null, $this->tester->getUser()->getAuthor());
         $form = $this->tester->createForm(EditType::class, new Edit\DTO($chapter));
         $form->handleRequest($this->tester->getRequest(['edit' => ['title' => null]]));
 

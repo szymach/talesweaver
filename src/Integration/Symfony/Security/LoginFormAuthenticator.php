@@ -92,16 +92,16 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     {
         $this->validateCsrfToken($request);
 
-        $username = $request->request->get('_username');
+        $email = $request->request->get('_email');
         $password = $request->request->get('_password');
-        $request->getSession()->set(Security::LAST_USERNAME, $username);
+        $request->getSession()->set(Security::LAST_USERNAME, $email);
 
-        return ['username' => $username, 'password' => $password];
+        return ['email' => $email, 'password' => $password];
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        return $userProvider->loadUserByUsername($credentials['username']);
+        return $userProvider->loadUserByUsername($credentials['email']);
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)

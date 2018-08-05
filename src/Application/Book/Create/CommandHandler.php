@@ -6,6 +6,7 @@ namespace Talesweaver\Application\Book\Create;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Talesweaver\Domain\Book;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class CommandHandler
 {
@@ -21,6 +22,8 @@ class CommandHandler
 
     public function handle(Command $command): void
     {
-        $this->manager->persist(new Book($command->getId(), $command->getTitle(), $command->getAuthor()));
+        $this->manager->persist(
+            new Book($command->getId(), new ShortText($command->getTitle()), $command->getAuthor())
+        );
     }
 }

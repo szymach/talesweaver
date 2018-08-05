@@ -70,7 +70,7 @@ class User implements UserInterface
 
     public function __toString()
     {
-        return $this->author->getUsername();
+        return (string) $this->author->getEmail();
     }
 
     public function getId(): int
@@ -85,7 +85,7 @@ class User implements UserInterface
 
     public function getUsername(): string
     {
-        return $this->author->getUsername();
+        return (string) $this->author->getEmail();
     }
 
     public function getPassword(): string

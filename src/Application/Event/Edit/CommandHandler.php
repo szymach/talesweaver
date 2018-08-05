@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Event\Edit;
 
+use Talesweaver\Domain\ValueObject\ShortText;
+
 class CommandHandler
 {
     public function handle(Command $command): void
     {
         $command->getEvent()->edit(
-            $command->getDto()->getName(),
+            new ShortText($command->getDto()->getName()),
             $command->getDto()->getModel(),
             $command->getDto()->getScene()
         );

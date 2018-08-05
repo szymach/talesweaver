@@ -43,7 +43,7 @@ class EditType extends AbstractType
             if (null !== $scene && null !== $scene->getChapter() && null !== $scene->getChapter()->getBook()) {
                 $qb = $this->chapterRepository->createForBookQb($scene->getChapter()->getBook());
                 $choiceLabel = function (Chapter $chapter): string {
-                    return $chapter->getTitle();
+                    return (string) $chapter->getTitle();
                 };
             } else {
                 $qb = $this->chapterRepository->createAllAvailableQueryBuilder();
@@ -51,7 +51,7 @@ class EditType extends AbstractType
                     $book = $chapter->getBook();
                     return null !== $book
                         ? sprintf('%s (%s)', $chapter->getTitle(), $book->getTitle())
-                        : $chapter->getTitle()
+                        : (string) $chapter->getTitle()
                     ;
                 };
             }

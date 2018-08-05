@@ -32,7 +32,7 @@ class CreateUserHandler
     public function handle(CreateUser $command)
     {
         $user = new User(
-            new Author(Uuid::uuid4(), $command->getUsername()),
+            new Author(Uuid::uuid4(), $command->getEmail()),
             password_hash($command->getPassword(), PASSWORD_BCRYPT),
             generate_user_token()
         );

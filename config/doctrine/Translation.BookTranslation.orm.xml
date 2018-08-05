@@ -9,8 +9,8 @@
         <id name="id" type="integer">
             <generator strategy="IDENTITY"/>
         </id>
-        <field name="title" type="text"/>
-        <field name="description" type="text" nullable="true"/>
+        <field name="title" type="short_text"/>
+        <field name="description" type="long_text" nullable="true"/>
         <field name="locale" length="2">
             <fsi:translatable-locale />
         </field>

@@ -16,11 +16,11 @@ class ResetPasswordRequestType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('username', EmailType::class, [
-            'label' => 'security.reset_password.request.username.label',
+        $builder->add('email', EmailType::class, [
+            'label' => 'security.reset_password.request.email.label',
             'constraints' => [new NotBlank(), new Email()],
             'attr' => [
-                'placeholder' => 'security.reset_password.request.username.placeholder',
+                'placeholder' => 'security.reset_password.request.email.placeholder',
                 'autofocus' => 'autofocus'
             ]
         ]);

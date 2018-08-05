@@ -20,10 +20,10 @@ class RegisterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('username', EmailType::class, [
-            'label' => 'security.registration.username.label',
+        $builder->add('email', EmailType::class, [
+            'label' => 'security.registration.email.label',
             'constraints' => [new NotBlank(), new Email(), new UniqueUserEmail()],
-            'attr' => ['placeholder' => 'security.registration.username.placeholder', 'autofocus' => 'autofocus']
+            'attr' => ['placeholder' => 'security.registration.email.placeholder', 'autofocus' => 'autofocus']
         ]);
 
         $builder->add('password', RepeatedType::class, [

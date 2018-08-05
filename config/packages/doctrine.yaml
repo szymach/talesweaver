@@ -4,6 +4,10 @@ doctrine:
         server_version: '5.7'
         charset: utf8mb4
         url: '%env(resolve:DATABASE_URL)%'
+        types:
+            email: 'Talesweaver\Integration\Doctrine\DBAL\Types\Email'
+            long_text: 'Talesweaver\Integration\Doctrine\DBAL\Types\LongText'
+            short_text: 'Talesweaver\Integration\Doctrine\DBAL\Types\ShortText'
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore

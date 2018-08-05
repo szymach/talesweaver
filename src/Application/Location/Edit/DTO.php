@@ -41,8 +41,8 @@ class DTO
     public function __construct(Location $location)
     {
         $this->id = $location->getId();
-        $this->name = $location->getName();
-        $this->description = $location->getDescription();
+        $this->name = (string) $location->getName();
+        $this->description = (string) $location->getDescription();
         $this->avatar = $location->getAvatar();
         $this->scenes = $location->getScenes();
     }

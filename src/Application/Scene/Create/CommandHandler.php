@@ -6,6 +6,7 @@ namespace Talesweaver\Application\Scene\Create;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class CommandHandler
 {
@@ -24,7 +25,7 @@ class CommandHandler
         $chapter = $command->getData()->getChapter();
         $scene = new Scene(
             $command->getId(),
-            $command->getData()->getTitle(),
+            new ShortText($command->getData()->getTitle()),
             $command->getData()->getChapter(),
             $command->getAuthor()
         );

@@ -29,9 +29,7 @@ class FormTypeTest extends Unit
     {
         $this->tester->loginAsUser();
         $form = $this->tester->createForm(CreateType::class, new Create\DTO($this->getScene()));
-        $form->handleRequest($this->tester->getRequest([
-            'create' => ['name' => self::NAME_PL]
-        ]));
+        $form->handleRequest($this->tester->getRequest(['create' => ['name' => self::NAME_PL]]));
 
         $this->assertTrue($form->isSynchronized());
         $this->assertTrue($form->isSubmitted());
@@ -46,9 +44,7 @@ class FormTypeTest extends Unit
     {
         $this->tester->loginAsUser();
         $form = $this->tester->createForm(CreateType::class, new Create\DTO($this->getScene()));
-        $form->handleRequest($this->tester->getRequest([
-            'create' => ['name' => null]
-        ]));
+        $form->handleRequest($this->tester->getRequest(['create' => ['name' => null]]));
 
         $this->assertTrue($form->isSynchronized());
         $this->assertTrue($form->isSubmitted());
@@ -81,9 +77,7 @@ class FormTypeTest extends Unit
     {
         $this->tester->loginAsUser();
         $form = $this->tester->createForm(EditType::class, new Edit\DTO($this->getLocation()));
-        $form->handleRequest($this->tester->getRequest([
-            'edit' => ['name' => null]
-        ]));
+        $form->handleRequest($this->tester->getRequest(['edit' => ['name' => null]]));
 
         $this->assertTrue($form->isSynchronized());
         $this->assertTrue($form->isSubmitted());

@@ -14,6 +14,7 @@ use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Event\Meeting;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Event\CreateType;
 use Talesweaver\Integration\Symfony\Form\Event\EditType;
 use Talesweaver\Integration\Symfony\Form\Event\MeetingType;
@@ -196,7 +197,7 @@ class FormTypeTest extends Unit
     {
         return new Event(
             Uuid::uuid4(),
-            self::NAME_PL,
+            new ShortText(self::NAME_PL),
             new Meeting(),
             $this->getScene(),
             $this->tester->getUser()->getAuthor()

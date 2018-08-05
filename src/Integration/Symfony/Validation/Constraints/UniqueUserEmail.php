@@ -8,5 +8,5 @@ use Symfony\Component\Validator\Constraint;
 
 class UniqueUserEmail extends Constraint
 {
-    public $message = 'security.username_taken';
+    public $message = 'security.email_taken';
 }

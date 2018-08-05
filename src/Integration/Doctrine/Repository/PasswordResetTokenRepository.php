@@ -8,6 +8,7 @@ use DateTimeImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
+use Talesweaver\Domain\ValueObject\Email;
 use Talesweaver\Integration\Doctrine\Entity\PasswordResetToken;
 
 class PasswordResetTokenRepository extends ServiceEntityRepository
@@ -27,14 +28,14 @@ class PasswordResetTokenRepository extends ServiceEntityRepository
         return $this->findOneBy(['value' => $code]);
     }
 
-    public function findCreationDateOfPrevious(string $email): ?DateTimeImmutable
+    public function findCreationDateOfPrevious(Email $email): ?DateTimeImmutable
     {
         $date = $this->getEntityManager()
             ->createQueryBuilder()
             ->select('pt.createdAt AS creationDate')
             ->from($this->getEntityName(), 'pt')
             ->join('pt.user', 'u')
-            ->join('u.author', 'a', Join::WITH, 'a.username = :email')
+            ->join('u.author', 'a', Join::WITH, 'a.email = :email')
             ->where('pt.active = true')
             ->orderBy('pt.createdAt', 'DESC')
             ->setParameter('email', $email)
@@ -45,14 +46,14 @@ class PasswordResetTokenRepository extends ServiceEntityRepository
         return $date['creationDate'] ?? null;
     }
 
-    public function deactivatePreviousTokens(string $email): void
+    public function deactivatePreviousTokens(Email $email): void
     {
         $previousTokensIds = $this->getEntityManager()
             ->createQueryBuilder()
             ->select('pt.id')
             ->from($this->getEntityName(), 'pt')
             ->join('pt.user', 'u')
-            ->join('u.author', 'a', Join::WITH, 'a.username = :email')
+            ->join('u.author', 'a', Join::WITH, 'a.email = :email')
             ->setParameter('email', $email)
             ->getQuery()
             ->getResult()

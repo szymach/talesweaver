@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Talesweaver\Domain;
 
-use Assert\Assertion;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Traits\CreatedByTrait;
 use Talesweaver\Domain\Traits\TimestampableTrait;
 use Talesweaver\Domain\Traits\TranslatableTrait;
-use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Domain\ValueObject\LongText;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class Book
 {
@@ -23,7 +24,7 @@ class Book
     private $id;
 
     /**
-     * @var string
+     * @var ShortText
      */
     private $title;
 
@@ -39,16 +40,11 @@ class Book
 
     /**
      * @param UuidInterface $id
-     * @param string $title
+     * @param ShortText $title
      * @param Author $author
      */
-    public function __construct(UuidInterface $id, string $title, Author $author)
+    public function __construct(UuidInterface $id, ShortText $title, Author $author)
     {
-        Assertion::notBlank($title, sprintf(
-            'Cannot create a book without a title for author "%s"!',
-            $author->getUsername()
-        ));
-
         $this->id = $id;
         $this->title = $title;
         $this->chapters = new ArrayCollection();
@@ -59,21 +55,16 @@ class Book
 
     public function __toString()
     {
-        return $this->title;
+        return (string) $this->title;
     }
 
     /**
-     * @param string $title
-     * @param string|null $description
+     * @param ShortText $title
+     * @param LongText|null $description
      * @return void
      */
-    public function edit(string $title, ?string $description): void
+    public function edit(ShortText $title, ?LongText $description): void
     {
-        Assertion::notBlank($title, sprintf(
-            'Tried to set an empty title on book with id "%s"!',
-            $this->id->toString()
-        ));
-
         $this->title = $title;
         $this->description = $description;
 
@@ -85,12 +76,12 @@ class Book
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): ShortText
     {
         return $this->title;
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): ?LongText
     {
         return $this->description;
     }

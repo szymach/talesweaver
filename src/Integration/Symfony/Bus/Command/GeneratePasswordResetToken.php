@@ -6,20 +6,21 @@ namespace Talesweaver\Integration\Symfony\Bus\Command;
 
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
+use Talesweaver\Domain\ValueObject\Email;
 
 class GeneratePasswordResetToken implements MessageCommandInterface
 {
     /**
-     * @var string
+     * @var Email
      */
     private $email;
 
     public function __construct(string $email)
     {
-        $this->email = $email;
+        $this->email = new Email($email);
     }
 
-    public function getEmail(): string
+    public function getEmail(): Email
     {
         return $this->email;
     }

@@ -7,6 +7,7 @@ namespace Talesweaver\Tests\Integration\Controller\Scene;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Tests\FunctionalTester;
 
 class FormControllerCest
@@ -66,10 +67,10 @@ class FormControllerCest
     public function nextSceneForm(FunctionalTester $I)
     {
         $user = $I->getUser();
-        $chapter = new Chapter(Uuid::uuid4(), 'Rozdział', null, $user->getAuthor());
+        $chapter = new Chapter(Uuid::uuid4(), new ShortText('Rozdział'), null, $user->getAuthor());
         $I->persistEntity($chapter);
         $id = Uuid::uuid4();
-        $I->persistEntity(new Scene($id, self::TITLE_PL, $chapter, $user->getAuthor()));
+        $I->persistEntity(new Scene($id, new ShortText(self::TITLE_PL), $chapter, $user->getAuthor()));
 
         $I->cantSeeInRepository(Scene::class, ['translations' => ['title' => self::NEW_TITLE_PL]]);
         $I->loginAsUser();

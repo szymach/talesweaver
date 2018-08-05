@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Domain\Tests\Entity\Item;
+namespace Talesweaver\Tests\Domain\Entity;
 
 use DomainException;
 use PHPUnit\Framework\TestCase;
@@ -10,16 +10,34 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
-use Talesweaver\Domain\Item;
+use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\ValueObject\LongText;
+use Talesweaver\Domain\ValueObject\ShortText;
 
-class RelationsTest extends TestCase
+class CharacterTest extends TestCase
 {
+    public function testProperCharacterCreation()
+    {
+        $scene = $this->createMock(Scene::class);
+        $scene->expects($this->once())->method('addCharacter')->with($this->isInstanceOf(Character::class));
+
+        $character = new Character(
+            $this->createMock(UuidInterface::class),
+            $scene,
+            new ShortText('Character properly created'),
+            new LongText('Character description'),
+            null,
+            $this->createMock(Author::class)
+        );
+        $this->assertContains($scene, $character->getScenes());
+    }
+
     public function testExceptionWhenNewSceneHasNoChapterAndCurrentOnesDo()
     {
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage(
-            'Scene "inconsistent scene id" is inconsistent with other scenes of item "some item id"'
+            'Scene "unassigned scene id" is inconsistent with other scenes from character "characters id"'
         );
 
         $chapter = $this->createMock(Chapter::class);
@@ -28,30 +46,29 @@ class RelationsTest extends TestCase
         $sceneAssigned->expects($this->exactly(1))->method('getChapter')->willReturn($chapter);
 
         $unassignedSceneId = $this->createMock(UuidInterface::class);
-        $unassignedSceneId->expects($this->once())->method('toString')->willReturn('inconsistent scene id');
-
+        $unassignedSceneId->expects($this->once())->method('toString')->willReturn('unassigned scene id');
         $sceneUnassigned = $this->createMock(Scene::class);
         $sceneUnassigned->expects($this->once())->method('getId')->willReturn($unassignedSceneId);
         $sceneUnassigned->expects($this->exactly(1))->method('getChapter')->willReturn(null);
 
-        $itemId = $this->createMock(UuidInterface::class);
-        $itemId->expects($this->once())->method('toString')->willReturn('some item id');
-        $item = new Item(
-            $itemId,
+        $characterId = $this->createMock(UuidInterface::class);
+        $characterId->expects($this->once())->method('toString')->willReturn('characters id');
+        $character = new Character(
+            $characterId,
             $sceneAssigned,
-            'Item with inconsistent scenes',
-            '',
+            new ShortText('Character with inconsistent scenes'),
+            null,
             null,
             $this->createMock(Author::class)
         );
-        $item->addScene($sceneUnassigned);
+        $character->addScene($sceneUnassigned);
     }
 
     public function testExceptionWhenTheNewChapterHasADifferentBook()
     {
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage(
-            'Scene "id of scene with a book" is inconsistent with other scenes of item "item"'
+            'Scene "scene with a book id" is inconsistent with other scenes from character "character with a book id"'
         );
 
         // Scene 1
@@ -69,7 +86,7 @@ class RelationsTest extends TestCase
         $chapterWithADifferentBook->expects($this->once())->method('getBook')->willReturn($differentBook);
 
         $sceneWithADifferentBookId = $this->createMock(UuidInterface::class);
-        $sceneWithADifferentBookId->expects($this->once())->method('toString')->willReturn('id of scene with a book');
+        $sceneWithADifferentBookId->expects($this->once())->method('toString')->willReturn('scene with a book id');
         $sceneWithADifferentBook = $this->createMock(Scene::class);
         $sceneWithADifferentBook->expects($this->once())->method('getId')->willReturn($sceneWithADifferentBookId);
         $sceneWithADifferentBook->expects($this->once())
@@ -77,16 +94,16 @@ class RelationsTest extends TestCase
             ->willReturn($chapterWithADifferentBook)
         ;
 
-        $itemId = $this->createMock(UuidInterface::class);
-        $itemId->expects($this->once())->method('toString')->willReturn('item');
-        $item = new Item(
-            $itemId,
+        $characterId = $this->createMock(UuidInterface::class);
+        $characterId->expects($this->once())->method('toString')->willReturn('character with a book id');
+        $character = new Character(
+            $characterId,
             $sceneWithABook,
-            'Item with inconsistent chapters',
-            '',
+            new ShortText('Character with inconsistent chapters'),
+            null,
             null,
             $this->createMock(Author::class)
         );
-        $item->addScene($sceneWithADifferentBook);
+        $character->addScene($sceneWithADifferentBook);
     }
 }

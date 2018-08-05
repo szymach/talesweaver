@@ -4,38 +4,16 @@ declare(strict_types=1);
 
 namespace Talesweaver\Domain\Tests;
 
-use Assert\InvalidArgumentException;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class ChapterTest extends TestCase
 {
-    public function testExceptionWhenEmptyTitleOnCreation()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Cannot create a chapter without a title for author "chapter author"!');
-
-        $author = $this->createMock(Author::class);
-        $author->expects($this->once())->method('getUsername')->willReturn('chapter author');
-
-        new Chapter($this->createMock(UuidInterface::class), '', null, $author);
-    }
-
-    public function testExceptionWhenEmptyTitleOnEdit()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Tried to set an empty title on chapter with id "chapter id"!');
-
-        $id = $this->createMock(UuidInterface::class);
-        $id->expects($this->once())->method('toString')->willReturn('chapter id');
-        $chapter = new Chapter($id, 'Chapter', null, $this->createMock(Author::class));
-        $chapter->edit('', null);
-    }
-
     public function testExceptionWhenCreatingWithDifferentBookAuthor()
     {
         $this->expectException(DomainException::class);
@@ -62,7 +40,7 @@ class ChapterTest extends TestCase
 
         new Chapter(
             $this->createMock(UuidInterface::class),
-            'Chapter',
+            new ShortText('Chapter'),
             $book,
             $chapterAuthor
         );
@@ -84,7 +62,7 @@ class ChapterTest extends TestCase
         $chapterBook = $this->createMock(Book::class);
         $chapterBook->expects($this->once())->method('getCreatedBy')->willReturn($chapterAuthor);
 
-        $chapter = new Chapter($this->createMock(UuidInterface::class), 'Chapter', $chapterBook, $chapterAuthor);
+        $chapter = new Chapter($this->createMock(UuidInterface::class), new ShortText('Chapter'), $chapterBook, $chapterAuthor);
 
         $newBookAuthorId = $this->createMock(UuidInterface::class);
         $newBookAuthorId->expects($this->once())->method('toString')->willReturn('new book author id');
@@ -97,6 +75,6 @@ class ChapterTest extends TestCase
         $newBook->expects($this->once())->method('getId')->willReturn($newBookId);
         $newBook->expects($this->exactly(2))->method('getCreatedBy')->willReturn($newBookAuthor);
 
-        $chapter->edit('Chapter', $newBook);
+        $chapter->edit(new ShortText('Chapter'), $newBook);
     }
 }

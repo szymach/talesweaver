@@ -33,7 +33,7 @@ class DTO
     public function __construct(Event $event)
     {
         $this->id = $event->getId();
-        $this->name = $event->getName();
+        $this->name = (string) $event->getName();
         $this->model = $event->getModel();
         $this->scene = $event->getScene()->getId();
     }

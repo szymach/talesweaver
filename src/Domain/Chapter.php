@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Talesweaver\Domain;
 
-use Assert\Assertion;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,6 +12,7 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Traits\CreatedByTrait;
 use Talesweaver\Domain\Traits\TimestampableTrait;
 use Talesweaver\Domain\Traits\TranslatableTrait;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class Chapter
 {
@@ -24,7 +24,7 @@ class Chapter
     private $id;
 
     /**
-     * @var string
+     * @var ShortText
      */
     private $title;
 
@@ -38,7 +38,7 @@ class Chapter
      */
     private $scenes;
 
-    public function __construct(UuidInterface $id, string $title, ?Book $book, Author $author)
+    public function __construct(UuidInterface $id, ShortText $title, ?Book $book, Author $author)
     {
         $this->assertCorrectConstructorData($title, $author, $book);
 
@@ -53,15 +53,15 @@ class Chapter
 
     public function __toString()
     {
-        return $this->title;
+        return (string) $this->title;
     }
 
     /**
-     * @param string $title
+     * @param ShortText $title
      * @param Book|null $book
      * @return void
      */
-    public function edit(string $title, ?Book $book): void
+    public function edit(ShortText $title, ?Book $book): void
     {
         $this->assertCorrectEditionData($title, $book);
 
@@ -76,7 +76,7 @@ class Chapter
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): ShortText
     {
         return $this->title;
     }
@@ -110,13 +110,8 @@ class Chapter
         $this->scenes->removeElement($scene);
     }
 
-    private function assertCorrectConstructorData(string $title, Author $author, ?Book $book): void
+    private function assertCorrectConstructorData(ShortText $title, Author $author, ?Book $book): void
     {
-        Assertion::notBlank($title, sprintf(
-            'Cannot create a chapter without a title for author "%s"!',
-            $author->getUsername()
-        ));
-
         if (null !== $book && $author->getId() !== $book->getCreatedBy()->getId()) {
             throw new DomainException(sprintf(
                 'Chapter for user "%s" with title "%s" cannot be assigned to book "%s", whose author is "%s"',
@@ -128,13 +123,8 @@ class Chapter
         }
     }
 
-    private function assertCorrectEditionData(string $title, ?Book $book): void
+    private function assertCorrectEditionData(ShortText $title, ?Book $book): void
     {
-        Assertion::notBlank($title, sprintf(
-            'Tried to set an empty title on chapter with id "%s"!',
-            $this->id->toString()
-        ));
-
         if (null !== $book && $this->createdBy->getId() !== $book->getCreatedBy()->getId()) {
             throw new DomainException(sprintf(
                 'Chapter for user "%s" with title "%s" cannot be assigned to book "%s", whose author is "%s"',

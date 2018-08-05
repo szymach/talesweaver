@@ -6,7 +6,7 @@
     <entity name="Talesweaver\Domain\Author">
 
         <id name="id" type="uuid" />
-        <field name="username" />
+        <field name="email" type="email" />
 
     </entity>
 </doctrine-mapping>

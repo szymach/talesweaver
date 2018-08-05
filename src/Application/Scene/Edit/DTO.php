@@ -33,8 +33,8 @@ class DTO
     public function __construct(Scene $scene)
     {
         $this->id = $scene->getId();
-        $this->title = $scene->getTitle();
-        $this->text = $scene->getText();
+        $this->title = (string) $scene->getTitle();
+        $this->text = (string) $scene->getText();
         $this->chapter = $scene->getChapter();
     }
 

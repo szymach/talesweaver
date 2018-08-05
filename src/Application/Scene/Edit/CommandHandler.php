@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Scene\Edit;
 
+use Talesweaver\Domain\ValueObject\LongText;
+use Talesweaver\Domain\ValueObject\ShortText;
+
 class CommandHandler
 {
     public function handle(Command $command): void
@@ -14,9 +17,10 @@ class CommandHandler
             $scene->getChapter()->removeScene($scene);
         }
 
+        $description = $command->getDto()->getText();
         $scene->edit(
-            $command->getDto()->getTitle(),
-            $command->getDto()->getText(),
+            new ShortText($command->getDto()->getTitle()),
+            null !== $description ? new LongText($description) : null,
             $chapter
         );
     }

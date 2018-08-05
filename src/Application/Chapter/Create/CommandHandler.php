@@ -6,6 +6,7 @@ namespace Talesweaver\Application\Chapter\Create;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class CommandHandler
 {
@@ -24,7 +25,7 @@ class CommandHandler
         $this->manager->persist(
             new Chapter(
                 $command->getId(),
-                $command->getData()->getTitle(),
+                new ShortText($command->getData()->getTitle()),
                 $command->getData()->getBook(),
                 $command->getAuthor()
             )

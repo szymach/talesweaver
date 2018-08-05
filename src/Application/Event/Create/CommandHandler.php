@@ -6,6 +6,7 @@ namespace Talesweaver\Application\Event\Create;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Talesweaver\Domain\Event;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class CommandHandler
 {
@@ -24,7 +25,7 @@ class CommandHandler
         $this->manager->persist(
             new Event(
                 $command->getId(),
-                $command->getData()->getName(),
+                new ShortText($command->getData()->getName()),
                 $command->getData()->getModel(),
                 $command->getData()->getScene(),
                 $command->getAuthor()

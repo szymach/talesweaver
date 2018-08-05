@@ -9,6 +9,7 @@ use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Item\Create;
 use Talesweaver\Application\Item\Edit;
 use Talesweaver\Domain\Item;
+use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Item\CreateType;
 use Talesweaver\Integration\Symfony\Form\Item\EditType;
 use Talesweaver\Tests\Integration\Form\CreateSceneTrait;
@@ -101,7 +102,7 @@ class FormTypeTest extends Unit
         return new Item(
             Uuid::uuid4(),
             $this->getScene(),
-            self::NAME_PL,
+            new ShortText(self::NAME_PL),
             null,
             null,
             $this->tester->getUser()->getAuthor()
