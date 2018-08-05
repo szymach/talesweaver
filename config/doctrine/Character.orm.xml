@@ -11,7 +11,9 @@
         <fsi:translatable-field field="description" mappedBy="translations" />
 
         <id name="id" type="uuid"/>
-        <field name="avatarKey" type="text" nullable="true"/>
+        <field name="avatarKey" type="text" nullable="true">
+            <fsi:uploadable targetField="avatar"/>
+        </field>
         <field name="createdAt" type="datetime"/>
         <field name="updatedAt" type="datetime" nullable="true"/>
 

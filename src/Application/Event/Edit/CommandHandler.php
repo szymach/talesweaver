@@ -11,9 +11,9 @@ class CommandHandler
     public function handle(Command $command): void
     {
         $command->getEvent()->edit(
-            new ShortText($command->getDto()->getName()),
-            $command->getDto()->getModel(),
-            $command->getDto()->getScene()
+            new ShortText($command->getData()->getName()),
+            $command->getData()->getModel(),
+            $command->getData()->getScene()
         );
     }
 }

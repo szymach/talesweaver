@@ -21,11 +21,11 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
     /**
      * @var DTO
      */
-    private $dto;
+    private $data;
 
-    public function __construct(DTO $dto, Book $book)
+    public function __construct(DTO $data, Book $book)
     {
-        $this->dto = $dto;
+        $this->data = $data;
         $this->book = $book;
     }
 
@@ -44,8 +44,8 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
         return $this->book;
     }
 
-    public function getDto(): DTO
+    public function getData(): DTO
     {
-        return $this->dto;
+        return $this->data;
     }
 }

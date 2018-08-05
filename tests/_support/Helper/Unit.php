@@ -100,6 +100,11 @@ class Unit extends Module
         return $this->getService('form.factory');
     }
 
+    public function createTooLongString(): string
+    {
+        return bin2hex(random_bytes(128));
+    }
+
     /**
      * phpcs:disable
      */

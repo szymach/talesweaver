@@ -67,6 +67,24 @@ services:
         decorates: author_access_command_bus
         arguments: ['@messages_aware_bus.inner']
 
+    # FSi File Handler
+    app.filehandler.domain_file:
+        class: Talesweaver\Integration\FSi\Uploadable\FileHandler\DomainFileHandler
+        arguments:
+            - "@fsi_doctrine_extensions.filehandler.gaufrette"
+            - "@fsi_doctrine_extensions.filehandler.splfileinfo"
+            - "@fsi_doctrine_extensions.filehandler.symfony_uploaded_file"
+
+    fsi_doctrine_extensions.filehandler.chain:
+        class: FSi\DoctrineExtensions\Uploadable\FileHandler\ChainHandler
+        arguments:
+            $handlers:
+                - "@fsi_doctrine_extensions.filehandler.gaufrette"
+                - "@fsi_doctrine_extensions.filehandler.symfony_uploaded_file"
+                - "@fsi_doctrine_extensions.filehandler.splfileinfo"
+                - "@app.filehandler.domain_file"
+
+
     # Security
     app.security.login_form_authenticator:
         class: Talesweaver\Integration\Symfony\Security\LoginFormAuthenticator

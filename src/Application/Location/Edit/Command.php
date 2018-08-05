@@ -23,9 +23,9 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
      */
     private $location;
 
-    public function __construct(DTO $dto, Location $location)
+    public function __construct(DTO $data, Location $location)
     {
-        $this->dto = $dto;
+        $this->dto = $data;
         $this->location = $location;
     }
 
@@ -39,7 +39,7 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
         return new EditionSuccessMessage('location');
     }
 
-    public function getDto(): DTO
+    public function getData(): DTO
     {
         return $this->dto;
     }

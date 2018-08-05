@@ -16,22 +16,22 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
     /**
      * @var DTO
      */
-    private $dto;
+    private $data;
 
     /**
      * @var Scene
      */
     private $scene;
 
-    public function __construct(DTO $dto, Scene $scene)
+    public function __construct(DTO $data, Scene $scene)
     {
-        $this->dto = $dto;
+        $this->data = $data;
         $this->scene = $scene;
     }
 
-    public function getDto(): DTO
+    public function getData(): DTO
     {
-        return $this->dto;
+        return $this->data;
     }
 
     public function getScene(): Scene

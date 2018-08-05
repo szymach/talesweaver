@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Talesweaver\Domain;
 
-use Assert\Assertion;
 use DateTimeImmutable;
 use JsonSerializable;
 use Ramsey\Uuid\UuidInterface;

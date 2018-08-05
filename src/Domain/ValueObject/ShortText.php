@@ -15,8 +15,12 @@ class ShortText
 
     public function __construct(string $value)
     {
-        Assertion::minLength($value, 1);
-        Assertion::maxLength($value, 255);
+        Assertion::minLength($value, 1, 'The short text needs at least 1 character.');
+        Assertion::maxLength(
+            $value,
+            255,
+            sprintf('The text can be only 255 characters long, but is "%s"', mb_strlen($value))
+        );
         $this->value = $value;
     }
 

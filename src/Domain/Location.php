@@ -8,14 +8,12 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use DomainException;
-use FSi\DoctrineExtensions\Uploadable\File;
-use InvalidArgumentException;
 use Ramsey\Uuid\UuidInterface;
-use SplFileInfo;
 use Talesweaver\Domain\Traits\AvatarTrait;
 use Talesweaver\Domain\Traits\CreatedByTrait;
 use Talesweaver\Domain\Traits\TimestampableTrait;
 use Talesweaver\Domain\Traits\TranslatableTrait;
+use Talesweaver\Domain\ValueObject\File;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 
@@ -53,7 +51,7 @@ class Location
      * @param Scene $scene
      * @param ShortText $name
      * @param LongText|null $description
-     * @param File|SplFileInfo|null $avatar
+     * @param File|null $avatar
      * @param Author $author
      */
     public function __construct(
@@ -61,11 +59,9 @@ class Location
         Scene $scene,
         ShortText $name,
         ?LongText $description,
-        $avatar,
+        ?File $avatar,
         Author $author
     ) {
-        $this->validateAvatar($id, $avatar);
-
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
@@ -88,13 +84,11 @@ class Location
     /**
      * @param ShortText $name
      * @param LongText|null $description
-     * @param File|SplFileInfo|null $avatar
+     * @param File|null $avatar
      * @return void
      */
-    public function edit(ShortText $name, ?LongText $description, $avatar): void
+    public function edit(ShortText $name, ?LongText $description, ?File $avatar): void
     {
-        $this->validateAvatar($this->id, $avatar);
-
         $this->name = $name;
         $this->description = $description;
         $this->avatar = $avatar;
@@ -193,22 +187,6 @@ class Location
             },
             null
         );
-    }
-
-    private function validateAvatar(UuidInterface $id, $avatar): void
-    {
-        if (null !== $avatar
-            && false === $avatar instanceof File
-            && false === $avatar instanceof SplFileInfo
-        ) {
-            throw new InvalidArgumentException(sprintf(
-                'Location\'s "%s" avatar must be either of instance "%s" or "%s", got "%s"',
-                $id->toString(),
-                File::class,
-                SplFileInfo::class,
-                is_object($avatar) ? get_class($avatar) : gettype($avatar)
-            ));
-        }
     }
 
     private function throwInconsistentSceneException(Scene $scene): void

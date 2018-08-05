@@ -9,14 +9,12 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use DomainException;
-use FSi\DoctrineExtensions\Uploadable\File;
-use InvalidArgumentException;
 use Ramsey\Uuid\UuidInterface;
-use SplFileInfo;
 use Talesweaver\Domain\Traits\AvatarTrait;
 use Talesweaver\Domain\Traits\CreatedByTrait;
 use Talesweaver\Domain\Traits\TimestampableTrait;
 use Talesweaver\Domain\Traits\TranslatableTrait;
+use Talesweaver\Domain\ValueObject\File;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 
@@ -48,8 +46,8 @@ class Character
      * @param UuidInterface $id
      * @param Scene $scene
      * @param ShortText $name
-     * @param string|null $description
-     * @param File|SplFileInfo|null $avatar
+     * @param LongText|null $description
+     * @param File|null $avatar
      * @param Author $author
      */
     public function __construct(
@@ -57,11 +55,9 @@ class Character
         Scene $scene,
         ShortText $name,
         ?LongText $description,
-        $avatar,
+        ?File $avatar,
         Author $author
     ) {
-        $this->validateAvatar($id, $avatar);
-
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
@@ -81,17 +77,16 @@ class Character
 
     /**
      * @param ShortText $name
-     * @param string|null $description
-     * @param File|SplFileInfo|null $avatar
+     * @param LongText|null $description
+     * @param File|null $avatar
      * @return void
      */
-    public function edit(ShortText $name, ?LongText $description, $avatar): void
+    public function edit(ShortText $name, ?LongText $description, ?File $avatar): void
     {
         Assertion::notBlank($name, sprintf(
             'Tried to set an empty name on character with id "%s"!',
             $this->id->toString()
         ));
-        $this->validateAvatar($this->id, $avatar);
 
         $this->name = $name;
         $this->description = $description;
@@ -193,22 +188,6 @@ class Character
             },
             null
         );
-    }
-
-    private function validateAvatar(UuidInterface $id, $avatar): void
-    {
-        if (null !== $avatar
-            && false === $avatar instanceof File
-            && false === $avatar instanceof SplFileInfo
-        ) {
-            throw new InvalidArgumentException(sprintf(
-                'Character\'s "%s" avatar must be either of instance "%s" or "%s", got "%s"',
-                $id->toString(),
-                File::class,
-                SplFileInfo::class,
-                is_object($avatar) ? get_class($avatar) : gettype($avatar)
-            ));
-        }
     }
 
     private function throwInconsistentSceneException(Scene $scene): void

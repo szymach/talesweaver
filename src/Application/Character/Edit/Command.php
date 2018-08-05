@@ -39,7 +39,7 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
         return new EditionSuccessMessage('character');
     }
 
-    public function getDto(): DTO
+    public function getData(): DTO
     {
         return $this->dto;
     }

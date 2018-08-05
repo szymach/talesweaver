@@ -21,12 +21,12 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
     /**
      * @var DTO
      */
-    private $dto;
+    private $data;
 
-    public function __construct(Event $event, DTO $dto)
+    public function __construct(Event $event, DTO $data)
     {
         $this->event = $event;
-        $this->dto = $dto;
+        $this->data = $data;
     }
 
     public function isAllowed(Author $author): bool
@@ -44,8 +44,8 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
         return $this->event;
     }
 
-    public function getDto(): DTO
+    public function getData(): DTO
     {
-        return $this->dto;
+        return $this->data;
     }
 }

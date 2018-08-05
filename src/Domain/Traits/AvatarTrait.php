@@ -4,27 +4,27 @@ declare(strict_types=1);
 
 namespace Talesweaver\Domain\Traits;
 
-use FSi\DoctrineExtensions\Uploadable\File;
-use SplFileInfo;
+use Talesweaver\Domain\ValueObject\File;
 
 trait AvatarTrait
 {
     /**
-     * @var File|SplFileInfo
+     * @var File|null
      */
     private $avatar;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $avatarKey;
 
-    public function getAvatar()
+    public function getAvatar(): ?File
     {
+        $this->transformFile();
         return $this->avatar;
     }
 
-    public function setAvatar($avatar)
+    public function setAvatar(?File $avatar): void
     {
         $this->avatar = $avatar;
     }
@@ -38,8 +38,15 @@ trait AvatarTrait
     {
         $this->avatarKey = $avatarKey;
 
-        if (true === method_exists($this, 'update')) {
-            $this->update();
+        $this->update();
+    }
+
+    private function transformFile(): void
+    {
+        if (null === $this->avatar || true === $this->avatar instanceof File) {
+            return;
         }
+
+        $this->avatar = new File($this->avatar);
     }
 }

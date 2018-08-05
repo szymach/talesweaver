@@ -16,16 +16,16 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
     /**
      * @var DTO
      */
-    private $dto;
+    private $data;
 
     /**
      * @var Item
      */
     private $item;
 
-    public function __construct(DTO $dto, Item $item)
+    public function __construct(DTO $data, Item $item)
     {
-        $this->dto = $dto;
+        $this->data = $data;
         $this->item = $item;
     }
 
@@ -39,9 +39,9 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
         return new EditionSuccessMessage('item');
     }
 
-    public function getDto(): DTO
+    public function getData(): DTO
     {
-        return $this->dto;
+        return $this->data;
     }
 
     public function getItem(): Item

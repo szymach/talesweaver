@@ -62,11 +62,6 @@ class Scene
      */
     public function __construct(UuidInterface $id, ShortText $title, ?Chapter $chapter, Author $author)
     {
-        Assertion::notBlank($title, sprintf(
-            'Cannot create a scene without a title for author "%s"!',
-            $author->getEmail()
-        ));
-
         $this->id = $id;
         $this->title = $title;
         $this->chapter = $chapter;

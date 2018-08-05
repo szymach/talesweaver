@@ -15,7 +15,7 @@ class LongText
 
     public function __construct(string $value)
     {
-        Assertion::minLength($value, 0);
+        Assertion::minLength($value, 1, 'The long text needs at least 1 character.');
         $this->value = $value;
     }
 
