@@ -4,26 +4,22 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Chapter\Delete;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\Chapters;
 
 class CommandHandler
 {
     /**
-     * @var ObjectManager
+     * @var Chapters
      */
-    private $manager;
+    private $chapters;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(Chapters $chapters)
     {
-        $this->manager = $manager;
+        $this->chapters = $chapters;
     }
 
     public function handle(Command $command): void
     {
-        $this->manager->remove(
-            $this->manager->getRepository(Chapter::class)->find($command->getId())
-        );
-        $this->manager->flush();
+        $this->chapters->remove($command->getId());
     }
 }

@@ -49,14 +49,23 @@ class CharacterRepository implements Characters, RequestSecuredRepository
         return $this->doctrineRepository->findAll();
     }
 
+    public function add(Character $character): void
+    {
+        $this->doctrineRepository->persist($character);
+    }
+
     public function remove(UuidInterface $id): void
     {
         $this->doctrineRepository
             ->createQueryBuilder('c')
             ->delete()
             ->where('c.id = :id')
+            ->andWhere('c.createdBy = :createdBy')
             ->getQuery()
-            ->execute(['id' => $id->toString()])
+            ->execute([
+                'id' => $id->toString(),
+                'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
+            ])
         ;
     }
 

@@ -4,25 +4,22 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Book\Delete;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Talesweaver\Domain\Book;
+use Talesweaver\Domain\Books;
 
 class CommandHandler
 {
     /**
-     * @var ObjectManager
+     * @var Books
      */
-    private $manager;
+    private $books;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(Books $books)
     {
-        $this->manager = $manager;
+        $this->books = $books;
     }
 
     public function handle(Command $command)
     {
-        $this->manager->remove(
-            $this->manager->getRepository(Book::class)->find($command->getId())
-        );
+        $this->books->remove($command->getId());
     }
 }

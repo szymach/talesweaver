@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Book\Create;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Talesweaver\Domain\Book;
+use Talesweaver\Domain\Books;
 use Talesweaver\Domain\ValueObject\ShortText;
 
 class CommandHandler
 {
     /**
-     * @var ObjectManager
+     * @var Books
      */
-    private $manager;
+    private $books;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(Books $books)
     {
-        $this->manager = $manager;
+        $this->books = $books;
     }
 
     public function handle(Command $command): void
     {
-        $this->manager->persist(
+        $this->books->add(
             new Book($command->getId(), new ShortText($command->getTitle()), $command->getAuthor())
         );
     }

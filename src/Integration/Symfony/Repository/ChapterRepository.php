@@ -50,14 +50,23 @@ class ChapterRepository implements Chapters, LatestChangesAwareRepository, Reque
         return $this->doctrineRepository->findAll();
     }
 
+    public function add(Chapter $chapter): void
+    {
+        $this->doctrineRepository->persist($chapter);
+    }
+
     public function remove(UuidInterface $id): void
     {
         $this->doctrineRepository
             ->createQueryBuilder('c')
             ->delete()
             ->where('c.id = :id')
+            ->andWhere('c.createdBy = :createdBy')
             ->getQuery()
-            ->execute(['id' => $id->toString()])
+            ->execute([
+                'id' => $id->toString(),
+                'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
+            ])
         ;
     }
 

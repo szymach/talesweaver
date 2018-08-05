@@ -49,14 +49,23 @@ class BookRepository implements Books, LatestChangesAwareRepository, RequestSecu
         return $this->doctrineRepository->findAll();
     }
 
+    public function add(Book $book): void
+    {
+        $this->doctrineRepository->persist($book);
+    }
+
     public function remove(UuidInterface $id): void
     {
         $this->doctrineRepository
             ->createQueryBuilder('d')
             ->delete()
             ->where('d.id = :id')
+            ->andWhere('d.createdBy = :createdBy')
             ->getQuery()
-            ->execute(['id' => $id->toString()])
+            ->execute([
+                'id' => $id->toString(),
+                'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
+            ])
         ;
     }
 

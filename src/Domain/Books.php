@@ -9,6 +9,7 @@ use Ramsey\Uuid\UuidInterface;
 interface Books
 {
     public function find(UuidInterface $id): ?Book;
+    public function add(Book $book): void;
     public function findAll(): array;
     public function remove(UuidInterface $id): void;
 }

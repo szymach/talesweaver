@@ -9,6 +9,7 @@ use Doctrine\ORM\QueryBuilder;
 use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
+use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Scene;
 
 class CharacterRepository extends TranslatableRepository
@@ -17,6 +18,11 @@ class CharacterRepository extends TranslatableRepository
      * @var int
      */
     private $joinAliasCount = 0;
+
+    public function persist(Character $character): void
+    {
+        $this->getEntityManager()->persist($character);
+    }
 
     public function byCurrentAuthorForSceneQueryBuilder(Author $author, Scene $scene): QueryBuilder
     {
@@ -37,10 +43,10 @@ class CharacterRepository extends TranslatableRepository
             ->andWhere('c.createdBy = :author')
             ->andWhere($qb->expr()->andX(
                 ':scene NOT MEMBER OF c.scenes',
-                's.chapter = :chapter'
+                's.character = :character'
             ))
             ->orderBy('t.name', 'ASC')
-            ->setParameter('chapter', $scene->getChapter())
+            ->setParameter('character', $scene->getCharacter())
             ->setParameter('scene', $scene)
             ->setParameter('author', $author)
         ;

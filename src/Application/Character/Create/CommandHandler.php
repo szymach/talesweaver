@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Character\Create;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Talesweaver\Domain\Character;
+use Talesweaver\Domain\Characters;
 use Talesweaver\Domain\ValueObject\File;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
@@ -13,20 +13,20 @@ use Talesweaver\Domain\ValueObject\ShortText;
 class CommandHandler
 {
     /**
-     * @var ObjectManager
+     * @var Characters
      */
-    private $manager;
+    private $characters;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(Characters $characters)
     {
-        $this->manager = $manager;
+        $this->characters = $characters;
     }
 
     public function handle(Command $command): void
     {
         $description = $command->getData()->getDescription();
         $avatar = $command->getData()->getAvatar();
-        $this->manager->persist(
+        $this->characters->add(
             new Character(
                 $command->getId(),
                 $command->getData()->getScene(),

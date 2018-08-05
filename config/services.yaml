@@ -16,6 +16,13 @@ services:
 
     Knp\Menu\FactoryInterface: "@knp_menu.factory"
     Knp\Snappy\GeneratorInterface: "@knp_snappy.pdf"
+    Talesweaver\Domain\Books: '@Talesweaver\Integration\Symfony\Repository\BookRepository'
+    Talesweaver\Domain\Chapters: '@Talesweaver\Integration\Symfony\Repository\ChapterRepository'
+    Talesweaver\Domain\Characters: '@Talesweaver\Integration\Symfony\Repository\CharacterRepository'
+    Talesweaver\Domain\Events: '@Talesweaver\Integration\Symfony\Repository\EventRepository'
+    Talesweaver\Domain\Items: '@Talesweaver\Integration\Symfony\Repository\ItemRepository'
+    Talesweaver\Domain\Locations: '@Talesweaver\Integration\Symfony\Repository\LocationRepository'
+    Talesweaver\Domain\Scenes: '@Talesweaver\Integration\Symfony\Repository\SceneRepository'
     SimpleBus\Message\Bus\MessageBus: "@transaction_wrapped_command_bus"
     Symfony\Component\HttpFoundation\Session\Session: "@session"
     Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface: '@security.user_password_encoder.generic'

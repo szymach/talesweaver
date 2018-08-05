@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Chapter\Create;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\Chapters;
 use Talesweaver\Domain\ValueObject\ShortText;
 
 class CommandHandler
 {
     /**
-     * @var ObjectManager
+     * @var Chapters
      */
-    private $manager;
+    private $chapters;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(Chapters $chapters)
     {
-        $this->manager = $manager;
+        $this->chapters = $chapters;
     }
 
     public function handle(Command $command): void
     {
-        $this->manager->persist(
+        $this->chapters->add(
             new Chapter(
                 $command->getId(),
                 new ShortText($command->getData()->getTitle()),

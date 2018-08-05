@@ -10,5 +10,6 @@ interface Chapters
 {
     public function find(UuidInterface $id): ?Chapter;
     public function findAll(): array;
+    public function add(Chapter $chapter): void;
     public function remove(UuidInterface $id): void;
 }

@@ -10,9 +10,15 @@ use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Book;
+use Talesweaver\Domain\Chapter;
 
 class ChapterRepository extends TranslatableRepository
 {
+    public function persist(Chapter $chapter): void
+    {
+        $this->getEntityManager()->persist($chapter);
+    }
+
     public function allAvailableByAuthorQueryBuilder(Author $author): QueryBuilder
     {
         return $this->createQueryBuilder('c')
