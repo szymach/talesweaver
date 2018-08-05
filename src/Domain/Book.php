@@ -86,9 +86,9 @@ class Book
         return $this->description;
     }
 
-    public function getChapters(): Collection
+    public function getChapters(): array
     {
-        return $this->chapters;
+        return $this->chapters->toArray();
     }
 
     public function addChapter(Chapter $chapter): void

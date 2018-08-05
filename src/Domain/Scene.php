@@ -122,9 +122,9 @@ class Scene
         ;
     }
 
-    public function getCharacters(): Collection
+    public function getCharacters(): array
     {
-        return $this->characters;
+        return $this->characters->toArray();
     }
 
     public function addCharacter(Character $character): void
@@ -144,9 +144,9 @@ class Scene
         $this->update();
     }
 
-    public function getLocations(): Collection
+    public function getLocations(): array
     {
-        return $this->locations;
+        return $this->locations->toArray();
     }
 
     public function addLocation(Location $location): void
@@ -166,9 +166,9 @@ class Scene
         $this->update();
     }
 
-    public function getItems(): Collection
+    public function getItems(): array
     {
-        return $this->items;
+        return $this->items->toArray();
     }
 
     public function addItem(Item $item): void
