@@ -51,9 +51,12 @@ class FormSecurityCest
 
         $book = new Book(Uuid::uuid4(), new ShortText(self::BOOK_TITLE), $I->getUser()->getAuthor());
         $I->persistEntity($book);
-        $I->persistEntity(new Book($otherUsersBookId, new ShortText(self::BOOK_TITLE), $otherUser->getAuthor()));
-        $chapterId = Uuid::uuid4();
-        $I->persistEntity(new Chapter($chapterId, new ShortText(self::CHAPTER_TITLE), $book, $I->getUser()->getAuthor()));
+        $I->persistEntity(
+            new Book($otherUsersBookId, new ShortText(self::BOOK_TITLE), $otherUser->getAuthor())
+        );
+        $I->persistEntity(
+            new Chapter(Uuid::uuid4(), new ShortText(self::CHAPTER_TITLE), $book, $I->getUser()->getAuthor())
+        );
         $I->flushToDatabase();
 
         $I->amOnPage(self::CREATE_URL);

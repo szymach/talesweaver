@@ -13,6 +13,7 @@ use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Doctrine\Entity\User;
 
 class LoadStandaloneChapterData implements ORMFixtureInterface, OrderedFixtureInterface
@@ -25,25 +26,25 @@ class LoadStandaloneChapterData implements ORMFixtureInterface, OrderedFixtureIn
         $user = $manager->getRepository(User::class)->findOneBy([]);
         $author = $user->getAuthor();
 
-        $chapter = new Chapter(Uuid::uuid4(), 'Rozdział', null, $author);
+        $chapter = new Chapter(Uuid::uuid4(), new ShortText('Rozdział'), null, $author);
         $chapter->setLocale(self::LOCALE);
-        $scene1 = new Scene(Uuid::uuid4(), 'Scena 1', $chapter, $author);
-        $scene2 = new Scene(Uuid::uuid4(), 'Scena 2', $chapter, $author);
+        $scene1 = new Scene(Uuid::uuid4(), new ShortText('Scena 1'), $chapter, $author);
+        $scene2 = new Scene(Uuid::uuid4(), new ShortText('Scena 2'), $chapter, $author);
         $scene1->setLocale(self::LOCALE);
         $scene2->setLocale(self::LOCALE);
 
-        $character1 = new Character(Uuid::uuid4(), $scene1, 'Postać 1', '', null, $author);
-        $character2 = new Character(Uuid::uuid4(), $scene2, 'Postać 2', '', null, $author);
+        $character1 = new Character(Uuid::uuid4(), $scene1, new ShortText('Postać 1'), null, null, $author);
+        $character2 = new Character(Uuid::uuid4(), $scene2, new ShortText('Postać 2'), null, null, $author);
         $character1->setLocale(self::LOCALE);
         $character2->setLocale(self::LOCALE);
 
-        $item1 = new Item(Uuid::uuid4(), $scene1, 'Przedmiot 1', '', null, $author);
-        $item2 = new Item(Uuid::uuid4(), $scene2, 'Przedmiot 2', '', null, $author);
+        $item1 = new Item(Uuid::uuid4(), $scene1, new ShortText('Przedmiot 1'), null, null, $author);
+        $item2 = new Item(Uuid::uuid4(), $scene2, new ShortText('Przedmiot 2'), null, null, $author);
         $item1->setLocale(self::LOCALE);
         $item2->setLocale(self::LOCALE);
 
-        $location1 = new Location(Uuid::uuid4(), $scene1, 'Miejsce 1', '', null, $author);
-        $location2 = new Location(Uuid::uuid4(), $scene2, 'Miejsce 2', '', null, $author);
+        $location1 = new Location(Uuid::uuid4(), $scene1, new ShortText('Miejsce 1'), null, null, $author);
+        $location2 = new Location(Uuid::uuid4(), $scene2, new ShortText('Miejsce 2'), null, null, $author);
         $location1->setLocale(self::LOCALE);
         $location2->setLocale(self::LOCALE);
 

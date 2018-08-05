@@ -10,6 +10,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Doctrine\Entity\User;
 
 class LoandStandaloneBookData implements ORMFixtureInterface, OrderedFixtureInterface
@@ -22,10 +23,10 @@ class LoandStandaloneBookData implements ORMFixtureInterface, OrderedFixtureInte
         $user = $manager->getRepository(User::class)->findOneBy([]);
         $author = $user->getAuthor();
 
-        $book = new Book(Uuid::uuid4(), 'Książka', $author);
+        $book = new Book(Uuid::uuid4(), new ShortText('Książka'), $author);
         $book->setLocale(self::LOCALE);
 
-        $chapter = new Chapter(Uuid::uuid4(), 'Rozdział 1', $book, $author);
+        $chapter = new Chapter(Uuid::uuid4(), new ShortText('Rozdział 1'), $book, $author);
         $chapter->setLocale(self::LOCALE);
 
         $manager->persist($book);

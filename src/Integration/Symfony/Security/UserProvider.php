@@ -25,6 +25,10 @@ class UserProvider implements UserProviderInterface
 
     public function loadUserByUsername($username): UserInterface
     {
+        if (null === $username) {
+            throw new UsernameNotFoundException('No username provided.');
+        }
+
         $user = $this->repository->findOneByEmail(new Email($username));
         if (null === $user) {
             throw new UsernameNotFoundException(

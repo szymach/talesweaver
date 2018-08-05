@@ -3,7 +3,7 @@ Cypress.Commands.add("login", (email, password) => {
         method: 'POST',
         url: '/login',
         form: true,
-        body: { '_username': email, '_password': password }
+        body: { '_email': email, '_password': password }
     }).then(function (response) {
         expect(response.status).to.eq(200);
     });

@@ -11,9 +11,9 @@ class CommandHandler
 {
     public function handle(Command $command): void
     {
-        $description = $command->getData()->getDescription();
+        $description = $command->getDto()->getDescription();
         $command->getLocation()->edit(
-            new ShortText($command->getData()->getName()),
+            new ShortText($command->getDto()->getName()),
             null !== $description ? new LongText($description) : null,
             $command->getDto()->getAvatar()
         );
