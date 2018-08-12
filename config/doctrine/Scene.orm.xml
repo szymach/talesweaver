@@ -34,10 +34,10 @@
             </cascade>
             <join-table name="scene_character">
                 <join-columns>
-                    <join-column name="scene_id" />
+                    <join-column name="scene_id" on-delete="CASCADE" />
                 </join-columns>
                 <inverse-join-columns>
-                    <join-column name="character_id" />
+                    <join-column name="character_id" on-delete="CASCADE" />
                 </inverse-join-columns>
             </join-table>
         </many-to-many>
@@ -47,10 +47,10 @@
             </cascade>
             <join-table name="scene_item">
                 <join-columns>
-                    <join-column name="scene_id" />
+                    <join-column name="scene_id" on-delete="CASCADE" />
                 </join-columns>
                 <inverse-join-columns>
-                    <join-column name="item_id" />
+                    <join-column name="item_id" on-delete="CASCADE" />
                 </inverse-join-columns>
             </join-table>
         </many-to-many>
@@ -60,10 +60,10 @@
             </cascade>
             <join-table name="scene_location">
                 <join-columns>
-                    <join-column name="scene_id" />
+                    <join-column name="scene_id" on-delete="CASCADE" />
                 </join-columns>
                 <inverse-join-columns>
-                    <join-column name="location_id" />
+                    <join-column name="location_id" on-delete="CASCADE" />
                 </inverse-join-columns>
             </join-table>
         </many-to-many>
