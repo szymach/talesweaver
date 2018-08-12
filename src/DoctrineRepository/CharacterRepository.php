@@ -43,10 +43,10 @@ class CharacterRepository extends TranslatableRepository
             ->andWhere('c.createdBy = :author')
             ->andWhere($qb->expr()->andX(
                 ':scene NOT MEMBER OF c.scenes',
-                's.character = :character'
+                's.chapter = :chapter'
             ))
             ->orderBy('t.name', 'ASC')
-            ->setParameter('character', $scene->getCharacter())
+            ->setParameter('chapter', $scene->getChapter())
             ->setParameter('scene', $scene)
             ->setParameter('author', $author)
         ;

@@ -26,7 +26,7 @@ class CommandHandler
     {
         $description = $command->getData()->getDescription();
         $avatar = $command->getData()->getAvatar();
-        $this->manager->persist(
+        $this->locations->add(
             new Location(
                 $command->getId(),
                 $command->getData()->getScene(),

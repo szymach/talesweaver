@@ -62,6 +62,17 @@ class SceneRepository extends TranslatableRepository
         ;
     }
 
+    public function firstLocationOccurence(Author $author, UuidInterface $id): string
+    {
+        return $this->createFirstOccurenceQueryBuilder($author, $id)
+            ->join('s.locations', 'l')
+            ->andWhere('l MEMBER OF s.locations')
+            ->andWhere('l.id = :id')
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
+
     public function firstSceneOccurence(Author $author, UuidInterface $id): string
     {
         return $this->createFirstOccurenceQueryBuilder($author, $id)
