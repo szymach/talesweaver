@@ -4,25 +4,22 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Scene\Delete;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\Scenes;
 
 class CommandHandler
 {
     /**
-     * @var ObjectManager
+     * @var Scenes
      */
-    private $manager;
+    private $scenes;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(Scenes $scenes)
     {
-        $this->manager = $manager;
+        $this->scenes = $scenes;
     }
 
     public function handle(Command $command): void
     {
-        $this->manager->remove(
-            $this->manager->getRepository(Scene::class)->find($command->getId())
-        );
+        $this->scenes->remove($command->getId());
     }
 }

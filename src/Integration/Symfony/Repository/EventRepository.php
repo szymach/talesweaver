@@ -49,6 +49,11 @@ class EventRepository implements Events, RequestSecuredRepository
         return $this->doctrineRepository->findAll();
     }
 
+    public function add(Event $event): void
+    {
+        $this->doctrineRepository->persist($event);
+    }
+
     public function remove(UuidInterface $id): void
     {
         $this->doctrineRepository

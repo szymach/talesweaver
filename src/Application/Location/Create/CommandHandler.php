@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Location\Create;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Talesweaver\Domain\Location;
+use Talesweaver\Domain\Locations;
 use Talesweaver\Domain\ValueObject\File;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
@@ -13,13 +13,13 @@ use Talesweaver\Domain\ValueObject\ShortText;
 class CommandHandler
 {
     /**
-     * @var ObjectManager
+     * @var Locations
      */
-    private $manager;
+    private $locations;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(Locations $locations)
     {
-        $this->manager = $manager;
+        $this->locations = $locations;
     }
 
     public function handle(Command $command): void

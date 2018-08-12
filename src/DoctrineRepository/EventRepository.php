@@ -9,6 +9,7 @@ use Doctrine\ORM\QueryBuilder;
 use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
+use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Scene;
 
 class EventRepository extends TranslatableRepository
@@ -17,6 +18,11 @@ class EventRepository extends TranslatableRepository
      * @var int
      */
     private $joinAliasCount = 0;
+
+    public function persist(Event $event): void
+    {
+        $this->getEntityManager()->persist($event);
+    }
 
     public function createForSceneQueryBuilder(Author $author, Scene $scene): QueryBuilder
     {

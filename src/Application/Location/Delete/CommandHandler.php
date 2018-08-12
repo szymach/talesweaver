@@ -4,25 +4,22 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Location\Delete;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Talesweaver\Domain\Location;
+use Talesweaver\Domain\Locations;
 
 class CommandHandler
 {
     /**
-     * @var ObjectManager
+     * @var Locations
      */
-    private $manager;
+    private $locations;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(Locations $locations)
     {
-        $this->manager = $manager;
+        $this->locations = $locations;
     }
 
     public function handle(Command $command): void
     {
-        $this->manager->remove(
-            $this->manager->getRepository(Location::class)->find($command->getId())
-        );
+        $this->locations->remove($command->getId());
     }
 }

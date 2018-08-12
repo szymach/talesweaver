@@ -4,25 +4,22 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Item\Delete;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Talesweaver\Domain\Item;
+use Talesweaver\Domain\Items;
 
 class CommandHandler
 {
     /**
-     * @var ObjectManager
+     * @var Items
      */
-    private $manager;
+    private $items;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(Items $items)
     {
-        $this->manager = $manager;
+        $this->items = $items;
     }
 
     public function handle(Command $command): void
     {
-        $this->manager->remove(
-            $this->manager->getRepository(Item::class)->find($command->getId())
-        );
+        $this->items->remove($command->getId());
     }
 }

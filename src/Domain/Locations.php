@@ -10,5 +10,6 @@ interface Locations
 {
     public function find(UuidInterface $id): ?Location;
     public function findAll(): array;
+    public function add(Location $location): void;
     public function remove(UuidInterface $id): void;
 }

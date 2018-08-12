@@ -10,5 +10,6 @@ interface Events
 {
     public function find(UuidInterface $id): ?Event;
     public function findAll(): array;
+    public function add(Event $event): void;
     public function remove(UuidInterface $id): void;
 }

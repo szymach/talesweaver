@@ -4,25 +4,22 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Event\Delete;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Talesweaver\Domain\Event;
+use Talesweaver\Domain\Events;
 
 class CommandHandler
 {
     /**
-     * @var ObjectManager
+     * @var Events
      */
-    private $manager;
+    private $events;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(Events $events)
     {
-        $this->manager = $manager;
+        $this->events = $events;
     }
 
     public function handle(Command $command): void
     {
-        $this->manager->remove(
-            $this->manager->getRepository(Event::class)->find($command->getId())
-        );
+        $this->events->remove($command->getId());
     }
 }

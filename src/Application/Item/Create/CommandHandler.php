@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Item\Create;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Talesweaver\Domain\Item;
+use Talesweaver\Domain\Items;
 use Talesweaver\Domain\ValueObject\File;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
@@ -13,20 +13,20 @@ use Talesweaver\Domain\ValueObject\ShortText;
 class CommandHandler
 {
     /**
-     * @var ObjectManager
+     * @var Items
      */
-    private $manager;
+    private $items;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(Items $items)
     {
-        $this->manager = $manager;
+        $this->items = $items;
     }
 
     public function handle(Command $command): void
     {
         $description = $command->getData()->getDescription();
         $avatar = $command->getData()->getAvatar();
-        $this->manager->persist(
+        $this->items->add(
             new Item(
                 $command->getId(),
                 $command->getData()->getScene(),

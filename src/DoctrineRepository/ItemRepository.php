@@ -9,6 +9,7 @@ use Doctrine\ORM\QueryBuilder;
 use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
+use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Scene;
 
 class ItemRepository extends TranslatableRepository
@@ -17,6 +18,11 @@ class ItemRepository extends TranslatableRepository
      * @var int
      */
     private $joinAliasCount = 0;
+
+    public function persist(Item $item): void
+    {
+        $this->getEntityManager()->persist($item);
+    }
 
     public function byCurrentAuthorForSceneQueryBuilder(Author $author, Scene $scene): QueryBuilder
     {

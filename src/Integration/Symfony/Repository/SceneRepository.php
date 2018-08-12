@@ -51,6 +51,11 @@ class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSe
         return $this->doctrineRepository->findAll();
     }
 
+    public function add(Scene $scene): void
+    {
+        $this->doctrineRepository->persist($scene);
+    }
+
     public function remove(UuidInterface $id): void
     {
         $this->doctrineRepository

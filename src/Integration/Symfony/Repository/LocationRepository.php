@@ -49,6 +49,11 @@ class LocationRepository implements Locations, RequestSecuredRepository
         return $this->doctrineRepository->findAll();
     }
 
+    public function add(Location $location): void
+    {
+        $this->doctrineRepository->persist($location);
+    }
+
     public function remove(UuidInterface $id): void
     {
         $this->doctrineRepository

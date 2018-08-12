@@ -10,9 +10,15 @@ use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\Scene;
 
 class SceneRepository extends TranslatableRepository
 {
+    public function persist(Scene $scene): void
+    {
+        $this->getEntityManager()->persist($scene);
+    }
+
     public function byCurrentAuthorStandaloneQueryBuilder(Author $author): QueryBuilder
     {
         return $this->createQueryBuilder('s')
@@ -56,11 +62,11 @@ class SceneRepository extends TranslatableRepository
         ;
     }
 
-    public function firstLocationOccurence(Author $author, UuidInterface $id): string
+    public function firstSceneOccurence(Author $author, UuidInterface $id): string
     {
         return $this->createFirstOccurenceQueryBuilder($author, $id)
-            ->join('s.locations', 'l')
-            ->andWhere('l MEMBER OF s.locations')
+            ->join('s.scenes', 'l')
+            ->andWhere('l MEMBER OF s.scenes')
             ->andWhere('l.id = :id')
             ->getQuery()
             ->getSingleScalarResult()

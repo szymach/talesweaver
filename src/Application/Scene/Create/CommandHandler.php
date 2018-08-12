@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Scene\Create;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\Scenes;
 use Talesweaver\Domain\ValueObject\ShortText;
 
 class CommandHandler
 {
     /**
-     * @var ObjectManager
+     * @var Scenes
      */
-    private $manager;
+    private $scenes;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(Scenes $scenes)
     {
-        $this->manager = $manager;
+        $this->scenes = $scenes;
     }
 
     public function handle(Command $command): void
@@ -33,6 +33,6 @@ class CommandHandler
             $chapter->addScene($scene);
         }
 
-        $this->manager->persist($scene);
+        $this->scenes->add($scene);
     }
 }

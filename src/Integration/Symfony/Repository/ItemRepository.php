@@ -49,6 +49,11 @@ class ItemRepository implements Items, RequestSecuredRepository
         return $this->doctrineRepository->findAll();
     }
 
+    public function add(Item $item): void
+    {
+        $this->doctrineRepository->persist($item);
+    }
+
     public function remove(UuidInterface $id): void
     {
         $this->doctrineRepository
