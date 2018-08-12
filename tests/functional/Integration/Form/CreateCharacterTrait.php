@@ -8,22 +8,19 @@ use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
-use UnitTester;
+use Talesweaver\Tests\FunctionalTester;
 
-/**
- * @property UnitTester $tester
- */
 trait CreateCharacterTrait
 {
-    private function getCharacter(?Scene $scene = null): Character
+    private function getCharacter(FunctionalTester $I, ?Scene $scene = null): Character
     {
         $character = new Character(
             Uuid::uuid4(),
-            $scene ?? $this->getScene(),
+            $scene ?? $this->getScene($I),
             new ShortText('Postać'),
             null,
             null,
-            $this->tester->getUser()->getAuthor()
+            $I->getUser()->getAuthor()
         );
         $character->setLocale('pl');
 

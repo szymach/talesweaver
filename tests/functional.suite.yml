@@ -1,6 +1,7 @@
 actor: FunctionalTester
 modules:
     enabled:
+        - Asserts
         - Symfony:
             app_path: 'src/Integration'
             cache_router: true

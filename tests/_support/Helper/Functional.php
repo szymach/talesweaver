@@ -15,6 +15,11 @@ use Talesweaver\Tests\FunctionalTester;
 
 class Functional extends Module
 {
+    public function createTooLongString(): string
+    {
+        return bin2hex(random_bytes(128));
+    }
+
     /**
      * phpcs:disable
      */

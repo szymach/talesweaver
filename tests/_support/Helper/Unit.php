@@ -105,23 +105,6 @@ class Unit extends Module
         return bin2hex(random_bytes(128));
     }
 
-    /**
-     * phpcs:disable
-     */
-    public function _afterSuite()
-    {
-        $this->clearUsers();
-    }
-
-    /**
-     * phpcs:disable
-     */
-    public function _beforeSuite($settings = [])
-    {
-        $this->clearUsers();
-        $this->getTranslatableListener()->setLocale(self::LOCALE);
-    }
-
     private function getTranslatableListener(): TranslatableListener
     {
         return $this->getService('test.fsi_doctrine_extensions.listener.translatable');

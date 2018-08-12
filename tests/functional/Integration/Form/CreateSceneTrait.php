@@ -7,16 +7,13 @@ namespace Talesweaver\Tests\Integration\Form;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
-use UnitTester;
+use Talesweaver\Tests\FunctionalTester;
 
-/**
- * @property UnitTester $tester
- */
 trait CreateSceneTrait
 {
-    private function getScene(): Scene
+    private function getScene(FunctionalTester $I): Scene
     {
-        $scene = new Scene(Uuid::uuid4(), new ShortText('Scena'), null, $this->tester->getUser()->getAuthor());
+        $scene = new Scene(Uuid::uuid4(), new ShortText('Scena'), null, $I->getUser()->getAuthor());
         $scene->setLocale('pl');
 
         return $scene;

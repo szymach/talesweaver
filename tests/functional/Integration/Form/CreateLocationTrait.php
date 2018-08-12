@@ -8,22 +8,19 @@ use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
-use UnitTester;
+use Talesweaver\Tests\FunctionalTester;
 
-/**
- * @property UnitTester $tester
- */
 trait CreateLocationTrait
 {
-    private function getLocation(?Scene $scene = null): Location
+    private function getLocation(FunctionalTester $I, ?Scene $scene = null): Location
     {
         $location = new Location(
             Uuid::uuid4(),
-            $scene ?? $this->getScene(),
+            $scene ?? $this->getScene($I),
             new ShortText('Miejsce'),
             null,
             null,
-            $this->tester->getUser()->getAuthor()
+            $I->getUser()->getAuthor()
         );
         $location->setLocale('pl');
 

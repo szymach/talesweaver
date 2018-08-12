@@ -7,8 +7,12 @@ namespace Talesweaver\Tests;
 use Codeception\Actor;
 use Codeception\Lib\Friend;
 use Doctrine\ORM\EntityManagerInterface;
+use FSi\DoctrineExtensions\Translatable\TranslatableListener;
 use Ramsey\Uuid\Uuid;
 use RuntimeException;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -40,11 +44,9 @@ class FunctionalTester extends Actor
     use FunctionalTesterActions;
 
     public const LOCALE = 'pl';
-
     public const USER_EMAIL = 'test@example.com';
     public const USER_PASSWORD = 'password123';
     public const USER_ROLE = 'ROLE_USER';
-
     public const ERROR_SELECTOR = '.help-block .list-unstyled li';
 
     public function loginAsUser(bool $active = true): void
@@ -85,6 +87,34 @@ class FunctionalTester extends Actor
         }
 
         return $user;
+    }
+
+    public function createTooLongString(): string
+    {
+        return bin2hex(random_bytes(128));
+    }
+
+    public function createForm($class, $data = null, array $options = []): FormInterface
+    {
+        return $this->getFormFactory()->create(
+            $class,
+            $data,
+            array_merge($options, ['csrf_protection' => false])
+        );
+    }
+
+    public function getRequest(array $postData): Request
+    {
+        $request = new Request([], $postData);
+        $request->setMethod(Request::METHOD_POST);
+        $request->setLocale(self::LOCALE);
+        $request->setDefaultLocale(self::LOCALE);
+        return $request;
+    }
+
+    public function getFormFactory(): FormFactoryInterface
+    {
+        return $this->grabService('form.factory');
     }
 
     public function seeNumberOfErrors(int $count, string $selector = self::ERROR_SELECTOR): void
@@ -156,5 +186,27 @@ class FunctionalTester extends Actor
     public function getRouter(): RouterInterface
     {
         return $this->grabService('router');
+    }
+
+    /**
+     * phpcs:disable
+     */
+    public function _afterSuite()
+    {
+        $this->clearUsers();
+    }
+
+    /**
+     * phpcs:disable
+     */
+    public function _beforeSuite($settings = [])
+    {
+        $this->clearUsers();
+        $this->getTranslatableListener()->setLocale(self::LOCALE);
+    }
+
+    private function getTranslatableListener(): TranslatableListener
+    {
+        return $this->grabService('test.fsi_doctrine_extensions.listener.translatable');
     }
 }
