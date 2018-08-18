@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Repository;
 
-use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\DoctrineRepository\BookRepository as DoctrineRepository;
 use Talesweaver\Domain\Book;
@@ -71,19 +70,10 @@ class BookRepository implements Books, LatestChangesAwareRepository, RequestSecu
         ;
     }
 
-    public function createQueryBuilder(): QueryBuilder
-    {
-        return $this->doctrineRepository->createByAuthorQueryBuilder(
-            $this->userProvider->fetchCurrentUsersAuthor()
-        );
-    }
-
-    public function findLatest(string $locale, string $label = 'title', int $limit = 5): array
+    public function findLatest(int $limit = 5): array
     {
         return $this->doctrineRepository->findLatest(
             $this->userProvider->fetchCurrentUsersAuthor(),
-            $locale,
-            $label,
             $limit
         );
     }

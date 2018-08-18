@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Talesweaver\DoctrineRepository;
 
 use Doctrine\ORM\Query\Expr\Join;
-use Doctrine\ORM\QueryBuilder;
 use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
@@ -24,7 +23,7 @@ class EventRepository extends TranslatableRepository
         $this->getEntityManager()->persist($event);
     }
 
-    public function createForSceneQueryBuilder(Author $author, Scene $scene): QueryBuilder
+    public function findForScene(Author $author, Scene $scene): array
     {
         return $this->createTranslatableQueryBuilder('e')
             ->where('e.scene = :scene')
@@ -32,6 +31,8 @@ class EventRepository extends TranslatableRepository
             ->orderBy('t.name', 'ASC')
             ->setParameter('scene', $scene)
             ->setParameter('author', $author)
+            ->getQuery()
+            ->getResult()
         ;
     }
 

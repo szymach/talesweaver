@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Talesweaver\DoctrineRepository;
 
 use Doctrine\ORM\Query\Expr\Join;
-use Doctrine\ORM\QueryBuilder;
 use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
@@ -19,25 +18,18 @@ class ChapterRepository extends TranslatableRepository
         $this->getEntityManager()->persist($chapter);
     }
 
-    public function allAvailableByAuthorQueryBuilder(Author $author): QueryBuilder
-    {
-        return $this->createQueryBuilder('c')
-            ->where('c.createdBy = :author')
-            ->orderBy('c.book')
-            ->setParameter('author', $author)
-        ;
-    }
-
-    public function byCurrentAuthorQueryBuilder(Author $author): QueryBuilder
+    public function findForAuthor(Author $author): array
     {
         return $this->createQueryBuilder('c')
             ->where('c.createdBy = :author')
             ->andWhere('c.book IS NULL')
             ->setParameter('author', $author)
+            ->getQuery()
+            ->getResult()
         ;
     }
 
-    public function byCurrentAuthorForBookQueryBuilder(Author $author, Book $book): QueryBuilder
+    public function findForAuthorAndBook(Author $author, Book $book): array
     {
         return $this->createQueryBuilder('c')
             ->where('c.book = :book')
@@ -45,26 +37,24 @@ class ChapterRepository extends TranslatableRepository
             ->orderBy('c.createdAt')
             ->setParameter('book', $book)
             ->setParameter('author', $author)
+            ->getQuery()
+            ->getResult()
         ;
     }
 
-    public function findLatest(
-        Author $author,
-        string $locale,
-        string $label = 'title',
-        int $limit = 5
-    ): array {
+    public function findLatest(Author $author, int $limit): array
+    {
         return $this->getEntityManager()
             ->createQueryBuilder()
             ->select('(CASE WHEN e.updatedAt IS NOT NULL THEN e.updatedAt ELSE e.createdAt END) AS date')
             ->addSelect('(CASE WHEN e.updatedAt IS NOT NULL THEN 1 ELSE 0 END) AS updated')
             ->addSelect('e.id')
-            ->addSelect(sprintf('t.%s AS label', $label))
+            ->addSelect('t.title AS label')
             ->from($this->getEntityName(), 'e')
             ->join('e.translations', 't', Join::WITH, 't.locale = :locale')
             ->where('e.createdBy = :author')
             ->orderBy('date', 'DESC')
-            ->setParameter('locale', $locale)
+            ->setParameter('locale', $this->getTranslatableListener()->getLocale())
             ->setParameter('author', $author)
             ->setMaxResults($limit)
             ->getQuery()

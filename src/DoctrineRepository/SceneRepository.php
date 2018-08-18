@@ -19,17 +19,19 @@ class SceneRepository extends TranslatableRepository
         $this->getEntityManager()->persist($scene);
     }
 
-    public function byCurrentAuthorStandaloneQueryBuilder(Author $author): QueryBuilder
+    public function findStandaloneForAuthor(Author $author): array
     {
         return $this->createQueryBuilder('s')
             ->where('s.createdBy = :author')
             ->andWhere('s.chapter IS NULL')
             ->orderBy('s.createdAt')
             ->setParameter('author', $author)
+            ->getQuery()
+            ->getResult()
         ;
     }
 
-    public function byCurrentAuthorForChapterQb(Author $author, Chapter $chapter): QueryBuilder
+    public function findForAuthorAndChapter(Author $author, Chapter $chapter): array
     {
         return $this->createQueryBuilder('s')
             ->where('s.chapter = :chapter')
@@ -37,6 +39,8 @@ class SceneRepository extends TranslatableRepository
             ->orderBy('s.createdAt')
             ->setParameter('chapter', $chapter)
             ->setParameter('author', $author)
+            ->getQuery()
+            ->getResult()
         ;
     }
 
@@ -84,37 +88,19 @@ class SceneRepository extends TranslatableRepository
         ;
     }
 
-    private function createFirstOccurenceQueryBuilder(Author $author, UuidInterface $id): QueryBuilder
+    public function findLatest(Author $author, int $limit): array
     {
-        return $this->getEntityManager()
-            ->createQueryBuilder()
-            ->select('st.title')
-            ->from($this->getEntityName(), 's')
-            ->join('s.translations', 'st')
-            ->where('s.createdBy = :author')
-            ->setParameter('id', $id)
-            ->setParameter('author', $author)
-            ->setMaxResults(1)
-        ;
-    }
-
-    public function findLatest(
-        Author $author,
-        string $locale,
-        string $label = 'title',
-        int $limit = 5
-    ): array {
         return $this->getEntityManager()
             ->createQueryBuilder()
             ->select('(CASE WHEN e.updatedAt IS NOT NULL THEN e.updatedAt ELSE e.createdAt END) AS date')
             ->addSelect('(CASE WHEN e.updatedAt IS NOT NULL THEN 1 ELSE 0 END) AS updated')
             ->addSelect('e.id')
-            ->addSelect(sprintf('t.%s AS label', $label))
+            ->addSelect('t.title AS label')
             ->from($this->getEntityName(), 'e')
             ->join('e.translations', 't', Join::WITH, 't.locale = :locale')
             ->where('e.createdBy = :author')
             ->orderBy('date', 'DESC')
-            ->setParameter('locale', $locale)
+            ->setParameter('locale', $this->getTranslatableListener()->getLocale())
             ->setParameter('author', $author)
             ->setMaxResults($limit)
             ->getQuery()
@@ -157,5 +143,19 @@ class SceneRepository extends TranslatableRepository
         }
 
         return 0 !== (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    private function createFirstOccurenceQueryBuilder(Author $author, UuidInterface $id): QueryBuilder
+    {
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('st.title')
+            ->from($this->getEntityName(), 's')
+            ->join('s.translations', 'st')
+            ->where('s.createdBy = :author')
+            ->setParameter('id', $id)
+            ->setParameter('author', $author)
+            ->setMaxResults(1)
+        ;
     }
 }

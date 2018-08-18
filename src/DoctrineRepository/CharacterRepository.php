@@ -24,7 +24,7 @@ class CharacterRepository extends TranslatableRepository
         $this->getEntityManager()->persist($character);
     }
 
-    public function byCurrentAuthorForSceneQueryBuilder(Author $author, Scene $scene): QueryBuilder
+    public function findForAuthorAndScene(Author $author, Scene $scene): array
     {
         return $this->createTranslatableQueryBuilder('c')
             ->addSelect('t')
@@ -33,10 +33,12 @@ class CharacterRepository extends TranslatableRepository
             ->orderBy('t.name', 'ASC')
             ->setParameter('author', $author)
             ->setParameter('scene', $scene)
+            ->getQuery()
+            ->getResult()
         ;
     }
 
-    public function byCurrentAuthorRelatedQueryBuilder(Author $author, Scene $scene): QueryBuilder
+    public function findRelatedToScene(Author $author, Scene $scene): array
     {
         $qb = $this->createTranslatableQueryBuilder('c');
         return $qb->leftJoin('c.scenes', 's')
@@ -49,18 +51,8 @@ class CharacterRepository extends TranslatableRepository
             ->setParameter('chapter', $scene->getChapter())
             ->setParameter('scene', $scene)
             ->setParameter('author', $author)
-        ;
-    }
-
-    public function byCurrentAuthorRelatedToScenesQueryBuilder(Author $author, array $scenes): QueryBuilder
-    {
-        return $this->createTranslatableQueryBuilder('c')
-            ->join('c.scenes', 's')
-            ->andWhere('c.createdBy = :author')
-            ->andWhere(':scenes MEMBER OF c.scenes')
-            ->orderBy('t.name', 'ASC')
-            ->setParameter('scenes', $scenes)
-            ->setParameter('author', $author)
+            ->getQuery()
+            ->getResult()
         ;
     }
 

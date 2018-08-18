@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Pagination\Chapter;
 
-use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Talesweaver\Integration\Symfony\Repository\ChapterRepository;
 
@@ -22,7 +22,7 @@ class ChapterPaginator
 
     public function getResults(int $page, int $maxPerPage = 10): Pagerfanta
     {
-        $pager = new Pagerfanta(new DoctrineORMAdapter($this->repository->createStandaloneQueryBuilder()));
+        $pager = new Pagerfanta(new ArrayAdapter($this->repository->findStandalone()));
         $pager->setMaxPerPage($maxPerPage);
         $pager->setCurrentPage($page);
 

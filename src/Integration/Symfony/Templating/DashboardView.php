@@ -78,8 +78,7 @@ class DashboardView
     private function addItems(
         array &$timeline,
         LatestChangesAwareRepository $repository,
-        string $class,
-        string $locale
+        string $class
     ): void {
         $callback = function (array $timeline, array $item) use ($class): array {
             $timeline[] = array_merge(
@@ -90,6 +89,6 @@ class DashboardView
             return $timeline;
         };
 
-        $timeline = array_reduce($repository->findLatest($locale), $callback, $timeline);
+        $timeline = array_reduce($repository->findLatest(), $callback, $timeline);
     }
 }

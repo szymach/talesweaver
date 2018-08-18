@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Repository;
 
-use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Talesweaver\DoctrineRepository\SceneRepository as DoctrineRepository;
@@ -46,11 +45,6 @@ class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSe
         ]);
     }
 
-    public function findAll(): array
-    {
-        return $this->doctrineRepository->findAll();
-    }
-
     public function add(Scene $scene): void
     {
         $this->doctrineRepository->persist($scene);
@@ -67,27 +61,25 @@ class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSe
         ;
     }
 
-    public function createStandaloneQueryBuilder(): QueryBuilder
+    public function findStandalone(): array
     {
-        return $this->doctrineRepository->byCurrentAuthorStandaloneQueryBuilder(
+        return $this->doctrineRepository->findStandaloneForAuthor(
             $this->userProvider->fetchCurrentUsersAuthor()
         );
     }
 
-    public function createForChapterQb(Chapter $chapter): QueryBuilder
+    public function findForChapter(Chapter $chapter): array
     {
-        return $this->doctrineRepository->byCurrentAuthorForChapterQb(
+        return $this->doctrineRepository->findForAuthorAndChapter(
             $this->userProvider->fetchCurrentUsersAuthor(),
             $chapter
         );
     }
 
-    public function findLatest(string $locale, string $label = 'title', int $limit = 5): array
+    public function findLatest(int $limit = 5): array
     {
         return $this->doctrineRepository->findLatest(
             $this->userProvider->fetchCurrentUsersAuthor(),
-            $locale,
-            $label,
             $limit
         );
     }

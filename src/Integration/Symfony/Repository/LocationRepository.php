@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Repository;
 
-use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\DoctrineRepository\LocationRepository as DoctrineRepository;
 use Talesweaver\Domain\Location;
@@ -44,11 +43,6 @@ class LocationRepository implements Locations, RequestSecuredRepository
         ]);
     }
 
-    public function findAll(): array
-    {
-        return $this->doctrineRepository->findAll();
-    }
-
     public function add(Location $location): void
     {
         $this->doctrineRepository->persist($location);
@@ -67,30 +61,17 @@ class LocationRepository implements Locations, RequestSecuredRepository
 
     public function findForScene(Scene $scene): array
     {
-        return $this->createForSceneQueryBuilder($scene)->getQuery()->getResult();
-    }
-
-    public function createForSceneQueryBuilder(Scene $scene): QueryBuilder
-    {
-        return $this->doctrineRepository->byCurrentAuthorForSceneQueryBuilder(
+        return $this->doctrineRepository->findForAuthorAndScene(
             $this->userProvider->fetchCurrentUsersAuthor(),
             $scene
         );
     }
 
-    public function createRelatedQueryBuilder(Scene $scene): QueryBuilder
+    public function findRelated(Scene $scene): array
     {
-        return $this->doctrineRepository->byCurrentAuthorRelatedQueryBuilder(
+        return $this->doctrineRepository->findRelatedToScene(
             $this->userProvider->fetchCurrentUsersAuthor(),
             $scene
-        );
-    }
-
-    public function createRelatedToScenesQueryBuilder(array $scenes): QueryBuilder
-    {
-        return $this->doctrineRepository->byCurrentAuthorRelatedToScenesQueryBuilder(
-            $this->userProvider->fetchCurrentUsersAuthor(),
-            $scenes
         );
     }
 

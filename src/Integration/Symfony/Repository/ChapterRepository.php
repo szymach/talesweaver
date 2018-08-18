@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Repository;
 
-use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\DoctrineRepository\ChapterRepository as DoctrineRepository;
 use Talesweaver\Domain\Book;
@@ -52,6 +51,30 @@ class ChapterRepository implements Chapters, LatestChangesAwareRepository, Reque
         ]);
     }
 
+    public function findStandalone(): array
+    {
+        return $this->doctrineRepository->findBy([
+            'book' => null,
+            'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
+        ]);
+    }
+
+    public function findForBook(Book $book): array
+    {
+        return $this->doctrineRepository->findForAuthorAndBook(
+            $this->userProvider->fetchCurrentUsersAuthor(),
+            $book
+        );
+    }
+
+    public function findLatest(int $limit = 5): array
+    {
+        return $this->doctrineRepository->findLatest(
+            $this->userProvider->fetchCurrentUsersAuthor(),
+            $limit
+        );
+    }
+
     public function add(Chapter $chapter): void
     {
         $this->doctrineRepository->persist($chapter);
@@ -70,43 +93,6 @@ class ChapterRepository implements Chapters, LatestChangesAwareRepository, Reque
                 'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
             ])
         ;
-    }
-
-    public function createAllAvailableQueryBuilder(): QueryBuilder
-    {
-        return $this->doctrineRepository->allAvailableByAuthorQueryBuilder(
-            $this->userProvider->fetchCurrentUsersAuthor()
-        );
-    }
-
-    public function createStandaloneQueryBuilder(): QueryBuilder
-    {
-        return $this->doctrineRepository->byCurrentAuthorQueryBuilder(
-            $this->userProvider->fetchCurrentUsersAuthor()
-        );
-    }
-
-    public function findForBook(Book $book): array
-    {
-        return $this->createForBookQb($book)->getQuery()->getResult();
-    }
-
-    public function createForBookQb(Book $book): QueryBuilder
-    {
-        return $this->doctrineRepository->byCurrentAuthorForBookQueryBuilder(
-            $this->userProvider->fetchCurrentUsersAuthor(),
-            $book
-        );
-    }
-
-    public function findLatest(string $locale, string $label = 'title', int $limit = 5): array
-    {
-        return $this->doctrineRepository->findLatest(
-            $this->userProvider->fetchCurrentUsersAuthor(),
-            $locale,
-            $label,
-            $limit
-        );
     }
 
     public function entityExists(array $parameters, ?UuidInterface $id): bool

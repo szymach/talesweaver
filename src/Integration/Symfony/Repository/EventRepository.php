@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Repository;
 
-use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\DoctrineRepository\EventRepository as DoctrineRepository;
 use Talesweaver\Domain\Event;
@@ -44,11 +43,6 @@ class EventRepository implements Events, RequestSecuredRepository
         ]);
     }
 
-    public function findAll(): array
-    {
-        return $this->doctrineRepository->findAll();
-    }
-
     public function add(Event $event): void
     {
         $this->doctrineRepository->persist($event);
@@ -65,9 +59,9 @@ class EventRepository implements Events, RequestSecuredRepository
         ;
     }
 
-    public function createForSceneQueryBuilder(Scene $scene): QueryBuilder
+    public function findForScene(Scene $scene): array
     {
-        return $this->doctrineRepository->createForSceneQueryBuilder(
+        return $this->doctrineRepository->findForScene(
             $this->userProvider->fetchCurrentUsersAuthor(),
             $scene
         );
