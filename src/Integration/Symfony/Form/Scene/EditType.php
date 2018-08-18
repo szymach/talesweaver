@@ -41,12 +41,12 @@ class EditType extends AbstractType
             /* @var $scene DTO */
             $scene = $event->getData();
             if (null !== $scene && null !== $scene->getChapter() && null !== $scene->getChapter()->getBook()) {
-                $qb = $this->chapterRepository->createForBookQb($scene->getChapter()->getBook());
+                $choices = $this->chapterRepository->findForBook($scene->getChapter()->getBook());
                 $choiceLabel = function (Chapter $chapter): string {
                     return (string) $chapter->getTitle();
                 };
             } else {
-                $qb = $this->chapterRepository->createAllAvailableQueryBuilder();
+                $choices = $this->chapterRepository->findAll();
                 $choiceLabel = function (Chapter $chapter): string {
                     $book = $chapter->getBook();
                     return null !== $book
@@ -59,8 +59,8 @@ class EditType extends AbstractType
             $form->add('chapter', EntityType::class, [
                 'label' => 'scene.chapter',
                 'class' => Chapter::Class,
+                'choices' => $choices,
                 'choice_label' => $choiceLabel,
-                'query_builder' => $qb,
                 'placeholder' => 'scene.placeholder.chapter',
                 'required' => false
             ]);

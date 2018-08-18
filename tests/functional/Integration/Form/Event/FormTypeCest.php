@@ -32,15 +32,15 @@ class FormTypeCest
     {
         $I->loginAsUser();
         $scene = $this->getScene($I);
-        list($character1Id, $character2Id, $locationId) = $this->getMeetingEntitiesIds($I, $scene);
+        list($character1, $character2, $location) = $this->getMeetingEntities($I, $scene);
         $form = $this->fetchCreateForm($I, $scene);
         $form->handleRequest($I->getRequest([
             'create' => [
                 'name' => self::NAME_PL,
                 'model' => [
-                    'root' => $character1Id,
-                    'relation' => $character2Id,
-                    'location' => $locationId,
+                    'root' => (string) $character1->getId(),
+                    'relation' => (string) $character2->getId(),
+                    'location' => (string) $location->getId(),
                 ]
             ]
         ]));
@@ -57,12 +57,9 @@ class FormTypeCest
         /* @var $model Meeting */
         $model = $data->getModel();
         $I->assertInstanceOf(Meeting::class, $model);
-        $I->assertInstanceOf(Character::class, $model->getRoot());
-        $I->assertInstanceOf(Character::class, $model->getRelation());
-        $I->assertInstanceOf(Location::class, $model->getLocation());
-        $I->assertEquals($character1Id, $model->getRoot()->getId());
-        $I->assertEquals($character2Id, $model->getRelation()->getId());
-        $I->assertEquals($locationId, $model->getLocation()->getId());
+        $I->assertEquals($character1, $model->getRoot());
+        $I->assertEquals($character2, $model->getRelation());
+        $I->assertEquals($location, $model->getLocation());
     }
 
     public function testInvalidCreateFormSubmission(FunctionalTester $I)
@@ -90,15 +87,20 @@ class FormTypeCest
     {
         $I->loginAsUser();
         $scene = $this->getScene($I);
-        $form = $this->fetchEditForm($I, $scene);
-        list($character1Id, $character2Id, $locationId) = $this->getMeetingEntitiesIds($I, $scene);
+        list($character1, $character2, $location) = $this->getMeetingEntities($I, $scene);
+        $meeting = new Meeting();
+        $meeting->setLocation($location);
+        $meeting->setRoot($character1);
+        $meeting->setRelation($character2);
+        $event = $this->getEvent($I, $meeting);
+        $form = $this->fetchEditForm($I, $scene, $event);
         $form->handleRequest($I->getRequest([
             'edit' => [
                 'name' => self::NAME_PL,
                 'model' => [
-                    'root' => $character1Id,
-                    'relation' => $character2Id,
-                    'location' => $locationId,
+                    'root' => (string) $character1->getId(),
+                    'relation' => (string) $character2->getId(),
+                    'location' => (string) $location->getId(),
                 ]
             ]
         ]));
@@ -114,19 +116,17 @@ class FormTypeCest
         /* @var $model Meeting */
         $model = $data->getModel();
         $I->assertInstanceOf(Meeting::class, $model);
-        $I->assertInstanceOf(Character::class, $model->getRoot());
-        $I->assertInstanceOf(Character::class, $model->getRelation());
-        $I->assertInstanceOf(Location::class, $model->getLocation());
-        $I->assertEquals($character1Id, $model->getRoot()->getId());
-        $I->assertEquals($character2Id, $model->getRelation()->getId());
-        $I->assertEquals($locationId, $model->getLocation()->getId());
+        $I->assertEquals($character1, $model->getRoot());
+        $I->assertEquals($character2, $model->getRelation());
+        $I->assertEquals($location, $model->getLocation());
     }
 
     public function testInvalidEditFormSubmission(FunctionalTester $I)
     {
         $I->loginAsUser();
         $scene = $this->getScene($I);
-        $form = $this->fetchEditForm($I, $scene);
+        $event = $this->getEvent($I);
+        $form = $this->fetchEditForm($I, $scene, $event);
         $form->handleRequest($I->getRequest([
             'edit' => [
                 'name' => null,
@@ -160,16 +160,16 @@ class FormTypeCest
         );
     }
 
-    private function fetchEditForm(FunctionalTester $I, Scene $scene): FormInterface
+    private function fetchEditForm(FunctionalTester $I, Scene $scene, Event $event): FormInterface
     {
         return $I->createForm(
             EditType::class,
-            new Edit\DTO($this->getEvent($I)),
+            new Edit\DTO($event),
             ['scene' => $scene, 'model' => MeetingType::class]
         );
     }
 
-    private function getMeetingEntitiesIds(FunctionalTester $I, Scene $scene): array
+    private function getMeetingEntities(FunctionalTester $I, Scene $scene): array
     {
         $character1 = $this->getCharacter($I, $scene);
         $character2 = $this->getCharacter($I, $scene);
@@ -180,19 +180,15 @@ class FormTypeCest
         $I->persistEntity($character2);
         $I->persistEntity($location);
 
-        return [
-            (string) $character1->getId(),
-            (string) $character2->getId(),
-            (string) $location->getId()
-        ];
+        return [$character1, $character2, $location];
     }
 
-    private function getEvent(FunctionalTester $I): Event
+    private function getEvent(FunctionalTester $I, Meeting $meeting = null): Event
     {
         return new Event(
             Uuid::uuid4(),
             new ShortText(self::NAME_PL),
-            new Meeting(),
+            $meeting ?? new Meeting(),
             $this->getScene($I),
             $I->getUser()->getAuthor()
         );

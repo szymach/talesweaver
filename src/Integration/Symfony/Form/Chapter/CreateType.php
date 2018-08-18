@@ -36,7 +36,10 @@ class CreateType extends AbstractType
         $builder->add('book', EntityType::class, [
             'label' => 'chapter.book',
             'class' => Book::Class,
-            'query_builder' => $this->bookRepository->createQueryBuilder(),
+            'choices' => $this->bookRepository->findAll(),
+            'choice_label' => function (Book $book): string {
+                return (string) $book->getTitle();
+            },
             'placeholder' => 'chapter.placeholder.book',
             'required' => false
         ]);

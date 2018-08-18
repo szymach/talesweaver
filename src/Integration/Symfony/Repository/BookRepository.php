@@ -46,7 +46,9 @@ class BookRepository implements Books, LatestChangesAwareRepository, RequestSecu
 
     public function findAll(): array
     {
-        return $this->doctrineRepository->findAll();
+        return $this->doctrineRepository->findBy([
+            'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
+        ]);
     }
 
     public function add(Book $book): void

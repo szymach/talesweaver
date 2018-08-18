@@ -69,6 +69,11 @@ class CharacterRepository implements Characters, RequestSecuredRepository
         ;
     }
 
+    public function findForScene(Scene $scene): array
+    {
+        return $this->createForSceneQueryBuilder($scene)->getQuery()->getResult();
+    }
+
     public function createForSceneQueryBuilder(Scene $scene): QueryBuilder
     {
         return $this->doctrineRepository->byCurrentAuthorForSceneQueryBuilder(

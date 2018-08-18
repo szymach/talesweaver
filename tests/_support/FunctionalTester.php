@@ -72,10 +72,11 @@ class FunctionalTester extends Actor
 
     public function getUser(bool $active = true, string $email = self::USER_EMAIL): User
     {
-        $user = $this->getUserRepository()->findOneByEmail(new Email($email));
+        $emailVO = new Email($email);
+        $user = $this->getUserRepository()->findOneByEmail($emailVO);
         if (null === $user) {
             $user = new User(
-                new Author(Uuid::uuid4(), new Email($email)),
+                new Author(Uuid::uuid4(), $emailVO),
                 password_hash(self::USER_PASSWORD, PASSWORD_BCRYPT),
                 generate_user_token()
             );
@@ -96,11 +97,10 @@ class FunctionalTester extends Actor
 
     public function createForm($class, $data = null, array $options = []): FormInterface
     {
-        return $this->getFormFactory()->create(
-            $class,
-            $data,
-            array_merge($options, ['csrf_protection' => false])
-        );
+        return $this->getFormFactory()->create($class, $data, array_merge(
+            $options,
+            ['csrf_protection' => false]
+        ));
     }
 
     public function getRequest(array $postData): Request

@@ -38,23 +38,31 @@ class MeetingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $scene = $options['scene'];
-
         $builder->add('root', EntityType::class, [
             'class' => Character::class,
             'label' => $this->getTranslationKey('root'),
-            'query_builder' => $this->characterRepository->createForSceneQueryBuilder($scene)
+            'choices' => $this->characterRepository->findForScene($scene),
+            'choice_label' => function (Character $character): string {
+                return (string) $character->getName();
+            }
         ]);
 
         $builder->add('location', EntityType::class, [
             'class' => Location::class,
             'label' => $this->getTranslationKey('location'),
-            'query_builder' => $this->locationRepository->createForSceneQueryBuilder($scene)
+            'choices' => $this->locationRepository->findForScene($scene),
+            'choice_label' => function (Location $location): string {
+                return (string) $location->getName();
+            }
         ]);
 
         $builder->add('relation', EntityType::class, [
             'class' => Character::class,
             'label' => $this->getTranslationKey('relation'),
-            'query_builder' => $this->characterRepository->createForSceneQueryBuilder($scene)
+            'choices' => $this->characterRepository->findForScene($scene),
+            'choice_label' => function (Character $character): string {
+                return (string) $character->getName();
+            }
         ]);
     }
 

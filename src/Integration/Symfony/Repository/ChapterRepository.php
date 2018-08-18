@@ -47,7 +47,9 @@ class ChapterRepository implements Chapters, LatestChangesAwareRepository, Reque
 
     public function findAll(): array
     {
-        return $this->doctrineRepository->findAll();
+        return $this->doctrineRepository->findBy([
+            'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
+        ]);
     }
 
     public function add(Chapter $chapter): void
@@ -82,6 +84,11 @@ class ChapterRepository implements Chapters, LatestChangesAwareRepository, Reque
         return $this->doctrineRepository->byCurrentAuthorQueryBuilder(
             $this->userProvider->fetchCurrentUsersAuthor()
         );
+    }
+
+    public function findForBook(Book $book): array
+    {
+        return $this->createForBookQb($book)->getQuery()->getResult();
     }
 
     public function createForBookQb(Book $book): QueryBuilder
