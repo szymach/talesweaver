@@ -23,6 +23,17 @@ class EventRepository extends TranslatableRepository
         $this->getEntityManager()->persist($event);
     }
 
+    public function remove(Author $author, UuidInterface $id): void
+    {
+        $this->createQueryBuilder('e')
+            ->delete()
+            ->where('e.id = :id')
+            ->andWhere('e.createdBy = :createdBy')
+            ->getQuery()
+            ->execute(['id' => $id->toString(), 'createdBy' => $author])
+        ;
+    }
+
     public function findForScene(Author $author, Scene $scene): array
     {
         return $this->createTranslatableQueryBuilder('e')

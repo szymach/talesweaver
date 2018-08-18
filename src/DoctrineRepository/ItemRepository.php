@@ -24,6 +24,17 @@ class ItemRepository extends TranslatableRepository
         $this->getEntityManager()->persist($item);
     }
 
+    public function remove(Author $author, UuidInterface $id): void
+    {
+        $this->createQueryBuilder('i')
+            ->delete()
+            ->where('i.id = :id')
+            ->andWhere('i.createdBy = :createdBy')
+            ->getQuery()
+            ->execute(['id' => $id->toString(), 'createdBy' => $author])
+        ;
+    }
+
     public function findForAuthorAndScene(Author $author, Scene $scene): array
     {
         return $this->createTranslatableQueryBuilder('i')

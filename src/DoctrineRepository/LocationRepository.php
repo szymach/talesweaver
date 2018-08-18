@@ -24,6 +24,17 @@ class LocationRepository extends TranslatableRepository
         $this->getEntityManager()->persist($location);
     }
 
+    public function remove(Author $author, UuidInterface $id): void
+    {
+        $this->createQueryBuilder('l')
+            ->delete()
+            ->where('l.id = :id')
+            ->andWhere('l.createdBy = :createdBy')
+            ->getQuery()
+            ->execute(['id' => $id->toString(), 'createdBy' => $author])
+        ;
+    }
+
     public function findForAuthorAndScene(Author $author, Scene $scene): array
     {
         return $this->createTranslatableQueryBuilder('l')

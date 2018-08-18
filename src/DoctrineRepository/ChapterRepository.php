@@ -18,6 +18,17 @@ class ChapterRepository extends TranslatableRepository
         $this->getEntityManager()->persist($chapter);
     }
 
+    public function remove(Author $author, UuidInterface $id): void
+    {
+        $this->createQueryBuilder('c')
+            ->delete()
+            ->where('c.id = :id')
+            ->andWhere('c.createdBy = :createdBy')
+            ->getQuery()
+            ->execute(['id' => $id->toString(), 'createdBy' => $author])
+        ;
+    }
+
     public function findForAuthor(Author $author): array
     {
         return $this->createQueryBuilder('c')

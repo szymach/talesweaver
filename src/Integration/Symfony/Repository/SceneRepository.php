@@ -52,13 +52,7 @@ class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSe
 
     public function remove(UuidInterface $id): void
     {
-        $this->doctrineRepository
-            ->createQueryBuilder('s')
-            ->delete()
-            ->where('s.id = :id')
-            ->getQuery()
-            ->execute(['id' => $id->toString()])
-        ;
+        $this->doctrineRepository->remove($this->userProvider->fetchCurrentUsersAuthor(), $id);
     }
 
     public function findStandalone(): array

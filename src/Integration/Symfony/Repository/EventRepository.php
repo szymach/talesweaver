@@ -50,13 +50,7 @@ class EventRepository implements Events, RequestSecuredRepository
 
     public function remove(UuidInterface $id): void
     {
-        $this->doctrineRepository
-            ->createQueryBuilder('e')
-            ->delete()
-            ->where('e.id = :id')
-            ->getQuery()
-            ->execute(['id' => $id->toString()])
-        ;
+        $this->doctrineRepository->remove($this->userProvider->fetchCurrentUsersAuthor(), $id);
     }
 
     public function findForScene(Scene $scene): array

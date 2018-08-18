@@ -50,13 +50,7 @@ class ItemRepository implements Items, RequestSecuredRepository
 
     public function remove(UuidInterface $id): void
     {
-        $this->doctrineRepository
-            ->createQueryBuilder('i')
-            ->delete()
-            ->where('i.id = :id')
-            ->getQuery()
-            ->execute(['id' => $id->toString()])
-        ;
+        $this->doctrineRepository->remove($this->userProvider->fetchCurrentUsersAuthor(), $id);
     }
 
     public function findForScene(Scene $scene): array

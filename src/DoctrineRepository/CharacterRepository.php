@@ -24,6 +24,17 @@ class CharacterRepository extends TranslatableRepository
         $this->getEntityManager()->persist($character);
     }
 
+    public function remove(Author $author, UuidInterface $id): void
+    {
+        $this->createQueryBuilder('c')
+            ->delete()
+            ->where('c.id = :id')
+            ->andWhere('c.createdBy = :createdBy')
+            ->getQuery()
+            ->execute(['id' => $id->toString(), 'createdBy' => $author])
+        ;
+    }
+
     public function findForAuthorAndScene(Author $author, Scene $scene): array
     {
         return $this->createTranslatableQueryBuilder('c')

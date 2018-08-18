@@ -19,6 +19,17 @@ class SceneRepository extends TranslatableRepository
         $this->getEntityManager()->persist($scene);
     }
 
+    public function remove(Author $author, UuidInterface $id): void
+    {
+        $this->createQueryBuilder('s')
+            ->delete()
+            ->where('s.id = :id')
+            ->andWhere('s.createdBy = :createdBy')
+            ->getQuery()
+            ->execute(['id' => $id->toString(), 'createdBy' => $author])
+        ;
+    }
+
     public function findStandaloneForAuthor(Author $author): array
     {
         return $this->createQueryBuilder('s')

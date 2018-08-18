@@ -82,17 +82,7 @@ class ChapterRepository implements Chapters, LatestChangesAwareRepository, Reque
 
     public function remove(UuidInterface $id): void
     {
-        $this->doctrineRepository
-            ->createQueryBuilder('c')
-            ->delete()
-            ->where('c.id = :id')
-            ->andWhere('c.createdBy = :createdBy')
-            ->getQuery()
-            ->execute([
-                'id' => $id->toString(),
-                'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
-            ])
-        ;
+        $this->doctrineRepository->remove($this->userProvider->fetchCurrentUsersAuthor(), $id);
     }
 
     public function entityExists(array $parameters, ?UuidInterface $id): bool

@@ -22,6 +22,17 @@ class BookRepository extends TranslatableRepository
         $this->getEntityManager()->persist($book);
     }
 
+    public function remove(Author $author, UuidInterface $id): void
+    {
+        $this->createQueryBuilder('d')
+            ->delete()
+            ->where('d.id = :id')
+            ->andWhere('d.createdBy = :createdBy')
+            ->getQuery()
+            ->execute(['id' => $id->toString(), 'createdBy' => $author])
+        ;
+    }
+
     public function findLatest(Author $author, int $limit): array
     {
         return $this->getEntityManager()

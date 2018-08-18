@@ -57,17 +57,7 @@ class BookRepository implements Books, LatestChangesAwareRepository, RequestSecu
 
     public function remove(UuidInterface $id): void
     {
-        $this->doctrineRepository
-            ->createQueryBuilder('d')
-            ->delete()
-            ->where('d.id = :id')
-            ->andWhere('d.createdBy = :createdBy')
-            ->getQuery()
-            ->execute([
-                'id' => $id->toString(),
-                'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
-            ])
-        ;
+        $this->doctrineRepository->remove($this->userProvider->fetchCurrentUsersAuthor(), $id);
     }
 
     public function findLatest(int $limit = 5): array

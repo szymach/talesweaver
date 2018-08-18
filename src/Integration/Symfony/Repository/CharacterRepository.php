@@ -50,17 +50,7 @@ class CharacterRepository implements Characters, RequestSecuredRepository
 
     public function remove(UuidInterface $id): void
     {
-        $this->doctrineRepository
-            ->createQueryBuilder('c')
-            ->delete()
-            ->where('c.id = :id')
-            ->andWhere('c.createdBy = :createdBy')
-            ->getQuery()
-            ->execute([
-                'id' => $id->toString(),
-                'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
-            ])
-        ;
+        $this->doctrineRepository->remove($this->userProvider->fetchCurrentUsersAuthor(), $id);
     }
 
     public function findForScene(Scene $scene): array
