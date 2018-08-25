@@ -12,7 +12,6 @@
         <span>{{ 'book.chapters'|trans }}</span>
         {{ form_start(chapterForm) }}
             {{ form_row(chapterForm.title, { label: false }) }}
-            <div style="display: none;">{{ form_row(chapterForm.book) }}</div>
             {{ form_rest(chapterForm) }}
             <button class="btn btn-success btn-sm full-width">{{ 'book.actions.add_chapter'|trans }}</button>
         {{ form_end(chapterForm) }}

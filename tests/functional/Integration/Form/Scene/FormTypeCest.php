@@ -21,7 +21,7 @@ class FormTypeCest
     public function testValidCreateFormSubmission(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $form = $I->createForm(CreateType::class);
+        $form = $I->createForm(CreateType::class, null);
         $form->handleRequest($I->getRequest(['create' => ['title' => self::TITLE_PL]]));
 
         $I->assertTrue($form->isSynchronized());
@@ -36,7 +36,7 @@ class FormTypeCest
     public function testInvalidCreateFormSubmission(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $form = $I->createForm(CreateType::class);
+        $form = $I->createForm(CreateType::class, null);
         $form->handleRequest($I->getRequest([
             'create' => ['title' => null]
         ]));
@@ -54,7 +54,7 @@ class FormTypeCest
     {
         $I->loginAsUser();
         $scene = new Scene(Uuid::uuid4(), new ShortText(self::TITLE_PL), null, $I->getUser()->getAuthor());
-        $form = $I->createForm(EditType::class, new Edit\DTO($scene));
+        $form = $I->createForm(EditType::class, new Edit\DTO($scene), ['sceneId' => $scene->getId()]);
         $form->handleRequest($I->getRequest([
             'edit' => ['title' => self::TITLE_PL, 'text' => self::TEXT_PL]
         ]));
@@ -73,7 +73,7 @@ class FormTypeCest
     {
         $I->loginAsUser();
         $scene = new Scene(Uuid::uuid4(), new ShortText(self::TITLE_PL), null, $I->getUser()->getAuthor());
-        $form = $I->createForm(EditType::class, new Edit\DTO($scene));
+        $form = $I->createForm(EditType::class, new Edit\DTO($scene), ['sceneId' => $scene->getId()]);
         $form->handleRequest($I->getRequest([
             'edit' => ['title' => null, 'text' => null]
         ]));

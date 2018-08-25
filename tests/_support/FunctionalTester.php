@@ -98,8 +98,8 @@ class FunctionalTester extends Actor
     public function createForm($class, $data = null, array $options = []): FormInterface
     {
         return $this->getFormFactory()->create($class, $data, array_merge(
-            $options,
-            ['csrf_protection' => false]
+            ['csrf_protection' => false],
+            $options
         ));
     }
 
@@ -203,6 +203,11 @@ class FunctionalTester extends Actor
     {
         $this->clearUsers();
         $this->getTranslatableListener()->setLocale(self::LOCALE);
+    }
+
+    public function findElement(string $selector)
+    {
+        return $this;
     }
 
     private function getTranslatableListener(): TranslatableListener

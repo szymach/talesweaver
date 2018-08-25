@@ -6,7 +6,6 @@ namespace Talesweaver\Application\Chapter\Create;
 
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Chapters;
-use Talesweaver\Domain\ValueObject\ShortText;
 
 class CommandHandler
 {
@@ -25,8 +24,8 @@ class CommandHandler
         $this->chapters->add(
             new Chapter(
                 $command->getId(),
-                new ShortText($command->getData()->getTitle()),
-                $command->getData()->getBook(),
+                $command->getTitle(),
+                $command->getBook(),
                 $command->getAuthor()
             )
         );

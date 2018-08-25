@@ -1,7 +1,7 @@
 ---
 chapter_create:
-    path: /create/{page}
-    defaults: { _controller: Talesweaver\Integration\Symfony\Controller\Chapter\CreateController, page: 1 }
+    path: /create/{page}/{bookId}
+    defaults: { _controller: Talesweaver\Integration\Symfony\Controller\Chapter\CreateController, page: 1, bookId: null }
     methods:  [GET, POST]
 
 chapter_edit:

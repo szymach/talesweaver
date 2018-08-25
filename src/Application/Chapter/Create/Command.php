@@ -10,8 +10,10 @@ use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Application\Security\Traits\AuthorAwareTrait;
 use Talesweaver\Domain\Author;
+use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
 use Talesweaver\Domain\Security\AuthorAwareInterface;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCommandInterface
 {
@@ -23,14 +25,20 @@ class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCom
     private $id;
 
     /**
-     * @var DTO
+     * @var ShortText
      */
-    private $dto;
+    private $title;
 
-    public function __construct(UuidInterface $id, DTO $dto)
+    /**
+     * @var Book|null
+     */
+    private $book;
+
+    public function __construct(UuidInterface $id, ShortText $title, ?Book $book)
     {
         $this->id = $id;
-        $this->dto = $dto;
+        $this->title = $title;
+        $this->book = $book;
     }
 
     public function getId(): UuidInterface
@@ -38,9 +46,14 @@ class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCom
         return $this->id;
     }
 
-    public function getData(): DTO
+    public function getTitle(): ShortText
     {
-        return $this->dto;
+        return $this->title;
+    }
+
+    public function getBook(): ?Book
+    {
+        return $this->book;
     }
 
     /**
@@ -48,12 +61,11 @@ class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCom
      */
     public function isAllowed(Author $author): bool
     {
-        $book = $this->dto->getBook();
-        return null === $book || $book->getCreatedBy()->getId() === $author->getId();
+        return null === $this->book || $this->book->getCreatedBy()->getId() === $author->getId();
     }
 
     public function getMessage(): Message
     {
-        return new CreationSuccessMessage('chapter', ['%title%' => $this->dto->getTitle()]);
+        return new CreationSuccessMessage('chapter', ['%title%' => $this->title]);
     }
 }

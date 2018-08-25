@@ -1,40 +1,40 @@
 ---
 paths:
-  - ./src
+    - ./src
 exclude_files: ~
 layers:
-  - name: Application
-    collectors:
-      - type: className
-        regex: Talesweaver\\Application\\.*
-  - name: DoctrineRepository
-    collectors:
-      - type: className
-        regex: Talesweaver\\DoctrineRepository\\.*
-  - name: Domain
-    collectors:
-      - type: className
-        regex: Talesweaver\\Domain\\.*
-  - name: Integration
-    collectors:
-      - type: className
-        regex: Talesweaver\\Integration\\.*
-  - name: Tests
-    collectors:
-      - type: className
-        regex: Talesweaver\\Tests\\.*
+    - name: Application
+      collectors:
+          - type: className
+            regex: Talesweaver\\Application\\.*
+    - name: DoctrineRepository
+      collectors:
+          - type: className
+            regex: Talesweaver\\DoctrineRepository\\.*
+    - name: Domain
+      collectors:
+          - type: className
+            regex: Talesweaver\\Domain\\.*
+    - name: Integration
+      collectors:
+          - type: className
+            regex: Talesweaver\\Integration\\.*
+    - name: Tests
+      collectors:
+          - type: className
+            regex: Talesweaver\\Tests\\.*
 ruleset:
-  Application:
-    - Domain
-  DoctrineRepository:
-    - Domain
-  Domain: ~
-  Integration:
-    - Application
-    - DoctrineRepository
-    - Domain
-  Tests:
-    - Application
-    - DoctrineRepository
-    - Domain
-    - Integration
+    Application:
+        - Domain
+    DoctrineRepository:
+        - Domain
+    Domain: ~
+    Integration:
+        - Application
+        - DoctrineRepository
+        - Domain
+    Tests:
+        - Application
+        - DoctrineRepository
+        - Domain
+        - Integration

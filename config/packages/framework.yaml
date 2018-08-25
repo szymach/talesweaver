@@ -15,6 +15,3 @@ framework:
     ide: ~
     templating:
         engines: [twig]
-    validation:
-        mapping:
-            paths: ["%kernel.project_dir%/config/validation"]

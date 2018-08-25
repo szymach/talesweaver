@@ -51,7 +51,7 @@ class EditController
     public function __invoke(Request $request, Book $book)
     {
         $dto = new DTO($book);
-        $form = $this->formFactory->create(EditType::class, $dto);
+        $form = $this->formFactory->create(EditType::class, $dto, ['bookId' => $book->getId()]);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->commandBus->handle(new Command($dto, $book));
 

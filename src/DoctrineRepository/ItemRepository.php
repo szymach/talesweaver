@@ -14,11 +14,6 @@ use Talesweaver\Domain\Scene;
 
 class ItemRepository extends TranslatableRepository
 {
-    /**
-     * @var int
-     */
-    private $joinAliasCount = 0;
-
     public function persist(Item $item): void
     {
         $this->getEntityManager()->persist($item);
@@ -93,40 +88,49 @@ class ItemRepository extends TranslatableRepository
         ;
     }
 
-    public function entityExists(Author $author, array $parameters, ?UuidInterface $id): bool
+    public function existsForSceneWithName(Author $author, string $name, UuidInterface $sceneId): bool
+    {
+        return 0 !== (int) $this->countForNameQb($author, $name, null)
+            ->innerJoin('i.scenes', 's', Join::WITH, 's.id = :sceneId')
+            ->setParameter('sceneId', $sceneId)
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
+
+    public function nameConflictsWithRelated(Author $author, string $name, UuidInterface $id): bool
+    {
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder('ss')
+            ->select('ss.id')
+            ->from(Scene::class, 'ss')
+            ->innerJoin('ss.items', 'ii', Join::WITH, 'ii.id = :id')
+        ;
+
+        return 0 !== (int) $this->countForNameQb($author, $name, $id)
+            ->innerJoin('i.scenes', 's', Join::WITH, sprintf('s.id IN (%s)', $qb->getDQL()))
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
+
+    private function countForNameQb(Author $author, string $name, ?UuidInterface $id): QueryBuilder
     {
         $qb = $this->getEntityManager()
             ->createQueryBuilder()
-            ->select('COUNT(e.id)')
-            ->from($this->getEntityName(), 'e')
-            ->join('e.translations', 't')
-            ->where('e.createdBy = :author')
+            ->select('COUNT(i.id)')
+            ->from($this->getEntityName(), 'i')
+            ->innerJoin('i.translations', 't', Join::WITH, 't.locale = :locale AND t.name = :name')
+            ->where('i.createdBy = :author')
+            ->setParameter('name', $name)
+            ->setParameter('locale', $this->getTranslatableListener()->getLocale())
             ->setParameter('author', $author)
         ;
 
         if (null !== $id) {
-            $qb->andWhere('e.id != :id')->setParameter('id', $id);
+            $qb->andWhere('i.id != :id')->setParameter('id', $id);
         }
 
-        foreach ($parameters as $name => $value) {
-            $metadata = $this->getEntityManager()->getClassMetadata($this->getEntityName());
-            list(, $fieldLabel) = explode('.', $name);
-            if (is_null($value)) {
-                $qb->andWhere(sprintf('%s IS NULL', $name));
-            } elseif ($metadata->isCollectionValuedAssociation($fieldLabel)) {
-                $joinAlias = sprintf('jAlias%s', ++$this->joinAliasCount);
-                $qb->leftJoin($name, $joinAlias)->andWhere(sprintf('%s MEMBER OF %s', $joinAlias, $name));
-                $condition = is_iterable($value)
-                    ? sprintf('%s IN (:%s)', $joinAlias, implode(',', (array) $fieldLabel))
-                    : sprintf('%s = :%s', $joinAlias, $fieldLabel)
-                ;
-
-                $qb->andWhere($condition)->setParameter($fieldLabel, $value);
-            } else {
-                $qb->andWhere(sprintf('%s = :%s', $name, $fieldLabel))->setParameter($fieldLabel, $value);
-            }
-        }
-
-        return 0 !== (int) $qb->getQuery()->getSingleScalarResult();
+        return $qb;
     }
 }

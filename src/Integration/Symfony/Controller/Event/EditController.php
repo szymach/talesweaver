@@ -60,6 +60,7 @@ class EditController
                     'event_edit',
                     ['id' => $event->getId()]
                 ),
+                'eventId' => $event->getId(),
                 'model' => SceneEvents::getEventForm(get_class($event->getModel())),
                 'scene' => $event->getScene()
             ]

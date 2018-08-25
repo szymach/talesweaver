@@ -69,12 +69,22 @@ class LocationRepository implements Locations, RequestSecuredRepository
         );
     }
 
-    public function entityExists(array $parameters, ?UuidInterface $id): bool
+    public function entityExists(string $name, ?UuidInterface $id, ?UuidInterface $sceneId): bool
     {
-        return $this->doctrineRepository->entityExists(
-            $this->userProvider->fetchCurrentUsersAuthor(),
-            $parameters,
-            $id
-        );
+        if (null !== $sceneId) {
+            $exists = $this->doctrineRepository->existsForSceneWithName(
+                $this->userProvider->fetchCurrentUsersAuthor(),
+                $name,
+                $sceneId
+            );
+        } else {
+            $exists = $this->doctrineRepository->nameConflictsWithRelated(
+                $this->userProvider->fetchCurrentUsersAuthor(),
+                $name,
+                $id
+            );
+        }
+
+        return $exists;
     }
 }

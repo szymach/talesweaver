@@ -18,7 +18,7 @@ class DTO
      */
     private $chapter;
 
-    public function __construct(Chapter $chapter = null)
+    public function __construct(?Chapter $chapter = null)
     {
         $this->chapter = $chapter;
     }

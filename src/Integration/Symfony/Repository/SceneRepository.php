@@ -78,13 +78,24 @@ class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSe
         );
     }
 
-    public function entityExists(array $parameters, ?UuidInterface $id): bool
+    public function entityExists(string $title, ?UuidInterface $id, ?UuidInterface $chapterId): bool
     {
-        return $this->doctrineRepository->entityExists(
-            $this->userProvider->fetchCurrentUsersAuthor(),
-            $parameters,
-            $id
-        );
+        if (null !== $chapterId) {
+            $exists = $this->doctrineRepository->existsAssignedWithTitle(
+                $this->userProvider->fetchCurrentUsersAuthor(),
+                $title,
+                $chapterId,
+                $id
+            );
+        } else {
+            $exists = $this->doctrineRepository->existsStandaloneWithTitle(
+                $this->userProvider->fetchCurrentUsersAuthor(),
+                $title,
+                $id
+            );
+        }
+
+        return $exists;
     }
 
     public function firstCharacterOccurence(UuidInterface $id): string

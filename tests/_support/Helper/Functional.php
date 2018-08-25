@@ -20,6 +20,11 @@ class Functional extends Module
         return bin2hex(random_bytes(128));
     }
 
+    public function getSymfony(): Symfony
+    {
+        return $this->getModule('Symfony');
+    }
+
     /**
      * phpcs:disable
      */
@@ -41,11 +46,6 @@ class Functional extends Module
     private function getTranslatableListener(): TranslatableListener
     {
         return $this->getSymfony()->grabService('test.fsi_doctrine_extensions.listener.translatable');
-    }
-
-    private function getSymfony(): Symfony
-    {
-        return $this->getModule('Symfony');
     }
 
     private function clearUser(): void

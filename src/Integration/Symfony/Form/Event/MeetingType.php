@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event\Meeting;
 use Talesweaver\Domain\Location;
@@ -44,7 +45,8 @@ class MeetingType extends AbstractType
             'choices' => $this->characterRepository->findForScene($scene),
             'choice_label' => function (Character $character): string {
                 return (string) $character->getName();
-            }
+            },
+            'constraints' => [new NotBlank()]
         ]);
 
         $builder->add('location', EntityType::class, [
@@ -53,7 +55,8 @@ class MeetingType extends AbstractType
             'choices' => $this->locationRepository->findForScene($scene),
             'choice_label' => function (Location $location): string {
                 return (string) $location->getName();
-            }
+            },
+            'constraints' => [new NotBlank()]
         ]);
 
         $builder->add('relation', EntityType::class, [
@@ -62,7 +65,8 @@ class MeetingType extends AbstractType
             'choices' => $this->characterRepository->findForScene($scene),
             'choice_label' => function (Character $character): string {
                 return (string) $character->getName();
-            }
+            },
+            'constraints' => [new NotBlank()]
         ]);
     }
 

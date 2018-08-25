@@ -42,7 +42,7 @@ class DTO
     {
         $this->id = $character->getId();
         $this->name = (string) $character->getName();
-        $this->avatar = $character->getAvatar();
+        $this->avatar = null !== $character->getAvatar() ? $character->getAvatar()->getValue() : null;
         $this->description = (string) $character->getDescription();
         $this->scenes = $character->getScenes();
     }

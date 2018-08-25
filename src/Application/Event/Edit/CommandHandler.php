@@ -12,8 +12,7 @@ class CommandHandler
     {
         $command->getEvent()->edit(
             new ShortText($command->getData()->getName()),
-            $command->getData()->getModel(),
-            $command->getData()->getScene()
+            $command->getData()->getModel()
         );
     }
 }

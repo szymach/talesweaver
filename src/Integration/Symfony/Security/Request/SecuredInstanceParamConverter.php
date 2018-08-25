@@ -34,10 +34,14 @@ class SecuredInstanceParamConverter implements ParamConverterInterface
     {
         $id = $this->getId($request, $configuration);
         if (null === $id) {
-            throw new NotFoundHttpException(sprintf(
-                'No "id" paramater found in path "%s"',
-                $request->getRequestUri()
-            ));
+            if (false === $configuration->isOptional()) {
+                throw new NotFoundHttpException(sprintf(
+                    'No "id" paramater found in path "%s"',
+                    $request->getRequestUri()
+                ));
+            } else {
+                return true;
+            }
         }
 
         if (false === Uuid::isValid($id)) {

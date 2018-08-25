@@ -25,17 +25,11 @@ class DTO
      */
     private $model;
 
-    /**
-     * @var UuidInterface
-     */
-    private $scene;
-
     public function __construct(Event $event)
     {
         $this->id = $event->getId();
         $this->name = (string) $event->getName();
         $this->model = $event->getModel();
-        $this->scene = $event->getScene()->getId();
     }
 
     public function getId(): UuidInterface
@@ -61,10 +55,5 @@ class DTO
     public function setModel(?JsonSerializable $model): void
     {
         $this->model = $model;
-    }
-
-    public function getScene(): UuidInterface
-    {
-        return $this->scene;
     }
 }

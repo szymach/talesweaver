@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Talesweaver\Domain;
 
-use Assert\Assertion;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -55,6 +54,11 @@ class Scene
     private $locations;
 
     /**
+     * @var Event[]|Collection
+     */
+    private $events;
+
+    /**
      * @param UuidInterface $id
      * @param ShortText $title
      * @param Chapter|null $chapter
@@ -67,6 +71,7 @@ class Scene
         $this->chapter = $chapter;
 
         $this->characters = new ArrayCollection();
+        $this->events = new ArrayCollection();
         $this->items = new ArrayCollection();
         $this->locations = new ArrayCollection();
         $this->translations = new ArrayCollection();
@@ -186,5 +191,10 @@ class Scene
     {
         $this->items->removeElement($item);
         $this->update();
+    }
+
+    public function getEvents(): array
+    {
+        return $this->events;
     }
 }

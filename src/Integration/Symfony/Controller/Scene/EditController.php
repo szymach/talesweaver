@@ -51,7 +51,7 @@ class EditController
     public function __invoke(Request $request, Scene $scene)
     {
         $dto = new DTO($scene);
-        $form = $this->formFactory->create(EditType::class, $dto);
+        $form = $this->formFactory->create(EditType::class, $dto, ['sceneId' => $scene->getId()]);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->commandBus->handle(new Command($dto, $scene));
 

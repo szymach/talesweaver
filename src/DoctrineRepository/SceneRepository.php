@@ -119,41 +119,47 @@ class SceneRepository extends TranslatableRepository
         ;
     }
 
-    public function entityExists(Author $author, array $parameters, ?UuidInterface $id): bool
+    public function existsStandaloneWithTitle(Author $author, string $title, ?UuidInterface $id): bool
     {
-        $qb = $this->getEntityManager()
-            ->createQueryBuilder()
-            ->select('COUNT(e.id)')
-            ->from($this->getEntityName(), 'e')
-            ->join('e.translations', 't')
-            ->where('e.createdBy = :author')
-            ->setParameter('author', $author)
-        ;
+        $qb = $this->countForTitleQb($author, $title)->andWhere('s.chapter IS NULL');
 
         if (null !== $id) {
-            $qb->andWhere('e.id != :id')->setParameter('id', $id);
-        }
-
-        foreach ($parameters as $name => $value) {
-            $metadata = $this->getEntityManager()->getClassMetadata($this->getEntityName());
-            list(, $fieldLabel) = explode('.', $name);
-            if (is_null($value)) {
-                $qb->andWhere(sprintf('%s IS NULL', $name));
-            } elseif ($metadata->isCollectionValuedAssociation($fieldLabel)) {
-                $joinAlias = sprintf('jAlias%s', ++$this->joinAliasCount);
-                $qb->leftJoin($name, $joinAlias)->andWhere(sprintf('%s MEMBER OF %s', $joinAlias, $name));
-                $condition = is_iterable($value)
-                    ? sprintf('%s IN (:%s)', $joinAlias, implode(',', (array) $fieldLabel))
-                    : sprintf('%s = :%s', $joinAlias, $fieldLabel)
-                ;
-
-                $qb->andWhere($condition)->setParameter($fieldLabel, $value);
-            } else {
-                $qb->andWhere(sprintf('%s = :%s', $name, $fieldLabel))->setParameter($fieldLabel, $value);
-            }
+            $qb->andWhere('s.id != :id')->setParameter('id', $id);
         }
 
         return 0 !== (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function existsAssignedWithTitle(
+        Author $author,
+        string $title,
+        UuidInterface $chapterId,
+        ?UuidInterface $id
+    ): bool {
+        $qb = $this->countForTitleQb($author, $title)
+            ->innerJoin('s.chapter', 'c', Join::WITH, 'c.id = :chapterId')
+            ->setParameter('chapterId', $chapterId)
+        ;
+
+        if (null !== $id) {
+            $qb->andWhere('c.id != :id')->setParameter('id', $id);
+        }
+
+        return 0 !== (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    private function countForTitleQb(Author $author, string $title): QueryBuilder
+    {
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('COUNT(s.id)')
+            ->from($this->getEntityName(), 's')
+            ->join('s.translations', 't', Join::WITH, 't.locale = :locale AND t.title = :title')
+            ->where('s.createdBy = :author')
+            ->setParameter('author', $author)
+            ->setParameter('title', $title)
+            ->setParameter('locale', $this->getTranslatableListener()->getLocale())
+        ;
     }
 
     private function createFirstOccurenceQueryBuilder(Author $author, UuidInterface $id): QueryBuilder

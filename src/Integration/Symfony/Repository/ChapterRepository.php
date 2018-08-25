@@ -85,12 +85,23 @@ class ChapterRepository implements Chapters, LatestChangesAwareRepository, Reque
         $this->doctrineRepository->remove($this->userProvider->fetchCurrentUsersAuthor(), $id);
     }
 
-    public function entityExists(array $parameters, ?UuidInterface $id): bool
+    public function entityExists(string $title, ?UuidInterface $id, ?UuidInterface $bookId): bool
     {
-        return $this->doctrineRepository->entityExists(
-            $this->userProvider->fetchCurrentUsersAuthor(),
-            $parameters,
-            $id
-        );
+        if (null !== $bookId) {
+            $exists = $this->doctrineRepository->existsAssignedWithTitle(
+                $this->userProvider->fetchCurrentUsersAuthor(),
+                $title,
+                $bookId,
+                $id
+            );
+        } else {
+            $exists = $this->doctrineRepository->existsStandaloneWithTitle(
+                $this->userProvider->fetchCurrentUsersAuthor(),
+                $title,
+                $id
+            );
+        }
+
+        return $exists;
     }
 }

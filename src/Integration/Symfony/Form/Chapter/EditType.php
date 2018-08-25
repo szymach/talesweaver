@@ -4,44 +4,55 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Form\Chapter;
 
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Talesweaver\Application\Chapter\Edit\DTO;
-use Talesweaver\Domain\Book;
-use Talesweaver\Integration\Symfony\Repository\BookRepository;
+use Talesweaver\Integration\Symfony\Repository\ChapterRepository;
 
 class EditType extends AbstractType
 {
     /**
-     * @var BookRepository
+     * @var ChapterRepository
      */
-    private $bookRepository;
+    private $chapterRepository;
 
-    public function __construct(BookRepository $bookRepository)
+    public function __construct(ChapterRepository $chapterRepository)
     {
-        $this->bookRepository = $bookRepository;
+        $this->chapterRepository = $chapterRepository;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $bookId = $options['bookId'];
+        $chapterId = $options['chapterId'];
         $builder->add('title', TextType::class, [
             'label' => 'chapter.title',
-            'attr' => ['autofocus' => 'autofocus']
-        ]);
+            'attr' => ['autofocus' => 'autofocus'],
+            'constraints' => [new NotBlank(), new Length(['max' => 255]), new Callback([
+                'callback' => function (
+                    ?string $title,
+                    ExecutionContextInterface $context
+                ) use (
+                    $bookId,
+                    $chapterId
+                ): void {
+                    if (null === $title || '' === $title) {
+                        return;
+                    }
 
-        $builder->add('book', EntityType::class, [
-            'label' => 'chapter.book',
-            'class' => Book::Class,
-            'choices' => $this->bookRepository->findAll(),
-            'choice_label' => function (Book $book): string {
-                return (string) $book->getTitle();
-            },
-            'placeholder' => 'chapter.placeholder.book',
-            'required' => false
+                    if (true === $this->chapterRepository->entityExists($title, $chapterId, $bookId)) {
+                        $context->buildViolation('chapter.exists')->addViolation();
+                    }
+                }
+            ])]
         ]);
     }
 
@@ -49,7 +60,13 @@ class EditType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => DTO::class,
-            'method' => Request::METHOD_POST
+            'method' => Request::METHOD_POST,
+            'bookId' => null,
+            'chapterId' => null
         ]);
+
+        $resolver->setAllowedTypes('bookId', ['null', UuidInterface::class]);
+        $resolver->setAllowedTypes('chapterId', [UuidInterface::class]);
+        $resolver->setRequired(['chapterId']);
     }
 }

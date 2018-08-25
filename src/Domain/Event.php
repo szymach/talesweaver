@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Domain;
 
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
 use JsonSerializable;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Traits\CreatedByTrait;
@@ -56,6 +57,7 @@ class Event
         $this->scene = $scene;
         $this->createdAt = new DateTimeImmutable();
         $this->createdBy = $author;
+        $this->translations = new ArrayCollection();
     }
 
     public function __toString()

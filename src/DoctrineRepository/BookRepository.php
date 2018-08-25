@@ -12,11 +12,6 @@ use Talesweaver\Domain\Book;
 
 class BookRepository extends TranslatableRepository
 {
-    /**
-     * @var int
-     */
-    private $joinAliasCount = 0;
-
     public function persist(Book $book): void
     {
         $this->getEntityManager()->persist($book);
@@ -53,38 +48,20 @@ class BookRepository extends TranslatableRepository
         ;
     }
 
-    public function entityExists(Author $author, array $parameters, ?UuidInterface $id): bool
+    public function entityExists(Author $author, string $title, ?UuidInterface $id): bool
     {
         $qb = $this->getEntityManager()
             ->createQueryBuilder()
-            ->select('COUNT(e.id)')
-            ->from($this->getEntityName(), 'e')
-            ->join('e.translations', 't')
-            ->where('e.createdBy = :author')
+            ->select('COUNT(b.id)')
+            ->from($this->getEntityName(), 'b')
+            ->join('b.translations', 't', Join::WITH, 't.title = :title')
+            ->where('b.createdBy = :author')
             ->setParameter('author', $author)
+            ->setParameter('title', $title)
         ;
 
         if (null !== $id) {
-            $qb->andWhere('e.id != :id')->setParameter('id', $id);
-        }
-
-        foreach ($parameters as $name => $value) {
-            $metadata = $this->getEntityManager()->getClassMetadata($this->getEntityName());
-            list(, $fieldLabel) = explode('.', $name);
-            if (is_null($value)) {
-                $qb->andWhere(sprintf('%s IS NULL', $name));
-            } elseif ($metadata->isCollectionValuedAssociation($fieldLabel)) {
-                $joinAlias = sprintf('jAlias%s', ++$this->joinAliasCount);
-                $qb->leftJoin($name, $joinAlias)->andWhere(sprintf('%s MEMBER OF %s', $joinAlias, $name));
-                $condition = is_iterable($value)
-                    ? sprintf('%s IN (:%s)', $joinAlias, implode(',', (array) $fieldLabel))
-                    : sprintf('%s = :%s', $joinAlias, $fieldLabel)
-                ;
-
-                $qb->andWhere($condition)->setParameter($fieldLabel, $value);
-            } else {
-                $qb->andWhere(sprintf('%s = :%s', $name, $fieldLabel))->setParameter($fieldLabel, $value);
-            }
+            $qb->andWhere('b.id != :id')->setParameter('id', $id);
         }
 
         return 0 !== (int) $qb->getQuery()->getSingleScalarResult();

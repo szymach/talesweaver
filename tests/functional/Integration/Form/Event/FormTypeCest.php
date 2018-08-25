@@ -156,7 +156,7 @@ class FormTypeCest
         return $I->createForm(
             CreateType::class,
             new Create\DTO($scene),
-            ['scene' => $scene, 'model' => MeetingType::class]
+            ['scene' => $scene, 'model' => MeetingType::class, 'scene' => $scene]
         );
     }
 
@@ -165,7 +165,7 @@ class FormTypeCest
         return $I->createForm(
             EditType::class,
             new Edit\DTO($event),
-            ['scene' => $scene, 'model' => MeetingType::class]
+            ['scene' => $scene, 'model' => MeetingType::class, 'eventId' => $event->getId()]
         );
     }
 

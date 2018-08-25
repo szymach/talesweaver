@@ -111,10 +111,9 @@ class SecuredInstanceParamConverterTest extends TestCase
         $this->expectExceptionMessage('No "id" paramater found in path "/"');
 
         $converter = new SecuredInstanceParamConverter([]);
-        $converter->apply(
-            $request,
-            $this->getMockBuilder(ParamConverter::class)->disableOriginalConstructor()->getMock()
-        );
+        $configuration = $this->createMock(ParamConverter::class);
+        $configuration->expects($this->once())->method('isOptional')->willReturn(false);
+        $converter->apply($request, $configuration);
     }
 
     public function testExceptionWhenInvalidId()

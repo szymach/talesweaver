@@ -57,7 +57,7 @@ class FormTypeCest
     {
         $I->loginAsUser();
         $book = new Book(Uuid::uuid4(), new ShortText(self::TITLE_PL), $I->getUser()->getAuthor());
-        $form = $I->createForm(EditType::class, new Edit\DTO($book));
+        $form = $I->createForm(EditType::class, new Edit\DTO($book), ['bookId' => $book->getId()]);
         $form->handleRequest($I->getRequest([
             'edit' => ['title' => self::TITLE_PL, 'description' => self::DESCRIPTION_PL]
         ]));
@@ -76,7 +76,7 @@ class FormTypeCest
     {
         $I->loginAsUser();
         $book = new Book(Uuid::uuid4(), new ShortText(self::TITLE_PL), $I->getUser()->getAuthor());
-        $form = $I->createForm(EditType::class, new Edit\DTO($book));
+        $form = $I->createForm(EditType::class, new Edit\DTO($book), ['bookId' => $book->getId()]);
         $form->handleRequest($I->getRequest(['edit' => ['title' => null]]));
 
         $I->assertTrue($form->isSynchronized());

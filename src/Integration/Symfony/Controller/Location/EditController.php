@@ -54,7 +54,10 @@ class EditController
         $form = $this->formFactory->create(
             EditType::class,
             new DTO($location),
-            ['action' => $this->router->generate('location_edit', ['id' => $location->getId()])]
+            [
+                'action' => $this->router->generate('location_edit', ['id' => $location->getId()]),
+                'locationId' => $location->getId()
+            ]
         );
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {

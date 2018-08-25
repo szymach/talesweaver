@@ -20,10 +20,8 @@ class FormTypeCest
     public function testValidCreateFormSubmission(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $form = $I->createForm(CreateType::class);
-        $form->handleRequest($I->getRequest([
-            'create' => ['title' => self::TITLE_PL]
-        ]));
+        $form = $I->createForm(CreateType::class, null, ['bookId' => null]);
+        $form->handleRequest($I->getRequest(['create' => ['title' => self::TITLE_PL]]));
 
         $I->assertTrue($form->isSynchronized());
         $I->assertTrue($form->isSubmitted());
@@ -37,10 +35,8 @@ class FormTypeCest
     public function testInvalidCreateFormSubmission(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $form = $I->createForm(CreateType::class);
-        $form->handleRequest($I->getRequest([
-            'create' => ['title' => null]
-        ]));
+        $form = $I->createForm(CreateType::class, null, ['bookId' => null]);
+        $form->handleRequest($I->getRequest(['create' => ['title' => null]]));
 
         $I->assertTrue($form->isSynchronized());
         $I->assertTrue($form->isSubmitted());
@@ -60,7 +56,10 @@ class FormTypeCest
             null,
             $I->getUser()->getAuthor()
         );
-        $form = $I->createForm(EditType::class, new Edit\DTO($chapter));
+        $form = $I->createForm(EditType::class, new Edit\DTO($chapter), [
+            'bookId' => null,
+            'chapterId' => $chapter->getId()
+        ]);
         $form->handleRequest($I->getRequest(['edit' => ['title' => self::TITLE_PL]]));
 
         $I->assertTrue($form->isSynchronized());
@@ -81,7 +80,10 @@ class FormTypeCest
             null,
             $I->getUser()->getAuthor()
         );
-        $form = $I->createForm(EditType::class, new Edit\DTO($chapter));
+        $form = $I->createForm(EditType::class, new Edit\DTO($chapter), [
+            'bookId' => null,
+            'chapterId' => $chapter->getId()
+        ]);
         $form->handleRequest($I->getRequest(['edit' => ['title' => null]]));
 
         $I->assertTrue($form->isSynchronized());
