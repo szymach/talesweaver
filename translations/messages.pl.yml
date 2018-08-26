@@ -226,7 +226,7 @@ event:
     'Talesweaver\Domain\Event\Meeting':
         name: Spotkanie
         create: Nowe spotkanie
-        description:
+        description: >
             <span class="underline">%root%</span> spotkał
             <span class="underline">%relation%</span> w
             <span class="underline">%location%</span>
