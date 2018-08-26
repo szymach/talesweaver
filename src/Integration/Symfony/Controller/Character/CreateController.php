@@ -9,10 +9,14 @@ use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Talesweaver\Application\Character\Create\Command;
 use Talesweaver\Application\Character\Create\DTO;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\ValueObject\File;
+use Talesweaver\Domain\ValueObject\LongText;
+use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Character\CreateType;
 use Talesweaver\Integration\Symfony\Templating\Character\FormView;
 
@@ -52,21 +56,29 @@ class CreateController
 
     public function __invoke(Request $request, Scene $scene)
     {
-        $form = $this->formFactory->create(
-            CreateType::class,
-            new DTO($scene),
-            [
-                'action' => $this->router->generate('character_new', ['id' => $scene->getId()]),
-                'sceneId' => $scene->getId()
-            ]
-        );
+        $form = $this->formFactory->create(CreateType::class, new DTO($scene), [
+            'action' => $this->router->generate('character_new', ['id' => $scene->getId()]),
+            'sceneId' => $scene->getId()
+        ]);
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->commandBus->handle(new Command(Uuid::uuid4(), $form->getData()));
-
-            return new JsonResponse(['success' => true]);
+            return $this->processFormDataAndRedirect($form->getData());
         }
 
         return $this->templating->createView($form, 'character.header.new');
+    }
+
+    private function processFormDataAndRedirect(DTO $dto): Response
+    {
+        $description = $dto->getName();
+        $avatar = $dto->getAvatar();
+        $this->commandBus->handle(new Command(
+            Uuid::uuid4(),
+            new ShortText($dto->getName()),
+            null !== $description ? new LongText($description) : null,
+            null !== $avatar ? new File($avatar) : null
+        ));
+
+        return new JsonResponse(['success' => true]);
     }
 }

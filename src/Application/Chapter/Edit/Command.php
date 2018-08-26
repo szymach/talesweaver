@@ -10,28 +10,30 @@ use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class Command implements AuthorAccessInterface, MessageCommandInterface
 {
-    /**
-     * @var DTO
-     */
-    private $data;
-
     /**
      * @var Chapter
      */
     private $chapter;
 
-    public function __construct(DTO $data, Chapter $chapter)
-    {
-        $this->data = $data;
-        $this->chapter = $chapter;
-    }
+    /**
+     * @var ShortText
+     */
+    private $title;
 
-    public function getData(): DTO
+    /**
+     * @var Book
+     */
+    private $book;
+
+    public function __construct(Chapter $chapter, ShortText $title, ?Book $book)
     {
-        return $this->data;
+        $this->chapter = $chapter;
+        $this->title = $title;
+        $this->book = $book;
     }
 
     public function getChapter(): Chapter
@@ -39,9 +41,19 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
         return $this->chapter;
     }
 
+    public function getTitle(): ShortText
+    {
+        return $this->title;
+    }
+
+    public function getBook(): ?Book
+    {
+        return $this->book;
+    }
+
     public function isAllowed(Author $author): bool
     {
-        return $author->getId() === $this->chapter->getCreatedBy()->getId();
+        return $author === $this->chapter->getCreatedBy();
     }
 
     public function getMessage(): Message

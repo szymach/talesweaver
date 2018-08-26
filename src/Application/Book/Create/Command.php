@@ -10,6 +10,7 @@ use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Application\Security\Traits\AuthorAwareTrait;
 use Talesweaver\Domain\Security\AuthorAwareInterface;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class Command implements MessageCommandInterface, AuthorAwareInterface
 {
@@ -21,11 +22,11 @@ class Command implements MessageCommandInterface, AuthorAwareInterface
     private $id;
 
     /**
-     * @var string
+     * @var ShortText
      */
     private $title;
 
-    public function __construct(UuidInterface $id, string $title)
+    public function __construct(UuidInterface $id, ShortText $title)
     {
         $this->id = $id;
         $this->title = $title;
@@ -36,7 +37,7 @@ class Command implements MessageCommandInterface, AuthorAwareInterface
         return $this->id;
     }
 
-    public function getTitle(): string
+    public function getTitle(): ShortText
     {
         return $this->title;
     }

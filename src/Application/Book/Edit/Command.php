@@ -10,6 +10,8 @@ use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
+use Talesweaver\Domain\ValueObject\LongText;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class Command implements AuthorAccessInterface, MessageCommandInterface
 {
@@ -19,24 +21,20 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
     private $book;
 
     /**
-     * @var DTO
+     * @var ShortText
      */
-    private $data;
+    private $title;
 
-    public function __construct(DTO $data, Book $book)
+    /**
+     * @var LongText|null
+     */
+    private $description;
+
+    public function __construct(Book $book, ShortText $title, ?LongText $description)
     {
-        $this->data = $data;
         $this->book = $book;
-    }
-
-    public function isAllowed(Author $author): bool
-    {
-        return $author->getId() === $this->book->getCreatedBy()->getId();
-    }
-
-    public function getMessage(): Message
-    {
-        return new EditionSuccessMessage('book');
+        $this->title = $title;
+        $this->description = $description;
     }
 
     public function getBook(): Book
@@ -44,8 +42,23 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
         return $this->book;
     }
 
-    public function getData(): DTO
+    public function getTitle(): ShortText
     {
-        return $this->data;
+        return $this->title;
+    }
+
+    public function getDescription(): ?LongText
+    {
+        return $this->description;
+    }
+
+    public function isAllowed(Author $author): bool
+    {
+        return $author === $this->book->getCreatedBy();
+    }
+
+    public function getMessage(): Message
+    {
+        return new EditionSuccessMessage('book');
     }
 }

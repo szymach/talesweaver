@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Talesweaver\Application\Chapter\Create\Command;
 use Talesweaver\Application\Chapter\Create\DTO;
 use Talesweaver\Domain\Book;
@@ -59,14 +60,19 @@ class CreateController
         $bookId = $book ? $book->getId() : null;
         $form = $this->formFactory->create(CreateType::class, new DTO(), ['bookId' => $bookId]);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $chapterId = Uuid::uuid4();
-            $this->commandBus->handle(
-                new Command($chapterId, new ShortText($form->getData()->getTitle()), $book)
-            );
-
-            return $this->redirector->createResponse('chapter_edit', $chapterId);
+            return $this->processFormDataAndRedirect($form->getData(), $book);
         }
 
         return $this->templating->createView($form, 'chapter/createForm.html.twig', ['bookId' => $bookId]);
+    }
+
+    private function processFormDataAndRedirect(DTO $dto, ?Book $book): Response
+    {
+        $chapterId = Uuid::uuid4();
+        $this->commandBus->handle(
+            new Command($chapterId, new ShortText($dto->getTitle()), $book)
+        );
+
+        return $this->redirector->createResponse('chapter_edit', $chapterId);
     }
 }

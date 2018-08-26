@@ -11,21 +11,22 @@ use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class Command implements AuthorAccessInterface, MessageCommandInterface
 {
     /**
-     * @var int
+     * @var UuidInterface
      */
     private $id;
 
     /**
-     * @var string
+     * @var ShortText
      */
     private $title;
 
     /**
-     * @var int
+     * @var UuidInterface
      */
     private $createdBy;
 

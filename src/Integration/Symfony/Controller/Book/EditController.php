@@ -7,9 +7,12 @@ namespace Talesweaver\Integration\Symfony\Controller\Book;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Talesweaver\Application\Book\Edit\Command;
 use Talesweaver\Application\Book\Edit\DTO;
 use Talesweaver\Domain\Book;
+use Talesweaver\Domain\ValueObject\LongText;
+use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Book\EditType;
 use Talesweaver\Integration\Symfony\Routing\RedirectToEdit;
 use Talesweaver\Integration\Symfony\Templating\Book\EditView;
@@ -53,11 +56,21 @@ class EditController
         $dto = new DTO($book);
         $form = $this->formFactory->create(EditType::class, $dto, ['bookId' => $book->getId()]);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->commandBus->handle(new Command($dto, $book));
-
-            return $this->redirector->createResponse('book_edit', $book->getId());
+            return $this->processFormDataAndRedirect($book, $dto);
         }
 
         return $this->templating->createView($form, $book);
+    }
+
+    private function processFormDataAndRedirect(Book $book, DTO $dto): Response
+    {
+        $description = $dto->getDescription();
+        $this->commandBus->handle(new Command(
+            $book,
+            new ShortText($dto->getTitle()),
+            null !== $description ? new LongText($description) : null
+        ));
+
+        return $this->redirector->createResponse('book_edit', $book->getId());
     }
 }

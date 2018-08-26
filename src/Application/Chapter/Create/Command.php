@@ -61,7 +61,7 @@ class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCom
      */
     public function isAllowed(Author $author): bool
     {
-        return null === $this->book || $this->book->getCreatedBy()->getId() === $author->getId();
+        return null === $this->book || $this->book->getCreatedBy() === $author;
     }
 
     public function getMessage(): Message

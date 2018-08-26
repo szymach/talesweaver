@@ -29,7 +29,7 @@ class DTO
     private $description;
 
     /**
-     * @var File|SplFileInfo
+     * @var object
      */
     private $avatar;
 

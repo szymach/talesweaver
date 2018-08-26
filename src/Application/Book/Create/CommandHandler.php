@@ -6,7 +6,6 @@ namespace Talesweaver\Application\Book\Create;
 
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Books;
-use Talesweaver\Domain\ValueObject\ShortText;
 
 class CommandHandler
 {
@@ -22,8 +21,6 @@ class CommandHandler
 
     public function handle(Command $command): void
     {
-        $this->books->add(
-            new Book($command->getId(), new ShortText($command->getTitle()), $command->getAuthor())
-        );
+        $this->books->add(new Book($command->getId(), $command->getTitle(), $command->getAuthor()));
     }
 }

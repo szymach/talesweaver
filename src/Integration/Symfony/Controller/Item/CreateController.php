@@ -13,6 +13,9 @@ use Symfony\Component\Routing\RouterInterface;
 use Talesweaver\Application\Item\Create\Command;
 use Talesweaver\Application\Item\Create\DTO;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\ValueObject\File;
+use Talesweaver\Domain\ValueObject\LongText;
+use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Item\CreateType;
 use Talesweaver\Integration\Symfony\Templating\Item\FormView;
 
@@ -52,21 +55,29 @@ class CreateController
 
     public function __invoke(Request $request, Scene $scene)
     {
-        $form = $this->formFactory->create(
-            CreateType::class,
-            new DTO($scene),
-            [
-                'action' => $this->router->generate('item_new', ['id' => $scene->getId()]),
-                'sceneId' => $scene->getId()
-            ]
-        );
+        $form = $this->formFactory->create(CreateType::class, new DTO($scene), [
+            'action' => $this->router->generate('item_new', ['id' => $scene->getId()]),
+            'sceneId' => $scene->getId()
+        ]);
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->commandBus->handle(new Command(Uuid::uuid4(), $form->getData()));
-
-            return new JsonResponse(['success' => true]);
+            return $this->processFormDataAndRedirect($form->getData());
         }
 
         return $this->templating->createView($form, 'item.header.new');
+    }
+
+    private function processFormDataAndRedirect(DTO $dto): Response
+    {
+        $description = $dto->getName();
+        $avatar = $dto->getAvatar();
+        $this->commandBus->handle(new Command(
+            Uuid::uuid4(),
+            new ShortText($dto->getName()),
+            null !== $description ? new LongText($description) : null,
+            null !== $avatar ? new File($avatar) : null
+        ));
+
+        return new JsonResponse(['success' => true]);
     }
 }

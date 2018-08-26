@@ -8,8 +8,11 @@ use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Talesweaver\Application\Scene\Create\Command;
+use Talesweaver\Application\Scene\Create\DTO;
 use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Scene\CreateType;
 use Talesweaver\Integration\Symfony\Routing\RedirectToEdit;
 use Talesweaver\Integration\Symfony\Templating\SimpleFormView;
@@ -50,12 +53,9 @@ class CreateController
 
     public function __invoke(Request $request)
     {
-        $form = $this->formFactory->create(CreateType::class);
+        $form = $this->formFactory->create(CreateType::class, new DTO());
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $sceneId = Uuid::uuid4();
-            $this->commandBus->handle(new Command($sceneId, $form->getData()));
-
-            return $this->redirector->createResponse('scene_edit', $sceneId);
+            return $this->processFormDataAndRedirect($form->getData());
         }
 
         /* @var $chapter Chapter */
@@ -65,5 +65,15 @@ class CreateController
             'scene/createForm.html.twig',
             ['chapterId' => $chapter ? $chapter->getId(): null]
         );
+    }
+
+    private function processFormDataAndRedirect(DTO $dto): Response
+    {
+        $id = Uuid::uuid4();
+        $this->commandBus->handle(
+            new Command($id, new ShortText($dto->getTitle()), $dto->getChapter())
+        );
+
+        return $this->redirector->createResponse('scene_edit', $id);
     }
 }

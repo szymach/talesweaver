@@ -8,6 +8,7 @@ use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Talesweaver\Application\Event\Edit\Command;
 use Talesweaver\Application\Event\Edit\DTO;
@@ -52,26 +53,27 @@ class EditController
 
     public function __invoke(Request $request, Event $event)
     {
-        $form = $this->formFactory->create(
-            EditType::class,
-            new DTO($event),
-            [
-                'action' => $this->router->generate(
-                    'event_edit',
-                    ['id' => $event->getId()]
-                ),
-                'eventId' => $event->getId(),
-                'model' => SceneEvents::getEventForm(get_class($event->getModel())),
-                'scene' => $event->getScene()
-            ]
-        );
+        $form = $this->formFactory->create(EditType::class, new DTO($event), [
+            'action' => $this->router->generate(
+                'event_edit',
+                ['id' => $event->getId()]
+            ),
+            'eventId' => $event->getId(),
+            'model' => SceneEvents::getEventForm(get_class($event->getModel())),
+            'scene' => $event->getScene()
+        ]);
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->commandBus->handle(new Command($event, $form->getData()));
-
-            return new JsonResponse(['success' => true]);
+            $this->processFormDataAndRedirect($event, $form->getData());
         }
 
         return $this->templating->createView($form, 'event.header.edit');
+    }
+
+    private function processFormDataAndRedirect(Event $event, DTO $dto): Response
+    {
+        $this->commandBus->handle(new Command($event, new ShortText($dto->getName()), $dto->getModel()));
+
+        return new JsonResponse(['success' => true]);
     }
 }

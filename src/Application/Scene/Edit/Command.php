@@ -10,28 +10,37 @@ use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
+use Talesweaver\Domain\ValueObject\LongText;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class Command implements AuthorAccessInterface, MessageCommandInterface
 {
-    /**
-     * @var DTO
-     */
-    private $data;
-
     /**
      * @var Scene
      */
     private $scene;
 
-    public function __construct(DTO $data, Scene $scene)
-    {
-        $this->data = $data;
-        $this->scene = $scene;
-    }
+    /**
+     * @var ShortText
+     */
+    private $title;
 
-    public function getData(): DTO
+    /**
+     * @var LongText|null
+     */
+    private $text;
+
+    /**
+     * @var Chapter|null
+     */
+    private $chapter;
+
+    public function __construct(Scene $scene, ShortText $title, ?LongText $text, ?Chapter $chapter)
     {
-        return $this->data;
+        $this->scene = $scene;
+        $this->title = $title;
+        $this->text = $text;
+        $this->chapter = $chapter;
     }
 
     public function getScene(): Scene
@@ -39,9 +48,24 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
         return $this->scene;
     }
 
+    public function getTitle(): ShortText
+    {
+        return $this->title;
+    }
+
+    public function getText(): ?LongText
+    {
+        return $this->text;
+    }
+
+    public function getChapter(): ?Chapter
+    {
+        return $this->chapter;
+    }
+
     public function isAllowed(Author $author): bool
     {
-        return $author->getId() === $this->scene->getCreatedBy()->getId();
+        return $author === $this->scene->getCreatedBy();
     }
 
     public function getMessage(): Message

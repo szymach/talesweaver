@@ -9,26 +9,34 @@ use Talesweaver\Application\Messages\CreationSuccessMessage;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Application\Security\Traits\AuthorAwareTrait;
+use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Security\AuthorAwareInterface;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class Command implements MessageCommandInterface, AuthorAwareInterface
 {
     use AuthorAwareTrait;
 
     /**
-     * @var type
+     * @var UuidInterface
      */
     private $id;
 
     /**
-     * @var DTO
+     * @var ShortText
      */
-    private $dto;
+    private $title;
 
-    public function __construct(UuidInterface $id, DTO $dto)
+    /**
+     * @var Chapter|null
+     */
+    private $chapter;
+
+    public function __construct(UuidInterface $id, ShortText $title, ?Chapter $chapter)
     {
         $this->id = $id;
-        $this->dto = $dto;
+        $this->title = $title;
+        $this->chapter = $chapter;
     }
 
     public function getId(): UuidInterface
@@ -36,13 +44,18 @@ class Command implements MessageCommandInterface, AuthorAwareInterface
         return $this->id;
     }
 
-    public function getData(): DTO
+    public function getTitle(): ShortText
     {
-        return $this->dto;
+        return $this->title;
+    }
+
+    public function getChapter(): ?Chapter
+    {
+        return $this->chapter;
     }
 
     public function getMessage(): Message
     {
-        return new CreationSuccessMessage('scene', ['%title%' => $this->dto->getTitle()]);
+        return new CreationSuccessMessage('scene', ['%title%' => $this->title]);
     }
 }

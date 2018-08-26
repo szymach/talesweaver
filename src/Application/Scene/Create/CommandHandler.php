@@ -6,7 +6,6 @@ namespace Talesweaver\Application\Scene\Create;
 
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\Scenes;
-use Talesweaver\Domain\ValueObject\ShortText;
 
 class CommandHandler
 {
@@ -22,13 +21,14 @@ class CommandHandler
 
     public function handle(Command $command): void
     {
-        $chapter = $command->getData()->getChapter();
+        $chapter = $command->getChapter();
         $scene = new Scene(
             $command->getId(),
-            new ShortText($command->getData()->getTitle()),
-            $command->getData()->getChapter(),
+            $command->getTitle(),
+            $chapter,
             $command->getAuthor()
         );
+
         if (null !== $chapter) {
             $chapter->addScene($scene);
         }
