@@ -42,8 +42,8 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
 
     public function isAllowed(Author $author): bool
     {
-        return $this->scene->getCreatedBy()->getId() === $this->character->getCreatedBy()->getId()
-            && $author->getId() === $this->character->getCreatedBy()->getId()
+        return $this->scene->getCreatedBy() === $this->character->getCreatedBy()
+            && $author === $this->character->getCreatedBy()
         ;
     }
 

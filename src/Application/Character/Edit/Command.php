@@ -31,7 +31,7 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
 
     public function isAllowed(Author $author): bool
     {
-        return $author->getId() === $this->character->getCreatedBy()->getId();
+        return $author === $this->character->getCreatedBy();
     }
 
     public function getMessage(): Message

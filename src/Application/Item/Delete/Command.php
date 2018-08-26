@@ -34,7 +34,7 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
     {
         $this->id = $item->getId();
         $this->title = $item->getName();
-        $this->createdBy = $item->getCreatedBy()->getId();
+        $this->createdBy = $item->getCreatedBy();
     }
 
     public function getId(): UuidInterface
@@ -44,7 +44,7 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
 
     public function isAllowed(Author $author): bool
     {
-        return $author->getId() === $this->createdBy;
+        return $author === $this->createdBy;
     }
 
     public function getMessage(): Message
