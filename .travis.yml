@@ -38,6 +38,7 @@ script:
     - bin/console lint:yaml translations
     - bin/console lint:twig templates
     - bin/console doctrine:schema:validate
+    - vendor/bin/phpstan analyse -l 6 -c phpstan.neon src
     - vendor/bin/codecept run
     - bin/console doctrine:fixtures:load -n
     - bin/console server:start

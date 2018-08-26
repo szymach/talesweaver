@@ -11,6 +11,9 @@
     "codeception/stub": {
         "version": "1.0.1"
     },
+    "composer/xdebug-handler": {
+        "version": "1.2.1"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -101,6 +104,9 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "jean85/pretty-package-versions": {
+        "version": "1.2"
+    },
     "knplabs/gaufrette": {
         "version": "v0.1.9"
     },
@@ -131,6 +137,30 @@
     "myclabs/deep-copy": {
         "version": "1.7.0"
     },
+    "nette/bootstrap": {
+        "version": "v2.4.6"
+    },
+    "nette/di": {
+        "version": "v2.4.13"
+    },
+    "nette/finder": {
+        "version": "v2.4.2"
+    },
+    "nette/neon": {
+        "version": "v2.4.3"
+    },
+    "nette/php-generator": {
+        "version": "v3.0.5"
+    },
+    "nette/robot-loader": {
+        "version": "v3.0.4"
+    },
+    "nette/utils": {
+        "version": "v2.5.2"
+    },
+    "nikic/php-parser": {
+        "version": "v4.0.3"
+    },
     "ocramius/package-versions": {
         "version": "1.2.0"
     },
@@ -160,6 +190,15 @@
     },
     "phpspec/prophecy": {
         "version": "1.7.3"
+    },
+    "phpstan/phpdoc-parser": {
+        "version": "0.3"
+    },
+    "phpstan/phpstan": {
+        "version": "0.10.3"
+    },
+    "phpstan/phpstan-doctrine": {
+        "version": "0.10"
     },
     "phpunit/php-code-coverage": {
         "version": "5.3.0"
