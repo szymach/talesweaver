@@ -92,6 +92,6 @@ class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCom
 
     public function getMessage(): Message
     {
-        return new CreationSuccessMessage('character', ['%name%' => $this->name]);
+        return new CreationSuccessMessage('character', ['%title%' => (string) $this->name]);
     }
 }
