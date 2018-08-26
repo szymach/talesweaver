@@ -4,7 +4,7 @@
                   xmlns:fsi="http://fsi.pl/schemas/orm/doctrine-extensions-mapping"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
 >
-    <entity repository-class="Talesweaver\DoctrineRepository\EventRepository" name="Talesweaver\Domain\Event" table="event_entity">
+    <entity repository-class="Talesweaver\Integration\Doctrine\Repository\EventRepository" name="Talesweaver\Domain\Event" table="event_entity">
 
         <fsi:translatable-locale field="locale" />
         <fsi:translatable-field field="name" mappedBy="translations" />

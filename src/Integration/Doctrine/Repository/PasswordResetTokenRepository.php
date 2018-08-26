@@ -5,19 +5,13 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Doctrine\Repository;
 
 use DateTimeImmutable;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Talesweaver\Domain\ValueObject\Email;
 use Talesweaver\Integration\Doctrine\Entity\PasswordResetToken;
 
-class PasswordResetTokenRepository extends ServiceEntityRepository
+class PasswordResetTokenRepository extends EntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, PasswordResetToken::class);
-    }
-
     public function findOneByEmail(string $email): ?PasswordResetToken
     {
         return $this->findOneBy(['email' => $email]);

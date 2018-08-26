@@ -6,7 +6,7 @@ namespace Talesweaver\Integration\Symfony\Repository;
 
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Talesweaver\DoctrineRepository\SceneRepository as DoctrineRepository;
+use Talesweaver\Integration\Doctrine\Repository\SceneRepository as DoctrineRepository;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\Scenes;

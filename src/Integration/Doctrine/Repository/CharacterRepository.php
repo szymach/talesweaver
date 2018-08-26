@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\DoctrineRepository;
+namespace Talesweaver\Integration\Doctrine\Repository;
 
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Repository;
 
 use Ramsey\Uuid\UuidInterface;
-use Talesweaver\DoctrineRepository\ItemRepository as DoctrineRepository;
+use Talesweaver\Integration\Doctrine\Repository\ItemRepository as DoctrineRepository;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Items;
 use Talesweaver\Domain\Scene;

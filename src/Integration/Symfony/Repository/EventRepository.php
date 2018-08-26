@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Repository;
 
 use Ramsey\Uuid\UuidInterface;
-use Talesweaver\DoctrineRepository\EventRepository as DoctrineRepository;
+use Talesweaver\Integration\Doctrine\Repository\EventRepository as DoctrineRepository;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Events;
 use Talesweaver\Domain\Scene;

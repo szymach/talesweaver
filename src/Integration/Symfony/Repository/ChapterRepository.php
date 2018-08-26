@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Repository;
 
 use Ramsey\Uuid\UuidInterface;
-use Talesweaver\DoctrineRepository\ChapterRepository as DoctrineRepository;
+use Talesweaver\Integration\Doctrine\Repository\ChapterRepository as DoctrineRepository;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Chapters;
