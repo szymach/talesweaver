@@ -11,7 +11,7 @@ use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Chapters;
 use Talesweaver\Integration\Symfony\Repository\Interfaces\LatestChangesAwareRepository;
 use Talesweaver\Integration\Symfony\Repository\Interfaces\RequestSecuredRepository;
-use Talesweaver\Integration\Symfony\Repository\Provider\UserProvider;
+use Talesweaver\Application\Security\AuthorContext;
 
 class ChapterRepository implements Chapters, LatestChangesAwareRepository, RequestSecuredRepository
 {
@@ -21,14 +21,14 @@ class ChapterRepository implements Chapters, LatestChangesAwareRepository, Reque
     private $doctrineRepository;
 
     /**
-     * @var UserProvider
+     * @var AuthorContext
      */
-    private $userProvider;
+    private $authorContext;
 
-    public function __construct(DoctrineRepository $doctrineRepository, UserProvider $userProvider)
+    public function __construct(DoctrineRepository $doctrineRepository, AuthorContext $authorContext)
     {
         $this->doctrineRepository = $doctrineRepository;
-        $this->userProvider = $userProvider;
+        $this->authorContext = $authorContext;
     }
 
     public function getClassName(): string
@@ -40,14 +40,14 @@ class ChapterRepository implements Chapters, LatestChangesAwareRepository, Reque
     {
         return $this->doctrineRepository->findOneBy([
             'id' => $id->toString(),
-            'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
+            'createdBy' => $this->authorContext->getAuthor()
         ]);
     }
 
     public function findAll(): array
     {
         return $this->doctrineRepository->findBy([
-            'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
+            'createdBy' => $this->authorContext->getAuthor()
         ]);
     }
 
@@ -55,14 +55,14 @@ class ChapterRepository implements Chapters, LatestChangesAwareRepository, Reque
     {
         return $this->doctrineRepository->findBy([
             'book' => null,
-            'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
+            'createdBy' => $this->authorContext->getAuthor()
         ]);
     }
 
     public function findForBook(Book $book): array
     {
         return $this->doctrineRepository->findForAuthorAndBook(
-            $this->userProvider->fetchCurrentUsersAuthor(),
+            $this->authorContext->getAuthor(),
             $book
         );
     }
@@ -70,7 +70,7 @@ class ChapterRepository implements Chapters, LatestChangesAwareRepository, Reque
     public function findLatest(int $limit = 5): array
     {
         return $this->doctrineRepository->findLatest(
-            $this->userProvider->fetchCurrentUsersAuthor(),
+            $this->authorContext->getAuthor(),
             $limit
         );
     }
@@ -82,21 +82,21 @@ class ChapterRepository implements Chapters, LatestChangesAwareRepository, Reque
 
     public function remove(UuidInterface $id): void
     {
-        $this->doctrineRepository->remove($this->userProvider->fetchCurrentUsersAuthor(), $id);
+        $this->doctrineRepository->remove($this->authorContext->getAuthor(), $id);
     }
 
     public function entityExists(string $title, ?UuidInterface $id, ?UuidInterface $bookId): bool
     {
         if (null !== $bookId) {
             $exists = $this->doctrineRepository->existsAssignedWithTitle(
-                $this->userProvider->fetchCurrentUsersAuthor(),
+                $this->authorContext->getAuthor(),
                 $title,
                 $bookId,
                 $id
             );
         } else {
             $exists = $this->doctrineRepository->existsStandaloneWithTitle(
-                $this->userProvider->fetchCurrentUsersAuthor(),
+                $this->authorContext->getAuthor(),
                 $title,
                 $id
             );

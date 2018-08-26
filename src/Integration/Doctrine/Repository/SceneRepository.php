@@ -55,7 +55,7 @@ class SceneRepository extends TranslatableRepository
         ;
     }
 
-    public function firstCharacterOccurence(Author $author, UuidInterface $id): string
+    public function firstCharacterOccurence(Author $author, UuidInterface $id): ?string
     {
         return $this->createFirstOccurenceQueryBuilder($author, $id)
             ->join('s.characters', 'c')
@@ -66,7 +66,7 @@ class SceneRepository extends TranslatableRepository
         ;
     }
 
-    public function firstItemOccurence(Author $author, UuidInterface $id): string
+    public function firstItemOccurence(Author $author, UuidInterface $id): ?string
     {
         return $this->createFirstOccurenceQueryBuilder($author, $id)
             ->join('s.items', 'i')
@@ -77,7 +77,7 @@ class SceneRepository extends TranslatableRepository
         ;
     }
 
-    public function firstLocationOccurence(Author $author, UuidInterface $id): string
+    public function firstLocationOccurence(Author $author, UuidInterface $id): ?string
     {
         return $this->createFirstOccurenceQueryBuilder($author, $id)
             ->join('s.locations', 'l')
@@ -88,7 +88,7 @@ class SceneRepository extends TranslatableRepository
         ;
     }
 
-    public function firstSceneOccurence(Author $author, UuidInterface $id): string
+    public function firstSceneOccurence(Author $author, UuidInterface $id): ?string
     {
         return $this->createFirstOccurenceQueryBuilder($author, $id)
             ->join('s.scenes', 'l')

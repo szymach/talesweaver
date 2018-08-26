@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Bus;
 
-use RuntimeException;
 use SimpleBus\Message\Bus\MessageBus;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Security\AuthorAwareInterface;
-use Talesweaver\Integration\Doctrine\Entity\User;
 
 class AuthorAwareBus implements MessageBus
 {
@@ -18,42 +16,22 @@ class AuthorAwareBus implements MessageBus
     private $messageBus;
 
     /**
-     * @var TokenStorageInterface
+     * @var AuthorContext
      */
-    private $tokenStorage;
+    private $authorContext;
 
-    public function __construct(MessageBus $messageBus, TokenStorageInterface $tokenStorage)
+    public function __construct(MessageBus $messageBus, AuthorContext $authorContext)
     {
         $this->messageBus = $messageBus;
-        $this->tokenStorage = $tokenStorage;
+        $this->authorContext = $authorContext;
     }
 
     public function handle($message): void
     {
         if (true === $message instanceof AuthorAwareInterface) {
-            $message->setAuthor($this->getUser()->getAuthor());
+            $message->setAuthor($this->authorContext->getAuthor());
         }
 
         $this->messageBus->handle($message);
-    }
-
-    private function getUser(): User
-    {
-        if (null === $this->tokenStorage->getToken()
-            || false === is_object($this->tokenStorage->getToken()->getUser())
-        ) {
-            throw new RuntimeException('No logged in user');
-        }
-
-        $user = $this->tokenStorage->getToken()->getUser();
-        if (false === $user instanceof User) {
-            throw new RuntimeException(sprintf(
-                '"%s" is not instance of "%s"',
-                true === is_object($user) ? get_class($user) : gettype($user),
-                User::class
-            ));
-        }
-
-        return $user;
     }
 }

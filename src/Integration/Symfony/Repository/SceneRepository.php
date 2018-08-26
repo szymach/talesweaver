@@ -12,7 +12,7 @@ use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\Scenes;
 use Talesweaver\Integration\Symfony\Repository\Interfaces\LatestChangesAwareRepository;
 use Talesweaver\Integration\Symfony\Repository\Interfaces\RequestSecuredRepository;
-use Talesweaver\Integration\Symfony\Repository\Provider\UserProvider;
+use Talesweaver\Application\Security\AuthorContext;
 
 class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSecuredRepository
 {
@@ -22,14 +22,14 @@ class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSe
     private $doctrineRepository;
 
     /**
-     * @var UserProvider
+     * @var AuthorContext
      */
-    private $userProvider;
+    private $authorContext;
 
-    public function __construct(DoctrineRepository $doctrineRepository, UserProvider $userProvider)
+    public function __construct(DoctrineRepository $doctrineRepository, AuthorContext $authorContext)
     {
         $this->doctrineRepository = $doctrineRepository;
-        $this->userProvider = $userProvider;
+        $this->authorContext = $authorContext;
     }
 
     public function getClassName(): string
@@ -41,7 +41,7 @@ class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSe
     {
         return $this->doctrineRepository->findOneBy([
             'id' => $id,
-            'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
+            'createdBy' => $this->authorContext->getAuthor()
         ]);
     }
 
@@ -52,20 +52,20 @@ class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSe
 
     public function remove(UuidInterface $id): void
     {
-        $this->doctrineRepository->remove($this->userProvider->fetchCurrentUsersAuthor(), $id);
+        $this->doctrineRepository->remove($this->authorContext->getAuthor(), $id);
     }
 
     public function findStandalone(): array
     {
         return $this->doctrineRepository->findStandaloneForAuthor(
-            $this->userProvider->fetchCurrentUsersAuthor()
+            $this->authorContext->getAuthor()
         );
     }
 
     public function findForChapter(Chapter $chapter): array
     {
         return $this->doctrineRepository->findForAuthorAndChapter(
-            $this->userProvider->fetchCurrentUsersAuthor(),
+            $this->authorContext->getAuthor(),
             $chapter
         );
     }
@@ -73,7 +73,7 @@ class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSe
     public function findLatest(int $limit = 5): array
     {
         return $this->doctrineRepository->findLatest(
-            $this->userProvider->fetchCurrentUsersAuthor(),
+            $this->authorContext->getAuthor(),
             $limit
         );
     }
@@ -82,14 +82,14 @@ class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSe
     {
         if (null !== $chapterId) {
             $exists = $this->doctrineRepository->existsAssignedWithTitle(
-                $this->userProvider->fetchCurrentUsersAuthor(),
+                $this->authorContext->getAuthor(),
                 $title,
                 $chapterId,
                 $id
             );
         } else {
             $exists = $this->doctrineRepository->existsStandaloneWithTitle(
-                $this->userProvider->fetchCurrentUsersAuthor(),
+                $this->authorContext->getAuthor(),
                 $title,
                 $id
             );
@@ -100,13 +100,13 @@ class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSe
 
     public function firstCharacterOccurence(UuidInterface $id): string
     {
-        $currentUser = $this->userProvider->fetchCurrentUsersAuthor();
-        $result = $this->doctrineRepository->firstCharacterOccurence($currentUser, $id);
+        $author = $this->authorContext->getAuthor();
+        $result = $this->doctrineRepository->firstCharacterOccurence($author, $id);
         if (null === $result) {
             throw new AccessDeniedException(sprintf(
                 'Character with id "%s" does not belong to user "%s"',
-                $id,
-                $currentUser->getId()
+                $id->toString(),
+                $author->getId()->toString()
             ));
         }
 
@@ -115,13 +115,13 @@ class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSe
 
     public function firstItemOccurence(UuidInterface $id): string
     {
-        $currentUser = $this->userProvider->fetchCurrentUsersAuthor();
-        $result = $this->doctrineRepository->firstItemOccurence($currentUser, $id);
+        $author = $this->authorContext->getAuthor();
+        $result = $this->doctrineRepository->firstItemOccurence($author, $id);
         if (null === $result) {
             throw new AccessDeniedException(sprintf(
                 'Item with id "%s" does not belong to user "%s"',
-                $id,
-                $currentUser->getId()
+                $id->toString(),
+                $author->getId()->toString()
             ));
         }
 
@@ -130,13 +130,13 @@ class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSe
 
     public function firstLocationOccurence(UuidInterface $id): string
     {
-        $currentUser = $this->userProvider->fetchCurrentUsersAuthor();
-        $result = $this->doctrineRepository->firstLocationOccurence($currentUser, $id);
+        $author = $this->authorContext->getAuthor();
+        $result = $this->doctrineRepository->firstLocationOccurence($author, $id);
         if (null === $result) {
             throw new AccessDeniedException(sprintf(
                 'Location with id "%s" does not belong to user "%s"',
-                $id,
-                $currentUser->getId()
+                $id->toString(),
+                $author->getId()->toString()
             ));
         }
 

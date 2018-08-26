@@ -7,6 +7,7 @@ namespace Talesweaver\Integration\Doctrine\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use DomainException;
+use RuntimeException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Integration\Doctrine\Entity\ActivationToken;
@@ -62,7 +63,7 @@ class User implements UserInterface
         string $activationToken
     ) {
         $this->author = $author;
-        $this->password = $password;
+        $this->password = $this->encodePassword($password);
         $this->roles = [self::ROLE_USER];
         $this->activationTokens = new ArrayCollection([new ActivationToken($this, $activationToken)]);
         $this->passwordResetTokens = new ArrayCollection();
@@ -95,7 +96,7 @@ class User implements UserInterface
 
     public function setPassword(string $password): void
     {
-        $this->password = $password;
+        $this->password = $this->encodePassword($password);
     }
 
     public function isActive(): bool
@@ -147,5 +148,15 @@ class User implements UserInterface
 
     public function eraseCredentials(): void
     {
+    }
+
+    private function encodePassword(string $password): string
+    {
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        if (false === $hashedPassword) {
+            throw new RuntimeException('Cannot encode password');
+        }
+
+        return $hashedPassword;
     }
 }

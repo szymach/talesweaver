@@ -33,7 +33,7 @@ class CreateUserHandler
     {
         $user = new User(
             new Author(Uuid::uuid4(), $command->getEmail()),
-            password_hash($command->getPassword(), PASSWORD_BCRYPT),
+            $command->getPassword(),
             generate_user_token()
         );
 

@@ -10,7 +10,7 @@ use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Books;
 use Talesweaver\Integration\Symfony\Repository\Interfaces\LatestChangesAwareRepository;
 use Talesweaver\Integration\Symfony\Repository\Interfaces\RequestSecuredRepository;
-use Talesweaver\Integration\Symfony\Repository\Provider\UserProvider;
+use Talesweaver\Application\Security\AuthorContext;
 
 class BookRepository implements Books, LatestChangesAwareRepository, RequestSecuredRepository
 {
@@ -20,14 +20,14 @@ class BookRepository implements Books, LatestChangesAwareRepository, RequestSecu
     private $doctrineRepository;
 
     /**
-     * @var UserProvider
+     * @var AuthorContext
      */
-    private $userProvider;
+    private $authorContext;
 
-    public function __construct(DoctrineRepository $doctrineRepository, UserProvider $userProvider)
+    public function __construct(DoctrineRepository $doctrineRepository, AuthorContext $authorContext)
     {
         $this->doctrineRepository = $doctrineRepository;
-        $this->userProvider = $userProvider;
+        $this->authorContext = $authorContext;
     }
 
     public function getClassName(): string
@@ -39,14 +39,14 @@ class BookRepository implements Books, LatestChangesAwareRepository, RequestSecu
     {
         return $this->doctrineRepository->findOneBy([
             'id' => $id->toString(),
-            'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
+            'createdBy' => $this->authorContext->getAuthor()
         ]);
     }
 
     public function findAll(): array
     {
         return $this->doctrineRepository->findBy([
-            'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
+            'createdBy' => $this->authorContext->getAuthor()
         ]);
     }
 
@@ -57,13 +57,13 @@ class BookRepository implements Books, LatestChangesAwareRepository, RequestSecu
 
     public function remove(UuidInterface $id): void
     {
-        $this->doctrineRepository->remove($this->userProvider->fetchCurrentUsersAuthor(), $id);
+        $this->doctrineRepository->remove($this->authorContext->getAuthor(), $id);
     }
 
     public function findLatest(int $limit = 5): array
     {
         return $this->doctrineRepository->findLatest(
-            $this->userProvider->fetchCurrentUsersAuthor(),
+            $this->authorContext->getAuthor(),
             $limit
         );
     }
@@ -71,7 +71,7 @@ class BookRepository implements Books, LatestChangesAwareRepository, RequestSecu
     public function entityExists(string $title, ?UuidInterface $id): bool
     {
         return $this->doctrineRepository->entityExists(
-            $this->userProvider->fetchCurrentUsersAuthor(),
+            $this->authorContext->getAuthor(),
             $title,
             $id
         );

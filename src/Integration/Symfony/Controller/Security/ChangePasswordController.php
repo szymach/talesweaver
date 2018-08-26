@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Security;
 
+use RuntimeException;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -11,8 +12,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Talesweaver\Integration\Symfony\Bus\Command\ChangePassword;
 use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Integration\Symfony\Bus\Command\ChangePassword;
 use Talesweaver\Integration\Symfony\Form\Security\ChangePasswordType;
 
 class ChangePasswordController
@@ -76,6 +77,20 @@ class ChangePasswordController
 
     private function getUser(): User
     {
-        return $this->tokenStorage->getToken()->getUser();
+        $token = $this->tokenStorage->getToken();
+        if (null === $token) {
+            throw new RuntimeException('No user logged in');
+        }
+
+        $user = $token->getUser();
+        if (false === $user instanceof User) {
+            throw new RuntimeException(sprintf(
+                'Expected instance of "%s", got "%s"',
+                User::class,
+                true === is_object($user) ? get_class($user) : gettype($user)
+            ));
+        }
+
+        return $user;
     }
 }

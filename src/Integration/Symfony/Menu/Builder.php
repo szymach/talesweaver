@@ -6,7 +6,6 @@ namespace Talesweaver\Integration\Symfony\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class Builder
 {
@@ -15,15 +14,9 @@ class Builder
      */
     private $factory;
 
-    /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
-
-    public function __construct(FactoryInterface $factory, TokenStorageInterface $tokenStorage)
+    public function __construct(FactoryInterface $factory)
     {
         $this->factory = $factory;
-        $this->tokenStorage = $tokenStorage;
     }
 
     public function createMainMenu()

@@ -10,7 +10,7 @@ use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Items;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Symfony\Repository\Interfaces\RequestSecuredRepository;
-use Talesweaver\Integration\Symfony\Repository\Provider\UserProvider;
+use Talesweaver\Application\Security\AuthorContext;
 
 class ItemRepository implements Items, RequestSecuredRepository
 {
@@ -20,14 +20,14 @@ class ItemRepository implements Items, RequestSecuredRepository
     private $doctrineRepository;
 
     /**
-     * @var UserProvider
+     * @var AuthorContext
      */
-    private $userProvider;
+    private $authorContext;
 
-    public function __construct(DoctrineRepository $doctrineRepository, UserProvider $userProvider)
+    public function __construct(DoctrineRepository $doctrineRepository, AuthorContext $authorContext)
     {
         $this->doctrineRepository = $doctrineRepository;
-        $this->userProvider = $userProvider;
+        $this->authorContext = $authorContext;
     }
 
     public function getClassName(): string
@@ -39,7 +39,7 @@ class ItemRepository implements Items, RequestSecuredRepository
     {
         return $this->doctrineRepository->findOneBy([
             'id' => $id,
-            'createdBy' => $this->userProvider->fetchCurrentUsersAuthor()
+            'createdBy' => $this->authorContext->getAuthor()
         ]);
     }
 
@@ -50,13 +50,13 @@ class ItemRepository implements Items, RequestSecuredRepository
 
     public function remove(UuidInterface $id): void
     {
-        $this->doctrineRepository->remove($this->userProvider->fetchCurrentUsersAuthor(), $id);
+        $this->doctrineRepository->remove($this->authorContext->getAuthor(), $id);
     }
 
     public function findForScene(Scene $scene): array
     {
         return $this->doctrineRepository->findForAuthorAndScene(
-            $this->userProvider->fetchCurrentUsersAuthor(),
+            $this->authorContext->getAuthor(),
             $scene
         );
     }
@@ -64,7 +64,7 @@ class ItemRepository implements Items, RequestSecuredRepository
     public function findRelated(Scene $scene): array
     {
         return $this->doctrineRepository->findRelatedToScene(
-            $this->userProvider->fetchCurrentUsersAuthor(),
+            $this->authorContext->getAuthor(),
             $scene
         );
     }
@@ -73,13 +73,13 @@ class ItemRepository implements Items, RequestSecuredRepository
     {
         if (null !== $sceneId) {
             $exists = $this->doctrineRepository->existsForSceneWithName(
-                $this->userProvider->fetchCurrentUsersAuthor(),
+                $this->authorContext->getAuthor(),
                 $name,
                 $sceneId
             );
         } else {
             $exists = $this->doctrineRepository->nameConflictsWithRelated(
-                $this->userProvider->fetchCurrentUsersAuthor(),
+                $this->authorContext->getAuthor(),
                 $name,
                 $id
             );

@@ -34,7 +34,7 @@ class EditController
     /**
      * @var MessageBus
      */
-    private $commmandBus;
+    private $commandBus;
 
     /**
      * @var RouterInterface
@@ -44,12 +44,12 @@ class EditController
     public function __construct(
         FormView $templating,
         FormFactoryInterface $formFactory,
-        MessageBus $commmandBus,
+        MessageBus $commandBus,
         RouterInterface $router
     ) {
         $this->formFactory = $formFactory;
         $this->templating = $templating;
-        $this->commmandBus = $commmandBus;
+        $this->commandBus = $commandBus;
         $this->router = $router;
     }
 
