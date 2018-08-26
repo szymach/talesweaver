@@ -11,6 +11,7 @@ use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Application\Security\Traits\AuthorAwareTrait;
 use Talesweaver\Domain\Author;
+use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
 use Talesweaver\Domain\Security\AuthorAwareInterface;
 use Talesweaver\Domain\ValueObject\ShortText;
@@ -25,6 +26,11 @@ class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCom
     private $id;
 
     /**
+     * @var Scene
+     */
+    private $scene;
+
+    /**
      * @var ShortText
      */
     private $name;
@@ -34,9 +40,10 @@ class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCom
      */
     private $model;
 
-    public function __construct(UuidInterface $id, ShortText $name, JsonSerializable $model)
+    public function __construct(UuidInterface $id, Scene $scene, ShortText $name, JsonSerializable $model)
     {
         $this->id = $id;
+        $this->scene = $scene;
         $this->name = $name;
         $this->model = $model;
     }
@@ -44,6 +51,11 @@ class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCom
     public function getId(): UuidInterface
     {
         return $this->id;
+    }
+
+    public function getScene(): Scene
+    {
+        return $this->scene;
     }
 
     public function getName(): ShortText
@@ -58,17 +70,15 @@ class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCom
 
     public function isAllowed(Author $author): bool
     {
-        if ($this->dto->getModel() instanceof AuthorAccessInterface
-            && false === $this->dto->getModel()->isAllowed($author)
-        ) {
+        if ($this->model instanceof AuthorAccessInterface && false === $this->model->isAllowed($author)) {
             return false;
         }
 
-        return $author === $this->dto->getScene()->getCreatedBy();
+        return $author === $this->scene->getCreatedBy();
     }
 
     public function getMessage(): Message
     {
-        return new CreationSuccessMessage('event', ['%title%' => $this->dto->getName()]);
+        return new CreationSuccessMessage('event', ['%title%' => $this->name]);
     }
 }

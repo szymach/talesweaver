@@ -26,7 +26,7 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
     private $title;
 
     /**
-     * @var UuidInterface
+     * @var Author
      */
     private $createdBy;
 

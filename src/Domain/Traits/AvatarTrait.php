@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Talesweaver\Domain\Traits;
 
+use FSi\DoctrineExtensions\Uploadable;
 use Talesweaver\Domain\ValueObject\File;
 
 trait AvatarTrait
 {
     /**
-     * @var File|null
+     * @var Uploadable\File|File|null
      */
     private $avatar;
 
@@ -20,7 +21,10 @@ trait AvatarTrait
 
     public function getAvatar(): ?File
     {
-        $this->transformFile();
+        if (null !== $this->avatar && false === $this->avatar instanceof File) {
+            $this->avatar = new File($this->avatar);
+        }
+
         return $this->avatar;
     }
 
@@ -39,14 +43,5 @@ trait AvatarTrait
         $this->avatarKey = $avatarKey;
 
         $this->update();
-    }
-
-    private function transformFile(): void
-    {
-        if (null === $this->avatar || true === $this->avatar instanceof File) {
-            return;
-        }
-
-        $this->avatar = new File($this->avatar);
     }
 }

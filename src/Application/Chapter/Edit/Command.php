@@ -8,6 +8,7 @@ use Talesweaver\Application\Messages\EditionSuccessMessage;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\Author;
+use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
 use Talesweaver\Domain\ValueObject\ShortText;

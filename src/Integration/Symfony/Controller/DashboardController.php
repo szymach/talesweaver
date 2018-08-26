@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use Talesweaver\Integration\Symfony\Templating\DashboardView;
 
 class DashboardController
@@ -19,8 +18,8 @@ class DashboardController
         $this->view = $view;
     }
 
-    public function __invoke(Request $request)
+    public function __invoke()
     {
-        return $this->view->createView($request->getLocale());
+        return $this->view->createView();
     }
 }

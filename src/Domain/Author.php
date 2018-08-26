@@ -10,7 +10,7 @@ use Talesweaver\Domain\ValueObject\Email;
 class Author
 {
     /**
-     * @var int
+     * @var UuidInterface
      */
     private $id;
 

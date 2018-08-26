@@ -47,8 +47,8 @@ class EditView
             [
                 'form' => $form->createView(),
                 'chapterId' => $chapter->getId(),
-                'bookId' => $chapter->getBook() ? $chapter->getBook()->getId(): null,
-                'title' => $chapter->getTitle($chapter),
+                'bookId' => $chapter->getBook() ? $chapter->getBook()->getId() : null,
+                'title' => $chapter->getTitle(),
                 'sceneForm' => $this->createSceneForm($chapter)->createView()
             ]
         );

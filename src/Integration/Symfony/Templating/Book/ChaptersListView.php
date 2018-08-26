@@ -65,7 +65,7 @@ class ChaptersListView
 
     private function createChapterForm(Book $book): FormInterface
     {
-        return $this->formFactory->create(CreateType::class, new DTO($book), [
+        return $this->formFactory->create(CreateType::class, new DTO(), [
             'action' => $this->router->generate('chapter_create')
         ]);
     }

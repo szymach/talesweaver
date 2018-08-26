@@ -62,17 +62,18 @@ class CreateController
         ]);
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            return $this->processFormDataAndRedirect($form->getData());
+            return $this->processFormDataAndRedirect($scene, $form->getData());
         }
 
         return $this->templating->createView($form, 'character.header.new');
     }
 
-    private function processFormDataAndRedirect(DTO $dto): Response
+    private function processFormDataAndRedirect(Scene $scene, DTO $dto): Response
     {
         $description = $dto->getName();
         $avatar = $dto->getAvatar();
         $this->commandBus->handle(new Command(
+            $scene,
             Uuid::uuid4(),
             new ShortText($dto->getName()),
             null !== $description ? new LongText($description) : null,

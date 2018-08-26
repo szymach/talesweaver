@@ -13,6 +13,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Talesweaver\Application\Event\Edit\Command;
 use Talesweaver\Application\Event\Edit\DTO;
 use Talesweaver\Domain\Event;
+use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Enum\SceneEvents;
 use Talesweaver\Integration\Symfony\Form\Event\EditType;
 use Talesweaver\Integration\Symfony\Templating\Event\FormView;
@@ -72,7 +73,11 @@ class EditController
 
     private function processFormDataAndRedirect(Event $event, DTO $dto): Response
     {
-        $this->commandBus->handle(new Command($event, new ShortText($dto->getName()), $dto->getModel()));
+        $this->commandBus->handle(new Command(
+            $event,
+            new ShortText($dto->getName()),
+            $dto->getModel()
+        ));
 
         return new JsonResponse(['success' => true]);
     }

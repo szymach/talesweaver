@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Domain\Translation;
 
+use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Traits\LocaleTrait;
 
 class EventTranslation

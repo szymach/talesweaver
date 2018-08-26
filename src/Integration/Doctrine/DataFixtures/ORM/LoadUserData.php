@@ -8,6 +8,7 @@ use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
+use RuntimeException;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\ValueObject\Email;
 use Talesweaver\Integration\Doctrine\Entity\User;
@@ -17,9 +18,13 @@ class LoadUserData implements ORMFixtureInterface, OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
+        $password = password_hash('password', PASSWORD_BCRYPT);
+        if (false === $password) {
+            throw new RuntimeException('Cannot encode password');
+        }
         $user = new User(
             new Author(Uuid::uuid4(), new Email('user@example.com')),
-            password_hash('password', PASSWORD_BCRYPT),
+            $password,
             generate_user_token()
         );
         $user->activate();

@@ -62,16 +62,16 @@ class CreateController
         ]);
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            return $this->processFormDataAndRedirect($form->getData());
+            return $this->processFormDataAndRedirect($scene, $form->getData());
         }
 
         return $this->templating->createView($form);
     }
 
-    private function processFormDataAndRedirect(DTO $dto): Response
+    private function processFormDataAndRedirect(Scene $scene, DTO $dto): Response
     {
         $id = Uuid::uuid4();
-        $this->commandBus->handle(new Command($id, new ShortText($dto->getName()), $dto->getModel()));
+        $this->commandBus->handle(new Command($id, $scene, new ShortText($dto->getName()), $dto->getModel()));
 
         return new JsonResponse(['success' => true]);
     }

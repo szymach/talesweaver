@@ -6,7 +6,6 @@ namespace Talesweaver\Application\Event\Create;
 
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Events;
-use Talesweaver\Domain\ValueObject\ShortText;
 
 class CommandHandler
 {
@@ -25,9 +24,9 @@ class CommandHandler
         $this->events->add(
             new Event(
                 $command->getId(),
-                new ShortText($command->getData()->getName()),
-                $command->getData()->getModel(),
-                $command->getData()->getScene(),
+                $command->getName(),
+                $command->getModel(),
+                $command->getScene(),
                 $command->getAuthor()
             )
         );

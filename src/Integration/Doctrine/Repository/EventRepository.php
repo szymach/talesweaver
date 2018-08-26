@@ -48,7 +48,7 @@ class EventRepository extends TranslatableRepository
         return $this->createQueryBuilder('e')
             ->where('e.model LIKE :id')
             ->andWhere('e.createdBy = :author')
-            ->setParameter('id', sprintf('%%"%s"%%', $id))
+            ->setParameter('id', sprintf('%%"%s"%%', $id->toString()))
             ->setParameter('author', $author)
             ->getQuery()
             ->getResult()
@@ -92,7 +92,7 @@ class EventRepository extends TranslatableRepository
     public function nameConflictsWithRelated(Author $author, string $name, UuidInterface $id): bool
     {
         $qb = $this->getEntityManager()
-            ->createQueryBuilder('ss')
+            ->createQueryBuilder()
             ->select('ss.id')
             ->from(Scene::class, 'ss')
             ->innerJoin('ss.events', 'ee', Join::WITH, 'ee.id = :id')

@@ -31,21 +31,29 @@ class AuthorAwareBus implements MessageBus
     public function handle($message): void
     {
         if (true === $message instanceof AuthorAwareInterface) {
-            $user = $this->getUser();
-            if (null === $user) {
-                throw new RuntimeException(
-                    sprintf('No user set when executing command "%s"', get_class($message))
-                );
-            }
-
-            $message->setAuthor($user->getAuthor());
+            $message->setAuthor($this->getUser()->getAuthor());
         }
 
         $this->messageBus->handle($message);
     }
 
-    private function getUser(): ?User
+    private function getUser(): User
     {
-        return $this->tokenStorage->getToken() ? $this->tokenStorage->getToken()->getUser() : null;
+        if (null === $this->tokenStorage->getToken()
+            || false === is_object($this->tokenStorage->getToken()->getUser())
+        ) {
+            throw new RuntimeException('No logged in user');
+        }
+
+        $user = $this->tokenStorage->getToken()->getUser();
+        if (false === $user instanceof User) {
+            throw new RuntimeException(sprintf(
+                '"%s" is not instance of "%s"',
+                true === is_object($user) ? get_class($user) : gettype($user),
+                User::class
+            ));
+        }
+
+        return $user;
     }
 }

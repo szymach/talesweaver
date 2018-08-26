@@ -27,12 +27,12 @@ class Location
     private $id;
 
     /**
-     * @var string
+     * @var ShortText
      */
     private $name;
 
     /**
-     * @var string
+     * @var LongText|null
      */
     private $description;
 

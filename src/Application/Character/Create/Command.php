@@ -34,7 +34,7 @@ class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCom
     /**
      * @var ShortText
      */
-    private $title;
+    private $name;
 
     /**
      * @var LongText|null
@@ -49,15 +49,20 @@ class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCom
     public function __construct(
         Scene $scene,
         UuidInterface $id,
-        ShortText $title,
+        ShortText $name,
         ?LongText $description,
         ?File $avatar
     ) {
         $this->scene = $scene;
         $this->id = $id;
-        $this->title = $title;
+        $this->name = $name;
         $this->description = $description;
         $this->avatar = $avatar;
+    }
+
+    public function getScene(): Scene
+    {
+        return $this->scene;
     }
 
     public function getId(): UuidInterface
@@ -65,9 +70,9 @@ class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCom
         return $this->id;
     }
 
-    public function getTitle(): ShortText
+    public function getName(): ShortText
     {
-        return $this->title;
+        return $this->name;
     }
 
     public function getDescription(): ?LongText
@@ -87,6 +92,6 @@ class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCom
 
     public function getMessage(): Message
     {
-        return new CreationSuccessMessage('character', ['%title%' => $this->dto->getName()]);
+        return new CreationSuccessMessage('character', ['%name%' => $this->name]);
     }
 }

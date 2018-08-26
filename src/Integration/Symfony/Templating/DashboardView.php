@@ -61,12 +61,12 @@ class DashboardView
         $this->sceneRepository = $sceneRepository;
     }
 
-    public function createView(string $locale): Response
+    public function createView(): Response
     {
         $timeline = [];
-        $this->addItems($timeline, $this->bookRepository, Book::class, $locale);
-        $this->addItems($timeline, $this->chapterRepository, Chapter::class, $locale);
-        $this->addItems($timeline, $this->sceneRepository, Scene::class, $locale);
+        $this->addItems($timeline, $this->bookRepository, Book::class);
+        $this->addItems($timeline, $this->chapterRepository, Chapter::class);
+        $this->addItems($timeline, $this->sceneRepository, Scene::class);
 
         uasort($timeline, function (array $a, array $b): int {
             return new DateTimeImmutable($b['date']) <=> new DateTimeImmutable($a['date']);

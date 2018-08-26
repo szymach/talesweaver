@@ -23,9 +23,14 @@ class PdfController
     {
         $name = $chapter->getTitle();
         if (null !== $chapter->getBook()) {
-            $name = sprintf('%s_%s', $chapter->getBook()->getTitle(), $name);
+            $name = sprintf('%s_%s', $chapter->getBook()->getTitle(), (string) $name);
         }
 
-        return $this->pdfView->createView('chapter/display.html.twig', ['chapter' => $chapter], $name, null);
+        return $this->pdfView->createView(
+            'chapter/display.html.twig',
+            ['chapter' => $chapter],
+            (string) $name,
+            null
+        );
     }
 }

@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Event\Edit;
 
+use JsonSerializable;
 use Talesweaver\Application\Messages\EditionSuccessMessage;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class Command implements AuthorAccessInterface, MessageCommandInterface
 {
@@ -19,14 +21,30 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
     private $event;
 
     /**
-     * @var DTO
+     * @var ShortText
      */
-    private $data;
+    private $name;
 
-    public function __construct(Event $event, DTO $data)
+    /**
+     * @var JsonSerializable
+     */
+    private $model;
+
+    public function __construct(Event $event, ShortText $name, JsonSerializable $model)
     {
         $this->event = $event;
-        $this->data = $data;
+        $this->name = $name;
+        $this->model = $model;
+    }
+
+    public function getName(): ShortText
+    {
+        return $this->name;
+    }
+
+    public function getModel(): JsonSerializable
+    {
+        return $this->model;
     }
 
     public function isAllowed(Author $author): bool
@@ -42,10 +60,5 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
     public function getEvent(): Event
     {
         return $this->event;
-    }
-
-    public function getData(): DTO
-    {
-        return $this->data;
     }
 }

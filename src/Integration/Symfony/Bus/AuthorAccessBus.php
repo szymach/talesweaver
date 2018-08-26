@@ -18,6 +18,11 @@ class AuthorAccessBus implements MessageBus
      */
     private $messageBus;
 
+    /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
+
     public function __construct(MessageBus $messageBus, TokenStorageInterface $tokenStorage)
     {
         $this->messageBus = $messageBus;
@@ -28,12 +33,6 @@ class AuthorAccessBus implements MessageBus
     {
         if (true === $message instanceof AuthorAccessInterface) {
             $user = $this->getUser();
-            if (null === $user) {
-                throw new RuntimeException(
-                    sprintf('No user set when executing command "%s"', get_class($message))
-                );
-            }
-
             if (false === $message->isAllowed($user->getAuthor())) {
                 throw new AccessDeniedException(sprintf(
                     'Access denied to command "%s" for user "%s"',
@@ -46,8 +45,23 @@ class AuthorAccessBus implements MessageBus
         $this->messageBus->handle($message);
     }
 
-    private function getUser(): ?User
+    private function getUser(): User
     {
-        return $this->tokenStorage->getToken() ? $this->tokenStorage->getToken()->getUser() : null;
+        if (null === $this->tokenStorage->getToken()
+            || false === is_object($this->tokenStorage->getToken()->getUser())
+        ) {
+            throw new RuntimeException('No logged in user');
+        }
+
+        $user = $this->tokenStorage->getToken()->getUser();
+        if (false === $user instanceof User) {
+            throw new RuntimeException(sprintf(
+                '"%s" is not instance of "%s"',
+                true === is_object($user) ? get_class($user) : gettype($user),
+                User::class
+            ));
+        }
+
+        return $user;
     }
 }

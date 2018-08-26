@@ -23,12 +23,12 @@ class PdfController
     {
         $name = $scene->getTitle();
         if (null !== $scene->getChapter()) {
-            $name = sprintf('%s_%s', $scene->getChapter()->getTitle(), $name);
+            $name = sprintf('%s_%s', (string) $scene->getChapter()->getTitle(), (string) $name);
         }
         if (null !== $scene->getBook()) {
-            $name = sprintf('%s_%s', $scene->getBook()->getTitle(), $name);
+            $name = sprintf('%s_%s', (string) $scene->getBook()->getTitle(), (string) $name);
         }
 
-        return $this->pdfView->createView('scene/display.html.twig', ['scene' => $scene], $name, null);
+        return $this->pdfView->createView('scene/display.html.twig', ['scene' => $scene], (string) $name, null);
     }
 }

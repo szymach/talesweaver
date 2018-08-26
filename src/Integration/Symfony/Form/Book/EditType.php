@@ -15,18 +15,18 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Talesweaver\Application\Book\Edit\DTO;
-use Talesweaver\Domain\Books;
+use Talesweaver\Integration\Symfony\Repository\BookRepository;
 
 class EditType extends AbstractType
 {
     /**
-     * @var Books
+     * @var BookRepository
      */
-    private $books;
+    private $bookRepository;
 
-    public function __construct(Books $books)
+    public function __construct(BookRepository $bookRepository)
     {
-        $this->books = $books;
+        $this->bookRepository = $bookRepository;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -41,7 +41,7 @@ class EditType extends AbstractType
                         return;
                     }
 
-                    if (true === $this->books->entityExists($title, $id)) {
+                    if (true === $this->bookRepository->entityExists($title, $id)) {
                         $context->buildViolation('book.exists')->addViolation();
                     }
                 }

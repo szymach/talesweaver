@@ -14,17 +14,17 @@ use Talesweaver\Domain\Security\AuthorAccessInterface;
 class Meeting implements JsonSerializable, AuthorAccessInterface
 {
     /**
-     * @var Character
+     * @var Character|null
      */
     private $root;
 
     /**
-     * @var Location
+     * @var Location|null
      */
     private $location;
 
     /**
-     * @var Character
+     * @var Character|null
      */
     private $relation;
 

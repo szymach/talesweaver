@@ -38,7 +38,7 @@ class ChangePasswordController
     private $commandBus;
 
     /**
-     * @var type
+     * @var RouterInterface
      */
     private $router;
 

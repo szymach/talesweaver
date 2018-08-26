@@ -102,7 +102,7 @@ class LocationRepository extends TranslatableRepository
     public function nameConflictsWithRelated(Author $author, string $name, UuidInterface $id): bool
     {
         $qb = $this->getEntityManager()
-            ->createQueryBuilder('ss')
+            ->createQueryBuilder()
             ->select('ss.id')
             ->from(Scene::class, 'ss')
             ->innerJoin('ss.locations', 'll', Join::WITH, 'll.id = :id')

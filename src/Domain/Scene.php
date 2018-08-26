@@ -195,6 +195,6 @@ class Scene
 
     public function getEvents(): array
     {
-        return $this->events;
+        return $this->events->toArray();
     }
 }
