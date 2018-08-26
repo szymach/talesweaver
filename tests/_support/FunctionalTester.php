@@ -77,7 +77,7 @@ class FunctionalTester extends Actor
         if (null === $user) {
             $user = new User(
                 new Author(Uuid::uuid4(), $emailVO),
-                password_hash(self::USER_PASSWORD, PASSWORD_BCRYPT),
+                self::USER_PASSWORD,
                 generate_user_token()
             );
             if (true === $active) {

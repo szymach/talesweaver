@@ -28,7 +28,7 @@ class UniqueUserEmailValidator extends ConstraintValidator
         }
 
         if (null !== $this->repository->findOneByEmail(new Email($email))) {
-            $this->context->buildViolation($constraint->message)->addViolation();
+            $this->context->buildViolation('security.email_taken')->addViolation();
         }
     }
 }

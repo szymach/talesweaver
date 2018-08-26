@@ -6,13 +6,9 @@ namespace Talesweaver\Integration\Symfony\Validation\Constraints\Event;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Talesweaver\Domain\Event\Meeting;
 
 class MeetingValidator extends ConstraintValidator
 {
-    /**
-     * @param Meeting $meeting
-     */
     public function validate($meeting, Constraint $constraint)
     {
         if (null === $meeting->getRoot() || null === $meeting->getRelation()) {
@@ -20,7 +16,7 @@ class MeetingValidator extends ConstraintValidator
         }
 
         if ($meeting->getRoot() === $meeting->getRelation()) {
-            $this->context->buildViolation($constraint->message)
+            $this->context->buildViolation('event.meeting.cannot_meet_itself')
                 ->atPath('relation')
                 ->addViolation()
             ;
