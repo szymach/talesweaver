@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Mail;
 
-use Talesweaver\Domain\User;
+use Talesweaver\Domain\Author;
 
-class RegistrationMailer extends AbstractUserMailer
+class RegistrationMailer extends AbstractAuthorMailer
 {
-    public function send(User $user): int
+    public function send(Author $author): bool
     {
         return $this->doSend(
-            $user,
+            $author,
             'security.registration.mail.title',
             'security/mail/registration.html.twig',
-            ['code' => $user->getActivationToken()]
+            ['code' => $author->getActivationToken()]
         );
     }
 }

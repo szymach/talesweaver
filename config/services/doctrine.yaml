@@ -11,6 +11,10 @@ services:
         tags: [{ name: doctrine.orm.entity_listener }]
 
     # Entity repository
+    Talesweaver\Integration\Doctrine\Repository\AuthorRepository:
+        factory: ["@doctrine", getRepository]
+        arguments: [ Talesweaver\Domain\Author ]
+
     Talesweaver\Integration\Doctrine\Repository\BookRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ Talesweaver\Domain\Book ]
@@ -38,10 +42,6 @@ services:
     Talesweaver\Integration\Doctrine\Repository\SceneRepository:
         factory: ["@doctrine", getRepository]
         arguments: [ Talesweaver\Domain\Scene ]
-
-    Talesweaver\Integration\Doctrine\Repository\UserRepository:
-        factory: ["@doctrine", getRepository]
-        arguments: [ Talesweaver\Domain\User ]
 
     Talesweaver\Integration\Doctrine\Repository\PasswordResetTokenRepository:
         factory: ["@doctrine", getRepository]

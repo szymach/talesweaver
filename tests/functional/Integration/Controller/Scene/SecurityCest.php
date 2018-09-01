@@ -13,12 +13,10 @@ class SecurityCest
 {
     public function verifyAccess(FunctionalTester $I)
     {
-        $user1 = $I->getUser(true, 'user2@example.com');
-        $scene1 = new Scene(Uuid::uuid4(), new ShortText('Tytuł'), null, $user1->getAuthor());
+        $scene1 = new Scene(Uuid::uuid4(), new ShortText('Tytuł'), null, $I->getAuthor(true, 'user2@example.com'));
         $I->getEntityManager()->persist($scene1);
 
-        $user2 = $I->getUser();
-        $scene2 = new Scene(Uuid::uuid4(), new ShortText('Scena'), null, $user2->getAuthor());
+        $scene2 = new Scene(Uuid::uuid4(), new ShortText('Scena'), null, $I->getAuthor());
         $I->getEntityManager()->persist($scene2);
 
         $I->getEntityManager()->flush();

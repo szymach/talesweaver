@@ -1,6 +1,6 @@
 security:
     encoders:
-        Talesweaver\Domain\User: bcrypt
+        Talesweaver\Integration\Symfony\Security\User: bcrypt
 
     providers:
         database_users:

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Controller\Security;
 
-use Talesweaver\Domain\ValueObject\Email;
 use Talesweaver\Domain\ActivationToken;
-use Talesweaver\Domain\User;
+use Talesweaver\Domain\Author;
+use Talesweaver\Domain\ValueObject\Email;
 use Talesweaver\Tests\FunctionalTester;
 
 class RegisterControllerCest
@@ -45,7 +45,7 @@ class RegisterControllerCest
         $I->click(self::SUBMIT);
 
         $I->canSeeCurrentUrlEquals(self::LOGIN_URL);
-        $I->seeInRepository(User::class, ['author' => ['email' => new Email(self::EMAIL)], 'active' => false]);
+        $I->seeInRepository(Author::class, ['email' => new Email(self::EMAIL), 'active' => false]);
         $I->seeInRepository(ActivationToken::class);
         $I->canSeeAlert(
             'Pomyślnie zarejstrowano konto w aplikacji Bajkopisarz! Na podane'

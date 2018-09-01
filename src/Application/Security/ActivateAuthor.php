@@ -4,26 +4,25 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Security;
 
+use DomainException;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\Author;
 
-class ChangePassword implements MessageCommandInterface
+class ActivateAuthor implements MessageCommandInterface
 {
     /**
      * @var Author
      */
     private $author;
 
-    /**
-     * @var string
-     */
-    private $newPassword;
-
-    public function __construct(Author $author, string $newPassword)
+    public function __construct(Author $author)
     {
+        if (true === $author->isActive()) {
+            throw new DomainException(sprintf('Author "%s" is already active!', $author->getId()));
+        }
+
         $this->author = $author;
-        $this->newPassword = $newPassword;
     }
 
     public function getAuthor(): Author
@@ -31,16 +30,11 @@ class ChangePassword implements MessageCommandInterface
         return $this->author;
     }
 
-    public function getNewPassword(): string
-    {
-        return $this->newPassword;
-    }
-
     public function getMessage(): Message
     {
         return new Message(
-            'security.change_password.alert.success',
-            [],
+            'security.activation.alert.success',
+            ['%email%' => (string) $this->author->getEmail()],
             'success'
         );
     }

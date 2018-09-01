@@ -20,7 +20,7 @@ trait CreateLocationTrait
             new ShortText('Miejsce'),
             null,
             null,
-            $I->getUser()->getAuthor()
+            $I->getAuthor()
         );
         $location->setLocale('pl');
 

@@ -48,13 +48,13 @@ class ChangePasswordControllerCest
     {
         $I->loginAsUser();
         $I->canSeeIAmOnRouteLocale(self::FORM_ROUTE);
-        $I->fillField(self::CURRENT_PASSWORD, FunctionalTester::USER_PASSWORD);
+        $I->fillField(self::CURRENT_PASSWORD, FunctionalTester::AUTHOR_PASSWORD);
         $I->fillField(self::NEW_PASSWORD, self::NEW_PASSWORD_VALUE);
         $I->fillField(self::NEW_PASSWORD_REPEAT, self::NEW_PASSWORD_VALUE);
         $I->click(self::SUBMIT);
         $I->canSeeCurrentUrlEquals($I->createUrl(self::LOGIN_ROUTE));
         $I->canSeeAlert('Pomyślnie zmieniono hasło do aplikacji. Wymagane jest ponowne zalogowanie.');
-        $I->fillField(self::USERNAME, FunctionalTester::USER_EMAIL);
+        $I->fillField(self::USERNAME, FunctionalTester::AUTHOR_EMAIL);
         $I->fillField(self::PASSWORD, self::NEW_PASSWORD_VALUE);
         $I->click(self::LOGIN);
         $I->canSeeIAmOnRouteLocale(self::DASHBOARD_ROUTE);

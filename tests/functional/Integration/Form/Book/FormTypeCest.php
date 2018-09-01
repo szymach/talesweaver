@@ -56,7 +56,7 @@ class FormTypeCest
     public function testValidEditFormSubmission(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $book = new Book(Uuid::uuid4(), new ShortText(self::TITLE_PL), $I->getUser()->getAuthor());
+        $book = new Book(Uuid::uuid4(), new ShortText(self::TITLE_PL), $I->getAuthor());
         $form = $I->createForm(EditType::class, new Edit\DTO($book), ['bookId' => $book->getId()]);
         $form->handleRequest($I->getRequest([
             'edit' => ['title' => self::TITLE_PL, 'description' => self::DESCRIPTION_PL]
@@ -75,7 +75,7 @@ class FormTypeCest
     public function testInvalidEditFormSubmission(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $book = new Book(Uuid::uuid4(), new ShortText(self::TITLE_PL), $I->getUser()->getAuthor());
+        $book = new Book(Uuid::uuid4(), new ShortText(self::TITLE_PL), $I->getAuthor());
         $form = $I->createForm(EditType::class, new Edit\DTO($book), ['bookId' => $book->getId()]);
         $form->handleRequest($I->getRequest(['edit' => ['title' => null]]));
 

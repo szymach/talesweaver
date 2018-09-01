@@ -54,7 +54,7 @@ class FormTypeCest
             Uuid::uuid4(),
             new ShortText(self::TITLE_PL),
             null,
-            $I->getUser()->getAuthor()
+            $I->getAuthor()
         );
         $form = $I->createForm(EditType::class, new Edit\DTO($chapter), [
             'bookId' => null,
@@ -78,7 +78,7 @@ class FormTypeCest
             Uuid::uuid4(),
             new ShortText(self::TITLE_PL),
             null,
-            $I->getUser()->getAuthor()
+            $I->getAuthor()
         );
         $form = $I->createForm(EditType::class, new Edit\DTO($chapter), [
             'bookId' => null,

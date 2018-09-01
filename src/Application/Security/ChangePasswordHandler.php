@@ -8,6 +8,6 @@ class ChangePasswordHandler
 {
     public function handle(ChangePassword $command): void
     {
-        $command->getUser()->setPassword($command->getNewPassword());
+        $command->getAuthor()->setPassword($command->getNewPassword());
     }
 }

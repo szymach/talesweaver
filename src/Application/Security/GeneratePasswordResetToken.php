@@ -27,10 +27,6 @@ class GeneratePasswordResetToken implements MessageCommandInterface
 
     public function getMessage(): Message
     {
-        return new Message(
-            'security.reset_password.request.alert.success',
-            [],
-            'success'
-        );
+        return new Message('security.reset_password.request.alert.success', [], 'success');
     }
 }

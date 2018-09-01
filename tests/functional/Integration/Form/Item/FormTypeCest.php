@@ -103,7 +103,7 @@ class FormTypeCest
             new ShortText(self::NAME_PL),
             null,
             null,
-            $I->getUser()->getAuthor()
+            $I->getAuthor()
         );
     }
 }

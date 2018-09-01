@@ -5,31 +5,35 @@ services:
         autoconfigure: false
         public: true
 
-    # User handlers
-    app.command.user.create:
-        class: Talesweaver\Integration\Symfony\Bus\Command\CreateUserHandler
+    # Author handlers
+    app.command.author.create:
+        class: Talesweaver\Application\Security\CreateAuthorHandler
+        arguments:
+            $newAuthorMailer: '@Talesweaver\Integration\Symfony\Mail\RegistrationMailer'
         tags:
-            - { name: command_handler, handles: Talesweaver\Integration\Symfony\Bus\Command\CreateUser }
+            - { name: command_handler, handles: Talesweaver\Application\Security\CreateAuthor }
 
-    app.command.user.activate:
-        class: Talesweaver\Integration\Symfony\Bus\Command\ActivateUserHandler
+    app.command.author.activate:
+        class: Talesweaver\Application\Security\ActivateAuthorHandler
         tags:
-            - { name: command_handler, handles: Talesweaver\Integration\Symfony\Bus\Command\ActivateUser }
+            - { name: command_handler, handles: Talesweaver\Application\Security\ActivateAuthor }
 
-    app.command.user.password_reset.request:
-        class: Talesweaver\Integration\Symfony\Bus\Command\GeneratePasswordResetTokenHandler
+    app.command.author.password_reset.request:
+        class: Talesweaver\Application\Security\GeneratePasswordResetTokenHandler
+        arguments:
+            $passwordResetMailer: '@Talesweaver\Integration\Symfony\Mail\PasswordResetMailer'
         tags:
-            - { name: command_handler, handles: Talesweaver\Integration\Symfony\Bus\Command\GeneratePasswordResetToken }
+            - { name: command_handler, handles: Talesweaver\Application\Security\GeneratePasswordResetToken }
 
-    app.command.user.password_reset.change:
-        class: Talesweaver\Integration\Symfony\Bus\Command\ResetPasswordHandler
+    app.command.author.password_reset.change:
+        class: Talesweaver\Application\Security\ResetPasswordHandler
         tags:
-            - { name: command_handler, handles: Talesweaver\Integration\Symfony\Bus\Command\ResetPassword }
+            - { name: command_handler, handles: Talesweaver\Application\Security\ResetPassword }
 
-    app.command.user.change_password:
-        class: Talesweaver\Integration\Symfony\Bus\Command\ChangePasswordHandler
+    app.command.author.change_password:
+        class: Talesweaver\Application\Security\ChangePasswordHandler
         tags:
-            - { name: command_handler, handles: Talesweaver\Integration\Symfony\Bus\Command\ChangePassword }
+            - { name: command_handler, handles: Talesweaver\Application\Security\ChangePassword }
 
     # Book handlers
     app.command.book.create:

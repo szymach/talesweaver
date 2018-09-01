@@ -8,11 +8,11 @@ use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
+use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Domain\User;
 
 class LoadStandaloneSceneData implements ORMFixtureInterface, OrderedFixtureInterface
 {
@@ -20,9 +20,8 @@ class LoadStandaloneSceneData implements ORMFixtureInterface, OrderedFixtureInte
 
     public function load(ObjectManager $manager)
     {
-        /* @var $user User */
-        $user = $manager->getRepository(User::class)->findOneBy([]);
-        $author = $user->getAuthor();
+        /* @var $author Author */
+        $author = $manager->getRepository(Author::class)->findOneBy([]);
 
         $scene = new Scene(Uuid::uuid4(), new ShortText('Scena'), null, $author);
         $scene->setLocale(self::LOCALE);

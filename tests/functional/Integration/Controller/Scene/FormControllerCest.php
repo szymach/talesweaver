@@ -66,11 +66,11 @@ class FormControllerCest
 
     public function nextSceneForm(FunctionalTester $I)
     {
-        $user = $I->getUser();
-        $chapter = new Chapter(Uuid::uuid4(), new ShortText('Rozdział'), null, $user->getAuthor());
+        $author = $I->getAuthor();
+        $chapter = new Chapter(Uuid::uuid4(), new ShortText('Rozdział'), null, $author);
         $I->persistEntity($chapter);
         $id = Uuid::uuid4();
-        $I->persistEntity(new Scene($id, new ShortText(self::TITLE_PL), $chapter, $user->getAuthor()));
+        $I->persistEntity(new Scene($id, new ShortText(self::TITLE_PL), $chapter, $author));
 
         $I->cantSeeInRepository(Scene::class, ['translations' => ['title' => self::NEW_TITLE_PL]]);
         $I->loginAsUser();

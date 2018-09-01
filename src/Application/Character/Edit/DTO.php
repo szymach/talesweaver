@@ -70,12 +70,12 @@ class DTO
         $this->description = $description;
     }
 
-    public function getAvatar(): object
+    public function getAvatar(): ?object
     {
         return $this->avatar;
     }
 
-    public function setAvatar(object $avatar): void
+    public function setAvatar(?object $avatar): void
     {
         $this->avatar = $avatar;
     }

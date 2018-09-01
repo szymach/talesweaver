@@ -8,18 +8,13 @@ use Codeception\Module;
 use Codeception\Module\Symfony;
 use Doctrine\ORM\EntityManagerInterface;
 use FSi\DoctrineExtensions\Translatable\TranslatableListener;
+use Talesweaver\Domain\Author;
 use Talesweaver\Domain\ValueObject\Email;
-use Talesweaver\Domain\User;
-use Talesweaver\Integration\Repository\Doctrine\UserRepository;
+use Talesweaver\Integration\Repository\Doctrine\AuthorRepository;
 use Talesweaver\Tests\FunctionalTester;
 
 class Functional extends Module
 {
-    public function createTooLongString(): string
-    {
-        return bin2hex(random_bytes(128));
-    }
-
     public function getSymfony(): Symfony
     {
         return $this->getModule('Symfony');
@@ -32,7 +27,7 @@ class Functional extends Module
     {
         $this->getSymfony()->_getContainer();
         $this->getTranslatableListener()->setLocale('pl');
-        $this->clearUser();
+        $this->clearAuthors();
     }
 
     /**
@@ -40,7 +35,7 @@ class Functional extends Module
      */
     public function _afterSuite()
     {
-        $this->clearUser();
+        $this->clearAuthors();
     }
 
     private function getTranslatableListener(): TranslatableListener
@@ -48,18 +43,18 @@ class Functional extends Module
         return $this->getSymfony()->grabService('test.fsi_doctrine_extensions.listener.translatable');
     }
 
-    private function clearUser(): void
+    private function clearAuthors(): void
     {
         /* @var $manager EntityManagerInterface */
         $manager = $this->getSymfony()->grabService('doctrine.orm.entity_manager');
-        /* @var $userRepository UserRepository */
-        $userRepository = $manager->getRepository(User::class);
-        $user = $userRepository->findOneByEmail(new Email(FunctionalTester::USER_EMAIL));
-        if (null === $user) {
+        /* @var $authorRepository AuthorRepository */
+        $authorRepository = $manager->getRepository(Author::class);
+        $author = $authorRepository->findOneByEmail(new Email(FunctionalTester::AUTHOR_EMAIL));
+        if (null === $author) {
             return;
         }
 
-        $manager->remove($user);
+        $manager->remove($author);
         $manager->flush();
     }
 }

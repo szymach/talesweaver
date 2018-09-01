@@ -7,8 +7,9 @@ namespace Talesweaver\Integration\Doctrine\Repository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
-use Talesweaver\Domain\ValueObject\Email;
+use Talesweaver\Domain\Author;
 use Talesweaver\Domain\PasswordResetToken;
+use Talesweaver\Domain\ValueObject\Email;
 
 class PasswordResetTokenRepository extends EntityRepository
 {
@@ -22,14 +23,18 @@ class PasswordResetTokenRepository extends EntityRepository
         return $this->findOneBy(['value' => $code]);
     }
 
+    public function findOneByAuthor(Author $author): ?PasswordResetToken
+    {
+        return $this->findOneBy(['author' => $author]);
+    }
+
     public function findCreationDateOfPrevious(Email $email): ?DateTimeImmutable
     {
         $date = $this->getEntityManager()
             ->createQueryBuilder()
             ->select('pt.createdAt AS creationDate')
             ->from($this->getEntityName(), 'pt')
-            ->join('pt.user', 'u')
-            ->join('u.author', 'a', Join::WITH, 'a.email = :email')
+            ->join('pt.author', 'a', Join::WITH, 'a.email = :email')
             ->where('pt.active = true')
             ->orderBy('pt.createdAt', 'DESC')
             ->setParameter('email', $email)
@@ -46,8 +51,7 @@ class PasswordResetTokenRepository extends EntityRepository
             ->createQueryBuilder()
             ->select('pt.id')
             ->from($this->getEntityName(), 'pt')
-            ->join('pt.user', 'u')
-            ->join('u.author', 'a', Join::WITH, 'a.email = :email')
+            ->join('pt.author', 'a', Join::WITH, 'a.email = :email')
             ->setParameter('email', $email)
             ->getQuery()
             ->getResult()

@@ -11,7 +11,7 @@
         <field name="value" type="string"/>
         <field name="createdAt" type="datetime_immutable"/>
 
-        <many-to-one field="user" target-entity="Talesweaver\Domain\User" inversed-by="activationTokens">
+        <many-to-one field="author" target-entity="Talesweaver\Domain\Author" inversed-by="activationTokens">
             <join-columns>
                 <join-column on-delete="CASCADE"/>
             </join-columns>

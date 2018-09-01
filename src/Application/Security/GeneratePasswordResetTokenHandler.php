@@ -8,10 +8,10 @@ use DateInterval;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
+use Talesweaver\Application\Mailer\AuthorActionMailer;
 use Talesweaver\Domain\ValueObject\Email;
+use Talesweaver\Integration\Doctrine\Repository\AuthorRepository;
 use Talesweaver\Integration\Doctrine\Repository\PasswordResetTokenRepository;
-use Talesweaver\Integration\Doctrine\Repository\UserRepository;
-use Talesweaver\Integration\Symfony\Mail\PasswordResetMailer;
 use function generate_user_token;
 
 class GeneratePasswordResetTokenHandler
@@ -27,25 +27,25 @@ class GeneratePasswordResetTokenHandler
     private $tokenRepository;
 
     /**
-     * @var UserRepository
+     * @var AuthorRepository
      */
-    private $userRepository;
+    private $authorRepository;
 
     /**
-     * @var PasswordResetMailer
+     * @var AuthorActionMailer
      */
-    private $mailer;
+    private $passwordResetMailer;
 
     public function __construct(
         EntityManagerInterface $manager,
         PasswordResetTokenRepository $tokenRepository,
-        UserRepository $userRepository,
-        PasswordResetMailer $mailer
+        AuthorRepository $authorRepository,
+        AuthorActionMailer $passwordResetMailer
     ) {
         $this->manager = $manager;
         $this->tokenRepository = $tokenRepository;
-        $this->userRepository = $userRepository;
-        $this->mailer = $mailer;
+        $this->authorRepository = $authorRepository;
+        $this->passwordResetMailer = $passwordResetMailer;
     }
 
     public function handle(GeneratePasswordResetToken $command): void
@@ -57,12 +57,13 @@ class GeneratePasswordResetTokenHandler
 
         $this->tokenRepository->deactivatePreviousTokens($email);
 
-        $user = $this->userRepository->findOneByEmail($email);
-        if (null === $user) {
-            throw new RuntimeException(sprintf('No user found for email "%s"', $email));
+        $author = $this->authorRepository->findOneByEmail($email);
+        if (null === $author) {
+            throw new RuntimeException(sprintf('No author found for email "%s"', $email));
         }
-        $user->addPasswordResetToken(generate_user_token());
-        $this->mailer->send($user);
+
+        $author->addPasswordResetToken(generate_user_token());
+        $this->passwordResetMailer->send($author);
     }
 
     private function isRequestTooSoon(Email $email): bool

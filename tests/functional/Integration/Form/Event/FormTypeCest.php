@@ -190,7 +190,7 @@ class FormTypeCest
             new ShortText(self::NAME_PL),
             $meeting ?? new Meeting(),
             $this->getScene($I),
-            $I->getUser()->getAuthor()
+            $I->getAuthor()
         );
     }
 }

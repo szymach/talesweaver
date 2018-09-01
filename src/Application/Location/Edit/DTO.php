@@ -6,7 +6,6 @@ namespace Talesweaver\Application\Location\Edit;
 
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Location;
-use Talesweaver\Domain\Scene;
 
 class DTO
 {
@@ -30,18 +29,12 @@ class DTO
      */
     private $avatar;
 
-    /**
-     * @var Scene[]
-     */
-    private $scenes;
-
     public function __construct(Location $location)
     {
         $this->id = $location->getId();
         $this->name = (string) $location->getName();
         $this->description = (string) $location->getDescription();
         $this->avatar = $location->getAvatar();
-        $this->scenes = $location->getScenes()->toArray();
     }
 
     public function getId(): UuidInterface
@@ -77,10 +70,5 @@ class DTO
     public function setAvatar(?object $avatar): void
     {
         $this->avatar = $avatar;
-    }
-
-    public function getScenes(): array
-    {
-        return $this->scenes;
     }
 }

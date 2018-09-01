@@ -49,7 +49,7 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
 
     public function isAllowed(Author $author): bool
     {
-        return $this->event->getCreatedBy() === $author;
+        return $author === $this->event->getCreatedBy();
     }
 
     public function getMessage(): Message

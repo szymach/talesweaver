@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Session;
 
+use Assert\Assertion;
+
 final class Flash
 {
     public const SUCCESS = 'success';

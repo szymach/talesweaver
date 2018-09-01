@@ -6,11 +6,12 @@ namespace Talesweaver\Integration\Symfony\Mail;
 
 use Swift_Mailer;
 use Swift_Message;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
-use Talesweaver\Domain\User;
+use Talesweaver\Application\Mailer\AuthorActionMailer;
+use Talesweaver\Domain\Author;
 
-class AbstractUserMailer
+abstract class AbstractAuthorMailer implements AuthorActionMailer
 {
     /**
      * @var Swift_Mailer
@@ -45,19 +46,19 @@ class AbstractUserMailer
     }
 
     protected function doSend(
-        User $user,
+        Author $author,
         string $title,
         string $template,
         array $templateParameters = []
-    ): int {
+    ): bool {
         $message = new Swift_Message($this->translator->trans($title));
         $message->setFrom($this->mailerFrom);
-        $message->setTo($user->getUsername());
+        $message->setTo((string) $author->getEmail());
         $message->setBody(
             $this->templating->render($template, $templateParameters),
             'text/html'
         );
 
-        return $this->mailer->send($message);
+        return 0 !== $this->mailer->send($message);
     }
 }

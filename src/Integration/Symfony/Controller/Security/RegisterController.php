@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
-use Talesweaver\Integration\Symfony\Bus\Command\CreateUser;
+use Talesweaver\Application\Security\CreateAuthor;
 use Talesweaver\Integration\Symfony\Form\Security\RegisterType;
 
 class RegisterController
@@ -52,7 +52,7 @@ class RegisterController
         $form = $this->formFactory->create(RegisterType::class);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $this->commandBus->handle(new CreateUser($data['email'], $data['password']));
+            $this->commandBus->handle(new CreateAuthor($data['email'], $data['password']));
 
             return new RedirectResponse($this->router->generate('login'));
         }

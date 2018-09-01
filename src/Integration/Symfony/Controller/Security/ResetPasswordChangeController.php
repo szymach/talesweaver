@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Talesweaver\Domain\PasswordResetToken;
 use Talesweaver\Integration\Doctrine\Repository\PasswordResetTokenRepository;
-use Talesweaver\Integration\Symfony\Bus\Command\ResetPassword;
+use Talesweaver\Application\Security\ResetPassword;
 use Talesweaver\Integration\Symfony\Form\Security\ResetPasswordChangeType;
 
 class ResetPasswordChangeController

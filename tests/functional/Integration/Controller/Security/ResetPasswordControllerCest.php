@@ -41,7 +41,7 @@ class ResetPasswordControllerCest
     {
         $I->canSeeIAmOnRouteLocale(self::REQUEST_ROUTE);
 
-        $I->fillField(self::EMAIL_FIELD, $I->getUser()->getUsername());
+        $I->fillField(self::EMAIL_FIELD, (string) $I->getAuthor()->getEmail());
         $I->click(self::REQUEST_SUBMIT);
         $I->canSeeCurrentUrlEquals($I->createUrl(self::LOGIN_ROUTE));
         $I->canSeeAlert(
@@ -49,10 +49,10 @@ class ResetPasswordControllerCest
             . ' z instrukcjami zmiany hasła.'
         );
 
-        $user = $I->getUser();
-        $I->canSeeResetPasswordTokenGenerated($user);
+        $author = $I->getAuthor();
+        $I->canSeeResetPasswordTokenGenerated($author);
         $I->canSeeIAmOnRouteLocale(self::RESET_ROUTE, [
-            'code' => (string) $user->getPasswordResetToken()
+            'code' => (string) $author->getPasswordResetToken()
         ]);
         $I->seeElement(self::CHANGE_FORM);
         $I->see(self::FIRST_PASSWORD);
@@ -68,7 +68,7 @@ class ResetPasswordControllerCest
             'Pomyślnie zmieniono hasło do konta. Możesz się teraz nim zalogować'
             . ' do aplikacji.'
         );
-        $I->fillField(self::EMAIL_FIELD, FunctionalTester::USER_EMAIL);
+        $I->fillField(self::EMAIL_FIELD, FunctionalTester::AUTHOR_EMAIL);
         $I->fillField(self::PASSWORD_FIELD, self::NEW_PASSWORD);
         $I->click(self::LOGIN_SUBMIT);
 

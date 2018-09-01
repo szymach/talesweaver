@@ -53,7 +53,7 @@ class FormTypeCest
     public function testValidEditFormSubmission(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $scene = new Scene(Uuid::uuid4(), new ShortText(self::TITLE_PL), null, $I->getUser()->getAuthor());
+        $scene = new Scene(Uuid::uuid4(), new ShortText(self::TITLE_PL), null, $I->getAuthor());
         $form = $I->createForm(EditType::class, new Edit\DTO($scene), ['sceneId' => $scene->getId()]);
         $form->handleRequest($I->getRequest([
             'edit' => ['title' => self::TITLE_PL, 'text' => self::TEXT_PL]
@@ -72,7 +72,7 @@ class FormTypeCest
     public function testInvalidEditFormSubmission(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $scene = new Scene(Uuid::uuid4(), new ShortText(self::TITLE_PL), null, $I->getUser()->getAuthor());
+        $scene = new Scene(Uuid::uuid4(), new ShortText(self::TITLE_PL), null, $I->getAuthor());
         $form = $I->createForm(EditType::class, new Edit\DTO($scene), ['sceneId' => $scene->getId()]);
         $form->handleRequest($I->getRequest([
             'edit' => ['title' => null, 'text' => null]

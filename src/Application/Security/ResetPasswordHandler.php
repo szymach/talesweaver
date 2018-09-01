@@ -9,7 +9,7 @@ class ResetPasswordHandler
     public function handle(ResetPassword $command): void
     {
         $token = $command->getToken();
-        $token->getUser()->setPassword($command->getPassword());
+        $token->getAuthor()->setPassword($command->getPassword());
         $token->deactivate();
     }
 }

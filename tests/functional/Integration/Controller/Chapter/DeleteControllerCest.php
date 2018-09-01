@@ -18,7 +18,7 @@ class DeleteControllerCest
     {
         $I->loginAsUser();
         $id = Uuid::uuid4();
-        $I->persistEntity(new Chapter($id, new ShortText(self::TITLE_PL), null, $I->getUser()->getAuthor()));
+        $I->persistEntity(new Chapter($id, new ShortText(self::TITLE_PL), null, $I->getAuthor()));
         $I->seeInRepository(Chapter::class, ['id' => $id]);
         $I->amOnPage(self::LIST_URL);
         $I->canSeeNumberOfElements('tbody > tr', 1);

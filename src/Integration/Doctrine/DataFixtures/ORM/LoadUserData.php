@@ -10,18 +10,13 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\ValueObject\Email;
-use Talesweaver\Domain\User;
 use function generate_user_token;
 
 class LoadUserData implements ORMFixtureInterface, OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $user = new User(
-            new Author(Uuid::uuid4(), new Email('user@example.com')),
-            'password',
-            generate_user_token()
-        );
+        $user = new Author(Uuid::uuid4(), new Email('user@example.com'), 'password', generate_user_token());
         $user->activate();
         $manager->persist($user);
         $manager->flush();

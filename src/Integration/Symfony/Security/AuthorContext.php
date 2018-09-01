@@ -8,7 +8,6 @@ use RuntimeException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Talesweaver\Application\Security\AuthorContext as ApplicationAuthorContext;
 use Talesweaver\Domain\Author;
-use Talesweaver\Domain\User;
 
 class AuthorContext implements ApplicationAuthorContext
 {
@@ -26,7 +25,7 @@ class AuthorContext implements ApplicationAuthorContext
     {
         $token = $this->tokenStorage->getToken();
         if (null === $token) {
-            throw new RuntimeException('No user logged in');
+            throw new RuntimeException('No user logged in.');
         }
 
         $user = $token->getUser();
@@ -39,5 +38,10 @@ class AuthorContext implements ApplicationAuthorContext
         }
 
         return $user->getAuthor();
+    }
+
+    public function logout(): void
+    {
+        $this->tokenStorage->setToken(null);
     }
 }

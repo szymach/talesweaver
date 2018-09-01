@@ -8,10 +8,10 @@ use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
+use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Domain\User;
 
 class LoandStandaloneBookData implements ORMFixtureInterface, OrderedFixtureInterface
 {
@@ -19,9 +19,8 @@ class LoandStandaloneBookData implements ORMFixtureInterface, OrderedFixtureInte
 
     public function load(ObjectManager $manager)
     {
-        /* @var $user User */
-        $user = $manager->getRepository(User::class)->findOneBy([]);
-        $author = $user->getAuthor();
+        /* @var $author Author */
+        $author = $manager->getRepository(Author::class)->findOneBy([]);
 
         $book = new Book(Uuid::uuid4(), new ShortText('Książka'), $author);
         $book->setLocale(self::LOCALE);

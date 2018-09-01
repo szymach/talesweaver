@@ -20,7 +20,7 @@ trait CreateCharacterTrait
             new ShortText('Postać'),
             null,
             null,
-            $I->getUser()->getAuthor()
+            $I->getAuthor()
         );
         $character->setLocale('pl');
 

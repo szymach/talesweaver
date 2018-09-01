@@ -20,19 +20,19 @@ class ActivationToken
     private $value;
 
     /**
-     * @var User
+     * @var Author
      */
-    private $user;
+    private $author;
 
     /**
      * @var DateTimeImmutable
      */
     private $createdAt;
 
-    public function __construct(User $user, string $value)
+    public function __construct(Author $author, string $value)
     {
         $this->value = $value;
-        $this->user = $user;
+        $this->author = $author;
         $this->createdAt = new DateTimeImmutable();
     }
 
@@ -56,9 +56,9 @@ class ActivationToken
         return $this->createdAt;
     }
 
-    public function getUser(): User
+    public function getAuthor(): Author
     {
-        return $this->user;
+        return $this->author;
     }
 
     public function isValid(): bool

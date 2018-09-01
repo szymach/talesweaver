@@ -13,7 +13,7 @@ trait CreateSceneTrait
 {
     private function getScene(FunctionalTester $I): Scene
     {
-        $scene = new Scene(Uuid::uuid4(), new ShortText('Scena'), null, $I->getUser()->getAuthor());
+        $scene = new Scene(Uuid::uuid4(), new ShortText('Scena'), null, $I->getAuthor());
         $scene->setLocale('pl');
 
         return $scene;

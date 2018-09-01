@@ -3,10 +3,32 @@
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
 >
-    <entity name="Talesweaver\Domain\Author">
+    <entity name="Talesweaver\Domain\Author" repository-class="Talesweaver\Integration\Doctrine\Repository\AuthorRepository">
 
         <id name="id" type="uuid" />
         <field name="email" type="email" />
+        <field name="password"/>
+        <field name="active" type="boolean"/>
+
+        <one-to-many field="activationTokens" target-entity="Talesweaver\Domain\ActivationToken" mapped-by="author">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+            <order-by>
+                <order-by-field name="createdAt" direction="DESC"/>
+            </order-by>
+        </one-to-many>
+
+        <one-to-many field="passwordResetTokens" target-entity="Talesweaver\Domain\PasswordResetToken" mapped-by="author">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+            <order-by>
+                <order-by-field name="createdAt" direction="DESC"/>
+            </order-by>
+        </one-to-many>
 
     </entity>
 </doctrine-mapping>

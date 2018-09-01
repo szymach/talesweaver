@@ -10,6 +10,9 @@ use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
+use Talesweaver\Domain\ValueObject\File;
+use Talesweaver\Domain\ValueObject\LongText;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class Command implements AuthorAccessInterface, MessageCommandInterface
 {
@@ -24,7 +27,7 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
     private $name;
 
     /**
-     * @var LongText
+     * @var LongText|null
      */
     private $description;
 
@@ -41,7 +44,27 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
         $this->avatar = $avatar;
     }
 
-        public function isAllowed(Author $author): bool
+    public function getLocation(): Location
+    {
+        return $this->location;
+    }
+
+    public function getName(): ShortText
+    {
+        return $this->name;
+    }
+
+    public function getDescription(): ?LongText
+    {
+        return $this->description;
+    }
+
+    public function getAvatar(): ?File
+    {
+        return $this->avatar;
+    }
+
+    public function isAllowed(Author $author): bool
     {
         return $this->location->getCreatedBy() === $author;
     }
@@ -49,15 +72,5 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
     public function getMessage(): Message
     {
         return new EditionSuccessMessage('location');
-    }
-
-    public function getData(): DTO
-    {
-        return $this->dto;
-    }
-
-    public function getLocation(): Location
-    {
-        return $this->location;
     }
 }

@@ -8,13 +8,13 @@ use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
-use Talesweaver\Integration\Symfony\Bus\Command\ActivateUser;
-use Talesweaver\Integration\Doctrine\Repository\UserRepository;
+use Talesweaver\Application\Security\ActivateAuthor;
+use Talesweaver\Integration\Doctrine\Repository\AuthorRepository;
 
 class ActivationController
 {
     /**
-     * @var UserRepository
+     * @var AuthorRepository
      */
     private $repository;
 
@@ -29,7 +29,7 @@ class ActivationController
     private $router;
 
     public function __construct(
-        UserRepository $repository,
+        AuthorRepository $repository,
         MessageBus $commandBus,
         RouterInterface $router
     ) {
@@ -40,12 +40,12 @@ class ActivationController
 
     public function __invoke(string $code)
     {
-        $user = $this->repository->findOneByActivationToken($code);
-        if (null === $user) {
-            throw new NotFoundHttpException('No user for code "%s"');
+        $author = $this->repository->findOneByActivationToken($code);
+        if (null === $author) {
+            throw new NotFoundHttpException('No author for code "%s"');
         }
 
-        $this->commandBus->handle(new ActivateUser($user));
+        $this->commandBus->handle(new ActivateAuthor($author));
 
         return new RedirectResponse($this->router->generate('login'));
     }

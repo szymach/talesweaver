@@ -8,13 +8,13 @@ use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
+use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Domain\User;
 
 class LoadStandaloneChapterData implements ORMFixtureInterface, OrderedFixtureInterface
 {
@@ -22,9 +22,8 @@ class LoadStandaloneChapterData implements ORMFixtureInterface, OrderedFixtureIn
 
     public function load(ObjectManager $manager)
     {
-        /* @var $user User */
-        $user = $manager->getRepository(User::class)->findOneBy([]);
-        $author = $user->getAuthor();
+        /* @var $author Author */
+        $author = $manager->getRepository(Author::class)->findOneBy([]);
 
         $chapter = new Chapter(Uuid::uuid4(), new ShortText('Rozdział'), null, $author);
         $chapter->setLocale(self::LOCALE);

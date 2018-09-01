@@ -13,15 +13,16 @@ use RuntimeException;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Talesweaver\Domain\Author;
-use Talesweaver\Domain\ValueObject\Email;
 use Talesweaver\Domain\PasswordResetToken;
-use Talesweaver\Domain\User;
-use Talesweaver\Integration\Doctrine\Repository\UserRepository;
+use Talesweaver\Domain\ValueObject\Email;
+use Talesweaver\Integration\Doctrine\Repository\AuthorRepository;
+use Talesweaver\Integration\Doctrine\Repository\PasswordResetTokenRepository;
+use Talesweaver\Integration\Symfony\Security\User;
 use Talesweaver\Tests\_generated\FunctionalTesterActions;
 use function generate_user_token;
 
@@ -44,50 +45,44 @@ class FunctionalTester extends Actor
     use FunctionalTesterActions;
 
     public const LOCALE = 'pl';
-    public const USER_EMAIL = 'test@example.com';
-    public const USER_PASSWORD = 'password123';
-    public const USER_ROLE = 'ROLE_USER';
+    public const AUTHOR_EMAIL = 'test@example.com';
+    public const AUTHOR_PASSWORD = 'password123';
+    public const AUTHOR_ROLE = 'ROLE_USER';
     public const ERROR_SELECTOR = '.help-block .list-unstyled li';
 
     public function loginAsUser(bool $active = true): void
     {
-        /* @var $tokenStorage TokenStorageInterface */
-        $tokenStorage = $this->grabService('security.token_storage');
         $firewall = 'main';
-        $user = $this->getUser($active);
+        $author = new User($this->getAuthor($active));
         $token = new UsernamePasswordToken(
-            $user,
-            self::USER_PASSWORD,
+            $author,
+            self::AUTHOR_PASSWORD,
             $firewall,
-            $user->getRoles()
+            $author->getRoles()
         );
-        $tokenStorage->setToken($token);
-         /* @var $session Session */
-        $session = $this->grabService('session');
+        $this->getTokenStorage()->setToken($token);
+
+        $session = $this->getSession();
         $session->set(sprintf('_security_%s', $firewall), serialize($token));
         $session->save();
 
         $this->setCookie($session->getName(), $session->getId());
     }
 
-    public function getUser(bool $active = true, string $email = self::USER_EMAIL): User
+    public function getAuthor(bool $active = true, string $email = self::AUTHOR_EMAIL): Author
     {
         $emailVO = new Email($email);
-        $user = $this->getUserRepository()->findOneByEmail($emailVO);
-        if (null === $user) {
-            $user = new User(
-                new Author(Uuid::uuid4(), $emailVO),
-                self::USER_PASSWORD,
-                generate_user_token()
-            );
+        $author = $this->getAuthorRepository()->findOneByEmail($emailVO);
+        if (null === $author) {
+            $author = new Author(Uuid::uuid4(), $emailVO, self::AUTHOR_PASSWORD, generate_user_token());
             if (true === $active) {
-                $user->activate();
+                $author->activate();
             }
-            $this->persistEntity($user);
+            $this->persistEntity($author);
             $this->flushToDatabase();
         }
 
-        return $user;
+        return $author;
     }
 
     public function createTooLongString(): string
@@ -112,11 +107,6 @@ class FunctionalTester extends Actor
         return $request;
     }
 
-    public function getFormFactory(): FormFactoryInterface
-    {
-        return $this->grabService('form.factory');
-    }
-
     public function seeNumberOfErrors(int $count, string $selector = self::ERROR_SELECTOR): void
     {
         $this->seeNumberOfElements($selector, $count);
@@ -138,15 +128,13 @@ class FunctionalTester extends Actor
         $this->see($content, '.alert-danger.alert-form');
     }
 
-    public function canSeeResetPasswordTokenGenerated(User $user):void
+    public function canSeeResetPasswordTokenGenerated(Author $author):void
     {
-        $token = $this->getEntityManager()->getRepository(PasswordResetToken::class)->findOneBy(['user' => $user]);
-        if (null === $token) {
-            throw new RuntimeException(sprintf(
-                'No password reset token for user "%s"',
-                $user->getUsername()
-            ));
-        }
+        $token = $this->getPasswordResetTokenRepository()->findOneByAuthor($author);
+        $this->assertNotNull($token, sprintf(
+            'No password reset token for author "%s"',
+            (string) $author->getEmail()
+        ));
     }
 
     public function canSeeIAmOnRouteLocale(
@@ -173,19 +161,9 @@ class FunctionalTester extends Actor
         $this->canSee($content, sprintf('.alert.alert-%s', $type));
     }
 
-    public function getUserRepository(): UserRepository
-    {
-        return $this->getEntityManager()->getRepository(User::class);
-    }
-
     public function getEntityManager(): EntityManagerInterface
     {
         return $this->grabService('doctrine.orm.entity_manager');
-    }
-
-    public function getRouter(): RouterInterface
-    {
-        return $this->grabService('router');
     }
 
     /**
@@ -193,7 +171,7 @@ class FunctionalTester extends Actor
      */
     public function _afterSuite()
     {
-        $this->clearUsers();
+        $this->clearAuthors();
     }
 
     /**
@@ -201,13 +179,38 @@ class FunctionalTester extends Actor
      */
     public function _beforeSuite($settings = [])
     {
-        $this->clearUsers();
+        $this->clearAuthors();
         $this->getTranslatableListener()->setLocale(self::LOCALE);
     }
 
-    public function findElement(string $selector)
+    private function getAuthorRepository(): AuthorRepository
     {
-        return $this;
+        return $this->getEntityManager()->getRepository(Author::class);
+    }
+
+    private function getPasswordResetTokenRepository(): PasswordResetTokenRepository
+    {
+        return $this->getEntityManager()->getRepository(PasswordResetToken::class);
+    }
+
+    private function getRouter(): RouterInterface
+    {
+        return $this->grabService('router');
+    }
+
+    private function getTokenStorage(): TokenStorageInterface
+    {
+        return $this->grabService('security.token_storage');
+    }
+
+    private function getSession(): SessionInterface
+    {
+        return $this->grabService('session');
+    }
+
+    private function getFormFactory(): FormFactoryInterface
+    {
+        return $this->grabService('form.factory');
     }
 
     private function getTranslatableListener(): TranslatableListener

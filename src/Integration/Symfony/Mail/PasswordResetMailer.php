@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Mail;
 
-use Talesweaver\Domain\User;
+use Talesweaver\Domain\Author;
 
-class PasswordResetMailer extends AbstractUserMailer
+class PasswordResetMailer extends AbstractAuthorMailer
 {
-    public function send(User $user): int
+    public function send(Author $author): bool
     {
         return $this->doSend(
-            $user,
+            $author,
             'security.reset_password.mail.title',
             'security/mail/passwordReset.html.twig',
-            ['code' => $user->getPasswordResetToken()]
+            ['code' => $author->getPasswordResetToken()]
         );
     }
 }

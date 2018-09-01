@@ -6,7 +6,7 @@ use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\ValueObject\Email;
 
-class CreateUser implements MessageCommandInterface
+class CreateAuthor implements MessageCommandInterface
 {
     /**
      * @var Email

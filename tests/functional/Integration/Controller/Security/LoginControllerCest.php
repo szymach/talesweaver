@@ -42,11 +42,11 @@ class LoginControllerCest
 
     public function correctLogin(FunctionalTester $I)
     {
-        $I->getUser();
+        $I->getAuthor();
 
         $I->amOnPage(self::FORM_URL);
-        $I->fillField(self::EMAIL_FIELD, FunctionalTester::USER_EMAIL);
-        $I->fillField(self::PASSWORD_FIELD, FunctionalTester::USER_PASSWORD);
+        $I->fillField(self::EMAIL_FIELD, FunctionalTester::AUTHOR_EMAIL);
+        $I->fillField(self::PASSWORD_FIELD, FunctionalTester::AUTHOR_PASSWORD);
         $I->click(self::SUBMIT);
 
         $I->canSeeCurrentUrlEquals(self::DASHBOARD_URL);
@@ -56,12 +56,12 @@ class LoginControllerCest
     {
         $I->amOnPage(self::FORM_URL);
         $I->fillField(self::EMAIL_FIELD, self::NONEXISTANT_EMAIL);
-        $I->fillField(self::PASSWORD_FIELD, FunctionalTester::USER_PASSWORD);
+        $I->fillField(self::PASSWORD_FIELD, FunctionalTester::AUTHOR_PASSWORD);
         $I->click(self::SUBMIT);
         $I->canSeeCurrentUrlEquals(self::FORM_URL);
         $I->seeErrorAlert('Użytkownik o podanej nazwie nie istnieje.');
 
-        $I->getUser();
+        $I->getAuthor();
 
         $I->amOnPage(self::FORM_URL);
         $I->click(self::SUBMIT);
@@ -69,7 +69,7 @@ class LoginControllerCest
         $I->seeErrorAlert('Użytkownik o podanej nazwie nie istnieje.');
 
         $I->amOnPage(self::FORM_URL);
-        $I->fillField(self::EMAIL_FIELD, FunctionalTester::USER_EMAIL);
+        $I->fillField(self::EMAIL_FIELD, FunctionalTester::AUTHOR_EMAIL);
         $I->fillField(self::PASSWORD_FIELD, self::INCORRECT_PASSWORD);
         $I->click(self::SUBMIT);
         $I->canSeeCurrentUrlEquals(self::FORM_URL);
@@ -78,11 +78,11 @@ class LoginControllerCest
 
     public function inactiveUserLogin(FunctionalTester $I)
     {
-        $I->getUser(false);
+        $I->getAuthor(false);
 
         $I->amOnPage(self::FORM_URL);
-        $I->fillField(self::EMAIL_FIELD, FunctionalTester::USER_EMAIL);
-        $I->fillField(self::PASSWORD_FIELD, FunctionalTester::USER_PASSWORD);
+        $I->fillField(self::EMAIL_FIELD, FunctionalTester::AUTHOR_EMAIL);
+        $I->fillField(self::PASSWORD_FIELD, FunctionalTester::AUTHOR_PASSWORD);
         $I->click(self::SUBMIT);
 
         $I->canSeeCurrentUrlEquals(self::FORM_URL);

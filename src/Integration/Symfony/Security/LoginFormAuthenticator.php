@@ -21,7 +21,7 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Translation\TranslatorInterface;
-use Talesweaver\Domain\User;
+use Talesweaver\Integration\Symfony\Security\User;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
@@ -80,10 +80,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             throw new BadCredentialsException();
         }
 
-        if (false === $user->isActive()) {
+        if (false === $user->getAuthor()->isActive()) {
             throw new CustomUserMessageAuthenticationException(sprintf(
                 'User "%s" is inactive',
-                $user->getUsername()
+                (string) $user->getAuthor()->getEmail()
             ));
         }
 
@@ -129,7 +129,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     public function supports(Request $request): bool
     {
         return $request->getPathInfo() === sprintf('/%s/login', $request->getLocale())
-            && $request->isMethod(Request::METHOD_POST)
+            && true === $request->isMethod(Request::METHOD_POST)
         ;
     }
 

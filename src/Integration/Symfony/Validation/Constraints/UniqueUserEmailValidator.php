@@ -7,16 +7,16 @@ namespace Talesweaver\Integration\Symfony\Validation\Constraints;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Talesweaver\Domain\ValueObject\Email;
-use Talesweaver\Integration\Doctrine\Repository\UserRepository;
+use Talesweaver\Integration\Doctrine\Repository\AuthorRepository;
 
 class UniqueUserEmailValidator extends ConstraintValidator
 {
     /**
-     * @var UserRepository
+     * @var AuthorRepository
      */
     private $repository;
 
-    public function __construct(UserRepository $repository)
+    public function __construct(AuthorRepository $repository)
     {
         $this->repository = $repository;
     }

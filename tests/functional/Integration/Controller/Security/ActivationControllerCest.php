@@ -11,13 +11,13 @@ class ActivationControllerCest
 {
     public function userActivation(FunctionalTester $I)
     {
-        $user = $I->getUser(false);
-        $I->amOnPage(sprintf('/pl/activate/%s', (string) $user->getActivationToken()));
+        $author = $I->getAuthor(false);
+        $I->amOnPage(sprintf('/pl/activate/%s', (string) $author->getActivationToken()));
         $I->canSeeCurrentUrlEquals('/pl/login');
-        Assertion::eq(true, $user->isActive());
+        Assertion::eq(true, $author->isActive());
         $I->canSeeAlert(sprintf(
             'Pomyślnie aktywowano konto "%s"! Możesz się teraz zalogować.',
-            $user->getUsername()
+            (string) $author->getEmail()
         ));
     }
 }

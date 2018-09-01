@@ -18,7 +18,7 @@ class DeleteControllerCest
     {
         $I->loginAsUser();
         $id = Uuid::uuid4();
-        $I->persistEntity(new Scene($id, new ShortText(self::TITLE_PL), null, $I->getUser()->getAuthor()));
+        $I->persistEntity(new Scene($id, new ShortText(self::TITLE_PL), null, $I->getAuthor()));
         $I->seeInRepository(Scene::class, ['id' => $id]);
 
         $I->amOnPage(self::LIST_URL);
