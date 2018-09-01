@@ -11,9 +11,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
-use Talesweaver\Domain\PasswordResetToken;
-use Talesweaver\Integration\Doctrine\Repository\PasswordResetTokenRepository;
 use Talesweaver\Application\Security\ResetPassword;
+use Talesweaver\Domain\PasswordResetToken;
+use Talesweaver\Domain\PasswordResetTokens;
 use Talesweaver\Integration\Symfony\Form\Security\ResetPasswordChangeType;
 
 class ResetPasswordChangeController
@@ -24,9 +24,9 @@ class ResetPasswordChangeController
     private $templating;
 
     /**
-     * @var PasswordResetTokenRepository
+     * @var PasswordResetTokens
      */
-    private $resetPasswordTokenRepository;
+    private $resetPasswordTokens;
 
     /**
      * @var FormFactoryInterface
@@ -45,13 +45,13 @@ class ResetPasswordChangeController
 
     public function __construct(
         EngineInterface $templating,
-        PasswordResetTokenRepository $resetPasswordTokenRepository,
+        PasswordResetTokens $resetPasswordTokens,
         FormFactoryInterface $formFactory,
         MessageBus $commandBus,
         RouterInterface $router
     ) {
         $this->templating = $templating;
-        $this->resetPasswordTokenRepository = $resetPasswordTokenRepository;
+        $this->resetPasswordTokens = $resetPasswordTokens;
         $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
         $this->router = $router;
@@ -75,7 +75,7 @@ class ResetPasswordChangeController
 
     private function getToken(string $code): PasswordResetToken
     {
-        $token = $this->resetPasswordTokenRepository->findOneByCode($code);
+        $token = $this->resetPasswordTokens->findOneByCode($code);
         if (null === $token) {
             $this->throwNotFoundException(
                 'No password reset token found for code "%s".',

@@ -9,9 +9,10 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\PasswordResetToken;
+use Talesweaver\Domain\PasswordResetTokens;
 use Talesweaver\Domain\ValueObject\Email;
 
-class PasswordResetTokenRepository extends EntityRepository
+class PasswordResetTokenRepository extends EntityRepository implements PasswordResetTokens
 {
     public function findOneByEmail(string $email): ?PasswordResetToken
     {

@@ -7,9 +7,10 @@ namespace Talesweaver\Integration\Doctrine\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Talesweaver\Domain\Author;
+use Talesweaver\Domain\Authors;
 use Talesweaver\Domain\ValueObject\Email;
 
-class AuthorRepository extends EntityRepository
+class AuthorRepository extends EntityRepository implements Authors
 {
     public function findOneByActivationToken(string $code): ?Author
     {

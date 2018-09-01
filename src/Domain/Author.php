@@ -80,7 +80,7 @@ class Author
     public function activate(): void
     {
         if (true === $this->active) {
-            throw new DomainException(sprintf('User "%s" is already active!', $this->id));
+            throw new DomainException(sprintf('User "%s" is already active!', $this->id->toString()));
         }
 
         $this->active = true;

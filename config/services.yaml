@@ -17,6 +17,7 @@ services:
     Knp\Menu\FactoryInterface: "@knp_menu.factory"
     Knp\Snappy\GeneratorInterface: "@knp_snappy.pdf"
     Talesweaver\Application\Security\AuthorContext: '@Talesweaver\Integration\Symfony\Security\AuthorContext'
+    Talesweaver\Domain\Authors: '@Talesweaver\Integration\Doctrine\Repository\AuthorRepository'
     Talesweaver\Domain\Books: '@Talesweaver\Integration\Symfony\Repository\BookRepository'
     Talesweaver\Domain\Chapters: '@Talesweaver\Integration\Symfony\Repository\ChapterRepository'
     Talesweaver\Domain\Characters: '@Talesweaver\Integration\Symfony\Repository\CharacterRepository'
@@ -24,6 +25,7 @@ services:
     Talesweaver\Domain\Items: '@Talesweaver\Integration\Symfony\Repository\ItemRepository'
     Talesweaver\Domain\Locations: '@Talesweaver\Integration\Symfony\Repository\LocationRepository'
     Talesweaver\Domain\Scenes: '@Talesweaver\Integration\Symfony\Repository\SceneRepository'
+    Talesweaver\Domain\PasswordResetTokens: '@Talesweaver\Integration\Doctrine\Repository\PasswordResetTokenRepository'
     SimpleBus\Message\Bus\MessageBus: "@transaction_wrapped_command_bus"
     Symfony\Component\HttpFoundation\Session\Session: "@session"
     Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface: '@security.user_password_encoder.generic'

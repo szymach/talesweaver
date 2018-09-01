@@ -9,9 +9,9 @@ use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
 use Talesweaver\Application\Mailer\AuthorActionMailer;
+use Talesweaver\Domain\Authors;
+use Talesweaver\Domain\PasswordResetTokens;
 use Talesweaver\Domain\ValueObject\Email;
-use Talesweaver\Integration\Doctrine\Repository\AuthorRepository;
-use Talesweaver\Integration\Doctrine\Repository\PasswordResetTokenRepository;
 use function generate_user_token;
 
 class GeneratePasswordResetTokenHandler
@@ -22,14 +22,14 @@ class GeneratePasswordResetTokenHandler
     private $manager;
 
     /**
-     * @var PasswordResetTokenRepository
+     * @var PasswordResetTokens
      */
-    private $tokenRepository;
+    private $tokens;
 
     /**
-     * @var AuthorRepository
+     * @var Authors
      */
-    private $authorRepository;
+    private $authors;
 
     /**
      * @var AuthorActionMailer
@@ -38,13 +38,13 @@ class GeneratePasswordResetTokenHandler
 
     public function __construct(
         EntityManagerInterface $manager,
-        PasswordResetTokenRepository $tokenRepository,
-        AuthorRepository $authorRepository,
+        PasswordResetTokens $tokens,
+        Authors $authors,
         AuthorActionMailer $passwordResetMailer
     ) {
         $this->manager = $manager;
-        $this->tokenRepository = $tokenRepository;
-        $this->authorRepository = $authorRepository;
+        $this->tokens = $tokens;
+        $this->authors = $authors;
         $this->passwordResetMailer = $passwordResetMailer;
     }
 
@@ -55,9 +55,9 @@ class GeneratePasswordResetTokenHandler
             return;
         }
 
-        $this->tokenRepository->deactivatePreviousTokens($email);
+        $this->tokens->deactivatePreviousTokens($email);
 
-        $author = $this->authorRepository->findOneByEmail($email);
+        $author = $this->authors->findOneByEmail($email);
         if (null === $author) {
             throw new RuntimeException(sprintf('No author found for email "%s"', $email));
         }
@@ -68,7 +68,7 @@ class GeneratePasswordResetTokenHandler
 
     private function isRequestTooSoon(Email $email): bool
     {
-        $previousTokenDate = $this->tokenRepository->findCreationDateOfPrevious($email);
+        $previousTokenDate = $this->tokens->findCreationDateOfPrevious($email);
         if (null === $previousTokenDate) {
             return false;
         }

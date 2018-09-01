@@ -9,7 +9,6 @@ use Codeception\Lib\Friend;
 use Doctrine\ORM\EntityManagerInterface;
 use FSi\DoctrineExtensions\Translatable\TranslatableListener;
 use Ramsey\Uuid\Uuid;
-use RuntimeException;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,10 +17,10 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Talesweaver\Domain\Author;
+use Talesweaver\Domain\Authors;
 use Talesweaver\Domain\PasswordResetToken;
+use Talesweaver\Domain\PasswordResetTokens;
 use Talesweaver\Domain\ValueObject\Email;
-use Talesweaver\Integration\Doctrine\Repository\AuthorRepository;
-use Talesweaver\Integration\Doctrine\Repository\PasswordResetTokenRepository;
 use Talesweaver\Integration\Symfony\Security\User;
 use Talesweaver\Tests\_generated\FunctionalTesterActions;
 use function generate_user_token;
@@ -183,12 +182,12 @@ class FunctionalTester extends Actor
         $this->getTranslatableListener()->setLocale(self::LOCALE);
     }
 
-    private function getAuthorRepository(): AuthorRepository
+    private function getAuthorRepository(): Authors
     {
         return $this->getEntityManager()->getRepository(Author::class);
     }
 
-    private function getPasswordResetTokenRepository(): PasswordResetTokenRepository
+    private function getPasswordResetTokenRepository(): PasswordResetTokens
     {
         return $this->getEntityManager()->getRepository(PasswordResetToken::class);
     }

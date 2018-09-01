@@ -19,7 +19,9 @@ class ActivateAuthor implements MessageCommandInterface
     public function __construct(Author $author)
     {
         if (true === $author->isActive()) {
-            throw new DomainException(sprintf('Author "%s" is already active!', $author->getId()));
+            throw new DomainException(
+                sprintf('Author "%s" is already active!', $author->getId()->toString())
+            );
         }
 
         $this->author = $author;

@@ -8,11 +8,10 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SimpleBus\Message\Bus\MessageBus;
 use stdClass;
-use Symfony\Component\HttpFoundation\ParameterBag;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Translation\TranslatorInterface;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
+use Talesweaver\Application\Session\Flash;
+use Talesweaver\Application\Session\FlashBag;
 use Talesweaver\Integration\Symfony\Bus\MessagesAwareBus;
 
 class MessagesAwareBusTest extends TestCase
@@ -23,55 +22,42 @@ class MessagesAwareBusTest extends TestCase
     private $messageBus;
 
     /**
-     * @var Session|MockObject
+     * @var FlashBag|MockObject
      */
-    private $session;
-
-    /**
-     * @var TranslatorInterface|MockObject
-     */
-    private $translator;
+    private $flashBag;
 
     public function testSkippsWhenUnsupportedMessageInstance()
     {
         $command = $this->getMockBuilder(stdClass::class)->setMethods(['getMessage'])->getMock();
         $command->expects($this->never())->method('getMessage');
 
-        $this->session->expects($this->never())->method('getFlashBag');
+        $this->flashBag->expects($this->never())->method('add');
         $this->messageBus->expects($this->once())->method('handle')->with($command);
 
-        $bus = new MessagesAwareBus($this->messageBus, $this->session, $this->translator);
+        $bus = new MessagesAwareBus($this->messageBus, $this->flashBag);
         $bus->handle($command);
     }
 
     public function testSettingFlashMessage()
     {
         $message = $this->createMock(Message::class);
-        $message->expects($this->once())->method('getType')->willReturn('message type');
+        $message->expects($this->once())->method('getType')->willReturn('success');
         $message->expects($this->once())->method('getTranslationKey')->willReturn('message key');
         $message->expects($this->once())->method('getTranslationParameters')->willReturn([]);
 
         $command = $this->createMock(MessageCommandInterface::class);
         $command->expects($this->once())->method('getMessage')->willReturn($message);
 
-        $flashBag = $this->createMock(ParameterBag::class);
-        $flashBag->expects($this->once())->method('set')->with('message type', 'translated message');
-        $this->session->expects($this->once())->method('getFlashBag')->willReturn($flashBag);
-        $this->translator->expects($this->once())
-            ->method('trans')
-            ->with('message key', [])
-            ->willReturn('translated message')
-        ;
+        $this->flashBag->expects($this->once())->method('add')->with($this->isInstanceOf(Flash::class));
         $this->messageBus->expects($this->once())->method('handle')->with($command);
 
-        $bus = new MessagesAwareBus($this->messageBus, $this->session, $this->translator);
+        $bus = new MessagesAwareBus($this->messageBus, $this->flashBag);
         $bus->handle($command);
     }
 
     protected function setUp()
     {
         $this->messageBus = $this->createMock(MessageBus::class);
-        $this->session = $this->createMock(Session::class);
-        $this->translator = $this->createMock(TranslatorInterface::class);
+        $this->flashBag = $this->createMock(FlashBag::class);
     }
 }
