@@ -11,7 +11,7 @@ use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Domain\User;
 
 class LoandStandaloneBookData implements ORMFixtureInterface, OrderedFixtureInterface
 {

@@ -14,22 +14,34 @@ use Talesweaver\Domain\Security\AuthorAccessInterface;
 class Command implements AuthorAccessInterface, MessageCommandInterface
 {
     /**
-     * @var DTO
-     */
-    private $dto;
-
-    /**
      * @var Location
      */
     private $location;
 
-    public function __construct(DTO $data, Location $location)
+    /**
+     * @var ShortText
+     */
+    private $name;
+
+    /**
+     * @var LongText
+     */
+    private $description;
+
+    /**
+     * @var File|null
+     */
+    private $avatar;
+
+    public function __construct(Location $location, ShortText $name, ?LongText $description, ?File $avatar)
     {
-        $this->dto = $data;
         $this->location = $location;
+        $this->name = $name;
+        $this->description = $description;
+        $this->avatar = $avatar;
     }
 
-    public function isAllowed(Author $author): bool
+        public function isAllowed(Author $author): bool
     {
         return $this->location->getCreatedBy() === $author;
     }

@@ -37,7 +37,7 @@ services:
         tags: ['doctrine.fixture.orm']
 
     Talesweaver\Integration\Symfony\:
-        resource: "../src/Integration/Symfony/{Form,JSON,Mail,Menu,Pagination,Routing,Templating,Timeline,Security,Validation}/*"
+        resource: "../src/Integration/Symfony/{Form,JSON,Mail,Menu,Pagination,Routing,Templating,Timeline,Security,Session,Validation}/*"
         exclude: "../src/Integration/Symfony/Security/function/*"
 
     # Do not remove, because it is not explicitly used and is removed from the container
@@ -94,3 +94,10 @@ services:
         autoconfigure: false
         tags:
             - { name: request.param_converter, priority: 10 }
+
+    # Session
+    Talesweaver\Application\Session\FlashBag:
+        alias: Talesweaver\Integration\Symfony\Session\FlashBag
+
+    Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface:
+        factory: ["@session", getFlashBag]

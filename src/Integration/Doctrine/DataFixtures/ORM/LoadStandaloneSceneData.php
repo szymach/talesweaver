@@ -12,7 +12,7 @@ use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Domain\User;
 
 class LoadStandaloneSceneData implements ORMFixtureInterface, OrderedFixtureInterface
 {

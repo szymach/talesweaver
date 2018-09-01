@@ -1,6 +1,6 @@
 security:
     encoders:
-        Talesweaver\Integration\Doctrine\Entity\User: bcrypt
+        Talesweaver\Domain\User: bcrypt
 
     providers:
         database_users:

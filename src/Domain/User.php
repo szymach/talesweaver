@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Integration\Doctrine\Entity;
+namespace Talesweaver\Domain;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,8 +10,8 @@ use DomainException;
 use RuntimeException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Talesweaver\Domain\Author;
-use Talesweaver\Integration\Doctrine\Entity\ActivationToken;
-use Talesweaver\Integration\Doctrine\Entity\PasswordResetToken;
+use Talesweaver\Domain\ActivationToken;
+use Talesweaver\Domain\PasswordResetToken;
 
 class User implements UserInterface
 {

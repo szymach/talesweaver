@@ -10,23 +10,58 @@ use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
+use Talesweaver\Domain\ValueObject\File;
+use Talesweaver\Domain\ValueObject\LongText;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class Command implements AuthorAccessInterface, MessageCommandInterface
 {
-    /**
-     * @var DTO
-     */
-    private $data;
-
     /**
      * @var Item
      */
     private $item;
 
-    public function __construct(DTO $data, Item $item)
+    /**
+     * @var ShortText
+     */
+    private $name;
+
+    /**
+     * @var LongText|null
+     */
+    private $description;
+
+    /**
+     * @var File|null
+     */
+    private $avatar;
+
+    public function __construct(Item $item, ShortText $name, ?LongText $description, ?File $avatar)
     {
-        $this->data = $data;
         $this->item = $item;
+        $this->name = $name;
+        $this->description = $description;
+        $this->avatar = $avatar;
+    }
+
+    public function getItem(): Item
+    {
+        return $this->item;
+    }
+
+    public function getName(): ShortText
+    {
+        return $this->name;
+    }
+
+    public function getDescription(): ?LongText
+    {
+        return $this->description;
+    }
+
+    public function getAvatar(): ?File
+    {
+        return $this->avatar;
     }
 
     public function isAllowed(Author $author): bool
@@ -37,15 +72,5 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
     public function getMessage(): Message
     {
         return new EditionSuccessMessage('item');
-    }
-
-    public function getData(): DTO
-    {
-        return $this->data;
-    }
-
-    public function getItem(): Item
-    {
-        return $this->item;
     }
 }

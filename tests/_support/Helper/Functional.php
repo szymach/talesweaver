@@ -9,7 +9,7 @@ use Codeception\Module\Symfony;
 use Doctrine\ORM\EntityManagerInterface;
 use FSi\DoctrineExtensions\Translatable\TranslatableListener;
 use Talesweaver\Domain\ValueObject\Email;
-use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Domain\User;
 use Talesweaver\Integration\Repository\Doctrine\UserRepository;
 use Talesweaver\Tests\FunctionalTester;
 

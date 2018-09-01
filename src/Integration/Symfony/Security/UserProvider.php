@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Talesweaver\Domain\ValueObject\Email;
-use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Domain\User;
 use Talesweaver\Integration\Doctrine\Repository\UserRepository;
 
 class UserProvider implements UserProviderInterface

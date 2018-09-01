@@ -8,10 +8,14 @@ use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Talesweaver\Application\Location\Edit\Command;
 use Talesweaver\Application\Location\Edit\DTO;
 use Talesweaver\Domain\Location;
+use Talesweaver\Domain\ValueObject\File;
+use Talesweaver\Domain\ValueObject\LongText;
+use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Location\EditType;
 use Talesweaver\Integration\Symfony\Templating\Location\FormView;
 
@@ -61,11 +65,21 @@ class EditController
         );
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->commmandBus->handle(new Command($form->getData(), $location));
-
-            return new JsonResponse(['success' => true]);
+            return $this->processForDataAndCreateResponse($location, $form->getData());
         }
 
         return $this->templating->createView($form, 'location.header.edit');
+    }
+
+    private function processForDataAndCreateResponse(Location $location, DTO $dto): Response
+    {
+        $this->commmandBus->handle(new Command(
+            $location,
+            new ShortText($dto->getName()),
+            null !== $dto->getDescription() ? new LongText($dto->getDescription()) : null,
+            null !== $dto->getAvatar() ? new File($dto->getAvatar()) : null
+        ));
+
+        return new JsonResponse(['success' => true]);
     }
 }

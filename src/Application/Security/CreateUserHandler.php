@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Integration\Symfony\Bus\Command;
+namespace Talesweaver\Application\Security;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Author;
-use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Domain\User;
 use Talesweaver\Integration\Symfony\Mail\RegistrationMailer;
 use function generate_user_token;
 

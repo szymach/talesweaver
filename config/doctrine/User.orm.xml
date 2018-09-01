@@ -3,7 +3,7 @@
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
 >
-    <entity repository-class="Talesweaver\Integration\Doctrine\Repository\UserRepository" name="Talesweaver\Integration\Doctrine\Entity\User" table="app_user">
+    <entity repository-class="Talesweaver\Integration\Doctrine\Repository\UserRepository" name="Talesweaver\Domain\User" table="app_user">
 
         <id name="id" type="integer">
             <generator strategy="IDENTITY"/>
@@ -20,7 +20,7 @@
             </cascade>
         </one-to-one>
 
-        <one-to-many field="activationTokens" target-entity="Talesweaver\Integration\Doctrine\Entity\ActivationToken" mapped-by="user">
+        <one-to-many field="activationTokens" target-entity="Talesweaver\Domain\ActivationToken" mapped-by="user">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
@@ -30,7 +30,7 @@
             </order-by>
         </one-to-many>
 
-        <one-to-many field="passwordResetTokens" target-entity="Talesweaver\Integration\Doctrine\Entity\PasswordResetToken" mapped-by="user">
+        <one-to-many field="passwordResetTokens" target-entity="Talesweaver\Domain\PasswordResetToken" mapped-by="user">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>

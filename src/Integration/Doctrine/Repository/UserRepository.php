@@ -7,7 +7,7 @@ namespace Talesweaver\Integration\Doctrine\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Talesweaver\Domain\ValueObject\Email;
-use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Domain\User;
 
 class UserRepository extends EntityRepository
 {

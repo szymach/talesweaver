@@ -41,11 +41,11 @@ services:
 
     Talesweaver\Integration\Doctrine\Repository\UserRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ Talesweaver\Integration\Doctrine\Entity\User ]
+        arguments: [ Talesweaver\Domain\User ]
 
     Talesweaver\Integration\Doctrine\Repository\PasswordResetTokenRepository:
         factory: ["@doctrine", getRepository]
-        arguments: [ Talesweaver\Integration\Doctrine\Entity\PasswordResetToken ]
+        arguments: [ Talesweaver\Domain\PasswordResetToken ]
 
     # Repository
     _instanceof:

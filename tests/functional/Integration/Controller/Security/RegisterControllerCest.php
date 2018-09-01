@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Talesweaver\Tests\Integration\Controller\Security;
 
 use Talesweaver\Domain\ValueObject\Email;
-use Talesweaver\Integration\Doctrine\Entity\ActivationToken;
-use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Domain\ActivationToken;
+use Talesweaver\Domain\User;
 use Talesweaver\Tests\FunctionalTester;
 
 class RegisterControllerCest

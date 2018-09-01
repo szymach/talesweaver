@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Location\Edit;
 
-use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
@@ -32,7 +31,7 @@ class DTO
     private $avatar;
 
     /**
-     * @var Scene[]|Collection
+     * @var Scene[]
      */
     private $scenes;
 
@@ -42,7 +41,7 @@ class DTO
         $this->name = (string) $location->getName();
         $this->description = (string) $location->getDescription();
         $this->avatar = $location->getAvatar();
-        $this->scenes = $location->getScenes();
+        $this->scenes = $location->getScenes()->toArray();
     }
 
     public function getId(): UuidInterface
@@ -70,17 +69,17 @@ class DTO
         $this->description = $description;
     }
 
-    public function getAvatar()
+    public function getAvatar(): ?object
     {
         return $this->avatar;
     }
 
-    public function setAvatar($avatar): void
+    public function setAvatar(?object $avatar): void
     {
         $this->avatar = $avatar;
     }
 
-    public function getScenes(): Collection
+    public function getScenes(): array
     {
         return $this->scenes;
     }

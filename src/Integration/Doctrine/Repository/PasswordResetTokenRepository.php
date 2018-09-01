@@ -8,7 +8,7 @@ use DateTimeImmutable;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Talesweaver\Domain\ValueObject\Email;
-use Talesweaver\Integration\Doctrine\Entity\PasswordResetToken;
+use Talesweaver\Domain\PasswordResetToken;
 
 class PasswordResetTokenRepository extends EntityRepository
 {

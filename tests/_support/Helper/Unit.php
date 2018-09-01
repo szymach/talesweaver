@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\ValueObject\Email;
-use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Domain\User;
 use Talesweaver\Integration\Doctrine\Repository\UserRepository;
 use function generate_user_token;
 

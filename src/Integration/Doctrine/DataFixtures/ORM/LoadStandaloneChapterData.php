@@ -14,7 +14,7 @@ use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Domain\User;
 
 class LoadStandaloneChapterData implements ORMFixtureInterface, OrderedFixtureInterface
 {

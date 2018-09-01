@@ -19,8 +19,8 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\ValueObject\Email;
-use Talesweaver\Integration\Doctrine\Entity\PasswordResetToken;
-use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Domain\PasswordResetToken;
+use Talesweaver\Domain\User;
 use Talesweaver\Integration\Doctrine\Repository\UserRepository;
 use Talesweaver\Tests\_generated\FunctionalTesterActions;
 use function generate_user_token;

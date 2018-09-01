@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Application\Character\Edit;
 
 use Doctrine\Common\Collections\Collection;
-use FSi\DoctrineExtensions\Uploadable\File;
 use Ramsey\Uuid\UuidInterface;
-use SplFileInfo;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Scene;
 
@@ -72,12 +70,12 @@ class DTO
         $this->description = $description;
     }
 
-    public function getAvatar()
+    public function getAvatar(): object
     {
         return $this->avatar;
     }
 
-    public function setAvatar($avatar): void
+    public function setAvatar(object $avatar): void
     {
         $this->avatar = $avatar;
     }

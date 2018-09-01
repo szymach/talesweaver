@@ -10,7 +10,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\ValueObject\Email;
-use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Domain\User;
 use function generate_user_token;
 
 class LoadUserData implements ORMFixtureInterface, OrderedFixtureInterface

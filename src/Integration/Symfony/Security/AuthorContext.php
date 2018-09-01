@@ -8,7 +8,7 @@ use RuntimeException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Talesweaver\Application\Security\AuthorContext as ApplicationAuthorContext;
 use Talesweaver\Domain\Author;
-use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Domain\User;
 
 class AuthorContext implements ApplicationAuthorContext
 {

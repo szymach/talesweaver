@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Integration\Symfony\Bus\Command;
+namespace Talesweaver\Application\Security;
 
 use DomainException;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
-use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Domain\User;
 
 class ActivateUser implements MessageCommandInterface
 {

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Bus;
 
 use SimpleBus\Message\Bus\MessageBus;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Translation\TranslatorInterface;
 use Talesweaver\Application\Messages\MessageCommandInterface;
+use Talesweaver\Application\Session\Flash;
+use Talesweaver\Application\Session\FlashBag;
 
 class MessagesAwareBus implements MessageBus
 {
@@ -17,23 +17,14 @@ class MessagesAwareBus implements MessageBus
     private $messageBus;
 
     /**
-     * @var Session
+     * @var FlashBag
      */
-    private $session;
+    private $flashBag;
 
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    public function __construct(
-        MessageBus $messageBus,
-        Session $session,
-        TranslatorInterface $translator
-    ) {
+    public function __construct(MessageBus $messageBus, FlashBag $flashBag)
+    {
         $this->messageBus = $messageBus;
-        $this->session = $session;
-        $this->translator = $translator;
+        $this->flashBag = $flashBag;
     }
 
     public function handle($command): void
@@ -44,9 +35,10 @@ class MessagesAwareBus implements MessageBus
         }
 
         $message = $command->getMessage();
-        $this->session->getFlashBag()->set(
+        $this->flashBag->add(new Flash(
             $message->getType(),
-            $this->translator->trans($message->getTranslationKey(), $message->getTranslationParameters())
-        );
+            $message->getTranslationKey(),
+            $message->getTranslationParameters()
+        ));
     }
 }

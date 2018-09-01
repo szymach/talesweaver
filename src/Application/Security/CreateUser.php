@@ -1,6 +1,6 @@
 <?php
 
-namespace Talesweaver\Integration\Symfony\Bus\Command;
+namespace Talesweaver\Application\Security;
 
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;

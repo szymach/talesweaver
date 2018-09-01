@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Integration\Doctrine\Entity;
+namespace Talesweaver\Domain;
 
 use DateInterval;
 use DateTimeImmutable;

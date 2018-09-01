@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Security\AuthorAwareInterface;
-use Talesweaver\Integration\Doctrine\Entity\User;
+use Talesweaver\Domain\User;
 use Talesweaver\Integration\Symfony\Bus\AuthorAwareBus;
 
 class AuthorAwareBusTest extends TestCase
