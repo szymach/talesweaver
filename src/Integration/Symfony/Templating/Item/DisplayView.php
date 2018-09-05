@@ -12,7 +12,7 @@ use Talesweaver\Integration\Symfony\Timeline\ItemTimeline;
 class DisplayView
 {
     /**
-     * @var EngineInterface
+     * @var ResponseFactoryInterface
      */
     private $templating;
 
@@ -22,10 +22,10 @@ class DisplayView
     private $timeline;
 
     public function __construct(
-        EngineInterface $templating,
+        ResponseFactoryInterface $responseFactory,
         ItemTimeline $timeline
     ) {
-        $this->templating = $templating;
+        $this->responseFactory = $responseFactory;
         $this->timeline = $timeline;
     }
 

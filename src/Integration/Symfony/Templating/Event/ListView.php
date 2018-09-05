@@ -12,7 +12,7 @@ use Talesweaver\Integration\Symfony\Pagination\EventPaginator;
 class ListView
 {
     /**
-     * @var EngineInterface
+     * @var ResponseFactoryInterface
      */
     private $templating;
 
@@ -21,9 +21,9 @@ class ListView
      */
     private $pagination;
 
-    public function __construct(EngineInterface $templating, EventPaginator $pagination)
+    public function __construct(ResponseFactoryInterface $responseFactory, EventPaginator $pagination)
     {
-        $this->templating = $templating;
+        $this->responseFactory = $responseFactory;
         $this->pagination = $pagination;
     }
 

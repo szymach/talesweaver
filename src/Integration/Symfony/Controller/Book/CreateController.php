@@ -14,14 +14,13 @@ use Talesweaver\Application\Book\Create\DTO;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Book\CreateType;
-use Talesweaver\Integration\Symfony\Templating\SimpleFormView;
 
 class CreateController
 {
     /**
-     * @var SimpleFormView
+     * @var ResponseFactoryInterface
      */
-    private $templating;
+    private $responseFactory;
 
     /**
      * @var FormFactoryInterface
@@ -33,18 +32,11 @@ class CreateController
      */
     private $commandBus;
 
-    /**
-     * @var ResponseFactoryInterface
-     */
-    private $responseFactory;
-
     public function __construct(
-        SimpleFormView $templating,
         FormFactoryInterface $formFactory,
         MessageBus $commandBus,
         ResponseFactoryInterface $responseFactory
     ) {
-        $this->templating = $templating;
         $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
@@ -57,7 +49,10 @@ class CreateController
             return $this->processFormDataAndRedirect($form->getData());
         }
 
-        return $this->templating->createView($form, 'book/createForm.html.twig');
+        return $this->responseFactory->fromTemplate(
+            'book/createForm.html.twig',
+            ['form' => $form->createView()]
+        );
     }
 
     private function processFormDataAndRedirect(DTO $dto): ResponseInterface

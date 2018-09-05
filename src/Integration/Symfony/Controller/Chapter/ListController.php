@@ -5,22 +5,32 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Controller\Chapter;
 
 use Psr\Http\Message\ResponseInterface;
-use Talesweaver\Integration\Symfony\Templating\Chapter\ListView;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Integration\Symfony\Pagination\Chapter\ChapterPaginator;
 
 class ListController
 {
     /**
-     * @var ListView
+     * @var ResponseFactoryInterface
      */
-    private $templating;
+    private $responseFactory;
 
-    public function __construct(ListView $templating)
+    /**
+     * @var ChapterPaginator
+     */
+    private $pagination;
+
+    public function __construct(ResponseFactoryInterface $responseFactory, ChapterPaginator $pagination)
     {
-        $this->templating = $templating;
+        $this->responseFactory = $responseFactory;
+        $this->pagination = $pagination;
     }
 
     public function __invoke(int $page): ResponseInterface
     {
-        return $this->templating->createView($page);
+        return $this->responseFactory->fromTemplate(
+            'chapter/list.html.twig',
+            ['chapters' => $this->pagination->getResults($page), 'page' => $page]
+        );
     }
 }

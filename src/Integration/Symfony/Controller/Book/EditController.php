@@ -8,21 +8,26 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormView;
 use Talesweaver\Application\Book\Edit\Command;
 use Talesweaver\Application\Book\Edit\DTO;
+use Talesweaver\Application\Chapter\Create\DTO;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Book\EditType;
+use Talesweaver\Integration\Symfony\Form\Chapter\CreateType;
 use Talesweaver\Integration\Symfony\Routing\RedirectToEdit;
-use Talesweaver\Integration\Symfony\Templating\Book\EditView;
 
 class EditController
 {
     /**
-     * @var EditView
+     * @var ResponseFactoryInterface
      */
-    private $templating;
+    private $responseFactory;
 
     /**
      * @var FormFactoryInterface
@@ -34,18 +39,13 @@ class EditController
      */
     private $commandBus;
 
-    /**
-     * @var RedirectToEdit
-     */
-    private $redirector;
-
     public function __construct(
-        EditView $templating,
+        ResponseFactoryInterface $responseFactory,
         FormFactoryInterface $formFactory,
         MessageBus $commandBus,
         RedirectToEdit $redirector
     ) {
-        $this->templating = $templating;
+        $this->responseFactory = $responseFactory;
         $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
         $this->redirector = $redirector;
@@ -59,7 +59,15 @@ class EditController
             return $this->processFormDataAndRedirect($book, $dto);
         }
 
-        return $this->templating->createView($form, $book);
+        return $this->responseFactory->renderResponse(
+            'book/editForm.html.twig',
+            [
+                'form' => $form->createView(),
+                'chapterForm' => $this->createChapterForm($book),
+                'bookId' => $book->getId(),
+                'title' => $book->getTitle()
+            ]
+        );
     }
 
     private function processFormDataAndRedirect(Book $book, DTO $dto): ResponseInterface
@@ -71,6 +79,14 @@ class EditController
             null !== $description ? new LongText($description) : null
         ));
 
-        return $this->redirector->createResponse('book_edit', $book->getId());
+        return $this->responseFactory->redirectToRoute('book_edit', ['id' => $book->getId()]);
+    }
+
+    private function createChapterForm(Book $book): FormView
+    {
+        return $this->formFactory->create(CreateType::class, new DTO(), [
+            'action' => $this->router->generate('chapter_create', ['bookId' => $book->getId()]),
+            'title_placeholder' => 'chapter.placeholder.title.book'
+        ])->createView();
     }
 }

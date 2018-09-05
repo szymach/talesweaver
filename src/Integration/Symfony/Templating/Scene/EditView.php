@@ -25,7 +25,7 @@ use Talesweaver\Integration\Symfony\Pagination\Location\LocationPaginator;
 class EditView
 {
     /**
-     * @var EngineInterface
+     * @var ResponseFactoryInterface
      */
     private $templating;
 
@@ -60,7 +60,7 @@ class EditView
     private $formFactory;
 
     public function __construct(
-        EngineInterface $templating,
+        ResponseFactoryInterface $responseFactory,
         CharacterPaginator $characterPaginator,
         ItemPaginator $itemPaginator,
         LocationPaginator $locationPaginator,
@@ -68,7 +68,7 @@ class EditView
         EventPaginator $eventPaginator,
         FormFactoryInterface $formFactory
     ) {
-        $this->templating = $templating;
+        $this->responseFactory = $responseFactory;
         $this->characterPaginator = $characterPaginator;
         $this->itemPaginator = $itemPaginator;
         $this->locationPaginator = $locationPaginator;

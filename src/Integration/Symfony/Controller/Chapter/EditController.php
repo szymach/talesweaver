@@ -8,20 +8,21 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormView;
 use Talesweaver\Application\Chapter\Edit\Command;
 use Talesweaver\Application\Chapter\Edit\DTO;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Chapter\EditType;
-use Talesweaver\Integration\Symfony\Routing\RedirectToEdit;
-use Talesweaver\Integration\Symfony\Templating\Chapter\EditView;
+use Talesweaver\Integration\Symfony\Form\Scene\CreateType;
 
 class EditController
 {
     /**
-     * @var EditView
+     * @var ResponseFactoryInterface
      */
-    private $templating;
+    private $responseFactory;
 
     /**
      * @var FormFactoryInterface
@@ -33,21 +34,14 @@ class EditController
      */
     private $commandBus;
 
-    /**
-     * @var RedirectToEdit
-     */
-    private $redirector;
-
     public function __construct(
-        EditView $templating,
+        ResponseFactoryInterface $responseFactory,
         FormFactoryInterface $formFactory,
-        MessageBus $commandBus,
-        RedirectToEdit $redirector
+        MessageBus $commandBus
     ) {
-        $this->templating = $templating;
+        $this->responseFactory = $responseFactory;
         $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
-        $this->redirector = $redirector;
     }
 
     public function __invoke(ServerRequestInterface $request, Chapter $chapter): ResponseInterface
@@ -60,7 +54,16 @@ class EditController
             return $this->processFormDataAndRedirect($chapter, $form->getData());
         }
 
-        return $this->templating->createView($form, $chapter);
+        return $this->responseFactory->renderResponse(
+            'chapter/editForm.html.twig',
+            [
+                'form' => $form->createView(),
+                'chapterId' => $chapter->getId(),
+                'bookId' => $chapter->getBook() ? $chapter->getBook()->getId() : null,
+                'title' => $chapter->getTitle(),
+                'sceneForm' => $this->createSceneForm($chapter)->createView()
+            ]
+        );
     }
 
     private function processFormDataAndRedirect(Chapter $chapter, DTO $dto): ResponseInterface
@@ -71,6 +74,14 @@ class EditController
             $dto->getBook()
         ));
 
-        return $this->redirector->createResponse('chapter_edit', $chapter->getId());
+        return $this->responseFactory->redirectToRoute('chapter_edit', ['id' => $chapter->getId()]);
+    }
+
+    private function createSceneForm(Chapter $chapter): FormView
+    {
+        return $this->formFactory->create(CreateType::class, new DTO($chapter), [
+            'action' => $this->router->generate('scene_create'),
+            'title_placeholder' => 'scene.placeholder.title.chapter'
+        ])->createView();
     }
 }

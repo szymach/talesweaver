@@ -5,23 +5,48 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Controller\Character;
 
 use Psr\Http\Message\ResponseInterface;
+use Talesweaver\Application\Http\HtmlContent;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Character;
-use Talesweaver\Integration\Symfony\Templating\Character\DisplayView;
+use Talesweaver\Integration\Symfony\Timeline\CharacterTimeline;
 
 class DisplayController
 {
     /**
-     * @var DisplayView
+     * @var ResponseFactoryInterface
      */
-    private $templating;
+    private $responseFactory;
 
-    public function __construct(DisplayView $templating)
-    {
-        $this->templating = $templating;
+    /**
+     * @var HtmlContent
+     */
+    private $htmlContent;
+
+    /**
+     * @var CharacterTimeline
+     */
+    private $timeline;
+
+    public function __construct(
+        ResponseFactoryInterface $responseFactory,
+        HtmlContent $htmlContent,
+        CharacterTimeline $timeline
+    ) {
+        $this->responseFactory = $responseFactory;
+        $this->htmlContent = $htmlContent;
+        $this->timeline = $timeline;
     }
 
     public function __invoke(Character $character): ResponseInterface
     {
-        return $this->templating->createView($character);
+        return $this->responseFactory->toJson([
+            'display' => $this->htmlContent->fromTemplate(
+                'scene\characters\display.html.twig',
+                [
+                    'character' => $character,
+                    'timeline' => $this->timeline->getTimeline($character->getId(), Character::class)
+                ]
+            )
+        ]);
     }
 }

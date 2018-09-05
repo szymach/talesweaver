@@ -11,13 +11,13 @@ use Talesweaver\Domain\Scene;
 class DisplayView
 {
     /**
-     * @var EngineInterface
+     * @var ResponseFactoryInterface
      */
     private $templating;
 
-    public function __construct(EngineInterface $templating)
+    public function __construct(ResponseFactoryInterface $responseFactory)
     {
-        $this->templating = $templating;
+        $this->responseFactory = $responseFactory;
     }
 
     public function createView(Scene $scene): Response

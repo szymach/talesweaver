@@ -44,7 +44,7 @@ class ResponseFactory implements ResponseFactoryInterface
         return new RedirectResponse($this->urlGenerator->generate($route, $parameters));
     }
 
-    public function toJson($data, int $code)
+    public function toJson($data, int $code = 200): ResponseInterface
     {
         return new JsonResponse($data, $code);
     }

@@ -11,7 +11,7 @@ use Talesweaver\Integration\Symfony\Pagination\Scene\ScenePaginator;
 class ListView
 {
     /**
-     * @var EngineInterface
+     * @var ResponseFactoryInterface
      */
     private $templating;
 
@@ -20,9 +20,9 @@ class ListView
      */
     private $pagination;
 
-    public function __construct(EngineInterface $templating, ScenePaginator $pagination)
+    public function __construct(ResponseFactoryInterface $responseFactory, ScenePaginator $pagination)
     {
-        $this->templating = $templating;
+        $this->responseFactory = $responseFactory;
         $this->pagination = $pagination;
     }
 

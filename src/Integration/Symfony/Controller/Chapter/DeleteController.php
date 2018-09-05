@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Chapter;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use SimpleBus\Message\Bus\MessageBus;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Talesweaver\Application\Chapter\Delete\Command;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Chapter;
-use Talesweaver\Integration\Symfony\Routing\RedirectToEdit;
-use Talesweaver\Integration\Symfony\Routing\RedirectToList;
 
 class DeleteController
 {
@@ -20,23 +19,14 @@ class DeleteController
     private $commandBus;
 
     /**
-     * @var RedirectToEdit
+     * @var ResponseFactoryInterface
      */
-    private $editRedirector;
+    private $responseFactory;
 
-    /**
-     * @var RedirectToList
-     */
-    private $listRedirector;
-
-    public function __construct(
-        MessageBus $commandBus,
-        RedirectToEdit $editRedirector,
-        RedirectToList $listRedirector
-    ) {
+    public function __construct(MessageBus $commandBus, ResponseFactoryInterface $responseFactory)
+    {
         $this->commandBus = $commandBus;
-        $this->editRedirector = $editRedirector;
-        $this->listRedirector = $listRedirector;
+        $this->responseFactory = $responseFactory;
     }
 
     public function __invoke(
@@ -51,9 +41,9 @@ class DeleteController
             return $this->responseFactory->toJson(['success' => true]);
         }
 
-        return $bookId
-            ? $this->editRedirector->createResponse('book_edit', $bookId)
-            : $this->listRedirector->createResponse('chapter_list', $page)
+        return null !== $bookId
+            ? $this->responseFactory->redirectToRoute('book_edit', ['id' => $bookId])
+            : $this->responseFactory->redirectToRoute('chapter_list', ['page' => $page])
         ;
     }
 }

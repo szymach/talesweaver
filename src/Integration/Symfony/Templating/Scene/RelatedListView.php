@@ -12,7 +12,7 @@ use Talesweaver\Integration\Symfony\Pagination\Chapter\ScenePaginator;
 class RelatedListView
 {
     /**
-     * @var EngineInterface
+     * @var ResponseFactoryInterface
      */
     private $templating;
 
@@ -21,9 +21,9 @@ class RelatedListView
      */
     private $pagination;
 
-    public function __construct(EngineInterface $templating, ScenePaginator $pagination)
+    public function __construct(ResponseFactoryInterface $responseFactory, ScenePaginator $pagination)
     {
-        $this->templating = $templating;
+        $this->responseFactory = $responseFactory;
         $this->pagination = $pagination;
     }
 

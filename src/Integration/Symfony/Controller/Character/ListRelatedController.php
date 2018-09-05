@@ -5,23 +5,50 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Controller\Character;
 
 use Psr\Http\Message\ResponseInterface;
+use Talesweaver\Application\Http\HtmlContent;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Symfony\Templating\Character\RelatedListView;
+use Talesweaver\Integration\Symfony\Pagination\Character\RelatedPaginator;
 
 class ListRelatedController
 {
     /**
-     * @var RelatedListView
+     * @var ResponseFactoryInterface
      */
-    private $templating;
+    private $responseFactory;
 
-    public function __construct(RelatedListView $templating)
-    {
-        $this->templating = $templating;
+    /**
+     * @var HtmlContent
+     */
+    private $htmlContent;
+
+    /**
+     * @var RelatedPaginator
+     */
+    private $pagination;
+
+    public function __construct(
+        ResponseFactoryInterface $responseFactory,
+        HtmlContent $htmlContent,
+        RelatedPaginator $pagination
+    ) {
+        $this->responseFactory = $responseFactory;
+        $this->htmlContent = $htmlContent;
+        $this->pagination = $pagination;
     }
 
     public function __invoke(Scene $scene, int $page): ResponseInterface
     {
-        return $this->templating->createView($scene, $page);
+        return $this->responseFactory->toJson([
+            'list' => $this->htmlContent->fromTemplate(
+                'scene\characters\relatedList.html.twig',
+                [
+                    'characters' => $this->pagination->getResults($scene, $page),
+                    'sceneId' => $scene->getId(),
+                    'sceneTitle' => $scene->getTitle(),
+                    'chapterId' => $scene->getChapter() ? $scene->getChapter()->getId(): null
+                ]
+            )
+        ]);
     }
 }

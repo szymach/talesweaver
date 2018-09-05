@@ -5,23 +5,26 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Controller\Chapter;
 
 use Psr\Http\Message\ResponseInterface;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Chapter;
-use Talesweaver\Integration\Symfony\Templating\Chapter\DisplayView;
 
 class DisplayController
 {
     /**
-     * @var DisplayView
+     * @var ResponseFactoryInterface
      */
-    private $templating;
+    private $responseFactory;
 
-    public function __construct(DisplayView $templating)
+    public function __construct(ResponseFactoryInterface $responseFactory)
     {
-        $this->templating = $templating;
+        $this->responseFactory = $responseFactory;
     }
 
     public function __invoke(Chapter $chapter): ResponseInterface
     {
-        return $this->templating->createView($chapter);
+        return $this->responseFactory->fromTemplate(
+            'chapter/display.html.twig',
+            ['chapter' => $chapter]
+        );
     }
 }

@@ -11,20 +11,20 @@ use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Talesweaver\Application\Character\Create\Command;
 use Talesweaver\Application\Character\Create\DTO;
+use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\File;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Character\CreateType;
-use Talesweaver\Integration\Symfony\Templating\Character\FormView;
 
 class CreateController
 {
     /**
-     * @var FormView
+     * @var ResponseFactoryInterface
      */
-    private $templating;
+    private $responseFactory;
 
     /**
      * @var FormFactoryInterface
@@ -37,20 +37,20 @@ class CreateController
     private $commandBus;
 
     /**
-     * @var ResponseFactoryInterface
+     * @var HtmlContent
      */
-    private $responseFactory;
+    private $htmlContent;
 
     public function __construct(
-        FormView $templating,
+        ResponseFactoryInterface $responseFactory,
         FormFactoryInterface $formFactory,
-        MessageBus $commandBus,
-        ResponseFactoryInterface $responseFactory
+        HtmlContent $htmlContent,
+        MessageBus $commandBus
     ) {
-        $this->formFactory = $formFactory;
-        $this->templating = $templating;
-        $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
+        $this->formFactory = $formFactory;
+        $this->htmlContent = $htmlContent;
+        $this->commandBus = $commandBus;
     }
 
     public function __invoke(ServerRequestInterface $request, Scene $scene): ResponseInterface
@@ -64,7 +64,12 @@ class CreateController
             return $this->processFormDataAndRedirect($scene, $form->getData());
         }
 
-        return $this->templating->createView($form, 'character.header.new');
+        return $this->responseFactory->toJson([
+            'form' => $this->htmlContent->fromTemplate(
+                'partial\simpleForm.html.twig',
+                ['form' => $form->createView(), 'title' => 'character.header.new']
+            )
+        ], false === $form->isSubmitted() || true === $form->isValid() ? 200 : 400);
     }
 
     private function processFormDataAndRedirect(Scene $scene, DTO $dto): ResponseInterface
