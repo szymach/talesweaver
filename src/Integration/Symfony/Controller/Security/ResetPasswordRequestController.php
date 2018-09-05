@@ -4,22 +4,15 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Security;
 
+use Psr\Http\Message\ServerRequestInterface;
 use SimpleBus\Message\Bus\MessageBus;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\RouterInterface;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Security\GeneratePasswordResetToken;
 use Talesweaver\Integration\Symfony\Form\Security\ResetPasswordRequestType;
 
 class ResetPasswordRequestController
 {
-    /**
-     * @var EngineInterface
-     */
-    private $templating;
-
     /**
      * @var FormFactoryInterface
      */
@@ -31,34 +24,30 @@ class ResetPasswordRequestController
     private $commandBus;
 
     /**
-     * @var RouterInterface
+     * @var ResponseFactoryInterface
      */
-    private $router;
+    private $responseFactory;
 
     public function __construct(
-        EngineInterface $templating,
         FormFactoryInterface $formFactory,
         MessageBus $commandBus,
-        RouterInterface $router
+        ResponseFactoryInterface $responseFactory
     ) {
-        $this->templating = $templating;
         $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
-        $this->router = $router;
+        $this->responseFactory = $responseFactory;
     }
 
-    public function __invoke(Request $request)
+    public function __invoke(ServerRequestInterface $request)
     {
         $form = $this->formFactory->create(ResetPasswordRequestType::class);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->commandBus->handle(new GeneratePasswordResetToken(
-                $form->getData()['email']
-            ));
+            $this->commandBus->handle(new GeneratePasswordResetToken($form->getData()['email']));
 
-            return new RedirectResponse($this->router->generate('index'));
+            return $this->responseFactory->redirectToRoute('index');
         }
 
-        return $this->templating->renderResponse(
+        return $this->responseFactory->fromTemplate(
             'security/resetPasswordRequest.html.twig',
             ['form' => $form->createView()]
         );

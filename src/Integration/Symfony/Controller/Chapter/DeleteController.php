@@ -39,13 +39,16 @@ class DeleteController
         $this->listRedirector = $listRedirector;
     }
 
-    public function __invoke(Request $request, Chapter $chapter, $page)
-    {
+    public function __invoke(
+        ServerRequestInterface $request,
+        Chapter $chapter,
+        int $page
+    ): ResponseInterface {
         $bookId = $chapter->getBook() ? $chapter->getBook()->getId(): null;
         $this->commandBus->handle(new Command($chapter));
 
         if ($request->isXmlHttpRequest()) {
-            return new JsonResponse(['success' => true]);
+            return $this->responseFactory->toJson(['success' => true]);
         }
 
         return $bookId

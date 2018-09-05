@@ -4,24 +4,16 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Security;
 
+use Psr\Http\Message\ServerRequestInterface;
 use SimpleBus\Message\Bus\MessageBus;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\AuthorContextInterface;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Application\Security\ChangePassword;
 use Talesweaver\Integration\Symfony\Form\Security\ChangePasswordType;
 
 class ChangePasswordController
 {
-    /**
-     * @var EngineInterface
-     */
-    private $templating;
-
     /**
      * @var FormFactoryInterface
      */
@@ -38,25 +30,23 @@ class ChangePasswordController
     private $authorContext;
 
     /**
-     * @var RouterInterface
+     * @var ResponseFactoryInterface
      */
-    private $router;
+    private $responseFactory;
 
     public function __construct(
-        EngineInterface $templating,
         FormFactoryInterface $formFactory,
         AuthorContext $authorContext,
         MessageBus $commandBus,
-        RouterInterface $router
+        ResponseFactoryInterface $responseFactory
     ) {
-        $this->templating = $templating;
         $this->formFactory = $formFactory;
         $this->authorContext = $authorContext;
         $this->commandBus = $commandBus;
-        $this->router = $router;
+        $this->responseFactory = $responseFactory;
     }
 
-    public function __invoke(Request $request)
+    public function __invoke(ServerRequestInterface $request)
     {
         $form = $this->formFactory->create(ChangePasswordType::class);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
@@ -66,10 +56,10 @@ class ChangePasswordController
             ));
 
             $this->authorContext->logout();
-            return new RedirectResponse($this->router->generate('login'));
+            return $this->responseFactory->redirectToRoute('login');
         }
 
-        return $this->templating->renderResponse(
+        return $this->responseFactory->fromTemplate(
             'security/changePassword.html.twig',
             ['form' => $form->createView()]
         );

@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Item;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\RouterInterface;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Item\Edit\Command;
 use Talesweaver\Application\Item\Edit\DTO;
 use Talesweaver\Domain\Item;
@@ -37,29 +36,29 @@ class EditController
     private $commmandBus;
 
     /**
-     * @var RouterInterface
+     * @var ResponseFactoryInterface
      */
-    private $router;
+    private $responseFactory;
 
     public function __construct(
         FormView $templating,
         FormFactoryInterface $formFactory,
         MessageBus $commmandBus,
-        RouterInterface $router
+        ResponseFactoryInterface $responseFactory
     ) {
         $this->formFactory = $formFactory;
         $this->templating = $templating;
         $this->commmandBus = $commmandBus;
-        $this->router = $router;
+        $this->responseFactory = $responseFactory;
     }
 
-    public function __invoke(Request $request, Item $item)
+    public function __invoke(ServerRequestInterface $request, Item $item): ResponseInterface
     {
         $form = $this->formFactory->create(
             EditType::class,
             new DTO($item),
             [
-                'action' => $this->router->generate('item_edit', ['id' => $item->getId()]),
+                'action' => $this->responseFactory->generate('item_edit', ['id' => $item->getId()]),
                 'itemId' => $item->getId()
             ]
         );
@@ -71,7 +70,7 @@ class EditController
         return $this->templating->createView($form, 'item.header.edit');
     }
 
-    private function processForDataAndCreateResponse(Item $item, DTO $dto): Response
+    private function processForDataAndCreateResponse(Item $item, DTO $dto): ResponseInterface
     {
         $this->commmandBus->handle(new Command(
             $item,
@@ -80,6 +79,6 @@ class EditController
             null !== $dto->getAvatar() ? new File($dto->getAvatar()) : null
         ));
 
-        return new JsonResponse(['success' => true]);
+        return $this->responseFactory->toJson(['success' => true]);
     }
 }

@@ -4,36 +4,36 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Security;
 
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Application\Security\AuthenticationContext;
 
 class LoginController
 {
     /**
-     * @var EngineInterface
+     * @var ResponseFactoryInterface
      */
-    private $templating;
+    private $responseFactory;
 
     /**
-     * @var AuthenticationUtils
+     * @var AuthenticationContext
      */
-    private $authenticationUtilities;
+    private $authenticationContext;
 
     public function __construct(
-        EngineInterface $templating,
-        AuthenticationUtils $authenticationUtilities
+        ResponseFactoryInterface $responseFactory,
+        AuthenticationContext $authenticationContext
     ) {
-        $this->templating = $templating;
-        $this->authenticationUtilities = $authenticationUtilities;
+        $this->responseFactory = $responseFactory;
+        $this->authenticationContext = $authenticationContext;
     }
 
     public function __invoke()
     {
-        return $this->templating->renderResponse(
+        return $this->responseFactory->fromTemplate(
             'security/login.html.twig',
             [
-                'error' => $this->authenticationUtilities->getLastAuthenticationError(),
-                'lastUsername' => $this->authenticationUtilities->getLastUsername()
+                'error' => $this->authenticationContext->lastError(),
+                'lastUsername' => $this->authenticationContext->lastProvidedUsername()
             ]
         );
     }

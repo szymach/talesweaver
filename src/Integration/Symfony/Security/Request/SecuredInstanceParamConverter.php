@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Talesweaver\Integration\Symfony\Repository\Interfaces\RequestSecuredRepository;
+use Talesweaver\Domain\Repository\RequestSecuredRepository;
 
 class SecuredInstanceParamConverter implements ParamConverterInterface
 {

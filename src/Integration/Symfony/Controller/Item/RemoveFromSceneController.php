@@ -31,6 +31,6 @@ class RemoveFromSceneController
     {
         $this->commandBus->handle(new Command($scene, $item));
 
-        return new JsonResponse(['success' => true]);
+        return $this->responseFactory->toJson(['success' => true]);
     }
 }

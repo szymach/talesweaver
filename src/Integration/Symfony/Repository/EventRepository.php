@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Repository;
 
 use Ramsey\Uuid\UuidInterface;
-use Talesweaver\Integration\Doctrine\Repository\EventRepository as DoctrineRepository;
+use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Events;
+use Talesweaver\Domain\Repository\RequestSecuredRepository;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Symfony\Repository\Interfaces\RequestSecuredRepository;
-use Talesweaver\Application\Security\AuthorContext;
+use Talesweaver\Integration\Doctrine\Repository\EventRepository as DoctrineRepository;
 
 class EventRepository implements Events, RequestSecuredRepository
 {

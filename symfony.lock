@@ -446,6 +446,9 @@
     "symfony/proxy-manager-bridge": {
         "version": "v4.0.2"
     },
+    "symfony/psr-http-message-bridge": {
+        "version": "v1.1.0"
+    },
     "symfony/routing": {
         "version": "4.0",
         "recipe": {
@@ -553,6 +556,9 @@
     },
     "zendframework/zend-code": {
         "version": "3.3.0"
+    },
+    "zendframework/zend-diactoros": {
+        "version": "1.8.5"
     },
     "zendframework/zend-eventmanager": {
         "version": "3.2.0"

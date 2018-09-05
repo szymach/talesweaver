@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Book;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Talesweaver\Application\Book\Create\Command;
 use Talesweaver\Application\Book\Create\DTO;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Book\CreateType;
-use Talesweaver\Integration\Symfony\Routing\RedirectToEdit;
 use Talesweaver\Integration\Symfony\Templating\SimpleFormView;
 
 class CreateController
@@ -34,23 +34,23 @@ class CreateController
     private $commandBus;
 
     /**
-     * @var RedirectToEdit
+     * @var ResponseFactoryInterface
      */
-    private $redirector;
+    private $responseFactory;
 
     public function __construct(
         SimpleFormView $templating,
         FormFactoryInterface $formFactory,
         MessageBus $commandBus,
-        RedirectToEdit $redirector
+        ResponseFactoryInterface $responseFactory
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
-        $this->redirector = $redirector;
+        $this->responseFactory = $responseFactory;
     }
 
-    public function __invoke(Request $request)
+    public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
         $form = $this->formFactory->create(CreateType::class, new DTO());
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
@@ -60,11 +60,11 @@ class CreateController
         return $this->templating->createView($form, 'book/createForm.html.twig');
     }
 
-    private function processFormDataAndRedirect(DTO $dto): Response
+    private function processFormDataAndRedirect(DTO $dto): ResponseInterface
     {
         $bookId = Uuid::uuid4();
         $this->commandBus->handle(new Command($bookId, new ShortText($dto->getTitle())));
 
-        return $this->redirector->createResponse('book_edit', $bookId);
+        return $this->responseFactory->redirectToRoute('book_edit', $bookId);
     }
 }

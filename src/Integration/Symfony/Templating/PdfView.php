@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Templating;
 
 use Knp\Snappy\GeneratorInterface;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Component\HttpFoundation\Response;
+use Psr\Http\Message\ResponseInterface;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Zend\Diactoros\Response;
 
 class PdfView
 {
@@ -18,26 +19,30 @@ class PdfView
     ];
 
     /**
+     * @var ResponseFactoryInterface
+     */
+    private $responseFactory;
+
+    /**
      * @var GeneratorInterface
      */
     private $pdfGenerator;
 
-    /**
-     * @var EngineInterface
-     */
-    private $templating;
-
-    public function __construct(EngineInterface $templating, GeneratorInterface $pdfGenerator)
+    public function __construct(ResponseFactoryInterface $responseFactory, GeneratorInterface $pdfGenerator)
     {
-        $this->templating = $templating;
+        $this->responseFactory = $responseFactory;
         $this->pdfGenerator = $pdfGenerator;
     }
 
-    public function createView(string $template, array $parameters, string $filename, ?array $options): Response
-    {
+    public function createView(
+        string $template,
+        array $parameters,
+        string $filename,
+        ?array $options
+    ): ResponseInterface {
         return new Response(
             $this->pdfGenerator->getOutputFromHtml(
-                $this->templating->render($template, $parameters),
+                $this->responseFactory->fromTemplate($template, $parameters),
                 $options ?? self::DEFAULT_OPTIONS
             ),
             200,

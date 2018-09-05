@@ -16,6 +16,7 @@ services:
 
     Knp\Menu\FactoryInterface: "@knp_menu.factory"
     Knp\Snappy\GeneratorInterface: "@knp_snappy.pdf"
+    Talesweaver\Application\Http\ResponseFactoryInterface: '@Talesweaver\Integration\Symfony\Http\ResponseFactory'
     Talesweaver\Application\Security\AuthorContext: '@Talesweaver\Integration\Symfony\Security\AuthorContext'
     Talesweaver\Domain\Authors: '@Talesweaver\Integration\Doctrine\Repository\AuthorRepository'
     Talesweaver\Domain\Books: '@Talesweaver\Integration\Symfony\Repository\BookRepository'
@@ -27,7 +28,6 @@ services:
     Talesweaver\Domain\Scenes: '@Talesweaver\Integration\Symfony\Repository\SceneRepository'
     Talesweaver\Domain\PasswordResetTokens: '@Talesweaver\Integration\Doctrine\Repository\PasswordResetTokenRepository'
     SimpleBus\Message\Bus\MessageBus: "@transaction_wrapped_command_bus"
-    Symfony\Component\HttpFoundation\Session\Session: "@session"
     Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface: '@security.user_password_encoder.generic'
 
     Talesweaver\Integration\Symfony\Controller\:
@@ -39,7 +39,7 @@ services:
         tags: ['doctrine.fixture.orm']
 
     Talesweaver\Integration\Symfony\:
-        resource: "../src/Integration/Symfony/{Form,JSON,Mail,Menu,Pagination,Routing,Templating,Timeline,Security,Session,Validation}/*"
+        resource: "../src/Integration/Symfony/{Form,Http,JSON,Mail,Menu,Pagination,Routing,Templating,Timeline,Security,Session,Validation}/*"
         exclude: "../src/Integration/Symfony/Security/function/*"
 
     # Do not remove, because it is not explicitly used and is removed from the container

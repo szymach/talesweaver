@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Book;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Talesweaver\Application\Book\Edit\Command;
 use Talesweaver\Application\Book\Edit\DTO;
 use Talesweaver\Domain\Book;
@@ -51,7 +51,7 @@ class EditController
         $this->redirector = $redirector;
     }
 
-    public function __invoke(Request $request, Book $book)
+    public function __invoke(ServerRequestInterface $request, Book $book): ResponseInterface
     {
         $dto = new DTO($book);
         $form = $this->formFactory->create(EditType::class, $dto, ['bookId' => $book->getId()]);
@@ -62,7 +62,7 @@ class EditController
         return $this->templating->createView($form, $book);
     }
 
-    private function processFormDataAndRedirect(Book $book, DTO $dto): Response
+    private function processFormDataAndRedirect(Book $book, DTO $dto): ResponseInterface
     {
         $description = $dto->getDescription();
         $this->commandBus->handle(new Command(

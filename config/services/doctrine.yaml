@@ -49,7 +49,7 @@ services:
 
     # Repository
     _instanceof:
-        Talesweaver\Integration\Symfony\Repository\Interfaces\RequestSecuredRepository:
+        Talesweaver\Domain\Repository\RequestSecuredRepository:
             tags: ['app.param_converter.repository']
 
     Talesweaver\Integration\Symfony\Repository\:

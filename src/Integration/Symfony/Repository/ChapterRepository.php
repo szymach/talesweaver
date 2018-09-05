@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Repository;
 
 use Ramsey\Uuid\UuidInterface;
-use Talesweaver\Integration\Doctrine\Repository\ChapterRepository as DoctrineRepository;
+use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Chapters;
-use Talesweaver\Integration\Symfony\Repository\Interfaces\LatestChangesAwareRepository;
-use Talesweaver\Integration\Symfony\Repository\Interfaces\RequestSecuredRepository;
-use Talesweaver\Application\Security\AuthorContext;
+use Talesweaver\Domain\Repository\LatestChangesAwareRepository;
+use Talesweaver\Domain\Repository\RequestSecuredRepository;
+use Talesweaver\Integration\Doctrine\Repository\ChapterRepository as DoctrineRepository;
 
 class ChapterRepository implements Chapters, LatestChangesAwareRepository, RequestSecuredRepository
 {

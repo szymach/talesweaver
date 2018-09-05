@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Event;
 
+use Psr\Http\Message\ResponseInterface;
 use SimpleBus\Message\Bus\MessageBus;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Talesweaver\Application\Event\Delete\Command;
 use Talesweaver\Domain\Event;
 
@@ -21,10 +21,10 @@ class DeleteController
         $this->commandBus = $commandBus;
     }
 
-    public function __invoke(Event $event)
+    public function __invoke(Event $event): ResponseInterface
     {
         $this->commandBus->handle(new Command($event));
 
-        return new JsonResponse(['success' => true]);
+        return $this->responseFactory->toJson(['success' => true]);
     }
 }

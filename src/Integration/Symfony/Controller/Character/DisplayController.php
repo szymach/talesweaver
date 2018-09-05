@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Character;
 
+use Psr\Http\Message\ResponseInterface;
 use Talesweaver\Domain\Character;
 use Talesweaver\Integration\Symfony\Templating\Character\DisplayView;
 
@@ -19,7 +20,7 @@ class DisplayController
         $this->templating = $templating;
     }
 
-    public function __invoke(Character $character)
+    public function __invoke(Character $character): ResponseInterface
     {
         return $this->templating->createView($character);
     }

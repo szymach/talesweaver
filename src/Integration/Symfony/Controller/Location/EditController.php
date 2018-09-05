@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Location;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\RouterInterface;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Location\Edit\Command;
 use Talesweaver\Application\Location\Edit\DTO;
 use Talesweaver\Domain\Location;
@@ -37,29 +36,29 @@ class EditController
     private $commmandBus;
 
     /**
-     * @var RouterInterface
+     * @var ResponseFactoryInterface
      */
-    private $router;
+    private $responseFactory;
 
     public function __construct(
         FormView $templating,
         FormFactoryInterface $formFactory,
         MessageBus $commmandBus,
-        RouterInterface $router
+        ResponseFactoryInterface $responseFactory
     ) {
         $this->formFactory = $formFactory;
         $this->templating = $templating;
         $this->commmandBus = $commmandBus;
-        $this->router = $router;
+        $this->responseFactory = $responseFactory;
     }
 
-    public function __invoke(Request $request, Location $location)
+    public function __invoke(ServerRequestInterface $request, Location $location): ResponseInterface
     {
         $form = $this->formFactory->create(
             EditType::class,
             new DTO($location),
             [
-                'action' => $this->router->generate('location_edit', ['id' => $location->getId()]),
+                'action' => $this->responseFactory->generate('location_edit', ['id' => $location->getId()]),
                 'locationId' => $location->getId()
             ]
         );
@@ -71,7 +70,7 @@ class EditController
         return $this->templating->createView($form, 'location.header.edit');
     }
 
-    private function processForDataAndCreateResponse(Location $location, DTO $dto): Response
+    private function processForDataAndCreateResponse(Location $location, DTO $dto): ResponseInterface
     {
         $this->commmandBus->handle(new Command(
             $location,
@@ -80,6 +79,6 @@ class EditController
             null !== $dto->getAvatar() ? new File($dto->getAvatar()) : null
         ));
 
-        return new JsonResponse(['success' => true]);
+        return $this->responseFactory->toJson(['success' => true]);
     }
 }

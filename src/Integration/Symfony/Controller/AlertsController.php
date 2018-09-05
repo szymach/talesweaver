@@ -4,25 +4,24 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 
 class AlertsController
 {
     /**
-     * @var EngineInterface
+     * @var ResponseFactoryInterface
      */
-    private $templating;
+    private $responseFactory;
 
-    public function __construct(EngineInterface $templating)
+    public function __construct(ResponseFactoryInterface $responseFactory)
     {
-        $this->templating = $templating;
+        $this->responseFactory = $responseFactory;
     }
 
     public function __invoke()
     {
-        return new JsonResponse([
-            'alerts' => $this->templating->render('partial/alerts.html.twig')
+        return $this->responseFactory->toJson([
+            'alerts' => $this->responseFactory->fr('partial/alerts.html.twig')
         ]);
     }
 }

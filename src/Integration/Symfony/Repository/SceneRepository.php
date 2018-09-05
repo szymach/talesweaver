@@ -6,13 +6,13 @@ namespace Talesweaver\Integration\Symfony\Repository;
 
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Talesweaver\Integration\Doctrine\Repository\SceneRepository as DoctrineRepository;
+use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\Repository\LatestChangesAwareRepository;
+use Talesweaver\Domain\Repository\RequestSecuredRepository;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\Scenes;
-use Talesweaver\Integration\Symfony\Repository\Interfaces\LatestChangesAwareRepository;
-use Talesweaver\Integration\Symfony\Repository\Interfaces\RequestSecuredRepository;
-use Talesweaver\Application\Security\AuthorContext;
+use Talesweaver\Integration\Doctrine\Repository\SceneRepository as DoctrineRepository;
 
 class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSecuredRepository
 {

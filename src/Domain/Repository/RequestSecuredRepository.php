@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Integration\Symfony\Repository\Interfaces;
+namespace Talesweaver\Domain\Repository;
 
 use Ramsey\Uuid\UuidInterface;
 

@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Scene;
 
+use Psr\Http\Message\ServerRequestInterface;
 use SimpleBus\Message\Bus\MessageBus;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Scene\Delete\Command;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Symfony\Routing\RedirectToEdit;
-use Talesweaver\Integration\Symfony\Routing\RedirectToList;
 
 class DeleteController
 {
@@ -20,37 +18,28 @@ class DeleteController
     private $commandBus;
 
     /**
-     * @var RedirectToEdit
+     * @var ResponseFactoryInterface
      */
-    private $editRedirector;
+    private $responseFactory;
 
-    /**
-     * @var RedirectToList
-     */
-    private $listRedirector;
-
-    public function __construct(
-        MessageBus $commandBus,
-        RedirectToEdit $editRedirector,
-        RedirectToList $listRedirector
-    ) {
+    public function __construct(MessageBus $commandBus, ResponseFactoryInterface $responseFactory)
+    {
         $this->commandBus = $commandBus;
-        $this->editRedirector = $editRedirector;
-        $this->listRedirector = $listRedirector;
+        $this->responseFactory = $responseFactory;
     }
 
-    public function __invoke(Request $request, Scene $scene, $page)
+    public function __invoke(ServerRequestInterface $request, Scene $scene, int $page)
     {
         $chapterId = $scene->getChapter() ? $scene->getChapter()->getId(): null;
         $this->commandBus->handle(new Command($scene));
 
-        if ($request->isXmlHttpRequest()) {
-            return new JsonResponse(['success' => true]);
+        if (true === $request->isXmlHttpRequest()) {
+            return $this->responseFactory->toJson(['success' => true]);
         }
 
-        return $chapterId
-            ? $this->editRedirector->createResponse('chapter_edit', $chapterId)
-            : $this->listRedirector->createResponse('scene_list', $page)
+        return null !== $chapterId
+            ? $this->responseFactory->createResponse('chapter_edit', ['id' => $chapterId])
+            : $this->responseFactory->createResponse('scene_list', ['page' => $page])
         ;
     }
 }

@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Templating;
 
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Response;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 
 class SimpleFormView
 {
     /**
-     * @var EngineInterface
+     * @var ResponseFactoryInterface
      */
-    private $templating;
+    private $responseFactory;
 
-    public function __construct(EngineInterface $templating)
+    public function __construct(ResponseFactoryInterface $responseFactory)
     {
-        $this->templating = $templating;
+        $this->responseFactory = $responseFactory;
     }
 
-    public function createView(FormInterface $form, $template, array $fields = []): Response
+    public function createView(FormInterface $form, $template, array $fields = []): ResponseInterface
     {
         $fields['form'] = $form->createView();
-        return $this->templating->renderResponse($template, $fields);
+        return $this->responseFactory->fromTemplate($template, $fields);
     }
 }

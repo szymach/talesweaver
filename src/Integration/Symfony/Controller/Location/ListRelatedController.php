@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Location;
 
+use Psr\Http\Message\ResponseInterface;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Symfony\Templating\Location\RelatedListView;
 
@@ -19,7 +20,7 @@ class ListRelatedController
         $this->templating = $templating;
     }
 
-    public function __invoke(Scene $scene, $page)
+    public function __invoke(Scene $scene, $page): ResponseInterface
     {
         return $this->templating->createView($scene, $page);
     }

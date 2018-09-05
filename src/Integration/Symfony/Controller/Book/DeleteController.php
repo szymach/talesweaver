@@ -6,8 +6,8 @@ namespace Talesweaver\Integration\Symfony\Controller\Book;
 
 use SimpleBus\Message\Bus\MessageBus;
 use Talesweaver\Application\Book\Delete\Command;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Book;
-use Talesweaver\Integration\Symfony\Routing\RedirectToList;
 
 class DeleteController
 {
@@ -17,20 +17,20 @@ class DeleteController
     private $commandBus;
 
     /**
-     * @var RedirectToList
+     * @var ResponseFactoryInterface
      */
-    private $redirector;
+    private $responseFactory;
 
-    public function __construct(MessageBus $commandBus, RedirectToList $redirector)
+    public function __construct(MessageBus $commandBus, ResponseFactoryInterface $responseFactory)
     {
         $this->commandBus = $commandBus;
-        $this->redirector = $redirector;
+        $this->responseFactory = $responseFactory;
     }
 
-    public function __invoke(Book $book, $page)
+    public function __invoke(Book $book, int $page): ResponseInterface
     {
         $this->commandBus->handle(new Command($book));
 
-        return $this->redirector->createResponse('book_list', $page);
+        return $this->responseFactory->redirectToRoute('book_list', ['page' => $page]);
     }
 }

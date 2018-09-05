@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Controller\Security;
 
 use SimpleBus\Message\Bus\MessageBus;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\RouterInterface;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Security\ActivateAuthor;
 use Talesweaver\Integration\Doctrine\Repository\AuthorRepository;
 
@@ -24,29 +22,29 @@ class ActivationController
     private $commandBus;
 
     /**
-     * @var RouterInterface
+     * @var ResponseFactoryInterface
      */
-    private $router;
+    private $responseFactory;
 
     public function __construct(
         AuthorRepository $repository,
         MessageBus $commandBus,
-        RouterInterface $router
+        ResponseFactoryInterface $responseFactory
     ) {
         $this->repository = $repository;
         $this->commandBus = $commandBus;
-        $this->router = $router;
+        $this->responseFactory = $responseFactory;
     }
 
     public function __invoke(string $code)
     {
         $author = $this->repository->findOneByActivationToken($code);
         if (null === $author) {
-            throw new NotFoundHttpException('No author for code "%s"');
+            throw $this->responseFactory->notFound(sprintf('No author for code "%s"', $code));
         }
 
         $this->commandBus->handle(new ActivateAuthor($author));
 
-        return new RedirectResponse($this->router->generate('login'));
+        return $this->responseFactory->redirectToRoute('login');
     }
 }

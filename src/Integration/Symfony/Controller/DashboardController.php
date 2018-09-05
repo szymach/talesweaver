@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller;
 
+use Psr\Http\Message\ResponseInterface;
 use Talesweaver\Integration\Symfony\Templating\DashboardView;
 
 class DashboardController
@@ -18,7 +19,7 @@ class DashboardController
         $this->view = $view;
     }
 
-    public function __invoke()
+    public function __invoke(): ResponseInterface
     {
         return $this->view->createView();
     }

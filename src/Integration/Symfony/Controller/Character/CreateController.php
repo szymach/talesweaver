@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Character;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\RouterInterface;
 use Talesweaver\Application\Character\Create\Command;
 use Talesweaver\Application\Character\Create\DTO;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\File;
 use Talesweaver\Domain\ValueObject\LongText;
@@ -38,26 +37,26 @@ class CreateController
     private $commandBus;
 
     /**
-     * @var RouterInterface
+     * @var ResponseFactoryInterface
      */
-    private $router;
+    private $responseFactory;
 
     public function __construct(
         FormView $templating,
         FormFactoryInterface $formFactory,
         MessageBus $commandBus,
-        RouterInterface $router
+        ResponseFactoryInterface $responseFactory
     ) {
         $this->formFactory = $formFactory;
         $this->templating = $templating;
         $this->commandBus = $commandBus;
-        $this->router = $router;
+        $this->responseFactory = $responseFactory;
     }
 
-    public function __invoke(Request $request, Scene $scene)
+    public function __invoke(ServerRequestInterface $request, Scene $scene): ResponseInterface
     {
         $form = $this->formFactory->create(CreateType::class, new DTO($scene), [
-            'action' => $this->router->generate('character_new', ['id' => $scene->getId()]),
+            'action' => $this->responseFactory->generate('character_new', ['id' => $scene->getId()]),
             'sceneId' => $scene->getId()
         ]);
 
@@ -68,7 +67,7 @@ class CreateController
         return $this->templating->createView($form, 'character.header.new');
     }
 
-    private function processFormDataAndRedirect(Scene $scene, DTO $dto): Response
+    private function processFormDataAndRedirect(Scene $scene, DTO $dto): ResponseInterface
     {
         $description = $dto->getName();
         $avatar = $dto->getAvatar();
@@ -80,6 +79,6 @@ class CreateController
             null !== $avatar ? new File($avatar) : null
         ));
 
-        return new JsonResponse(['success' => true]);
+        return $this->responseFactory->toJson(['success' => true]);
     }
 }

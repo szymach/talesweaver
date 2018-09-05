@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Security;
 
+use Psr\Http\Message\ServerRequestInterface;
 use SimpleBus\Message\Bus\MessageBus;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\RouterInterface;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Security\ResetPassword;
 use Talesweaver\Domain\PasswordResetToken;
 use Talesweaver\Domain\PasswordResetTokens;
@@ -18,11 +15,6 @@ use Talesweaver\Integration\Symfony\Form\Security\ResetPasswordChangeType;
 
 class ResetPasswordChangeController
 {
-    /**
-     * @var EngineInterface
-     */
-    private $templating;
-
     /**
      * @var PasswordResetTokens
      */
@@ -39,35 +31,33 @@ class ResetPasswordChangeController
     private $commandBus;
 
     /**
-     * @var RouterInterface
+     * @var ResponseFactoryInterface
      */
-    private $router;
+    private $responseFactory;
 
     public function __construct(
-        EngineInterface $templating,
         PasswordResetTokens $resetPasswordTokens,
         FormFactoryInterface $formFactory,
         MessageBus $commandBus,
-        RouterInterface $router
+        ResponseFactoryInterface $responseFactory
     ) {
-        $this->templating = $templating;
         $this->resetPasswordTokens = $resetPasswordTokens;
         $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
-        $this->router = $router;
+        $this->responseFactory = $responseFactory;
     }
 
-    public function __invoke(Request $request, string $code)
+    public function __invoke(ServerRequestInterface $request, string $code)
     {
         $token = $this->getToken($code);
         $form = $this->formFactory->create(ResetPasswordChangeType::class);
         if (true === $form->handleRequest($request)->isSubmitted() && true === $form->isValid()) {
             $this->commandBus->handle(new ResetPassword($token, $form->getData()['password']));
 
-            return new RedirectResponse($this->router->generate('index'));
+            return $this->responseFactory->redirectToRoute('index');
         }
 
-        return $this->templating->renderResponse(
+        return $this->responseFactory->fromTemplate(
             'security/resetPasswordChange.html.twig',
             ['form' => $form->createView()]
         );
@@ -77,28 +67,25 @@ class ResetPasswordChangeController
     {
         $token = $this->resetPasswordTokens->findOneByCode($code);
         if (null === $token) {
-            $this->throwNotFoundException(
+            throw $this->responseFactory->notFound(sprintf(
                 'No password reset token found for code "%s".',
                 $code
-            );
+            ));
         }
 
         if (false === $token->isValid()) {
-            $this->throwNotFoundException('Token for code "%s" has expired.', $code);
-        }
-
-        if (false === $token->isActive()) {
-            $this->throwNotFoundException(
-                'Token for code "%s" has already been used or made obsolete.',
-                $code
+            throw $this->responseFactory->notFound(
+                sprintf('Token for code "%s" has expired.', $code)
             );
         }
 
-        return $token;
-    }
+        if (false === $token->isActive()) {
+            throw $this->responseFactory->notFound(sprintf(
+                'Token for code "%s" has already been used or made obsolete.',
+                $code
+            ));
+        }
 
-    private function throwNotFoundException(string $message, string $code): void
-    {
-        throw new NotFoundHttpException(sprintf($message, $code));
+        return $token;
     }
 }

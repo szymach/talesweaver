@@ -5,22 +5,34 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Templating;
 
 use DateTimeImmutable;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Component\HttpFoundation\Response;
+use Psr\Http\Message\ResponseInterface;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\Repository\LatestChangesAwareRepository;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Symfony\Repository\BookRepository;
 use Talesweaver\Integration\Symfony\Repository\ChapterRepository;
-use Talesweaver\Integration\Symfony\Repository\Interfaces\LatestChangesAwareRepository;
 use Talesweaver\Integration\Symfony\Repository\SceneRepository;
 
 class DashboardView
 {
+    private const ICONS = [
+        Book::class => 'fa-book',
+        Chapter::class => 'fa-clipboard',
+        Scene::class => 'fa-sticky-note'
+    ];
+
+    private const ROUTES = [
+        Book::class => 'book_edit',
+        Chapter::class => 'chapter_edit',
+        Scene::class => 'scene_edit'
+    ];
+
     /**
-     * @var EngineInterface
+     * @var ResponseFactoryInterface
      */
-    private $templating;
+    private $responseFactory;
 
     /**
      * @var BookRepository
@@ -37,31 +49,19 @@ class DashboardView
      */
     private $sceneRepository;
 
-    private $icons = [
-        Book::class => 'fa-book',
-        Chapter::class => 'fa-clipboard',
-        Scene::class => 'fa-sticky-note'
-    ];
-
-    private $routes = [
-        Book::class => 'book_edit',
-        Chapter::class => 'chapter_edit',
-        Scene::class => 'scene_edit'
-    ];
-
     public function __construct(
-        EngineInterface $templating,
+        ResponseFactoryInterface $responseFactory,
         BookRepository $bookRepository,
         ChapterRepository $chapterRepository,
         SceneRepository $sceneRepository
     ) {
-        $this->templating = $templating;
+        $this->responseFactory = $responseFactory;
         $this->bookRepository = $bookRepository;
         $this->chapterRepository = $chapterRepository;
         $this->sceneRepository = $sceneRepository;
     }
 
-    public function createView(): Response
+    public function createView(): ResponseInterface
     {
         $timeline = [];
         $this->addItems($timeline, $this->bookRepository, Book::class);
@@ -72,7 +72,7 @@ class DashboardView
             return new DateTimeImmutable($b['date']) <=> new DateTimeImmutable($a['date']);
         });
 
-        return $this->templating->renderResponse('dashboard.html.twig', ['timeline' => $timeline]);
+        return $this->responseFactory->fromTemplate('dashboard.html.twig', ['timeline' => $timeline]);
     }
 
     private function addItems(
@@ -83,7 +83,7 @@ class DashboardView
         $callback = function (array $timeline, array $item) use ($class): array {
             $timeline[] = array_merge(
                 $item,
-                ['icon' => $this->icons[$class], 'route' => $this->routes[$class], 'class' => $class]
+                ['icon' => self::ICONS[$class], 'route' => self::ROUTES[$class], 'class' => $class]
             );
 
             return $timeline;

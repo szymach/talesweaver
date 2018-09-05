@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Scene;
 
+use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Scene\Create\Command;
 use Talesweaver\Application\Scene\Create\DTO;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Scene\CreateType;
-use Talesweaver\Integration\Symfony\Routing\RedirectToEdit;
 use Talesweaver\Integration\Symfony\Templating\SimpleFormView;
 
 class CreateController
@@ -35,23 +35,23 @@ class CreateController
     private $commandBus;
 
     /**
-     * @var RedirectToEdit
+     * @var ResponseFactoryInterface
      */
-    private $redirector;
+    private $responseFactory;
 
     public function __construct(
         SimpleFormView $templating,
         FormFactoryInterface $formFactory,
         MessageBus $commandBus,
-        RedirectToEdit $redirector
+        ResponseFactoryInterface $responseFactory
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
-        $this->redirector = $redirector;
+        $this->responseFactory = $responseFactory;
     }
 
-    public function __invoke(Request $request)
+    public function __invoke(ServerRequestInterface $request)
     {
         $form = $this->formFactory->create(CreateType::class, new DTO());
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
@@ -74,6 +74,6 @@ class CreateController
             new Command($id, new ShortText($dto->getTitle()), $dto->getChapter())
         );
 
-        return $this->redirector->createResponse('scene_edit', $id);
+        return $this->responseFactory->redirectToRoute('scene_edit', $id);
     }
 }

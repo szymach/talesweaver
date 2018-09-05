@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Chapter;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Talesweaver\Application\Chapter\Create\Command;
 use Talesweaver\Application\Chapter\Create\DTO;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Chapter\CreateType;
-use Talesweaver\Integration\Symfony\Routing\RedirectToEdit;
 use Talesweaver\Integration\Symfony\Templating\SimpleFormView;
 
 class CreateController
@@ -36,26 +36,26 @@ class CreateController
     private $commandBus;
 
     /**
-     * @var RedirectToEdit
+     * @var ResponseFactoryInterface
      */
-    private $redirector;
+    private $responseFactory;
 
     public function __construct(
         SimpleFormView $templating,
         FormFactoryInterface $formFactory,
         MessageBus $commandBus,
-        RedirectToEdit $redirector
+        ResponseFactoryInterface $responseFactory
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
-        $this->redirector = $redirector;
+        $this->responseFactory = $responseFactory;
     }
 
     /**
      * @ParamConverter("book", class="Talesweaver\Domain\Book", options={"id" = "bookId", "isOptional" = true})
      */
-    public function __invoke(Request $request, ?Book $book)
+    public function __invoke(ServerRequestInterface $request, ?Book $book): ResponseInterface
     {
         $bookId = $book ? $book->getId() : null;
         $form = $this->formFactory->create(CreateType::class, new DTO(), ['bookId' => $bookId]);
@@ -66,13 +66,13 @@ class CreateController
         return $this->templating->createView($form, 'chapter/createForm.html.twig', ['bookId' => $bookId]);
     }
 
-    private function processFormDataAndRedirect(DTO $dto, ?Book $book): Response
+    private function processFormDataAndRedirect(DTO $dto, ?Book $book): ResponseInterface
     {
         $chapterId = Uuid::uuid4();
         $this->commandBus->handle(
             new Command($chapterId, new ShortText($dto->getTitle()), $book)
         );
 
-        return $this->redirector->createResponse('chapter_edit', $chapterId);
+        return $this->responseFactory->redirectToRoute('chapter_edit', ['id' => $chapterId]);
     }
 }

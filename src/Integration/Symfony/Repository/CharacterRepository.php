@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Repository;
 
 use Ramsey\Uuid\UuidInterface;
-use Talesweaver\Integration\Doctrine\Repository\CharacterRepository as DoctrineRepository;
+use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Characters;
+use Talesweaver\Domain\Repository\RequestSecuredRepository;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Symfony\Repository\Interfaces\RequestSecuredRepository;
-use Talesweaver\Application\Security\AuthorContext;
+use Talesweaver\Integration\Doctrine\Repository\CharacterRepository as DoctrineRepository;
 
 class CharacterRepository implements Characters, RequestSecuredRepository
 {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Chapter;
 
+use Psr\Http\Message\ResponseInterface;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Integration\Symfony\Templating\PdfView;
 
@@ -19,7 +20,7 @@ class PdfController
         $this->pdfView = $pdfView;
     }
 
-    public function __invoke(Chapter $chapter)
+    public function __invoke(Chapter $chapter): ResponseInterface
     {
         $name = $chapter->getTitle();
         if (null !== $chapter->getBook()) {
