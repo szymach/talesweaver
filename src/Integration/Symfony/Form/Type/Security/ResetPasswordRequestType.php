@@ -11,8 +11,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Talesweaver\Application\Form\Type\Security\ResetPassword;
 
-class ResetPasswordRequestType extends AbstractType
+class ResetPasswordRequestType extends AbstractType implements ResetPassword\Request
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

@@ -8,12 +8,12 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
-use Symfony\Component\Form\FormFactoryInterface;
 use Talesweaver\Application\Book\Create\Command;
 use Talesweaver\Application\Book\Create\DTO;
+use Talesweaver\Application\Form\FormHandlerFactoryInterface;
+use Talesweaver\Application\Form\Type\Book\Create;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Integration\Symfony\Form\Type\Book\CreateType;
 
 class CreateController
 {
@@ -23,9 +23,9 @@ class CreateController
     private $responseFactory;
 
     /**
-     * @var FormFactoryInterface
+     * @var FormHandlerFactoryInterface
      */
-    private $formFactory;
+    private $formHandlerFactory;
 
     /**
      * @var MessageBus
@@ -33,25 +33,25 @@ class CreateController
     private $commandBus;
 
     public function __construct(
-        FormFactoryInterface $formFactory,
+        FormHandlerFactoryInterface $formHandlerFactory,
         MessageBus $commandBus,
         ResponseFactoryInterface $responseFactory
     ) {
-        $this->formFactory = $formFactory;
+        $this->formHandlerFactory = $formHandlerFactory;
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
     }
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $form = $this->formFactory->create(CreateType::class, new DTO());
-        if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            return $this->processFormDataAndRedirect($form->getData());
+        $formHandler = $this->formHandlerFactory->createWithRequest($request, Create::class);
+        if (true === $formHandler->isSubmissionValid()) {
+            return $this->processFormDataAndRedirect($formHandler->getData());
         }
 
         return $this->responseFactory->fromTemplate(
             'book/createForm.html.twig',
-            ['form' => $form->createView()]
+            ['form' => $formHandler->createView()]
         );
     }
 

@@ -14,9 +14,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Talesweaver\Application\Form\Type\Security\Register;
 use Talesweaver\Integration\Symfony\Validation\Constraints\UniqueUserEmail;
 
-class RegisterType extends AbstractType
+class RegisterType extends AbstractType implements Register
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

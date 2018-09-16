@@ -17,10 +17,11 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Talesweaver\Application\Form\Type\Item\Edit;
 use Talesweaver\Application\Item\Edit\DTO;
 use Talesweaver\Integration\Symfony\Repository\ItemRepository;
 
-class EditType extends AbstractType
+class EditType extends AbstractType implements Edit
 {
     /**
      * @var ItemRepository

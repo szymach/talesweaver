@@ -13,8 +13,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Talesweaver\Application\Form\Type\Security\ChangePassword;
 
-class ChangePasswordType extends AbstractType
+class ChangePasswordType extends AbstractType implements ChangePassword
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

@@ -18,9 +18,10 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Talesweaver\Application\Character\Create\DTO;
+use Talesweaver\Application\Form\Type\Character\Create;
 use Talesweaver\Integration\Symfony\Repository\CharacterRepository;
 
-class CreateType extends AbstractType
+class CreateType extends AbstractType implements Create
 {
     /**
      * @var CharacterRepository

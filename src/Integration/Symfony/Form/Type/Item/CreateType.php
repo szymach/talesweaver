@@ -17,10 +17,11 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Talesweaver\Application\Form\Type\Item\Create;
 use Talesweaver\Application\Item\Create\DTO;
 use Talesweaver\Integration\Symfony\Repository\ItemRepository;
 
-class CreateType extends AbstractType
+class CreateType extends AbstractType implements Create
 {
     /**
      * @var ItemRepository

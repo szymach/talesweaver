@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Security;
 
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleBus\Message\Bus\MessageBus;
-use Symfony\Component\Form\FormFactoryInterface;
+use Talesweaver\Application\Form;
+use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Security\ResetPassword;
 use Talesweaver\Domain\PasswordResetToken;
 use Talesweaver\Domain\PasswordResetTokens;
-use Talesweaver\Integration\Symfony\Form\Type\Security\ResetPasswordChangeType;
 
 class ResetPasswordChangeController
 {
@@ -21,9 +22,9 @@ class ResetPasswordChangeController
     private $resetPasswordTokens;
 
     /**
-     * @var FormFactoryInterface
+     * @var FormHandlerFactoryInterface
      */
-    private $formFactory;
+    private $formHandlerFactory;
 
     /**
      * @var MessageBus
@@ -37,29 +38,32 @@ class ResetPasswordChangeController
 
     public function __construct(
         PasswordResetTokens $resetPasswordTokens,
-        FormFactoryInterface $formFactory,
+        FormHandlerFactoryInterface $formHandlerFactory,
         MessageBus $commandBus,
         ResponseFactoryInterface $responseFactory
     ) {
         $this->resetPasswordTokens = $resetPasswordTokens;
-        $this->formFactory = $formFactory;
+        $this->formHandlerFactory = $formHandlerFactory;
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
     }
 
-    public function __invoke(ServerRequestInterface $request, string $code)
+    public function __invoke(ServerRequestInterface $request, string $code): ResponseInterface
     {
         $token = $this->getToken($code);
-        $form = $this->formFactory->create(ResetPasswordChangeType::class);
-        if (true === $form->handleRequest($request)->isSubmitted() && true === $form->isValid()) {
-            $this->commandBus->handle(new ResetPassword($token, $form->getData()['password']));
+        $formHandler = $this->formHandlerFactory->createWithRequest(
+            $request,
+            Form\Type\Security\ResetPassword\Change::class
+        );
+        if (true === $formHandler->isSubmissionValid()) {
+            $this->commandBus->handle(new ResetPassword($token, $formHandler->getData()['password']));
 
             return $this->responseFactory->redirectToRoute('index');
         }
 
         return $this->responseFactory->fromTemplate(
             'security/resetPasswordChange.html.twig',
-            ['form' => $form->createView()]
+            ['form' => $formHandler->createView()]
         );
     }
 

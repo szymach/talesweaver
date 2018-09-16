@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Talesweaver\Application\Form\Type;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event\Meeting;
 use Talesweaver\Domain\Location;
@@ -16,7 +17,7 @@ use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Symfony\Repository\CharacterRepository;
 use Talesweaver\Integration\Symfony\Repository\LocationRepository;
 
-class MeetingType extends AbstractType
+class MeetingType extends AbstractType implements Type\Event\Meeting
 {
     /**
      * @var CharacterRepository

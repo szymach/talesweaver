@@ -18,13 +18,14 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Talesweaver\Application\Form\Type\Scene\Edit;
 use Talesweaver\Application\Scene\Edit\DTO;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Integration\Symfony\Repository\ChapterRepository;
 use Talesweaver\Integration\Symfony\Repository\SceneRepository;
 
-class EditType extends AbstractType
+class EditType extends AbstractType implements Edit
 {
     /**
      * @var SceneRepository

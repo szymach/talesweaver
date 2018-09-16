@@ -7,6 +7,7 @@ namespace Talesweaver\Application\Form;
 interface FormHandlerInterface
 {
     public function isSubmissionValid(): bool;
+    public function displayErrors(): bool;
     public function getData();
     public function createView(): FormViewInterface;
 }

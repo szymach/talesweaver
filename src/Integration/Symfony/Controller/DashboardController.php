@@ -61,7 +61,7 @@ class DashboardController
         $this->sceneRepository = $sceneRepository;
     }
 
-    public function createView(): ResponseInterface
+    public function __invoke(): ResponseInterface
     {
         $timeline = [];
         $this->addItems($timeline, $this->bookRepository, Book::class);

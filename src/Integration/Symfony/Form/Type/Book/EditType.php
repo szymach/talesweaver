@@ -15,9 +15,10 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Talesweaver\Application\Book\Edit\DTO;
+use Talesweaver\Application\Form\Type\Book\Edit;
 use Talesweaver\Integration\Symfony\Repository\BookRepository;
 
-class EditType extends AbstractType
+class EditType extends AbstractType implements Edit
 {
     /**
      * @var BookRepository

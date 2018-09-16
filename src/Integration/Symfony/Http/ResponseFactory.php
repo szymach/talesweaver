@@ -111,5 +111,4 @@ class ResponseFactory implements ResponseFactoryInterface
             $this->toException($previous->getPrevious())
         );
     }
-
 }

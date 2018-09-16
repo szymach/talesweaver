@@ -12,8 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Talesweaver\Application\Form\Type\Security\ResetPassword\Change;
 
-class ResetPasswordChangeType extends AbstractType
+class ResetPasswordChangeType extends AbstractType implements Change
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

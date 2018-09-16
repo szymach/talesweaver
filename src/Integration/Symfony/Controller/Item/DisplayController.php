@@ -21,7 +21,7 @@ class DisplayController
      */
     private $htmlContent;
 
-    public function __construct(ResponseFactoryInterface $responseFactory, HtmlContent $htmlContent )
+    public function __construct(ResponseFactoryInterface $responseFactory, HtmlContent $htmlContent)
     {
         $this->responseFactory = $responseFactory;
         $this->htmlContent = $htmlContent;

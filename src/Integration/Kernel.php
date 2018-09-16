@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration;
 
-use Talesweaver\Integration\Symfony\Security\Request\SecuredInstanceParamConverter;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -12,6 +11,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
+use Talesweaver\Application\Form\Form;
+use Talesweaver\Integration\Symfony\Form\FormClassResolver;
+use Talesweaver\Integration\Symfony\Security\Request\SecuredInstanceParamConverter;
 
 class Kernel extends BaseKernel implements CompilerPassInterface
 {
@@ -41,13 +43,8 @@ class Kernel extends BaseKernel implements CompilerPassInterface
 
     public function process(ContainerBuilder $container)
     {
-        $definition = $container->findDefinition(SecuredInstanceParamConverter::class);
-        $taggedServices = $container->findTaggedServiceIds('app.param_converter.repository');
-
-        $repositoryServices = array_map(function (string $id): Reference {
-            return new Reference($id);
-        }, array_keys($taggedServices));
-        $definition->replaceArgument(0, $repositoryServices);
+        $this->registerParamConverter($container);
+        $this->mapForms($container);
     }
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader)
@@ -80,6 +77,35 @@ class Kernel extends BaseKernel implements CompilerPassInterface
             );
         }
         $routes->import(sprintf('%s/routes%s', $configDir, self::CONFIG_EXTS), '/', 'glob');
+    }
+
+    private function registerParamConverter(ContainerBuilder $container): void
+    {
+        $definition = $container->findDefinition(SecuredInstanceParamConverter::class);
+        $taggedServices = $container->findTaggedServiceIds('app.param_converter.repository');
+
+        $repositoryServices = array_map(function (string $id): Reference {
+            return new Reference($id);
+        }, array_keys($taggedServices));
+        $definition->replaceArgument(0, $repositoryServices);
+    }
+
+    private function mapForms(ContainerBuilder $container): void
+    {
+        $forms = array_reduce(
+            array_keys($container->findTaggedServiceIds('form.type')),
+            function (array $accumulator, string $id) use ($container): array {
+                $definition = $container->getDefinition($id);
+                if (true === is_subclass_of($definition->getClass(), Form::class, true)) {
+                    $accumulator[] = $definition;
+                }
+
+                return $accumulator;
+            },
+            []
+        );
+
+        $container->getDefinition(FormClassResolver::class)->setArgument('$forms', $forms);
     }
 
     private function getConfigDirectory(): string

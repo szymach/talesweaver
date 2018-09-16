@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Controller\Book;
 
 use Psr\Http\Message\ResponseInterface;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormView;
+use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Chapter\Create\DTO;
+use Talesweaver\Application\Form\FormHandlerFactoryInterface;
+use Talesweaver\Application\Form\FormViewInterface;
+use Talesweaver\Application\Form\Type\Chapter\Create;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Book;
-use Talesweaver\Integration\Symfony\Form\Type\Scene\CreateType;
 use Talesweaver\Integration\Symfony\Pagination\Book\ChapterPaginator;
 
 class ChaptersListController
@@ -33,9 +34,9 @@ class ChaptersListController
     private $pagination;
 
     /**
-     * @var FormFactoryInterface
+     * @var FormHandlerFactoryInterface
      */
-    private $formFactory;
+    private $formHandlerFactory;
 
     /**
      * @var UrlGenerator
@@ -46,17 +47,17 @@ class ChaptersListController
         ResponseFactoryInterface $responseFactory,
         HtmlContent $htmlContent,
         ChapterPaginator $pagination,
-        FormFactoryInterface $formFactory,
+        FormHandlerFactoryInterface $formHandlerFactory,
         UrlGenerator $urlGenerator
     ) {
         $this->responseFactory = $responseFactory;
         $this->htmlContent = $htmlContent;
         $this->pagination = $pagination;
-        $this->formFactory = $formFactory;
+        $this->formHandlerFactory = $formHandlerFactory;
         $this->urlGenerator = $urlGenerator;
     }
 
-    public function __invoke(Book $book, int $page): ResponseInterface
+    public function __invoke(ServerRequestInterface $request, Book $book, int $page): ResponseInterface
     {
         return $this->responseFactory->toJson([
             'list' => $this->htmlContent->fromTemplate(
@@ -64,16 +65,16 @@ class ChaptersListController
                 [
                     'bookId' => $book->getId(),
                     'chapters' => $this->pagination->getResults($book, $page, 3),
-                    'chapterForm' => $this->createChapterForm(),
+                    'chapterForm' => $this->createChapterForm($request),
                     'page' => $page
                 ]
             )
         ]);
     }
 
-    private function createChapterForm(): FormView
+    private function createChapterForm(ServerRequestInterface $request): FormViewInterface
     {
-        return $this->formFactory->create(CreateType::class, new DTO(), [
+        return $this->formHandlerFactory->createWithRequest($request, Create::class, new DTO(), [
             'action' => $this->urlGenerator->generate('chapter_create')
         ])->createView();
     }

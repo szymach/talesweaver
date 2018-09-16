@@ -7,21 +7,21 @@ namespace Talesweaver\Integration\Symfony\Controller\Scene;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 use SimpleBus\Message\Bus\MessageBus;
-use Symfony\Component\Form\FormFactoryInterface;
+use Talesweaver\Application\Form\FormHandlerFactoryInterface;
+use Talesweaver\Application\Form\Type\Scene\Create;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Scene\Create\Command;
 use Talesweaver\Application\Scene\Create\DTO;
-use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Integration\Symfony\Form\Type\Scene\CreateType;
 
 class CreateController
 {
     /**
-     * @var FormFactoryInterface
+     * @var FormHandlerFactoryInterface
      */
-    private $formFactory;
+    private $formHandlerFactory;
 
     /**
      * @var MessageBus
@@ -34,27 +34,28 @@ class CreateController
     private $responseFactory;
 
     public function __construct(
-        FormFactoryInterface $formFactory,
+        FormHandlerFactoryInterface $formHandlerFactory,
         MessageBus $commandBus,
         ResponseFactoryInterface $responseFactory
     ) {
-        $this->formFactory = $formFactory;
+        $this->formHandlerFactory = $formHandlerFactory;
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
     }
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $form = $this->formFactory->create(CreateType::class, new DTO());
-        if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            return $this->processFormDataAndRedirect($form->getData());
+        $formHandler = $this->formHandlerFactory->createWithRequest($request, Create::class, new DTO());
+        if (true === $formHandler->isSubmissionValid()) {
+            return $this->processFormDataAndRedirect($formHandler->getData());
         }
 
-        /* @var $chapter Chapter */
-        $chapter = $form->get('chapter')->getData();
         return $this->responseFactory->fromTemplate(
             'scene/createForm.html.twig',
-            ['form' => $form->createView(), 'chapterId' => $chapter ? $chapter->getId(): null]
+            [
+                'form' => $formHandler->createView(),
+                'chapterId' => $this->getChapterId($formHandler->getData())
+            ]
         );
     }
 
@@ -66,5 +67,11 @@ class CreateController
         );
 
         return $this->responseFactory->redirectToRoute('scene_edit', ['id' => $id]);
+    }
+
+    private function getChapterId(DTO $dto): ?UuidInterface
+    {
+        $chapter = $dto->getChapter();
+        return $chapter ? $chapter->getId(): null;
     }
 }

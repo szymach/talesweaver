@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Security;
 
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleBus\Message\Bus\MessageBus;
-use Symfony\Component\Form\FormFactoryInterface;
+use Talesweaver\Application\Form\FormHandlerFactoryInterface;
+use Talesweaver\Application\Form\Type\Security\Register;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Security\CreateAuthor;
-use Talesweaver\Integration\Symfony\Form\Type\Security\RegisterType;
 
 class RegisterController
 {
     /**
-     * @var FormFactoryInterface
+     * @var FormHandlerFactoryInterface
      */
-    private $formFactory;
+    private $formHandlerFactory;
 
     /**
      * @var MessageBus
@@ -29,20 +30,20 @@ class RegisterController
     private $responseFactory;
 
     public function __construct(
-        FormFactoryInterface $formFactory,
+        FormHandlerFactoryInterface $formHandlerFactory,
         MessageBus $commandBus,
         ResponseFactoryInterface $responseFactory
     ) {
-        $this->formFactory = $formFactory;
+        $this->formHandlerFactory = $formHandlerFactory;
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
     }
 
-    public function __invoke(ServerRequestInterface $request)
+    public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $form = $this->formFactory->create(RegisterType::class);
-        if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
+        $formHandler = $this->formHandlerFactory->createWithRequest($request, Register::class);
+        if (true === $formHandler->isSubmissionValid()) {
+            $data = $formHandler->getData();
             $this->commandBus->handle(new CreateAuthor($data['email'], $data['password']));
 
             return $this->responseFactory->redirectToRoute('login');
@@ -50,7 +51,7 @@ class RegisterController
 
         return $this->responseFactory->fromTemplate(
             'security/register.html.twig',
-            ['form' => $form->createView()]
+            ['form' => $formHandler->createView()]
         );
     }
 }

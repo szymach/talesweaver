@@ -89,7 +89,7 @@ class FunctionalTester extends Actor
         return bin2hex(random_bytes(128));
     }
 
-    public function createForm($class, $data = null, array $options = []): FormInterface
+    public function createForm(string $class, $data = null, array $options = []): FormInterface
     {
         return $this->getFormFactory()->create($class, $data, array_merge(
             ['csrf_protection' => false],
@@ -103,6 +103,7 @@ class FunctionalTester extends Actor
         $request->setMethod(Request::METHOD_POST);
         $request->setLocale(self::LOCALE);
         $request->setDefaultLocale(self::LOCALE);
+
         return $request;
     }
 

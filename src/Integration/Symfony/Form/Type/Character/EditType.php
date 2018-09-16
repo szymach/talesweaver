@@ -18,9 +18,10 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Talesweaver\Application\Character\Edit\DTO;
+use Talesweaver\Application\Form\Type\Character\Edit;
 use Talesweaver\Integration\Symfony\Repository\CharacterRepository;
 
-class EditType extends AbstractType
+class EditType extends AbstractType implements Edit
 {
     /**
      * @var CharacterRepository

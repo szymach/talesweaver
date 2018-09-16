@@ -17,10 +17,11 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Talesweaver\Application\Form\Type\Location\Edit;
 use Talesweaver\Application\Location\Edit\DTO;
 use Talesweaver\Integration\Symfony\Repository\LocationRepository;
 
-class EditType extends AbstractType
+class EditType extends AbstractType implements Edit
 {
     /**
      * @var LocationRepository

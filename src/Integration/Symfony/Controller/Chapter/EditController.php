@@ -6,17 +6,19 @@ namespace Talesweaver\Integration\Symfony\Controller\Chapter;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Ramsey\Uuid\UuidInterface;
 use SimpleBus\Message\Bus\MessageBus;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormView;
 use Talesweaver\Application\Chapter\Edit\Command;
 use Talesweaver\Application\Chapter\Edit\DTO;
+use Talesweaver\Application\Form\FormHandlerFactoryInterface;
+use Talesweaver\Application\Form\FormViewInterface;
+use Talesweaver\Application\Form\Type\Chapter\Edit;
+use Talesweaver\Application\Form\Type\Scene\Create;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
+use Talesweaver\Application\Scene;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Integration\Symfony\Form\Type\Chapter\EditType;
-use Talesweaver\Integration\Symfony\Form\Type\Scene\CreateType;
 
 class EditController
 {
@@ -26,9 +28,9 @@ class EditController
     private $responseFactory;
 
     /**
-     * @var FormFactoryInterface
+     * @var FormHandlerFactoryInterface
      */
-    private $formFactory;
+    private $formHandlerFactory;
 
     /**
      * @var MessageBus
@@ -42,34 +44,39 @@ class EditController
 
     public function __construct(
         ResponseFactoryInterface $responseFactory,
-        FormFactoryInterface $formFactory,
+        FormHandlerFactoryInterface $formHandlerFactory,
         MessageBus $commandBus,
         UrlGenerator $urlGenerator
     ) {
         $this->responseFactory = $responseFactory;
-        $this->formFactory = $formFactory;
+        $this->formHandlerFactory = $formHandlerFactory;
         $this->commandBus = $commandBus;
         $this->urlGenerator = $urlGenerator;
     }
 
     public function __invoke(ServerRequestInterface $request, Chapter $chapter): ResponseInterface
     {
-        $form = $this->formFactory->create(EditType::class, new DTO($chapter), [
-            'chapterId' => $chapter->getId(),
-            'bookId' => null !== $chapter->getBook() ? $chapter->getBook()->getId() : null
-        ]);
-        if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            return $this->processFormDataAndRedirect($chapter, $form->getData());
+        $formHandler = $this->formHandlerFactory->createWithRequest(
+            $request,
+            Edit::class,
+            new DTO($chapter),
+            [
+                'chapterId' => $chapter->getId(),
+                'bookId' => null !== $chapter->getBook() ? $chapter->getBook()->getId() : null
+            ]
+        );
+        if (true === $formHandler->isSubmissionValid()) {
+            return $this->processFormDataAndRedirect($chapter, $formHandler->getData());
         }
 
         return $this->responseFactory->fromTemplate(
             'chapter/editForm.html.twig',
             [
-                'form' => $form->createView(),
+                'form' => $formHandler->createView(),
                 'chapterId' => $chapter->getId(),
-                'bookId' => $chapter->getBook() ? $chapter->getBook()->getId() : null,
+                'bookId' => $this->getBookId($chapter),
                 'title' => $chapter->getTitle(),
-                'sceneForm' => $this->createSceneForm($chapter)
+                'sceneForm' => $this->createSceneForm($request, $chapter)
             ]
         );
     }
@@ -85,11 +92,21 @@ class EditController
         return $this->responseFactory->redirectToRoute('chapter_edit', ['id' => $chapter->getId()]);
     }
 
-    private function createSceneForm(Chapter $chapter): FormView
+    private function createSceneForm(ServerRequestInterface $request, Chapter $chapter): FormViewInterface
     {
-        return $this->formFactory->create(CreateType::class, new DTO($chapter), [
-            'action' => $this->urlGenerator->generate('scene_create'),
-            'title_placeholder' => 'scene.placeholder.title.chapter'
-        ])->createView();
+        return $this->formHandlerFactory->createWithRequest(
+            $request,
+            Create::class,
+            new Scene\Create\DTO($chapter),
+            [
+                'action' => $this->urlGenerator->generate('scene_create'),
+                'title_placeholder' => 'scene.placeholder.title.chapter'
+            ]
+        )->createView();
+    }
+
+    private function getBookId(Chapter $chapter): ?UuidInterface
+    {
+        return null !==$chapter->getBook() ? $chapter->getBook()->getId() : null;
     }
 }

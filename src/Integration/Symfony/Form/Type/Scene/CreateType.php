@@ -16,13 +16,14 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Talesweaver\Application\Form\Type\Scene\Create;
 use Talesweaver\Application\Scene\Create\DTO;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Integration\Symfony\Repository\ChapterRepository;
 use Talesweaver\Integration\Symfony\Repository\SceneRepository;
 
-class CreateType extends AbstractType
+class CreateType extends AbstractType implements Create
 {
     /**
      * @var SceneRepository

@@ -7,8 +7,11 @@ namespace Talesweaver\Integration\Symfony\Controller\Scene;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleBus\Message\Bus\MessageBus;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormView;
+use Talesweaver\Application\Form\FormHandlerFactoryInterface;
+use Talesweaver\Application\Form\FormHandlerInterface;
+use Talesweaver\Application\Form\FormViewInterface;
+use Talesweaver\Application\Form\Type\Scene\Create;
+use Talesweaver\Application\Form\Type\Scene\Edit;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Scene\Create\DTO as CreateDTO;
@@ -19,8 +22,6 @@ use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Enum\SceneEvents;
-use Talesweaver\Integration\Symfony\Form\Type\Scene\CreateType;
-use Talesweaver\Integration\Symfony\Form\Type\Scene\EditType;
 use Talesweaver\Integration\Symfony\Pagination\Chapter\ScenePaginator;
 use Talesweaver\Integration\Symfony\Pagination\Character\CharacterPaginator;
 use Talesweaver\Integration\Symfony\Pagination\EventPaginator;
@@ -35,9 +36,9 @@ class EditController
     private $responseFactory;
 
     /**
-     * @var FormFactoryInterface
+     * @var FormHandlerFactoryInterface
      */
-    private $formFactory;
+    private $formHandlerFactory;
 
     /**
      * @var MessageBus
@@ -76,7 +77,7 @@ class EditController
 
     public function __construct(
         ResponseFactoryInterface $responseFactory,
-        FormFactoryInterface $formFactory,
+        FormHandlerFactoryInterface $formHandlerFactory,
         MessageBus $commandBus,
         HtmlContent $htmlContent,
         CharacterPaginator $characterPaginator,
@@ -86,7 +87,7 @@ class EditController
         EventPaginator $eventPaginator
     ) {
         $this->responseFactory = $responseFactory;
-        $this->formFactory = $formFactory;
+        $this->formHandlerFactory = $formHandlerFactory;
         $this->commandBus = $commandBus;
         $this->htmlContent = $htmlContent;
         $this->characterPaginator = $characterPaginator;
@@ -98,44 +99,28 @@ class EditController
 
     public function __invoke(ServerRequestInterface $request, Scene $scene): ResponseInterface
     {
-        $form = $this->formFactory->create(EditType::class, new EditDTO($scene), ['sceneId' => $scene->getId()]);
-        if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            return $this->processFormDataAndRedirect($request, $scene, $form->getData());
-        }
+        $formHandler = $this->formHandlerFactory->createWithRequest(
+            $request,
+            Edit::class,
+            new EditDTO($scene),
+            ['sceneId' => $scene->getId()]
+        );
 
         if (true === in_array('XMLHttpRequest', $request->getHeader('X-Requested-With'), true)) {
             return $this->responseFactory->toJson([
                 'form' => $this->htmlContent->fromTemplate(
                     'scene/form/editForm.html.twig',
-                    ['form' => $form->createView()]
+                    ['form' => $formHandler->createView()]
                 )
-            ], false === $form->isSubmitted() || true === $form->isValid() ? 200 : 403);
+            ], true === $formHandler->displayErrors() ? 200 : 403);
+        } elseif (true === $formHandler->isSubmissionValid()) {
+            return $this->processFormDataAndRedirect($request, $scene, $formHandler->getData());
         }
 
-        $parameters = [
-            'form' => $form->createView(),
-            'sceneId' => $scene->getId(),
-            'title' => $scene->getTitle(),
-            'characters' => $this->characterPaginator->getResults($scene, 1),
-            'items' => $this->itemPaginator->getResults($scene, 1),
-            'locations' => $this->locationPaginator->getResults($scene, 1),
-            'events' => $this->eventPaginator->getResults($scene, 1),
-            'eventModels' => SceneEvents::getAllEvents()
-        ];
-
-        if (null !== $scene->getChapter()) {
-            $chapter = $scene->getChapter();
-            $parameters['chapterTitle'] = $chapter->getTitle();
-            $parameters['chapterId'] = $chapter->getId();
-            $parameters['relatedScenes'] = $this->scenePaginator->getResults($chapter, 1);
-            $parameters['nextSceneForm'] = $this->createNextSceneForm($chapter);
-        } else {
-            $parameters['chapterTitle'] = null;
-            $parameters['chapterId'] = null;
-            $parameters['relatedScenes'] = [];
-        }
-
-        return $this->responseFactory->fromTemplate('scene/editForm.html.twig', $parameters);
+        return $this->responseFactory->fromTemplate(
+            'scene/editForm.html.twig',
+            $this->getViewParameters($request, $scene, $formHandler)
+        );
     }
 
     private function processFormDataAndRedirect(
@@ -157,8 +142,43 @@ class EditController
         ;
     }
 
-    private function createNextSceneForm(Chapter $chapter): FormView
+    private function getViewParameters(
+        ServerRequestInterface $request,
+        Scene $scene,
+        FormHandlerInterface $formHandler
+    ): array {
+        $parameters = [
+            'form' => $formHandler->createView(),
+            'sceneId' => $scene->getId(),
+            'title' => $scene->getTitle(),
+            'characters' => $this->characterPaginator->getResults($scene, 1),
+            'items' => $this->itemPaginator->getResults($scene, 1),
+            'locations' => $this->locationPaginator->getResults($scene, 1),
+            'events' => $this->eventPaginator->getResults($scene, 1),
+            'eventModels' => SceneEvents::getAllEvents()
+        ];
+
+        if (null !== $scene->getChapter()) {
+            $chapter = $scene->getChapter();
+            $parameters['chapterTitle'] = $chapter->getTitle();
+            $parameters['chapterId'] = $chapter->getId();
+            $parameters['relatedScenes'] = $this->scenePaginator->getResults($chapter, 1);
+            $parameters['nextSceneForm'] = $this->createNextSceneForm($request, $chapter);
+        } else {
+            $parameters['chapterTitle'] = null;
+            $parameters['chapterId'] = null;
+            $parameters['relatedScenes'] = [];
+        }
+
+        return $parameters;
+    }
+
+    private function createNextSceneForm(ServerRequestInterface $request, Chapter $chapter): FormViewInterface
     {
-        return $this->formFactory->create(CreateType::class, new CreateDTO($chapter))->createView();
+        return $this->formHandlerFactory->createWithRequest(
+            $request,
+            Create::class,
+            new CreateDTO($chapter)
+        )->createView();
     }
 }

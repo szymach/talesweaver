@@ -14,10 +14,11 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Talesweaver\Application\Event\Edit\DTO;
+use Talesweaver\Application\Form\Type\Event\Edit;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Symfony\Repository\EventRepository;
 
-class EditType extends AbstractType
+class EditType extends AbstractType implements Edit
 {
     /**
      * @var EventRepository

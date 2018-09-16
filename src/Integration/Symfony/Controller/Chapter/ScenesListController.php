@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Controller\Chapter;
 
 use Psr\Http\Message\ResponseInterface;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormView;
+use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Talesweaver\Application\Form\FormHandlerFactoryInterface;
+use Talesweaver\Application\Form\FormViewInterface;
+use Talesweaver\Application\Form\Type\Scene\Create;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Scene\Create\DTO;
 use Talesweaver\Domain\Chapter;
-use Talesweaver\Integration\Symfony\Form\Type\Scene\CreateType;
 use Talesweaver\Integration\Symfony\Pagination\Chapter\ScenePaginator;
 
 class ScenesListController
@@ -28,9 +29,9 @@ class ScenesListController
     private $pagination;
 
     /**
-     * @var FormFactoryInterface
+     * @var FormHandlerFactoryInterface
      */
-    private $formFactory;
+    private $formHandlerFactory;
 
     /**
      * @var HtmlContent
@@ -45,25 +46,25 @@ class ScenesListController
     public function __construct(
         ResponseFactoryInterface $responseFactory,
         ScenePaginator $pagination,
-        FormFactoryInterface $formFactory,
+        FormHandlerFactoryInterface $formHandlerFactory,
         HtmlContent $htmlContent,
         RouterInterface $router
     ) {
         $this->responseFactory = $responseFactory;
         $this->pagination = $pagination;
-        $this->formFactory = $formFactory;
+        $this->formHandlerFactory = $formHandlerFactory;
         $this->htmlContent = $htmlContent;
         $this->router = $router;
     }
 
-    public function createView(Chapter $chapter, int $page): ResponseInterface
+    public function createView(ServerRequestInterface $request, Chapter $chapter, int $page): ResponseInterface
     {
         return $this->responseFactory->toJson([
             'list' => $this->htmlContent->fromTemplate(
                 'chapter/scenes/list.html.twig',
                 [
                     'chapterId' => $chapter->getId(),
-                    'sceneForm' => $this->createSceneForm($chapter),
+                    'sceneForm' => $this->createSceneForm($request, $chapter),
                     'scenes' => $this->pagination->getResults($chapter, $page, 3),
                     'page' => $page
                 ]
@@ -71,10 +72,13 @@ class ScenesListController
         ]);
     }
 
-    private function createSceneForm(Chapter $chapter): FormView
+    private function createSceneForm(ServerRequestInterface $request, Chapter $chapter): FormViewInterface
     {
-        return $this->formFactory->create(CreateType::class, new DTO($chapter), [
-            'action' => $this->router->generate('scene_create')
-        ])->createView();
+        return $this->formHandlerFactory->createWithRequest(
+            $request,
+            Create::class,
+            new DTO($chapter),
+            ['action' => $this->router->generate('scene_create')]
+        )->createView();
     }
 }

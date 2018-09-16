@@ -1,12 +1,5 @@
 <?php
 
-/**
- * (c) FSi sp. z o.o. <info@fsi.pl>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Form;
@@ -34,6 +27,11 @@ class FormHandler implements FormHandlerInterface
     public function isSubmissionValid(): bool
     {
         return true == $this->form->isSubmitted() && true === $this->form->isValid();
+    }
+
+    public function displayErrors(): bool
+    {
+        return true === $this->form->isSubmitted() && false === $this->form->isValid();
     }
 
     public function getData()

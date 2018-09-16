@@ -9,21 +9,20 @@ use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SimpleBus\Message\Bus\MessageBus;
-use Symfony\Component\Form\FormFactoryInterface;
 use Talesweaver\Application\Chapter\Create\Command;
 use Talesweaver\Application\Chapter\Create\DTO;
+use Talesweaver\Application\Form\FormHandlerFactoryInterface;
+use Talesweaver\Application\Form\Type\Chapter\Create;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Integration\Symfony\Form\Type\Chapter\CreateType;
-use Talesweaver\Integration\Symfony\Templating\SimpleFormView;
 
 class CreateController
 {
     /**
-     * @var FormFactoryInterface
+     * @var FormHandlerFactoryInterface
      */
-    private $formFactory;
+    private $formHandlerFactory;
 
     /**
      * @var MessageBus
@@ -36,11 +35,11 @@ class CreateController
     private $responseFactory;
 
     public function __construct(
-        FormFactoryInterface $formFactory,
+        FormHandlerFactoryInterface $formHandlerFactory,
         MessageBus $commandBus,
         ResponseFactoryInterface $responseFactory
     ) {
-        $this->formFactory = $formFactory;
+        $this->formHandlerFactory = $formHandlerFactory;
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
     }
@@ -51,14 +50,19 @@ class CreateController
     public function __invoke(ServerRequestInterface $request, ?Book $book): ResponseInterface
     {
         $bookId = $book ? $book->getId() : null;
-        $form = $this->formFactory->create(CreateType::class, new DTO(), ['bookId' => $bookId]);
-        if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            return $this->processFormDataAndRedirect($form->getData(), $book);
+        $formHandler = $this->formHandlerFactory->createWithRequest(
+            $request,
+            Create::class,
+            new DTO(),
+            ['bookId' => $bookId]
+        );
+        if (true === $formHandler->isSubmissionValid()) {
+            return $this->processFormDataAndRedirect($formHandler->getData(), $book);
         }
 
         return $this->responseFactory->fromTemplate(
             'chapter/createForm.html.twig',
-            ['bookId' => $bookId, 'form' => $form->createView()]
+            ['bookId' => $bookId, 'form' => $formHandler->createView()]
         );
     }
 
