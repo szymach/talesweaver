@@ -6,7 +6,7 @@ namespace Talesweaver\Integration\Symfony\Enum;
 
 use InvalidArgumentException;
 use Talesweaver\Domain\Event\Meeting;
-use Talesweaver\Integration\Symfony\Form\Event\MeetingType;
+use Talesweaver\Integration\Symfony\Form\Type\Event\MeetingType;
 
 final class SceneEvents
 {

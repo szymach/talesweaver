@@ -16,7 +16,7 @@ use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Enum\SceneEvents;
-use Talesweaver\Integration\Symfony\Form\Event\EditType;
+use Talesweaver\Integration\Symfony\Form\Type\Event\EditType;
 
 class EditController
 {

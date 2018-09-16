@@ -9,7 +9,7 @@ use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Security\GeneratePasswordResetToken;
-use Talesweaver\Integration\Symfony\Form\Security\ResetPasswordRequestType;
+use Talesweaver\Integration\Symfony\Form\Type\Security\ResetPasswordRequestType;
 
 class ResetPasswordRequestController
 {

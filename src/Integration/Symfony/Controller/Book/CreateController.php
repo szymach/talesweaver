@@ -13,7 +13,7 @@ use Talesweaver\Application\Book\Create\Command;
 use Talesweaver\Application\Book\Create\DTO;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Integration\Symfony\Form\Book\CreateType;
+use Talesweaver\Integration\Symfony\Form\Type\Book\CreateType;
 
 class CreateController
 {

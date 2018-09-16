@@ -11,7 +11,7 @@ use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Security\ResetPassword;
 use Talesweaver\Domain\PasswordResetToken;
 use Talesweaver\Domain\PasswordResetTokens;
-use Talesweaver\Integration\Symfony\Form\Security\ResetPasswordChangeType;
+use Talesweaver\Integration\Symfony\Form\Type\Security\ResetPasswordChangeType;
 
 class ResetPasswordChangeController
 {

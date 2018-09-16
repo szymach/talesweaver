@@ -17,7 +17,7 @@ use Talesweaver\Domain\Character;
 use Talesweaver\Domain\ValueObject\File;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Integration\Symfony\Form\Character\EditType;
+use Talesweaver\Integration\Symfony\Form\Type\Character\EditType;
 
 class EditController
 {

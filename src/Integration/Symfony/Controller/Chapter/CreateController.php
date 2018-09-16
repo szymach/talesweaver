@@ -15,7 +15,7 @@ use Talesweaver\Application\Chapter\Create\DTO;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Integration\Symfony\Form\Chapter\CreateType;
+use Talesweaver\Integration\Symfony\Form\Type\Chapter\CreateType;
 use Talesweaver\Integration\Symfony\Templating\SimpleFormView;
 
 class CreateController

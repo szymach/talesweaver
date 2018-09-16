@@ -14,7 +14,7 @@ use Talesweaver\Application\Scene\Create\Command;
 use Talesweaver\Application\Scene\Create\DTO;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Integration\Symfony\Form\Scene\CreateType;
+use Talesweaver\Integration\Symfony\Form\Type\Scene\CreateType;
 
 class CreateController
 {

@@ -9,7 +9,7 @@ use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Security\CreateAuthor;
-use Talesweaver\Integration\Symfony\Form\Security\RegisterType;
+use Talesweaver\Integration\Symfony\Form\Type\Security\RegisterType;
 
 class RegisterController
 {

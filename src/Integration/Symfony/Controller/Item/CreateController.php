@@ -18,7 +18,7 @@ use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\File;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Integration\Symfony\Form\Item\CreateType;
+use Talesweaver\Integration\Symfony\Form\Type\Item\CreateType;
 
 class CreateController
 {

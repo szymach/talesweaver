@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Application\Security\ChangePassword;
-use Talesweaver\Integration\Symfony\Form\Security\ChangePasswordType;
+use Talesweaver\Integration\Symfony\Form\Type\Security\ChangePasswordType;
 
 class ChangePasswordController
 {

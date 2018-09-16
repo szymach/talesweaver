@@ -12,7 +12,7 @@ use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Book;
-use Talesweaver\Integration\Symfony\Form\Scene\CreateType;
+use Talesweaver\Integration\Symfony\Form\Type\Scene\CreateType;
 use Talesweaver\Integration\Symfony\Pagination\Book\ChapterPaginator;
 
 class ChaptersListController

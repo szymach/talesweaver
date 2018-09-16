@@ -17,8 +17,8 @@ use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Integration\Symfony\Form\Book\EditType;
-use Talesweaver\Integration\Symfony\Form\Chapter\CreateType;
+use Talesweaver\Integration\Symfony\Form\Type\Book\EditType;
+use Talesweaver\Integration\Symfony\Form\Type\Chapter\CreateType;
 
 class EditController
 {

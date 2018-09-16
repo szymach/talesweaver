@@ -17,7 +17,7 @@ use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Enum\SceneEvents;
-use Talesweaver\Integration\Symfony\Form\Event\CreateType;
+use Talesweaver\Integration\Symfony\Form\Type\Event\CreateType;
 
 class CreateController
 {

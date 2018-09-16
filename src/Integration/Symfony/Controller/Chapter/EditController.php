@@ -15,8 +15,8 @@ use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Integration\Symfony\Form\Chapter\EditType;
-use Talesweaver\Integration\Symfony\Form\Scene\CreateType;
+use Talesweaver\Integration\Symfony\Form\Type\Chapter\EditType;
+use Talesweaver\Integration\Symfony\Form\Type\Scene\CreateType;
 
 class EditController
 {

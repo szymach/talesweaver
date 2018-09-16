@@ -31,6 +31,7 @@ services:
     Talesweaver\Domain\Scenes: '@Talesweaver\Integration\Symfony\Repository\SceneRepository'
     Talesweaver\Domain\PasswordResetTokens: '@Talesweaver\Integration\Doctrine\Repository\PasswordResetTokenRepository'
     SimpleBus\Message\Bus\MessageBus: "@transaction_wrapped_command_bus"
+    Symfony\Component\Form\Util\ServerParams: "@form.server_params"
     Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface: '@security.user_password_encoder.generic'
 
     Talesweaver\Integration\Symfony\Controller\:
@@ -42,7 +43,7 @@ services:
         tags: ['doctrine.fixture.orm']
 
     Talesweaver\Integration\Symfony\:
-        resource: "../src/Integration/Symfony/{Form,Http,JSON,Mail,Menu,Pagination,Routing,Templating,Timeline,Security,Session,Validation}/*"
+        resource: "../src/Integration/Symfony/{Form/Type,Http,JSON,Mail,Menu,Pagination,Routing,Templating,Timeline,Security,Session,Validation}/*"
         exclude: "../src/Integration/Symfony/Security/function/*"
 
     # Do not remove, because it is not explicitly used and is removed from the container
@@ -88,6 +89,19 @@ services:
                 - "@fsi_doctrine_extensions.filehandler.gaufrette"
                 - "@fsi_doctrine_extensions.filehandler.symfony_uploaded_file"
                 - "@fsi_doctrine_extensions.filehandler.splfileinfo"
+
+    # Form
+    Talesweaver\Integration\Symfony\Form\FormClassResolver: ~
+    Talesweaver\Integration\Symfony\Form\FormHandlerFactory: ~
+    Talesweaver\Integration\Symfony\Form\Psr7FormRequestHandler: ~
+
+    Talesweaver\Integration\Symfony\Form\TypeExtension\Psr7Extension:
+        - tags:
+            - [name: "form.type_extension", extended_type: "Symfony\Component\Form\Extension\Core\Type\FormType"]
+
+    Talesweaver\Integration\Symfony\Form\TypeExtension\Psr7FileExtension:
+        - tags:
+            - [name: "form.type_extension", extended_type: "FSi\Bundle\DoctrineExtensionsBundle\Form\Type\FSi\FileType"]
 
     # Security
     app.security.login_form_authenticator:
