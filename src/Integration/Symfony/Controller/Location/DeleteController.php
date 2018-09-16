@@ -6,6 +6,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Location;
 
 use Psr\Http\Message\ResponseInterface;
 use SimpleBus\Message\Bus\MessageBus;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Location\Delete\Command;
 use Talesweaver\Domain\Location;
 
@@ -16,9 +17,15 @@ class DeleteController
      */
     private $commandBus;
 
-    public function __construct(MessageBus $commandBus)
+    /**
+     * @var ResponseFactoryInterface
+     */
+    private $responseFactory;
+
+    public function __construct(MessageBus $commandBus, ResponseFactoryInterface $responseFactory)
     {
         $this->commandBus = $commandBus;
+        $this->responseFactory = $responseFactory;
     }
 
     public function __invoke(Location $location): ResponseInterface

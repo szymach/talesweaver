@@ -7,6 +7,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Item;
 use Psr\Http\Message\ResponseInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SimpleBus\Message\Bus\MessageBus;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Item\AddToScene\Command;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Scene;
@@ -18,9 +19,15 @@ class AddToSceneController
      */
     private $commandBus;
 
-    public function __construct(MessageBus $commandBus)
+    /**
+     * @var ResponseFactoryInterface
+     */
+    private $responseFactory;
+
+    public function __construct(MessageBus $commandBus, ResponseFactoryInterface $responseFactory)
     {
         $this->commandBus = $commandBus;
+        $this->responseFactory = $responseFactory;
     }
 
     /**

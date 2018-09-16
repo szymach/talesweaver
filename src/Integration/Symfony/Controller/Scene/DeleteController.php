@@ -33,13 +33,13 @@ class DeleteController
         $chapterId = $scene->getChapter() ? $scene->getChapter()->getId(): null;
         $this->commandBus->handle(new Command($scene));
 
-        if (true === $request->isXmlHttpRequest()) {
+        if ('XMLHttpRequest' == $request->getHeader('X-Requested-With')) {
             return $this->responseFactory->toJson(['success' => true]);
         }
 
         return null !== $chapterId
-            ? $this->responseFactory->createResponse('chapter_edit', ['id' => $chapterId])
-            : $this->responseFactory->createResponse('scene_list', ['page' => $page])
+            ? $this->responseFactory->redirectToRoute('chapter_edit', ['id' => $chapterId])
+            : $this->responseFactory->redirectToRoute('scene_list', ['page' => $page])
         ;
     }
 }

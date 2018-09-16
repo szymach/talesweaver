@@ -21,11 +21,6 @@ use Talesweaver\Integration\Symfony\Templating\SimpleFormView;
 class CreateController
 {
     /**
-     * @var SimpleFormView
-     */
-    private $templating;
-
-    /**
      * @var FormFactoryInterface
      */
     private $formFactory;
@@ -41,12 +36,10 @@ class CreateController
     private $responseFactory;
 
     public function __construct(
-        SimpleFormView $templating,
         FormFactoryInterface $formFactory,
         MessageBus $commandBus,
         ResponseFactoryInterface $responseFactory
     ) {
-        $this->templating = $templating;
         $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
@@ -63,7 +56,10 @@ class CreateController
             return $this->processFormDataAndRedirect($form->getData(), $book);
         }
 
-        return $this->templating->createView($form, 'chapter/createForm.html.twig', ['bookId' => $bookId]);
+        return $this->responseFactory->fromTemplate(
+            'chapter/createForm.html.twig',
+            ['bookId' => $bookId, 'form' => $form->createView()]
+        );
     }
 
     private function processFormDataAndRedirect(DTO $dto, ?Book $book): ResponseInterface

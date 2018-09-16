@@ -17,6 +17,11 @@ class DeleteController
      */
     private $commandBus;
 
+    /**
+     * @var ResponseFactoryInterface
+     */
+    private $responseFactory;
+
     public function __construct(MessageBus $commandBus, ResponseFactoryInterface $responseFactory)
     {
         $this->commandBus = $commandBus;

@@ -18,9 +18,15 @@ class AddToSceneController
      */
     private $commandBus;
 
-    public function __construct(MessageBus $commandBus)
+    /**
+     * @var ResponseFactoryInterface
+     */
+    private $responseFactory;
+
+    public function __construct(MessageBus $commandBus, ResponseFactoryInterface $responseFactory)
     {
         $this->commandBus = $commandBus;
+        $this->responseFactory = $responseFactory;
     }
 
     /**

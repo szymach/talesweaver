@@ -11,20 +11,16 @@ use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Talesweaver\Application\Event\Create\Command;
 use Talesweaver\Application\Event\Create\DTO;
+use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Enum\SceneEvents;
 use Talesweaver\Integration\Symfony\Form\Event\CreateType;
-use Talesweaver\Integration\Symfony\Templating\Event\FormView;
 
 class CreateController
 {
-    /**
-     * @var FormView
-     */
-    private $templating;
-
     /**
      * @var FormFactoryInterface
      */
@@ -40,16 +36,28 @@ class CreateController
      */
     private $responseFactory;
 
+    /**
+     * @var HtmlContent
+     */
+    private $htmlContent;
+
+    /**
+     * @var UrlGenerator
+     */
+    private $urlGenerator;
+
     public function __construct(
-        FormView $templating,
         FormFactoryInterface $formFactory,
         MessageBus $commandBus,
-        ResponseFactoryInterface $responseFactory
+        ResponseFactoryInterface $responseFactory,
+        HtmlContent $htmlContent,
+        UrlGenerator $urlGenerator
     ) {
-        $this->templating = $templating;
         $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
+        $this->htmlContent= $htmlContent;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function __invoke(ServerRequestInterface $request, Scene $scene, string $model): ResponseInterface
@@ -57,14 +65,19 @@ class CreateController
         $form = $this->formFactory->create(CreateType::class, new DTO($scene), [
             'scene' => $scene,
             'model' => SceneEvents::getEventForm($model),
-            'action' => $this->responseFactory->generate('event_add', ['id' => $scene->getId(), 'model' => $model])
+            'action' => $this->urlGenerator->generate('event_add', ['id' => $scene->getId(), 'model' => $model])
         ]);
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             return $this->processFormDataAndRedirect($scene, $form->getData());
         }
 
-        return $this->templating->createView($form);
+        return $this->responseFactory->toJson([
+            'form' => $this->htmlContent->fromTemplate(
+                'partial/simpleForm.html.twig',
+                ['form' => $form->createView(), 'title' => 'event.header.new']
+            )
+        ], !$form->isSubmitted() || $form->isValid() ? 200 : 400);
     }
 
     private function processFormDataAndRedirect(Scene $scene, DTO $dto): ResponseInterface

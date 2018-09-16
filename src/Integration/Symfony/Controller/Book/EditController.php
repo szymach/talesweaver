@@ -8,19 +8,17 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormView;
 use Talesweaver\Application\Book\Edit\Command;
 use Talesweaver\Application\Book\Edit\DTO;
-use Talesweaver\Application\Chapter\Create\DTO;
+use Talesweaver\Application\Chapter;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Domain\Book;
+use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Book\EditType;
 use Talesweaver\Integration\Symfony\Form\Chapter\CreateType;
-use Talesweaver\Integration\Symfony\Routing\RedirectToEdit;
 
 class EditController
 {
@@ -39,16 +37,21 @@ class EditController
      */
     private $commandBus;
 
+    /**
+     * @var UrlGenerator
+     */
+    private $urlGenerator;
+
     public function __construct(
         ResponseFactoryInterface $responseFactory,
         FormFactoryInterface $formFactory,
         MessageBus $commandBus,
-        RedirectToEdit $redirector
+        UrlGenerator $urlGenerator
     ) {
         $this->responseFactory = $responseFactory;
         $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
-        $this->redirector = $redirector;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function __invoke(ServerRequestInterface $request, Book $book): ResponseInterface
@@ -59,7 +62,7 @@ class EditController
             return $this->processFormDataAndRedirect($book, $dto);
         }
 
-        return $this->responseFactory->renderResponse(
+        return $this->responseFactory->fromTemplate(
             'book/editForm.html.twig',
             [
                 'form' => $form->createView(),
@@ -84,8 +87,8 @@ class EditController
 
     private function createChapterForm(Book $book): FormView
     {
-        return $this->formFactory->create(CreateType::class, new DTO(), [
-            'action' => $this->router->generate('chapter_create', ['bookId' => $book->getId()]),
+        return $this->formFactory->create(CreateType::class, new Chapter\Create\DTO(), [
+            'action' => $this->urlGenerator->generate('chapter_create', ['bookId' => $book->getId()]),
             'title_placeholder' => 'chapter.placeholder.title.book'
         ])->createView();
     }

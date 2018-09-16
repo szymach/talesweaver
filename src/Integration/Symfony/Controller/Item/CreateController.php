@@ -9,7 +9,9 @@ use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
+use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Application\Item\Create\Command;
 use Talesweaver\Application\Item\Create\DTO;
 use Talesweaver\Domain\Scene;
@@ -17,14 +19,13 @@ use Talesweaver\Domain\ValueObject\File;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Item\CreateType;
-use Talesweaver\Integration\Symfony\Templating\Item\FormView;
 
 class CreateController
 {
     /**
-     * @var FormView
+     * @var ResponseFactoryInterface
      */
-    private $templating;
+    private $responseFactory;
 
     /**
      * @var FormFactoryInterface
@@ -37,26 +38,33 @@ class CreateController
     private $commandBus;
 
     /**
-     * @var ResponseFactoryInterface
+     * @var HtmlContent
      */
-    private $responseFactory;
+    private $htmlContent;
+
+    /**
+     * @var UrlGenerator
+     */
+    private $urlGenerator;
 
     public function __construct(
-        FormView $templating,
+        ResponseFactoryInterface $responseFactory,
         FormFactoryInterface $formFactory,
+        HtmlContent $htmlContent,
         MessageBus $commandBus,
-        ResponseFactoryInterface $responseFactory
+        UrlGenerator $urlGenerator
     ) {
-        $this->formFactory = $formFactory;
-        $this->templating = $templating;
-        $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
+        $this->formFactory = $formFactory;
+        $this->htmlContent = $htmlContent;
+        $this->commandBus = $commandBus;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function __invoke(ServerRequestInterface $request, Scene $scene): ResponseInterface
     {
         $form = $this->formFactory->create(CreateType::class, new DTO($scene), [
-            'action' => $this->responseFactory->generate('item_new', ['id' => $scene->getId()]),
+            'action' => $this->urlGenerator->generate('item_new', ['id' => $scene->getId()]),
             'sceneId' => $scene->getId()
         ]);
 
@@ -64,7 +72,12 @@ class CreateController
             return $this->processFormDataAndRedirect($scene, $form->getData());
         }
 
-        return $this->templating->createView($form, 'item.header.new');
+        return $this->responseFactory->toJson([
+            'form' => $this->htmlContent->fromTemplate(
+                'partial/simpleForm.html.twig',
+                ['form' => $form->createView(), 'title' => 'item.header.new']
+            )
+        ], !$form->isSubmitted() || $form->isValid() ? 200 : 400);
     }
 
     private function processFormDataAndRedirect(Scene $scene, DTO $dto): ResponseInterface

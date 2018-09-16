@@ -4,22 +4,32 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Scene;
 
-use Talesweaver\Integration\Symfony\Templating\Scene\ListView;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Integration\Symfony\Pagination\Scene\ScenePaginator;
 
 class ListController
 {
     /**
-     * @var ListView
+     * @var ResponseFactoryInterface
      */
-    private $templating;
+    private $responseFactory;
 
-    public function __construct(ListView $templating)
+    /**
+     * @var ScenePaginator
+     */
+    private $pagination;
+
+    public function __construct(ResponseFactoryInterface $responseFactory, ScenePaginator $pagination)
     {
-        $this->templating = $templating;
+        $this->responseFactory = $responseFactory;
+        $this->pagination = $pagination;
     }
 
     public function __invoke($page)
     {
-        return $this->templating->createView($page);
+        return $this->responseFactory->fromTemplate(
+            'scene/list.html.twig',
+            ['scenes' => $this->pagination->getResults($page)]
+        );
     }
 }

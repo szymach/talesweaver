@@ -8,7 +8,9 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
+use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Application\Item\Edit\Command;
 use Talesweaver\Application\Item\Edit\DTO;
 use Talesweaver\Domain\Item;
@@ -16,14 +18,13 @@ use Talesweaver\Domain\ValueObject\File;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Item\EditType;
-use Talesweaver\Integration\Symfony\Templating\Item\FormView;
 
 class EditController
 {
     /**
-     * @var FormView
+     * @var ResponseFactoryInterface
      */
-    private $templating;
+    private $responseFactory;
 
     /**
      * @var FormFactoryInterface
@@ -33,23 +34,30 @@ class EditController
     /**
      * @var MessageBus
      */
-    private $commmandBus;
+    private $commandBus;
 
     /**
-     * @var ResponseFactoryInterface
+     * @var HtmlContent
      */
-    private $responseFactory;
+    private $htmlContent;
+
+    /**
+     * @var UrlGenerator
+     */
+    private $urlGenerator;
 
     public function __construct(
-        FormView $templating,
+        ResponseFactoryInterface $responseFactory,
         FormFactoryInterface $formFactory,
-        MessageBus $commmandBus,
-        ResponseFactoryInterface $responseFactory
+        HtmlContent $htmlContent,
+        MessageBus $commandBus,
+        UrlGenerator $urlGenerator
     ) {
-        $this->formFactory = $formFactory;
-        $this->templating = $templating;
-        $this->commmandBus = $commmandBus;
         $this->responseFactory = $responseFactory;
+        $this->formFactory = $formFactory;
+        $this->htmlContent = $htmlContent;
+        $this->commandBus = $commandBus;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function __invoke(ServerRequestInterface $request, Item $item): ResponseInterface
@@ -58,7 +66,7 @@ class EditController
             EditType::class,
             new DTO($item),
             [
-                'action' => $this->responseFactory->generate('item_edit', ['id' => $item->getId()]),
+                'action' => $this->urlGenerator->generate('item_edit', ['id' => $item->getId()]),
                 'itemId' => $item->getId()
             ]
         );
@@ -67,12 +75,17 @@ class EditController
             return $this->processForDataAndCreateResponse($item, $form->getData());
         }
 
-        return $this->templating->createView($form, 'item.header.edit');
+        return $this->responseFactory->toJson([
+            'form' => $this->htmlContent->fromTemplate(
+                'partial\simpleForm.html.twig',
+                ['form' => $form->createView(), 'title' => 'item.header.edit']
+            )
+        ], !$form->isSubmitted() || $form->isValid() ? 200 : 400);
     }
 
     private function processForDataAndCreateResponse(Item $item, DTO $dto): ResponseInterface
     {
-        $this->commmandBus->handle(new Command(
+        $this->commandBus->handle(new Command(
             $item,
             new ShortText($dto->getName()),
             null !== $dto->getDescription() ? new LongText($dto->getDescription()) : null,

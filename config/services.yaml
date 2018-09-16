@@ -16,8 +16,11 @@ services:
 
     Knp\Menu\FactoryInterface: "@knp_menu.factory"
     Knp\Snappy\GeneratorInterface: "@knp_snappy.pdf"
+    Talesweaver\Application\Http\HtmlContent: '@Talesweaver\Integration\Symfony\Http\HtmlContent'
     Talesweaver\Application\Http\ResponseFactoryInterface: '@Talesweaver\Integration\Symfony\Http\ResponseFactory'
+    Talesweaver\Application\Http\UrlGenerator: '@Talesweaver\Integration\Symfony\Http\UrlGenerator'
     Talesweaver\Application\Security\AuthorContext: '@Talesweaver\Integration\Symfony\Security\AuthorContext'
+    Talesweaver\Application\Security\AuthenticationContext: '@Talesweaver\Integration\Symfony\Security\AuthenticationContext'
     Talesweaver\Domain\Authors: '@Talesweaver\Integration\Doctrine\Repository\AuthorRepository'
     Talesweaver\Domain\Books: '@Talesweaver\Integration\Symfony\Repository\BookRepository'
     Talesweaver\Domain\Chapters: '@Talesweaver\Integration\Symfony\Repository\ChapterRepository'

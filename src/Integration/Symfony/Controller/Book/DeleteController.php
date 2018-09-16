@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Book;
 
+use Psr\Http\Message\ResponseInterface;
 use SimpleBus\Message\Bus\MessageBus;
 use Talesweaver\Application\Book\Delete\Command;
 use Talesweaver\Application\Http\ResponseFactoryInterface;

@@ -6,7 +6,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Item;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SimpleBus\Message\Bus\MessageBus;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Item\RemoveFromScene\Command;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Scene;
@@ -18,9 +18,15 @@ class RemoveFromSceneController
      */
     private $commandBus;
 
-    public function __construct(MessageBus $commandBus)
+    /**
+     * @var ResponseFactoryInterface
+     */
+    private $responseFactory;
+
+    public function __construct(MessageBus $commandBus, ResponseFactoryInterface $responseFactory)
     {
         $this->commandBus = $commandBus;
+        $this->responseFactory = $responseFactory;
     }
 
     /**

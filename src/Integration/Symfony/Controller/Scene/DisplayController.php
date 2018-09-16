@@ -4,23 +4,26 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Scene;
 
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Symfony\Templating\Scene\DisplayView;
 
 class DisplayController
 {
     /**
-     * @var DisplayView
+     * @var ResponseFactoryInterface
      */
-    private $templating;
+    private $responseFactory;
 
-    public function __construct(DisplayView $templating)
+    public function __construct(ResponseFactoryInterface $responseFactory)
     {
-        $this->templating = $templating;
+        $this->responseFactory = $responseFactory;
     }
 
     public function __invoke(Scene $scene)
     {
-        return $this->templating->createView($scene);
+        return $this->responseFactory->fromTemplate(
+            'scene/display.html.twig',
+            ['scene' => $scene]
+        );
     }
 }

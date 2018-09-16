@@ -5,23 +5,35 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Controller\Item;
 
 use Psr\Http\Message\ResponseInterface;
+use Talesweaver\Application\Http\HtmlContent;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Item;
-use Talesweaver\Integration\Symfony\Templating\Item\DisplayView;
 
 class DisplayController
 {
     /**
-     * @var DisplayView
+     * @var ResponseFactoryInterface
      */
-    private $templating;
+    private $responseFactory;
 
-    public function __construct(DisplayView $templating)
+    /**
+     * @var HtmlContent
+     */
+    private $htmlContent;
+
+    public function __construct(ResponseFactoryInterface $responseFactory, HtmlContent $htmlContent )
     {
-        $this->templating = $templating;
+        $this->responseFactory = $responseFactory;
+        $this->htmlContent = $htmlContent;
     }
 
-    public function __invoke(Item $item): ResponseInterface
+    public function createView(Item $event): ResponseInterface
     {
-        return $this->templating->createView($item);
+        return $this->responseFactory->toJson([
+            'display' => $this->htmlContent->fromTemplate(
+                'scene\events\display.html.twig',
+                ['event' => $event]
+            )
+        ]);
     }
 }

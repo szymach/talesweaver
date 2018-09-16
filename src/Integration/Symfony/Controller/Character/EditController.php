@@ -10,20 +10,21 @@ use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\FormFactoryInterface;
 use Talesweaver\Application\Character\Edit\Command;
 use Talesweaver\Application\Character\Edit\DTO;
+use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\ValueObject\File;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Character\EditType;
-use Talesweaver\Integration\Symfony\Templating\Character\FormView;
 
 class EditController
 {
     /**
-     * @var FormView
+     * @var ResponseFactoryInterface
      */
-    private $templating;
+    private $responseFactory;
 
     /**
      * @var FormFactoryInterface
@@ -36,26 +37,33 @@ class EditController
     private $commandBus;
 
     /**
-     * @var ResponseFactoryInterface
+     * @var HtmlContent
      */
-    private $responseFactory;
+    private $htmlContent;
+
+    /**
+     * @var UrlGenerator
+     */
+    private $urlGenerator;
 
     public function __construct(
-        FormView $templating,
+        ResponseFactoryInterface $responseFactory,
         FormFactoryInterface $formFactory,
+        HtmlContent $htmlContent,
         MessageBus $commandBus,
-        ResponseFactoryInterface $responseFactory
+        UrlGenerator $urlGenerator
     ) {
-        $this->formFactory = $formFactory;
-        $this->templating = $templating;
-        $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
+        $this->formFactory = $formFactory;
+        $this->htmlContent = $htmlContent;
+        $this->commandBus = $commandBus;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function __invoke(ServerRequestInterface $request, Character $character): ResponseInterface
     {
         $form = $this->formFactory->create(EditType::class, new DTO($character), [
-            'action' => $this->responseFactory->generate('character_edit', ['id' => $character->getId()]),
+            'action' => $this->urlGenerator->generate('character_edit', ['id' => $character->getId()]),
             'characterId' => $character->getId()
         ]);
 
@@ -63,7 +71,12 @@ class EditController
             return $this->processFormDataAndRedirect($character, $form->getData());
         }
 
-        return $this->templating->createView($form, 'character.header.edit');
+        return $this->responseFactory->toJson([
+            'form' => $this->htmlContent->fromTemplate(
+                'partial\simpleForm.html.twig',
+                ['form' => $form->createView(), 'title' => 'character.header.edit']
+            )
+        ], !$form->isSubmitted() || $form->isValid() ? 200 : 400);
     }
 
     private function processFormDataAndRedirect(Character $character, DTO $dto): ResponseInterface

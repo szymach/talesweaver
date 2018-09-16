@@ -7,6 +7,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Location;
 use Psr\Http\Message\ResponseInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SimpleBus\Message\Bus\MessageBus;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Location\RemoveFromScene\Command;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
@@ -18,9 +19,15 @@ class RemoveFromSceneController
      */
     private $commandBus;
 
-    public function __construct(MessageBus $commandBus)
+    /**
+     * @var ResponseFactoryInterface
+     */
+    private $responseFactory;
+
+    public function __construct(MessageBus $commandBus, ResponseFactoryInterface $responseFactory)
     {
         $this->commandBus = $commandBus;
+        $this->responseFactory = $responseFactory;
     }
 
     /**

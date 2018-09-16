@@ -13,6 +13,7 @@ use Talesweaver\Application\Character\Create\Command;
 use Talesweaver\Application\Character\Create\DTO;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\File;
 use Talesweaver\Domain\ValueObject\LongText;
@@ -41,22 +42,29 @@ class CreateController
      */
     private $htmlContent;
 
+    /**
+     * @var UrlGenerator
+     */
+    private $urlGenerator;
+
     public function __construct(
         ResponseFactoryInterface $responseFactory,
         FormFactoryInterface $formFactory,
         HtmlContent $htmlContent,
-        MessageBus $commandBus
+        MessageBus $commandBus,
+        UrlGenerator $urlGenerator
     ) {
         $this->responseFactory = $responseFactory;
         $this->formFactory = $formFactory;
         $this->htmlContent = $htmlContent;
         $this->commandBus = $commandBus;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function __invoke(ServerRequestInterface $request, Scene $scene): ResponseInterface
     {
         $form = $this->formFactory->create(CreateType::class, new DTO($scene), [
-            'action' => $this->responseFactory->generate('character_new', ['id' => $scene->getId()]),
+            'action' => $this->urlGenerator->generate('character_new', ['id' => $scene->getId()]),
             'sceneId' => $scene->getId()
         ]);
 

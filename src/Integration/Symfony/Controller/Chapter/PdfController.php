@@ -5,32 +5,32 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Controller\Chapter;
 
 use Psr\Http\Message\ResponseInterface;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Chapter;
-use Talesweaver\Integration\Symfony\Templating\PdfView;
 
 class PdfController
 {
     /**
-     * @var PdfView
+     * @var ResponseFactoryInterface
      */
-    private $pdfView;
+    private $responseFactory;
 
-    public function __construct(PdfView $pdfView)
+    public function __construct(ResponseFactoryInterface $responseFactory)
     {
-        $this->pdfView = $pdfView;
+        $this->responseFactory = $responseFactory;
     }
 
     public function __invoke(Chapter $chapter): ResponseInterface
     {
-        $name = $chapter->getTitle();
+        $filename = (string) $chapter->getTitle();
         if (null !== $chapter->getBook()) {
-            $name = sprintf('%s_%s', $chapter->getBook()->getTitle(), (string) $name);
+            $filename = sprintf('%s_%s', $chapter->getBook()->getTitle(), $filename);
         }
 
-        return $this->pdfView->createView(
+        return $this->responseFactory->toPdf(
+            $filename,
             'chapter/display.html.twig',
             ['chapter' => $chapter],
-            (string) $name,
             null
         );
     }

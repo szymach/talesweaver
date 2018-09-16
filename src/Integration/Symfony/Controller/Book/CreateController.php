@@ -60,6 +60,6 @@ class CreateController
         $bookId = Uuid::uuid4();
         $this->commandBus->handle(new Command($bookId, new ShortText($dto->getTitle())));
 
-        return $this->responseFactory->redirectToRoute('book_edit', $bookId);
+        return $this->responseFactory->redirectToRoute('book_edit', ['id' => $bookId]);
     }
 }

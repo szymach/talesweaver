@@ -5,23 +5,48 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Controller\Location;
 
 use Psr\Http\Message\ResponseInterface;
+use Talesweaver\Application\Http\HtmlContent;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Location;
-use Talesweaver\Integration\Symfony\Templating\Location\DisplayView;
+use Talesweaver\Integration\Symfony\Timeline\LocationTimeline;
 
 class DisplayController
 {
     /**
-     * @var DisplayView
+     * @var ResponseFactoryInterface
      */
-    private $templating;
+    private $responseFactory;
 
-    public function __construct(DisplayView $templating)
-    {
-        $this->templating = $templating;
+    /**
+     * @var HtmlContent
+     */
+    private $htmlContent;
+
+    /**
+     * @var LocationTimeline
+     */
+    private $timeline;
+
+    public function __construct(
+        ResponseFactoryInterface $responseFactory,
+        HtmlContent $htmlContent,
+        LocationTimeline $timeline
+    ) {
+        $this->responseFactory = $responseFactory;
+        $this->htmlContent = $htmlContent;
+        $this->timeline = $timeline;
     }
 
     public function __invoke(Location $location): ResponseInterface
     {
-        return $this->templating->createView($location);
+        return $this->responseFactory->toJson([
+            'display' => $this->htmlContent->fromTemplate(
+                'scene\locations\display.html.twig',
+                [
+                    'location' => $location,
+                    'timeline' => $this->timeline->getTimeline($location->getId(), Location::class)
+                ]
+            )
+        ]);
     }
 }

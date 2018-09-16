@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormView;
 use Talesweaver\Application\Chapter\Edit\Command;
 use Talesweaver\Application\Chapter\Edit\DTO;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Chapter\EditType;
@@ -34,14 +35,21 @@ class EditController
      */
     private $commandBus;
 
+    /**
+     * @var UrlGenerator
+     */
+    private $urlGenerator;
+
     public function __construct(
         ResponseFactoryInterface $responseFactory,
         FormFactoryInterface $formFactory,
-        MessageBus $commandBus
+        MessageBus $commandBus,
+        UrlGenerator $urlGenerator
     ) {
         $this->responseFactory = $responseFactory;
         $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function __invoke(ServerRequestInterface $request, Chapter $chapter): ResponseInterface
@@ -54,14 +62,14 @@ class EditController
             return $this->processFormDataAndRedirect($chapter, $form->getData());
         }
 
-        return $this->responseFactory->renderResponse(
+        return $this->responseFactory->fromTemplate(
             'chapter/editForm.html.twig',
             [
                 'form' => $form->createView(),
                 'chapterId' => $chapter->getId(),
                 'bookId' => $chapter->getBook() ? $chapter->getBook()->getId() : null,
                 'title' => $chapter->getTitle(),
-                'sceneForm' => $this->createSceneForm($chapter)->createView()
+                'sceneForm' => $this->createSceneForm($chapter)
             ]
         );
     }
@@ -80,7 +88,7 @@ class EditController
     private function createSceneForm(Chapter $chapter): FormView
     {
         return $this->formFactory->create(CreateType::class, new DTO($chapter), [
-            'action' => $this->router->generate('scene_create'),
+            'action' => $this->urlGenerator->generate('scene_create'),
             'title_placeholder' => 'scene.placeholder.title.chapter'
         ])->createView();
     }

@@ -6,18 +6,27 @@ namespace Talesweaver\Integration\Symfony\Http;
 
 use Exception;
 use Psr\Http\Message\ResponseInterface;
+use Knp\Snappy\GeneratorInterface as PdfGenerator;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Throwable;
+use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 
 class ResponseFactory implements ResponseFactoryInterface
 {
+    private const DEFAULT_PDF_OPTIONS = [
+        'margin-top' => '10mm',
+        'margin-bottom' => '10mm',
+        'margin-left' => '10mm',
+        'margin-right' => '10mm'
+    ];
+
     /**
      * @var HtmlContent
      */
@@ -28,10 +37,19 @@ class ResponseFactory implements ResponseFactoryInterface
      */
     private $urlGenerator;
 
-    public function __construct(HtmlContent $htmlContent, UrlGeneratorInterface $urlGenerator)
-    {
+    /**
+     * @var PdfGenerator
+     */
+    private $pdfGenerator;
+
+    public function __construct(
+        HtmlContent $htmlContent,
+        UrlGeneratorInterface $urlGenerator,
+        PdfGenerator $pdfGenerator
+    ) {
         $this->htmlContent = $htmlContent;
         $this->urlGenerator = $urlGenerator;
+        $this->pdfGenerator = $pdfGenerator;
     }
 
     public function fromTemplate(string $template, array $parameters = []): ResponseInterface
@@ -47,6 +65,21 @@ class ResponseFactory implements ResponseFactoryInterface
     public function toJson($data, int $code = 200): ResponseInterface
     {
         return new JsonResponse($data, $code);
+    }
+
+    public function toPdf(string $filename, string $template, array $parameters, ?array $options): ResponseInterface
+    {
+        return new Response(
+            $this->pdfGenerator->getOutputFromHtml(
+                $this->htmlContent->fromTemplate($template, $parameters),
+                $options ?? self::DEFAULT_PDF_OPTIONS
+            ),
+            200,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s.pdf"', $filename)
+            ]
+        );
     }
 
     public function accessDenied(string $message, ?Throwable $previous = null): Throwable

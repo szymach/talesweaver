@@ -4,31 +4,31 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Scene;
 
+use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Symfony\Templating\PdfView;
 
 class PdfController
 {
     /**
-     * @var PdfView
+     * @var ResponseFactoryInterface
      */
-    private $pdfView;
+    private $responseFactory;
 
-    public function __construct(PdfView $pdfView)
+    public function __construct(ResponseFactoryInterface $responseFactory)
     {
-        $this->pdfView = $pdfView;
+        $this->responseFactory = $responseFactory;
     }
 
     public function __invoke(Scene $scene)
     {
-        $name = $scene->getTitle();
+        $filename = (string) $scene->getTitle();
         if (null !== $scene->getChapter()) {
-            $name = sprintf('%s_%s', (string) $scene->getChapter()->getTitle(), (string) $name);
+            $filename = sprintf('%s_%s', (string) $scene->getChapter()->getTitle(), $filename);
         }
         if (null !== $scene->getBook()) {
-            $name = sprintf('%s_%s', (string) $scene->getBook()->getTitle(), (string) $name);
+            $filename = sprintf('%s_%s', (string) $scene->getBook()->getTitle(), $filename);
         }
 
-        return $this->pdfView->createView('scene/display.html.twig', ['scene' => $scene], (string) $name, null);
+        return $this->responseFactory->toPdf($filename, 'scene/display.html.twig', ['scene' => $scene], null);
     }
 }
