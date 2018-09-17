@@ -11,7 +11,7 @@ use Talesweaver\Application\Form;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Security\AuthorContext;
-use Talesweaver\Application\Security\ChangePassword;
+use Talesweaver\Application\Command\Security\ChangePassword;
 
 class ChangePasswordController
 {

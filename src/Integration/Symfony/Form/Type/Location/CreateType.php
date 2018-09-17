@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Talesweaver\Application\Form\Type\Location\Create;
-use Talesweaver\Application\Location\Create\DTO;
+use Talesweaver\Application\Command\Location\Create\DTO;
 use Talesweaver\Integration\Symfony\Repository\LocationRepository;
 
 class CreateType extends AbstractType implements Create

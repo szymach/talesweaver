@@ -7,7 +7,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Location;
 use Psr\Http\Message\ResponseInterface;
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Location\Delete\Command;
+use Talesweaver\Application\Command\Location\Delete\Command;
 use Talesweaver\Domain\Location;
 
 class DeleteController

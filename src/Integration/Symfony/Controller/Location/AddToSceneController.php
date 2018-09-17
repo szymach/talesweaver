@@ -7,7 +7,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Location;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Location\AddToScene\Command;
+use Talesweaver\Application\Command\Location\AddToScene\Command;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
 

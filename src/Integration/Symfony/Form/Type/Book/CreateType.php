@@ -13,7 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Talesweaver\Application\Book\Create\DTO;
+use Talesweaver\Application\Command\Book\Create\DTO;
 use Talesweaver\Application\Form\Type\Book\Create;
 use Talesweaver\Integration\Symfony\Repository\BookRepository;
 

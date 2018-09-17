@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Location\RemoveFromScene\Command;
+use Talesweaver\Application\Command\Location\RemoveFromScene\Command;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
 

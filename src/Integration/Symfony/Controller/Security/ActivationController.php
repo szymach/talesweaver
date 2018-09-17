@@ -6,7 +6,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Security;
 
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Security\ActivateAuthor;
+use Talesweaver\Application\Command\Security\ActivateAuthor;
 use Talesweaver\Integration\Doctrine\Repository\AuthorRepository;
 
 class ActivationController

@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Talesweaver\Application\Character\Edit\DTO;
+use Talesweaver\Application\Command\Character\Edit\DTO;
 use Talesweaver\Application\Form\Type\Character\Edit;
 use Talesweaver\Integration\Symfony\Repository\CharacterRepository;
 

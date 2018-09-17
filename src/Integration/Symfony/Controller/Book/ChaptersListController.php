@@ -6,7 +6,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Book;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Talesweaver\Application\Chapter\Create\DTO;
+use Talesweaver\Application\Command\Chapter\Create\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\FormViewInterface;
 use Talesweaver\Application\Form\Type\Chapter\Create;

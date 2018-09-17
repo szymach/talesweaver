@@ -10,7 +10,7 @@ use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Form;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Security\ResetPassword;
+use Talesweaver\Application\Command\Security\ResetPassword;
 use Talesweaver\Domain\PasswordResetToken;
 use Talesweaver\Domain\PasswordResetTokens;
 

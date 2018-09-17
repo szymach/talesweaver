@@ -7,7 +7,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Character;
 use Psr\Http\Message\ResponseInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Talesweaver\Application\Bus\CommandBus;
-use Talesweaver\Application\Character\AddToScene\Command;
+use Talesweaver\Application\Command\Character\AddToScene\Command;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Scene;

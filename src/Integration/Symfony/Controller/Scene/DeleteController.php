@@ -7,7 +7,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Scene;
 use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Scene\Delete\Command;
+use Talesweaver\Application\Command\Scene\Delete\Command;
 use Talesweaver\Domain\Scene;
 
 class DeleteController

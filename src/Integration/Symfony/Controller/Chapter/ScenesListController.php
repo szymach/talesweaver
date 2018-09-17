@@ -7,12 +7,12 @@ namespace Talesweaver\Integration\Symfony\Controller\Chapter;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Talesweaver\Application\Command\Scene\Create\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\FormViewInterface;
 use Talesweaver\Application\Form\Type\Scene\Create;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Scene\Create\DTO;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Integration\Symfony\Pagination\Chapter\ScenePaginator;
 

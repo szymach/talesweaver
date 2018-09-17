@@ -8,15 +8,15 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Bus\CommandBus;
-use Talesweaver\Application\Chapter\Edit\Command;
-use Talesweaver\Application\Chapter\Edit\DTO;
+use Talesweaver\Application\Command\Chapter\Edit\Command;
+use Talesweaver\Application\Command\Chapter\Edit\DTO;
+use Talesweaver\Application\Command\Scene;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\FormViewInterface;
 use Talesweaver\Application\Form\Type\Chapter\Edit;
 use Talesweaver\Application\Form\Type\Scene\Create;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
-use Talesweaver\Application\Scene;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\ValueObject\ShortText;
 

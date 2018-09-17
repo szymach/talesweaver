@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Valid;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Talesweaver\Application\Event\Create\DTO;
+use Talesweaver\Application\Command\Event\Create\DTO;
 use Talesweaver\Application\Form\Type\Event\Create;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Symfony\Repository\EventRepository;

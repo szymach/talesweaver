@@ -10,7 +10,7 @@ use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Security\Register;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Security\CreateAuthor;
+use Talesweaver\Application\Command\Security\CreateAuthor;
 
 class RegisterController
 {

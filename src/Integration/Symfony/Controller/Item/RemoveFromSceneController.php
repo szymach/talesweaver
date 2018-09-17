@@ -7,7 +7,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Item;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Item\RemoveFromScene\Command;
+use Talesweaver\Application\Command\Item\RemoveFromScene\Command;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Scene;
 

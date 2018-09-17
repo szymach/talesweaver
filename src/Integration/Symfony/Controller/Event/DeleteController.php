@@ -6,7 +6,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Event;
 
 use Psr\Http\Message\ResponseInterface;
 use Talesweaver\Application\Bus\CommandBus;
-use Talesweaver\Application\Event\Delete\Command;
+use Talesweaver\Application\Command\Event\Delete\Command;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Event;
 

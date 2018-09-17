@@ -6,7 +6,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Book;
 
 use Psr\Http\Message\ResponseInterface;
 use Talesweaver\Application\Bus\CommandBus;
-use Talesweaver\Application\Book\Delete\Command;
+use Talesweaver\Application\Command\Book\Delete\Command;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Book;
 

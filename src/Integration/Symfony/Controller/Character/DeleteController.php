@@ -6,7 +6,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Character;
 
 use Psr\Http\Message\ResponseInterface;
 use Talesweaver\Application\Bus\CommandBus;
-use Talesweaver\Application\Character\Delete\Command;
+use Talesweaver\Application\Command\Character\Delete\Command;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Character;
 

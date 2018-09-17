@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Talesweaver\Application\Form\Type\Scene\Create;
-use Talesweaver\Application\Scene\Create\DTO;
+use Talesweaver\Application\Command\Scene\Create\DTO;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Integration\Symfony\Repository\ChapterRepository;

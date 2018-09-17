@@ -9,7 +9,7 @@ use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Security\ResetPassword;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Security\GeneratePasswordResetToken;
+use Talesweaver\Application\Command\Security\GeneratePasswordResetToken;
 
 class ResetPasswordRequestController
 {
