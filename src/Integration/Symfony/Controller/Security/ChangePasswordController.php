@@ -6,7 +6,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Security;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use SimpleBus\Message\Bus\MessageBus;
+use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Form;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
@@ -21,7 +21,7 @@ class ChangePasswordController
     private $formHandlerFactory;
 
     /**
-     * @var MessageBus
+     * @var CommandBus
      */
     private $commandBus;
 
@@ -38,7 +38,7 @@ class ChangePasswordController
     public function __construct(
         FormHandlerFactoryInterface $formHandlerFactory,
         AuthorContext $authorContext,
-        MessageBus $commandBus,
+        CommandBus $commandBus,
         ResponseFactoryInterface $responseFactory
     ) {
         $this->formHandlerFactory = $formHandlerFactory;
@@ -54,7 +54,7 @@ class ChangePasswordController
             Form\Type\Security\ChangePassword::class
         );
         if (true === $formHandler->isSubmissionValid()) {
-            $this->commandBus->handle(new ChangePassword(
+            $this->commandBus->dispatch(new ChangePassword(
                 $this->authorContext->getAuthor(),
                 $formHandler->getData()['newPassword']
             ));

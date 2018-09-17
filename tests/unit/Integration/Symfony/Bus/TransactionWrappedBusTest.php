@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Tests\Integration\Bus;
+namespace Talesweaver\Tests\Integration\Symfony\Bus;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use SimpleBus\Message\Bus\MessageBus;
+use Symfony\Component\Messenger\MessageBusInterface;
 use stdClass;
 use Talesweaver\Integration\Symfony\Bus\TransactionWrappedBus;
 
 class TransactionWrappedBusTest extends TestCase
 {
     /**
-     * @var MessageBus|MockObject
+     * @var MessageBusInterface|MockObject
      */
     private $messageBus;
 
@@ -28,7 +28,7 @@ class TransactionWrappedBusTest extends TestCase
     public function testNoExceptionThrown()
     {
         $command = new stdClass();
-        $this->messageBus->expects($this->once())->method('handle')->with($command);
+        $this->messageBus->expects($this->once())->method('dispatch')->with($command);
 
         $this->manager->expects($this->once())->method('flush');
         $this->manager->expects($this->once())->method('commit');
@@ -37,7 +37,7 @@ class TransactionWrappedBusTest extends TestCase
         $this->manager->expects($this->never())->method('rollback');
 
         $bus = new TransactionWrappedBus($this->messageBus, $this->manager);
-        $bus->handle($command);
+        $bus->dispatch($command);
     }
 
     public function testExceptionThrownWithActiveTransaction()
@@ -46,7 +46,7 @@ class TransactionWrappedBusTest extends TestCase
 
         $command = new stdClass();
         $this->messageBus->expects($this->once())
-            ->method('handle')
+            ->method('dispatch')
             ->with($command)
             ->will($this->throwException(new Exception()))
         ;
@@ -61,7 +61,7 @@ class TransactionWrappedBusTest extends TestCase
         $this->manager->expects($this->once())->method('rollback');
 
         $bus = new TransactionWrappedBus($this->messageBus, $this->manager);
-        $bus->handle($command);
+        $bus->dispatch($command);
     }
 
     public function testExceptionThrownWithoutActiveTransaction()
@@ -70,7 +70,7 @@ class TransactionWrappedBusTest extends TestCase
 
         $command = new stdClass();
         $this->messageBus->expects($this->once())
-            ->method('handle')
+            ->method('dispatch')
             ->with($command)
             ->will($this->throwException(new Exception()))
         ;
@@ -85,12 +85,12 @@ class TransactionWrappedBusTest extends TestCase
         $this->manager->expects($this->never())->method('rollback');
 
         $bus = new TransactionWrappedBus($this->messageBus, $this->manager);
-        $bus->handle($command);
+        $bus->dispatch($command);
     }
 
     protected function setUp()
     {
-        $this->messageBus = $this->createMock(MessageBus::class);
+        $this->messageBus = $this->createMock(MessageBusInterface::class);
         $this->manager = $this->createMock(EntityManagerInterface::class);
         $this->manager->expects($this->once())->method('beginTransaction');
     }

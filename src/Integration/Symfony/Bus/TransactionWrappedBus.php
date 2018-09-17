@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Bus;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SimpleBus\Message\Bus\MessageBus;
+use Symfony\Component\Messenger\MessageBusInterface;
+use Talesweaver\Application\Bus\CommandBus;
 use Throwable;
 
-class TransactionWrappedBus implements MessageBus
+class TransactionWrappedBus implements CommandBus, MessageBusInterface
 {
     /**
-     * @var MessageBus
+     * @var MessageBusInterface
      */
     private $messageBus;
 
@@ -20,17 +21,17 @@ class TransactionWrappedBus implements MessageBus
      */
     private $manager;
 
-    public function __construct(MessageBus $messageBus, EntityManagerInterface $manager)
+    public function __construct(MessageBusInterface $messageBus, EntityManagerInterface $manager)
     {
         $this->messageBus = $messageBus;
         $this->manager = $manager;
     }
 
-    public function handle($message): void
+    public function dispatch($message): void
     {
         $this->manager->beginTransaction();
         try {
-            $this->messageBus->handle($message);
+            $this->messageBus->dispatch($message);
             $this->manager->flush();
             $this->manager->commit();
         } catch (Throwable $exception) {

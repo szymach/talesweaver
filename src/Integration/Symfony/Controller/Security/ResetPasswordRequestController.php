@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Controller\Security;
 
 use Psr\Http\Message\ServerRequestInterface;
-use SimpleBus\Message\Bus\MessageBus;
+use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Security\ResetPassword;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
@@ -19,7 +19,7 @@ class ResetPasswordRequestController
     private $formHandlerFactory;
 
     /**
-     * @var MessageBus
+     * @var CommandBus
      */
     private $commandBus;
 
@@ -30,7 +30,7 @@ class ResetPasswordRequestController
 
     public function __construct(
         FormHandlerFactoryInterface $formHandlerFactory,
-        MessageBus $commandBus,
+        CommandBus $commandBus,
         ResponseFactoryInterface $responseFactory
     ) {
         $this->formHandlerFactory = $formHandlerFactory;
@@ -42,7 +42,7 @@ class ResetPasswordRequestController
     {
         $formHandler = $this->formHandlerFactory->createWithRequest($request, ResetPassword\Request::class);
         if (true === $formHandler->isSubmissionValid()) {
-            $this->commandBus->handle(new GeneratePasswordResetToken($formHandler->getData()['email']));
+            $this->commandBus->dispatch(new GeneratePasswordResetToken($formHandler->getData()['email']));
 
             return $this->responseFactory->redirectToRoute('index');
         }

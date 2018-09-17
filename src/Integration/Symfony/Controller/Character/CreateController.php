@@ -7,7 +7,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Character;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
-use SimpleBus\Message\Bus\MessageBus;
+use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Character\Create\Command;
 use Talesweaver\Application\Character\Create\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
@@ -33,7 +33,7 @@ class CreateController
     private $formHandlerFactory;
 
     /**
-     * @var MessageBus
+     * @var CommandBus
      */
     private $commandBus;
 
@@ -51,7 +51,7 @@ class CreateController
         ResponseFactoryInterface $responseFactory,
         FormHandlerFactoryInterface $formHandlerFactory,
         HtmlContent $htmlContent,
-        MessageBus $commandBus,
+        CommandBus $commandBus,
         UrlGenerator $urlGenerator
     ) {
         $this->responseFactory = $responseFactory;
@@ -84,7 +84,7 @@ class CreateController
     {
         $description = $dto->getName();
         $avatar = $dto->getAvatar();
-        $this->commandBus->handle(new Command(
+        $this->commandBus->dispatch(new Command(
             $scene,
             Uuid::uuid4(),
             new ShortText($dto->getName()),

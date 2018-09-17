@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Tests\Integration\Bus;
+namespace Talesweaver\Tests\Integration\Symfony\Bus;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
-use SimpleBus\Message\Bus\MessageBus;
+use Symfony\Component\Messenger\MessageBusInterface;
 use stdClass;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Talesweaver\Application\Security\AuthorContext;
@@ -18,7 +18,7 @@ use Talesweaver\Integration\Symfony\Bus\AuthorAccessBus;
 class AuthorAccessBusTest extends TestCase
 {
     /**
-     * @var MessageBus|MockObject
+     * @var MessageBusInterface|MockObject
      */
     private $messageBus;
 
@@ -32,10 +32,10 @@ class AuthorAccessBusTest extends TestCase
         $message = new stdClass();
 
         $this->authorContext->expects($this->never())->method('getAuthor');
-        $this->messageBus->expects($this->once())->method('handle')->with($message);
+        $this->messageBus->expects($this->once())->method('dispatch')->with($message);
 
         $bus = new AuthorAccessBus($this->messageBus, $this->authorContext);
-        $bus->handle($message);
+        $bus->dispatch($message);
     }
 
     public function testUserAllowed()
@@ -45,15 +45,15 @@ class AuthorAccessBusTest extends TestCase
 
         $message = $this->createMock(AuthorAccessInterface::class);
         $message->expects($this->once())->method('isAllowed')->with($author)->willReturn(true);
-        $this->messageBus->expects($this->once())->method('handle')->with($message);
+        $this->messageBus->expects($this->once())->method('dispatch')->with($message);
 
         $bus = new AuthorAccessBus($this->messageBus, $this->authorContext);
-        $bus->handle($message);
+        $bus->dispatch($message);
     }
 
     public function testUserNotAllowedException()
     {
-        $this->messageBus->expects($this->never())->method('handle');
+        $this->messageBus->expects($this->never())->method('dispatch');
 
         $author = $this->createMock(Author::class);
         $id = $this->createMock(UuidInterface::class);
@@ -71,12 +71,12 @@ class AuthorAccessBusTest extends TestCase
         ));
 
         $bus = new AuthorAccessBus($this->messageBus, $this->authorContext);
-        $bus->handle($message);
+        $bus->dispatch($message);
     }
 
     protected function setUp()
     {
-        $this->messageBus = $this->createMock(MessageBus::class);
+        $this->messageBus = $this->createMock(MessageBusInterface::class);
         $this->authorContext = $this->createMock(AuthorContext::class);
     }
 }

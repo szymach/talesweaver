@@ -6,7 +6,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Character;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use SimpleBus\Message\Bus\MessageBus;
+use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Character\Edit\Command;
 use Talesweaver\Application\Character\Edit\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
@@ -32,7 +32,7 @@ class EditController
     private $formHandlerFactory;
 
     /**
-     * @var MessageBus
+     * @var CommandBus
      */
     private $commandBus;
 
@@ -50,7 +50,7 @@ class EditController
         ResponseFactoryInterface $responseFactory,
         FormHandlerFactoryInterface $formHandlerFactory,
         HtmlContent $htmlContent,
-        MessageBus $commandBus,
+        CommandBus $commandBus,
         UrlGenerator $urlGenerator
     ) {
         $this->responseFactory = $responseFactory;
@@ -83,7 +83,7 @@ class EditController
     {
         $description = $dto->getName();
         $avatar = $dto->getAvatar();
-        $this->commandBus->handle(new Command(
+        $this->commandBus->dispatch(new Command(
             $character,
             new ShortText($dto->getName()),
             null !== $description ? new LongText($description) : null,

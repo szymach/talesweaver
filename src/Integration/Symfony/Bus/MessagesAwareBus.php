@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Bus;
 
-use SimpleBus\Message\Bus\MessageBus;
+use Symfony\Component\Messenger\MessageBusInterface;
+use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Application\Session\Flash;
 use Talesweaver\Application\Session\FlashBag;
 
-class MessagesAwareBus implements MessageBus
+class MessagesAwareBus implements CommandBus, MessageBusInterface
 {
     /**
-     * @var MessageBus
+     * @var MessageBusInterface
      */
     private $messageBus;
 
@@ -21,15 +22,15 @@ class MessagesAwareBus implements MessageBus
      */
     private $flashBag;
 
-    public function __construct(MessageBus $messageBus, FlashBag $flashBag)
+    public function __construct(MessageBusInterface $messageBus, FlashBag $flashBag)
     {
         $this->messageBus = $messageBus;
         $this->flashBag = $flashBag;
     }
 
-    public function handle($command): void
+    public function dispatch($command): void
     {
-        $this->messageBus->handle($command);
+        $this->messageBus->dispatch($command);
         if (false === $command instanceof MessageCommandInterface) {
             return;
         }

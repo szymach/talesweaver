@@ -6,7 +6,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Location;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use SimpleBus\Message\Bus\MessageBus;
+use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Location\Edit;
 use Talesweaver\Application\Http\HtmlContent;
@@ -32,7 +32,7 @@ class EditController
     private $formHandlerFactory;
 
     /**
-     * @var MessageBus
+     * @var CommandBus
      */
     private $commandBus;
 
@@ -50,7 +50,7 @@ class EditController
         ResponseFactoryInterface $responseFactory,
         FormHandlerFactoryInterface $formHandlerFactory,
         HtmlContent $htmlContent,
-        MessageBus $commandBus,
+        CommandBus $commandBus,
         UrlGenerator $urlGenerator
     ) {
         $this->responseFactory = $responseFactory;
@@ -86,7 +86,7 @@ class EditController
 
     private function processForDataAndCreateResponse(Location $location, DTO $dto): ResponseInterface
     {
-        $this->commandBus->handle(new Command(
+        $this->commandBus->dispatch(new Command(
             $location,
             new ShortText($dto->getName()),
             null !== $dto->getDescription() ? new LongText($dto->getDescription()) : null,

@@ -6,7 +6,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Book;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use SimpleBus\Message\Bus\MessageBus;
+use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Book\Edit\Command;
 use Talesweaver\Application\Book\Edit\DTO;
 use Talesweaver\Application\Chapter;
@@ -33,7 +33,7 @@ class EditController
     private $formHandlerFactory;
 
     /**
-     * @var MessageBus
+     * @var CommandBus
      */
     private $commandBus;
 
@@ -45,7 +45,7 @@ class EditController
     public function __construct(
         ResponseFactoryInterface $responseFactory,
         FormHandlerFactoryInterface $formHandlerFactory,
-        MessageBus $commandBus,
+        CommandBus $commandBus,
         UrlGenerator $urlGenerator
     ) {
         $this->responseFactory = $responseFactory;
@@ -80,7 +80,7 @@ class EditController
     private function processFormDataAndRedirect(Book $book, DTO $dto): ResponseInterface
     {
         $description = $dto->getDescription();
-        $this->commandBus->handle(new Command(
+        $this->commandBus->dispatch(new Command(
             $book,
             new ShortText($dto->getTitle()),
             null !== $description ? new LongText($description) : null

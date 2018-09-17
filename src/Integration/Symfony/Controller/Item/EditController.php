@@ -6,7 +6,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Item;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use SimpleBus\Message\Bus\MessageBus;
+use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Item\Edit;
 use Talesweaver\Application\Http\HtmlContent;
@@ -32,7 +32,7 @@ class EditController
     private $formHandlerFactory;
 
     /**
-     * @var MessageBus
+     * @var CommandBus
      */
     private $commandBus;
 
@@ -50,7 +50,7 @@ class EditController
         ResponseFactoryInterface $responseFactory,
         FormHandlerFactoryInterface $formHandlerFactory,
         HtmlContent $htmlContent,
-        MessageBus $commandBus,
+        CommandBus $commandBus,
         UrlGenerator $urlGenerator
     ) {
         $this->responseFactory = $responseFactory;
@@ -86,7 +86,7 @@ class EditController
 
     private function processForDataAndCreateResponse(Item $item, DTO $dto): ResponseInterface
     {
-        $this->commandBus->handle(new Command(
+        $this->commandBus->dispatch(new Command(
             $item,
             new ShortText($dto->getName()),
             null !== $dto->getDescription() ? new LongText($dto->getDescription()) : null,

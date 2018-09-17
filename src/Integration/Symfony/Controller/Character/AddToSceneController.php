@@ -6,7 +6,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Character;
 
 use Psr\Http\Message\ResponseInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use SimpleBus\Message\Bus\MessageBus;
+use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Character\AddToScene\Command;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Character;
@@ -15,7 +15,7 @@ use Talesweaver\Domain\Scene;
 class AddToSceneController
 {
     /**
-     * @var MessageBus
+     * @var CommandBus
      */
     private $commandBus;
 
@@ -24,7 +24,7 @@ class AddToSceneController
      */
     private $responseFactory;
 
-    public function __construct(MessageBus $commandBus, ResponseFactoryInterface $responseFactory)
+    public function __construct(CommandBus $commandBus, ResponseFactoryInterface $responseFactory)
     {
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
@@ -36,7 +36,7 @@ class AddToSceneController
      */
     public function __invoke(Scene $scene, Character $character): ResponseInterface
     {
-        $this->commandBus->handle(new Command($scene, $character));
+        $this->commandBus->dispatch(new Command($scene, $character));
 
         return $this->responseFactory->toJson(['success' => true]);
     }

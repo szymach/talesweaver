@@ -6,7 +6,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Event;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use SimpleBus\Message\Bus\MessageBus;
+use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Event\Edit\Command;
 use Talesweaver\Application\Event\Edit\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
@@ -26,7 +26,7 @@ class EditController
     private $formHandlerFactory;
 
     /**
-     * @var MessageBus
+     * @var CommandBus
      */
     private $commandBus;
 
@@ -47,7 +47,7 @@ class EditController
 
     public function __construct(
         FormHandlerFactoryInterface $formHandlerFactory,
-        MessageBus $commandBus,
+        CommandBus $commandBus,
         ResponseFactoryInterface $responseFactory,
         HtmlContent $htmlContent,
         UrlGenerator $urlGenerator
@@ -85,7 +85,7 @@ class EditController
 
     private function processFormDataAndRedirect(Event $event, DTO $dto): ResponseInterface
     {
-        $this->commandBus->handle(new Command(
+        $this->commandBus->dispatch(new Command(
             $event,
             new ShortText($dto->getName()),
             $dto->getModel()

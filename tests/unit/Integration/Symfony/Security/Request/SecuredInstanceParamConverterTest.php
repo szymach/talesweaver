@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Tests\Integration\Security\Request;
+namespace Talesweaver\Tests\Integration\Symfony\Security\Request;
 
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;

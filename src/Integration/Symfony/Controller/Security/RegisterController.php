@@ -6,7 +6,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Security;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use SimpleBus\Message\Bus\MessageBus;
+use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Security\Register;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
@@ -20,7 +20,7 @@ class RegisterController
     private $formHandlerFactory;
 
     /**
-     * @var MessageBus
+     * @var CommandBus
      */
     private $commandBus;
 
@@ -31,7 +31,7 @@ class RegisterController
 
     public function __construct(
         FormHandlerFactoryInterface $formHandlerFactory,
-        MessageBus $commandBus,
+        CommandBus $commandBus,
         ResponseFactoryInterface $responseFactory
     ) {
         $this->formHandlerFactory = $formHandlerFactory;
@@ -44,7 +44,7 @@ class RegisterController
         $formHandler = $this->formHandlerFactory->createWithRequest($request, Register::class);
         if (true === $formHandler->isSubmissionValid()) {
             $data = $formHandler->getData();
-            $this->commandBus->handle(new CreateAuthor($data['email'], $data['password']));
+            $this->commandBus->dispatch(new CreateAuthor($data['email'], $data['password']));
 
             return $this->responseFactory->redirectToRoute('login');
         }

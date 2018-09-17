@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Controller\Location;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use SimpleBus\Message\Bus\MessageBus;
+use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Location\AddToScene\Command;
 use Talesweaver\Domain\Location;
@@ -14,7 +14,7 @@ use Talesweaver\Domain\Scene;
 class AddToSceneController
 {
     /**
-     * @var MessageBus
+     * @var CommandBus
      */
     private $commandBus;
 
@@ -23,7 +23,7 @@ class AddToSceneController
      */
     private $responseFactory;
 
-    public function __construct(MessageBus $commandBus, ResponseFactoryInterface $responseFactory)
+    public function __construct(CommandBus $commandBus, ResponseFactoryInterface $responseFactory)
     {
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
@@ -35,7 +35,7 @@ class AddToSceneController
      */
     public function __invoke(Scene $scene, Location $location): ResponseFactoryInterface
     {
-        $this->commandBus->handle(new Command($scene, $location));
+        $this->commandBus->dispatch(new Command($scene, $location));
 
         return $this->responseFactory->toJson(['success' => true]);
     }

@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use SimpleBus\Message\Bus\MessageBus;
+use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Scene\Create;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
@@ -24,7 +24,7 @@ class CreateController
     private $formHandlerFactory;
 
     /**
-     * @var MessageBus
+     * @var CommandBus
      */
     private $commandBus;
 
@@ -35,7 +35,7 @@ class CreateController
 
     public function __construct(
         FormHandlerFactoryInterface $formHandlerFactory,
-        MessageBus $commandBus,
+        CommandBus $commandBus,
         ResponseFactoryInterface $responseFactory
     ) {
         $this->formHandlerFactory = $formHandlerFactory;
@@ -62,7 +62,7 @@ class CreateController
     private function processFormDataAndRedirect(DTO $dto): ResponseInterface
     {
         $id = Uuid::uuid4();
-        $this->commandBus->handle(
+        $this->commandBus->dispatch(
             new Command($id, new ShortText($dto->getTitle()), $dto->getChapter())
         );
 

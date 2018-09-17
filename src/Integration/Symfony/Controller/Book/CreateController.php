@@ -7,7 +7,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Book;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
-use SimpleBus\Message\Bus\MessageBus;
+use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Book\Create\Command;
 use Talesweaver\Application\Book\Create\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
@@ -28,13 +28,13 @@ class CreateController
     private $formHandlerFactory;
 
     /**
-     * @var MessageBus
+     * @var CommandBus
      */
     private $commandBus;
 
     public function __construct(
         FormHandlerFactoryInterface $formHandlerFactory,
-        MessageBus $commandBus,
+        CommandBus $commandBus,
         ResponseFactoryInterface $responseFactory
     ) {
         $this->formHandlerFactory = $formHandlerFactory;
@@ -58,7 +58,7 @@ class CreateController
     private function processFormDataAndRedirect(DTO $dto): ResponseInterface
     {
         $bookId = Uuid::uuid4();
-        $this->commandBus->handle(new Command($bookId, new ShortText($dto->getTitle())));
+        $this->commandBus->dispatch(new Command($bookId, new ShortText($dto->getTitle())));
 
         return $this->responseFactory->redirectToRoute('book_edit', ['id' => $bookId]);
     }

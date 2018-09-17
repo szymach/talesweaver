@@ -6,7 +6,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Scene;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use SimpleBus\Message\Bus\MessageBus;
+use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\FormHandlerInterface;
 use Talesweaver\Application\Form\FormViewInterface;
@@ -41,7 +41,7 @@ class EditController
     private $formHandlerFactory;
 
     /**
-     * @var MessageBus
+     * @var CommandBus
      */
     private $commandBus;
 
@@ -78,7 +78,7 @@ class EditController
     public function __construct(
         ResponseFactoryInterface $responseFactory,
         FormHandlerFactoryInterface $formHandlerFactory,
-        MessageBus $commandBus,
+        CommandBus $commandBus,
         HtmlContent $htmlContent,
         CharacterPaginator $characterPaginator,
         ItemPaginator $itemPaginator,
@@ -129,7 +129,7 @@ class EditController
         EditDTO $dto
     ): ResponseInterface {
         $text = $dto->getText();
-        $this->commandBus->handle(new Command(
+        $this->commandBus->dispatch(new Command(
             $scene,
             new ShortText($dto->getTitle()),
             null !== $text ? new LongText($text) : null,

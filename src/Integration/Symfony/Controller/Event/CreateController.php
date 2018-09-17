@@ -7,7 +7,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Event;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
-use SimpleBus\Message\Bus\MessageBus;
+use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Event\Create\Command;
 use Talesweaver\Application\Event\Create\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
@@ -27,7 +27,7 @@ class CreateController
     private $formHandlerFactory;
 
     /**
-     * @var MessageBus
+     * @var CommandBus
      */
     private $commandBus;
 
@@ -48,7 +48,7 @@ class CreateController
 
     public function __construct(
         FormHandlerFactoryInterface $formHandlerFactory,
-        MessageBus $commandBus,
+        CommandBus $commandBus,
         ResponseFactoryInterface $responseFactory,
         HtmlContent $htmlContent,
         UrlGenerator $urlGenerator
@@ -91,7 +91,7 @@ class CreateController
     private function processFormDataAndRedirect(Scene $scene, DTO $dto): ResponseInterface
     {
         $id = Uuid::uuid4();
-        $this->commandBus->handle(
+        $this->commandBus->dispatch(
             new Command($id, $scene, new ShortText($dto->getName()), $dto->getModel())
         );
 

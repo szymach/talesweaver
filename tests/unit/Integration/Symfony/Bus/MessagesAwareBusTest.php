@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Tests\Integration\Bus;
+namespace Talesweaver\Tests\Integration\Symfony\Bus;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use SimpleBus\Message\Bus\MessageBus;
+use Symfony\Component\Messenger\MessageBusInterface;
 use stdClass;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
@@ -17,7 +17,7 @@ use Talesweaver\Integration\Symfony\Bus\MessagesAwareBus;
 class MessagesAwareBusTest extends TestCase
 {
     /**
-     * @var MessageBus|MockObject
+     * @var MessageBusInterface|MockObject
      */
     private $messageBus;
 
@@ -32,10 +32,10 @@ class MessagesAwareBusTest extends TestCase
         $command->expects($this->never())->method('getMessage');
 
         $this->flashBag->expects($this->never())->method('add');
-        $this->messageBus->expects($this->once())->method('handle')->with($command);
+        $this->messageBus->expects($this->once())->method('dispatch')->with($command);
 
         $bus = new MessagesAwareBus($this->messageBus, $this->flashBag);
-        $bus->handle($command);
+        $bus->dispatch($command);
     }
 
     public function testSettingFlashMessage()
@@ -49,15 +49,15 @@ class MessagesAwareBusTest extends TestCase
         $command->expects($this->once())->method('getMessage')->willReturn($message);
 
         $this->flashBag->expects($this->once())->method('add')->with($this->isInstanceOf(Flash::class));
-        $this->messageBus->expects($this->once())->method('handle')->with($command);
+        $this->messageBus->expects($this->once())->method('dispatch')->with($command);
 
         $bus = new MessagesAwareBus($this->messageBus, $this->flashBag);
-        $bus->handle($command);
+        $bus->dispatch($command);
     }
 
     protected function setUp()
     {
-        $this->messageBus = $this->createMock(MessageBus::class);
+        $this->messageBus = $this->createMock(MessageBusInterface::class);
         $this->flashBag = $this->createMock(FlashBag::class);
     }
 }

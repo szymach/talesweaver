@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Controller\Scene;
 
 use Psr\Http\Message\ServerRequestInterface;
-use SimpleBus\Message\Bus\MessageBus;
+use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Scene\Delete\Command;
 use Talesweaver\Domain\Scene;
@@ -13,7 +13,7 @@ use Talesweaver\Domain\Scene;
 class DeleteController
 {
     /**
-     * @var MessageBus
+     * @var CommandBus
      */
     private $commandBus;
 
@@ -22,7 +22,7 @@ class DeleteController
      */
     private $responseFactory;
 
-    public function __construct(MessageBus $commandBus, ResponseFactoryInterface $responseFactory)
+    public function __construct(CommandBus $commandBus, ResponseFactoryInterface $responseFactory)
     {
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
@@ -31,7 +31,7 @@ class DeleteController
     public function __invoke(ServerRequestInterface $request, Scene $scene, int $page)
     {
         $chapterId = $scene->getChapter() ? $scene->getChapter()->getId(): null;
-        $this->commandBus->handle(new Command($scene));
+        $this->commandBus->dispatch(new Command($scene));
 
         if ('XMLHttpRequest' == $request->getHeader('X-Requested-With')) {
             return $this->responseFactory->toJson(['success' => true]);

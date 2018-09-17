@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use SimpleBus\Message\Bus\MessageBus;
+use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Chapter\Create\Command;
 use Talesweaver\Application\Chapter\Create\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
@@ -25,7 +25,7 @@ class CreateController
     private $formHandlerFactory;
 
     /**
-     * @var MessageBus
+     * @var CommandBus
      */
     private $commandBus;
 
@@ -36,7 +36,7 @@ class CreateController
 
     public function __construct(
         FormHandlerFactoryInterface $formHandlerFactory,
-        MessageBus $commandBus,
+        CommandBus $commandBus,
         ResponseFactoryInterface $responseFactory
     ) {
         $this->formHandlerFactory = $formHandlerFactory;
@@ -69,7 +69,7 @@ class CreateController
     private function processFormDataAndRedirect(DTO $dto, ?Book $book): ResponseInterface
     {
         $chapterId = Uuid::uuid4();
-        $this->commandBus->handle(
+        $this->commandBus->dispatch(
             new Command($chapterId, new ShortText($dto->getTitle()), $book)
         );
 

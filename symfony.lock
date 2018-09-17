@@ -1,6 +1,6 @@
 {
     "beberlei/assert": {
-        "version": "v2.8.1"
+        "version": "v2.9.6"
     },
     "behat/gherkin": {
         "version": "v4.4.5"
@@ -164,9 +164,6 @@
     "ocramius/package-versions": {
         "version": "1.2.0"
     },
-    "ocramius/proxy-manager": {
-        "version": "2.1.1"
-    },
     "pagerfanta/pagerfanta": {
         "version": "v1.0.5"
     },
@@ -293,12 +290,6 @@
             "ref": "aaddfdf43cdecd4cf91f992052d76c2cadc04543"
         }
     },
-    "simple-bus/message-bus": {
-        "version": "v2.2.2"
-    },
-    "simple-bus/symfony-bridge": {
-        "version": "v4.1.5"
-    },
     "squizlabs/php_codesniffer": {
         "version": "3.2.2"
     },
@@ -398,6 +389,15 @@
     "symfony/intl": {
         "version": "v4.0.2"
     },
+    "symfony/messenger": {
+        "version": "4.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.1",
+            "ref": "f11dfa18618a8a5dd853ea3a302db2e0557e031c"
+        }
+    },
     "symfony/monolog-bridge": {
         "version": "v4.0.2"
     },
@@ -442,9 +442,6 @@
     },
     "symfony/property-access": {
         "version": "v3.4.2"
-    },
-    "symfony/proxy-manager-bridge": {
-        "version": "v4.0.2"
     },
     "symfony/psr-http-message-bridge": {
         "version": "v1.1.0"
@@ -554,13 +551,7 @@
     "white-october/pagerfanta-bundle": {
         "version": "v1.1.1"
     },
-    "zendframework/zend-code": {
-        "version": "3.3.0"
-    },
     "zendframework/zend-diactoros": {
         "version": "1.8.5"
-    },
-    "zendframework/zend-eventmanager": {
-        "version": "3.2.0"
     }
 }

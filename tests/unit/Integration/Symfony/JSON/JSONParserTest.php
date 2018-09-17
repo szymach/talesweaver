@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Tests\Integration\JSON;
+namespace Talesweaver\Tests\Integration\Symfony\JSON;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
