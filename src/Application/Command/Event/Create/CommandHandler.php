@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Command\Event\Create;
 
+use Talesweaver\Application\Bus\CommandHandlerInterface;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Events;
 
-class CommandHandler
+class CommandHandler implements CommandHandlerInterface
 {
     /**
      * @var Events
@@ -19,7 +20,7 @@ class CommandHandler
         $this->events = $events;
     }
 
-    public function handle(Command $command): void
+    public function __invoke(Command $command): void
     {
         $this->events->add(
             new Event(

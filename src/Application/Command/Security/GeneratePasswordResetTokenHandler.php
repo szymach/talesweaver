@@ -8,13 +8,14 @@ use DateInterval;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
+use Talesweaver\Application\Bus\CommandHandlerInterface;
 use Talesweaver\Application\Mailer\AuthorActionMailer;
 use Talesweaver\Domain\Authors;
 use Talesweaver\Domain\PasswordResetTokens;
 use Talesweaver\Domain\ValueObject\Email;
 use function generate_user_token;
 
-class GeneratePasswordResetTokenHandler
+class GeneratePasswordResetTokenHandler implements CommandHandlerInterface
 {
     /**
      * @var EntityManagerInterface
@@ -48,7 +49,7 @@ class GeneratePasswordResetTokenHandler
         $this->passwordResetMailer = $passwordResetMailer;
     }
 
-    public function handle(GeneratePasswordResetToken $command): void
+    public function __invoke(GeneratePasswordResetToken $command): void
     {
         $email = $command->getEmail();
         if (true === $this->isRequestTooSoon($email)) {

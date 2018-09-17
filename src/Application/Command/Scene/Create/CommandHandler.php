@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Command\Scene\Create;
 
+use Talesweaver\Application\Bus\CommandHandlerInterface;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\Scenes;
 
-class CommandHandler
+class CommandHandler implements CommandHandlerInterface
 {
     /**
      * @var Scenes
@@ -19,7 +20,7 @@ class CommandHandler
         $this->scenes = $scenes;
     }
 
-    public function handle(Command $command): void
+    public function __invoke(Command $command): void
     {
         $chapter = $command->getChapter();
         $scene = new Scene(

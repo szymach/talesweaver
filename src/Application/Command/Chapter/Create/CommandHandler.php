@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Command\Chapter\Create;
 
+use Talesweaver\Application\Bus\CommandHandlerInterface;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Chapters;
 
-class CommandHandler
+class CommandHandler implements CommandHandlerInterface
 {
     /**
      * @var Chapters
@@ -19,7 +20,7 @@ class CommandHandler
         $this->chapters = $chapters;
     }
 
-    public function handle(Command $command): void
+    public function __invoke(Command $command): void
     {
         $this->chapters->add(
             new Chapter(

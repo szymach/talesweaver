@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Command\Location\AddToScene;
 
-class CommandHandler
+use Talesweaver\Application\Bus\CommandHandlerInterface;
+
+class CommandHandler implements CommandHandlerInterface
 {
-    public function handle(Command $command): void
+    public function __invoke(Command $command): void
     {
         $scene = $command->getScene();
         $location = $command->getLocation();

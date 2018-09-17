@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Command\Character\Delete;
 
+use Talesweaver\Application\Bus\CommandHandlerInterface;
 use Talesweaver\Domain\Characters;
 
-class CommandHandler
+class CommandHandler implements CommandHandlerInterface
 {
     /**
      * @var Characters
@@ -18,7 +19,7 @@ class CommandHandler
         $this->characters = $characters;
     }
 
-    public function handle(Command $command): void
+    public function __invoke(Command $command): void
     {
         $this->characters->remove($command->getId());
     }

@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Command\Security;
 
-class ChangePasswordHandler
+use Talesweaver\Application\Bus\CommandHandlerInterface;
+
+class ChangePasswordHandler implements CommandHandlerInterface
 {
-    public function handle(ChangePassword $command): void
+    public function __invoke(ChangePassword $command): void
     {
         $command->getAuthor()->setPassword($command->getNewPassword());
     }

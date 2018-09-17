@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Command\Security;
 
-class ActivateAuthorHandler
+use Talesweaver\Application\Bus\CommandHandlerInterface;
+
+class ActivateAuthorHandler implements CommandHandlerInterface
 {
-    public function handle(ActivateAuthor $author)
+    public function __invoke(ActivateAuthor $author)
     {
         $author->getAuthor()->activate();
     }

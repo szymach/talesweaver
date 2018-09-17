@@ -4,7 +4,6 @@ parameters:
 
 imports:
     - { resource: services/doctrine.yaml }
-    - { resource: services/messages.yaml }
 
 services:
     _defaults:
@@ -16,7 +15,7 @@ services:
 
     Knp\Menu\FactoryInterface: "@knp_menu.factory"
     Knp\Snappy\GeneratorInterface: "@knp_snappy.pdf"
-    Talesweaver\Application\Bus\CommandBus: "@messenger.bus.commands"
+    Talesweaver\Application\Bus\CommandBus: "@transaction_wrapped_command_bus"
     Talesweaver\Application\Form\FormHandlerFactoryInterface: '@Talesweaver\Integration\Symfony\Form\FormHandlerFactory'
     Talesweaver\Application\Http\HtmlContent: '@Talesweaver\Integration\Symfony\Http\HtmlContent'
     Talesweaver\Application\Http\ResponseFactoryInterface: '@Talesweaver\Integration\Symfony\Http\ResponseFactory'
@@ -34,6 +33,9 @@ services:
     Talesweaver\Domain\PasswordResetTokens: '@Talesweaver\Integration\Doctrine\Repository\PasswordResetTokenRepository'
     Symfony\Component\Form\Util\ServerParams: "@form.server_params"
     Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface: '@security.user_password_encoder.generic'
+
+    Talesweaver\Application\Command\:
+        resource: "../src/Application/Command/{Book,Chapter,Character,Event,Item,Location,Scene,Security}/*/CommandHandler.php"
 
     Talesweaver\Integration\Symfony\Controller\:
         resource: "../src/Integration/Symfony/Controller/*"

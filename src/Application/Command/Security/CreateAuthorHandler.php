@@ -6,10 +6,11 @@ namespace Talesweaver\Application\Command\Security;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\Uuid;
+use Talesweaver\Application\Bus\CommandHandlerInterface;
 use Talesweaver\Application\Mailer\AuthorActionMailer;
 use Talesweaver\Domain\Author;
 
-class CreateAuthorHandler
+class CreateAuthorHandler implements CommandHandlerInterface
 {
     /**
      * @var EntityManagerInterface
@@ -27,7 +28,7 @@ class CreateAuthorHandler
         $this->newAuthorMailer = $newAuthorMailer;
     }
 
-    public function handle(CreateAuthor $command)
+    public function __invoke(CreateAuthor $command): void
     {
         $author = new Author(
             Uuid::uuid4(),
