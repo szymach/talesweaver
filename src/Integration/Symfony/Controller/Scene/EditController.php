@@ -112,7 +112,7 @@ class EditController
                     'scene/form/editForm.html.twig',
                     ['form' => $formHandler->createView()]
                 )
-            ], true === $formHandler->displayErrors() ? 200 : 403);
+            ], false === $formHandler->displayErrors() ? 200 : 403);
         } elseif (true === $formHandler->isSubmissionValid()) {
             return $this->processFormDataAndRedirect($request, $scene, $formHandler->getData());
         }

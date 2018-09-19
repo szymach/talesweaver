@@ -8,6 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Item;
+use Talesweaver\Integration\Symfony\Timeline\ItemTimeline;
 
 class DisplayController
 {
@@ -21,18 +22,30 @@ class DisplayController
      */
     private $htmlContent;
 
-    public function __construct(ResponseFactoryInterface $responseFactory, HtmlContent $htmlContent)
-    {
+    /**
+     * @var ItemTimeline
+     */
+    private $timeline;
+
+    public function __construct(
+        ResponseFactoryInterface $responseFactory,
+        HtmlContent $htmlContent,
+        ItemTimeline $timeline
+    ) {
         $this->responseFactory = $responseFactory;
         $this->htmlContent = $htmlContent;
+        $this->timeline = $timeline;
     }
 
-    public function createView(Item $event): ResponseInterface
+    public function __invoke(Item $item): ResponseInterface
     {
         return $this->responseFactory->toJson([
             'display' => $this->htmlContent->fromTemplate(
-                'scene\events\display.html.twig',
-                ['event' => $event]
+                'scene\items\display.html.twig',
+                [
+                    'item' => $item,
+                    'timeline' => $this->timeline->getTimeline($item->getId(), Item::class)
+                ]
             )
         ]);
     }

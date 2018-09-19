@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Symfony\Pagination\Location\LocationPaginator;
+use Talesweaver\Integration\Symfony\Pagination\Location\RelatedPaginator;
 
 class ListRelatedController
 {
@@ -23,14 +23,14 @@ class ListRelatedController
     private $htmlContent;
 
     /**
-     * @var LocationPaginator
+     * @var RelatedPaginator
      */
     private $pagination;
 
     public function __construct(
         ResponseFactoryInterface $responseFactory,
         HtmlContent $htmlContent,
-        LocationPaginator $pagination
+        RelatedPaginator $pagination
     ) {
         $this->responseFactory = $responseFactory;
         $this->htmlContent = $htmlContent;
@@ -41,12 +41,12 @@ class ListRelatedController
     {
         return $this->responseFactory->toJson([
             'list' => $this->htmlContent->fromTemplate(
-                'scene\locations\list.html.twig',
+                'scene\locations\relatedList.html.twig',
                 [
                     'locations' => $this->pagination->getResults($scene, $page),
                     'sceneId' => $scene->getId(),
-                    'chapterId' => $scene->getChapter() ? $scene->getChapter()->getId(): null,
-                    'page' => $page
+                    'sceneTitle' => $scene->getTitle(),
+                    'chapterId' => $scene->getChapter() ? $scene->getChapter()->getId(): null
                 ]
             )
         ]);

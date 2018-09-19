@@ -41,9 +41,9 @@ class ListController
     {
         return $this->responseFactory->toJson([
             'list' => $this->htmlContent->fromTemplate(
-                'scene\item\list.html.twig',
+                'scene\items\list.html.twig',
                 [
-                    'item' => $this->pagination->getResults($scene, $page),
+                    'items' => $this->pagination->getResults($scene, $page),
                     'sceneId' => $scene->getId(),
                     'chapterId' => $scene->getChapter() ? $scene->getChapter()->getId(): null,
                     'page' => $page

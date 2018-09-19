@@ -57,7 +57,7 @@ class ScenesListController
         $this->router = $router;
     }
 
-    public function createView(ServerRequestInterface $request, Chapter $chapter, int $page): ResponseInterface
+    public function __invoke(ServerRequestInterface $request, Chapter $chapter, int $page): ResponseInterface
     {
         return $this->responseFactory->toJson([
             'list' => $this->htmlContent->fromTemplate(

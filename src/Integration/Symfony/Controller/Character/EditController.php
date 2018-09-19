@@ -10,7 +10,7 @@ use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Command\Character\Edit\Command;
 use Talesweaver\Application\Command\Character\Edit\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
-use Talesweaver\Application\Form\Type\Scene\Edit;
+use Talesweaver\Application\Form\Type\Character\Edit;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
