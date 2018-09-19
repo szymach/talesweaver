@@ -76,7 +76,7 @@ class EditController
                 'partial\simpleForm.html.twig',
                 ['form' => $formHandler->createView(), 'title' => 'character.header.edit']
             )
-        ], true === $formHandler->displayErrors() ? 200 : 400);
+        ], false === $formHandler->displayErrors() ? 200 : 400);
     }
 
     private function processFormDataAndRedirect(Character $character, DTO $dto): ResponseInterface

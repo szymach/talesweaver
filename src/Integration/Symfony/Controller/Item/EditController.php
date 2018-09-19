@@ -81,7 +81,7 @@ class EditController
                 'partial\simpleForm.html.twig',
                 ['form' => $formHandler->createView(), 'title' => 'item.header.edit']
             )
-        ], true === $formHandler->displayErrors() ? 200 : 400);
+        ], false === $formHandler->displayErrors() ? 200 : 400);
     }
 
     private function processForDataAndCreateResponse(Item $item, DTO $dto): ResponseInterface

@@ -77,7 +77,7 @@ class CreateController
                 'partial\simpleForm.html.twig',
                 ['form' => $formHandler->createView(), 'title' => 'character.header.new']
             )
-        ], true === $formHandler->displayErrors() ? 200 : 400);
+        ], false === $formHandler->displayErrors() ? 200 : 400);
     }
 
     private function processFormDataAndRedirect(Scene $scene, DTO $dto): ResponseInterface

@@ -81,7 +81,7 @@ class EditController
                 'partial\simpleForm.html.twig',
                 ['form' => $formHandler->createView(), 'title' => 'location.header.edit']
             )
-        ], true === $formHandler->displayErrors() ? 200 : 400);
+        ], false === $formHandler->displayErrors() ? 200 : 400);
     }
 
     private function processForDataAndCreateResponse(Location $location, DTO $dto): ResponseInterface
