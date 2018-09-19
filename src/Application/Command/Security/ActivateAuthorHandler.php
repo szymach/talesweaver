@@ -8,7 +8,7 @@ use Talesweaver\Application\Bus\CommandHandlerInterface;
 
 class ActivateAuthorHandler implements CommandHandlerInterface
 {
-    public function __invoke(ActivateAuthor $author)
+    public function __invoke(ActivateAuthor $author): void
     {
         $author->getAuthor()->activate();
     }

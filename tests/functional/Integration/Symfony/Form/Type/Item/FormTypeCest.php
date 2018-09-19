@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Talesweaver\Tests\Integration\Symfony\Form\TypeItem;
 
 use Ramsey\Uuid\Uuid;
-use Talesweaver\Application\Item\Create;
-use Talesweaver\Application\Item\Edit;
+use Talesweaver\Application\Command\Item\Create;
+use Talesweaver\Application\Command\Item\Edit;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Type\Item\CreateType;

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Talesweaver\Tests\Integration\Symfony\Form\TypeScene;
 
 use Ramsey\Uuid\Uuid;
-use Talesweaver\Application\Scene\Create;
-use Talesweaver\Application\Scene\Edit;
+use Talesweaver\Application\Command\Scene\Create;
+use Talesweaver\Application\Command\Scene\Edit;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Type\Scene\CreateType;

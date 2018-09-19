@@ -2,26 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Tests\Integration\Symfony\Bus;
+namespace Talesweaver\Tests\Integration\Symfony\Bus\Middleware;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
-use Symfony\Component\Messenger\MessageBusInterface;
 use stdClass;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
-use Talesweaver\Integration\Symfony\Bus\AuthorAccessBus;
+use Talesweaver\Integration\Symfony\Bus\Middleware\AuthorAccessMiddleware;
+use Talesweaver\Tests\Helper\CallableClass;
 
-class AuthorAccessBusTest extends TestCase
+class AuthorAccessMiddlewareTest extends TestCase
 {
-    /**
-     * @var MessageBusInterface|MockObject
-     */
-    private $messageBus;
-
     /**
      * @var AuthorContext|MockObject
      */
@@ -32,10 +27,11 @@ class AuthorAccessBusTest extends TestCase
         $message = new stdClass();
 
         $this->authorContext->expects($this->never())->method('getAuthor');
-        $this->messageBus->expects($this->once())->method('dispatch')->with($message);
 
-        $bus = new AuthorAccessBus($this->messageBus, $this->authorContext);
-        $bus->dispatch($message);
+        $callable = $this->createMock(CallableClass::class);
+        $callable->expects($this->once())->method('__invoke')->with($message);
+        $middleware = new AuthorAccessMiddleware($this->authorContext);
+        $middleware->handle($message, $callable);
     }
 
     public function testUserAllowed()
@@ -45,15 +41,18 @@ class AuthorAccessBusTest extends TestCase
 
         $message = $this->createMock(AuthorAccessInterface::class);
         $message->expects($this->once())->method('isAllowed')->with($author)->willReturn(true);
-        $this->messageBus->expects($this->once())->method('dispatch')->with($message);
 
-        $bus = new AuthorAccessBus($this->messageBus, $this->authorContext);
-        $bus->dispatch($message);
+        $callable = $this->createMock(CallableClass::class);
+        $callable->expects($this->once())->method('__invoke')->with($message);
+
+        $middleware = new AuthorAccessMiddleware($this->authorContext);
+        $middleware->handle($message, $callable);
     }
 
     public function testUserNotAllowedException()
     {
-        $this->messageBus->expects($this->never())->method('dispatch');
+        $callable = $this->createMock(CallableClass::class);
+        $callable->expects($this->never())->method('__invoke');
 
         $author = $this->createMock(Author::class);
         $id = $this->createMock(UuidInterface::class);
@@ -70,13 +69,12 @@ class AuthorAccessBusTest extends TestCase
             get_class($message)
         ));
 
-        $bus = new AuthorAccessBus($this->messageBus, $this->authorContext);
-        $bus->dispatch($message);
+        $middleware = new AuthorAccessMiddleware($this->authorContext);
+        $middleware->handle($message, $callable);
     }
 
     protected function setUp()
     {
-        $this->messageBus = $this->createMock(MessageBusInterface::class);
         $this->authorContext = $this->createMock(AuthorContext::class);
     }
 }

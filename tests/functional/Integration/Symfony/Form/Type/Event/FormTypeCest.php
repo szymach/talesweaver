@@ -6,8 +6,8 @@ namespace Talesweaver\Tests\Integration\Symfony\Form\TypeEvent;
 
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Form\FormInterface;
-use Talesweaver\Application\Event\Create;
-use Talesweaver\Application\Event\Edit;
+use Talesweaver\Application\Command\Event\Create;
+use Talesweaver\Application\Command\Event\Edit;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Event\Meeting;

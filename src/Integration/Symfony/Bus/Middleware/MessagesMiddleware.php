@@ -2,35 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Integration\Symfony\Bus;
+namespace Talesweaver\Integration\Symfony\Bus\Middleware;
 
-use Symfony\Component\Messenger\MessageBusInterface;
-use Talesweaver\Application\Bus\CommandBus;
+use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Application\Session\Flash;
 use Talesweaver\Application\Session\FlashBag;
 
-class MessagesAwareBus implements CommandBus, MessageBusInterface
+class MessagesMiddleware implements MiddlewareInterface
 {
-    /**
-     * @var MessageBusInterface
-     */
-    private $messageBus;
-
     /**
      * @var FlashBag
      */
     private $flashBag;
 
-    public function __construct(MessageBusInterface $messageBus, FlashBag $flashBag)
+    public function __construct(FlashBag $flashBag)
     {
-        $this->messageBus = $messageBus;
         $this->flashBag = $flashBag;
     }
 
-    public function dispatch($command): void
+    public function handle($command, callable $next): void
     {
-        $this->messageBus->dispatch($command);
+        $next($command);
         if (false === $command instanceof MessageCommandInterface) {
             return;
         }

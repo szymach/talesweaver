@@ -2,36 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Integration\Symfony\Bus;
+namespace Talesweaver\Integration\Symfony\Bus\Middleware;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Messenger\MessageBusInterface;
-use Talesweaver\Application\Bus\CommandBus;
+use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Throwable;
 
-class TransactionWrappedBus implements CommandBus, MessageBusInterface
+class TransactionMiddleware implements MiddlewareInterface
 {
-    /**
-     * @var MessageBusInterface
-     */
-    private $messageBus;
-
     /**
      * @var EntityManagerInterface
      */
     private $manager;
 
-    public function __construct(MessageBusInterface $messageBus, EntityManagerInterface $manager)
+    public function __construct(EntityManagerInterface $manager)
     {
-        $this->messageBus = $messageBus;
         $this->manager = $manager;
     }
 
-    public function dispatch($message): void
+    public function handle($command, callable $next): void
     {
         $this->manager->beginTransaction();
         try {
-            $this->messageBus->dispatch($message);
+            $next($command);
             $this->manager->flush();
             $this->manager->commit();
         } catch (Throwable $exception) {

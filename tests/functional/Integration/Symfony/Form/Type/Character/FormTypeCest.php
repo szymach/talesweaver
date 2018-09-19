@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Symfony\Form\TypeCharacter;
 
-use Talesweaver\Application\Character\Create;
-use Talesweaver\Application\Character\Edit;
+use Talesweaver\Application\Command\Character\Create;
+use Talesweaver\Application\Command\Character\Edit;
 use Talesweaver\Integration\Symfony\Form\Type\Character\CreateType;
 use Talesweaver\Integration\Symfony\Form\Type\Character\EditType;
 use Talesweaver\Tests\FunctionalTester;

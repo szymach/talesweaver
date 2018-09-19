@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Talesweaver\Tests\Integration\Symfony\Form\TypeChapter;
 
 use Ramsey\Uuid\Uuid;
-use Talesweaver\Application\Chapter\Create;
-use Talesweaver\Application\Chapter\Edit;
+use Talesweaver\Application\Command\Chapter\Create;
+use Talesweaver\Application\Command\Chapter\Edit;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Type\Chapter\CreateType;

@@ -52,12 +52,12 @@ class FunctionalTester extends Actor
     public function loginAsUser(bool $active = true): void
     {
         $firewall = 'main';
-        $author = new User($this->getAuthor($active));
+        $user = new User($this->getAuthor($active));
         $token = new UsernamePasswordToken(
-            $author,
+            $user,
             self::AUTHOR_PASSWORD,
             $firewall,
-            $author->getRoles()
+            $user->getRoles()
         );
         $this->getTokenStorage()->setToken($token);
 

@@ -2,24 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Tests\Integration\Symfony\Bus;
+namespace Talesweaver\Tests\Integration\Symfony\Bus\Middleware;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Messenger\MessageBusInterface;
 use stdClass;
-use Talesweaver\Integration\Symfony\Bus\TransactionWrappedBus;
+use Talesweaver\Integration\Symfony\Bus\Middleware\TransactionMiddleware;
+use Talesweaver\Tests\Helper\CallableClass;
 
-class TransactionWrappedBusTest extends TestCase
+class TransactionMiddlewareTest extends TestCase
 {
-    /**
-     * @var MessageBusInterface|MockObject
-     */
-    private $messageBus;
-
     /**
      * @var EntityManagerInterface|MockObject
      */
@@ -28,7 +23,9 @@ class TransactionWrappedBusTest extends TestCase
     public function testNoExceptionThrown()
     {
         $command = new stdClass();
-        $this->messageBus->expects($this->once())->method('dispatch')->with($command);
+
+        $callable = $this->createMock(CallableClass::class);
+        $callable->expects($this->once())->method('__invoke')->with($command);
 
         $this->manager->expects($this->once())->method('flush');
         $this->manager->expects($this->once())->method('commit');
@@ -36,8 +33,8 @@ class TransactionWrappedBusTest extends TestCase
         $this->manager->expects($this->never())->method('getConnection');
         $this->manager->expects($this->never())->method('rollback');
 
-        $bus = new TransactionWrappedBus($this->messageBus, $this->manager);
-        $bus->dispatch($command);
+        $middleware = new TransactionMiddleware($this->manager);
+        $middleware->handle($command, $callable);
     }
 
     public function testExceptionThrownWithActiveTransaction()
@@ -45,8 +42,10 @@ class TransactionWrappedBusTest extends TestCase
         $this->expectException(Exception::class);
 
         $command = new stdClass();
-        $this->messageBus->expects($this->once())
-            ->method('dispatch')
+
+        $callable = $this->createMock(CallableClass::class);
+        $callable->expects($this->once())
+            ->method('__invoke')
             ->with($command)
             ->will($this->throwException(new Exception()))
         ;
@@ -60,8 +59,8 @@ class TransactionWrappedBusTest extends TestCase
         $this->manager->expects($this->once())->method('getConnection')->willReturn($connection);
         $this->manager->expects($this->once())->method('rollback');
 
-        $bus = new TransactionWrappedBus($this->messageBus, $this->manager);
-        $bus->dispatch($command);
+        $middleware = new TransactionMiddleware($this->manager);
+        $middleware->handle($command, $callable);
     }
 
     public function testExceptionThrownWithoutActiveTransaction()
@@ -69,8 +68,10 @@ class TransactionWrappedBusTest extends TestCase
         $this->expectException(Exception::class);
 
         $command = new stdClass();
-        $this->messageBus->expects($this->once())
-            ->method('dispatch')
+
+        $callable = $this->createMock(CallableClass::class);
+        $callable->expects($this->once())
+            ->method('__invoke')
             ->with($command)
             ->will($this->throwException(new Exception()))
         ;
@@ -84,13 +85,12 @@ class TransactionWrappedBusTest extends TestCase
         $this->manager->expects($this->once())->method('getConnection')->willReturn($connection);
         $this->manager->expects($this->never())->method('rollback');
 
-        $bus = new TransactionWrappedBus($this->messageBus, $this->manager);
-        $bus->dispatch($command);
+        $middleware = new TransactionMiddleware($this->manager);
+        $middleware->handle($command, $callable);
     }
 
     protected function setUp()
     {
-        $this->messageBus = $this->createMock(MessageBusInterface::class);
         $this->manager = $this->createMock(EntityManagerInterface::class);
         $this->manager->expects($this->once())->method('beginTransaction');
     }

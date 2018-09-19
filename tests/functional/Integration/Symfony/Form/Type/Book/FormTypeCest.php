@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Talesweaver\Tests\Integration\Symfony\Form\TypeBook;
 
 use Ramsey\Uuid\Uuid;
-use Talesweaver\Application\Book\Create;
-use Talesweaver\Application\Book\Edit;
+use Talesweaver\Application\Command\Book\Create;
+use Talesweaver\Application\Command\Book\Edit;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Type\Book\CreateType;

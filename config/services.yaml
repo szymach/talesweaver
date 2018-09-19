@@ -12,10 +12,12 @@ services:
         bind:
             $environment: "%kernel.environment%"
             $mailerFrom: "%mailer_from%"
+            $newAuthorMailer: '@Talesweaver\Integration\Symfony\Mail\RegistrationMailer'
+            $passwordResetMailer: '@Talesweaver\Integration\Symfony\Mail\PasswordResetMailer'
 
     Knp\Menu\FactoryInterface: "@knp_menu.factory"
     Knp\Snappy\GeneratorInterface: "@knp_snappy.pdf"
-    Talesweaver\Application\Bus\CommandBus: "@transaction_wrapped_command_bus"
+    Talesweaver\Application\Bus\CommandBus: '@Talesweaver\Integration\Symfony\Bus\CommandBus'
     Talesweaver\Application\Form\FormHandlerFactoryInterface: '@Talesweaver\Integration\Symfony\Form\FormHandlerFactory'
     Talesweaver\Application\Http\HtmlContent: '@Talesweaver\Integration\Symfony\Http\HtmlContent'
     Talesweaver\Application\Http\ResponseFactoryInterface: '@Talesweaver\Integration\Symfony\Http\ResponseFactory'
@@ -32,10 +34,14 @@ services:
     Talesweaver\Domain\Scenes: '@Talesweaver\Integration\Symfony\Repository\SceneRepository'
     Talesweaver\Domain\PasswordResetTokens: '@Talesweaver\Integration\Doctrine\Repository\PasswordResetTokenRepository'
     Symfony\Component\Form\Util\ServerParams: "@form.server_params"
+    Symfony\Component\HttpFoundation\Session\Session: '@session'
     Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface: '@security.user_password_encoder.generic'
 
     Talesweaver\Application\Command\:
-        resource: "../src/Application/Command/{Book,Chapter,Character,Event,Item,Location,Scene,Security}/*/CommandHandler.php"
+        resource: "../src/Application/Command/{Book,Chapter,Character,Event,Item,Location,Scene}/*/CommandHandler.php"
+
+    Talesweaver\Application\Command\Security\:
+        resource: "../src/Application/Command/Security/*Handler.php"
 
     Talesweaver\Integration\Symfony\Controller\:
         resource: "../src/Integration/Symfony/Controller/*"
@@ -46,7 +52,7 @@ services:
         tags: ['doctrine.fixture.orm']
 
     Talesweaver\Integration\Symfony\:
-        resource: "../src/Integration/Symfony/{Form/Type,Http,JSON,Mail,Menu,Pagination,Timeline,Security,Session,Validation}/*"
+        resource: "../src/Integration/Symfony/{Bus,Form/Type,Http,JSON,Mail,Menu,Pagination,Timeline,Security,Session,Validation}/*"
         exclude: "../src/Integration/Symfony/Security/function/*"
 
     # Do not remove, because it is not explicitly used and is removed from the container
@@ -62,27 +68,6 @@ services:
         factory: ["@app.menu.builder", createMainMenu]
         tags:
             - { name: knp_menu.menu, alias: main }
-
-    # Bus
-    transaction_wrapped_command_bus:
-        class: Talesweaver\Integration\Symfony\Bus\TransactionWrappedBus
-        decorates: messenger.bus.commands
-        arguments: ['@transaction_wrapped_command_bus.inner']
-
-    author_aware_command_bus:
-        class: Talesweaver\Integration\Symfony\Bus\AuthorAwareBus
-        decorates: transaction_wrapped_command_bus
-        arguments: ['@author_aware_command_bus.inner']
-
-    author_access_command_bus:
-        class: Talesweaver\Integration\Symfony\Bus\AuthorAccessBus
-        decorates: author_aware_command_bus
-        arguments: ['@author_access_command_bus.inner']
-
-    messages_aware_bus:
-        class: Talesweaver\Integration\Symfony\Bus\MessagesAwareBus
-        decorates: author_access_command_bus
-        arguments: ['@messages_aware_bus.inner']
 
     # Doctrine Extensions
     fsi_doctrine_extensions.filehandler.chain:
@@ -119,3 +104,4 @@ services:
 
     Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface:
         factory: ["@session", getFlashBag]
+        lazy: true

@@ -2,26 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Tests\Integration\Symfony\Bus;
+namespace Talesweaver\Tests\Integration\Symfony\Bus\Middleware;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Messenger\MessageBusInterface;
 use stdClass;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Security\AuthorAwareInterface;
-use Talesweaver\Domain\User;
-use Talesweaver\Integration\Symfony\Bus\AuthorAwareBus;
+use Talesweaver\Integration\Symfony\Bus\Middleware\AuthorAwareMiddleware;
+use Talesweaver\Tests\Helper\CallableClass;
 
-class AuthorAwareBusTest extends TestCase
+class AuthorAwareMiddlewareTest extends TestCase
 {
-    /**
-     * @var MessageBusInterface|MockObject
-     */
-    private $messageBus;
-
     /**
      * @var AuthorContext|MockObject
      */
@@ -33,10 +26,12 @@ class AuthorAwareBusTest extends TestCase
         $message->expects($this->never())->method('setAuthor');
 
         $this->authorContext->expects($this->never())->method('getAuthor');
-        $this->messageBus->expects($this->once())->method('dispatch')->with($message);
 
-        $bus = new AuthorAwareBus($this->messageBus, $this->authorContext);
-        $bus->dispatch($message);
+        $callable = $this->createMock(CallableClass::class);
+        $callable->expects($this->once())->method('__invoke')->with($message);
+
+        $middleware = new AuthorAwareMiddleware($this->authorContext);
+        $middleware->handle($message, $callable);
     }
 
     public function testSettingUser()
@@ -46,15 +41,16 @@ class AuthorAwareBusTest extends TestCase
 
         $message = $this->createMock(AuthorAwareInterface::class);
         $message->expects($this->once())->method('setAuthor')->with($author);
-        $this->messageBus->expects($this->once())->method('dispatch')->with($message);
 
-        $bus = new AuthorAwareBus($this->messageBus, $this->authorContext);
-        $bus->dispatch($message);
+        $callable = $this->createMock(CallableClass::class);
+        $callable->expects($this->once())->method('__invoke')->with($message);
+
+        $middleware = new AuthorAwareMiddleware($this->authorContext);
+        $middleware->handle($message, $callable);
     }
 
     protected function setUp()
     {
-        $this->messageBus = $this->createMock(MessageBusInterface::class);
         $this->authorContext = $this->createMock(AuthorContext::class);
     }
 }

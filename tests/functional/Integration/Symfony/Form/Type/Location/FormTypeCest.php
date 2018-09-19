@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Symfony\Form\TypeLocation;
 
-use Talesweaver\Application\Location\Create;
-use Talesweaver\Application\Location\Edit;
+use Talesweaver\Application\Command\Location\Create;
+use Talesweaver\Application\Command\Location\Edit;
 use Talesweaver\Integration\Symfony\Form\Type\Location\CreateType;
 use Talesweaver\Integration\Symfony\Form\Type\Location\EditType;
 use Talesweaver\Tests\FunctionalTester;

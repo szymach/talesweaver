@@ -2,33 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Integration\Symfony\Bus;
+namespace Talesweaver\Integration\Symfony\Bus\Middleware;
 
-use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
 
-class AuthorAccessBus implements CommandBus, MessageBusInterface
+class AuthorAccessMiddleware implements MiddlewareInterface
 {
-    /**
-     * @var MessageBusInterface
-     */
-    private $messageBus;
-
     /**
      * @var AuthorContext
      */
     private $authorContext;
 
-    public function __construct(MessageBusInterface $messageBus, AuthorContext $authorContext)
+    public function __construct(AuthorContext $authorContext)
     {
-        $this->messageBus = $messageBus;
         $this->authorContext = $authorContext;
     }
 
-    public function dispatch($message): void
+    public function handle($message, callable $next): void
     {
         if (true === $message instanceof AuthorAccessInterface) {
             $author = $this->authorContext->getAuthor();
@@ -41,6 +34,6 @@ class AuthorAccessBus implements CommandBus, MessageBusInterface
             }
         }
 
-        $this->messageBus->dispatch($message);
+        $next($message);
     }
 }

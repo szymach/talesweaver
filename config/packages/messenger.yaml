@@ -2,5 +2,10 @@ framework:
     messenger:
         default_bus: messenger.bus.commands
         buses:
-            messenger.bus.commands: ~
+            messenger.bus.commands:
+                middleware:
+                    - Talesweaver\Integration\Symfony\Bus\Middleware\MessagesMiddleware
+                    - Talesweaver\Integration\Symfony\Bus\Middleware\TransactionMiddleware
+                    - Talesweaver\Integration\Symfony\Bus\Middleware\AuthorAwareMiddleware
+                    - Talesweaver\Integration\Symfony\Bus\Middleware\AuthorAccessMiddleware
             messenger.bus.queries: ~
