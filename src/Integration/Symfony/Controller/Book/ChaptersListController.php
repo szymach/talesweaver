@@ -6,6 +6,7 @@ namespace Talesweaver\Integration\Symfony\Controller\Book;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Chapter\Create\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\FormViewInterface;
@@ -13,8 +14,8 @@ use Talesweaver\Application\Form\Type\Chapter\Create;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
+use Talesweaver\Application\Query\Book\ChaptersPage;
 use Talesweaver\Domain\Book;
-use Talesweaver\Integration\Symfony\Pagination\Book\ChapterPaginator;
 
 class ChaptersListController
 {
@@ -29,9 +30,9 @@ class ChaptersListController
     private $htmlContent;
 
     /**
-     * @var ChapterPaginator
+     * @var QueryBus
      */
-    private $pagination;
+    private $queryBus;
 
     /**
      * @var FormHandlerFactoryInterface
@@ -46,13 +47,13 @@ class ChaptersListController
     public function __construct(
         ResponseFactoryInterface $responseFactory,
         HtmlContent $htmlContent,
-        ChapterPaginator $pagination,
+        QueryBus $queryBus,
         FormHandlerFactoryInterface $formHandlerFactory,
         UrlGenerator $urlGenerator
     ) {
         $this->responseFactory = $responseFactory;
         $this->htmlContent = $htmlContent;
-        $this->pagination = $pagination;
+        $this->queryBus = $queryBus;
         $this->formHandlerFactory = $formHandlerFactory;
         $this->urlGenerator = $urlGenerator;
     }
@@ -64,7 +65,7 @@ class ChaptersListController
                 'book/chapters/list.html.twig',
                 [
                     'bookId' => $book->getId(),
-                    'chapters' => $this->pagination->getResults($book, $page, 3),
+                    'chapters' => $this->queryBus->query(new ChaptersPage($book, $page)),
                     'chapterForm' => $this->createChapterForm($request),
                     'page' => $page
                 ]

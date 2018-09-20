@@ -18,6 +18,7 @@ services:
     Knp\Menu\FactoryInterface: "@knp_menu.factory"
     Knp\Snappy\GeneratorInterface: "@knp_snappy.pdf"
     Talesweaver\Application\Bus\CommandBus: '@Talesweaver\Integration\Symfony\Bus\CommandBus'
+    Talesweaver\Application\Bus\QueryBus: '@Talesweaver\Integration\Symfony\Bus\QueryBus'
     Talesweaver\Application\Form\FormHandlerFactoryInterface: '@Talesweaver\Integration\Symfony\Form\FormHandlerFactory'
     Talesweaver\Application\Http\HtmlContent: '@Talesweaver\Integration\Symfony\Http\HtmlContent'
     Talesweaver\Application\Http\ResponseFactoryInterface: '@Talesweaver\Integration\Symfony\Http\ResponseFactory'
@@ -37,12 +38,25 @@ services:
     Symfony\Component\HttpFoundation\Session\Session: '@session'
     Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface: '@security.user_password_encoder.generic'
 
+    # Bus
+    Talesweaver\Integration\Symfony\Bus\CommandBus:
+        arguments:
+            $messenger: '@messenger.bus.commands'
+
+    Talesweaver\Integration\Symfony\Bus\QueryBus:
+        arguments:
+            $messenger: '@messenger.bus.queries'
+
     Talesweaver\Application\Command\:
         resource: "../src/Application/Command/{Book,Chapter,Character,Event,Item,Location,Scene}/*/CommandHandler.php"
 
     Talesweaver\Application\Command\Security\:
         resource: "../src/Application/Command/Security/*Handler.php"
 
+    Talesweaver\Application\Query\:
+        resource: "../src/Application/Query/{Book}/*Handler.php"
+
+    # Resources
     Talesweaver\Integration\Symfony\Controller\:
         resource: "../src/Integration/Symfony/Controller/*"
         public: true
@@ -52,7 +66,7 @@ services:
         tags: ['doctrine.fixture.orm']
 
     Talesweaver\Integration\Symfony\:
-        resource: "../src/Integration/Symfony/{Bus,Form/Type,Http,JSON,Mail,Menu,Pagination,Timeline,Security,Session,Validation}/*"
+        resource: "../src/Integration/Symfony/{Bus/Middleware,Form/Type,Http,JSON,Mail,Menu,Pagination,Timeline,Security,Session,Validation}/*"
         exclude: "../src/Integration/Symfony/Security/function/*"
 
     # Do not remove, because it is not explicitly used and is removed from the container
