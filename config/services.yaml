@@ -54,7 +54,7 @@ services:
         resource: "../src/Application/Command/Security/*Handler.php"
 
     Talesweaver\Application\Query\:
-        resource: "../src/Application/Query/{Book,Chapter}/*Handler.php"
+        resource: "../src/Application/Query/{Book,Chapter,Character}/*Handler.php"
 
     # Resources
     Talesweaver\Integration\Symfony\Controller\:
