@@ -44,7 +44,7 @@ class ListRelatedController
             'list' => $this->htmlContent->fromTemplate(
                 'scene\items\relatedList.html.twig',
                 [
-                    'items' => $this->queryBus->query(new RelatedPage($scene, $page)),  
+                    'items' => $this->queryBus->query(new RelatedPage($scene, $page)),
                     'sceneId' => $scene->getId(),
                     'sceneTitle' => $scene->getTitle(),
                     'chapterId' => $scene->getChapter() ? $scene->getChapter()->getId(): null
