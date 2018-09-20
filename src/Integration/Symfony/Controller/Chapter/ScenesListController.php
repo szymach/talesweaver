@@ -7,14 +7,15 @@ namespace Talesweaver\Integration\Symfony\Controller\Chapter;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Scene\Create\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\FormViewInterface;
 use Talesweaver\Application\Form\Type\Scene\Create;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Application\Query\Chapter\ScenesPage;
 use Talesweaver\Domain\Chapter;
-use Talesweaver\Integration\Symfony\Pagination\Chapter\ScenePaginator;
 
 class ScenesListController
 {
@@ -24,9 +25,9 @@ class ScenesListController
     private $responseFactory;
 
     /**
-     * @var ScenePaginator
+     * @var QueryBus
      */
-    private $pagination;
+    private $queryBus;
 
     /**
      * @var FormHandlerFactoryInterface
@@ -45,13 +46,13 @@ class ScenesListController
 
     public function __construct(
         ResponseFactoryInterface $responseFactory,
-        ScenePaginator $pagination,
+        QueryBus $queryBus,
         FormHandlerFactoryInterface $formHandlerFactory,
         HtmlContent $htmlContent,
         RouterInterface $router
     ) {
         $this->responseFactory = $responseFactory;
-        $this->pagination = $pagination;
+        $this->queryBus = $queryBus;
         $this->formHandlerFactory = $formHandlerFactory;
         $this->htmlContent = $htmlContent;
         $this->router = $router;
@@ -65,7 +66,7 @@ class ScenesListController
                 [
                     'chapterId' => $chapter->getId(),
                     'sceneForm' => $this->createSceneForm($request, $chapter),
-                    'scenes' => $this->pagination->getResults($chapter, $page, 3),
+                    'scenes' => $this->queryBus->query(new ScenesPage($chapter, $page)),
                     'page' => $page
                 ]
             )

@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Controller\Chapter;
 
 use Psr\Http\Message\ResponseInterface;
+use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Integration\Symfony\Pagination\Chapter\ChapterPaginator;
+use Talesweaver\Application\Query\Chapter\ChaptersPage;
 
 class ListController
 {
@@ -16,21 +17,21 @@ class ListController
     private $responseFactory;
 
     /**
-     * @var ChapterPaginator
+     * @var QueryBus
      */
-    private $pagination;
+    private $queryBus;
 
-    public function __construct(ResponseFactoryInterface $responseFactory, ChapterPaginator $pagination)
+    public function __construct(ResponseFactoryInterface $responseFactory, QueryBus $queryBus)
     {
         $this->responseFactory = $responseFactory;
-        $this->pagination = $pagination;
+        $this->queryBus = $queryBus;
     }
 
     public function __invoke(int $page): ResponseInterface
     {
         return $this->responseFactory->fromTemplate(
             'chapter/list.html.twig',
-            ['chapters' => $this->pagination->getResults($page), 'page' => $page]
+            ['chapters' => $this->queryBus->query(new ChaptersPage($page)), 'page' => $page]
         );
     }
 }
