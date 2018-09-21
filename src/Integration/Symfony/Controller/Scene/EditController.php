@@ -7,9 +7,11 @@ namespace Talesweaver\Integration\Symfony\Controller\Scene;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
+use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Scene\Create\DTO as CreateDTO;
 use Talesweaver\Application\Command\Scene\Edit\Command;
 use Talesweaver\Application\Command\Scene\Edit\DTO as EditDTO;
+use Talesweaver\Application\Form\Event\SceneEvents;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\FormHandlerInterface;
 use Talesweaver\Application\Form\FormViewInterface;
@@ -17,11 +19,11 @@ use Talesweaver\Application\Form\Type\Scene\Create;
 use Talesweaver\Application\Form\Type\Scene\Edit;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Application\Query\Chapter\ScenesPage;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Application\Form\Event\SceneEvents;
 
 class EditController
 {
@@ -36,6 +38,11 @@ class EditController
     private $formHandlerFactory;
 
     /**
+     * @var QueryBus
+     */
+    private $queryBus;
+
+    /**
      * @var CommandBus
      */
     private $commandBus;
@@ -48,11 +55,13 @@ class EditController
     public function __construct(
         ResponseFactoryInterface $responseFactory,
         FormHandlerFactoryInterface $formHandlerFactory,
+        QueryBus $queryBus,
         CommandBus $commandBus,
         HtmlContent $htmlContent
     ) {
         $this->responseFactory = $responseFactory;
         $this->formHandlerFactory = $formHandlerFactory;
+        $this->queryBus = $queryBus;
         $this->commandBus = $commandBus;
         $this->htmlContent = $htmlContent;
     }
@@ -122,7 +131,7 @@ class EditController
             $chapter = $scene->getChapter();
             $parameters['chapterTitle'] = $chapter->getTitle();
             $parameters['chapterId'] = $chapter->getId();
-            $parameters['relatedScenes'] = [];
+            $parameters['relatedScenes'] = $this->queryBus->query(new ScenesPage($chapter, 1));
             $parameters['nextSceneForm'] = $this->createNextSceneForm($request, $chapter);
         } else {
             $parameters['chapterTitle'] = null;
