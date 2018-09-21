@@ -6,22 +6,27 @@ namespace Talesweaver\Application\Query\Location;
 
 use Pagerfanta\Pagerfanta;
 use Talesweaver\Application\Bus\QueryHandlerInterface;
-use Talesweaver\Integration\Symfony\Pagination\Location\LocationPaginator;
 
 class LocationsPageHandler implements QueryHandlerInterface
 {
     /**
-     * @var LocationPaginator
+     * @var Locations
      */
-    private $pagination;
+    private $locations;
 
-    public function __construct(LocationPaginator $pagination)
+    public function __construct(Locations $locations)
     {
-        $this->pagination = $pagination;
+        $this->locations = $locations;
     }
 
     public function __invoke(LocationsPage $query): Pagerfanta
     {
-        return $this->pagination->getResults($query->getScene(), $query->getPage());
+        $pager = new Pagerfanta(
+            new ArrayAdapter($this->locations->findForScene($query->getScene()))
+        );
+        $pager->setMaxPerPage(3);
+        $pager->setCurrentPage($query->getPage());
+
+        return $pager;
     }
 }

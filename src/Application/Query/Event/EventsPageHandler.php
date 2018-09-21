@@ -4,24 +4,31 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Query\Event;
 
+use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Talesweaver\Application\Bus\QueryHandlerInterface;
-use Talesweaver\Integration\Symfony\Pagination\EventPaginator;
+use Talesweaver\Domain\Events;
 
 class EventsPageHandler implements QueryHandlerInterface
 {
     /**
-     * @var EventPaginator
+     * @var Events
      */
-    private $pagination;
+    private $events;
 
-    public function __construct(EventPaginator $pagination)
+    public function __construct(Events $events)
     {
-        $this->pagination = $pagination;
+        $this->events = $events;
     }
 
     public function __invoke(EventsPage $query): Pagerfanta
     {
-        return $this->pagination->getResults($query->getScene(), $query->getPage());
+        $pager = new Pagerfanta(
+            new ArrayAdapter($this->events->findForScene($query->getScene()))
+        );
+        $pager->setMaxPerPage(3);
+        $pager->setCurrentPage($query->getPage());
+
+        return $pager;
     }
 }

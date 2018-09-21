@@ -4,24 +4,31 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Query\Character;
 
+use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Talesweaver\Application\Bus\QueryHandlerInterface;
-use Talesweaver\Integration\Symfony\Pagination\Character\RelatedPaginator;
+use Talesweaver\Domain\Characters;
 
 class RelatedPageHandler implements QueryHandlerInterface
 {
     /**
-     * @var RelatedPaginator
+     * @var Characters
      */
-    private $pagination;
+    private $characters;
 
-    public function __construct(RelatedPaginator $pagination)
+    public function __construct(Characters $characters)
     {
-        $this->pagination = $pagination;
+        $this->characters = $characters;
     }
 
     public function __invoke(RelatedPage $query): Pagerfanta
     {
-        return $this->pagination->getResults($query->getScene(), $query->getPage());
+        $pager = new Pagerfanta(
+            new ArrayAdapter($this->characters->findRelated($query->getScene()))
+        );
+        $pager->setMaxPerPage(10);
+        $pager->setCurrentPage($query->getPage());
+
+        return $pager;
     }
 }

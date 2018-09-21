@@ -4,24 +4,31 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Query\Item;
 
+use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Talesweaver\Application\Bus\QueryHandlerInterface;
-use Talesweaver\Integration\Symfony\Pagination\Item\ItemPaginator;
+use Talesweaver\Domain\Items;
 
 class ItemsPageHandler implements QueryHandlerInterface
 {
     /**
-     * @var ItemPaginator
+     * @var Items
      */
-    private $pagination;
+    private $items;
 
-    public function __construct(ItemPaginator $pagination)
+    public function __construct(Items $items)
     {
-        $this->pagination = $pagination;
+        $this->items = $items;
     }
 
     public function __invoke(ItemsPage $query): Pagerfanta
     {
-        return $this->pagination->getResults($query->getScene(), $query->getPage());
+        $pager = new Pagerfanta(
+            new ArrayAdapter($this->items->findForScene($query->getScene()))
+        );
+        $pager->setMaxPerPage(3);
+        $pager->setCurrentPage($query->getPage());
+
+        return $pager;
     }
 }

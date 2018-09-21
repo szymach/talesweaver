@@ -4,24 +4,29 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Query\Book;
 
+use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Talesweaver\Application\Bus\QueryHandlerInterface;
-use Talesweaver\Integration\Symfony\Pagination\Book\BookPaginator;
+use Talesweaver\Domain\Books;
 
 class BooksPageHandler implements QueryHandlerInterface
 {
     /**
-     * @var BookPaginator
+     * @var Books
      */
-    private $pagination;
+    private $books;
 
-    public function __construct(BookPaginator $pagination)
+    public function __construct(Books $books)
     {
-        $this->pagination = $pagination;
+        $this->books = $books;
     }
 
     public function __invoke(BooksPage $query): Pagerfanta
     {
-        return $this->pagination->getResults($query->getPage());
+        $pager = new Pagerfanta(new ArrayAdapter($this->books->findAll()));
+        $pager->setMaxPerPage(3);
+        $pager->setCurrentPage($query->getPage());
+
+        return $pager;
     }
 }
