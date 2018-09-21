@@ -10,6 +10,7 @@ interface Scenes
 {
     public function find(UuidInterface $id): ?Scene;
     public function findForChapter(Chapter $chapter): array;
+    public function findStandalone(): array;
     public function add(Scene $scene): void;
     public function remove(UuidInterface $id): void;
 }

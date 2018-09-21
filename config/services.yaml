@@ -54,7 +54,7 @@ services:
         resource: "../src/Application/Command/Security/*Handler.php"
 
     Talesweaver\Application\Query\:
-        resource: "../src/Application/Query/{Book,Chapter,Character,Event,Item,Location}/*Handler.php"
+        resource: "../src/Application/Query/{Book,Chapter,Character,Event,Item,Location,Scene}/*Handler.php"
 
     # Resources
     Talesweaver\Integration\Symfony\Controller\:
@@ -66,7 +66,7 @@ services:
         tags: ['doctrine.fixture.orm']
 
     Talesweaver\Integration\Symfony\:
-        resource: "../src/Integration/Symfony/{Bus/Middleware,Form/Type,Http,JSON,Mail,Menu,Pagination,Timeline,Security,Session,Validation}/*"
+        resource: "../src/Integration/Symfony/{Bus/Middleware,Form/Type,Http,JSON,Mail,Menu,Timeline,Security,Session,Validation}/*"
         exclude: "../src/Integration/Symfony/Security/function/*"
 
     # Do not remove, because it is not explicitly used and is removed from the container

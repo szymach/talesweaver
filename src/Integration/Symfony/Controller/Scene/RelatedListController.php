@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Scene;
 
+use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Application\Query\Chapter\ScenesPage;
 use Talesweaver\Domain\Chapter;
-use Talesweaver\Integration\Symfony\Pagination\Chapter\ScenePaginator;
 
 class RelatedListController
 {
@@ -22,18 +23,18 @@ class RelatedListController
     private $htmlContent;
 
     /**
-     * @var ScenePaginator
+     * @var QueryBus
      */
-    private $pagination;
+    private $queryBus;
 
     public function __construct(
         ResponseFactoryInterface $responseFactory,
         HtmlContent $htmlContent,
-        ScenePaginator $pagination
+        QueryBus $queryBus
     ) {
         $this->responseFactory = $responseFactory;
         $this->htmlContent = $htmlContent;
-        $this->pagination = $pagination;
+        $this->queryBus = $queryBus;
     }
 
     public function __invoke(Chapter $chapter, int $page)
@@ -44,7 +45,7 @@ class RelatedListController
                 [
                     'chapterId' => $chapter->getId(),
                     'chapterTitle' => $chapter->getTitle(),
-                    'scenes' => $this->pagination->getResults($chapter, $page, 3),
+                    'scenes' => $this->queryBus->query(new ScenesPage($chapter, $page)),
                     'page' => $page
                 ]
             )

@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Query\Location;
 
+use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Talesweaver\Application\Bus\QueryHandlerInterface;
+use Talesweaver\Domain\Locations;
 
 class LocationsPageHandler implements QueryHandlerInterface
 {

@@ -7,6 +7,9 @@ namespace Talesweaver\Integration\Symfony\Controller\Scene;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
+use Talesweaver\Application\Command\Scene\Create\DTO as CreateDTO;
+use Talesweaver\Application\Command\Scene\Edit\Command;
+use Talesweaver\Application\Command\Scene\Edit\DTO as EditDTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\FormHandlerInterface;
 use Talesweaver\Application\Form\FormViewInterface;
@@ -14,19 +17,11 @@ use Talesweaver\Application\Form\Type\Scene\Create;
 use Talesweaver\Application\Form\Type\Scene\Edit;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Command\Scene\Create\DTO as CreateDTO;
-use Talesweaver\Application\Command\Scene\Edit\Command;
-use Talesweaver\Application\Command\Scene\Edit\DTO as EditDTO;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Enum\SceneEvents;
-use Talesweaver\Integration\Symfony\Pagination\Chapter\ScenePaginator;
-use Talesweaver\Integration\Symfony\Pagination\Character\CharacterPaginator;
-use Talesweaver\Integration\Symfony\Pagination\EventPaginator;
-use Talesweaver\Integration\Symfony\Pagination\Item\ItemPaginator;
-use Talesweaver\Integration\Symfony\Pagination\Location\LocationPaginator;
 
 class EditController
 {
@@ -50,51 +45,16 @@ class EditController
      */
     private $htmlContent;
 
-    /**
-     * @var ScenePaginator
-     */
-    private $scenePaginator;
-
-    /**
-     * @var CharacterPaginator
-     */
-    private $characterPaginator;
-
-    /**
-     * @var ItemPaginator
-     */
-    private $itemPaginator;
-
-    /**
-     * @var LocationPaginator
-     */
-    private $locationPaginator;
-
-    /**
-     * @var EventPaginator
-     */
-    private $eventPaginator;
-
     public function __construct(
         ResponseFactoryInterface $responseFactory,
         FormHandlerFactoryInterface $formHandlerFactory,
         CommandBus $commandBus,
-        HtmlContent $htmlContent,
-        CharacterPaginator $characterPaginator,
-        ItemPaginator $itemPaginator,
-        LocationPaginator $locationPaginator,
-        ScenePaginator $scenePaginator,
-        EventPaginator $eventPaginator
+        HtmlContent $htmlContent
     ) {
         $this->responseFactory = $responseFactory;
         $this->formHandlerFactory = $formHandlerFactory;
         $this->commandBus = $commandBus;
         $this->htmlContent = $htmlContent;
-        $this->characterPaginator = $characterPaginator;
-        $this->itemPaginator = $itemPaginator;
-        $this->locationPaginator = $locationPaginator;
-        $this->scenePaginator = $scenePaginator;
-        $this->eventPaginator = $eventPaginator;
     }
 
     public function __invoke(ServerRequestInterface $request, Scene $scene): ResponseInterface
@@ -151,10 +111,10 @@ class EditController
             'form' => $formHandler->createView(),
             'sceneId' => $scene->getId(),
             'title' => $scene->getTitle(),
-            'characters' => $this->characterPaginator->getResults($scene, 1),
-            'items' => $this->itemPaginator->getResults($scene, 1),
-            'locations' => $this->locationPaginator->getResults($scene, 1),
-            'events' => $this->eventPaginator->getResults($scene, 1),
+            'characters' => [],
+            'items' => [],
+            'locations' => [],
+            'events' => [],
             'eventModels' => SceneEvents::getAllEvents()
         ];
 
@@ -162,7 +122,7 @@ class EditController
             $chapter = $scene->getChapter();
             $parameters['chapterTitle'] = $chapter->getTitle();
             $parameters['chapterId'] = $chapter->getId();
-            $parameters['relatedScenes'] = $this->scenePaginator->getResults($chapter, 1);
+            $parameters['relatedScenes'] = [];
             $parameters['nextSceneForm'] = $this->createNextSceneForm($request, $chapter);
         } else {
             $parameters['chapterTitle'] = null;

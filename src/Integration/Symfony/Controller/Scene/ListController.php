@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Controller\Scene;
 
+use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Integration\Symfony\Pagination\Scene\ScenePaginator;
+use Talesweaver\Application\Query\Scene\ScenesPage;
 
 class ListController
 {
@@ -15,21 +16,21 @@ class ListController
     private $responseFactory;
 
     /**
-     * @var ScenePaginator
+     * @var QueryBus
      */
-    private $pagination;
+    private $queryBus;
 
-    public function __construct(ResponseFactoryInterface $responseFactory, ScenePaginator $pagination)
+    public function __construct(ResponseFactoryInterface $responseFactory, QueryBus $queryBus)
     {
         $this->responseFactory = $responseFactory;
-        $this->pagination = $pagination;
+        $this->queryBus = $queryBus;
     }
 
     public function __invoke($page)
     {
         return $this->responseFactory->fromTemplate(
             'scene/list.html.twig',
-            ['scenes' => $this->pagination->getResults($page)]
+            ['scenes' => $this->queryBus->query(new ScenesPage($page))]
         );
     }
 }
