@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Symfony\Enum\SceneEvents;
+use Talesweaver\Application\Form\Event\SceneEvents;
 
 class OptionsListController
 {

@@ -10,6 +10,7 @@ use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Command\Event\Create\Command;
 use Talesweaver\Application\Command\Event\Create\DTO;
+use Talesweaver\Application\Form\Event\EventModelResolver;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Event\Create;
 use Talesweaver\Application\Http\HtmlContent;
@@ -17,7 +18,6 @@ use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Integration\Symfony\Enum\SceneEvents;
 
 class CreateController
 {
@@ -25,6 +25,11 @@ class CreateController
      * @var FormHandlerFactoryInterface
      */
     private $formHandlerFactory;
+
+    /**
+     * @var EventModelResolver
+     */
+    private $eventModelResolver;
 
     /**
      * @var CommandBus
@@ -48,12 +53,14 @@ class CreateController
 
     public function __construct(
         FormHandlerFactoryInterface $formHandlerFactory,
+        EventModelResolver $eventModelResolver,
         CommandBus $commandBus,
         ResponseFactoryInterface $responseFactory,
         HtmlContent $htmlContent,
         UrlGenerator $urlGenerator
     ) {
         $this->formHandlerFactory = $formHandlerFactory;
+        $this->eventModelResolver = $eventModelResolver;
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
         $this->htmlContent = $htmlContent;
@@ -68,7 +75,7 @@ class CreateController
             new DTO($scene),
             [
                 'scene' => $scene,
-                'model' => SceneEvents::getEventForm($model),
+                'model' => $this->eventModelResolver->resolve($model),
                 'action' => $this->urlGenerator->generate(
                     'event_add',
                     ['id' => $scene->getId(), 'model' => $model]

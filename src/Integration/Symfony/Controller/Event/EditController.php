@@ -9,6 +9,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Command\Event\Edit\Command;
 use Talesweaver\Application\Command\Event\Edit\DTO;
+use Talesweaver\Application\Form\Event\EventModelResolver;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Event\Edit;
 use Talesweaver\Application\Http\HtmlContent;
@@ -16,7 +17,6 @@ use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Integration\Symfony\Enum\SceneEvents;
 
 class EditController
 {
@@ -24,6 +24,11 @@ class EditController
      * @var FormHandlerFactoryInterface
      */
     private $formHandlerFactory;
+
+    /**
+     * @var EventModelResolver
+     */
+    private $eventModelResolver;
 
     /**
      * @var CommandBus
@@ -47,12 +52,14 @@ class EditController
 
     public function __construct(
         FormHandlerFactoryInterface $formHandlerFactory,
+        EventModelResolver $eventModelResolver,
         CommandBus $commandBus,
         ResponseFactoryInterface $responseFactory,
         HtmlContent $htmlContent,
         UrlGenerator $urlGenerator
     ) {
         $this->formHandlerFactory = $formHandlerFactory;
+        $this->eventModelResolver = $eventModelResolver;
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
         $this->htmlContent = $htmlContent;
@@ -67,7 +74,7 @@ class EditController
                 ['id' => $event->getId()]
             ),
             'eventId' => $event->getId(),
-            'model' => SceneEvents::getEventForm(get_class($event->getModel())),
+            'model' => $this->eventModelResolver->resolve(get_class($event->getModel())),
             'scene' => $event->getScene()
         ]);
 

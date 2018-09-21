@@ -21,7 +21,7 @@ use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Integration\Symfony\Enum\SceneEvents;
+use Talesweaver\Application\Form\Event\SceneEvents;
 
 class EditController
 {
