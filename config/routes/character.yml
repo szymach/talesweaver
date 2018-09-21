@@ -1,40 +1,40 @@
 ---
 character_new:
     path: /new/{id}
-    defaults: { _controller: Talesweaver\Integration\Symfony\Controller\Character\CreateController }
+    defaults: { _controller: Talesweaver\Application\Controller\Character\CreateController }
     methods:  [GET, POST]
 
 character_edit:
     path: /edit/{id}
-    defaults: { _controller: Talesweaver\Integration\Symfony\Controller\Character\EditController }
+    defaults: { _controller: Talesweaver\Application\Controller\Character\EditController }
     methods:  [GET, POST]
 
 character_list:
     path: /list/{id}/{page}
-    defaults: { _controller: Talesweaver\Integration\Symfony\Controller\Character\ListController, page: 1 }
+    defaults: { _controller: Talesweaver\Application\Controller\Character\ListController, page: 1 }
     methods:  GET
 
 character_delete:
     path: /delete/{id}
-    defaults: { _controller: Talesweaver\Integration\Symfony\Controller\Character\DeleteController }
+    defaults: { _controller: Talesweaver\Application\Controller\Character\DeleteController }
     methods:  GET
 
 character_display:
     path: /display/{id}
-    defaults: { _controller: Talesweaver\Integration\Symfony\Controller\Character\DisplayController }
+    defaults: { _controller: Talesweaver\Application\Controller\Character\DisplayController }
     methods:  GET
 
 character_related:
     path: /related/{id}/{page}
-    defaults: { _controller: Talesweaver\Integration\Symfony\Controller\Character\ListRelatedController, page: 1 }
+    defaults: { _controller: Talesweaver\Application\Controller\Character\ListRelatedController, page: 1 }
     methods:  GET
 
 character_add_to_scene:
     path: /add-to-scene/{scene_id}/{character_id}
-    defaults: { _controller: Talesweaver\Integration\Symfony\Controller\Character\AddToSceneController }
+    defaults: { _controller: Talesweaver\Application\Controller\Character\AddToSceneController }
     methods:  GET
 
 character_remove_from_scene:
     path: /remove-from-scene/{scene_id}/{character_id}
-    defaults: { _controller: Talesweaver\Integration\Symfony\Controller\Character\RemoveFromSceneController }
+    defaults: { _controller: Talesweaver\Application\Controller\Character\RemoveFromSceneController }
     methods:  GET

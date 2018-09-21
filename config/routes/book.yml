@@ -1,26 +1,26 @@
 ---
 book_create:
     path: /create/{page}
-    defaults: { _controller: Talesweaver\Integration\Symfony\Controller\Book\CreateController, page: 1 }
+    defaults: { _controller: Talesweaver\Application\Controller\Book\CreateController, page: 1 }
     methods:  [GET, POST]
 
 book_edit:
     path: /edit/{id}/{page}
-    defaults: { _controller: Talesweaver\Integration\Symfony\Controller\Book\EditController, page: 1 }
+    defaults: { _controller: Talesweaver\Application\Controller\Book\EditController, page: 1 }
     methods:  [GET, POST]
 
 book_list:
     path: /list/{page}
-    defaults: { _controller: Talesweaver\Integration\Symfony\Controller\Book\ListController, page: 1 }
+    defaults: { _controller: Talesweaver\Application\Controller\Book\ListController, page: 1 }
     methods:  GET
 
 book_delete:
     path: /delete/{id}/{page}
-    defaults: { _controller: Talesweaver\Integration\Symfony\Controller\Book\DeleteController, page: 1 }
+    defaults: { _controller: Talesweaver\Application\Controller\Book\DeleteController, page: 1 }
     methods:  GET
 
 book_chapter_list:
     path: /chapters/{id}/{page}
-    defaults: { _controller: Talesweaver\Integration\Symfony\Controller\Book\ChaptersListController, page: 1 }
+    defaults: { _controller: Talesweaver\Application\Controller\Book\ChaptersListController, page: 1 }
     condition: "request.isXmlHttpRequest()"
     methods:  GET

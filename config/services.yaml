@@ -58,8 +58,8 @@ services:
         resource: "../src/Application/Query/{Book,Chapter,Character,Event,Item,Location,Scene}/*Handler.php"
 
     # Resources
-    Talesweaver\Integration\Symfony\Controller\:
-        resource: "../src/Integration/Symfony/Controller/*"
+    Talesweaver\Application\Controller\:
+        resource: "../src/Application/Controller/*"
         public: true
 
     Talesweaver\Integration\Doctrine\DataFixtures\ORM\:
