@@ -5,21 +5,23 @@ declare(strict_types=1);
 namespace Talesweaver\Application\Controller\Security;
 
 use Talesweaver\Application\Bus\CommandBus;
-use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Security\ActivateAuthor;
-use Talesweaver\Integration\Doctrine\Repository\AuthorRepository;
+use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Application\Query\Security\AuthorByToken;
+use Talesweaver\Domain\Author;
 
 class ActivationController
 {
     /**
-     * @var AuthorRepository
-     */
-    private $repository;
-
-    /**
      * @var CommandBus
      */
     private $commandBus;
+
+    /**
+     * @var QueryBus
+     */
+    private $queryBus;
 
     /**
      * @var ResponseFactoryInterface
@@ -27,24 +29,29 @@ class ActivationController
     private $responseFactory;
 
     public function __construct(
-        AuthorRepository $repository,
         CommandBus $commandBus,
+        QueryBus $queryBus,
         ResponseFactoryInterface $responseFactory
     ) {
-        $this->repository = $repository;
         $this->commandBus = $commandBus;
+        $this->queryBus = $queryBus;
         $this->responseFactory = $responseFactory;
     }
 
     public function __invoke(string $code)
     {
-        $author = $this->repository->findOneByActivationToken($code);
-        if (null === $author) {
+        $this->commandBus->dispatch(new ActivateAuthor($this->getAuthor($code)));
+
+        return $this->responseFactory->redirectToRoute('login');
+    }
+
+    private function getAuthor(?string $code): Author
+    {
+        $author = $this->queryBus->query(new AuthorByToken($code));
+        if (false === $author instanceof Author) {
             throw $this->responseFactory->notFound(sprintf('No author for code "%s"', $code));
         }
 
-        $this->commandBus->dispatch(new ActivateAuthor($author));
-
-        return $this->responseFactory->redirectToRoute('login');
+        return $author;
     }
 }

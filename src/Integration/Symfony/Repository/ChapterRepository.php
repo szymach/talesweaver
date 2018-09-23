@@ -9,11 +9,10 @@ use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Chapters;
-use Talesweaver\Domain\Repository\LatestChangesAwareRepository;
 use Talesweaver\Domain\Repository\RequestSecuredRepository;
 use Talesweaver\Integration\Doctrine\Repository\ChapterRepository as DoctrineRepository;
 
-class ChapterRepository implements Chapters, LatestChangesAwareRepository, RequestSecuredRepository
+class ChapterRepository implements Chapters, RequestSecuredRepository
 {
     /**
      * @var DoctrineRepository

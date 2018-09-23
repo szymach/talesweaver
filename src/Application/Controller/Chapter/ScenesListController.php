@@ -6,7 +6,6 @@ namespace Talesweaver\Application\Controller\Chapter;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Symfony\Component\Routing\RouterInterface;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Scene\Create\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
@@ -14,6 +13,7 @@ use Talesweaver\Application\Form\FormViewInterface;
 use Talesweaver\Application\Form\Type\Scene\Create;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Application\Query\Chapter\ScenesPage;
 use Talesweaver\Domain\Chapter;
 
@@ -40,7 +40,7 @@ class ScenesListController
     private $htmlContent;
 
     /**
-     * @var RouterInterface
+     * @var UrlGenerator
      */
     private $router;
 
@@ -49,7 +49,7 @@ class ScenesListController
         QueryBus $queryBus,
         FormHandlerFactoryInterface $formHandlerFactory,
         HtmlContent $htmlContent,
-        RouterInterface $router
+        UrlGenerator $router
     ) {
         $this->responseFactory = $responseFactory;
         $this->queryBus = $queryBus;

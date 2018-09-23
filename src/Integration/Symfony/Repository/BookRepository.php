@@ -8,11 +8,10 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Books;
-use Talesweaver\Domain\Repository\LatestChangesAwareRepository;
 use Talesweaver\Domain\Repository\RequestSecuredRepository;
 use Talesweaver\Integration\Doctrine\Repository\BookRepository as DoctrineRepository;
 
-class BookRepository implements Books, LatestChangesAwareRepository, RequestSecuredRepository
+class BookRepository implements Books, RequestSecuredRepository
 {
     /**
      * @var DoctrineRepository

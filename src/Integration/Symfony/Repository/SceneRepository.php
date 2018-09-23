@@ -8,13 +8,12 @@ use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Chapter;
-use Talesweaver\Domain\Repository\LatestChangesAwareRepository;
 use Talesweaver\Domain\Repository\RequestSecuredRepository;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\Scenes;
 use Talesweaver\Integration\Doctrine\Repository\SceneRepository as DoctrineRepository;
 
-class SceneRepository implements Scenes, LatestChangesAwareRepository, RequestSecuredRepository
+class SceneRepository implements Scenes, RequestSecuredRepository
 {
     /**
      * @var DoctrineRepository

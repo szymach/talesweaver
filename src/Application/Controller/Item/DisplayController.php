@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Talesweaver\Application\Controller\Item;
 
 use Psr\Http\Message\ResponseInterface;
+use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Application\Query\Timeline\ForEntity;
 use Talesweaver\Domain\Item;
-use Talesweaver\Integration\Symfony\Timeline\ItemTimeline;
 
 class DisplayController
 {
@@ -18,23 +19,23 @@ class DisplayController
     private $responseFactory;
 
     /**
+     * @var QueryBus
+     */
+    private $queryBus;
+
+    /**
      * @var HtmlContent
      */
     private $htmlContent;
 
-    /**
-     * @var ItemTimeline
-     */
-    private $timeline;
-
     public function __construct(
         ResponseFactoryInterface $responseFactory,
-        HtmlContent $htmlContent,
-        ItemTimeline $timeline
+        QueryBus $queryBus,
+        HtmlContent $htmlContent
     ) {
         $this->responseFactory = $responseFactory;
+        $this->queryBus = $queryBus;
         $this->htmlContent = $htmlContent;
-        $this->timeline = $timeline;
     }
 
     public function __invoke(Item $item): ResponseInterface
@@ -44,7 +45,9 @@ class DisplayController
                 'scene\items\display.html.twig',
                 [
                     'item' => $item,
-                    'timeline' => $this->timeline->getTimeline($item->getId(), Item::class)
+                    'timeline' => $this->queryBus->query(
+                        new ForEntity($item->getId(), Item::class)
+                    )
                 ]
             )
         ]);

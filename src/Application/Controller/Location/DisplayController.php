@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Talesweaver\Application\Controller\Location;
 
 use Psr\Http\Message\ResponseInterface;
+use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Application\Query\Timeline\ForEntity;
 use Talesweaver\Domain\Location;
-use Talesweaver\Integration\Symfony\Timeline\LocationTimeline;
 
 class DisplayController
 {
@@ -18,23 +19,23 @@ class DisplayController
     private $responseFactory;
 
     /**
+     * @var QueryBus
+     */
+    private $queryBus;
+
+    /**
      * @var HtmlContent
      */
     private $htmlContent;
 
-    /**
-     * @var LocationTimeline
-     */
-    private $timeline;
-
     public function __construct(
         ResponseFactoryInterface $responseFactory,
-        HtmlContent $htmlContent,
-        LocationTimeline $timeline
+        QueryBus $queryBus,
+        HtmlContent $htmlContent
     ) {
         $this->responseFactory = $responseFactory;
+        $this->queryBus = $queryBus;
         $this->htmlContent = $htmlContent;
-        $this->timeline = $timeline;
     }
 
     public function __invoke(Location $location): ResponseInterface
@@ -44,7 +45,9 @@ class DisplayController
                 'scene\locations\display.html.twig',
                 [
                     'location' => $location,
-                    'timeline' => $this->timeline->getTimeline($location->getId(), Location::class)
+                    'timeline' => $this->queryBus->query(
+                        new ForEntity($location->getId(), Location::class)
+                    )
                 ]
             )
         ]);
