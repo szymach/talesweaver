@@ -13,4 +13,5 @@ interface Items
     public function findRelated(Scene $scene): array;
     public function add(Item $item): void;
     public function remove(UuidInterface $id): void;
+    public function entityExists(string $name, ?UuidInterface $id, ?UuidInterface $sceneId): bool;
 }

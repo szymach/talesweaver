@@ -16,29 +16,25 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Talesweaver\Application\Form\Type\Scene\Create;
+use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Scene\Create\DTO;
+use Talesweaver\Application\Form\Type\Scene\Create;
+use Talesweaver\Application\Query\Chapter\ForBook;
+use Talesweaver\Application\Query\Chapter\Standalone;
+use Talesweaver\Application\Query\Scene\EntityExists;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
-use Talesweaver\Integration\Symfony\Repository\ChapterRepository;
-use Talesweaver\Integration\Symfony\Repository\SceneRepository;
 
 class CreateType extends AbstractType implements Create
 {
     /**
-     * @var SceneRepository
+     * @var QueryBus
      */
-    private $sceneRepository;
+    private $queryBus;
 
-    /**
-     * @var ChapterRepository
-     */
-    private $chapterRepository;
-
-    public function __construct(SceneRepository $sceneRepository, ChapterRepository $chapterRepository)
+    public function __construct(QueryBus $queryBus)
     {
-        $this->sceneRepository = $sceneRepository;
-        $this->chapterRepository = $chapterRepository;
+        $this->queryBus = $queryBus;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -91,7 +87,7 @@ class CreateType extends AbstractType implements Create
                 return;
             }
 
-            if (true === $this->sceneRepository->entityExists($name, null, $chapterId)) {
+            if (true === $this->queryBus->query(new EntityExists($name, null, $chapterId))) {
                 $context->buildViolation('scene.exists')->addViolation();
             }
         };
@@ -99,7 +95,7 @@ class CreateType extends AbstractType implements Create
 
     private function getChapterChoices(?Book $book): array
     {
-        return null !== $book ? $this->chapterRepository->findForBook($book) : $this->chapterRepository->findAll();
+        return $this->queryBus->query(null !== $book ? new ForBook($book) : new Standalone());
     }
 
     private function getChapterChoiceLabel(?Book $book): callable

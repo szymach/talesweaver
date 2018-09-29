@@ -9,32 +9,24 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Form\Type;
+use Talesweaver\Application\Query;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event\Meeting;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Symfony\Repository\CharacterRepository;
-use Talesweaver\Integration\Symfony\Repository\LocationRepository;
 
 class MeetingType extends AbstractType implements Type\Event\Meeting
 {
     /**
-     * @var CharacterRepository
+     * @var QueryBus
      */
-    private $characterRepository;
+    private $queryBus;
 
-    /**
-     * @var LocationRepository
-     */
-    private $locationRepository;
-
-    public function __construct(
-        CharacterRepository $characterRepository,
-        LocationRepository $locationRepository
-    ) {
-        $this->characterRepository = $characterRepository;
-        $this->locationRepository = $locationRepository;
+    public function __construct(QueryBus $queryBus)
+    {
+        $this->queryBus = $queryBus;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -43,7 +35,7 @@ class MeetingType extends AbstractType implements Type\Event\Meeting
         $builder->add('root', EntityType::class, [
             'class' => Character::class,
             'label' => $this->getTranslationKey('root'),
-            'choices' => $this->characterRepository->findForScene($scene),
+            'choices' => $this->queryBus->query(new Query\Character\ForScene($scene)),
             'choice_label' => function (Character $character): string {
                 return (string) $character->getName();
             },
@@ -53,7 +45,7 @@ class MeetingType extends AbstractType implements Type\Event\Meeting
         $builder->add('location', EntityType::class, [
             'class' => Location::class,
             'label' => $this->getTranslationKey('location'),
-            'choices' => $this->locationRepository->findForScene($scene),
+            'choices' => $this->queryBus->query(new Query\Location\ForScene($scene)),
             'choice_label' => function (Location $location): string {
                 return (string) $location->getName();
             },
@@ -63,7 +55,7 @@ class MeetingType extends AbstractType implements Type\Event\Meeting
         $builder->add('relation', EntityType::class, [
             'class' => Character::class,
             'label' => $this->getTranslationKey('relation'),
-            'choices' => $this->characterRepository->findForScene($scene),
+            'choices' => $this->queryBus->query(new Query\Character\ForScene($scene)),
             'choice_label' => function (Character $character): string {
                 return (string) $character->getName();
             },

@@ -13,4 +13,5 @@ interface Books extends LatestChangesAwareRepository
     public function find(UuidInterface $id): ?Book;
     public function findAll(): array;
     public function remove(UuidInterface $id): void;
+    public function entityExists(string $title, ?UuidInterface $id): bool;
 }

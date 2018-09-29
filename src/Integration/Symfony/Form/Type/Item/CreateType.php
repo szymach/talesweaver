@@ -17,20 +17,21 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Talesweaver\Application\Form\Type\Item\Create;
+use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Item\Create\DTO;
-use Talesweaver\Integration\Symfony\Repository\ItemRepository;
+use Talesweaver\Application\Form\Type\Item\Create;
+use Talesweaver\Application\Query\Item\EntityExists;
 
 class CreateType extends AbstractType implements Create
 {
     /**
-     * @var ItemRepository
+     * @var QueryBus
      */
-    private $itemRepository;
+    private $queryBus;
 
-    public function __construct(ItemRepository $itemRepository)
+    public function __construct(QueryBus $queryBus)
     {
-        $this->itemRepository = $itemRepository;
+        $this->queryBus = $queryBus;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -45,7 +46,7 @@ class CreateType extends AbstractType implements Create
                         return;
                     }
 
-                    if (true === $this->itemRepository->entityExists($name, null, $sceneId)) {
+                    if (true === $this->queryBus->query(new EntityExists($name, null, $sceneId))) {
                         $context->buildViolation('item.exists')->addViolation();
                     }
                 }

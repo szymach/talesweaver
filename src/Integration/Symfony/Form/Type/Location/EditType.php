@@ -17,20 +17,21 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Talesweaver\Application\Form\Type\Location\Edit;
+use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Location\Edit\DTO;
-use Talesweaver\Integration\Symfony\Repository\LocationRepository;
+use Talesweaver\Application\Form\Type\Location\Edit;
+use Talesweaver\Application\Query\Location\EntityExists;
 
 class EditType extends AbstractType implements Edit
 {
     /**
-     * @var LocationRepository
+     * @var QueryBus
      */
-    private $locationRepository;
+    private $queryBus;
 
-    public function __construct(LocationRepository $locationRepository)
+    public function __construct(QueryBus $queryBus)
     {
-        $this->locationRepository = $locationRepository;
+        $this->queryBus = $queryBus;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -45,7 +46,7 @@ class EditType extends AbstractType implements Edit
                         return;
                     }
 
-                    if (true === $this->locationRepository->entityExists($name, $locationId, null)) {
+                    if (true === $this->queryBus->query(new EntityExists($name, $locationId, null))) {
                         $context->buildViolation('location.exists')->addViolation();
                     }
                 }

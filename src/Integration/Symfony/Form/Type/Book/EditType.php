@@ -14,20 +14,21 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Book\Edit\DTO;
 use Talesweaver\Application\Form\Type\Book\Edit;
-use Talesweaver\Integration\Symfony\Repository\BookRepository;
+use Talesweaver\Application\Query\Book\EntityExists;
 
 class EditType extends AbstractType implements Edit
 {
     /**
-     * @var BookRepository
+     * @var QueryBus
      */
-    private $bookRepository;
+    private $queryBus;
 
-    public function __construct(BookRepository $bookRepository)
+    public function __construct(QueryBus $queryBus)
     {
-        $this->bookRepository = $bookRepository;
+        $this->queryBus = $queryBus;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -42,7 +43,7 @@ class EditType extends AbstractType implements Edit
                         return;
                     }
 
-                    if (true === $this->bookRepository->entityExists($title, $id)) {
+                    if (true === $this->queryBus->query(new EntityExists($title, $id))) {
                         $context->buildViolation('book.exists')->addViolation();
                     }
                 }

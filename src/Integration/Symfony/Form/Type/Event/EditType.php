@@ -13,21 +13,22 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Event\Edit\DTO;
 use Talesweaver\Application\Form\Type\Event\Edit;
+use Talesweaver\Application\Query\Event\EntityExists;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Integration\Symfony\Repository\EventRepository;
 
 class EditType extends AbstractType implements Edit
 {
     /**
-     * @var EventRepository
+     * @var QueryBus
      */
-    private $eventRepository;
+    private $queryBus;
 
-    public function __construct(EventRepository $eventRepository)
+    public function __construct(QueryBus $queryBus)
     {
-        $this->eventRepository = $eventRepository;
+        $this->queryBus = $queryBus;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -42,7 +43,7 @@ class EditType extends AbstractType implements Edit
                         return;
                     }
 
-                    if (true === $this->eventRepository->entityExists($name, $eventId, null)) {
+                    if (true === $this->queryBus->query(new EntityExists($name, $eventId, null))) {
                         $context->buildViolation('event.exists')->addViolation();
                     }
                 }

@@ -15,4 +15,5 @@ interface Chapters extends LatestChangesAwareRepository
     public function findStandalone(): array;
     public function add(Chapter $chapter): void;
     public function remove(UuidInterface $id): void;
+    public function entityExists(string $title, ?UuidInterface $id, ?UuidInterface $bookId): bool;
 }

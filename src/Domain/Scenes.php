@@ -17,4 +17,5 @@ interface Scenes extends LatestChangesAwareRepository
     public function firstLocationOccurence(UuidInterface $id);
     public function add(Scene $scene): void;
     public function remove(UuidInterface $id): void;
+    public function entityExists(string $title, ?UuidInterface $id, ?UuidInterface $chapterId): bool;
 }

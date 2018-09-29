@@ -13,20 +13,21 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Chapter\Create\DTO;
 use Talesweaver\Application\Form\Type\Chapter\Create;
-use Talesweaver\Integration\Symfony\Repository\ChapterRepository;
+use Talesweaver\Application\Query\Chapter\EntityExists;
 
 class CreateType extends AbstractType implements Create
 {
     /**
-     * @var ChapterRepository
+     * @var QueryBus
      */
-    private $chapterRepository;
+    private $queryBus;
 
-    public function __construct(ChapterRepository $chapterRepository)
+    public function __construct(QueryBus $queryBus)
     {
-        $this->chapterRepository = $chapterRepository;
+        $this->queryBus = $queryBus;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -41,7 +42,7 @@ class CreateType extends AbstractType implements Create
                         return;
                     }
 
-                    if (true === $this->chapterRepository->entityExists($title, null, $bookId)) {
+                    if (true === $this->queryBus->query(new EntityExists($title, null, $bookId))) {
                         $context->buildViolation('chapter.exists')->addViolation();
                     }
                 }
