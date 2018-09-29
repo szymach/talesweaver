@@ -6,13 +6,14 @@ namespace Talesweaver\Integration\Symfony\JSON;
 
 use JsonSerializable;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
+use RuntimeException;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Talesweaver\Application\Bus\QueryBus;
+use Talesweaver\Application\Query;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Location;
-use Talesweaver\Integration\Symfony\Repository\CharacterRepository;
-use Talesweaver\Integration\Symfony\Repository\ItemRepository;
-use Talesweaver\Integration\Symfony\Repository\LocationRepository;
 
 class EventParser
 {
@@ -22,22 +23,16 @@ class EventParser
     private $propertAccessor;
 
     /**
-     * @var array
+     * @var QueryBus
      */
-    private $repositories;
+    private $queryBus;
 
     public function __construct(
         PropertyAccessorInterface $propertAccessor,
-        CharacterRepository $characterRepository,
-        ItemRepository $itemRepository,
-        LocationRepository $locationRepository
+        QueryBus $queryBus
     ) {
         $this->propertAccessor = $propertAccessor;
-        $this->repositories = [
-            Character::class => $characterRepository,
-            Item::class => $itemRepository,
-            Location::class => $locationRepository
-        ];
+        $this->queryBus = $queryBus;
     }
 
     public function parse(array $modelData): JsonSerializable
@@ -68,6 +63,36 @@ class EventParser
             return;
         }
 
-        $this->propertAccessor->setValue($model, $field, $this->repositories[$class]->find(Uuid::fromString($id)));
+        $this->propertAccessor->setValue(
+            $model,
+            $field,
+            $this->getObject($class, Uuid::fromString($id))
+        );
+    }
+
+    private function getObject(string $class, UuidInterface $id): object
+    {
+        switch ($class) {
+            case Character::class:
+                $query = new Query\Character\ById($id);
+                break;
+            case Item::class;
+                $query = new Query\Item\ById($id);
+                break;
+            case Location::class;
+                $query = new Query\Location\ById($id);
+                break;
+            default:
+                throw new RuntimeException(sprintf('Cannot match entity to class "%s"', $class));
+        }
+
+        $object = $this->queryBus->query($query);
+        if (false === $object instanceof $class) {
+            throw new RuntimeException(
+                sprintf('No entity found for class and id "%s" "%s"', $class, $id->toString())
+            );
+        }
+
+        return $object;
     }
 }
