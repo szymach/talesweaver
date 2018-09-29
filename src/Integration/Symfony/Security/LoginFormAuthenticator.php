@@ -76,6 +76,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         if (false === $this->passwordEncoder->isPasswordValid($user, $credentials['password'])) {
             throw new BadCredentialsException();
         }
+
         if (false === $user instanceof User) {
             throw new BadCredentialsException();
         }

@@ -7,20 +7,21 @@ namespace Talesweaver\Integration\Symfony\Security;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Talesweaver\Application\Bus\QueryBus;
+use Talesweaver\Application\Query\Security\AuthorByEmail;
 use Talesweaver\Domain\ValueObject\Email;
 use Talesweaver\Integration\Symfony\Security\User;
-use Talesweaver\Integration\Doctrine\Repository\AuthorRepository;
 
 class UserProvider implements UserProviderInterface
 {
     /**
-     * @var AuthorRepository
+     * @var QueryBus
      */
-    private $repository;
+    private $queryBus;
 
-    public function __construct(AuthorRepository $repository)
+    public function __construct(QueryBus $queryBus)
     {
-        $this->repository = $repository;
+        $this->queryBus = $queryBus;
     }
 
     public function loadUserByUsername($username): UserInterface
@@ -29,7 +30,7 @@ class UserProvider implements UserProviderInterface
             throw new UsernameNotFoundException('No username provided.');
         }
 
-        $user = $this->repository->findOneByEmail(new Email($username));
+        $user = $this->queryBus->query(new AuthorByEmail(new Email($username)));
         if (null === $user) {
             throw new UsernameNotFoundException(
                 sprintf('Username "%s" does not exist.', $username)
@@ -41,7 +42,7 @@ class UserProvider implements UserProviderInterface
 
     public function refreshUser(UserInterface $user): UserInterface
     {
-        return new User($this->repository->findOneByEmail(new Email($user->getUsername())));
+        return $this->loadUserByUsername($user->getUsername());
     }
 
     public function supportsClass($class): bool

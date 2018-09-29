@@ -6,19 +6,20 @@ namespace Talesweaver\Integration\Symfony\Validation\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Talesweaver\Application\Bus\QueryBus;
+use Talesweaver\Application\Query\Security\AuthorByEmail;
 use Talesweaver\Domain\ValueObject\Email;
-use Talesweaver\Integration\Doctrine\Repository\AuthorRepository;
 
 class UniqueUserEmailValidator extends ConstraintValidator
 {
     /**
-     * @var AuthorRepository
+     * @var QueryBus
      */
-    private $repository;
+    private $queryBus;
 
-    public function __construct(AuthorRepository $repository)
+    public function __construct(QueryBus $queryBus)
     {
-        $this->repository = $repository;
+        $this->queryBus = $queryBus;
     }
 
     public function validate($email, Constraint $constraint)
@@ -27,7 +28,7 @@ class UniqueUserEmailValidator extends ConstraintValidator
             return;
         }
 
-        if (null !== $this->repository->findOneByEmail(new Email($email))) {
+        if (null !== $this->queryBus->query(new AuthorByEmail(new Email($email)))) {
             $this->context->buildViolation('security.email_taken')->addViolation();
         }
     }
