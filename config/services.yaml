@@ -109,13 +109,6 @@ services:
     app.security.login_form_authenticator:
         class: Talesweaver\Integration\Symfony\Security\LoginFormAuthenticator
 
-    Talesweaver\Integration\Symfony\Security\Request\SecuredInstanceParamConverter:
-        arguments: [[]]
-        autowire: false
-        autoconfigure: false
-        tags:
-            - { name: request.param_converter, priority: 10 }
-
     # Session
     Talesweaver\Application\Session\FlashBag:
         alias: Talesweaver\Integration\Symfony\Session\FlashBag

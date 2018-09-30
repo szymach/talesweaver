@@ -19,8 +19,8 @@ class QueryBus implements ApplicationQueryBus
         $this->messenger = $messenger;
     }
 
-    public function query(object $command)
+    public function query(object $query)
     {
-        return $this->messenger->dispatch($command);
+        return $this->messenger->dispatch($query);
     }
 }
