@@ -1,35 +1,43 @@
 ---
 scene_create:
     path: /create/{page}
-    defaults: { _controller: Talesweaver\Application\Controller\Scene\CreateController, page: 1 }
+    controller: Talesweaver\Application\Controller\Scene\CreateController
+    defaults:
+        page: 1
     methods:  [GET, POST]
 
 scene_edit:
     path: /edit/{id}
-    defaults: { _controller: Talesweaver\Application\Controller\Scene\EditController }
+    controller: Talesweaver\Application\Controller\Scene\EditController
     methods:  [GET, POST]
 
 scene_list:
     path: /list/{page}
-    defaults: { _controller: Talesweaver\Application\Controller\Scene\ListController, page: 1 }
+    controller: Talesweaver\Application\Controller\Scene\ListController
+    defaults:
+        page: 1
     methods:  GET
 
 scene_related_list:
     path: /related-list/{id}/{page}
-    defaults: { _controller: Talesweaver\Application\Controller\Scene\RelatedListController, page: 1 }
+    controller: Talesweaver\Application\Controller\Scene\RelatedListController
+    defaults:
+        page: 1
     methods:  GET
 
 scene_delete:
     path: /delete/{id}/{page}
-    defaults: { _controller: Talesweaver\Application\Controller\Scene\DeleteController, page: 1 }
+    controller: Talesweaver\Application\Controller\Scene\DeleteController
+    defaults:
+        page: 1
     methods:  GET
 
 scene_display:
     path: /display/{id}
-    defaults: { _controller: Talesweaver\Application\Controller\Scene\DisplayController }
+    controller: Talesweaver\Application\Controller\Scene\DisplayController
     methods:  GET
 
 scene_pdf:
     path: /pdf/{id}
-    defaults: { _controller: Talesweaver\Application\Controller\Scene\PdfController }
+    controller: Talesweaver\Application\Controller\Scene\PdfController
     methods:  GET

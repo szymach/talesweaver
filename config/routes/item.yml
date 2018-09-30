@@ -1,40 +1,44 @@
 ---
 item_new:
     path: /new/{id}
-    defaults: { _controller: Talesweaver\Application\Controller\Item\CreateController }
+    controller: Talesweaver\Application\Controller\Item\CreateController
     methods:  [GET, POST]
 
 item_edit:
     path: /edit/{id}
-    defaults: { _controller: Talesweaver\Application\Controller\Item\EditController }
+    controller: Talesweaver\Application\Controller\Item\EditController
     methods:  [GET, POST]
 
 item_list:
     path: /list/{id}/{page}
-    defaults: { _controller: Talesweaver\Application\Controller\Item\ListController, page: 1 }
+    controller: Talesweaver\Application\Controller\Item\ListController
+    defaults:
+        page: 1
     methods:  GET
 
 item_delete:
     path: /delete/{id}
-    defaults: { _controller: Talesweaver\Application\Controller\Item\DeleteController }
+    controller: Talesweaver\Application\Controller\Item\DeleteController
     methods:  GET
 
 item_display:
     path: /display/{id}
-    defaults: { _controller: Talesweaver\Application\Controller\Item\DisplayController }
+    controller: Talesweaver\Application\Controller\Item\DisplayController
     methods:  GET
 
 item_related:
     path: /related/{id}/{page}
-    defaults: { _controller: Talesweaver\Application\Controller\Item\ListRelatedController, page: 1 }
+    controller: Talesweaver\Application\Controller\Item\ListRelatedController
+    defaults:
+        page: 1
     methods:  GET
 
 item_add_to_scene:
     path: /add-to-scene/{scene_id}/{item_id}
-    defaults: { _controller: Talesweaver\Application\Controller\Item\AddToSceneController }
+    controller: Talesweaver\Application\Controller\Item\AddToSceneController
     methods:  GET
 
 item_remove_from_scene:
     path: /remove-from-scene/{scene_id}/{item_id}
-    defaults: { _controller: Talesweaver\Application\Controller\Item\RemoveFromSceneController }
+    controller: Talesweaver\Application\Controller\Item\RemoveFromSceneController
     methods:  GET

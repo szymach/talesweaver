@@ -1,30 +1,30 @@
 ---
 login:
     path: /login
-    defaults: { _controller: Talesweaver\Application\Controller\Security\LoginController }
+    controller: Talesweaver\Application\Controller\Security\LoginController
     methods:  GET|POST
 
 register:
     path: /registration
-    defaults: { _controller: Talesweaver\Application\Controller\Security\RegisterController }
+    controller: Talesweaver\Application\Controller\Security\RegisterController
     methods:  GET|POST
 
 activation:
     path: /activate/{code}
-    defaults: { _controller: Talesweaver\Application\Controller\Security\ActivationController }
+    controller: Talesweaver\Application\Controller\Security\ActivationController
     methods:  GET
 
 password_reset_request:
     path: /reset-password/request
-    defaults: { _controller: Talesweaver\Application\Controller\Security\ResetPasswordRequestController }
+    controller: Talesweaver\Application\Controller\Security\ResetPasswordRequestController
     methods:  GET|POST
 
 password_reset_change:
     path: /reset-password/change/{code}
-    defaults: { _controller: Talesweaver\Application\Controller\Security\ResetPasswordChangeController }
+    controller: Talesweaver\Application\Controller\Security\ResetPasswordChangeController
     methods:  GET|POST
 
 change_password:
     path: /change-password
-    defaults: { _controller: Talesweaver\Application\Controller\Security\ChangePasswordController }
+    controller: Talesweaver\Application\Controller\Security\ChangePasswordController
     methods:  GET|POST

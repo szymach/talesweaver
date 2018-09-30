@@ -1,32 +1,34 @@
 ---
 event_list:
     path: /list/{id}/{page}
-    defaults: { _controller: Talesweaver\Application\Controller\Event\ListController, page: 1 }
+    controller: Talesweaver\Application\Controller\Event\ListController
+    defaults:
+        page: 1
     methods:  GET
 
 event_options:
     path: /options/{id}
-    defaults: { _controller: Talesweaver\Application\Controller\Event\OptionsListController }
+    controller: Talesweaver\Application\Controller\Event\OptionsListController
     methods:  GET
 
 event_add:
     path: /add/{id}/{model}
-    defaults: { _controller: Talesweaver\Application\Controller\Event\CreateController }
+    controller: Talesweaver\Application\Controller\Event\CreateController
     methods:  GET|POST
     requirements:
         model: .+
 
 event_edit:
     path: /edit/{id}
-    defaults: { _controller: Talesweaver\Application\Controller\Event\EditController }
+    controller: Talesweaver\Application\Controller\Event\EditController
     methods:  GET|POST
 
 event_display:
     path: /dsiplay/{id}
-    defaults: { _controller: Talesweaver\Application\Controller\Event\DisplayController }
+    controller: Talesweaver\Application\Controller\Event\DisplayController
     methods:  GET
 
 event_delete:
     path: /delete/{id}
-    defaults: { _controller: Talesweaver\Application\Controller\Event\DeleteController }
+    controller: Talesweaver\Application\Controller\Event\DeleteController
     methods:  GET

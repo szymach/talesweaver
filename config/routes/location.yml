@@ -1,40 +1,44 @@
 ---
 location_new:
     path: /new/{id}
-    defaults: { _controller: Talesweaver\Application\Controller\Location\CreateController }
+    controller: Talesweaver\Application\Controller\Location\CreateController
     methods:  [GET, POST]
 
 location_edit:
     path: /edit/{id}
-    defaults: { _controller: Talesweaver\Application\Controller\Location\EditController }
+    controller: Talesweaver\Application\Controller\Location\EditController
     methods:  [GET, POST]
 
 location_list:
     path: /list/{id}/{page}
-    defaults: { _controller: Talesweaver\Application\Controller\Location\ListController, page: 1 }
+    controller: Talesweaver\Application\Controller\Location\ListController
+    defaults:
+        page: 1
     methods:  GET
 
 location_delete:
     path: /delete/{id}
-    defaults: { _controller: Talesweaver\Application\Controller\Location\DeleteController }
+    controller: Talesweaver\Application\Controller\Location\DeleteController
     methods:  GET
 
 location_display:
     path: /display/{id}
-    defaults: { _controller: Talesweaver\Application\Controller\Location\DisplayController }
+    controller: Talesweaver\Application\Controller\Location\DisplayController
     methods:  GET
 
 location_related:
     path: /related/{id}/{page}
-    defaults: { _controller: Talesweaver\Application\Controller\Location\ListRelatedController, page: 1 }
+    controller: Talesweaver\Application\Controller\Location\ListRelatedController
+    defaults:
+        page: 1
     methods:  GET
 
 location_add_to_scene:
     path: /add-to-scene/{scene_id}/{location_id}
-    defaults: { _controller: Talesweaver\Application\Controller\Location\AddToSceneController }
+    controller: Talesweaver\Application\Controller\Location\AddToSceneController
     methods:  GET
 
 location_remove_from_scene:
     path: /remove-from-scene/{scene_id}/{location_id}
-    defaults: { _controller: Talesweaver\Application\Controller\Location\RemoveFromSceneController }
+    controller: Talesweaver\Application\Controller\Location\RemoveFromSceneController
     methods:  GET
