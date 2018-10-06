@@ -7,10 +7,10 @@ namespace Talesweaver\Application\Controller\Security;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
+use Talesweaver\Application\Command\Security\ResetPassword;
 use Talesweaver\Application\Form;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Command\Security\ResetPassword;
 use Talesweaver\Domain\PasswordResetToken;
 use Talesweaver\Domain\PasswordResetTokens;
 
@@ -48,9 +48,9 @@ class ResetPasswordChangeController
         $this->responseFactory = $responseFactory;
     }
 
-    public function __invoke(ServerRequestInterface $request, string $code): ResponseInterface
+    public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $token = $this->getToken($code);
+        $token = $this->getToken($request->getAttribute('code'));
         $formHandler = $this->formHandlerFactory->createWithRequest(
             $request,
             Form\Type\Security\ResetPassword\Change::class

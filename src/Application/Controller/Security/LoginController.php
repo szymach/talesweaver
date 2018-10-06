@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Controller\Security;
 
+use Psr\Http\Message\ResponseInterface;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Security\AuthenticationContext;
 
@@ -27,7 +28,7 @@ class LoginController
         $this->authenticationContext = $authenticationContext;
     }
 
-    public function __invoke()
+    public function __invoke(): ResponseInterface
     {
         return $this->responseFactory->fromTemplate(
             'security/login.html.twig',

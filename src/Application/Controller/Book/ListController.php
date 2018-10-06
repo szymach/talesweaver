@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Application\Controller\Book;
 
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Query\Book\BooksPage;
@@ -27,11 +28,11 @@ class ListController
         $this->queryBus = $queryBus;
     }
 
-    public function __invoke(int $page): ResponseInterface
+    public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
         return $this->responseFactory->fromTemplate(
             'book/list.html.twig',
-            ['books' => $this->queryBus->query(new BooksPage($page))]
+            ['books' => $this->queryBus->query(new BooksPage($request->getAttribute('page')))]
         );
     }
 }

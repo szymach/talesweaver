@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Controller\Scene;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Application\Query\Chapter\ById;
 use Talesweaver\Application\Query\Chapter\ScenesPage;
 use Talesweaver\Domain\Chapter;
 
@@ -37,8 +41,10 @@ class RelatedListController
         $this->queryBus = $queryBus;
     }
 
-    public function __invoke(Chapter $chapter, int $page)
+    public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
+        $chapter = $this->getChapter($request->getAttribute('id'));
+        $page = $request->getAttribute('page');
         return $this->responseFactory->toJson([
             'list' => $this->htmlContent->fromTemplate(
                 'scene/related/list.html.twig',
@@ -50,5 +56,22 @@ class RelatedListController
                 ]
             )
         ]);
+    }
+
+    private function getChapter(?string $id): Chapter
+    {
+        if (null === $id) {
+            throw $this->responseFactory->notFound('No chapter id!');
+        }
+
+        $uuid = Uuid::fromString($id);
+        $chapter = $this->queryBus->query(new ById($uuid));
+        if (false === $chapter instanceof Chapter
+            || $this->authorContext->getAuthor() !== $chapter->getCreatedBy()
+        ) {
+            throw $this->responseFactory->notFound(sprintf('No chapter for id "%s"!', $uuid->toString()));
+        }
+
+        return $chapter;
     }
 }

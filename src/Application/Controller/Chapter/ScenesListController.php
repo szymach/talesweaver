@@ -14,6 +14,7 @@ use Talesweaver\Application\Form\Type\Scene\Create;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
+use Talesweaver\Application\Query\Chapter\ById;
 use Talesweaver\Application\Query\Chapter\ScenesPage;
 use Talesweaver\Domain\Chapter;
 
@@ -58,8 +59,10 @@ class ScenesListController
         $this->router = $router;
     }
 
-    public function __invoke(ServerRequestInterface $request, Chapter $chapter, int $page): ResponseInterface
+    public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
+        $chapter = $this->getChapter($request->getAttribute('id'));
+        $page = $request->getAttribute('page');
         return $this->responseFactory->toJson([
             'list' => $this->htmlContent->fromTemplate(
                 'chapter/scenes/list.html.twig',
@@ -71,6 +74,20 @@ class ScenesListController
                 ]
             )
         ]);
+    }
+
+    private function getChapter(?string $id): Chapter
+    {
+        if (null === $id) {
+            throw $this->responseFactory->notFound('No id for scene');
+        }
+
+        $chapter = $this->queryBus(new ById());
+        if (false === $chapter instanceof Chapter) {
+            throw $this->responseFactory->notFound("No scene for id \"{$id}\"");
+        }
+
+        return $chapter;
     }
 
     private function createSceneForm(ServerRequestInterface $request, Chapter $chapter): FormViewInterface

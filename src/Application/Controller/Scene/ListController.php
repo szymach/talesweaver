@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Controller\Scene;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Query\Scene\ScenesPage;
@@ -26,11 +28,15 @@ class ListController
         $this->queryBus = $queryBus;
     }
 
-    public function __invoke($page)
+    public function __invoke(ServerRequestInterface $request) : ResponseInterface
     {
         return $this->responseFactory->fromTemplate(
             'scene/list.html.twig',
-            ['scenes' => $this->queryBus->query(new ScenesPage($page))]
+            [
+                'scenes' => $this->queryBus->query(
+                    new ScenesPage($request->getAttribute('page'))
+                )
+            ]
         );
     }
 }
