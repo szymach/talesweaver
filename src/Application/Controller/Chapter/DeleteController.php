@@ -52,7 +52,7 @@ class DeleteController
         $bookId = $chapter->getBook() ? $chapter->getBook()->getId(): null;
         $this->commandBus->dispatch(new Command($chapter));
 
-        if (true === in_array('XMLHttpRequest', $request->getHeader('X-Requested-With'), true)) {
+        if (true === is_xml_http_request($request)) {
             return $this->apiResponseFactory->success();
         }
 

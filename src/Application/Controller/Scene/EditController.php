@@ -84,7 +84,7 @@ class EditController
             ['sceneId' => $scene->getId()]
         );
 
-        if (true === in_array('XMLHttpRequest', $request->getHeader('X-Requested-With'), true)) {
+        if (true === is_xml_http_request($request)) {
             return $this->apiResponseFactory->form(
                 'scene/form/editForm.html.twig',
                 ['form' => $formHandler->createView()],
