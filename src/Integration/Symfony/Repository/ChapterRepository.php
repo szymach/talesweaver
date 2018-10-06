@@ -9,10 +9,9 @@ use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Chapters;
-use Talesweaver\Domain\Repository\RequestSecuredRepository;
 use Talesweaver\Integration\Doctrine\Repository\ChapterRepository as DoctrineRepository;
 
-class ChapterRepository implements Chapters, RequestSecuredRepository
+class ChapterRepository implements Chapters
 {
     /**
      * @var DoctrineRepository
@@ -28,11 +27,6 @@ class ChapterRepository implements Chapters, RequestSecuredRepository
     {
         $this->doctrineRepository = $doctrineRepository;
         $this->authorContext = $authorContext;
-    }
-
-    public function getClassName(): string
-    {
-        return $this->doctrineRepository->getClassName();
     }
 
     public function find(UuidInterface $id): ?Chapter

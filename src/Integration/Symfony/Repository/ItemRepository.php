@@ -8,11 +8,10 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Items;
-use Talesweaver\Domain\Repository\RequestSecuredRepository;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Doctrine\Repository\ItemRepository as DoctrineRepository;
 
-class ItemRepository implements Items, RequestSecuredRepository
+class ItemRepository implements Items
 {
     /**
      * @var DoctrineRepository
@@ -28,11 +27,6 @@ class ItemRepository implements Items, RequestSecuredRepository
     {
         $this->doctrineRepository = $doctrineRepository;
         $this->authorContext = $authorContext;
-    }
-
-    public function getClassName(): string
-    {
-        return $this->doctrineRepository->getClassName();
     }
 
     public function find(UuidInterface $id): ?Item

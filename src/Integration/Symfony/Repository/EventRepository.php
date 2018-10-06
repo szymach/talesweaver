@@ -8,11 +8,10 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Events;
-use Talesweaver\Domain\Repository\RequestSecuredRepository;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Doctrine\Repository\EventRepository as DoctrineRepository;
 
-class EventRepository implements Events, RequestSecuredRepository
+class EventRepository implements Events
 {
     /**
      * @var DoctrineRepository
@@ -28,11 +27,6 @@ class EventRepository implements Events, RequestSecuredRepository
     {
         $this->doctrineRepository = $doctrineRepository;
         $this->authorContext = $authorContext;
-    }
-
-    public function getClassName(): string
-    {
-        return $this->doctrineRepository->getClassName();
     }
 
     public function find(UuidInterface $id): ?Event

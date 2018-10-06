@@ -8,12 +8,11 @@ use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Chapter;
-use Talesweaver\Domain\Repository\RequestSecuredRepository;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\Scenes;
 use Talesweaver\Integration\Doctrine\Repository\SceneRepository as DoctrineRepository;
 
-class SceneRepository implements Scenes, RequestSecuredRepository
+class SceneRepository implements Scenes
 {
     /**
      * @var DoctrineRepository
@@ -29,11 +28,6 @@ class SceneRepository implements Scenes, RequestSecuredRepository
     {
         $this->doctrineRepository = $doctrineRepository;
         $this->authorContext = $authorContext;
-    }
-
-    public function getClassName(): string
-    {
-        return $this->doctrineRepository->getClassName();
     }
 
     public function find(UuidInterface $id): ?Scene

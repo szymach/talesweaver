@@ -8,11 +8,10 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Characters;
-use Talesweaver\Domain\Repository\RequestSecuredRepository;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Doctrine\Repository\CharacterRepository as DoctrineRepository;
 
-class CharacterRepository implements Characters, RequestSecuredRepository
+class CharacterRepository implements Characters
 {
     /**
      * @var DoctrineRepository
@@ -28,11 +27,6 @@ class CharacterRepository implements Characters, RequestSecuredRepository
     {
         $this->doctrineRepository = $doctrineRepository;
         $this->authorContext = $authorContext;
-    }
-
-    public function getClassName(): string
-    {
-        return $this->doctrineRepository->getClassName();
     }
 
     public function find(UuidInterface $id): ?Character

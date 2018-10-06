@@ -8,10 +8,9 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Books;
-use Talesweaver\Domain\Repository\RequestSecuredRepository;
 use Talesweaver\Integration\Doctrine\Repository\BookRepository as DoctrineRepository;
 
-class BookRepository implements Books, RequestSecuredRepository
+class BookRepository implements Books
 {
     /**
      * @var DoctrineRepository
@@ -27,11 +26,6 @@ class BookRepository implements Books, RequestSecuredRepository
     {
         $this->doctrineRepository = $doctrineRepository;
         $this->authorContext = $authorContext;
-    }
-
-    public function getClassName(): string
-    {
-        return $this->doctrineRepository->getClassName();
     }
 
     public function find(UuidInterface $id): ?Book

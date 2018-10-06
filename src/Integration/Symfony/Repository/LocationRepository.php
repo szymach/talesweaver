@@ -8,11 +8,10 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Locations;
-use Talesweaver\Domain\Repository\RequestSecuredRepository;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Doctrine\Repository\LocationRepository as DoctrineRepository;
 
-class LocationRepository implements Locations, RequestSecuredRepository
+class LocationRepository implements Locations
 {
     /**
      * @var DoctrineRepository
@@ -28,11 +27,6 @@ class LocationRepository implements Locations, RequestSecuredRepository
     {
         $this->doctrineRepository = $doctrineRepository;
         $this->authorContext = $authorContext;
-    }
-
-    public function getClassName(): string
-    {
-        return $this->doctrineRepository->getClassName();
     }
 
     public function find(UuidInterface $id): ?Location
