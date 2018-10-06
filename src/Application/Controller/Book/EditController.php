@@ -6,9 +6,7 @@ namespace Talesweaver\Application\Controller\Book;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Bus\CommandBus;
-use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Book\Edit\Command;
 use Talesweaver\Application\Command\Book\Edit\DTO;
 use Talesweaver\Application\Command\Chapter;
@@ -16,10 +14,9 @@ use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\FormViewInterface;
 use Talesweaver\Application\Form\Type\Book\Edit;
 use Talesweaver\Application\Form\Type\Chapter\Create;
+use Talesweaver\Application\Http\Entity\BookResolver;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
-use Talesweaver\Application\Query\Book\ById;
-use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
@@ -27,14 +24,9 @@ use Talesweaver\Domain\ValueObject\ShortText;
 class EditController
 {
     /**
-     * @var QueryBus
+     * @var BookResolver
      */
-    private $queryBus;
-
-    /**
-     * @var AuthorContext
-     */
-    private $authorContext;
+    private $bookResolver;
 
     /**
      * @var CommandBus
@@ -57,15 +49,13 @@ class EditController
     private $urlGenerator;
 
     public function __construct(
-        QueryBus $queryBus,
-        AuthorContext $authorContext,
+        BookResolver $bookResolver,
         CommandBus $commandBus,
         ResponseFactoryInterface $responseFactory,
         FormHandlerFactoryInterface $formHandlerFactory,
         UrlGenerator $urlGenerator
     ) {
-        $this->queryBus = $queryBus;
-        $this->authorContext = $authorContext;
+        $this->bookResolver = $bookResolver;
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
         $this->formHandlerFactory = $formHandlerFactory;
@@ -74,7 +64,7 @@ class EditController
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $book = $this->getBook($request->getAttribute('id'));
+        $book = $this->bookResolver->fromRequest($request);
         $formHandler = $this->formHandlerFactory->createWithRequest(
             $request,
             Edit::class,
@@ -119,22 +109,5 @@ class EditController
                 'title_placeholder' => 'chapter.placeholder.title.book'
             ]
         )->createView();
-    }
-
-    private function getBook(?string $id): Book
-    {
-        if (null === $id) {
-            throw $this->responseFactory->notFound('No book id!');
-        }
-
-        $uuid = Uuid::fromString($id);
-        $book = $this->queryBus->query(new ById($uuid));
-        if (false === $book instanceof Book
-            || $this->authorContext->getAuthor() !== $book->getCreatedBy()
-        ) {
-            throw $this->responseFactory->notFound(sprintf('No book for id "%s"!', $uuid->toString()));
-        }
-
-        return $book;
     }
 }

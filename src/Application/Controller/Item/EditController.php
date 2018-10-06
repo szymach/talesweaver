@@ -6,18 +6,15 @@ namespace Talesweaver\Application\Controller\Item;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Bus\CommandBus;
-use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Item\Edit\Command;
 use Talesweaver\Application\Command\Item\Edit\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Item\Edit;
+use Talesweaver\Application\Http\Entity\ItemResolver;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
-use Talesweaver\Application\Query\Item\ById;
-use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\ValueObject\File;
 use Talesweaver\Domain\ValueObject\LongText;
@@ -26,14 +23,9 @@ use Talesweaver\Domain\ValueObject\ShortText;
 class EditController
 {
     /**
-     * @var QueryBus
+     * @var ItemResolver
      */
-    private $queryBus;
-
-    /**
-     * @var AuthorContext
-     */
-    private $authorContext;
+    private $itemResolver;
 
     /**
      * @var ResponseFactoryInterface
@@ -61,16 +53,14 @@ class EditController
     private $urlGenerator;
 
     public function __construct(
-        QueryBus $queryBus,
-        AuthorContext $authorContext,
+        ItemResolver $itemResolver,
         ResponseFactoryInterface $responseFactory,
         FormHandlerFactoryInterface $formHandlerFactory,
         HtmlContent $htmlContent,
         CommandBus $commandBus,
         UrlGenerator $urlGenerator
     ) {
-        $this->queryBus = $queryBus;
-        $this->authorContext = $authorContext;
+        $this->itemResolver = $itemResolver;
         $this->responseFactory = $responseFactory;
         $this->formHandlerFactory = $formHandlerFactory;
         $this->htmlContent = $htmlContent;
@@ -80,7 +70,7 @@ class EditController
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $item = $this->getItem($request->getAttribute('id'));
+        $item = $this->itemResolver->fromRequest($request);
         $formHandler = $this->formHandlerFactory->createWithRequest(
             $request,
             Edit::class,
@@ -92,7 +82,7 @@ class EditController
         );
 
         if (true === $formHandler->isSubmissionValid()) {
-            return $this->processForDataAndCreateResponse($item, $formHandler->getData());
+            return $this->processFormDataAndRedirect($item, $formHandler->getData());
         }
 
         return $this->responseFactory->toJson([
@@ -103,32 +93,17 @@ class EditController
         ], false === $formHandler->displayErrors() ? 200 : 400);
     }
 
-    private function processForDataAndCreateResponse(Item $item, DTO $dto): ResponseInterface
+    private function processFormDataAndRedirect(Item $item, DTO $dto): ResponseInterface
     {
+        $description = $dto->getName();
+        $avatar = $dto->getAvatar();
         $this->commandBus->dispatch(new Command(
             $item,
             new ShortText($dto->getName()),
-            null !== $dto->getDescription() ? new LongText($dto->getDescription()) : null,
-            null !== $dto->getAvatar() ? new File($dto->getAvatar()) : null
+            null !== $description ? new LongText($description) : null,
+            null !== $avatar ? new File($avatar) : null
         ));
 
         return $this->responseFactory->toJson(['success' => true]);
-    }
-
-    private function getItem(?string $id): Item
-    {
-        if (null === $id) {
-            throw $this->responseFactory->notFound('No item id!');
-        }
-
-        $uuid = Uuid::fromString($id);
-        $item = $this->queryBus->query(new ById($uuid));
-        if (false === $item instanceof Item
-            || $this->authorContext->getAuthor() !== $item->getCreatedBy()
-        ) {
-            throw $this->responseFactory->notFound(sprintf('No item for id "%s"!', $uuid->toString()));
-        }
-
-        return $item;
     }
 }

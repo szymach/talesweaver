@@ -6,16 +6,19 @@ namespace Talesweaver\Application\Controller\Scene;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Bus\QueryBus;
+use Talesweaver\Application\Http\Entity\ChapterResolver;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Query\Chapter\ById;
 use Talesweaver\Application\Query\Chapter\ScenesPage;
-use Talesweaver\Domain\Chapter;
 
 class RelatedListController
 {
+    /**
+     * @var ChapterResolver
+     */
+    private $chapterResolver;
+
     /**
      * @var ResponseFactoryInterface
      */
@@ -32,19 +35,27 @@ class RelatedListController
     private $queryBus;
 
     public function __construct(
+        ChapterResolver $chapterResolver,
         ResponseFactoryInterface $responseFactory,
         HtmlContent $htmlContent,
         QueryBus $queryBus
     ) {
+        $this->chapterResolver = $chapterResolver;
         $this->responseFactory = $responseFactory;
         $this->htmlContent = $htmlContent;
         $this->queryBus = $queryBus;
     }
 
+    /**
+     * @TODO missing test case
+     *
+     * @param ServerRequestInterface $request
+     * @return ResponseInterface
+     */
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $chapter = $this->getChapter($request->getAttribute('id'));
-        $page = $request->getAttribute('page');
+        $chapter = $this->chapterResolver->fromRequest($request);
+        $page = (int) $request->getAttribute('page', 1);
         return $this->responseFactory->toJson([
             'list' => $this->htmlContent->fromTemplate(
                 'scene/related/list.html.twig',
@@ -56,22 +67,5 @@ class RelatedListController
                 ]
             )
         ]);
-    }
-
-    private function getChapter(?string $id): Chapter
-    {
-        if (null === $id) {
-            throw $this->responseFactory->notFound('No chapter id!');
-        }
-
-        $uuid = Uuid::fromString($id);
-        $chapter = $this->queryBus->query(new ById($uuid));
-        if (false === $chapter instanceof Chapter
-            || $this->authorContext->getAuthor() !== $chapter->getCreatedBy()
-        ) {
-            throw $this->responseFactory->notFound(sprintf('No chapter for id "%s"!', $uuid->toString()));
-        }
-
-        return $chapter;
     }
 }

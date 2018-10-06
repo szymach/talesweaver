@@ -6,24 +6,15 @@ namespace Talesweaver\Application\Controller\Chapter;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Ramsey\Uuid\Uuid;
-use Talesweaver\Application\Bus\QueryBus;
+use Talesweaver\Application\Http\Entity\ChapterResolver;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Query\Chapter\ById;
-use Talesweaver\Application\Security\AuthorContext;
-use Talesweaver\Domain\Chapter;
 
 class PdfController
 {
     /**
-     * @var QueryBus
+     * @var ChapterResolver
      */
-    private $queryBus;
-
-    /**
-     * @var AuthorContext
-     */
-    private $authorContext;
+    private $chapterResolver;
 
     /**
      * @var ResponseFactoryInterface
@@ -31,18 +22,16 @@ class PdfController
     private $responseFactory;
 
     public function __construct(
-        QueryBus $queryBus,
-        AuthorContext $authorContext,
+        ChapterResolver $chapterResolver,
         ResponseFactoryInterface $responseFactory
     ) {
-        $this->queryBus = $queryBus;
-        $this->authorContext = $authorContext;
+        $this->chapterResolver = $chapterResolver;
         $this->responseFactory = $responseFactory;
     }
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $chapter = $this->getChapter($request->getAttribute('id'));
+        $chapter = $this->chapterResolver->fromRequest($request);
         $filename = (string) $chapter->getTitle();
         if (null !== $chapter->getBook()) {
             $filename = sprintf('%s_%s', $chapter->getBook()->getTitle(), $filename);
@@ -54,22 +43,5 @@ class PdfController
             ['chapter' => $chapter],
             null
         );
-    }
-
-    private function getChapter(?string $id): Chapter
-    {
-        if (null === $id) {
-            throw $this->responseFactory->notFound('No chapter id!');
-        }
-
-        $uuid = Uuid::fromString($id);
-        $chapter = $this->queryBus->query(new ById($uuid));
-        if (false === $chapter instanceof Chapter
-            || $this->authorContext->getAuthor() !== $chapter->getCreatedBy()
-        ) {
-            throw $this->responseFactory->notFound(sprintf('No chapter for id "%s"!', $uuid->toString()));
-        }
-
-        return $chapter;
     }
 }

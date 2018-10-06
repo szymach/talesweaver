@@ -6,7 +6,6 @@ namespace Talesweaver\Application\Controller\Scene;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Scene\Create\DTO as CreateDTO;
@@ -18,10 +17,10 @@ use Talesweaver\Application\Form\FormHandlerInterface;
 use Talesweaver\Application\Form\FormViewInterface;
 use Talesweaver\Application\Form\Type\Scene\Create;
 use Talesweaver\Application\Form\Type\Scene\Edit;
+use Talesweaver\Application\Http\Entity\SceneResolver;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Query\Chapter\ScenesPage;
-use Talesweaver\Application\Query\Scene\ById;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
@@ -30,6 +29,11 @@ use Talesweaver\Domain\ValueObject\ShortText;
 
 class EditController
 {
+    /**
+     * @var SceneResolver
+     */
+    private $sceneResolver;
+
     /**
      * @var ResponseFactoryInterface
      */
@@ -46,11 +50,6 @@ class EditController
     private $queryBus;
 
     /**
-     * @var AuthorContext
-     */
-    private $authorContext;
-
-    /**
      * @var CommandBus
      */
     private $commandBus;
@@ -61,24 +60,24 @@ class EditController
     private $htmlContent;
 
     public function __construct(
+        SceneResolver $sceneResolver,
         ResponseFactoryInterface $responseFactory,
         FormHandlerFactoryInterface $formHandlerFactory,
         QueryBus $queryBus,
-        AuthorContext $authorContext,
         CommandBus $commandBus,
         HtmlContent $htmlContent
     ) {
+        $this->sceneResolver = $sceneResolver;
         $this->responseFactory = $responseFactory;
         $this->formHandlerFactory = $formHandlerFactory;
         $this->queryBus = $queryBus;
-        $this->authorContext = $authorContext;
         $this->commandBus = $commandBus;
         $this->htmlContent = $htmlContent;
     }
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $scene = $this->getScene($request->getAttribute('id'));
+        $scene = $this->sceneResolver->fromRequest($request);
         $formHandler = $this->formHandlerFactory->createWithRequest(
             $request,
             Edit::class,
@@ -160,22 +159,5 @@ class EditController
             Create::class,
             new CreateDTO($chapter)
         )->createView();
-    }
-
-    private function getScene(?string $id): Scene
-    {
-        if (null === $id) {
-            throw $this->responseFactory->notFound('No scene id!');
-        }
-
-        $uuid = Uuid::fromString($id);
-        $scene = $this->queryBus->query(new ById($uuid));
-        if (false === $scene instanceof Scene
-            || $this->authorContext->getAuthor() !== $scene->getCreatedBy()
-        ) {
-            throw $this->responseFactory->notFound(sprintf('No scene for id "%s"!', $uuid->toString()));
-        }
-
-        return $scene;
     }
 }

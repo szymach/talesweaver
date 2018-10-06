@@ -30,7 +30,7 @@ class ListController
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $page = $request->getAttribute('page');
+        $page = (int) $request->getAttribute('page', 1);
         return $this->responseFactory->fromTemplate(
             'chapter/list.html.twig',
             [

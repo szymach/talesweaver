@@ -6,21 +6,19 @@ namespace Talesweaver\Application\Controller\Location;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Bus\QueryBus;
+use Talesweaver\Application\Http\Entity\LocationResolver;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Query\Location\ById;
 use Talesweaver\Application\Query\Timeline\ForEntity;
-use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Location;
 
 class DisplayController
 {
     /**
-     * @var ResponseFactoryInterface
+     * @var LocationResolver
      */
-    private $responseFactory;
+    private $locationResolver;
 
     /**
      * @var QueryBus
@@ -28,30 +26,30 @@ class DisplayController
     private $queryBus;
 
     /**
-     * @var AuthorContext
-     */
-    private $authorContext;
-
-    /**
      * @var HtmlContent
      */
     private $htmlContent;
 
+    /**
+     * @var ResponseFactoryInterface
+     */
+    private $responseFactory;
+
     public function __construct(
-        ResponseFactoryInterface $responseFactory,
+        LocationResolver $locationResolver,
         QueryBus $queryBus,
-        AuthorContext $authorContext,
-        HtmlContent $htmlContent
+        HtmlContent $htmlContent,
+        ResponseFactoryInterface $responseFactory
     ) {
-        $this->responseFactory = $responseFactory;
+        $this->locationResolver = $locationResolver;
         $this->queryBus = $queryBus;
-        $this->authorContext = $authorContext;
         $this->htmlContent = $htmlContent;
+        $this->responseFactory = $responseFactory;
     }
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $location = $this->getLocation($request->getAttribute('id'));
+        $location = $this->locationResolver->fromRequest($request);
         return $this->responseFactory->toJson([
             'display' => $this->htmlContent->fromTemplate(
                 'scene\locations\display.html.twig',
@@ -63,22 +61,5 @@ class DisplayController
                 ]
             )
         ]);
-    }
-
-    private function getLocation(?string $id): Location
-    {
-        if (null === $id) {
-            throw $this->responseFactory->notFound('No location id!');
-        }
-
-        $uuid = Uuid::fromString($id);
-        $location = $this->queryBus->query(new ById($uuid));
-        if (false === $location instanceof Location
-            || $this->authorContext->getAuthor() !== $location->getCreatedBy()
-        ) {
-            throw $this->responseFactory->notFound(sprintf('No location for id "%s"!', $uuid->toString()));
-        }
-
-        return $location;
     }
 }

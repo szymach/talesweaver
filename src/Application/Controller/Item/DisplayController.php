@@ -6,26 +6,19 @@ namespace Talesweaver\Application\Controller\Item;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Bus\QueryBus;
+use Talesweaver\Application\Http\Entity\ItemResolver;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Query\Item\ById;
 use Talesweaver\Application\Query\Timeline\ForEntity;
-use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Item;
 
 class DisplayController
 {
     /**
-     * @var AuthorContext
+     * @var ItemResolver
      */
-    private $authorContext;
-
-    /**
-     * @var ResponseFactoryInterface
-     */
-    private $responseFactory;
+    private $itemResolver;
 
     /**
      * @var QueryBus
@@ -37,21 +30,26 @@ class DisplayController
      */
     private $htmlContent;
 
+    /**
+     * @var ResponseFactoryInterface
+     */
+    private $responseFactory;
+
     public function __construct(
+        ItemResolver $itemResolver,
         QueryBus $queryBus,
-        AuthorContext $authorContext,
-        ResponseFactoryInterface $responseFactory,
-        HtmlContent $htmlContent
+        HtmlContent $htmlContent,
+        ResponseFactoryInterface $responseFactory
     ) {
+        $this->itemResolver = $itemResolver;
         $this->queryBus = $queryBus;
-        $this->authorContext = $authorContext;
-        $this->responseFactory = $responseFactory;
         $this->htmlContent = $htmlContent;
+        $this->responseFactory = $responseFactory;
     }
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $item = $this->getItem($request->getAttribute('id'));
+        $item = $this->itemResolver->fromRequest($request);
         return $this->responseFactory->toJson([
             'display' => $this->htmlContent->fromTemplate(
                 'scene\items\display.html.twig',
@@ -63,22 +61,5 @@ class DisplayController
                 ]
             )
         ]);
-    }
-
-    private function getItem(?string $id): Item
-    {
-        if (null === $id) {
-            throw $this->responseFactory->notFound('No item id!');
-        }
-
-        $uuid = Uuid::fromString($id);
-        $item = $this->queryBus->query(new ById($uuid));
-        if (false === $item instanceof Item
-            || $this->authorContext->getAuthor() !== $item->getCreatedBy()
-        ) {
-            throw $this->responseFactory->notFound(sprintf('No item for id "%s"!', $uuid->toString()));
-        }
-
-        return $item;
     }
 }

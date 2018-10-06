@@ -8,31 +8,24 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Bus\CommandBus;
-use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Event\Create\Command;
 use Talesweaver\Application\Command\Event\Create\DTO;
 use Talesweaver\Application\Form\Event\EventModelResolver;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Event\Create;
+use Talesweaver\Application\Http\Entity\SceneResolver;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
-use Talesweaver\Application\Query\Scene\ById;
-use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
 
 class CreateController
 {
     /**
-     * @var QueryBus
+     * @var SceneResolver
      */
-    private $queryBus;
-
-    /**
-     * @var AuthorContext
-     */
-    private $authorContext;
+    private $sceneResolver;
 
     /**
      * @var FormHandlerFactoryInterface
@@ -65,8 +58,7 @@ class CreateController
     private $urlGenerator;
 
     public function __construct(
-        QueryBus $queryBus,
-        AuthorContext $authorContext,
+        SceneResolver $sceneResolver,
         FormHandlerFactoryInterface $formHandlerFactory,
         EventModelResolver $eventModelResolver,
         CommandBus $commandBus,
@@ -74,8 +66,7 @@ class CreateController
         HtmlContent $htmlContent,
         UrlGenerator $urlGenerator
     ) {
-        $this->queryBus = $queryBus;
-        $this->authorContext = $authorContext;
+        $this->sceneResolver = $sceneResolver;
         $this->formHandlerFactory = $formHandlerFactory;
         $this->eventModelResolver = $eventModelResolver;
         $this->commandBus = $commandBus;
@@ -86,7 +77,7 @@ class CreateController
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $scene = $this->getScene($request->getAttribute('id'));
+        $scene = $this->sceneResolver->fromRequest($request);
         $model = $request->getAttribute('model');
         $formHandler = $this->formHandlerFactory->createWithRequest(
             $request,
@@ -122,22 +113,5 @@ class CreateController
         );
 
         return $this->responseFactory->toJson(['success' => true]);
-    }
-
-    private function getScene(?string $id): Scene
-    {
-        if (null === $id) {
-            throw $this->responseFactory->notFound('No scene id!');
-        }
-
-        $uuid = Uuid::fromString($id);
-        $scene = $this->queryBus->query(new ById($uuid));
-        if (false === $scene instanceof Scene
-            || $this->authorContext->getAuthor() !== $scene->getCreatedBy()
-        ) {
-            throw $this->responseFactory->notFound(sprintf('No scene for id "%s"!', $uuid->toString()));
-        }
-
-        return $scene;
     }
 }

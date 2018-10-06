@@ -8,28 +8,21 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Bus\CommandBus;
-use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Chapter\Create\Command;
 use Talesweaver\Application\Command\Chapter\Create\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Chapter\Create;
+use Talesweaver\Application\Http\Entity\BookResolver;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Query\Chapter\ById;
-use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\ValueObject\ShortText;
 
 class CreateController
 {
     /**
-     * @var QueryBus
+     * @var BookResolver
      */
-    private $queryBus;
-
-    /**
-     * @var AuthorContext
-     */
-    private $authorContext;
+    private $bookResolver;
 
     /**
      * @var FormHandlerFactoryInterface
@@ -47,14 +40,12 @@ class CreateController
     private $responseFactory;
 
     public function __construct(
-        QueryBus $queryBus,
-        AuthorContext $authorContext,
+        BookResolver $bookResolver,
         FormHandlerFactoryInterface $formHandlerFactory,
         CommandBus $commandBus,
         ResponseFactoryInterface $responseFactory
     ) {
-        $this->queryBus = $queryBus;
-        $this->authorContext = $authorContext;
+        $this->bookResolver = $bookResolver;
         $this->formHandlerFactory = $formHandlerFactory;
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
@@ -62,7 +53,7 @@ class CreateController
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $book = $this->getBook($request->getAttribute('book_id'));
+        $book = $this->bookResolver->nullableFromRequest($request);
         $bookId = $book ? $book->getId() : null;
         $formHandler = $this->formHandlerFactory->createWithRequest(
             $request,
@@ -88,23 +79,5 @@ class CreateController
         );
 
         return $this->responseFactory->redirectToRoute('chapter_edit', ['id' => $chapterId]);
-    }
-
-    private function getBook(?string $id): ?Book
-    {
-        if (null === $id) {
-            return null;
-        }
-
-        $uuid = Uuid::fromString($id);
-        $book = $this->queryBus->query(new ById($uuid));
-        if (false === $book instanceof Book) {
-            return null;
-        }
-        if ($this->authorContext->getAuthor() !== $book->getCreatedBy()) {
-            throw $this->responseFactory->notFound(sprintf('No book for id "%s"!', $uuid->toString()));
-        }
-
-        return $book;
     }
 }

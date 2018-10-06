@@ -11,10 +11,10 @@ use Talesweaver\Application\Command\Scene\Create\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\FormViewInterface;
 use Talesweaver\Application\Form\Type\Scene\Create;
+use Talesweaver\Application\Http\Entity\ChapterResolver;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
-use Talesweaver\Application\Query\Chapter\ById;
 use Talesweaver\Application\Query\Chapter\ScenesPage;
 use Talesweaver\Domain\Chapter;
 
@@ -24,6 +24,10 @@ class ScenesListController
      * @var ResponseFactoryInterface
      */
     private $responseFactory;
+    /**
+     * @var ChapterResolver
+     */
+    private $chapterResolver;
 
     /**
      * @var QueryBus
@@ -43,26 +47,28 @@ class ScenesListController
     /**
      * @var UrlGenerator
      */
-    private $router;
+    private $urlGenerator;
 
     public function __construct(
         ResponseFactoryInterface $responseFactory,
+        ChapterResolver $chapterResolver,
         QueryBus $queryBus,
         FormHandlerFactoryInterface $formHandlerFactory,
         HtmlContent $htmlContent,
         UrlGenerator $router
     ) {
         $this->responseFactory = $responseFactory;
+        $this->chapterResolver = $chapterResolver;
         $this->queryBus = $queryBus;
         $this->formHandlerFactory = $formHandlerFactory;
         $this->htmlContent = $htmlContent;
-        $this->router = $router;
+        $this->urlGenerator = $router;
     }
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $chapter = $this->getChapter($request->getAttribute('id'));
-        $page = $request->getAttribute('page');
+        $chapter = $this->chapterResolver->fromRequest($request);
+        $page = (int) $request->getAttribute('page', 1);
         return $this->responseFactory->toJson([
             'list' => $this->htmlContent->fromTemplate(
                 'chapter/scenes/list.html.twig',
@@ -76,27 +82,13 @@ class ScenesListController
         ]);
     }
 
-    private function getChapter(?string $id): Chapter
-    {
-        if (null === $id) {
-            throw $this->responseFactory->notFound('No id for scene');
-        }
-
-        $chapter = $this->queryBus(new ById());
-        if (false === $chapter instanceof Chapter) {
-            throw $this->responseFactory->notFound("No scene for id \"{$id}\"");
-        }
-
-        return $chapter;
-    }
-
     private function createSceneForm(ServerRequestInterface $request, Chapter $chapter): FormViewInterface
     {
         return $this->formHandlerFactory->createWithRequest(
             $request,
             Create::class,
             new DTO($chapter),
-            ['action' => $this->router->generate('scene_create')]
+            ['action' => $this->urlGenerator->generate('scene_create')]
         )->createView();
     }
 }
