@@ -8,8 +8,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Command\Item\Delete\Command;
+use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\ItemResolver;
-use Talesweaver\Application\Http\ResponseFactoryInterface;
 
 class DeleteController
 {
@@ -24,14 +24,14 @@ class DeleteController
     private $commandBus;
 
     /**
-     * @var ResponseFactoryInterface
+     * @var ApiResponseFactoryInterface
      */
     private $responseFactory;
 
     public function __construct(
         ItemResolver $itemResolver,
         CommandBus $commandBus,
-        ResponseFactoryInterface $responseFactory
+        ApiResponseFactoryInterface $responseFactory
     ) {
         $this->itemResolver = $itemResolver;
         $this->commandBus = $commandBus;
@@ -44,6 +44,6 @@ class DeleteController
             new Command($this->itemResolver->fromRequest($request))
         );
 
-        return $this->responseFactory->toJson(['success' => true]);
+        return $this->responseFactory->success();
     }
 }

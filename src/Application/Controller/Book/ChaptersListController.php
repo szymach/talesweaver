@@ -11,16 +11,15 @@ use Talesweaver\Application\Command\Chapter\Create\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\FormViewInterface;
 use Talesweaver\Application\Form\Type\Chapter\Create;
+use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\BookResolver;
-use Talesweaver\Application\Http\HtmlContent;
-use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Application\Query\Book\ChaptersPage;
 
 class ChaptersListController
 {
     /**
-     * @var ResponseFactoryInterface
+     * @var ApiResponseFactoryInterface
      */
     private $responseFactory;
 
@@ -28,11 +27,6 @@ class ChaptersListController
      * @var BookResolver
      */
     private $bookResolver;
-
-    /**
-     * @var HtmlContent
-     */
-    private $htmlContent;
 
     /**
      * @var QueryBus
@@ -50,16 +44,14 @@ class ChaptersListController
     private $urlGenerator;
 
     public function __construct(
-        ResponseFactoryInterface $responseFactory,
+        ApiResponseFactoryInterface $responseFactory,
         BookResolver $bookResolver,
-        HtmlContent $htmlContent,
         QueryBus $queryBus,
         FormHandlerFactoryInterface $formHandlerFactory,
         UrlGenerator $urlGenerator
     ) {
         $this->responseFactory = $responseFactory;
         $this->bookResolver = $bookResolver;
-        $this->htmlContent = $htmlContent;
         $this->queryBus = $queryBus;
         $this->formHandlerFactory = $formHandlerFactory;
         $this->urlGenerator = $urlGenerator;
@@ -69,17 +61,15 @@ class ChaptersListController
     {
         $book = $this->bookResolver->nullableFromRequest($request);
         $page = (int) $request->getAttribute('page', 1);
-        return $this->responseFactory->toJson([
-            'list' => $this->htmlContent->fromTemplate(
-                'book/chapters/list.html.twig',
-                [
-                    'bookId' => $book->getId(),
-                    'chapters' => $this->queryBus->query(new ChaptersPage($book, $page)),
-                    'chapterForm' => $this->createChapterForm($request),
-                    'page' => $page
-                ]
-            )
-        ]);
+        return $this->responseFactory->list(
+            'book/chapters/list.html.twig',
+            [
+                'bookId' => $book->getId(),
+                'chapters' => $this->queryBus->query(new ChaptersPage($book, $page)),
+                'chapterForm' => $this->createChapterForm($request),
+                'page' => $page
+            ]
+        );
     }
 
     private function createChapterForm(ServerRequestInterface $request): FormViewInterface

@@ -11,9 +11,9 @@ use Talesweaver\Application\Command\Item\Edit\Command;
 use Talesweaver\Application\Command\Item\Edit\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Item\Edit;
+use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\ItemResolver;
 use Talesweaver\Application\Http\HtmlContent;
-use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\ValueObject\File;
@@ -28,7 +28,7 @@ class EditController
     private $itemResolver;
 
     /**
-     * @var ResponseFactoryInterface
+     * @var ApiResponseFactoryInterface
      */
     private $responseFactory;
 
@@ -54,7 +54,7 @@ class EditController
 
     public function __construct(
         ItemResolver $itemResolver,
-        ResponseFactoryInterface $responseFactory,
+        ApiResponseFactoryInterface $responseFactory,
         FormHandlerFactoryInterface $formHandlerFactory,
         HtmlContent $htmlContent,
         CommandBus $commandBus,
@@ -85,12 +85,11 @@ class EditController
             return $this->processFormDataAndRedirect($item, $formHandler->getData());
         }
 
-        return $this->responseFactory->toJson([
-            'form' => $this->htmlContent->fromTemplate(
-                'partial\simpleForm.html.twig',
-                ['form' => $formHandler->createView(), 'title' => 'item.header.edit']
-            )
-        ], false === $formHandler->displayErrors() ? 200 : 400);
+        return $this->responseFactory->form(
+            'partial\simpleForm.html.twig',
+            ['form' => $formHandler->createView(), 'title' => 'item.header.edit'],
+            $formHandler->displayErrors()
+        );
     }
 
     private function processFormDataAndRedirect(Item $item, DTO $dto): ResponseInterface
@@ -104,6 +103,6 @@ class EditController
             null !== $avatar ? new File($avatar) : null
         ));
 
-        return $this->responseFactory->toJson(['success' => true]);
+        return $this->responseFactory->success();
     }
 }

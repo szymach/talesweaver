@@ -10,7 +10,7 @@ use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Command\Item\RemoveFromScene\Command;
 use Talesweaver\Application\Http\Entity\ItemResolver;
 use Talesweaver\Application\Http\Entity\SceneResolver;
-use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 
 class RemoveFromSceneController
 {
@@ -30,7 +30,7 @@ class RemoveFromSceneController
     private $commandBus;
 
     /**
-     * @var ResponseFactoryInterface
+     * @var ApiResponseFactoryInterface
      */
     private $responseFactory;
 
@@ -38,7 +38,7 @@ class RemoveFromSceneController
         SceneResolver $sceneResolver,
         ItemResolver $itemResolver,
         CommandBus $commandBus,
-        ResponseFactoryInterface $responseFactory
+        ApiResponseFactoryInterface $responseFactory
     ) {
         $this->sceneResolver = $sceneResolver;
         $this->itemResolver = $itemResolver;
@@ -53,6 +53,6 @@ class RemoveFromSceneController
             $this->itemResolver->fromRequest($request, 'item_id')
         ));
 
-        return $this->responseFactory->toJson(['success' => true]);
+        return $this->responseFactory->success();
     }
 }

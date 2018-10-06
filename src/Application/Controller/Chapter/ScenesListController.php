@@ -11,19 +11,15 @@ use Talesweaver\Application\Command\Scene\Create\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\FormViewInterface;
 use Talesweaver\Application\Form\Type\Scene\Create;
+use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\ChapterResolver;
 use Talesweaver\Application\Http\HtmlContent;
-use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Application\Query\Chapter\ScenesPage;
 use Talesweaver\Domain\Chapter;
 
 class ScenesListController
 {
-    /**
-     * @var ResponseFactoryInterface
-     */
-    private $responseFactory;
     /**
      * @var ChapterResolver
      */
@@ -33,6 +29,11 @@ class ScenesListController
      * @var QueryBus
      */
     private $queryBus;
+
+    /**
+     * @var ApiResponseFactoryInterface
+     */
+    private $responseFactory;
 
     /**
      * @var FormHandlerFactoryInterface
@@ -50,16 +51,16 @@ class ScenesListController
     private $urlGenerator;
 
     public function __construct(
-        ResponseFactoryInterface $responseFactory,
         ChapterResolver $chapterResolver,
         QueryBus $queryBus,
+        ApiResponseFactoryInterface $responseFactory,
         FormHandlerFactoryInterface $formHandlerFactory,
         HtmlContent $htmlContent,
         UrlGenerator $router
     ) {
-        $this->responseFactory = $responseFactory;
         $this->chapterResolver = $chapterResolver;
         $this->queryBus = $queryBus;
+        $this->responseFactory = $responseFactory;
         $this->formHandlerFactory = $formHandlerFactory;
         $this->htmlContent = $htmlContent;
         $this->urlGenerator = $router;
@@ -69,17 +70,15 @@ class ScenesListController
     {
         $chapter = $this->chapterResolver->fromRequest($request);
         $page = (int) $request->getAttribute('page', 1);
-        return $this->responseFactory->toJson([
-            'list' => $this->htmlContent->fromTemplate(
-                'chapter/scenes/list.html.twig',
-                [
-                    'chapterId' => $chapter->getId(),
-                    'sceneForm' => $this->createSceneForm($request, $chapter),
-                    'scenes' => $this->queryBus->query(new ScenesPage($chapter, $page)),
-                    'page' => $page
-                ]
-            )
-        ]);
+        return $this->responseFactory->list(
+            'chapter/scenes/list.html.twig',
+            [
+                'chapterId' => $chapter->getId(),
+                'sceneForm' => $this->createSceneForm($request, $chapter),
+                'scenes' => $this->queryBus->query(new ScenesPage($chapter, $page)),
+                'page' => $page
+            ]
+        );
     }
 
     private function createSceneForm(ServerRequestInterface $request, Chapter $chapter): FormViewInterface

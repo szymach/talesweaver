@@ -7,17 +7,14 @@ namespace Talesweaver\Application\Controller\Event;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
-use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Event\Edit\Command;
 use Talesweaver\Application\Command\Event\Edit\DTO;
 use Talesweaver\Application\Form\Event\EventModelResolver;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Event\Edit;
+use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\EventResolver;
-use Talesweaver\Application\Http\HtmlContent;
-use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
-use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\ValueObject\ShortText;
 
@@ -44,14 +41,9 @@ class EditController
     private $commandBus;
 
     /**
-     * @var ResponseFactoryInterface
+     * @var ApiResponseFactoryInterface
      */
     private $responseFactory;
-
-    /**
-     * @var HtmlContent
-     */
-    private $htmlContent;
 
     /**
      * @var UrlGenerator
@@ -63,8 +55,7 @@ class EditController
         FormHandlerFactoryInterface $formHandlerFactory,
         EventModelResolver $eventModelResolver,
         CommandBus $commandBus,
-        ResponseFactoryInterface $responseFactory,
-        HtmlContent $htmlContent,
+        ApiResponseFactoryInterface $responseFactory,
         UrlGenerator $urlGenerator
     ) {
         $this->eventResolver = $eventResolver;
@@ -72,7 +63,6 @@ class EditController
         $this->eventModelResolver = $eventModelResolver;
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
-        $this->htmlContent = $htmlContent;
         $this->urlGenerator = $urlGenerator;
     }
 
@@ -95,12 +85,11 @@ class EditController
             return $this->processFormDataAndRedirect($event, $formHandler->getData());
         }
 
-        return $this->responseFactory->toJson([
-            'form' => $this->htmlContent->fromTemplate(
-                'partial/simpleForm.html.twig',
-                ['form' => $formHandler->createView(), 'title' => 'event.header.edit']
-            )
-        ], false === $formHandler->displayErrors() ? 200 : 400);
+        return $this->responseFactory->form(
+            'partial/simpleForm.html.twig',
+            ['form' => $formHandler->createView(), 'title' => 'event.header.edit'],
+            $formHandler->displayErrors()
+        );
     }
 
     private function processFormDataAndRedirect(Event $event, DTO $dto): ResponseInterface
@@ -111,6 +100,6 @@ class EditController
             $dto->getModel()
         ));
 
-        return $this->responseFactory->toJson(['success' => true]);
+        return $this->responseFactory->success();
     }
 }

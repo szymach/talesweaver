@@ -17,11 +17,10 @@ use Talesweaver\Application\Form\FormHandlerInterface;
 use Talesweaver\Application\Form\FormViewInterface;
 use Talesweaver\Application\Form\Type\Scene\Create;
 use Talesweaver\Application\Form\Type\Scene\Edit;
+use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\SceneResolver;
-use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Query\Chapter\ScenesPage;
-use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\LongText;
@@ -40,6 +39,11 @@ class EditController
     private $responseFactory;
 
     /**
+     * @var ApiResponseFactoryInterface
+     */
+    private $apiResponseFactory;
+
+    /**
      * @var FormHandlerFactoryInterface
      */
     private $formHandlerFactory;
@@ -54,25 +58,20 @@ class EditController
      */
     private $commandBus;
 
-    /**
-     * @var HtmlContent
-     */
-    private $htmlContent;
-
     public function __construct(
         SceneResolver $sceneResolver,
         ResponseFactoryInterface $responseFactory,
+        ApiResponseFactoryInterface $apiResponseFactory,
         FormHandlerFactoryInterface $formHandlerFactory,
         QueryBus $queryBus,
-        CommandBus $commandBus,
-        HtmlContent $htmlContent
+        CommandBus $commandBus
     ) {
         $this->sceneResolver = $sceneResolver;
         $this->responseFactory = $responseFactory;
+        $this->apiResponseFactory = $apiResponseFactory;
         $this->formHandlerFactory = $formHandlerFactory;
         $this->queryBus = $queryBus;
         $this->commandBus = $commandBus;
-        $this->htmlContent = $htmlContent;
     }
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
@@ -86,12 +85,11 @@ class EditController
         );
 
         if (true === in_array('XMLHttpRequest', $request->getHeader('X-Requested-With'), true)) {
-            return $this->responseFactory->toJson([
-                'form' => $this->htmlContent->fromTemplate(
-                    'scene/form/editForm.html.twig',
-                    ['form' => $formHandler->createView()]
-                )
-            ], false === $formHandler->displayErrors() ? 200 : 403);
+            return $this->apiResponseFactory->form(
+                'scene/form/editForm.html.twig',
+                ['form' => $formHandler->createView()],
+                $formHandler->displayErrors()
+            );
         } elseif (true === $formHandler->isSubmissionValid()) {
             return $this->processFormDataAndRedirect($request, $scene, $formHandler->getData());
         }
@@ -116,7 +114,7 @@ class EditController
         ));
 
         return true === in_array('XMLHttpRequest', $request->getHeader('X-Requested-With'), true)
-            ? $this->responseFactory->toJson(['success' => true])
+            ? $this->apiResponseFactory->success()
             : $this->responseFactory->redirectToRoute('scene_edit', ['id' => $scene->getId()])
         ;
     }

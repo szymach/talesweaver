@@ -11,9 +11,9 @@ use Talesweaver\Application\Command\Location\Edit\Command;
 use Talesweaver\Application\Command\Location\Edit\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Location\Edit;
+use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\LocationResolver;
 use Talesweaver\Application\Http\HtmlContent;
-use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\ValueObject\File;
@@ -28,7 +28,7 @@ class EditController
     private $locationResolver;
 
     /**
-     * @var ResponseFactoryInterface
+     * @var ApiResponseFactoryInterface
      */
     private $responseFactory;
 
@@ -54,7 +54,7 @@ class EditController
 
     public function __construct(
         LocationResolver $locationResolver,
-        ResponseFactoryInterface $responseFactory,
+        ApiResponseFactoryInterface $responseFactory,
         FormHandlerFactoryInterface $formHandlerFactory,
         HtmlContent $htmlContent,
         CommandBus $commandBus,
@@ -85,12 +85,11 @@ class EditController
             return $this->processFormDataAndRedirect($location, $formHandler->getData());
         }
 
-        return $this->responseFactory->toJson([
-            'form' => $this->htmlContent->fromTemplate(
-                'partial\simpleForm.html.twig',
-                ['form' => $formHandler->createView(), 'title' => 'location.header.edit']
-            )
-        ], false === $formHandler->displayErrors() ? 200 : 400);
+        return $this->responseFactory->form(
+            'partial\simpleForm.html.twig',
+            ['form' => $formHandler->createView(), 'title' => 'location.header.edit'],
+            $formHandler->displayErrors()
+        );
     }
 
     private function processFormDataAndRedirect(Location $location, DTO $dto): ResponseInterface
@@ -104,6 +103,6 @@ class EditController
             null !== $avatar ? new File($avatar) : null
         ));
 
-        return $this->responseFactory->toJson(['success' => true]);
+        return $this->responseFactory->success();
     }
 }

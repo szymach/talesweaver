@@ -5,31 +5,22 @@ declare(strict_types=1);
 namespace Talesweaver\Application\Controller;
 
 use Psr\Http\Message\ResponseInterface;
-use Talesweaver\Application\Http\HtmlContent;
-use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 
 class AlertsController
 {
     /**
-     * @var ResponseFactoryInterface
+     * @var ApiResponseFactoryInterface
      */
     private $responseFactory;
 
-    /**
-     * @var HtmlContent
-     */
-    private $htmlContent;
-
-    public function __construct(ResponseFactoryInterface $responseFactory, HtmlContent $htmlContent)
+    public function __construct(ApiResponseFactoryInterface $responseFactory)
     {
         $this->responseFactory = $responseFactory;
-        $this->htmlContent = $htmlContent;
     }
 
     public function __invoke(): ResponseInterface
     {
-        return $this->responseFactory->toJson([
-            'alerts' => $this->htmlContent->fromTemplate('partial/alerts.html.twig', [])
-        ]);
+        return $this->responseFactory->keyForTemplate('alerts', 'partial/alerts.html.twig', []);
     }
 }

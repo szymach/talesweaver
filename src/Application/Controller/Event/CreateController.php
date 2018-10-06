@@ -13,9 +13,8 @@ use Talesweaver\Application\Command\Event\Create\DTO;
 use Talesweaver\Application\Form\Event\EventModelResolver;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Event\Create;
+use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\SceneResolver;
-use Talesweaver\Application\Http\HtmlContent;
-use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
@@ -43,14 +42,9 @@ class CreateController
     private $commandBus;
 
     /**
-     * @var ResponseFactoryInterface
+     * @var ApiResponseFactoryInterface
      */
     private $responseFactory;
-
-    /**
-     * @var HtmlContent
-     */
-    private $htmlContent;
 
     /**
      * @var UrlGenerator
@@ -62,8 +56,7 @@ class CreateController
         FormHandlerFactoryInterface $formHandlerFactory,
         EventModelResolver $eventModelResolver,
         CommandBus $commandBus,
-        ResponseFactoryInterface $responseFactory,
-        HtmlContent $htmlContent,
+        ApiResponseFactoryInterface $responseFactory,
         UrlGenerator $urlGenerator
     ) {
         $this->sceneResolver = $sceneResolver;
@@ -71,7 +64,6 @@ class CreateController
         $this->eventModelResolver = $eventModelResolver;
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
-        $this->htmlContent = $htmlContent;
         $this->urlGenerator = $urlGenerator;
     }
 
@@ -97,21 +89,19 @@ class CreateController
             return $this->processFormDataAndRedirect($scene, $formHandler->getData());
         }
 
-        return $this->responseFactory->toJson([
-            'form' => $this->htmlContent->fromTemplate(
-                'partial/simpleForm.html.twig',
-                ['form' => $formHandler->createView(), 'title' => 'event.header.new']
-            )
-        ], false === $formHandler->displayErrors() ? 200 : 400);
+        return $this->responseFactory->form(
+            'partial/simpleForm.html.twig',
+            ['form' => $formHandler->createView(), 'title' => 'event.header.new'],
+            $formHandler->displayErrors()
+        );
     }
 
     private function processFormDataAndRedirect(Scene $scene, DTO $dto): ResponseInterface
     {
-        $id = Uuid::uuid4();
         $this->commandBus->dispatch(
-            new Command($id, $scene, new ShortText($dto->getName()), $dto->getModel())
+            new Command(Uuid::uuid4(), $scene, new ShortText($dto->getName()), $dto->getModel())
         );
 
-        return $this->responseFactory->toJson(['success' => true]);
+        return $this->responseFactory->success();
     }
 }

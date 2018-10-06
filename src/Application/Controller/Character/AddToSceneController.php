@@ -8,9 +8,9 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Command\Character\AddToScene\Command;
+use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\CharacterResolver;
 use Talesweaver\Application\Http\Entity\SceneResolver;
-use Talesweaver\Application\Http\ResponseFactoryInterface;
 
 class AddToSceneController
 {
@@ -30,7 +30,7 @@ class AddToSceneController
     private $commandBus;
 
     /**
-     * @var ResponseFactoryInterface
+     * @var ApiResponseFactoryInterface
      */
     private $responseFactory;
 
@@ -38,7 +38,7 @@ class AddToSceneController
         SceneResolver $sceneResolver,
         CharacterResolver $characterResolver,
         CommandBus $commandBus,
-        ResponseFactoryInterface $responseFactory
+        ApiResponseFactoryInterface $responseFactory
     ) {
         $this->sceneResolver = $sceneResolver;
         $this->characterResolver = $characterResolver;
@@ -53,6 +53,6 @@ class AddToSceneController
             $this->characterResolver->fromRequest($request, 'character_id')
         ));
 
-        return $this->responseFactory->toJson(['success' => true]);
+        return $this->responseFactory->success();
     }
 }

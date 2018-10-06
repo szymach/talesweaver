@@ -8,6 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Command\Chapter\Delete\Command;
+use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\ChapterResolver;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 
@@ -28,14 +29,21 @@ class DeleteController
      */
     private $responseFactory;
 
+    /**
+     * @var ApiResponseFactoryInterface
+     */
+    private $apiResponseFactory;
+
     public function __construct(
         ChapterResolver $chapterResolver,
         CommandBus $commandBus,
-        ResponseFactoryInterface $responseFactory
+        ResponseFactoryInterface $responseFactory,
+        ApiResponseFactoryInterface $apiResponseFactory
     ) {
         $this->chapterResolver = $chapterResolver;
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
+        $this->apiResponseFactory = $apiResponseFactory;
     }
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
@@ -45,7 +53,7 @@ class DeleteController
         $this->commandBus->dispatch(new Command($chapter));
 
         if (true === in_array('XMLHttpRequest', $request->getHeader('X-Requested-With'), true)) {
-            return $this->responseFactory->toJson(['success' => true]);
+            return $this->apiResponseFactory->success();
         }
 
         return null !== $bookId

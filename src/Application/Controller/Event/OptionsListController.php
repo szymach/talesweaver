@@ -5,36 +5,35 @@ declare(strict_types=1);
 namespace Talesweaver\Application\Controller\Event;
 
 use Psr\Http\Message\ResponseInterface;
-use Talesweaver\Application\Http\HtmlContent;
-use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Domain\Scene;
+use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Form\Event\SceneEvents;
+use Talesweaver\Application\Http\ApiResponseFactoryInterface;
+use Talesweaver\Application\Http\Entity\SceneResolver;
 
 class OptionsListController
 {
     /**
-     * @var ResponseFactoryInterface
+     * @var SceneResolver
+     */
+    private $sceneResolver;
+
+    /**
+     * @var ApiResponseFactoryInterface
      */
     private $responseFactory;
 
-    /**
-     * @var HtmlContent
-     */
-    private $htmlContent;
-
-    public function __construct(ResponseFactoryInterface $responseFactory, HtmlContent $htmlContent)
+    public function __construct(SceneResolver $sceneResolver, ApiResponseFactoryInterface $responseFactory)
     {
+        $this->sceneResolver = $sceneResolver;
         $this->responseFactory = $responseFactory;
-        $this->htmlContent = $htmlContent;
     }
 
-    public function __invoke(Scene $scene): ResponseInterface
+    public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        return $this->responseFactory->toJson([
-            'list' => $this->htmlContent->fromTemplate(
-                'scene/events/options.html.twig',
-                ['sceneId' => $scene->getId(), 'eventModels' => SceneEvents::getAllEvents()]
-            )
-        ]);
+        $scene = $this->sceneResolver->fromRequest($request);
+        return $this->responseFactory->list(
+            'scene/events/options.html.twig',
+            ['sceneId' => $scene->getId(), 'eventModels' => SceneEvents::getAllEvents()]
+        );
     }
 }

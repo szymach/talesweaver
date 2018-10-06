@@ -22,6 +22,7 @@ services:
     Talesweaver\Application\Form\Event\EventModelResolver: '@Talesweaver\Integration\Symfony\Form\Event\EventModelResolver'
     Talesweaver\Application\Form\FormHandlerFactoryInterface: '@Talesweaver\Integration\Symfony\Form\FormHandlerFactory'
     Talesweaver\Application\Http\HtmlContent: '@Talesweaver\Integration\Symfony\Http\HtmlContent'
+    Talesweaver\Application\Http\ApiResponseFactoryInterface: '@Talesweaver\Integration\Symfony\Http\ApiResponseFactory'
     Talesweaver\Application\Http\ResponseFactoryInterface: '@Talesweaver\Integration\Symfony\Http\ResponseFactory'
     Talesweaver\Application\Http\UrlGenerator: '@Talesweaver\Integration\Symfony\Http\UrlGenerator'
     Talesweaver\Application\Security\AuthorContext: '@Talesweaver\Integration\Symfony\Security\AuthorContext'

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Http;
 
 use Exception;
-use Psr\Http\Message\ResponseInterface;
 use Knp\Snappy\GeneratorInterface as PdfGenerator;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -15,7 +15,6 @@ use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Throwable;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 
 class ResponseFactory implements ResponseFactoryInterface
@@ -60,11 +59,6 @@ class ResponseFactory implements ResponseFactoryInterface
     public function redirectToRoute(string $route, array $parameters = []): ResponseInterface
     {
         return new RedirectResponse($this->urlGenerator->generate($route, $parameters));
-    }
-
-    public function toJson($data, int $code = 200): ResponseInterface
-    {
-        return new JsonResponse($data, $code);
     }
 
     public function toPdf(string $filename, string $template, array $parameters, ?array $options): ResponseInterface
