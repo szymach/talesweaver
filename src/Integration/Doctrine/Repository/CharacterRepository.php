@@ -4,16 +4,21 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Doctrine\Repository;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use FSi\DoctrineExtensions\Translatable\Entity\Repository\TranslatableRepository;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Scene;
 
-class CharacterRepository extends TranslatableRepository
+class CharacterRepository extends AutoWireableTranslatableRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Character::class);
+    }
+
     public function persist(Character $character): void
     {
         $this->getEntityManager()->persist($character);

@@ -2,9 +2,6 @@ parameters:
     locale: pl
     mailer_from: "%env(resolve:MAILER_FROM)%"
 
-imports:
-    - { resource: services/doctrine.yaml }
-
 services:
     _defaults:
         autowire: true
@@ -71,10 +68,18 @@ services:
         resource: "../src/Integration/Doctrine/DataFixtures/ORM/*"
         tags: ['doctrine.fixture.orm']
 
+    Talesweaver\Integration\Doctrine\Repository\:
+        resource: "../src/Integration/Doctrine/Repository/*"
+
     Talesweaver\Integration\Symfony\:
-        resource: "../src/Integration/Symfony/{Bus/Middleware,Form/Event,Form/Type,Http,JSON,Mail,Menu,Security,Session,Validation}/*"
+        resource: "../src/Integration/Symfony/{Bus/Middleware,Form/Event,Form/Type,Http,JSON,Mail,Menu,Repository,Security,Session,Validation}/*"
 
     # Do not remove, because it is not explicitly used and is removed from the container
+    entity_listener.event:
+        class: Talesweaver\Integration\Doctrine\Listener\ModelParserListener
+        autoconfigure: false
+        tags: [{ name: doctrine.orm.entity_listener }]
+
     Talesweaver\Integration\Symfony\JSON\EventParser:
         public: true
 
