@@ -24,6 +24,7 @@ services:
     Talesweaver\Application\Http\UrlGenerator: '@Talesweaver\Integration\Symfony\Http\UrlGenerator'
     Talesweaver\Application\Security\AuthorContext: '@Talesweaver\Integration\Symfony\Security\AuthorContext'
     Talesweaver\Application\Security\AuthenticationContext: '@Talesweaver\Integration\Symfony\Security\AuthenticationContext'
+    Talesweaver\Application\Session\FlashBag: '@Talesweaver\Integration\Symfony\Session\FlashBag'
     Talesweaver\Domain\Authors: '@Talesweaver\Integration\Doctrine\Repository\AuthorRepository'
     Talesweaver\Domain\Books: '@Talesweaver\Integration\Symfony\Repository\BookRepository'
     Talesweaver\Domain\Chapters: '@Talesweaver\Integration\Symfony\Repository\ChapterRepository'
@@ -64,32 +65,26 @@ services:
         resource: "../src/Application/{Http/Entity,Timeline}/*"
         exclude: "../src/{Http,Security}/function/*"
 
-    Talesweaver\Integration\Doctrine\DataFixtures\ORM\:
-        resource: "../src/Integration/Doctrine/DataFixtures/ORM/*"
-        tags: ['doctrine.fixture.orm']
-
-    Talesweaver\Integration\Doctrine\Repository\:
-        resource: "../src/Integration/Doctrine/Repository/*"
+    Talesweaver\Integration\Doctrine\:
+        resource: "../src/Integration/Doctrine/{DataFixtures,Repository}/*"
 
     Talesweaver\Integration\Symfony\:
-        resource: "../src/Integration/Symfony/{Bus/Middleware,Form/Event,Form/Type,Http,JSON,Mail,Menu,Repository,Security,Session,Validation}/*"
+        resource: "../src/Integration/Symfony/{Bus/Middleware,Form/{Event,Type},Http,JSON,Mail,Menu,Repository,Security,Session,Validation}/*"
 
-    # Do not remove, because it is not explicitly used and is removed from the container
+    # Doctrine
     entity_listener.event:
         class: Talesweaver\Integration\Doctrine\Listener\ModelParserListener
         autoconfigure: false
         tags: [{ name: doctrine.orm.entity_listener }]
 
+    # Do not remove, because it is not explicitly used and is removed from the container
     Talesweaver\Integration\Symfony\JSON\EventParser:
         public: true
 
     # Menu
-    app.menu.builder:
-        class: Talesweaver\Integration\Symfony\Menu\Builder
-
     app.menu.main:
         class: Knp\Menu\MenuItem
-        factory: ["@app.menu.builder", createMainMenu]
+        factory: ['@Talesweaver\Integration\Symfony\Menu\Builder', createMainMenu]
         tags:
             - { name: knp_menu.menu, alias: main }
 
@@ -116,9 +111,6 @@ services:
         class: Talesweaver\Integration\Symfony\Security\LoginFormAuthenticator
 
     # Session
-    Talesweaver\Application\Session\FlashBag:
-        alias: Talesweaver\Integration\Symfony\Session\FlashBag
-
     Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface:
         factory: ["@session", getFlashBag]
         lazy: true
