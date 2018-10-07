@@ -8,4 +8,7 @@ framework:
                     - Talesweaver\Integration\Symfony\Bus\Middleware\TransactionMiddleware
                     - Talesweaver\Integration\Symfony\Bus\Middleware\AuthorAwareMiddleware
                     - Talesweaver\Integration\Symfony\Bus\Middleware\AuthorAccessMiddleware
+            messenger.bus.events:
+                middleware:
+                    - 'allow_no_handler'
             messenger.bus.queries: ~

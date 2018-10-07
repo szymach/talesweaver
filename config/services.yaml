@@ -15,6 +15,7 @@ services:
     Knp\Menu\FactoryInterface: "@knp_menu.factory"
     Knp\Snappy\GeneratorInterface: "@knp_snappy.pdf"
     Talesweaver\Application\Bus\CommandBus: '@Talesweaver\Integration\Symfony\Bus\CommandBus'
+    Talesweaver\Application\Bus\EventBus: '@Talesweaver\Integration\Symfony\Bus\EventBus'
     Talesweaver\Application\Bus\QueryBus: '@Talesweaver\Integration\Symfony\Bus\QueryBus'
     Talesweaver\Application\Form\Event\EventModelResolver: '@Talesweaver\Integration\Symfony\Form\Event\EventModelResolver'
     Talesweaver\Application\Form\FormHandlerFactoryInterface: '@Talesweaver\Integration\Symfony\Form\FormHandlerFactory'
@@ -42,6 +43,10 @@ services:
     Talesweaver\Integration\Symfony\Bus\CommandBus:
         arguments:
             $messenger: '@messenger.bus.commands'
+
+    Talesweaver\Integration\Symfony\Bus\EventBus:
+        arguments:
+            $messenger: '@messenger.bus.events'
 
     Talesweaver\Integration\Symfony\Bus\QueryBus:
         arguments:
