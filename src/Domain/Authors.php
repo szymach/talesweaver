@@ -8,6 +8,7 @@ use Talesweaver\Domain\ValueObject\Email;
 
 interface Authors
 {
+    public function add(Author $author): void;
     public function findOneByActivationToken(string $code): ?Author;
     public function findOneByEmail(Email $email): ?Author;
 }

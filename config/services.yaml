@@ -58,6 +58,9 @@ services:
     Talesweaver\Application\Command\Security\:
         resource: "../src/Application/Command/Security/*Handler.php"
 
+    Talesweaver\Application\Event\:
+        resource: "../src/Application/Event/*Subscriber.php"
+
     Talesweaver\Application\Query\:
         resource: "../src/Application/Query/{Book,Chapter,Character,Event,Item,Location,Scene,Security,Timeline}/*Handler.php"
 

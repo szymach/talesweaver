@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 use Talesweaver\Application\Bus\CommandHandlerInterface;
+use Talesweaver\Application\Bus\EventSubscriberInterface;
 use Talesweaver\Application\Bus\QueryHandlerInterface;
 use Talesweaver\Application\Form\Form;
 use Talesweaver\Integration\Symfony\Form\FormClassResolver;
@@ -61,6 +62,7 @@ class Kernel extends BaseKernel implements CompilerPassInterface
         $loader->load(sprintf('%s/services%s', $configDir, self::CONFIG_EXTS), 'glob');
         $loader->load(sprintf('%s/services_%s%s', $configDir, $this->environment, self::CONFIG_EXTS), 'glob');
         $container->registerForAutoconfiguration(CommandHandlerInterface::class)->addTag('messenger.message_handler');
+        $container->registerForAutoconfiguration(EventSubscriberInterface::class)->addTag('messenger.message_handler');
         $container->registerForAutoconfiguration(QueryHandlerInterface::class)->addTag('messenger.message_handler');
     }
 

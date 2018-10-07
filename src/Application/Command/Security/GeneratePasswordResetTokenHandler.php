@@ -6,10 +6,9 @@ namespace Talesweaver\Application\Command\Security;
 
 use DateInterval;
 use DateTimeImmutable;
-use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
 use Talesweaver\Application\Bus\CommandHandlerInterface;
-use Talesweaver\Application\Mailer\AuthorActionMailer;
+use Talesweaver\Application\Bus\EventBus;
 use Talesweaver\Domain\Authors;
 use Talesweaver\Domain\PasswordResetTokens;
 use Talesweaver\Domain\ValueObject\Email;
@@ -17,11 +16,6 @@ use function generate_user_token;
 
 class GeneratePasswordResetTokenHandler implements CommandHandlerInterface
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $manager;
-
     /**
      * @var PasswordResetTokens
      */
@@ -33,20 +27,18 @@ class GeneratePasswordResetTokenHandler implements CommandHandlerInterface
     private $authors;
 
     /**
-     * @var AuthorActionMailer
+     * @var EventBus
      */
-    private $passwordResetMailer;
+    private $eventBus;
 
     public function __construct(
-        EntityManagerInterface $manager,
         PasswordResetTokens $tokens,
         Authors $authors,
-        AuthorActionMailer $passwordResetMailer
+        EventBus $eventBus
     ) {
-        $this->manager = $manager;
         $this->tokens = $tokens;
         $this->authors = $authors;
-        $this->passwordResetMailer = $passwordResetMailer;
+        $this->eventBus = $eventBus;
     }
 
     public function __invoke(GeneratePasswordResetToken $command): void
@@ -57,14 +49,13 @@ class GeneratePasswordResetTokenHandler implements CommandHandlerInterface
         }
 
         $this->tokens->deactivatePreviousTokens($email);
-
         $author = $this->authors->findOneByEmail($email);
         if (null === $author) {
-            throw new RuntimeException(sprintf('No author found for email "%s"', $email));
+            throw new RuntimeException("No author found for email \"{$email->getValue()}\"");
         }
 
         $author->addPasswordResetToken(generate_user_token());
-        $this->passwordResetMailer->send($author);
+        $this->eventBus->send($author);
     }
 
     private function isRequestTooSoon(Email $email): bool

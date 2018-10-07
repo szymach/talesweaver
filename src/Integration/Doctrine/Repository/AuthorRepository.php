@@ -18,6 +18,11 @@ class AuthorRepository extends ServiceEntityRepository implements Authors
         parent::__construct($registry, Author::class);
     }
 
+    public function add(Author $author): void
+    {
+        $this->getEntityManager()->persist($author);
+    }
+
     public function findOneByActivationToken(string $code): ?Author
     {
         return $this->createQueryBuilder('a')

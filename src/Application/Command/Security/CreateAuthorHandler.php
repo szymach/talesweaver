@@ -4,28 +4,30 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Command\Security;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Bus\CommandHandlerInterface;
-use Talesweaver\Application\Mailer\AuthorActionMailer;
+use Talesweaver\Application\Bus\EventBus;
+use Talesweaver\Application\Event\AuthorRegistered;
 use Talesweaver\Domain\Author;
+use Talesweaver\Domain\Authors;
+use function generate_user_token;
 
 class CreateAuthorHandler implements CommandHandlerInterface
 {
     /**
-     * @var EntityManagerInterface
+     * @var Authors
      */
-    private $manager;
+    private $authors;
 
     /**
-     * @var AuthorActionMailer
+     * @var EventBus
      */
-    private $newAuthorMailer;
+    private $eventBus;
 
-    public function __construct(EntityManagerInterface $manager, AuthorActionMailer $newAuthorMailer)
+    public function __construct(Authors $authors, EventBus $eventBus)
     {
-        $this->manager = $manager;
-        $this->newAuthorMailer = $newAuthorMailer;
+        $this->authors = $authors;
+        $this->eventBus = $eventBus;
     }
 
     public function __invoke(CreateAuthor $command): void
@@ -37,7 +39,7 @@ class CreateAuthorHandler implements CommandHandlerInterface
             generate_user_token()
         );
 
-        $this->manager->persist($author);
-        $this->newAuthorMailer->send($author);
+        $this->authors->add($author);
+        $this->eventBus->send(new AuthorRegistered($author));
     }
 }
