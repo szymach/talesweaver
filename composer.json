@@ -29,7 +29,8 @@
                 "tests/unit/Integration"
             ],
             "Talesweaver\\Tests\\Helper\\": ["tests/_support/Helper"],
-            "Talesweaver\\Tests\\Module\\": ["tests/_support/Module"]
+            "Talesweaver\\Tests\\Module\\": ["tests/_support/Module"],
+            "Talesweaver\\Tests\\Query\\": ["tests/_support/Query"]
         }
     },
     "require": {

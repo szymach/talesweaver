@@ -4,28 +4,16 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Application\Controller\Book;
 
-use Talesweaver\Domain\Book;
 use Talesweaver\Tests\FunctionalTester;
 
 class FormControllerCest
 {
-    private const CREATE_URL = '/pl/book/create';
-    private const EDIT_URL = '/pl/book/edit/%s';
-
-    private const CREATE_FORM = 'form[name="create"]';
-    private const EDIT_FORM = 'form[name="edit"]';
-
-    private const TITLE_PL = 'Tytuł nowej książki';
-    private const DESCRIPTION_PL = 'Opis nowej książki';
-    private const NEW_TITLE_PL = 'Zmieniony tytuł książki';
-    private const NEW_DESCRIPTION_PL = 'Zmieniony opis książki';
-
     public function renderView(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $I->amOnPage(self::CREATE_URL);
+        $I->amOnPage('/pl/book/create');
         $I->seeInTitle('Nowa książka');
-        $I->seeElement(self::CREATE_FORM);
+        $I->seeElement('form[name="create"]');
         $I->see('Tytuł', 'label[for="create_title"]');
         $I->see('Opis', 'label[for="create_description"]');
     }
@@ -33,31 +21,26 @@ class FormControllerCest
     public function submitForms(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $I->amOnPage(self::CREATE_URL);
-        $I->submitForm(self::CREATE_FORM, [
-            'create[title]' => self::TITLE_PL,
-            'create[description]' => self::DESCRIPTION_PL
+        $I->amOnPage('/pl/book/create');
+        $I->submitForm('form[name="create"]', [
+            'create[title]' => 'Tytuł nowej książki',
+            'create[description]' => 'Zmieniony opis książki'
         ]);
 
-        $book = $I->grabEntityFromRepository(Book::class, [
-            'translations' => ['title' => self::TITLE_PL]
-        ]);
-        $I->seeElement(self::EDIT_FORM);
-        $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $book->getId()));
+        $bookId = $I->grabBookByTitle('Tytuł nowej książki')->getId()->toString();
+        $I->seeElement('form[name="edit"]');
+        $I->seeCurrentUrlEquals(sprintf('/pl/book/edit/%s', $bookId));
 
-        $I->seeElement(self::EDIT_FORM);
-        $I->canSeeAlert(sprintf(
-            'Pomyślnie dodano nową książkę o tytule "%s"',
-            self::TITLE_PL
-        ));
-        $I->seeInTitle(self::TITLE_PL);
-        $I->submitForm(self::EDIT_FORM, [
-            'edit[title]' => self::NEW_TITLE_PL,
-            'edit[description]' => self::NEW_DESCRIPTION_PL
+        $I->seeElement('form[name="edit"]');
+        $I->canSeeAlert('Pomyślnie dodano nową książkę o tytule "Tytuł nowej książki"');
+        $I->seeInTitle('Tytuł nowej książki');
+        $I->submitForm('form[name="edit"]', [
+            'edit[title]' => 'Zmieniony tytuł książki',
+            'edit[description]' => 'Zmieniony opis książki'
         ]);
 
-        $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $book->getId()));
-        $I->seeInTitle(self::NEW_TITLE_PL);
+        $I->seeCurrentUrlEquals(sprintf('/pl/book/edit/%s', $bookId));
+        $I->seeInTitle('Zmieniony tytuł książki');
         $I->canSeeAlert('Zapisano zmiany w książce.');
     }
 }

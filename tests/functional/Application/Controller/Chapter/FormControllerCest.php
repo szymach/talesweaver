@@ -25,39 +25,39 @@ class FormControllerCest
     public function renderView(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $I->amOnPage(self::CREATE_URL);
+        $I->amOnPage('/pl/chapter/create');
         $I->seeInTitle('Nowy rozdział');
-        $I->seeElement(self::CREATE_FORM);
+        $I->seeElement('form[name="create"]');
         $I->see('Tytuł', 'label[for="create_title"]');
     }
 
     public function submitForms(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $I->amOnPage(self::CREATE_URL);
-        $I->submitForm(self::CREATE_FORM, ['create[title]' => self::TITLE_PL]);
+        $I->amOnPage('/pl/chapter/create');
+        $I->submitForm('form[name="create"]', ['create[title]' => 'Tytuł nowego rozdziału']);
 
         $chapter = $I->grabEntityFromRepository(Chapter::class, [
-            'translations' => ['title' => self::TITLE_PL]
+            'translations' => ['title' => 'Tytuł nowego rozdziału']
         ]);
-        $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $chapter->getId()));
-        $I->canSeeAlert(sprintf('Pomyślnie dodano nowy rozdział o tytule "%s"', self::TITLE_PL));
-        $I->seeElement(self::EDIT_FORM);
-        $I->seeInTitle(self::TITLE_PL);
-        $I->seeElement(self::SCENE_CREATE_FORM);
+        $I->seeCurrentUrlEquals(sprintf('/pl/chapter/edit/%s', $chapter->getId()));
+        $I->canSeeAlert(sprintf('Pomyślnie dodano nowy rozdział o tytule "%s"', 'Tytuł nowego rozdziału'));
+        $I->seeElement('form[name="edit"]');
+        $I->seeInTitle('Tytuł nowego rozdziału');
+        $I->seeElement('form[name="create"]');
 
-        $I->submitForm(self::EDIT_FORM, ['edit[title]' => self::NEW_TITLE_PL]);
+        $I->submitForm('form[name="edit"]', ['edit[title]' => 'Zmieniony tytuł rozdziału']);
 
-        $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $chapter->getId()));
-        $I->seeInTitle(self::NEW_TITLE_PL);
+        $I->seeCurrentUrlEquals(sprintf('/pl/chapter/edit/%s', $chapter->getId()));
+        $I->seeInTitle('Zmieniony tytuł rozdziału');
         $I->canSeeAlert('Zapisano zmiany w rozdziale.');
 
-        $I->submitForm(self::SCENE_CREATE_FORM, ['create[title]' => self::SCENE_TITLE_PL]);
+        $I->submitForm('form[name="create"]', ['create[title]' => 'Tytuł sceny przypisanej do rozdziału']);
         $scene = $I->grabEntityFromRepository(Scene::class, [
-            'translations' => ['title' => self::SCENE_TITLE_PL]
+            'translations' => ['title' => 'Tytuł sceny przypisanej do rozdziału']
         ]);
-        $I->seeCurrentUrlEquals(sprintf(self::SCENE_EDIT_URL, $scene->getId()));
-        $I->seeInTitle(self::SCENE_TITLE_PL);
-        $I->canSeeAlert(sprintf('Pomyślnie dodano nową scenę o tytule "%s"', self::SCENE_TITLE_PL));
+        $I->seeCurrentUrlEquals(sprintf('/pl/scene/edit/%s', $scene->getId()));
+        $I->seeInTitle('Tytuł sceny przypisanej do rozdziału');
+        $I->canSeeAlert(sprintf('Pomyślnie dodano nową scenę o tytule "%s"', 'Tytuł sceny przypisanej do rozdziału'));
     }
 }

@@ -4,28 +4,22 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Application\Controller\Book;
 
-use Ramsey\Uuid\Uuid;
-use Talesweaver\Domain\Book;
-use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Tests\FunctionalTester;
 
 class SecurityCest
 {
     public function verifyAccess(FunctionalTester $I)
     {
-        $book1 = new Book(Uuid::uuid4(), new ShortText('Title'), $I->getAuthor(true, 'user2@example.com'));
-        $I->getEntityManager()->persist($book1);
+        $I->loginAsUser('user1@example.com');
+        $book1Id = $I->haveCreatedABook('Title');
 
-        $book2 = new Book(Uuid::uuid4(), new ShortText('Title2'), $I->getAuthor());
-        $I->getEntityManager()->persist($book2);
+        $I->loginAsUser('user2@example.com');
+        $book2Id = $I->haveCreatedABook('Title 2');
 
-        $I->getEntityManager()->flush();
-
-        $I->loginAsUser(); // as user2
-        $I->amOnPage(sprintf('/pl/book/edit/%s', $book2->getId()->toString()));
+        $I->amOnPage("/pl/book/edit/{$book2Id->toString()}");
         $I->canSeeResponseCodeIs(200);
 
-        $I->amOnPage(sprintf('/pl/book/edit/%s', $book1->getId()->toString()));
+        $I->amOnPage("/pl/book/edit/{$book1Id->toString()}");
         $I->canSeeResponseCodeIs(404);
     }
 }

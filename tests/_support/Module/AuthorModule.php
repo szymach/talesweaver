@@ -8,17 +8,18 @@ use Codeception\Module;
 use Codeception\Module\Symfony;
 use Codeception\TestInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Talesweaver\Application\Bus\CommandBus;
+use Talesweaver\Application\Bus\QueryBus;
+use Talesweaver\Application\Command\Security\ActivateAuthor;
+use Talesweaver\Application\Command\Security\CreateAuthor;
+use Talesweaver\Application\Query\Security\AuthorByEmail;
 use Talesweaver\Domain\Author;
-use Talesweaver\Domain\Authors;
-use Talesweaver\Domain\PasswordResetToken;
-use Talesweaver\Domain\PasswordResetTokens;
 use Talesweaver\Domain\ValueObject\Email;
 use Talesweaver\Integration\Symfony\Security\User;
-use function generate_user_token;
+use Talesweaver\Tests\Query\Security\TokenByAuthor;
 
 class AuthorModule extends Module
 {
@@ -26,42 +27,63 @@ class AuthorModule extends Module
     public const AUTHOR_PASSWORD = 'password123';
     public const AUTHOR_ROLE = 'ROLE_USER';
     public const LOCALE = 'pl';
+    private const FIREWALL = 'main';
 
     /**
      * @var Symfony
      */
     private $symfony;
 
-    public function loginAsUser(bool $active = true): void
+    /**
+     * @var CommandBus
+     */
+    private $commandBus;
+
+    /**
+     * @var QueryBus
+     */
+    private $queryBus;
+
+    public function _before(TestInterface $test)
     {
-        $firewall = 'main';
-        $user = new User($this->getAuthor($active));
+        $this->symfony = $this->getModule('Symfony');
+        /* @var $container ContainerModule */
+        $container = $this->getModule(ContainerModule::class);
+        $this->commandBus = $container->getService(CommandBus::class);
+        $this->queryBus = $container->getService(QueryBus::class);
+    }
+
+    public function loginAsUser(string $email = self::AUTHOR_EMAIL, string $password = self::AUTHOR_PASSWORD): void
+    {
+        $user = new User($this->getAuthor($email, $password));
         $token = new UsernamePasswordToken(
             $user,
             self::AUTHOR_PASSWORD,
-            $firewall,
+            self::FIREWALL,
             $user->getRoles()
         );
         $this->getTokenStorage()->setToken($token);
 
         $session = $this->getSession();
-        $session->set(sprintf('_security_%s', $firewall), serialize($token));
+        $session->set(sprintf('_security_%s', self::FIREWALL), serialize($token));
         $session->save();
 
         $this->symfony->setCookie($session->getName(), $session->getId());
     }
 
-    public function getAuthor(bool $active = true, string $email = self::AUTHOR_EMAIL): Author
-    {
+    public function getAuthor(
+        string $email = self::AUTHOR_EMAIL,
+        string $password = self::AUTHOR_PASSWORD,
+        bool $active = true
+    ): Author {
         $emailVO = new Email($email);
-        $author = $this->getAuthorRepository()->findOneByEmail($emailVO);
+        $author = $this->queryBus->query(new AuthorByEmail($emailVO));
         if (null === $author) {
-            $author = new Author(Uuid::uuid4(), $emailVO, self::AUTHOR_PASSWORD, generate_user_token());
+            $this->commandBus->dispatch(new CreateAuthor($email, $password));
+            $author = $this->queryBus->query(new AuthorByEmail($emailVO));
             if (true === $active) {
-                $author->activate();
+                $this->commandBus->dispatch(new ActivateAuthor($author));
             }
-            $this->getEntityManager()->persist($author);
-            $this->getEntityManager()->flush();
         }
 
         return $author;
@@ -69,32 +91,18 @@ class AuthorModule extends Module
 
     public function canSeeResetPasswordTokenGenerated(Author $author):void
     {
-        $token = $this->getPasswordResetTokenRepository()->findOneByAuthor($author);
-        $this->assertNotNull($token, sprintf(
-            'No password reset token for author "%s"',
-            (string) $author->getEmail()
-        ));
-    }
-
-    public function _before(TestInterface $test)
-    {
-        $this->symfony = $this->getModule('Symfony');
-        $this->clearAuthors();
+        $this->assertNotNull(
+            $this->queryBus->query(new TokenByAuthor($author)),
+            sprintf(
+                'No password reset token for author "%s"',
+                (string) $author->getEmail()
+            )
+        );
     }
 
     public function getEntityManager(): EntityManagerInterface
     {
         return $this->symfony->grabService('doctrine.orm.entity_manager');
-    }
-
-    private function getAuthorRepository(): Authors
-    {
-        return $this->getEntityManager()->getRepository(Author::class);
-    }
-
-    private function getPasswordResetTokenRepository(): PasswordResetTokens
-    {
-        return $this->getEntityManager()->getRepository(PasswordResetToken::class);
     }
 
     private function getTokenStorage(): TokenStorageInterface
@@ -105,17 +113,5 @@ class AuthorModule extends Module
     private function getSession(): SessionInterface
     {
         return $this->symfony->grabService('session');
-    }
-
-    private function clearAuthors(): void
-    {
-        $author = $this->getAuthorRepository()->findOneByEmail(new Email(self::AUTHOR_EMAIL));
-        if (null === $author) {
-            return;
-        }
-
-        $manager = $this->getEntityManager();
-        $manager->remove($author);
-        $manager->flush();
     }
 }

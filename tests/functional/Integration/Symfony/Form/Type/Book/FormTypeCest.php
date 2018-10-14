@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Symfony\Form\TypeBook;
 
-use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Command\Book\Create;
 use Talesweaver\Application\Command\Book\Edit;
-use Talesweaver\Domain\Book;
-use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Type\Book\CreateType;
 use Talesweaver\Integration\Symfony\Form\Type\Book\EditType;
 use Talesweaver\Tests\FunctionalTester;
@@ -56,7 +53,7 @@ class FormTypeCest
     public function testValidEditFormSubmission(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $book = new Book(Uuid::uuid4(), new ShortText(self::TITLE_PL), $I->getAuthor());
+        $book = $I->haveCreatedABook(self::TITLE_PL);
         $form = $I->createForm(EditType::class, new Edit\DTO($book), ['bookId' => $book->getId()]);
         $form->handleRequest($I->getRequest([
             'edit' => ['title' => self::TITLE_PL, 'description' => self::DESCRIPTION_PL]
@@ -75,7 +72,7 @@ class FormTypeCest
     public function testInvalidEditFormSubmission(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $book = new Book(Uuid::uuid4(), new ShortText(self::TITLE_PL), $I->getAuthor());
+        $book = $I->haveCreatedABook(self::TITLE_PL);
         $form = $I->createForm(EditType::class, new Edit\DTO($book), ['bookId' => $book->getId()]);
         $form->handleRequest($I->getRequest(['edit' => ['title' => null]]));
 

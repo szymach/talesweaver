@@ -8,7 +8,7 @@ use Talesweaver\Tests\FunctionalTester;
 
 class DeleteControllerCest
 {
-    public function delete(FunctionalTester $I)
+    public function testBookDeletetion(FunctionalTester $I): void
     {
         $I->loginAsUser();
         $bookId = $I->haveCreatedABook('Tytuł nowej książki');
@@ -17,6 +17,6 @@ class DeleteControllerCest
         $I->click('a[title="Usuń"]');
         $I->canSeeCurrentUrlEquals('/pl/book/list');
         $I->seeBookHasBeenRemoved($bookId);
-        $I->canSeeAlert(sprintf('Książka "%s" została usunięta.', 'Tytuł nowej książki'));
+        $I->canSeeAlert('Książka "Tytuł nowej książki" została usunięta.');
     }
 }

@@ -8,6 +8,7 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Books;
+use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Doctrine\Repository\BookRepository as DoctrineRepository;
 
 class BookRepository implements Books
@@ -28,6 +29,21 @@ class BookRepository implements Books
         $this->authorContext = $authorContext;
     }
 
+    public function add(Book $book): void
+    {
+        $this->doctrineRepository->persist($book);
+    }
+
+    public function findOneByTitle(ShortText $title): ?Book
+    {
+        return $this->doctrineRepository->createTranslatableQueryBuilder('b')
+            ->where('t.title = :title')
+            ->setParameter('title', $title)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     public function find(UuidInterface $id): ?Book
     {
         return $this->doctrineRepository->findOneBy([
@@ -41,11 +57,6 @@ class BookRepository implements Books
         return $this->doctrineRepository->findBy([
             'createdBy' => $this->authorContext->getAuthor()
         ]);
-    }
-
-    public function add(Book $book): void
-    {
-        $this->doctrineRepository->persist($book);
     }
 
     public function remove(UuidInterface $id): void
