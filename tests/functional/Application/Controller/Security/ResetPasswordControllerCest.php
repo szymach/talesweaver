@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Tests\Application\Controller\Security;
 
 use Talesweaver\Tests\FunctionalTester;
+use Talesweaver\Tests\Module\AuthorModule;
 
 class ResetPasswordControllerCest
 {
@@ -68,7 +69,7 @@ class ResetPasswordControllerCest
             'Pomyślnie zmieniono hasło do konta. Możesz się teraz nim zalogować'
             . ' do aplikacji.'
         );
-        $I->fillField(self::EMAIL_FIELD, FunctionalTester::AUTHOR_EMAIL);
+        $I->fillField(self::EMAIL_FIELD, AuthorModule::AUTHOR_EMAIL);
         $I->fillField(self::PASSWORD_FIELD, self::NEW_PASSWORD);
         $I->click(self::LOGIN_SUBMIT);
 

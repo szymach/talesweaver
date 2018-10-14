@@ -1,5 +1,5 @@
 parameters:
-    locale: pl
+    locale: "%env(resolve:APP_LOCALE)%"
     mailer_from: "%env(resolve:MAILER_FROM)%"
 
 services:

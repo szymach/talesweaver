@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Tests\Application\Controller\Security;
 
 use Talesweaver\Tests\FunctionalTester;
+use Talesweaver\Tests\Module\AuthorModule;
 
 class LoginControllerCest
 {
@@ -45,8 +46,8 @@ class LoginControllerCest
         $I->getAuthor();
 
         $I->amOnPage(self::FORM_URL);
-        $I->fillField(self::EMAIL_FIELD, FunctionalTester::AUTHOR_EMAIL);
-        $I->fillField(self::PASSWORD_FIELD, FunctionalTester::AUTHOR_PASSWORD);
+        $I->fillField(self::EMAIL_FIELD, AuthorModule::AUTHOR_EMAIL);
+        $I->fillField(self::PASSWORD_FIELD, AuthorModule::AUTHOR_PASSWORD);
         $I->click(self::SUBMIT);
 
         $I->canSeeCurrentUrlEquals(self::DASHBOARD_URL);
@@ -56,7 +57,7 @@ class LoginControllerCest
     {
         $I->amOnPage(self::FORM_URL);
         $I->fillField(self::EMAIL_FIELD, self::NONEXISTANT_EMAIL);
-        $I->fillField(self::PASSWORD_FIELD, FunctionalTester::AUTHOR_PASSWORD);
+        $I->fillField(self::PASSWORD_FIELD, AuthorModule::AUTHOR_PASSWORD);
         $I->click(self::SUBMIT);
         $I->canSeeCurrentUrlEquals(self::FORM_URL);
         $I->seeErrorAlert('Użytkownik o podanej nazwie nie istnieje.');
@@ -69,7 +70,7 @@ class LoginControllerCest
         $I->seeErrorAlert('Użytkownik o podanej nazwie nie istnieje.');
 
         $I->amOnPage(self::FORM_URL);
-        $I->fillField(self::EMAIL_FIELD, FunctionalTester::AUTHOR_EMAIL);
+        $I->fillField(self::EMAIL_FIELD, AuthorModule::AUTHOR_EMAIL);
         $I->fillField(self::PASSWORD_FIELD, self::INCORRECT_PASSWORD);
         $I->click(self::SUBMIT);
         $I->canSeeCurrentUrlEquals(self::FORM_URL);
@@ -81,8 +82,8 @@ class LoginControllerCest
         $I->getAuthor(false);
 
         $I->amOnPage(self::FORM_URL);
-        $I->fillField(self::EMAIL_FIELD, FunctionalTester::AUTHOR_EMAIL);
-        $I->fillField(self::PASSWORD_FIELD, FunctionalTester::AUTHOR_PASSWORD);
+        $I->fillField(self::EMAIL_FIELD, AuthorModule::AUTHOR_EMAIL);
+        $I->fillField(self::PASSWORD_FIELD, AuthorModule::AUTHOR_PASSWORD);
         $I->click(self::SUBMIT);
 
         $I->canSeeCurrentUrlEquals(self::FORM_URL);

@@ -10,4 +10,9 @@ modules:
             var_path: 'var'
         - Doctrine2:
             depends: Symfony
-        - \Talesweaver\Tests\Helper\Functional
+        - Talesweaver\Tests\Module\ContainerModule
+        - Talesweaver\Tests\Module\LocaleModule
+        - Talesweaver\Tests\Module\AuthorModule
+        - Talesweaver\Tests\Module\FormModule
+        - Talesweaver\Tests\Module\NavigationModule
+        - Talesweaver\Tests\Module\BookModule
