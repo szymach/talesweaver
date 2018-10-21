@@ -17,7 +17,6 @@ crud:
     back: Powrót
     actions: Akcje
     list: Lista
-    create: Nowy
     delete: Usuń
     display: Podgląd
     remove_from_scene: Usuń ze sceny
@@ -133,6 +132,7 @@ book:
     back:
         to_list: Powrót do listy
     list:
+        create: Nowa
         no_results:
             header: Nie masz jeszcze żadnej książki.
             add_new: Dodaj nową!
@@ -159,6 +159,7 @@ chapter:
         create: Nowy
         add_scene: Dodaj
     list:
+        create: Nowy
         standalone:
             no_results:
                 header: Nie masz jeszcze żadnego nieprzypisanego do książki rozdziału.
@@ -196,6 +197,7 @@ scene:
         to_chapter: Wróć do rozdziału
         to_list: Wróć do listy
     list:
+        create: Nowa
         standalone:
             no_results:
                 header: Nie masz jeszcze żadnej nieprzypisanej do rozdziału sceny.
