@@ -52,7 +52,7 @@
     "webpack-sources": "^1.0.1"
   },
   "devDependencies": {
-    "cypress": "^2.0.0"
+    "cypress": "^3.0"
   },
   "repository": {
     "type": "git",

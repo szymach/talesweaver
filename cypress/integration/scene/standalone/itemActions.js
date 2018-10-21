@@ -29,7 +29,7 @@ describe('Item sidemenu actions', () => {
             cy.get('.js-edit-form').last().click();
         }).then(() => {
             cy.contains('Edycja przedmiotu');
-            cy.get('input[name="edit[name]"]').type(' edytowany{enter}');
+            cy.get('input[name="edit[name]"]').type('{selectall}Przedmiot edytowany{enter}');
             cy.contains('Zapisano zmiany w przedmiocie.').should('be.visible');
         });
 

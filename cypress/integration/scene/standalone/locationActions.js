@@ -29,7 +29,7 @@ describe('Location sidemenu actions', () => {
             cy.contains(/^Miejsce$/).next().find('.js-edit-form').click();
         }).then(() => {
             cy.contains('Edycja miejsca');
-            cy.get('input[name="edit[name]"]').type(' edytowane{enter}');
+            cy.get('input[name="edit[name]"]').type('{selectall}Miejsce edytowane{enter}');
             cy.contains('Zapisano zmiany w miejscu.').should('be.visible');
         });
 

@@ -29,7 +29,7 @@ describe('Character sidemenu actions', () => {
             cy.contains(/^Postać$/).next().find('.js-edit-form').click();
         }).then(() => {
             cy.contains('Edycja postaci');
-            cy.get('input[name="edit[name]"]').type(' edytowana{enter}');
+            cy.get('input[name="edit[name]"]').type('{selectall}Postać edytowana{enter}');
             cy.contains('Zapisano zmiany w postaci.').should('be.visible');
         });
 

@@ -34,7 +34,7 @@ describe('Event sidemenu actions', () => {
             cy.get('.js-load-form.js-edit-form').click();
         }).then(() => {
             cy.get('@ajax-container').contains('Edycja wydarzenia').should('be.visible');
-            cy.get('@ajax-container').get('[name="edit[name]"]').type(' edytowane');
+            cy.get('@ajax-container').get('[name="edit[name]"]').type('{selectall}Spotkanie edytowane');
             cy.get('@ajax-container').get('[name="edit[model][root]"]').select('Postać do spotkania 2');
             cy.get('@ajax-container').get('[name="edit[model][location]"]').select('Miejsce do spotkania 2');
             cy.get('@ajax-container').get('[name="edit[model][relation]"]').select('Postać do spotkania 3');
