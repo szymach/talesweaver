@@ -9,22 +9,15 @@ use Talesweaver\Application\Command\Character\Edit;
 use Talesweaver\Integration\Symfony\Form\Type\Character\CreateType;
 use Talesweaver\Integration\Symfony\Form\Type\Character\EditType;
 use Talesweaver\Tests\FunctionalTester;
-use Talesweaver\Tests\Integration\Symfony\Form\CreateCharacterTrait;
-use Talesweaver\Tests\Integration\Symfony\Form\CreateSceneTrait;
 
 class FormTypeCest
 {
-    use CreateCharacterTrait, CreateSceneTrait;
-
-    private const NAME_PL = 'Postać';
-    private const DESCRIPTION_PL = 'Opis postaci';
-
     public function testValidCreateFormSubmission(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $scene = $this->getScene($I);
+        $scene = $I->haveCreatedAScene('Scena');
         $form = $I->createForm(CreateType::class, new Create\DTO($scene), ['sceneId' => $scene->getId()]);
-        $form->handleRequest($I->getRequest(['create' => ['name' => self::NAME_PL]]));
+        $form->handleRequest($I->getRequest(['create' => ['name' => 'Postać']]));
 
         $I->assertTrue($form->isSynchronized());
         $I->assertTrue($form->isSubmitted());
@@ -32,13 +25,13 @@ class FormTypeCest
         $I->assertEquals(0, count($form->getErrors(true)));
 
         $I->assertInstanceOf(Create\DTO::class, $form->getData());
-        $I->assertEquals($form->getData()->getName(), self::NAME_PL);
+        $I->assertEquals($form->getData()->getName(), 'Postać');
     }
 
     public function testInvalidCreateFormSubmission(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $scene = $this->getScene($I);
+        $scene = $I->haveCreatedAScene('Scena');
         $form = $I->createForm(CreateType::class, new Create\DTO($scene), ['sceneId' => $scene->getId()]);
         $form->handleRequest($I->getRequest(['create' => ['name' => null]]));
 
@@ -54,10 +47,10 @@ class FormTypeCest
     public function testValidEditFormSubmission(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $character = $this->getCharacter($I);
+        $character = $I->haveCreatedACharacter('Postać', $I->haveCreatedAScene('Scena'));
         $form = $I->createForm(EditType::class, new Edit\DTO($character), ['characterId' => $character->getId()]);
         $form->handleRequest($I->getRequest([
-            'edit' => ['name' => self::NAME_PL, 'description' => self::DESCRIPTION_PL]
+            'edit' => ['name' => 'Postać', 'description' => 'Opis postaci']
         ]));
 
         $I->assertTrue($form->isSynchronized());
@@ -66,14 +59,14 @@ class FormTypeCest
         $I->assertEquals(0, count($form->getErrors(true)));
 
         $I->assertInstanceOf(Edit\DTO::class, $form->getData());
-        $I->assertEquals($form->getData()->getName(), self::NAME_PL);
-        $I->assertEquals($form->getData()->getDescription(), self::DESCRIPTION_PL);
+        $I->assertEquals($form->getData()->getName(), 'Postać');
+        $I->assertEquals($form->getData()->getDescription(), 'Opis postaci');
     }
 
     public function testInvalidEditFormSubmission(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $character = $this->getCharacter($I);
+        $character = $I->haveCreatedACharacter('Postać', $I->haveCreatedAScene('Scena'));
         $form = $I->createForm(EditType::class, new Edit\DTO($character), ['characterId' => $character->getId()]);
         $form->handleRequest($I->getRequest(['edit' => ['name' => null]]));
 

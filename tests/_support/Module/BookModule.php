@@ -41,8 +41,7 @@ class BookModule extends Module
 
     public function haveCreatedABook(string $title): Book
     {
-        $id = Uuid::uuid4();
-        $this->commandBus->dispatch(new Command($id, new ShortText($title)));
+        $this->commandBus->dispatch(new Command(Uuid::uuid4(), new ShortText($title)));
 
         return $this->grabBookByTitle($title);
     }

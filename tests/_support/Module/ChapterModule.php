@@ -42,10 +42,7 @@ class ChapterModule extends Module
 
     public function haveCreatedAChapter(string $title, Book $book = null): Chapter
     {
-        $id = Uuid::uuid4();
-        $this->commandBus->dispatch(new Command($id, new ShortText($title), $book));
-
-        $this->assertInstanceOf(Chapter::class, $this->queryBus->query(new ById($id)));
+        $this->commandBus->dispatch(new Command(Uuid::uuid4(), new ShortText($title), $book));
 
         return $this->grabChapterByTitle($title);
     }

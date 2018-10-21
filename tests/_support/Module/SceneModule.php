@@ -42,10 +42,7 @@ class SceneModule extends Module
 
     public function haveCreatedAScene(string $title, Chapter $chapter = null): Scene
     {
-        $id = Uuid::uuid4();
-        $this->commandBus->dispatch(new Command($id, new ShortText($title), $chapter));
-
-        $this->assertInstanceOf(Scene::class, $this->queryBus->query(new ById($id)));
+        $this->commandBus->dispatch(new Command(Uuid::uuid4(), new ShortText($title), $chapter));
 
         return $this->grabSceneByTitle($title);
     }

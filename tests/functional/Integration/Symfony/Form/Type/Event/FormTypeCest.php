@@ -4,43 +4,34 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Integration\Symfony\Form\TypeEvent;
 
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\Form\FormInterface;
 use Talesweaver\Application\Command\Event\Create;
 use Talesweaver\Application\Command\Event\Edit;
-use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Event\Meeting;
-use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Form\Type\Event\CreateType;
 use Talesweaver\Integration\Symfony\Form\Type\Event\EditType;
 use Talesweaver\Integration\Symfony\Form\Type\Event\MeetingType;
 use Talesweaver\Tests\FunctionalTester;
-use Talesweaver\Tests\Integration\Symfony\Form\CreateCharacterTrait;
-use Talesweaver\Tests\Integration\Symfony\Form\CreateLocationTrait;
-use Talesweaver\Tests\Integration\Symfony\Form\CreateSceneTrait;
 
 class FormTypeCest
 {
-    use CreateCharacterTrait, CreateLocationTrait, CreateSceneTrait;
-
-    private const NAME_PL = 'Wydarzenie';
-
     public function testValidCreateFormSubmission(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $scene = $this->getScene($I);
-        list($character1, $character2, $location) = $this->getMeetingEntities($I, $scene);
+        $scene = $I->haveCreatedAScene('Scena');
+        $character1 = $I->haveCreatedACharacter('Postać 1', $scene);
+        $character2 = $I->haveCreatedACharacter('Postać 2', $scene);
+        $location = $I->haveCreatedALocation('Miejsce', $scene);
         $form = $this->fetchCreateForm($I, $scene);
         $form->handleRequest($I->getRequest([
             'create' => [
-                'name' => self::NAME_PL,
+                'name' => 'Wydarzenie',
                 'model' => [
-                    'root' => (string) $character1->getId(),
-                    'relation' => (string) $character2->getId(),
-                    'location' => (string) $location->getId(),
+                    'root' => $character1->getId()->toString(),
+                    'relation' => $character2->getId()->toString(),
+                    'location' => $location->getId()->toString(),
                 ]
             ]
         ]));
@@ -53,7 +44,7 @@ class FormTypeCest
         /* @var $data Create\DTO */
         $data = $form->getData();
         $I->assertInstanceOf(Create\DTO::class, $data);
-        $I->assertEquals(self::NAME_PL, $data->getName());
+        $I->assertEquals('Wydarzenie', $data->getName());
         /* @var $model Meeting */
         $model = $data->getModel();
         $I->assertInstanceOf(Meeting::class, $model);
@@ -65,7 +56,7 @@ class FormTypeCest
     public function testInvalidCreateFormSubmission(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $scene = $this->getScene($I);
+        $scene = $I->haveCreatedAScene('Scena');
         $form = $this->fetchCreateForm($I, $scene);
         $form->handleRequest($I->getRequest([
             'create' => [
@@ -86,21 +77,23 @@ class FormTypeCest
     public function testValidEditFormSubmission(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $scene = $this->getScene($I);
-        list($character1, $character2, $location) = $this->getMeetingEntities($I, $scene);
-        $meeting = new Meeting();
-        $meeting->setLocation($location);
-        $meeting->setRoot($character1);
-        $meeting->setRelation($character2);
-        $event = $this->getEvent($I, $meeting);
+        $scene = $I->haveCreatedAScene('Scena');
+        $character1 = $I->haveCreatedACharacter('Postać 1', $scene);
+        $character2 = $I->haveCreatedACharacter('Postać 2', $scene);
+        $location = $I->haveCreatedALocation('Miejsce', $scene);
+        $event = $I->haveCreatedAnEvent(
+            'Spotkanie',
+            $scene,
+            $I->haveCreatedAMeetingModel($character1, $character2, $location)
+        );
         $form = $this->fetchEditForm($I, $scene, $event);
         $form->handleRequest($I->getRequest([
             'edit' => [
-                'name' => self::NAME_PL,
+                'name' => 'Wydarzenie',
                 'model' => [
-                    'root' => (string) $character1->getId(),
-                    'relation' => (string) $character2->getId(),
-                    'location' => (string) $location->getId(),
+                    'root' => $character1->getId()->toString(),
+                    'relation' => $character2->getId()->toString(),
+                    'location' => $location->getId()->toString(),
                 ]
             ]
         ]));
@@ -112,7 +105,7 @@ class FormTypeCest
         /* @var $data Edit\DTO */
         $data = $form->getData();
         $I->assertInstanceOf(Edit\DTO::class, $data);
-        $I->assertEquals(self::NAME_PL, $data->getName());
+        $I->assertEquals('Wydarzenie', $data->getName());
         /* @var $model Meeting */
         $model = $data->getModel();
         $I->assertInstanceOf(Meeting::class, $model);
@@ -124,8 +117,15 @@ class FormTypeCest
     public function testInvalidEditFormSubmission(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $scene = $this->getScene($I);
-        $event = $this->getEvent($I);
+        $scene = $I->haveCreatedAScene('Scena');
+        $character1 = $I->haveCreatedACharacter('Postać 1', $scene);
+        $character2 = $I->haveCreatedACharacter('Postać 2', $scene);
+        $location = $I->haveCreatedALocation('Miejsce', $scene);
+        $event = $I->haveCreatedAnEvent(
+            'Spotkanie',
+            $scene,
+            $I->haveCreatedAMeetingModel($character1, $character2, $location)
+        );
         $form = $this->fetchEditForm($I, $scene, $event);
         $form->handleRequest($I->getRequest([
             'edit' => [
@@ -166,31 +166,6 @@ class FormTypeCest
             EditType::class,
             new Edit\DTO($event),
             ['scene' => $scene, 'model' => MeetingType::class, 'eventId' => $event->getId()]
-        );
-    }
-
-    private function getMeetingEntities(FunctionalTester $I, Scene $scene): array
-    {
-        $character1 = $this->getCharacter($I, $scene);
-        $character2 = $this->getCharacter($I, $scene);
-        $location = $this->getLocation($I, $scene);
-
-        $I->persistEntity($scene);
-        $I->persistEntity($character1);
-        $I->persistEntity($character2);
-        $I->persistEntity($location);
-
-        return [$character1, $character2, $location];
-    }
-
-    private function getEvent(FunctionalTester $I, Meeting $meeting = null): Event
-    {
-        return new Event(
-            Uuid::uuid4(),
-            new ShortText(self::NAME_PL),
-            $meeting ?? new Meeting(),
-            $this->getScene($I),
-            $I->getAuthor()
         );
     }
 }

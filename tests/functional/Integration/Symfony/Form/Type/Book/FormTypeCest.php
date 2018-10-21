@@ -12,15 +12,12 @@ use Talesweaver\Tests\FunctionalTester;
 
 class FormTypeCest
 {
-    private const TITLE_PL = 'Książka';
-    private const DESCRIPTION_PL = 'Opis';
-
-    public function testValidCreateFormSubmission(FunctionalTester $I)
+    public function testValidCreateFormSubmission(FunctionalTester $I): void
     {
         $I->loginAsUser();
         $form = $I->createForm(CreateType::class);
         $form->handleRequest($I->getRequest([
-            'create' => ['title' => self::TITLE_PL, 'description' => self::DESCRIPTION_PL]
+            'create' => ['title' => 'Książka', 'description' => 'Opis']
         ]));
 
         $I->assertTrue($form->isSynchronized());
@@ -29,17 +26,15 @@ class FormTypeCest
         $I->assertTrue($form->isValid());
 
         $I->assertInstanceOf(Create\DTO::class, $form->getData());
-        $I->assertEquals($form->getData()->getTitle(), self::TITLE_PL);
-        $I->assertEquals($form->getData()->getDescription(), self::DESCRIPTION_PL);
+        $I->assertEquals($form->getData()->getTitle(), 'Książka');
+        $I->assertEquals($form->getData()->getDescription(), 'Opis');
     }
 
-    public function testInvalidCreateFormSubmission(FunctionalTester $I)
+    public function testInvalidCreateFormSubmission(FunctionalTester $I): void
     {
         $I->loginAsUser();
         $form = $I->createForm(CreateType::class);
-        $form->handleRequest($I->getRequest([
-            'create' => ['title' => null]
-        ]));
+        $form->handleRequest($I->getRequest(['create' => ['title' => null]]));
 
         $I->assertTrue($form->isSynchronized());
         $I->assertTrue($form->isSubmitted());
@@ -50,13 +45,13 @@ class FormTypeCest
         $I->assertEquals($form->getData()->getTitle(), null);
     }
 
-    public function testValidEditFormSubmission(FunctionalTester $I)
+    public function testValidEditFormSubmission(FunctionalTester $I): void
     {
         $I->loginAsUser();
-        $book = $I->haveCreatedABook(self::TITLE_PL);
+        $book = $I->haveCreatedABook('Książka');
         $form = $I->createForm(EditType::class, new Edit\DTO($book), ['bookId' => $book->getId()]);
         $form->handleRequest($I->getRequest([
-            'edit' => ['title' => self::TITLE_PL, 'description' => self::DESCRIPTION_PL]
+            'edit' => ['title' => 'Książka', 'description' => 'Opis']
         ]));
 
         $I->assertTrue($form->isSynchronized());
@@ -65,14 +60,14 @@ class FormTypeCest
         $I->assertTrue($form->isValid());
 
         $I->assertInstanceOf(Edit\DTO::class, $form->getData());
-        $I->assertEquals($form->getData()->getTitle(), self::TITLE_PL);
-        $I->assertEquals($form->getData()->getDescription(), self::DESCRIPTION_PL);
+        $I->assertEquals($form->getData()->getTitle(), 'Książka');
+        $I->assertEquals($form->getData()->getDescription(), 'Opis');
     }
 
-    public function testInvalidEditFormSubmission(FunctionalTester $I)
+    public function testInvalidEditFormSubmission(FunctionalTester $I): void
     {
         $I->loginAsUser();
-        $book = $I->haveCreatedABook(self::TITLE_PL);
+        $book = $I->haveCreatedABook('Książka');
         $form = $I->createForm(EditType::class, new Edit\DTO($book), ['bookId' => $book->getId()]);
         $form->handleRequest($I->getRequest(['edit' => ['title' => null]]));
 
