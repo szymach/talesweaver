@@ -22,6 +22,9 @@ class LocaleModule extends Module
         $this->containerModule = $moduleContainer->getModule(ContainerModule::class);
     }
 
+    /**
+     * phpcs:disable
+     */
     public function _initialize()
     {
         $this->getTranslatableListener()->setLocale('pl');

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Tests\Query\Security;
 
 use Talesweaver\Application\Bus\QueryHandlerInterface;
-use Talesweaver\Domain\Author;
+use Talesweaver\Domain\PasswordResetToken;
 use Talesweaver\Domain\PasswordResetTokens;
 
 class TokenByAuthorHandler implements QueryHandlerInterface
@@ -20,7 +20,7 @@ class TokenByAuthorHandler implements QueryHandlerInterface
         $this->tokens = $tokens;
     }
 
-    public function __invoke(TokenByAuthor $query): ?Author
+    public function __invoke(TokenByAuthor $query): ?PasswordResetToken
     {
         return $this->tokens->findOneByAuthor($query->getAuthor());
     }

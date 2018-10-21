@@ -4,35 +4,28 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Application\Controller\Scene;
 
-use Ramsey\Uuid\Uuid;
-use Talesweaver\Domain\Scene;
-use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Tests\FunctionalTester;
 
 class SecurityCest
 {
     public function verifyAccess(FunctionalTester $I)
     {
-        $scene1 = new Scene(Uuid::uuid4(), new ShortText('Tytuł'), null, $I->getAuthor('user2@example.com'));
-        $I->getEntityManager()->persist($scene1);
+        $I->loginAsUser('user1@example.com');
+        $scene1Id = $I->haveCreatedAScene('Title')->getId()->toString();
 
-        $scene2 = new Scene(Uuid::uuid4(), new ShortText('Scena'), null, $I->getAuthor());
-        $I->getEntityManager()->persist($scene2);
+        $I->loginAsUser('user2@example.com');
+        $scene2Id = $I->haveCreatedAScene('Title 2')->getId()->toString();
 
-        $I->getEntityManager()->flush();
-
-        $I->loginAsUser(); // as user2
-
-        $I->amOnPage(sprintf('/pl/scene/edit/%s', $scene2->getId()->toString()));
+        $I->amOnPage("/pl/scene/edit/{$scene2Id}");
         $I->canSeeResponseCodeIs(200);
 
-        $I->amOnPage(sprintf('/pl/scene/edit/%s', $scene1->getId()->toString()));
+        $I->amOnPage("/pl/scene/display/{$scene2Id}");
+        $I->canSeeResponseCodeIs(200);
+
+        $I->amOnPage("/pl/scene/edit/{$scene1Id}");
         $I->canSeeResponseCodeIs(404);
 
-        $I->amOnPage(sprintf('/pl/scene/display/%s', $scene2->getId()->toString()));
-        $I->canSeeResponseCodeIs(200);
-
-        $I->amOnPage(sprintf('/pl/scene/display/%s', $scene1->getId()->toString()));
+        $I->amOnPage("/pl/scene/display/{$scene1Id}");
         $I->canSeeResponseCodeIs(404);
     }
 }

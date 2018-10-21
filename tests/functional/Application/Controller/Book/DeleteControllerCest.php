@@ -11,7 +11,7 @@ class DeleteControllerCest
     public function testBookDeletetion(FunctionalTester $I): void
     {
         $I->loginAsUser();
-        $bookId = $I->haveCreatedABook('Tytuł nowej książki');
+        $bookId = $I->haveCreatedABook('Tytuł nowej książki')->getId();
         $I->amOnPage('/pl/book/list');
         $I->canSeeNumberOfElements('tbody > tr', 1);
         $I->click('a[title="Usuń"]');

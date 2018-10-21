@@ -17,3 +17,4 @@ modules:
         - Talesweaver\Tests\Module\NavigationModule
         - Talesweaver\Tests\Module\BookModule
         - Talesweaver\Tests\Module\ChapterModule
+        - Talesweaver\Tests\Module\SceneModule

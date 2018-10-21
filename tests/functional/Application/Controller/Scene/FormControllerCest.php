@@ -4,48 +4,32 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Application\Controller\Scene;
 
-use Ramsey\Uuid\Uuid;
-use Talesweaver\Domain\Chapter;
-use Talesweaver\Domain\Scene;
-use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Tests\FunctionalTester;
 
 class FormControllerCest
 {
-    private const CREATE_URL = '/pl/scene/create';
-    private const EDIT_URL = '/pl/scene/edit/%s';
-
-    private const CREATE_FORM = 'form[name="create"]';
-    private const EDIT_FORM = 'form[name="edit"]';
-    private const NEXT_FORM = 'nav form[name="create"]';
-
-    private const TITLE_PL = 'Tytuł nowej sceny';
-    private const CONTENT_PL = 'Treść nowej sceny';
-    private const NEW_TITLE_PL = 'Zmieniony tytuł sceny';
-    private const NEW_CONTENT_PL = 'Zmieniona treść sceny';
-
-    public function renderView(FunctionalTester $I)
+    public function renderView(FunctionalTester $I): void
     {
         $I->loginAsUser();
-        $I->amOnPage(self::CREATE_URL);
+        $I->amOnPage('/pl/scene/create');
         $I->seeInTitle('Nowa scena');
-        $I->seeElement(self::CREATE_FORM);
+        $I->seeElement('form[name="create"]');
         $I->see('Tytuł', 'label[for="create_title"]');
         $I->see('Rozdział', 'label[for="create_chapter"]');
         $I->see('Wróć do listy', 'a');
     }
 
-    public function submitForms(FunctionalTester $I)
+    public function submitForms(FunctionalTester $I): void
     {
         $I->loginAsUser();
-        $I->amOnPage(self::CREATE_URL);
-        $I->submitForm(self::CREATE_FORM, ['create[title]' => self::TITLE_PL]);
+        $I->amOnPage('/pl/scene/create');
+        $I->submitForm('form[name="create"]', ['create[title]' => 'Tytuł nowej sceny']);
 
-        $scene = $I->grabEntityFromRepository(Scene::class, ['translations' => ['title' => self::TITLE_PL]]);
-        $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $scene->getId()));
-        $I->canSeeAlert(sprintf('Pomyślnie dodano nową scenę o tytule "%s"', self::TITLE_PL));
-        $I->seeElement(self::EDIT_FORM);
-        $I->seeInTitle(self::TITLE_PL);
+        $sceneId = $I->grabSceneByTitle('Tytuł nowej sceny')->getId()->toString();
+        $I->seeCurrentUrlEquals("/pl/scene/edit/{$sceneId}");
+        $I->canSeeAlert('Pomyślnie dodano nową scenę o tytule "Tytuł nowej sceny"');
+        $I->seeElement('form[name="edit"]');
+        $I->seeInTitle('Tytuł nowej sceny');
         $I->see('Podgląd', 'a');
         $I->see('PDF', 'a');
         $I->see('Wróć do listy', 'a');
@@ -55,32 +39,31 @@ class FormControllerCest
         $I->see('Miejsca', 'span');
         $I->see('Wydarzenia', 'span');
 
-        $I->submitForm(self::EDIT_FORM, [
-            'edit[title]' => self::NEW_TITLE_PL,
-            'edit[text]' => self::NEW_CONTENT_PL
+        $I->submitForm('form[name="edit"]', [
+            'edit[title]' => 'Zmieniony tytuł sceny',
+            'edit[text]' => 'Treść sceny'
         ]);
-        $I->seeCurrentUrlEquals(sprintf(self::EDIT_URL, $scene->getId()));
-        $I->seeInTitle(self::NEW_TITLE_PL);
+        $I->seeCurrentUrlEquals("/pl/scene/edit/{$sceneId}");
+        $I->seeInTitle('Zmieniony tytuł sceny');
         $I->canSeeAlert('Zapisano zmiany w scenie.');
     }
 
-    public function nextSceneForm(FunctionalTester $I)
+    public function nextSceneForm(FunctionalTester $I): void
     {
-        $author = $I->getAuthor();
-        $chapter = new Chapter(Uuid::uuid4(), new ShortText('Rozdział'), null, $author);
-        $I->persistEntity($chapter);
-        $id = Uuid::uuid4();
-        $I->persistEntity(new Scene($id, new ShortText(self::TITLE_PL), $chapter, $author));
-
-        $I->cantSeeInRepository(Scene::class, ['translations' => ['title' => self::NEW_TITLE_PL]]);
         $I->loginAsUser();
-        $I->amOnPage(sprintf(self::EDIT_URL, $id->toString()));
-        $I->seeElement(self::NEXT_FORM);
-        $I->seeElement(self::EDIT_FORM);
-        $I->submitForm(self::NEXT_FORM, ['create[title]' => self::NEW_TITLE_PL]);
+        $sceneId = $I->haveCreatedAScene(
+            'Tytuł nowej sceny',
+            $I->haveCreatedAChapter('Rozdział')
+        )->getId()->toString();
+
+        $I->amOnPage("/pl/scene/edit/{$sceneId}");
+        $I->seeElement('nav form[name="create"]');
+        $I->seeElement('form[name="edit"]');
+        $I->submitForm('nav form[name="create"]', ['create[title]' => 'Zmieniony tytuł sceny']);
         $I->seeCurrentUrlMatches(
             '/\/pl\/scene\/edit\/[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/'
         );
-        $I->canSeeInRepository(Scene::class, ['translations' => ['title' => self::NEW_TITLE_PL]]);
+        $I->seeResponseCodeIs(200);
+        $I->seeInTitle('Zmieniony tytuł sceny - edycja');
     }
 }

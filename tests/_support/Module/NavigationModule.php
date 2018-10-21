@@ -37,6 +37,9 @@ class NavigationModule extends Module
         );
     }
 
+    /**
+     * phpcs:disable
+     */
     public function _before(TestInterface $test)
     {
         $this->symfony = $this->getModule('Symfony');

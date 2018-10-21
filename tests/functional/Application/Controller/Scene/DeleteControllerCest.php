@@ -11,22 +11,19 @@ use Talesweaver\Tests\FunctionalTester;
 
 class DeleteControllerCest
 {
-    private const LIST_URL = '/pl/scene/list';
-    private const TITLE_PL = 'Tytuł nowej sceny';
-
     public function delete(FunctionalTester $I)
     {
         $I->loginAsUser();
         $id = Uuid::uuid4();
-        $I->persistEntity(new Scene($id, new ShortText(self::TITLE_PL), null, $I->getAuthor()));
+        $I->persistEntity(new Scene($id, new ShortText('Tytuł nowej sceny'), null, $I->getAuthor()));
         $I->seeInRepository(Scene::class, ['id' => $id]);
 
-        $I->amOnPage(self::LIST_URL);
+        $I->amOnPage('/pl/scene/list');
         $I->canSeeNumberOfElements('tbody > tr', 1);
         $I->click('a[title="Usuń"]');
 
-        $I->canSeeCurrentUrlEquals(self::LIST_URL);
+        $I->canSeeCurrentUrlEquals('/pl/scene/list');
         $I->dontSeeInRepository(Scene::class, ['id' => $id]);
-        $I->canSeeAlert(sprintf('Scena "%s" została usunięta.', self::TITLE_PL));
+        $I->canSeeAlert(sprintf('Scena "%s" została usunięta.', 'Tytuł nowej sceny'));
     }
 }

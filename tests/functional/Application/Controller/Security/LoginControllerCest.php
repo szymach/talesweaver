@@ -79,7 +79,7 @@ class LoginControllerCest
 
     public function inactiveUserLogin(FunctionalTester $I)
     {
-        $I->getAuthor(false);
+        $I->getAuthor(AuthorModule::AUTHOR_EMAIL, AuthorModule::AUTHOR_PASSWORD, false);
 
         $I->amOnPage(self::FORM_URL);
         $I->fillField(self::EMAIL_FIELD, AuthorModule::AUTHOR_EMAIL);

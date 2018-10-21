@@ -10,6 +10,7 @@ use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\Scenes;
+use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Doctrine\Repository\SceneRepository as DoctrineRepository;
 
 class SceneRepository implements Scenes
@@ -36,6 +37,16 @@ class SceneRepository implements Scenes
             'id' => $id,
             'createdBy' => $this->authorContext->getAuthor()
         ]);
+    }
+
+    public function findOneByTitle(ShortText $title): ?Scene
+    {
+        return $this->doctrineRepository->createTranslatableQueryBuilder('s')
+            ->where('t.title = :title')
+            ->setParameter('title', $title)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
     }
 
     public function add(Scene $scene): void

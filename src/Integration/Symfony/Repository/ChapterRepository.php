@@ -9,6 +9,7 @@ use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Chapters;
+use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Doctrine\Repository\ChapterRepository as DoctrineRepository;
 
 class ChapterRepository implements Chapters
@@ -58,6 +59,16 @@ class ChapterRepository implements Chapters
             $this->authorContext->getAuthor(),
             $book
         );
+    }
+
+    public function findOneByTitle(ShortText $title): ?Chapter
+    {
+        return $this->doctrineRepository->createTranslatableQueryBuilder('c')
+            ->where('t.title = :title')
+            ->setParameter('title', $title)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
     }
 
     public function findLatest(int $limit = 5): array

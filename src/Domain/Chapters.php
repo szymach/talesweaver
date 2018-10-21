@@ -6,11 +6,13 @@ namespace Talesweaver\Domain;
 
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Repository\LatestChangesAwareRepository;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 interface Chapters extends LatestChangesAwareRepository
 {
     public function find(UuidInterface $id): ?Chapter;
     public function findForBook(Book $book): array;
+    public function findOneByTitle(ShortText $title): ?Chapter;
     public function findAll(): array;
     public function findStandalone(): array;
     public function add(Chapter $chapter): void;

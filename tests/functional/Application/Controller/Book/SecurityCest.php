@@ -11,10 +11,10 @@ class SecurityCest
     public function verifyAccess(FunctionalTester $I)
     {
         $I->loginAsUser('user1@example.com');
-        $book1Id = $I->haveCreatedABook('Title');
+        $book1Id = $I->haveCreatedABook('Title')->getId();
 
         $I->loginAsUser('user2@example.com');
-        $book2Id = $I->haveCreatedABook('Title 2');
+        $book2Id = $I->haveCreatedABook('Title 2')->getId();
 
         $I->amOnPage("/pl/book/edit/{$book2Id->toString()}");
         $I->canSeeResponseCodeIs(200);

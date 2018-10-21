@@ -44,6 +44,9 @@ class AuthorModule extends Module
      */
     private $queryBus;
 
+    /**
+     * phpcs:disable
+     */
     public function _before(TestInterface $test)
     {
         $this->symfony = $this->getModule('Symfony');
@@ -53,8 +56,10 @@ class AuthorModule extends Module
         $this->queryBus = $container->getService(QueryBus::class);
     }
 
-    public function loginAsUser(string $email = self::AUTHOR_EMAIL, string $password = self::AUTHOR_PASSWORD): void
-    {
+    public function loginAsUser(
+        string $email = self::AUTHOR_EMAIL,
+        string $password = self::AUTHOR_PASSWORD
+    ): void {
         $user = new User($this->getAuthor($email, $password));
         $token = new UsernamePasswordToken(
             $user,

@@ -65,6 +65,9 @@ class FormModule extends Module
         $this->symfony->see($content, '.alert-danger.alert-form');
     }
 
+    /**
+     * phpcs:disable
+     */
     public function _before(TestInterface $test)
     {
         $this->symfony = $this->getModule('Symfony');

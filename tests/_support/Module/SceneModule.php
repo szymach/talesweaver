@@ -10,14 +10,14 @@ use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Bus\QueryBus;
-use Talesweaver\Application\Command\Chapter\Create\Command;
-use Talesweaver\Application\Query\Chapter\ById;
-use Talesweaver\Domain\Book;
+use Talesweaver\Application\Command\Scene\Create\Command;
+use Talesweaver\Application\Query\Scene\ById;
 use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
-use Talesweaver\Tests\Query\Chapter\ByTitle;
+use Talesweaver\Tests\Query\Scene\ByTitle;
 
-class ChapterModule extends Module
+class SceneModule extends Module
 {
     /**
      * @var CommandBus
@@ -40,25 +40,25 @@ class ChapterModule extends Module
         $this->queryBus = $container->getService(QueryBus::class);
     }
 
-    public function haveCreatedAChapter(string $title, Book $book = null): Chapter
+    public function haveCreatedAScene(string $title, Chapter $chapter = null): Scene
     {
         $id = Uuid::uuid4();
-        $this->commandBus->dispatch(new Command($id, new ShortText($title), $book));
+        $this->commandBus->dispatch(new Command($id, new ShortText($title), $chapter));
 
-        $this->assertInstanceOf(Chapter::class, $this->queryBus->query(new ById($id)));
+        $this->assertInstanceOf(Scene::class, $this->queryBus->query(new ById($id)));
 
-        return $this->grabChapterByTitle($title);
+        return $this->grabSceneByTitle($title);
     }
 
-    public function grabChapterByTitle(string $title): Chapter
+    public function grabSceneByTitle(string $title): Scene
     {
         $chapter = $this->queryBus->query(new ByTitle(new ShortText($title)));
-        $this->assertInstanceOf(Chapter::class, $chapter);
+        $this->assertInstanceOf(Scene::class, $chapter);
 
         return $chapter;
     }
 
-    public function seeChapterHasBeenRemoved(UuidInterface $id): void
+    public function seeSceneHasBeenRemoved(UuidInterface $id): void
     {
         $this->assertNull($this->queryBus->query(new ById($id)));
     }

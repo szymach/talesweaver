@@ -88,11 +88,11 @@ class Author
 
     public function getActivationToken(): ?ActivationToken
     {
-        $codes = $this->activationTokens->filter(function (ActivationToken $code): bool {
+        $token = $this->activationTokens->filter(function (ActivationToken $code): bool {
             return $code->isValid();
-        });
+        })->first();
 
-        return false === $codes->isEmpty() ? $codes->first(): null;
+        return (true === $token instanceof ActivationToken) ? $token : null;
     }
 
     public function addPasswordResetToken(string $token): void

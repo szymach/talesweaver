@@ -28,6 +28,9 @@ class BookModule extends Module
      */
     private $queryBus;
 
+    /**
+     * phpcs:disable
+     */
     public function _before(TestInterface $test)
     {
         /* @var $container ContainerModule */
@@ -36,27 +39,20 @@ class BookModule extends Module
         $this->queryBus = $container->getService(QueryBus::class);
     }
 
-    public function haveCreatedABook(string $title): UuidInterface
+    public function haveCreatedABook(string $title): Book
     {
         $id = Uuid::uuid4();
         $this->commandBus->dispatch(new Command($id, new ShortText($title)));
 
-        $this->assertInstanceOf(Book::class, $this->queryBus->query(new ById($id)));
-
-        return $id;
+        return $this->grabBookByTitle($title);
     }
 
     public function grabBookByTitle(string $title): Book
     {
         $book = $this->queryBus->query(new ByTitle(new ShortText($title)));
-        $this->assertNotNull($book);
+        $this->assertInstanceOf(Book::class, $book);
 
         return $book;
-    }
-
-    public function seeBookHasBeenCreated(string $title): void
-    {
-        $this->assertNotNull($this->grabBookByTitle($title));
     }
 
     public function seeBookHasBeenRemoved(UuidInterface $id): void

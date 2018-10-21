@@ -11,7 +11,7 @@ class DeleteControllerCest
     public function delete(FunctionalTester $I)
     {
         $I->loginAsUser();
-        $chapterId = $I->haveCreatedAChapter('Tytuł nowego rozdziału');
+        $chapterId = $I->haveCreatedAChapter('Tytuł nowego rozdziału')->getId();
         $I->amOnPage('/pl/chapter/list');
         $I->canSeeNumberOfElements('tbody > tr', 1);
         $I->click('a[title="Usuń"]');
