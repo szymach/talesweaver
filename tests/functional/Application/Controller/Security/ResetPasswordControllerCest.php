@@ -9,70 +9,53 @@ use Talesweaver\Tests\Module\AuthorModule;
 
 class ResetPasswordControllerCest
 {
-    private const LOGIN_ROUTE = 'login';
-    private const REQUEST_ROUTE = 'password_reset_request';
-    private const RESET_ROUTE = 'password_reset_change';
-    private const REQUEST_FORM = 'form[name="reset_password_request"]';
-    private const CHANGE_FORM = 'form[name="reset_password_change"]';
-
-    private const EMAIL_FIELD = 'Email';
-    private const REQUEST_SUBMIT = 'Wyślij';
-    private const LOGIN = 'Logowanie';
-
-    private const FIRST_PASSWORD = 'Nowe hasło';
-    private const SECOND_PASSWORD = 'Powtórz nowe hasło';
-    private const CHANGE_SUBMIT = 'Zmień hasło';
-
-    private const PASSWORD_FIELD = 'Hasło';
-    private const NEW_PASSWORD = 'nowe_haslo_123';
-    private const LOGIN_SUBMIT = 'Zaloguj';
-    private const DASHBOARD_ROUTE = 'index';
-
     public function resetPasswordFormRequestView(FunctionalTester $I)
     {
-        $I->canSeeIAmOnRouteLocale(self::REQUEST_ROUTE);
+        $I->canSeeIAmOnRouteLocale('password_reset_request');
 
-        $I->seeElement(self::REQUEST_FORM);
-        $I->see(self::EMAIL_FIELD);
-        $I->see(self::REQUEST_SUBMIT);
-        $I->see(self::LOGIN);
+        $I->seeElement('form[name="reset_password_request"]');
+        $I->see('Email');
+        $I->see('Wyślij');
+        $I->see('Logowanie');
     }
 
     public function resetPasswordFormRequestSubmit(FunctionalTester $I)
     {
-        $I->canSeeIAmOnRouteLocale(self::REQUEST_ROUTE);
+        $I->getAuthor();
+        $I->canSeeIAmOnRouteLocale('password_reset_request');
 
-        $I->fillField(self::EMAIL_FIELD, (string) $I->getAuthor()->getEmail());
-        $I->click(self::REQUEST_SUBMIT);
-        $I->canSeeCurrentUrlEquals($I->createUrl(self::LOGIN_ROUTE));
+        $I->fillField('Email', AuthorModule::AUTHOR_EMAIL);
+        $I->click('Wyślij');
+        $I->canSeeCurrentUrlEquals('/pl/login');
         $I->canSeeAlert(
             'Jeżeli podany adres email był prawidłowy, przesłano na niego email'
             . ' z instrukcjami zmiany hasła.'
         );
 
+        /* @var $author Author */
         $author = $I->getAuthor();
         $I->canSeeResetPasswordTokenGenerated($author);
-        $I->canSeeIAmOnRouteLocale(self::RESET_ROUTE, [
+        $I->canSeeIAmOnRouteLocale('password_reset_change', [
             'code' => (string) $author->getPasswordResetToken()
         ]);
-        $I->seeElement(self::CHANGE_FORM);
-        $I->see(self::FIRST_PASSWORD);
-        $I->see(self::SECOND_PASSWORD);
-        $I->see(self::CHANGE_SUBMIT);
-        $I->see(self::LOGIN);
+        $I->seeElement('form[name="reset_password_change"]');
+        $I->see('Nowe hasło');
+        $I->see('Powtórz nowe hasło');
+        $I->see('Zmień hasło');
+        $I->see('Logowanie');
 
-        $I->fillField(self::FIRST_PASSWORD, self::NEW_PASSWORD);
-        $I->fillField(self::SECOND_PASSWORD, self::NEW_PASSWORD);
-        $I->click(self::CHANGE_SUBMIT);
-        $I->canSeeCurrentUrlEquals($I->createUrl(self::LOGIN_ROUTE));
+        $I->fillField('Nowe hasło', 'nowe_haslo_123');
+        $I->fillField('Powtórz nowe hasło', 'nowe_haslo_123');
+        $I->click('Zmień hasło');
+        $I->canSeeCurrentUrlEquals('/pl/login');
         $I->canSeeAlert(
             'Pomyślnie zmieniono hasło do konta. Możesz się teraz nim zalogować'
             . ' do aplikacji.'
         );
-        $I->fillField(self::EMAIL_FIELD, AuthorModule::AUTHOR_EMAIL);
-        $I->fillField(self::PASSWORD_FIELD, self::NEW_PASSWORD);
-        $I->click(self::LOGIN_SUBMIT);
+        $I->fillField('Email', AuthorModule::AUTHOR_EMAIL);
+        $I->fillField('Hasło', 'nowe_haslo_123');
+        $I->click('Zaloguj');
 
-        $I->canSeeCurrentUrlEquals($I->createUrl(self::DASHBOARD_ROUTE));
+        $I->canSeeCurrentUrlEquals('/pl');
     }
 }

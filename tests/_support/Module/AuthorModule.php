@@ -94,6 +94,18 @@ class AuthorModule extends Module
         return $author;
     }
 
+    public function seeNewAuthorHasBeenCreated(string $email): void
+    {
+        /* @var $author Author */
+        $author = $this->queryBus->query(new AuthorByEmail(new Email($email)));
+        $this->assertNotNull($author);
+        $this->assertFalse($author->isActive());
+
+        $activationToken = $author->getActivationToken();
+        $this->assertNotNull($activationToken);
+        $this->assertTrue($activationToken->isValid());
+    }
+
     public function canSeeResetPasswordTokenGenerated(Author $author):void
     {
         $this->assertNotNull(

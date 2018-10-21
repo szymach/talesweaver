@@ -9,71 +9,56 @@ use Talesweaver\Tests\Module\AuthorModule;
 
 class LoginControllerCest
 {
-    public const FORM_URL = '/pl/login';
-    public const DASHBOARD_URL = '/pl';
-    public const REGISTER_URL = '/pl/registration';
-    public const PASSWORD_RESET_URL = '/pl/reset-password/request';
-
-    public const FORM_SELECTOR = 'form';
-    public const EMAIL_FIELD = 'Email';
-    public const PASSWORD_FIELD = 'Hasło';
-    public const SUBMIT = 'Zaloguj';
-    public const REGISTER = 'Rejestracja';
-    public const PASSWORD_RESET = 'Resetowanie hasła';
-
-    public const NONEXISTANT_EMAIL = 'email@nieistnieje.pl';
-    public const INCORRECT_PASSWORD = 'zlehaslo123';
-
     public function loginFormView(FunctionalTester $I)
     {
-        $I->amOnPage(self::FORM_URL);
-        $I->seeElement(self::FORM_SELECTOR);
-        $I->see(self::EMAIL_FIELD);
-        $I->see(self::PASSWORD_FIELD);
-        $I->see(self::SUBMIT);
-        $I->see(self::REGISTER);
+        $I->amOnPage('/pl/login');
+        $I->seeElement('form');
+        $I->see('Email');
+        $I->see('Hasło');
+        $I->see('Zaloguj');
+        $I->see('Rejestracja');
 
-        $I->click(self::REGISTER);
-        $I->canSeeCurrentUrlEquals(self::REGISTER_URL);
+        $I->click('Rejestracja');
+        $I->canSeeCurrentUrlEquals('/pl/registration');
 
-        $I->amOnPage(self::FORM_URL);
-        $I->click(self::PASSWORD_RESET);
-        $I->canSeeCurrentUrlEquals(self::PASSWORD_RESET_URL);
+        $I->amOnPage('/pl/login');
+        $I->click('Resetowanie hasła');
+        $I->canSeeCurrentUrlEquals('/pl/reset-password/request');
     }
 
     public function correctLogin(FunctionalTester $I)
     {
         $I->getAuthor();
 
-        $I->amOnPage(self::FORM_URL);
-        $I->fillField(self::EMAIL_FIELD, AuthorModule::AUTHOR_EMAIL);
-        $I->fillField(self::PASSWORD_FIELD, AuthorModule::AUTHOR_PASSWORD);
-        $I->click(self::SUBMIT);
+        $I->amOnPage('/pl/login');
+        $I->fillField('Email', AuthorModule::AUTHOR_EMAIL);
+        $I->fillField('Hasło', AuthorModule::AUTHOR_PASSWORD);
+        $I->click('Zaloguj');
 
-        $I->canSeeCurrentUrlEquals(self::DASHBOARD_URL);
+        $I->canSeeCurrentUrlEquals('/pl');
     }
 
     public function incorrectLogin(FunctionalTester $I)
     {
-        $I->amOnPage(self::FORM_URL);
-        $I->fillField(self::EMAIL_FIELD, self::NONEXISTANT_EMAIL);
-        $I->fillField(self::PASSWORD_FIELD, AuthorModule::AUTHOR_PASSWORD);
-        $I->click(self::SUBMIT);
-        $I->canSeeCurrentUrlEquals(self::FORM_URL);
+        $I->amOnPage('/pl/login');
+        $I->fillField('Email', 'email@nieistnieje.pl');
+        $I->fillField('Hasło', AuthorModule::AUTHOR_PASSWORD);
+        $I->click('Zaloguj');
+        $I->canSeeCurrentUrlEquals('/pl/login');
         $I->seeErrorAlert('Użytkownik o podanej nazwie nie istnieje.');
 
         $I->getAuthor();
 
-        $I->amOnPage(self::FORM_URL);
-        $I->click(self::SUBMIT);
-        $I->canSeeCurrentUrlEquals(self::FORM_URL);
+        $I->amOnPage('/pl/login');
+        $I->click('Zaloguj');
+        $I->canSeeCurrentUrlEquals('/pl/login');
         $I->seeErrorAlert('Użytkownik o podanej nazwie nie istnieje.');
 
-        $I->amOnPage(self::FORM_URL);
-        $I->fillField(self::EMAIL_FIELD, AuthorModule::AUTHOR_EMAIL);
-        $I->fillField(self::PASSWORD_FIELD, self::INCORRECT_PASSWORD);
-        $I->click(self::SUBMIT);
-        $I->canSeeCurrentUrlEquals(self::FORM_URL);
+        $I->amOnPage('/pl/login');
+        $I->fillField('Email', AuthorModule::AUTHOR_EMAIL);
+        $I->fillField('Hasło', 'zlehaslo123');
+        $I->click('Zaloguj');
+        $I->canSeeCurrentUrlEquals('/pl/login');
         $I->seeErrorAlert('Nieprawidłowe dane.');
     }
 
@@ -81,11 +66,11 @@ class LoginControllerCest
     {
         $I->getAuthor(AuthorModule::AUTHOR_EMAIL, AuthorModule::AUTHOR_PASSWORD, false);
 
-        $I->amOnPage(self::FORM_URL);
-        $I->fillField(self::EMAIL_FIELD, AuthorModule::AUTHOR_EMAIL);
-        $I->fillField(self::PASSWORD_FIELD, AuthorModule::AUTHOR_PASSWORD);
-        $I->click(self::SUBMIT);
+        $I->amOnPage('/pl/login');
+        $I->fillField('Email', AuthorModule::AUTHOR_EMAIL);
+        $I->fillField('Hasło', AuthorModule::AUTHOR_PASSWORD);
+        $I->click('Zaloguj');
 
-        $I->canSeeCurrentUrlEquals(self::FORM_URL);
+        $I->canSeeCurrentUrlEquals('/pl/login');
     }
 }
