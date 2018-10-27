@@ -4,6 +4,7 @@ sudo: false
 cache:
     yarn: true
     directories:
+        - ~/.cache/Cypress
         - node_modules
         - vendor
 addons:

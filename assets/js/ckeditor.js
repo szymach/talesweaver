@@ -71,6 +71,10 @@ function bindAutosave(editor)
 
         const element = editor.element;
         const form = findAncestor(element, 'form');
+        if (false === hasClass(form, 'autosave')) {
+            return;
+        }
+
         const id = element.getAttribute('id');
         if (savesScheduled[id] || editor.data.get() === element.value) {
             return;
@@ -94,14 +98,12 @@ function bindAutosave(editor)
                     }
                 }
                 savesScheduled[id] = false;
-                window.clearTimeout(currentTimeout);
             };
             request.onerror = function () {
                 savesScheduled[id] = false;
-                window.clearTimeout(currentTimeout);
             };
             request.send(new FormData(form));
-        }, 36000);
+        }, 100);
     });
 }
 
@@ -127,6 +129,24 @@ function displayAlerts()
     };
 
     request.send();
+}
+
+function clearElementTimeout(id, htmlElement)
+{
+    window.clearTimeout(id);
+    htmlElement.removeAttribute('data-timeout');
+}
+
+function hasClass(element, className)
+{
+    let check;
+    if (element.classList) {
+        check = element.classList.contains(className);
+    } else {
+        check = new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className);
+    }
+
+    return check;
 }
 
 function findAncestor(el, sel)
