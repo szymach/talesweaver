@@ -87,13 +87,12 @@ class CreateController
 
     private function processFormDataAndRedirect(Scene $scene, DTO $dto): ResponseInterface
     {
-        $description = $dto->getDescription();
         $avatar = $dto->getAvatar();
         $this->commandBus->dispatch(new Command(
             $scene,
             Uuid::uuid4(),
             new ShortText($dto->getName()),
-            null !== $description ? new LongText($description) : null,
+            LongText::fromNullableString($dto->getDescription()),
             null !== $avatar ? new File($avatar) : null
         ));
 

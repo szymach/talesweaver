@@ -88,11 +88,10 @@ class EditController
 
     private function processFormDataAndRedirect(Book $book, DTO $dto): ResponseInterface
     {
-        $description = $dto->getDescription();
         $this->commandBus->dispatch(new Command(
             $book,
             new ShortText($dto->getTitle()),
-            null !== $description ? new LongText($description) : null
+            LongText::fromNullableString($dto->getDescription())
         ));
 
         return $this->responseFactory->redirectToRoute('book_edit', ['id' => $book->getId()]);

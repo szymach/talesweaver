@@ -105,11 +105,10 @@ class EditController
         Scene $scene,
         EditDTO $dto
     ): ResponseInterface {
-        $text = $dto->getText();
         $this->commandBus->dispatch(new Command(
             $scene,
             new ShortText($dto->getTitle()),
-            null !== $text ? new LongText($text) : null,
+            LongText::fromNullableString($dto->getText()),
             $dto->getChapter()
         ));
 

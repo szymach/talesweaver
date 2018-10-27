@@ -4,16 +4,31 @@ declare(strict_types=1);
 
 namespace Talesweaver\Domain\Tests\ValueObject;
 
-use Assert\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Talesweaver\Domain\ValueObject\LongText;
 
 class LongTextTest extends TestCase
 {
-    public function testEmptyString(): void
+    public function testNullValue(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The long text needs at least 1 character.');
-        new LongText('');
+        $this->assertNull(LongText::fromNullableString(null));
+    }
+
+    public function testEmptyString()
+    {
+        $this->assertNull(LongText::fromNullableString('  '));
+    }
+
+    public function testEmptyHtmlString()
+    {
+        $this->assertNull(LongText::fromNullableString(
+            '<p> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>'
+        ));
+    }
+
+    public function testSuccessfullCreation()
+    {
+        $longText = LongText::fromNullableString('some text');
+        $this->assertEquals('some text', (string) $longText);
     }
 }

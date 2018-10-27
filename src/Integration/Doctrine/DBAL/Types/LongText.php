@@ -30,12 +30,12 @@ class LongText extends Type
         }
 
         try {
-            $emailAddress = new LongTextValueObject($value);
+            $longText = LongTextValueObject::fromNullableString($value);
         } catch (InvalidArgumentException $e) {
             throw ConversionException::conversionFailed($value, self::NAME);
         }
 
-        return $emailAddress;
+        return $longText;
     }
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
@@ -49,12 +49,12 @@ class LongText extends Type
         }
 
         try {
-            $emailAddress = new LongTextValueObject($value);
+            $longText = LongTextValueObject::fromNullableString($value);
         } catch (InvalidArgumentException $e) {
             throw ConversionException::conversionFailed($value, self::NAME);
         }
 
-        return (string) $emailAddress;
+        return (string) $longText;
     }
 
     public function getName(): string
