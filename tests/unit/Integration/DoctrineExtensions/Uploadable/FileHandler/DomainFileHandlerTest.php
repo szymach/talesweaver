@@ -60,7 +60,7 @@ class DomainFileHandlerTest extends Unit
         $handlerNotSupporting->expects($this->never())->method('getName');
         $handlerNotSupporting->expects($this->never())->method('getContent');
 
-        $domainFile = new File(new SplTempFileObject());
+        $domainFile = File::fromNullableValue(new SplTempFileObject());
         $handler = new DomainFileHandler([$handlerNotSupporting, $handlerSupporting]);
         $this->assertEquals('file name', $handler->getName($domainFile));
         $this->assertEquals('file contents', $handler->getContent($domainFile));
@@ -79,7 +79,7 @@ class DomainFileHandlerTest extends Unit
         ;
 
         $handler = new DomainFileHandler([$handlerNotSupporting]);
-        $handler->getContent(new File(new SplTempFileObject()));
+        $handler->getContent(File::fromNullableValue(new SplTempFileObject()));
     }
 
     public function provideUnsupportedClasses(): array

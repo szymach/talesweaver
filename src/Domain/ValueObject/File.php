@@ -11,13 +11,22 @@ class File
      */
     private $value;
 
-    public function __construct(object $value)
+    public static function fromNullableValue(?object $value): ?self
     {
-        $this->value = $value;
+        if (null === $value) {
+            return null;
+        }
+
+        return new self($value);
     }
 
     public function getValue(): object
     {
         return $this->value;
+    }
+
+    private function __construct(object $value)
+    {
+        $this->value = $value;
     }
 }

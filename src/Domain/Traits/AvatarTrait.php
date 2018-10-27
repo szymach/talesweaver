@@ -22,7 +22,7 @@ trait AvatarTrait
     public function getAvatar(): ?File
     {
         if (null !== $this->avatar && false === $this->avatar instanceof File) {
-            $this->avatar = new File($this->avatar);
+            $this->avatar = File::fromNullableValue($this->avatar);
         }
 
         return $this->avatar;

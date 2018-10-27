@@ -26,7 +26,7 @@ class ItemTest extends TestCase
             $this->createMock(UuidInterface::class),
             $scene,
             new ShortText('Item properly created'),
-            new LongText('Item description'),
+            longText::fromNullableString('Item description'),
             null,
             $this->createMock(Author::class)
         );

@@ -26,7 +26,7 @@ class CharacterTest extends TestCase
             $this->createMock(UuidInterface::class),
             $scene,
             new ShortText('Character properly created'),
-            new LongText('Character description'),
+            LongText::fromNullableString('Character description'),
             null,
             $this->createMock(Author::class)
         );

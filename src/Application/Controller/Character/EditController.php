@@ -94,12 +94,11 @@ class EditController
 
     private function processFormDataAndRedirect(Character $character, DTO $dto): ResponseInterface
     {
-        $avatar = $dto->getAvatar();
         $this->commandBus->dispatch(new Command(
             $character,
             new ShortText($dto->getName()),
             LongText::fromNullableString($dto->getDescription()),
-            null !== $avatar ? new File($avatar) : null
+            File::fromNullableValue($dto->getAvatar())
         ));
 
         return $this->responseFactory->success();

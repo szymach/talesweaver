@@ -26,7 +26,7 @@ class LocationTest extends TestCase
             $this->createMock(UuidInterface::class),
             $scene,
             new ShortText('Location properly created'),
-            new LongText('Location description'),
+            longText::fromNullableString('Location description'),
             null,
             $this->createMock(Author::class)
         );
