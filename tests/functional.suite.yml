@@ -3,10 +3,10 @@ modules:
     enabled:
         - Asserts
         - Symfony:
-            app_path: 'src/Integration'
+            app_path: 'src/Integration/Symfony'
             cache_router: true
             environment: 'test'
-            kernel_class: 'Talesweaver\Integration\Kernel'
+            kernel_class: 'Talesweaver\Integration\Symfony\Kernel'
             var_path: 'var'
         - Doctrine2:
             depends: Symfony

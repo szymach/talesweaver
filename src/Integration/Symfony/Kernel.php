@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Integration;
+namespace Talesweaver\Integration\Symfony;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
