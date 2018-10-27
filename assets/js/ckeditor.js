@@ -77,7 +77,7 @@ function bindAutosave(editor)
         }
 
         const url = form.getAttribute('action') ? form.getAttribute('action') : window.location.href;
-        window.setTimeout(function () {
+        const currentTimeout = window.setTimeout(function () {
             element.value = editor.data.get();
             savesScheduled[id] = true;
             const request = new XMLHttpRequest();
@@ -94,9 +94,11 @@ function bindAutosave(editor)
                     }
                 }
                 savesScheduled[id] = false;
+                window.clearTimeout(currentTimeout);
             };
             request.onerror = function () {
                 savesScheduled[id] = false;
+                window.clearTimeout(currentTimeout);
             };
             request.send(new FormData(form));
         }, 36000);
