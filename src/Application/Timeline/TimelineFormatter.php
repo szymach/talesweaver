@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Application\Timeline;
 
 use Ramsey\Uuid\UuidInterface;
+use ReflectionClass;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Event\Meeting;
@@ -40,10 +41,10 @@ abstract class TimelineFormatter
         $this->htmlContent = $htmlContent;
     }
 
-    public function getTimeline(UuidInterface $id, string $class): array
+    public function getTimeline(UuidInterface $id): array
     {
         return array_merge(
-            [sprintf('event.timeline.creation.%s', $class) => $this->getCreation($this->scenes, $id)],
+            ['event.timeline.creation' => $this->getCreation($this->scenes, $id)],
             $this->formatEvents($this->events->findInEventsById($id))
         );
     }
@@ -55,11 +56,11 @@ abstract class TimelineFormatter
         return array_reduce($events, function (array $initial, Event $event): array {
             $model = $event->getModel();
             $modelClass = get_class($model);
-            $fqcn = explode('\\', $modelClass);
-            $initial[sprintf('event.%s.name', $modelClass)] = [
+            $shortClassName = (new ReflectionClass($model))->getShortName();
+            $initial["event.{$modelClass}.name"] = [
                 self::EVENT_ICONS[$modelClass] => $this->htmlContent->fromTemplate(
-                    sprintf('scene/events/%s.html.twig', mb_strtolower(end($fqcn))),
-                    ['model' => $model]
+                    sprintf('scene/events/models/%s.html.twig', mb_strtolower($shortClassName)),
+                    ['name' => $event->getName(), 'model' => $model]
                 )
             ];
 

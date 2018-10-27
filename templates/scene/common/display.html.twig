@@ -2,26 +2,30 @@
     <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'modal.close'|trans }}">
         <span aria-hidden="true">&times;</span>
     </button>
-    <h4 class="modal-title">{{ character.name }}</h4>
+    <h4 class="modal-title">{{ view.name }}</h4>
 </div>
 <div class="modal-body">
     <div class="container-fluid">
-        <div class="row">
-            {% if character.avatar %}
-                <div class="col-xs-12 col-md-6">
-                    <img class="img-responsive center-block" width="300" src="{{ fsi_file_url(character.avatar.value) }}" />
-                </div>
-            {% endif %}
-            <div class="col-xs-12{% if character.avatar %} col-md-6{% endif %}">
-                {{ character.description|raw }}
-            </div>
-        </div>
         <div class="row">
             {% for name, event in timeline %}
                 <div class="col-xs-12">
                     <b><i class="{{ event|keys|first }}"></i> {{ name|trans }}</b> {{ event|first|raw }}
                 </div>
             {% endfor %}
+        </div>
+        <div class="row">
+            {% if view.avatar %}
+                <div class="col-xs-12 col-md-6">
+                    <img class="img-responsive center-block" width="300" src="{{ fsi_file_url(view.avatar.value) }}" />
+                </div>
+            {% endif %}
+            {% if view.description is not empty %}
+                <div class="col-xs-12{% if view.avatar %} col-md-6{% endif %}">
+                    <section class="scene-item-description">
+                        {{ view.description|raw }}
+                    </section>
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>

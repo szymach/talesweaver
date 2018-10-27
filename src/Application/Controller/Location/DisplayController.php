@@ -43,9 +43,9 @@ class DisplayController
     {
         $location = $this->locationResolver->fromRequest($request);
         return $this->responseFactory->display(
-            'scene\locations\display.html.twig',
+            'scene\common\display.html.twig',
             [
-                'location' => $location,
+                'view' => $location,
                 'timeline' => $this->queryBus->query(
                     new ForEntity($location->getId(), Location::class)
                 )

@@ -43,9 +43,9 @@ class DisplayController
     {
         $character = $this->characterResolver->fromRequest($request);
         return $this->responseFactory->display(
-            'scene\characters\display.html.twig',
+            'scene\common\display.html.twig',
             [
-                'character' => $character,
+                'view' => $character,
                 'timeline' => $this->queryBus->query(
                     new ForEntity($character->getId(), Character::class)
                 )

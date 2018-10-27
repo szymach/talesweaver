@@ -45,18 +45,16 @@ class ForEntityHandler implements QueryHandlerInterface
         $id = $query->getId();
         switch ($query->getClass()) {
             case Character::class:
-                $result = $this->characterTimeline->getTimeline($id, Character::class);
+                $result = $this->characterTimeline->getTimeline($id);
                 break;
             case Item::class:
-                $result = $this->itemTimeline->getTimeline($id, Item::class);
+                $result = $this->itemTimeline->getTimeline($id);
                 break;
             case Location::class:
-                $result = $this->locationTimeline->getTimeline($id, Location::class);
+                $result = $this->locationTimeline->getTimeline($id);
                 break;
             default:
-                throw new RuntimeException(
-                    sprintf('No timeline for entity "%s"', $query->getClass())
-                );
+                throw new RuntimeException("No timeline for entity \"{$query->getClass()}\"");
         }
 
         return $result;
