@@ -85,7 +85,7 @@ function bindAutosave(editor)
             request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             request.responseType = 'json';
             request.onload = function () {
-                if (request.status >= 200 && request.status < 400) {
+                if (request.status == 200) {
                     displayAlerts();
                 } else {
                     let response = request.response;
@@ -99,7 +99,7 @@ function bindAutosave(editor)
                 savesScheduled[id] = false;
             };
             request.send(new FormData(form));
-        }, 1200);
+        }, 36000);
     });
 }
 

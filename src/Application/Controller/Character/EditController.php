@@ -94,7 +94,7 @@ class EditController
 
     private function processFormDataAndRedirect(Character $character, DTO $dto): ResponseInterface
     {
-        $description = $dto->getName();
+        $description = $dto->getDescription();
         $avatar = $dto->getAvatar();
         $this->commandBus->dispatch(new Command(
             $character,
