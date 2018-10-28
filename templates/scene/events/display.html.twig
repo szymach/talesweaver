@@ -8,7 +8,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
-                {% include event.model|eventTemplateName with { model: event.model } only %}
+                {% include event.model|eventTemplateName with { name: event.name, model: event.model } only %}
             </div>
         </div>
     </div>

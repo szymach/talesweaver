@@ -17,7 +17,7 @@ class EventsExtension extends AbstractExtension
             new TwigFilter('eventTemplateName', function (JsonSerializable $model): string {
                 $fqcn = explode('\\', get_class($model));
 
-                return sprintf('scene/events/%s.html.twig', mb_strtolower(end($fqcn)));
+                return sprintf('scene/events/models/%s.html.twig', mb_strtolower(end($fqcn)));
             })
         ];
     }
