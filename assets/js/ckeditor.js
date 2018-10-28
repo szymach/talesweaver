@@ -21,7 +21,7 @@ ready(function () {
 function initializeCKEditor(elements)
 {
     if (typeof elements === 'undefined'
-        || elements === null
+        || null === elements
         || 0 === elements.length
     ) {
         return;
@@ -129,12 +129,6 @@ function displayAlerts()
     };
 
     request.send();
-}
-
-function clearElementTimeout(id, htmlElement)
-{
-    window.clearTimeout(id);
-    htmlElement.removeAttribute('data-timeout');
 }
 
 function hasClass(element, className)
