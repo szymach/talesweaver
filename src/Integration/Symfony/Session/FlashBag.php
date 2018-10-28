@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Session;
 
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBag as SymfonyFlashBag;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface;
 use Talesweaver\Application\Session\Flash;
 use Talesweaver\Application\Session\FlashBag as ApplicationFlashBag;
+use function count;
 
 class FlashBag implements ApplicationFlashBag
 {
@@ -21,6 +23,11 @@ class FlashBag implements ApplicationFlashBag
      */
     private $translator;
 
+    /**
+     * @var SymfonyFlashBag|null
+     */
+    private $flashBag;
+
     public function __construct(Session $session, TranslatorInterface $translator)
     {
         $this->session = $session;
@@ -29,9 +36,32 @@ class FlashBag implements ApplicationFlashBag
 
     public function add(Flash $flash): void
     {
-        $this->session->getFlashBag()->add(
-            $flash->getType(),
-            $this->translator->trans($flash->getKey(), $flash->getParameters())
+        $message = $this->translator->trans($flash->getKey(), $flash->getParameters());
+        if (true === $this->hasEqualMessage($flash->getType(), $message)) {
+            return;
+        }
+
+        $this->getFlashBag()->add($flash->getType(), $message);
+    }
+
+    private function hasEqualMessage(string $type, string $message): bool
+    {
+        $equals = array_filter(
+            $this->getFlashBag()->peek($type),
+            function (string $addedMessage) use ($message): bool {
+                return $message === $addedMessage;
+            }
         );
+
+        return 0 !== count($equals);
+    }
+
+    private function getFlashBag(): SymfonyFlashBag
+    {
+        if (null === $this->flashBag) {
+            $this->flashBag = $this->session->getFlashBag();
+        }
+
+        return $this->flashBag;
     }
 }
