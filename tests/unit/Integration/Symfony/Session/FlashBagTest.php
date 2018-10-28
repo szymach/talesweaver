@@ -6,7 +6,7 @@ namespace Talesweaver\Tests\Integration\Symfony\Session;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBag as SymfonyFlashBag;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface;
 use Talesweaver\Application\Session\Flash;
@@ -20,7 +20,7 @@ class FlashBagTest extends TestCase
     private $applicationFlashBag;
 
     /**
-     * @var SymfonyFlashBag|MockObject
+     * @var FlashBagInterface|MockObject
      */
     private $flashBag;
 
@@ -78,7 +78,7 @@ class FlashBagTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->flashBag = $this->createMock(SymfonyFlashBag::class);
+        $this->flashBag = $this->createMock(FlashBagInterface::class);
         $this->translator = $this->createMock(TranslatorInterface::class);
 
         $session = $this->createMock(Session::class);

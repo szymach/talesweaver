@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Session;
 
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBag as SymfonyFlashBag;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface;
 use Talesweaver\Application\Session\Flash;
 use Talesweaver\Application\Session\FlashBag as ApplicationFlashBag;
-use function count;
 
 class FlashBag implements ApplicationFlashBag
 {
@@ -24,7 +23,7 @@ class FlashBag implements ApplicationFlashBag
     private $translator;
 
     /**
-     * @var SymfonyFlashBag|null
+     * @var FlashBagInterface|null
      */
     private $flashBag;
 
@@ -56,7 +55,7 @@ class FlashBag implements ApplicationFlashBag
         return 0 !== count($equals);
     }
 
-    private function getFlashBag(): SymfonyFlashBag
+    private function getFlashBag(): FlashBagInterface
     {
         if (null === $this->flashBag) {
             $this->flashBag = $this->session->getFlashBag();
