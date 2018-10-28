@@ -1,4 +1,4 @@
-<ul class="js-ajax-pagination" data-list-url="{{ path('character_list', { id: sceneId, page: characters.currentPage }) }}">
+<ul class="characters js-ajax-pagination" data-list-url="{{ path('character_list', { id: sceneId, page: characters.currentPage }) }}">
     {% if characters|length > 0 %}
         {% for character in characters %}
             <li>

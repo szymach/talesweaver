@@ -81,7 +81,7 @@ function bindAutosave(editor)
         }
 
         const url = form.getAttribute('action') ? form.getAttribute('action') : window.location.href;
-        const currentTimeout = window.setTimeout(function () {
+        window.setTimeout(function () {
             element.value = editor.data.get();
             savesScheduled[id] = true;
             const request = new XMLHttpRequest();
@@ -89,7 +89,7 @@ function bindAutosave(editor)
             request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             request.responseType = 'json';
             request.onload = function () {
-                if (request.status == 200) {
+                if (request.status >= 200 && request.status < 400) {
                     displayAlerts();
                 } else {
                     let response = request.response;
@@ -103,7 +103,7 @@ function bindAutosave(editor)
                 savesScheduled[id] = false;
             };
             request.send(new FormData(form));
-        }, 100);
+        }, 30000000);
     });
 }
 

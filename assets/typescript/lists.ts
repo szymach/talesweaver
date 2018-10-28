@@ -1,19 +1,6 @@
 import {displayAjaxContainerWithContent, getAjaxContainer, clearAjaxContainer} from './ajax-container';
 import {displayAlerts} from './alerts';
 
-export function refreshList($listTable : JQuery<HTMLElement>) : void
-{
-    closeSublists();
-    $.ajax({
-        method: "GET",
-        url: $listTable.data('list-url'),
-        dataType: "json",
-        success: function(response : any) : void {
-            $listTable.replaceWith(response.list);
-        }
-    });
-}
-
 export function closeSublists() : void
 {
     const $openedLists : JQuery<HTMLElement> = $('.side-menu .js-loaded');
@@ -82,7 +69,6 @@ $('main').on('click', '.js-delete', function (event : JQuery.Event) : void {
                 url: $this.data('delete-url'),
                 dataType: "json",
                 success: function() : void {
-                    refreshList($this.parents('.js-list'));
                     displayAlerts();
                 },
                 error: function() : void {
@@ -140,7 +126,6 @@ $('main').on('click', '.js-list-action', function (event : JQuery.Event) : void 
         dataType: "json",
         success: function() : void {
             clearAjaxContainer();
-            refreshList($($this.data('list-id')));
             displayAlerts();
         }
     });
