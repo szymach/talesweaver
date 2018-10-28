@@ -26,7 +26,7 @@ class FormHandler implements FormHandlerInterface
 
     public function isSubmissionValid(): bool
     {
-        return true == $this->form->isSubmitted() && true === $this->form->isValid();
+        return true === $this->form->isSubmitted() && true === $this->form->isValid();
     }
 
     public function displayErrors(): bool

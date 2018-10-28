@@ -84,27 +84,27 @@ class EditController
             ['sceneId' => $scene->getId()]
         );
 
-        if (true === is_xml_http_request($request)) {
-            return $this->apiResponseFactory->form(
+        $isAjax = is_xml_http_request($request);
+        if (true === $formHandler->isSubmissionValid()) {
+            $response = $this->processFormDataAndRedirect($scene, $formHandler->getData(), $isAjax);
+        } elseif (true === $formHandler->displayErrors() && true === $isAjax) {
+            $response = $this->apiResponseFactory->form(
                 'scene/form/editForm.html.twig',
                 ['form' => $formHandler->createView()],
-                $formHandler->displayErrors()
+                true
             );
-        } elseif (true === $formHandler->isSubmissionValid()) {
-            return $this->processFormDataAndRedirect($request, $scene, $formHandler->getData());
+        } else {
+            $response = $this->responseFactory->fromTemplate(
+                'scene/editForm.html.twig',
+                $this->getViewParameters($request, $scene, $formHandler)
+            );
         }
 
-        return $this->responseFactory->fromTemplate(
-            'scene/editForm.html.twig',
-            $this->getViewParameters($request, $scene, $formHandler)
-        );
+        return $response;
     }
 
-    private function processFormDataAndRedirect(
-        ServerRequestInterface $request,
-        Scene $scene,
-        EditDTO $dto
-    ): ResponseInterface {
+    private function processFormDataAndRedirect(Scene $scene, EditDTO $dto, bool $isAjax): ResponseInterface
+    {
         $this->commandBus->dispatch(new Command(
             $scene,
             new ShortText($dto->getTitle()),
@@ -112,7 +112,7 @@ class EditController
             $dto->getChapter()
         ));
 
-        return true === in_array('XMLHttpRequest', $request->getHeader('X-Requested-With'), true)
+        return true === $isAjax
             ? $this->apiResponseFactory->success()
             : $this->responseFactory->redirectToRoute('scene_edit', ['id' => $scene->getId()])
         ;
