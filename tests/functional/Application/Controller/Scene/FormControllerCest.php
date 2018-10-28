@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Application\Controller\Scene;
 
+use Talesweaver\Domain\Scene;
 use Talesweaver\Tests\FunctionalTester;
 
 class FormControllerCest
@@ -46,6 +47,29 @@ class FormControllerCest
         $I->seeCurrentUrlEquals("/pl/scene/edit/{$sceneId}");
         $I->seeInTitle('Zmieniony tytuł sceny');
         $I->canSeeAlert('Zapisano zmiany w scenie.');
+    }
+
+    public function ajaxEditSubmit(FunctionalTester $I): void
+    {
+        $I->loginAsUser();
+        /* @var $scene Scene */
+        $sceneId = $I->haveCreatedAScene('Scena')->getId()->toString();
+        $I->amOnPage("/pl/scene/edit/{$sceneId}");
+        $I->haveHttpHeader('X-Requested-With', 'XMLHttpRequest');
+        $I->sendPOST("/pl/scene/edit/{$sceneId}", [
+            'edit' => [
+                'title' => 'Scena edytowana',
+                'text' => 'Opis sceny',
+                'chapter' => null,
+                '_token' => $I->grabValueFrom('#edit__token')
+            ]
+        ]);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson([]);
+
+        $updatedScene = $I->grabSceneByTitle('Scena edytowana');
+        $I->assertEquals('Scena edytowana', $updatedScene->getTitle());
+        $I->assertEquals('Opis sceny', $updatedScene->getText());
     }
 
     public function nextSceneForm(FunctionalTester $I): void

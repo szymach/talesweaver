@@ -8,6 +8,8 @@ modules:
             environment: 'test'
             kernel_class: 'Talesweaver\Integration\Symfony\Kernel'
             var_path: 'var'
+        - REST:
+           depends: Symfony
         - Doctrine2:
             depends: Symfony
         - Talesweaver\Tests\Module\ContainerModule

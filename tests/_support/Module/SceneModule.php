@@ -49,10 +49,10 @@ class SceneModule extends Module
 
     public function grabSceneByTitle(string $title): Scene
     {
-        $chapter = $this->queryBus->query(new ByTitle(new ShortText($title)));
-        $this->assertInstanceOf(Scene::class, $chapter);
+        $scene = $this->queryBus->query(new ByTitle(new ShortText($title)));
+        $this->assertInstanceOf(Scene::class, $scene);
 
-        return $chapter;
+        return $scene;
     }
 
     public function seeSceneHasBeenRemoved(UuidInterface $id): void
