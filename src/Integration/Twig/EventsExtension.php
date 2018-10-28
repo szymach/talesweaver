@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Twig;
 
 use JsonSerializable;
+use ReflectionClass;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
-use function mb_strtolower;
 
 class EventsExtension extends AbstractExtension
 {
@@ -15,9 +15,10 @@ class EventsExtension extends AbstractExtension
     {
         return [
             new TwigFilter('eventTemplateName', function (JsonSerializable $model): string {
-                $fqcn = explode('\\', get_class($model));
-
-                return sprintf('scene/events/models/%s.html.twig', mb_strtolower(end($fqcn)));
+                return sprintf(
+                    'scene/events/models/%s.html.twig',
+                    mb_strtolower((new ReflectionClass($model))->getShortName())
+                );
             })
         ];
     }
