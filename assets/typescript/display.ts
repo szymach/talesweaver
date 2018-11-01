@@ -11,7 +11,7 @@ $('main').on('click', '.js-display', function (event : JQuery.Event) : void {
     event.stopPropagation();
 
     closeMobileSublists();
-    const $this : JQuery<HTMLElement> = $(event.currentTarget);
+    const $this : JQuery<HTMLElement> = $(this);
     $.ajax({
         method: "GET",
         url: $this.data('display-url'),
@@ -30,7 +30,7 @@ $('main').on('click', '.js-display', function (event : JQuery.Event) : void {
 });
 
 $('#modal-display').on('hidden.bs.modal', function (event : JQuery.Event) : void {
-    const $this : JQuery<HTMLElement> = $(event.currentTarget)
+    const $this : JQuery<HTMLElement> = $(this)
     const classToRemove : string = $this.data('class-to-remove');
     if (typeof classToRemove !== 'undefined') {
         $this.find('.modal-dialog').removeClass(classToRemove);

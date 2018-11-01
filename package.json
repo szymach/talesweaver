@@ -18,8 +18,7 @@
     "@ckeditor/ckeditor5-theme-lark": "^11.0.0",
     "@types/bluebird": "^3.5.20",
     "@types/bootstrap": "^3.3.37",
-    "@types/jquery": "3.3.2",
-    "ajv": "5.0.0",
+    "@types/jquery": "^3.3",
     "autoprefixer": "^6.6.1",
     "awesome-typescript-loader": "^5.2",
     "bootstrap-loader": "^3.0",
@@ -45,7 +44,7 @@
     "source-map-loader": "^0.2.3",
     "style-loader": "^0.18.2",
     "terser-webpack-plugin": "^1.1.0",
-    "typescript": "^2.7.1",
+    "typescript": "^3.0",
     "url-loader": "^1.1",
     "webpack": "^4.23",
     "webpack-sources": "^1.3"

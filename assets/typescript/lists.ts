@@ -1,4 +1,4 @@
-import {displayAjaxContainerWithContent, getAjaxContainer, clearAjaxContainer} from './ajax-container';
+import {displayAjaxContainerWithContent, clearAjaxContainer} from './ajax-container';
 import {displayAlerts} from './alerts';
 
 export function closeSublists() : void
@@ -27,7 +27,7 @@ $(window).on('resize', function () : void {
 });
 
 $('main').on('click', '.js-list-toggle', function (event : JQuery.Event) : void {
-    const $this : JQuery<HTMLElement> = $(event.currentTarget);
+    const $this : JQuery<HTMLElement> = $(this);
     const $container : JQuery<HTMLElement> = $this.parents('li').first().find('.js-list-container');
     const $containerWrapper = $container.parent();
     const wasOpened : boolean = $this.hasClass('js-list-toggled');
@@ -58,7 +58,7 @@ $('main').on('click', '.js-delete', function (event : JQuery.Event) : void {
     event.preventDefault();
     event.stopPropagation();
 
-    const $this : JQuery<HTMLElement> = $(event.currentTarget);
+    const $this : JQuery<HTMLElement> = $(this);
     $('#modal-delete').modal();
     $('#modal-confirm').off('click').on('click', function() {
         $('#modal-delete').modal('hide');
@@ -102,7 +102,7 @@ $('main').on('click', '.js-ajax-pagination+.pagination a', function (event : JQu
     event.preventDefault();
     event.stopPropagation();
 
-    const $this : JQuery<HTMLElement> = $(event.currentTarget);
+    const $this : JQuery<HTMLElement> = $(this);
     $.ajax({
         method: "GET",
         url: $this.attr('href'),
@@ -119,7 +119,7 @@ $('main').on('click', '.js-list-action', function (event : JQuery.Event) : void 
     event.stopPropagation();
 
     closeSublists();
-    const $this : JQuery<HTMLElement> = $(event.currentTarget);
+    const $this : JQuery<HTMLElement> = $(this);
     $.ajax({
         method: "GET",
         url: $this.data('action-url'),
