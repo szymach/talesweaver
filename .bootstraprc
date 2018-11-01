@@ -15,7 +15,7 @@ scripts:
     tab: false
     tooltip: false
     transition: true
-styleLoaders: ['style-loader', 'css-loader', 'sass-loader']
+styleLoaders: ['css-loader', 'sass-loader']
 extractStyles: true
 styles:
     # Mixins
