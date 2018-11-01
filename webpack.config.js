@@ -18,10 +18,11 @@ module.exports = {
         ],
         ckeditor: ["./assets/scss/ckeditor.scss", "./assets/js/ckeditor.js"]
     },
-    devtool: "source-map",
+    devtool: 'cheap-module-eval-source-map',
     output: {
         path: path.resolve(__dirname, 'public/assets'),
-        filename: '[name].js'
+        filename: '[name].js',
+        pathinfo: false
     },
     resolve: {
         extensions: [ '.js', ".ts" ],
@@ -47,32 +48,14 @@ module.exports = {
             }),
             new TerserPlugin({
                 parallel: true,
-                sourceMap: true,
                 cache: true,
                 terserOptions: {
                     mangle: false,
                     warnings: false,
-                    ecma: 6,
-                    sourceMap: true
+                    ecma: 6
                 }
             })
-        ],
-        splitChunks: {
-            cacheGroups: {
-                js: {
-                    test: /\.js$/,
-                    name: 'common',
-                    chunks: "all",
-                    minChunks: 2,
-                },
-                css: {
-                    test: /\.(scss|css)$/,
-                    name: 'common',
-                    chunks: 'all',
-                    minChunks: 2,
-                }
-            }
-        },
+        ]
     },
     module: {
         rules: [
@@ -84,18 +67,10 @@ module.exports = {
                     {
                         loader: 'css-loader',
                         options: {
-                            sourceMap: true,
                             importLoaders: 2
                         }
                     },
-                    {
-                        loader: 'postcss-loader',
-                        options: { sourceMap: true }
-                    },
-                    {
-                        loader: 'sass-loader',
-                        options: { sourceMap: true }
-                    }
+                    'sass-loader'
                 ]
             },
             {
@@ -107,7 +82,6 @@ module.exports = {
                 exclude: [path.resolve(__dirname, "node_modules/@ckeditor")],
                 use: [ 'file-loader' ]
             },
-            { test: /bootstrap-sass\/assets\/javascripts\// },
             { test: /ckeditor5-[^/]+\/theme\/icons\/[^/]+\.svg$/, use: [ 'raw-loader' ] },
             {
                 test: /ckeditor5-[^/]+\/theme\/[\w-/]+\.css$/,
@@ -119,13 +93,27 @@ module.exports = {
                         options: styles.getPostCssConfig( {
                             themeImporter: {
                                 themePath: require.resolve( '@ckeditor/ckeditor5-theme-lark' )
-                            },
-                            minify: true
+                            }
                         } )
                     }
                 ]
             }
         ]
     },
-    performance: { hints: false }
+    performance: { hints: false },
+    stats: {
+        assets: false,
+        cachedAssets: false,
+        builtAt: false,
+        cached: false,
+        children: false,
+        chunks: true,
+        chunkGroups: false,
+        chunkModules: false,
+        modules: false,
+        moduleTrace: false,
+        providedExports: false,
+        reasons: false,
+        timings: false
+    }
 };
