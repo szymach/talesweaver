@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Domain\Entity;
 
+use Codeception\Test\Unit;
 use DomainException;
-use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-class ItemTest extends TestCase
+class ItemTest extends Unit
 {
     public function testProperItemCreation()
     {
@@ -106,5 +105,35 @@ class ItemTest extends TestCase
             $this->createMock(Author::class)
         );
         $item->addScene($sceneWithADifferentBook);
+    }
+
+    public function testNotRemovingFromOnlyScene(): void
+    {
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage(
+            'Cannot remove item "item id" from scene "scene 1", because it is it\'s only scene!'
+        );
+
+        $chapter = $this->createMock(Chapter::class);
+
+        $scene1 = $this->makeEmpty(Scene::class, [
+            'getId' => $this->makeEmpty(UuidInterface::class, ['toString' => 'scene 1']),
+            'getChapter' => $chapter
+        ]);
+        $scene2 = $this->makeEmpty(Scene::class, ['getChapter' => $chapter]);
+
+        $item = new Item(
+            $this->makeEmpty(UuidInterface::class, ['toString' => 'item id']),
+            $scene1,
+            new ShortText('Item'),
+            null,
+            null,
+            $this->createMock(Author::class)
+        );
+
+        $item->addScene($scene2);
+
+        $item->removeScene($scene2);
+        $item->removeScene($scene1);
     }
 }

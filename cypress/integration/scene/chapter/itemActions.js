@@ -6,6 +6,14 @@ describe('Item sidemenu actions', () => {
         cy.get('.side-menu ul li').contains('Przedmioty').parents('li').first().as('items');
     });
 
+    it('asserts item with one scene cannot be removed from it', () => {
+        cy.get('@items').within(() => {
+            cy.get('.js-list-toggle').click();
+        }).then(() => {
+            cy.contains(/^Przedmiot 1$/).next().find('.js-list-delete.js-delete.btn-warning').should('not.be.visible')
+        });
+    });
+
     it('adds an item from another scene and removes it', () => {
         cy.get('@items').within(() => {
             cy.get('.js-load-sublist').click();
