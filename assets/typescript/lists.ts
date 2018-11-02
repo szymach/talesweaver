@@ -63,6 +63,7 @@ $('main').on('click', '.js-delete', function (event : JQuery.Event) : void {
     $('#modal-confirm').off('click').on('click', function() {
         $('#modal-delete').modal('hide');
         if ($this.hasClass('js-list-delete')) {
+            closeSublists();
             clearAjaxContainer();
             $.ajax({
                 method: "GET",

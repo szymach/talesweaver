@@ -37,9 +37,18 @@ table:not(.dashboard) {
     position: fixed;
     text-align: center;
     z-index: 100;
-    top: 0;
+    bottom: 0;
     left: 0;
     right: 0;
+    margin-bottom: 0;
+
+    @media (min-width: $screen-md-min) {
+        min-width: 400px;
+        max-width: 600px;
+        bottom: 30px;
+        right: 60px;
+        left: inherit;
+    }
 }
 
 .dashboard-timeline {
