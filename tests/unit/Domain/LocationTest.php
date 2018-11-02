@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace Talesweaver\Tests\Domain\Entity;
 
+use Codeception\Test\Unit;
 use DomainException;
-use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-class LocationTest extends TestCase
+class LocationTest extends Unit
 {
     public function testProperLocationCreation()
     {
@@ -106,5 +105,35 @@ class LocationTest extends TestCase
             $this->createMock(Author::class)
         );
         $location->addScene($sceneWithADifferentBook);
+    }
+
+    public function testNotRemovingFromOnlyScene(): void
+    {
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage(
+            'Cannot remove location "location id" from scene "scene 1", because it is it\'s only scene!'
+        );
+
+        $chapter = $this->createMock(Chapter::class);
+
+        $scene1 = $this->makeEmpty(Scene::class, [
+            'getId' => $this->makeEmpty(UuidInterface::class, ['toString' => 'scene 1']),
+            'getChapter' => $chapter
+        ]);
+        $scene2 = $this->makeEmpty(Scene::class, ['getChapter' => $chapter]);
+
+        $location = new Location(
+            $this->makeEmpty(UuidInterface::class, ['toString' => 'location id']),
+            $scene1,
+            new ShortText('Location'),
+            null,
+            null,
+            $this->createMock(Author::class)
+        );
+
+        $location->addScene($scene2);
+
+        $location->removeScene($scene2);
+        $location->removeScene($scene1);
     }
 }

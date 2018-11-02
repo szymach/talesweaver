@@ -6,6 +6,14 @@ describe('Location sidemenu actions', () => {
         cy.get('.side-menu ul li').contains('Miejsca').parents('li').first().as('locations');
     });
 
+    it('asserts location with one scene cannot be removed from it', () => {
+        cy.get('@locations').within(() => {
+            cy.get('.js-list-toggle').click();
+        }).then(() => {
+            cy.contains(/^Miejsce 1$/).next().find('.js-list-delete.js-delete.btn-warning').should('not.be.visible')
+        });
+    });
+
     it('adds a location from another scene and removes it', () => {
         cy.get('@locations').within(() => {
             cy.get('.js-load-sublist').click();
