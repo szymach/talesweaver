@@ -1,0 +1,18 @@
+---
+services:
+    _defaults:
+        public: true
+
+    test.fsi_doctrine_extensions.listener.translatable:
+        alias: fsi_doctrine_extensions.listener.translatable
+
+    test.Talesweaver\Application\Bus\CommandBus:
+        alias: Talesweaver\Application\Bus\CommandBus
+
+    test.Talesweaver\Application\Bus\QueryBus:
+        alias: Talesweaver\Application\Bus\QueryBus
+
+    Talesweaver\Tests\Query\:
+        resource: ../tests/_support/Query/*/*Handler.php
+        autowire: true
+        autoconfigure: true

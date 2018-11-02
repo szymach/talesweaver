@@ -26,6 +26,7 @@ use Talesweaver\Integration\Symfony\Security\User;
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
     private const TEST_ENVIRONMENT = 'test';
+    private const TEST_CYPRESS_ENVIRONMENT = 'test_cypress';
 
     /**
      * @var CsrfTokenManagerInterface
@@ -141,7 +142,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     private function validateCsrfToken(Request $request): void
     {
-        if (self::TEST_ENVIRONMENT === $this->environment) {
+        if (true === in_array($this->environment, [self::TEST_ENVIRONMENT, self::TEST_CYPRESS_ENVIRONMENT], true)) {
             return;
         }
 
