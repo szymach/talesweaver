@@ -1,20 +1,19 @@
-<h3>{{ 'item.header.related'|trans }}</h3>
+<h3>{{ (type ~ '.header.related')|trans }}</h3>
 <table class="table">
     <thead>
         <tr>
-            <th>{{ 'item.name'|trans }}</th>
+            <th>{{ (type ~ '.name')|trans }}</th>
             <th>{{ 'crud.actions'|trans }}</th>
         </tr>
     </thead>
     <tbody>
-        {% for item in items %}
+        {% for item in list %}
             <tr>
                 <td>{{ item }}</td>
                 <td>
                     <button class="btn btn-success btn-sm js-list-action"
-                        data-action-url="{{ path('item_add_to_scene', { scene_id: sceneId, item_id: item.id }) }}"
-                        data-list-id=".items.js-list"
-                        title="{{ 'item.actions.add_to_scene'|trans({ '%scene%': sceneTitle }) }}"
+                        data-action-url="{{ path(type ~ '_add_to_scene', { scene_id: sceneId, (type ~ '_id'): item.id }) }}"
+                        title="{{ (type ~ '.actions.add_to_scene')|trans({ '%scene%': sceneTitle }) }}"
                     >
                         <span class="fa fa-plus"></span>
                     </button>

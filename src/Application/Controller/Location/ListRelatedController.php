@@ -43,12 +43,13 @@ class ListRelatedController
         $scene = $this->sceneResolver->fromRequest($request);
         $page = (int) $request->getAttribute('page', 1);
         return $this->responseFactory->list(
-            'scene\locations\relatedList.html.twig',
+            'scene\common\relatedList.html.twig',
             [
-                'locations' => $this->queryBus->query(new RelatedPage($scene, $page)),
+                'list' => $this->queryBus->query(new RelatedPage($scene, $page)),
                 'sceneId' => $scene->getId(),
                 'sceneTitle' => $scene->getTitle(),
-                'chapterId' => $scene->getChapter() ? $scene->getChapter()->getId(): null
+                'chapterId' => $scene->getChapter() ? $scene->getChapter()->getId(): null,
+                'type' => 'location'
             ]
         );
     }
