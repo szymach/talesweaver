@@ -6,6 +6,14 @@ describe('Character sidemenu actions', () => {
         cy.get('.side-menu ul li').contains('Postacie').parents('li').first().as('characters');
     });
 
+    it('asserts character with one scene cannot be removed from it', () => {
+        cy.get('@characters').within(() => {
+            cy.get('.js-list-toggle').click();
+        }).then(() => {
+            cy.contains(/^Postać 1$/).next().find('.js-list-delete.js-delete.btn-warning').should('not.be.visible')
+        });
+    });
+
     it('adds a character from another scene and removes it', () => {
         cy.get('@characters').within(() => {
             cy.get('.js-load-sublist').click();

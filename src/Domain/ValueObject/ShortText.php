@@ -6,7 +6,7 @@ namespace Talesweaver\Domain\ValueObject;
 
 use Assert\Assertion;
 
-class ShortText
+final class ShortText
 {
     /**
      * @var string

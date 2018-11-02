@@ -124,6 +124,13 @@ class Character
 
     public function removeScene(Scene $scene): void
     {
+        if (1 === $this->scenes->count()) {
+            throw new DomainException(
+                "Cannot remove character \"{$this->id->toString()}\" from scene "
+                . "\"{$scene->getId()->toString()}\", because it is it's only scene!"
+            );
+        }
+
         $this->scenes->removeElement($scene);
 
         $this->update();

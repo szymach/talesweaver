@@ -16,7 +16,7 @@
                             >
                         <span class="fa fa-eye"></span>
                     </button>
-                    {% if chapterId %}
+                    {% if chapterId and 1 < character.scenes|length %}
                         <button class="js-list-delete js-delete btn btn-xs btn-warning"
                                 data-delete-url="{{ path('character_remove_from_scene', { scene_id: sceneId, character_id: character.id }) }}"
                                 title="{{ 'crud.remove_from_scene'|trans }}"
