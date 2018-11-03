@@ -12,6 +12,7 @@ use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 
 class LocationTest extends Unit
@@ -25,7 +26,7 @@ class LocationTest extends Unit
             $this->createMock(UuidInterface::class),
             $scene,
             new ShortText('Location properly created'),
-            longText::fromNullableString('Location description'),
+            LongText::fromNullableString('Location description'),
             null,
             $this->createMock(Author::class)
         );

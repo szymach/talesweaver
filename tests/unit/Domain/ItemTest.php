@@ -12,6 +12,7 @@ use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 
 class ItemTest extends Unit
@@ -25,7 +26,7 @@ class ItemTest extends Unit
             $this->createMock(UuidInterface::class),
             $scene,
             new ShortText('Item properly created'),
-            longText::fromNullableString('Item description'),
+            LongText::fromNullableString('Item description'),
             null,
             $this->createMock(Author::class)
         );
