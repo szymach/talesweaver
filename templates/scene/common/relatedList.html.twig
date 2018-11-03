@@ -1,24 +1,30 @@
 <h3>{{ (type ~ '.header.related')|trans }}</h3>
 <table class="table">
-    <thead>
-        <tr>
-            <th>{{ (type ~ '.name')|trans }}</th>
-            <th>{{ 'crud.actions'|trans }}</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in list %}
+    {% if 0 < list|length %}
+        <thead>
             <tr>
-                <td>{{ item }}</td>
-                <td>
-                    <button class="btn btn-success btn-sm js-list-action"
-                        data-action-url="{{ path(type ~ '_add_to_scene', { scene_id: sceneId, (type ~ '_id'): item.id }) }}"
-                        title="{{ (type ~ '.actions.add_to_scene')|trans({ '%scene%': sceneTitle }) }}"
-                    >
-                        <span class="fa fa-plus"></span>
-                    </button>
-                </td>
+                <th>{{ (type ~ '.name')|trans }}</th>
+                <th>{{ 'crud.actions'|trans }}</th>
             </tr>
-        {% endfor %}
-    </tbody>
+        </thead>
+        <tbody>
+            {% for item in list %}
+                <tr>
+                    <td>{{ item }}</td>
+                    <td>
+                        <button class="btn btn-success btn-sm js-list-action"
+                            data-action-url="{{ path(type ~ '_add_to_scene', { scene_id: sceneId, (type ~ '_id'): item.id }) }}"
+                            title="{{ (type ~ '.actions.add_to_scene')|trans({ '%scene%': sceneTitle }) }}"
+                        >
+                            <span class="fa fa-plus"></span>
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    {% else %}
+        <tbody>
+            <tr><td>{{ (type ~ '.related_list.no_results')|trans }}</td></tr>
+        </tbody>
+    {% endif %}
 </table>

@@ -267,6 +267,8 @@ character:
         removed_from_scene: 'Usunięto postać "%title%" ze sceny "%sceneTitle%".'
     list:
         no_results: Scena nie posiada żadnych przypisanych postaci.
+    related_list:
+        no_results: Brak postaci do przypisania.
 
 item:
     name: Nazwa
@@ -288,6 +290,8 @@ item:
         removed_from_scene: 'Usunięto przedmiot "%title%" ze sceny "%sceneTitle%".'
     list:
         no_results: Scena nie posiada żadnych przypisanych przedmiotów.
+    related_list:
+        no_results: Brak przedmiotów do przypisania.
 
 location:
     name: Nazwa
@@ -309,6 +313,8 @@ location:
         removed_from_scene: 'Usunięto miejsce "%title%" ze sceny "%sceneTitle%".'
     list:
         no_results: Scena nie posiada żadnych przypisanych miejsc.
+    related_list:
+        no_results: Brak miejsc do przypisania.
 
 modal:
     action_confirmation: Potwierdzenie akcji
