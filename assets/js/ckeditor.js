@@ -9,11 +9,11 @@ import LinkPlugin from '@ckeditor/ckeditor5-link/src/link';
 import ListPlugin from '@ckeditor/ckeditor5-list/src/list';
 import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 
-ready(function () {
+ready(() => {
     initializeCKEditor(document.querySelector('.ckeditor'));
 
     const ajaxContainer = document.getElementById('ajax-container');
-    ajaxContainer.addEventListener('ckeditor:initialize', function (e) {
+    ajaxContainer.addEventListener('ckeditor:initialize', () => {
         initializeCKEditor(ajaxContainer.querySelector('.ckeditor'));
     }, false);
 });
@@ -64,7 +64,7 @@ function bindAutosave(editor)
         return;
     }
 
-    editor.model.document.on('change', function() {
+    editor.model.document.on('change', () => {
         if (typeof editor.element === 'undefined') {
             return;
         }
@@ -81,7 +81,7 @@ function bindAutosave(editor)
         }
 
         const url = form.getAttribute('action') ? form.getAttribute('action') : window.location.href;
-        window.setTimeout(function () {
+        window.setTimeout(() => {
             element.value = editor.data.get();
             savesScheduled[id] = true;
             const request = new XMLHttpRequest();
@@ -99,7 +99,7 @@ function bindAutosave(editor)
                 }
                 savesScheduled[id] = false;
             };
-            request.onerror = function () {
+            request.onerror = () => {
                 savesScheduled[id] = false;
             };
             request.send(new FormData(form));
@@ -114,13 +114,13 @@ function displayAlerts()
     request.open('GET', alerts.getAttribute('data-alert-url'), true);
     request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     request.responseType = 'json';
-    request.onload = function () {
+    request.onload = () => {
         if (200 === request.status) {
             const response = request.response;
             if (typeof response.alerts !== 'undefined' && '' !== response.alerts) {
                 alerts.innerHTML = response.alerts;
-                Array.prototype.filter.call(alerts.querySelectorAll('.alert'), function (alert) {
-                    window.setTimeout(function() {
+                Array.prototype.filter.call(alerts.querySelectorAll('.alert'), (alert) => {
+                    window.setTimeout(() => {
                         fadeOut(alert, 1);
                     }, 30000);
                 });

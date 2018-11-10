@@ -3,12 +3,12 @@
         <li>
             <span>{{ ('event.' ~ model ~ '.name')|trans }}</span>
             <span class="list-actions">
-                <span data-form-url="{{ path('event_add', { id: sceneId, model: model }) }}"
+                <button data-form-url="{{ path('event_add', { id: sceneId, model: model }) }}"
                     class="btn btn-xs btn-success js-load-form"
                     title="{{ ('event.' ~ model ~ '.create')|trans }}"
                 >
                     <span class="fa fa-plus"></span>
-                </span>
+                </button>
             </span>
         </li>
     {%  endfor %}

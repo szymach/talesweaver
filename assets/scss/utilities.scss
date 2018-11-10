@@ -26,3 +26,7 @@
 .vam {
     vertical-align: middle;
 }
+
+button.btn *, .pagination a * {
+    pointer-events: none;
+}

@@ -1,43 +1,52 @@
-import {Lists} from './lists';
-import 'bootstrap';
+const bootstrap = require('bootstrap.native');
+const delegate = require('delegate');
+import { addClass, ajaxGetCall, trigger, removeClass } from '../common';
 
-export module Display {
-    export function closeAllModals() : void
+export module Display
+{
+    export function init(): void
     {
-        $('.modal.in').find('[data-dismiss=modal]').trigger('click');
+        delegate(
+            document.querySelector('main'),
+            '.js-display',
+            'click',
+            (event : Event) => {
+                const target = event.target as HTMLElement;
+                ajaxGetCall(
+                    target.getAttribute('data-display-url'),
+                    function (): void {
+                        const modal : HTMLElement = document.getElementById('modal-display');
+                        const response : { display: string } = this.response;
+                        modal.querySelector('.modal-content').innerHTML = response.display;
+                        const modalClass : string = target.getAttribute('data-modal-class');
+                        if (null !== modalClass) {
+                            addClass(modal.querySelector('.modal-dialog'), modalClass);
+                            modal.setAttribute('data-class-to-remove', modalClass);
+                        }
+                        new bootstrap.Modal(modal).show();
+                    }
+                );
+            }
+        );
+
+        const modalDisplay = document.getElementById('modal-display');
+        if (null !== modalDisplay) {
+            document.getElementById('modal-display')
+                .addEventListener('hidden.bs.modal', (event : Event): void => {
+                    const target = event.target as HTMLElement;
+                    const classToRemove : string = target.getAttribute('data-class-to-remove');
+                    if (typeof classToRemove !== 'undefined') {
+                        removeClass(target.querySelector('.modal-dialog'), classToRemove);
+                        target.removeAttribute('data-class-to-remove');
+                    }
+                });
+        }
     }
 
-    export function init() {
-        $('main').on('click', '.js-display', function (event : JQuery.Event) : void {
-            event.preventDefault();
-            event.stopPropagation();
-
-            Lists.closeMobileSublists();
-            const $this : JQuery<HTMLElement> = $(this);
-            $.ajax({
-                method: "GET",
-                url: $this.data('display-url'),
-                dataType: "json",
-                success: function(response : any) {
-                    const $modal = $('#modal-display');
-                    $modal.find('.modal-content').html(response.display);
-                    const modalClass : string = $this.data('modal-class');
-                    if (typeof modalClass !== 'undefined') {
-                        $modal.find('.modal-dialog').addClass(modalClass);
-                        $modal.data('class-to-remove', modalClass);
-                    }
-                    $modal.modal();
-                }
-            });
-        });
-
-        $('#modal-display').on('hidden.bs.modal', function (event : JQuery.Event) : void {
-            const $this : JQuery<HTMLElement> = $(this)
-            const classToRemove : string = $this.data('class-to-remove');
-            if (typeof classToRemove !== 'undefined') {
-                $this.find('.modal-dialog').removeClass(classToRemove);
-                $this.removeAttr('class-to-remove');
-            }
+    export function closeAllModals() : void
+    {
+        document.querySelectorAll('.modal.in').forEach((element : Element) => {
+            trigger(element.querySelector('[data-dismiss=modal]'), 'click');
         });
     }
 }

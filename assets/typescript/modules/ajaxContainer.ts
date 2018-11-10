@@ -1,38 +1,51 @@
-import {Backdrop} from './backdrop';
+import { addClass, hide, removeClass, show, trigger } from '../common';
 
-export module AjaxContainer {
-    export function init() {
-        getAjaxClearButton().on('click', function() : void {
-            Backdrop.showBackdrop();
+export module AjaxContainer
+{
+    export function init(): void
+    {
+        const clearAjaxButton = getClearAjaxButton();
+        if (null === clearAjaxButton) {
+            return;
+        }
+
+        clearAjaxButton.addEventListener('click', () => {
             clearAjaxContainer();
-            Backdrop.hideBackdrop();
         });
     }
 
-    export function clearAjaxContainer() : void
+    export function clearAjaxContainer(): void
     {
-        const $container : JQuery<HTMLElement> = getAjaxContainer();
-        getAjaxClearButton().hide();
-        $container.html('');
-        $container.removeClass('active');
+        hideClearButton();
+        getContainer().innerHTML = '';
+        removeClass(getContainer(), 'active');
     }
 
-    export function displayAjaxContainerWithContent(content : string) : void
+    export function displayAjaxContainerWithContent(content: string): void
     {
-        const $container : JQuery<HTMLElement> = getAjaxContainer();
-        $container.html(content);
-        getAjaxClearButton().show();
-        $container.trigger('ckeditor');
-        $container.addClass('active');
+        getContainer().innerHTML = content;
+        showClearButton();
+        trigger(getContainer(), 'ckeditor:initialize');
+        addClass(getContainer(), 'active');
     }
 
-    export function getAjaxContainer() : JQuery<HTMLElement>
+    export function showClearButton(): void
     {
-        return $('#ajax-container');
+        show(getClearAjaxButton());
     }
 
-    export function getAjaxClearButton() : JQuery<HTMLElement>
+    export function hideClearButton(): void
     {
-        return $('#clear-ajax');
+        hide(getClearAjaxButton());
+    }
+
+    export function getContainer(): HTMLElement
+    {
+        return document.getElementById('ajax-container');
+    }
+
+    export function getClearAjaxButton(): HTMLElement
+    {
+        return document.getElementById('clear-ajax');
     }
 }

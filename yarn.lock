@@ -297,7 +297,12 @@
   resolved "https://registry.yarnpkg.com/@types/chai/-/chai-4.0.8.tgz#d27600e9ba2f371e08695d90a0fe0408d89c7be7"
   integrity sha512-m812CONwdZn/dMzkIJEY0yAs4apyTkTORgfB2UsMOxgkUbC205AHnm4T8I0I5gPg9MHrFc1dJ35iS75c0CJkjg==
 
-"@types/jquery@*", "@types/jquery@^3.3":
+"@types/gsap@^1.20.0":
+  version "1.20.0"
+  resolved "https://registry.yarnpkg.com/@types/gsap/-/gsap-1.20.0.tgz#131c3ce39d7e18c0278285ec58a1eb216936de59"
+  integrity sha512-kTIjuQWP5ot1kfX0lZ0lxc7VNTB7CDg9oMJPubS9UGM5e7uZ9rFj/0hvZoQjFk0u69T2pcOOsviA+vRhlV8SMA==
+
+"@types/jquery@*":
   version "3.3.22"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.22.tgz#cde55dc8f83207dffd16205b05f97ce824581735"
   integrity sha512-a4JDcIhJhHYnoWCkG3xT2CZxXZeA92JeREESorg0DMQ3ZsjuKF48h7XK4l5Gl2GRa/ItGRpKMT0pyK88yRgqXQ==
@@ -323,6 +328,11 @@
   version "2.2.44"
   resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-2.2.44.tgz#1d4a798e53f35212fd5ad4d04050620171cd5b5e"
   integrity sha512-k2tWTQU8G4+iSMvqKi0Q9IIsWAp/n8xzdZS4Q4YVIltApoMA00wFBFdlJnmoaK1/z7B0Cy0yPe6GgXteSmdUNw==
+
+"@types/node@^10.12.5":
+  version "10.12.5"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.5.tgz#7e7ea1a9b34d2c8d704cb0b755dffbcda34741ad"
+  integrity sha512-GzdHjq3t3eGLMv92Al90Iq+EoLL+86mPfQhuglbBFO7HiLdC/rkt+zrzJJumAiBF6nsrBWhou22rPW663AAyFw==
 
 "@types/sinon-chai@2.7.29":
   version "2.7.29"
@@ -887,6 +897,11 @@ bootstrap-sass@^3.3.7:
   version "3.3.7"
   resolved "https://registry.yarnpkg.com/bootstrap-sass/-/bootstrap-sass-3.3.7.tgz#6596c7ab40f6637393323ab0bc80d064fc630498"
   integrity sha1-ZZbHq0D2Y3OTMjqwvIDQZPxjBJg=
+
+bootstrap.native@^2.0.24:
+  version "2.0.24"
+  resolved "https://registry.yarnpkg.com/bootstrap.native/-/bootstrap.native-2.0.24.tgz#52e473e4aeff770ca7e0aae06369799167bc2de1"
+  integrity sha512-yJZNOE9i3W7/yWtidaPGYDRMs5cyOn5W08jfyOV5e4DRm8APF8BiEkEZDsu3xtrNm/fBzUIf+K+u4Qs1qadjxw==
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -1952,6 +1967,11 @@ delayed-stream@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
   integrity sha1-3zrhmayt+31ECqrgsp4icrJOxhk=
+
+delegate@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/delegate/-/delegate-3.2.0.tgz#b66b71c3158522e8ab5744f720d8ca0c2af59166"
+  integrity sha512-IofjkYBZaZivn0V8nnsMJGBr4jVLxHDheKSW88PyxS5QC4Vo9ZbZVvhzlSxY87fVq3STR6r+4cGepyHkcWOQSw==
 
 delegates@^1.0.0:
   version "1.0.0"
@@ -3289,11 +3309,6 @@ javascript-stringify@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/javascript-stringify/-/javascript-stringify-1.6.0.tgz#142d111f3a6e3dae8f4a9afd77d45855b5a9cce3"
   integrity sha1-FC0RHzpuPa6PSpr9d9RYVbWpzOM=
-
-jquery@^3.3.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
-  integrity sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==
 
 js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.4.9"

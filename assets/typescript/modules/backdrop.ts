@@ -1,29 +1,34 @@
-export module Backdrop {
-    export function init() {
-        $.bind('ajaxStart', showBackdrop());
-        $.bind('ajaxComplete', hideBackdrop());
-        $.bind('ajaxError', hideBackdrop());
-    }
+import { addClass, removeClass } from '../common';
 
-    export function showBackdrop() : void
+export module Backdrop
+{
+    export function showBackdrop(): void
     {
+        if (null === getBackdrop()) {
+            return;
+        }
+
         setCursor('wait');
-        getBackdrop().addClass('active');
+        addClass(getBackdrop(), 'active');
     }
 
-    export function hideBackdrop() : void
+    export function hideBackdrop(): void
     {
+        if (null === getBackdrop()) {
+            return;
+        }
+
         setCursor('default');
-        getBackdrop().removeClass('active');
+        removeClass(getBackdrop(), 'active');
     }
 
-    function getBackdrop() : JQuery<HTMLElement>
+    export function getBackdrop(): HTMLElement
     {
-        return $('#backdrop');
+        return document.getElementById('backdrop');
     }
 
-    function setCursor(value : string) : void
+    function setCursor(value: string): void
     {
-        $('html').css('cursor', value);
+        document.querySelector('html').style.cursor = value;
     }
 }

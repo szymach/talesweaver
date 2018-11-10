@@ -1,40 +1,38 @@
-export module Alerts {
-    export function init() {
-        closeAlert();
+import { ajaxGetCall, findAncestor, hide, fadeOut } from '../common';
+export module Alerts
+{
+    export function init() : void
+    {
+        document.querySelectorAll('.alert .close').forEach((element : Element) => {
+            element.addEventListener('click', (event : Event) : void => {
+                const target = event.target as HTMLElement;
+                hide(findAncestor(target, '.alert'));
+            })
+        });
+
         setAlertFadeOuts();
     }
 
     export function displayAlerts() : void
     {
-        const $alerts : JQuery<HTMLElement> = $('#alerts');
-        $.ajax({
-            method: "GET",
-            url: $alerts.data('alert-url'),
-            success: function (response : any) {
-                if (typeof response.alerts !== 'undefined') {
-                    $alerts.append(response.alerts);
+        const alerts = document.getElementById('alerts');
+        ajaxGetCall(
+            alerts.getAttribute('data-alert-url'),
+            function () {
+                const response : { alerts: string } = this.response;
+                if (null !== response.alerts) {
+                    alerts.insertAdjacentHTML('beforeend', response.alerts);
                     setAlertFadeOuts();
                 }
             }
-        });
+        );
     }
 
-    export function setAlertFadeOuts() : void
-    {
-        $('#alerts .alert').filter(':visible').each(function (index : number, alert : HTMLElement) {
-            const $alert : JQuery<HTMLElement> = $(alert);
-            window.setTimeout(function() {
-                $alert.fadeOut(800, function () {
-                    $alert.remove();
-                });
+    function setAlertFadeOuts() : void {
+        document.querySelectorAll('#alerts .alert').forEach((alert : Element) : void => {
+            window.setTimeout(() => {
+                fadeOut(alert, 1);
             }, 3000);
-        });
-    }
-
-    export function closeAlert() : void
-    {
-        $('.alert .close').on('click', function (event : JQuery.Event) {
-            $(event.currentTarget).parents('.alert').hide();
         });
     }
 }

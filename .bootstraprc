@@ -2,19 +2,7 @@ bootstrapVersion: 3
 preBootstrapCustomizations: ./assets/scss/paper/_variables.scss
 appStyles: ./assets/scss/paper/_bootswatch.scss
 mainSass: ./assets/scss/base.scss
-scripts:
-    affix: true
-    alert: true
-    button: true
-    carousel: false
-    collapse: true
-    dropdown: true
-    modal: true
-    popover: false
-    scrollspy: false
-    tab: false
-    tooltip: false
-    transition: true
+scripts: false
 styleLoaders: ['css-loader', 'sass-loader']
 extractStyles: true
 styles:

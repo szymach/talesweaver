@@ -1,10 +1,9 @@
-const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ClearWebpackPlugin = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
-const { styles } = require( '@ckeditor/ckeditor5-dev-utils' );
+const { styles } = require('@ckeditor/ckeditor5-dev-utils');
 const path = require('path');
 
 module.exports = {
@@ -25,13 +24,9 @@ module.exports = {
         pathinfo: false
     },
     resolve: {
-        extensions: [ '.js', ".ts" ],
-        alias: {
-            bootstrap: path.resolve(__dirname, 'node_modules/bootstrap-sass')
-        }
+        extensions: [ '.js', ".ts" ]
     },
     plugins: [
-        new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }),
         new MiniCssExtractPlugin({ filename: '[name].css' }),
         new OptimizeCssAssetsPlugin(),
         new CKEditorWebpackPlugin({ language: 'pl' }),

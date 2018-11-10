@@ -1,86 +1,98 @@
-import {AjaxContainer} from './ajaxContainer';
-import {Alerts} from './alerts';
-import {Lists} from './lists';
-import {Display} from './display';
+import { ajaxGetCall, ajaxPostCall, offset, scrollTo, trigger } from '../common';
+import { AjaxContainer } from './ajaxContainer';
+import { Alerts } from './alerts';
+const delegate = require('delegate');
+import { Display } from './display';
+import { Lists } from './lists';
 
-export module Forms {
-    export function init() {
-        $('main, .modal').on('click', '.js-load-form', function (event : JQuery.Event): void {
-            event.preventDefault();
-            event.stopPropagation();
+export module Forms
+{
+    export function init(): void
+    {
+        delegate(
+            document.querySelector('main, .modal'),
+            '.js-load-form',
+            'click',
+            (event: Event): void => {
+                const element: HTMLElement = event.target as HTMLElement;
+                if (false === element instanceof HTMLElement) {
+                    return;
+                }
 
-            Display.closeAllModals();
-            getForm($(event.currentTarget).data('form-url'));
-            $('html, body').animate({
-                scrollTop: $("#clear-ajax").offset().top
-            }, 2000);
-        });
+                event.preventDefault();
+                event.stopPropagation();
+
+                Display.closeAllModals();
+
+                getForm(element.getAttribute('data-form-url'));
+                scrollTo(offset(AjaxContainer.getClearAjaxButton()).top, 900);
+            }
+        );
     }
 
     export function getForm(url : string): void
     {
         Lists.closeSublists();
         Lists.closeMobileSublists();
-        $.ajax({
-            method: "GET",
-            url: url,
-            dataType: "json",
-            success: function(response : any) {
+
+        ajaxGetCall(
+            url,
+            function(): void {
+                const response: { form: string } = this.response;
+                console.log(this);
                 AjaxContainer.displayAjaxContainerWithContent(response.form);
                 bindAjaxForm();
                 triggerAutofocus();
             }
-        });
+        );
     }
 
     function bindAjaxForm(): void
     {
-        const $container = AjaxContainer.getAjaxContainer();
-        $container.off('submit');
-        $container.on('submit', '.js-form', function (event : JQuery.Event) {
+        const submitCallback = (event: Event) => {
             event.preventDefault();
             event.stopPropagation();
 
-            submitForm($(event.currentTarget));
-            const $input : JQuery<HTMLElement> = $container.find('form input').first();
-            if (0 !== $input.length) {
-                $input.trigger('focus');
+            submitForm(<HTMLFormElement>event.target);
+            const input: HTMLElement = AjaxContainer.getContainer().querySelector('form input');
+            if (null !== input) {
+                trigger(input, 'focus');
             }
 
             return false;
-        });
+        };
+
+        AjaxContainer.getContainer().removeEventListener('submit', submitCallback);
+        delegate(AjaxContainer.getContainer(), '.js-form', 'submit', submitCallback);
     }
 
-    function submitForm($form : any): void
+    function submitForm(form: HTMLFormElement): void
     {
-        $.ajax({
-            method: "POST",
-            url: $form.attr('action'),
-            processData: false,
-            contentType: false,
-            data: new FormData($form[0]),
-            success: function() {
+        ajaxPostCall(
+            form.getAttribute('action'),
+            new FormData(form),
+            (): void => {
                 AjaxContainer.clearAjaxContainer();
                 Alerts.displayAlerts();
             },
-            error: function(xhr : any) {
+            (xhr: {responseText : string}) => {
                 AjaxContainer.clearAjaxContainer();
-                const response : any = JSON.parse(xhr.responseText);
-                if (typeof response.form !== 'undefined') {
+                const response : { form?: string } = JSON.parse(xhr.responseText);
+                if (null !== response.form) {
                     AjaxContainer.displayAjaxContainerWithContent(response.form);
                 }
                 Alerts.displayAlerts();
             }
-        });
+        );
     }
 
     function triggerAutofocus(): void
     {
-        const input : JQuery<HTMLElement> = AjaxContainer.getAjaxContainer().find('[autofocus="autofocus"]').first();
-        if (typeof input === 'undefined') {
+        const input: HTMLElement = AjaxContainer.getContainer().querySelector('[autofocus="autofocus"]');
+        if (null === input) {
             return;
         }
 
-        input.trigger('focus');
+        trigger(input, 'focus');
     }
 }

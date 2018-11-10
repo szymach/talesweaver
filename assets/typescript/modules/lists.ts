@@ -1,150 +1,191 @@
-import {AjaxContainer} from './ajaxContainer';
-import {Alerts} from './alerts';
+import { AjaxContainer } from './ajaxContainer';
+import { Alerts } from './alerts';
+const bootstrap = require('bootstrap.native');
+const delegate = require('delegate');
+import { addClass, findAncestor, hasClass, ajaxGetCall, removeClass } from '../common';
 
-export module Lists {
-    export function init() {
-        $(window).on('resize', function () : void {
+export module Lists
+{
+    export function init(): void
+    {
+        window.addEventListener('resize', () => {
             closeSublists();
             closeMobileSublists();
         });
 
-        $('main').on('click', '.js-list-toggle', function (event : JQuery.Event) : void {
-            const $this : JQuery<HTMLElement> = $(this);
-            const $container : JQuery<HTMLElement> = $this.parents('li').first().find('.js-list-container');
-            const $containerWrapper = $container.parent();
-            const wasOpened : boolean = $this.hasClass('js-list-toggled');
+        delegate(
+            document.querySelector('main'),
+            '.js-list-toggle',
+            'click',
+            (event: Event): void => {
+                const target: HTMLElement = event.target as HTMLElement;
+                const containerWrapper: HTMLElement = findAncestor(target, 'li');
+                const container: HTMLElement = containerWrapper.querySelector('.js-list-container');
+                const wasOpened: boolean = hasClass(target, 'js-list-toggled');
 
-            if (true === $containerWrapper.hasClass('js-loaded')) {
-                closeSublists();
-            }
-
-            if (true === wasOpened) {
-                return;
-            }
-
-            AjaxContainer.clearAjaxContainer();
-            closeSublists();
-            $.ajax({
-                method: "GET",
-                url: $this.data('list-url'),
-                dataType: "json",
-                success: function(response : any) : void {
-                    $container.html(response.list);
-                    $containerWrapper.addClass('js-loaded');
-                    $this.addClass('js-list-toggled');
-                }
-            });
-        });
-
-        $('main').on('click', '.js-delete', function (event : JQuery.Event) : void {
-            event.preventDefault();
-            event.stopPropagation();
-
-            const $this : JQuery<HTMLElement> = $(this);
-            $('#modal-delete').modal();
-            $('#modal-confirm').off('click').on('click', function() {
-                $('#modal-delete').modal('hide');
-                if ($this.hasClass('js-list-delete')) {
+                if (true === wasOpened) {
                     closeSublists();
-                    AjaxContainer.clearAjaxContainer();
-                    $.ajax({
-                        method: "GET",
-                        url: $this.data('delete-url'),
-                        dataType: "json",
-                        success: function() : void {
-                            Alerts.displayAlerts();
-                        },
-                        error: function() : void {
-                            Alerts.displayAlerts();
-                        }
-                    });
-                } else {
-                    window.location.href = $this.attr('href');
+                    return;
                 }
-            });
-        });
 
-        $('main').on('click', '.js-load-sublist', function (event : JQuery.Event) : void {
-            event.preventDefault();
-            event.stopPropagation();
-
-            closeSublists();
-            closeMobileSublists();
-            $.ajax({
-                method: "GET",
-                url: $(event.currentTarget).data('list-url'),
-                dataType: "json",
-                success: function(response : any) : void {
-                    AjaxContainer.clearAjaxContainer();
-                    AjaxContainer.displayAjaxContainerWithContent(response.list);
-                }
-            });
-        });
-
-        $('main').on('click', '.js-ajax-pagination+.pagination a', function (event : JQuery.Event) : void {
-            event.preventDefault();
-            event.stopPropagation();
-
-            const $this : JQuery<HTMLElement> = $(this);
-            $.ajax({
-                method: "GET",
-                url: $this.attr('href'),
-                dataType: "json",
-                success: function(response : any) {
-                    AjaxContainer.clearAjaxContainer();
-                    $this.parents('.js-list-container').html(response.list);
-                }
-            });
-        });
-
-        $('main').on('click', '.js-list-action', function (event : JQuery.Event) : void {
-            event.preventDefault();
-            event.stopPropagation();
-
-            closeSublists();
-            const $this : JQuery<HTMLElement> = $(this);
-            $.ajax({
-                method: "GET",
-                url: $this.data('action-url'),
-                dataType: "json",
-                success: function() : void {
-                    AjaxContainer.clearAjaxContainer();
-                    Alerts.displayAlerts();
-                }
-            });
-        });
-
-        $('main').on('click', '.js-trigger-sidelist-mobile', function (event : JQuery.Event) : void {
-            event.preventDefault();
-            event.stopPropagation();
-
-            const $parent = $(event.currentTarget).parent();
-            const wasExpanded : boolean = $parent.hasClass('mobile-expanded');
-            closeSublists();
-            closeMobileSublists();
-            if (false === wasExpanded) {
-                $parent.addClass('mobile-expanded');
+                AjaxContainer.clearAjaxContainer();
+                closeSublists();
+                ajaxGetCall(
+                    target.getAttribute('data-list-url'),
+                    function(): void {
+                        const response: { list: string } = this.response;
+                        container.innerHTML = response.list;
+                        addClass(containerWrapper, 'js-loaded');
+                        addClass(target, 'js-list-toggled');
+                    }
+                );
             }
-        });
+        );
+
+        delegate(
+            document.querySelector('main'),
+            '.js-delete',
+            'click',
+            (event: Event): void => {
+                event.preventDefault();
+                event.stopPropagation();
+
+                const target: HTMLElement = event.target as HTMLElement;
+                const modalElement = new bootstrap.Modal(document.getElementById('modal-delete'));
+                modalElement.show();
+                const clickEvent = (): void => {
+                    modalElement.hide();
+                    if (hasClass(target, 'js-list-delete')) {
+                        closeSublists();
+                        AjaxContainer.clearAjaxContainer();
+                        ajaxGetCall(
+                            target.getAttribute('data-delete-url'),
+                            (): void => {
+                                Alerts.displayAlerts();
+                            },
+                            (): void => {
+                                Alerts.displayAlerts();
+                            }
+                        );
+                    } else {
+                        window.location.href = target.getAttribute('href');
+                    }
+                };
+                const modalConfirm: HTMLElement = document.getElementById('modal-confirm');
+                modalConfirm.removeEventListener('click', clickEvent);
+                modalConfirm.addEventListener('click', clickEvent);
+            }
+        );
+
+        delegate(
+            document.querySelector('main'),
+            '.js-load-sublist',
+            'click',
+            (event: Event): void => {
+                event.preventDefault();
+                event.stopPropagation();
+
+                closeSublists();
+                closeMobileSublists();
+                const target: HTMLElement = event.target as HTMLElement;
+                ajaxGetCall(
+                    target.getAttribute('data-list-url'),
+                    function(): void {
+                        const response: { list: string } = this.response;
+                        AjaxContainer.clearAjaxContainer();
+                        AjaxContainer.displayAjaxContainerWithContent(response.list);
+                    }
+                );
+            }
+        );
+
+        delegate(
+            document.querySelector('main'),
+            '.js-ajax-pagination + .pagination a',
+            'click',
+            function (event: Event): void {
+                event.preventDefault();
+                event.stopPropagation();
+
+                const target : HTMLElement = event.target as HTMLElement;
+                ajaxGetCall(
+                    target.getAttribute('href'),
+                    function (): void {
+                        const response: { list: string } = this.response;
+                        AjaxContainer.clearAjaxContainer();
+                        findAncestor(target, '.js-list-container').innerHTML = response.list;
+                    }
+                );
+            }
+        );
+
+        delegate(
+            document.querySelector('main'),
+            '.js-list-action',
+            'click',
+            (event: Event): void => {
+                event.preventDefault();
+                event.stopPropagation();
+
+                closeSublists();
+                const target: HTMLElement = event.target as HTMLElement;
+                ajaxGetCall(
+                    target.getAttribute('data-action-url'),
+                    function (): void {
+                        AjaxContainer.clearAjaxContainer();
+                        Alerts.displayAlerts();
+                    }
+                );
+            }
+        );
+
+        delegate(
+            document.querySelector('main'),
+            '.js-trigger-sidelist-mobile',
+            'click',
+            (event: Event): void => {
+                event.preventDefault();
+                event.stopPropagation();
+
+                const parent = findAncestor(<HTMLElement>event.target, 'li');
+                const wasExpanded: boolean = hasClass(parent, 'mobile-expanded');
+                closeSublists();
+                closeMobileSublists();
+                if (false === wasExpanded) {
+                    addClass(parent, 'mobile-expanded');
+                }
+            }
+        );
     }
 
-    export function closeSublists() : void
+    export function closeSublists(): void
     {
-        const $openedLists : JQuery<HTMLElement> = $('.side-menu .js-loaded');
-        if (0 === $openedLists.length) {
+        const openedLists = document.querySelectorAll('.side-menu .js-loaded');
+        if (0 === openedLists.length) {
             return;
         }
 
-        $openedLists.removeClass('js-loaded').find('.js-list-container').each(function(index, element : HTMLElement) : void {
-            $(element).html('');
-        });
-        $openedLists.find('.js-list-toggled').each(function (index, element : HTMLElement) : void {
-            $(element).removeClass('js-list-toggled');
+        openedLists.forEach((item : Element): void => {
+            removeClass(<HTMLElement>item, 'js-loaded');
+            item.querySelectorAll('.js-list-container')
+                .forEach((container: Element): void => {
+                    container.innerHTML = '';
+                }
+            );
+            item.querySelectorAll('.js-list-toggled')
+                .forEach((list: Element): void => {
+                    removeClass(<HTMLElement>list, 'js-list-toggled');
+                }
+            );
         });
     }
 
-    export function closeMobileSublists() : void
+    export function closeMobileSublists(): void
     {
-        $('.mobile-expanded').removeClass('mobile-expanded');
+        document.querySelectorAll('.mobile-expanded')
+                .forEach((element: Element): void => {
+                    removeClass(<HTMLElement>element, 'mobile-expanded');
+                })
+        ;
     }
 }
