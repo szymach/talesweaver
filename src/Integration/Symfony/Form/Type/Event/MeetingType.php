@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Form\Type\Event;
 
+use Assert\Assertion;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -32,10 +33,13 @@ class MeetingType extends AbstractType implements Type\Event\Meeting
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $scene = $options['scene'];
+        Assertion::isInstanceOf($scene, Scene::class);
+
+        $characters = $this->queryBus->query(new Query\Character\ForScene($scene));
         $builder->add('root', EntityType::class, [
             'class' => Character::class,
             'label' => $this->getTranslationKey('root'),
-            'choices' => $this->queryBus->query(new Query\Character\ForScene($scene)),
+            'choices' => $characters,
             'choice_label' => function (Character $character): string {
                 return (string) $character->getName();
             },
@@ -55,7 +59,7 @@ class MeetingType extends AbstractType implements Type\Event\Meeting
         $builder->add('relation', EntityType::class, [
             'class' => Character::class,
             'label' => $this->getTranslationKey('relation'),
-            'choices' => $this->queryBus->query(new Query\Character\ForScene($scene)),
+            'choices' => $characters,
             'choice_label' => function (Character $character): string {
                 return (string) $character->getName();
             },
