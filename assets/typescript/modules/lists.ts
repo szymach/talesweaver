@@ -8,7 +8,7 @@ export module Lists
 {
     export function init(): void
     {
-        window.addEventListener('resize', () => {
+        window.addEventListener('resize', (): void => {
             closeSublists();
             closeMobileSublists();
         });
@@ -18,27 +18,10 @@ export module Lists
             '.js-list-toggle',
             'click',
             (event: Event): void => {
-                const target: HTMLElement = event.target as HTMLElement;
-                const containerWrapper: HTMLElement = findAncestor(target, 'li');
-                const container: HTMLElement = containerWrapper.querySelector('.js-list-container');
-                const wasOpened: boolean = hasClass(target, 'js-list-toggled');
+                event.preventDefault();
+                event.stopPropagation();
 
-                if (true === wasOpened) {
-                    closeSublists();
-                    return;
-                }
-
-                AjaxContainer.clearAjaxContainer();
-                closeSublists();
-                ajaxGetCall(
-                    target.getAttribute('data-list-url'),
-                    function(): void {
-                        const response: { list: string } = this.response;
-                        container.innerHTML = response.list;
-                        addClass(containerWrapper, 'js-loaded');
-                        addClass(target, 'js-list-toggled');
-                    }
-                );
+                openSublist(event.target as HTMLElement);
             }
         );
 
@@ -50,30 +33,7 @@ export module Lists
                 event.preventDefault();
                 event.stopPropagation();
 
-                const target: HTMLElement = event.target as HTMLElement;
-                const modalElement = new bootstrap.Modal(document.getElementById('modal-delete'));
-                modalElement.show();
-                const clickEvent = (): void => {
-                    modalElement.hide();
-                    if (hasClass(target, 'js-list-delete')) {
-                        closeSublists();
-                        AjaxContainer.clearAjaxContainer();
-                        ajaxGetCall(
-                            target.getAttribute('data-delete-url'),
-                            (): void => {
-                                Alerts.displayAlerts();
-                            },
-                            (): void => {
-                                Alerts.displayAlerts();
-                            }
-                        );
-                    } else {
-                        window.location.href = target.getAttribute('href');
-                    }
-                };
-                const modalConfirm: HTMLElement = document.getElementById('modal-confirm');
-                modalConfirm.removeEventListener('click', clickEvent);
-                modalConfirm.addEventListener('click', clickEvent);
+                deleteItem(event.target as HTMLElement);
             }
         );
 
@@ -85,17 +45,7 @@ export module Lists
                 event.preventDefault();
                 event.stopPropagation();
 
-                closeSublists();
-                closeMobileSublists();
-                const target: HTMLElement = event.target as HTMLElement;
-                ajaxGetCall(
-                    target.getAttribute('data-list-url'),
-                    function(): void {
-                        const response: { list: string } = this.response;
-                        AjaxContainer.clearAjaxContainer();
-                        AjaxContainer.displayAjaxContainerWithContent(response.list);
-                    }
-                );
+                loadSublist(event.target as HTMLElement);
             }
         );
 
@@ -107,15 +57,7 @@ export module Lists
                 event.preventDefault();
                 event.stopPropagation();
 
-                const target : HTMLElement = event.target as HTMLElement;
-                ajaxGetCall(
-                    target.getAttribute('href'),
-                    function (): void {
-                        const response: { list: string } = this.response;
-                        AjaxContainer.clearAjaxContainer();
-                        findAncestor(target, '.js-list-container').innerHTML = response.list;
-                    }
-                );
+                paginateList(event.target as HTMLElement);
             }
         );
 
@@ -127,15 +69,7 @@ export module Lists
                 event.preventDefault();
                 event.stopPropagation();
 
-                closeSublists();
-                const target: HTMLElement = event.target as HTMLElement;
-                ajaxGetCall(
-                    target.getAttribute('data-action-url'),
-                    function (): void {
-                        AjaxContainer.clearAjaxContainer();
-                        Alerts.displayAlerts();
-                    }
-                );
+                performListAction(event.target as HTMLElement);
             }
         );
 
@@ -147,13 +81,7 @@ export module Lists
                 event.preventDefault();
                 event.stopPropagation();
 
-                const parent = findAncestor(<HTMLElement>event.target, 'li');
-                const wasExpanded: boolean = hasClass(parent, 'mobile-expanded');
-                closeSublists();
-                closeMobileSublists();
-                if (false === wasExpanded) {
-                    addClass(parent, 'mobile-expanded');
-                }
+                triggerMobileList(findAncestor(<HTMLElement>event.target, 'li'));
             }
         );
     }
@@ -187,5 +115,103 @@ export module Lists
                     removeClass(<HTMLElement>element, 'mobile-expanded');
                 })
         ;
+    }
+
+    function openSublist(target: HTMLElement): void
+    {
+        closeSublists();
+
+        if (true === hasClass(target, 'js-list-toggled')) {
+            return;
+        }
+
+        const containerWrapper: HTMLElement = findAncestor(target, 'li');
+        const container: HTMLElement = containerWrapper.querySelector('.js-list-container');
+        AjaxContainer.clearAjaxContainer();
+        ajaxGetCall(
+            target.getAttribute('data-list-url'),
+            function (): void {
+                const response: { list: string } = this.response;
+                container.innerHTML = response.list;
+                addClass(containerWrapper, 'js-loaded');
+                addClass(target, 'js-list-toggled');
+            }
+        );
+    }
+
+    function deleteItem(target: HTMLElement): void
+    {
+        const modalElement = new bootstrap.Modal(document.getElementById('modal-delete'));
+        modalElement.show();
+        const clickEvent = (): void => {
+            modalElement.hide();
+            if (hasClass(target, 'js-list-delete')) {
+                closeSublists();
+                AjaxContainer.clearAjaxContainer();
+                ajaxGetCall(
+                    target.getAttribute('data-delete-url'),
+                    (): void => {
+                        Alerts.displayAlerts();
+                    },
+                    (): void => {
+                        Alerts.displayAlerts();
+                    }
+                );
+            } else {
+                window.location.href = target.getAttribute('href');
+            }
+        };
+
+        const modalConfirm: HTMLElement = document.getElementById('modal-confirm');
+        modalConfirm.removeEventListener('click', clickEvent);
+        modalConfirm.addEventListener('click', clickEvent);
+    }
+
+    function loadSublist(target: HTMLElement): void
+    {
+        closeSublists();
+        closeMobileSublists();
+        ajaxGetCall(
+            target.getAttribute('data-list-url'),
+            function(): void {
+                const response: { list: string } = this.response;
+                AjaxContainer.clearAjaxContainer();
+                AjaxContainer.displayAjaxContainerWithContent(response.list);
+            }
+        );
+    }
+
+    function triggerMobileList(parent: HTMLElement): void
+    {
+        const wasExpanded: boolean = hasClass(parent, 'mobile-expanded');
+        closeSublists();
+        closeMobileSublists();
+        if (false === wasExpanded) {
+            addClass(parent, 'mobile-expanded');
+        }
+    }
+
+    function performListAction(target: HTMLElement): void
+    {
+        closeSublists();
+        ajaxGetCall(
+            target.getAttribute('data-action-url'),
+            function (): void {
+                AjaxContainer.clearAjaxContainer();
+                Alerts.displayAlerts();
+            }
+        );
+    }
+
+    function paginateList(target: HTMLElement): void
+    {
+        ajaxGetCall(
+            target.getAttribute('href'),
+            function (): void {
+                const response: { list: string } = this.response;
+                AjaxContainer.clearAjaxContainer();
+                findAncestor(target, '.js-list-container').innerHTML = response.list;
+            }
+        );
     }
 }

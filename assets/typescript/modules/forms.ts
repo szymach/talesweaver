@@ -39,7 +39,6 @@ export module Forms
             url,
             function(): void {
                 const response: { form: string } = this.response;
-                console.log(this);
                 AjaxContainer.displayAjaxContainerWithContent(response.form);
                 bindAjaxForm();
                 triggerAutofocus();
