@@ -2,6 +2,11 @@ const bootstrap = require('bootstrap.native');
 const delegate = require('delegate');
 import { addClass, ajaxGetCall, trigger, removeClass } from '../common';
 
+interface DisplayResponse
+{
+    display?: string | null
+}
+
 export module Display
 {
     export function init(): void
@@ -16,7 +21,7 @@ export module Display
                     target.getAttribute('data-display-url'),
                     function (): void {
                         const modal : HTMLElement = document.getElementById('modal-display');
-                        const response : { display: string } = this.response;
+                        const response : DisplayResponse = this.response;
                         modal.querySelector('.modal-content').innerHTML = response.display;
                         const modalClass : string = target.getAttribute('data-modal-class');
                         if (null !== modalClass) {

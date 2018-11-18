@@ -5,6 +5,11 @@ const delegate = require('delegate');
 import { Display } from './display';
 import { Lists } from './lists';
 
+interface FormResponse
+{
+    form?: string | null
+}
+
 export module Forms
 {
     export function init(): void
@@ -38,7 +43,7 @@ export module Forms
         ajaxGetCall(
             url,
             function(): void {
-                const response: { form: string } = this.response;
+                const response: FormResponse = this.response;
                 AjaxContainer.displayAjaxContainerWithContent(response.form);
                 bindAjaxForm();
                 triggerAutofocus();
@@ -76,7 +81,7 @@ export module Forms
             },
             (xhr: {responseText : string}) => {
                 AjaxContainer.clearAjaxContainer();
-                const response : { form?: string } = JSON.parse(xhr.responseText);
+                const response : FormResponse = JSON.parse(xhr.responseText);
                 if (null !== response.form) {
                     AjaxContainer.displayAjaxContainerWithContent(response.form);
                 }

@@ -4,6 +4,11 @@ const bootstrap = require('bootstrap.native');
 const delegate = require('delegate');
 import { addClass, findAncestor, hasClass, ajaxGetCall, removeClass } from '../common';
 
+interface ListResponse
+{
+    list?: string | null
+}
+
 export module Lists
 {
     export function init(): void
@@ -119,19 +124,19 @@ export module Lists
 
     function openSublist(target: HTMLElement): void
     {
-        closeSublists();
-
         if (true === hasClass(target, 'js-list-toggled')) {
+            closeSublists();
             return;
         }
 
+        closeSublists();
         const containerWrapper: HTMLElement = findAncestor(target, 'li');
         const container: HTMLElement = containerWrapper.querySelector('.js-list-container');
         AjaxContainer.clearAjaxContainer();
         ajaxGetCall(
             target.getAttribute('data-list-url'),
-            function (): void {
-                const response: { list: string } = this.response;
+            function(): void {
+                const response: ListResponse = this.response;
                 container.innerHTML = response.list;
                 addClass(containerWrapper, 'js-loaded');
                 addClass(target, 'js-list-toggled');
@@ -174,7 +179,7 @@ export module Lists
         ajaxGetCall(
             target.getAttribute('data-list-url'),
             function(): void {
-                const response: { list: string } = this.response;
+                const response: ListResponse = this.response;
                 AjaxContainer.clearAjaxContainer();
                 AjaxContainer.displayAjaxContainerWithContent(response.list);
             }
@@ -208,7 +213,7 @@ export module Lists
         ajaxGetCall(
             target.getAttribute('href'),
             function (): void {
-                const response: { list: string } = this.response;
+                const response: ListResponse = this.response;
                 AjaxContainer.clearAjaxContainer();
                 findAncestor(target, '.js-list-container').innerHTML = response.list;
             }

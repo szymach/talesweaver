@@ -1,4 +1,10 @@
 import { ajaxGetCall, findAncestor, hide, fadeOut } from '../common';
+
+interface AlertsResponse
+{
+    alerts?: string | null
+}
+
 export module Alerts
 {
     export function init() : void
@@ -19,7 +25,7 @@ export module Alerts
         ajaxGetCall(
             alerts.getAttribute('data-alert-url'),
             function () {
-                const response : { alerts: string } = this.response;
+                const response : AlertsResponse = this.response;
                 if (null !== response.alerts) {
                     alerts.insertAdjacentHTML('beforeend', response.alerts);
                     setAlertFadeOuts();
