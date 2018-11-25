@@ -19,6 +19,7 @@ crud:
     list: Lista
     delete: Usuń
     display: Podgląd
+    close: Zamknij
     remove_from_scene: Usuń ze sceny
 
 security:

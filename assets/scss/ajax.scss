@@ -24,6 +24,10 @@
 
         &.active {
             display: block;
+            animation-name: slide-in-modal;
+            animation-duration: 0.7s;
+            -webkit-animation-name: slide-in-modal;
+            -webkit-animation-duration: 0.7s;
         }
     }
 
@@ -36,11 +40,26 @@
         z-index: 9;
         background-color: rgba(0, 0, 0, 0.6);
     }
-
-    #clear-ajax {
-        position: absolute;
-        top: 35px;
-        right: 30px;
-        z-index: 11;
-    }
 }
+
+@-webkit-keyframes slide-in-modal {
+    from {
+      top: -300px;
+      opacity: 0;
+    }
+    to {
+      top: 0;
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-in-modal {
+    from {
+      top: -300px;
+      opacity: 0;
+    }
+    to {
+      top: 0;
+      opacity: 1;
+    }
+  }

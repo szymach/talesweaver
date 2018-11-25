@@ -30,7 +30,7 @@ export module Forms
                 Display.closeAllModals();
 
                 getForm(element.getAttribute('data-form-url'));
-                scrollTo(offset(AjaxContainer.getClearAjaxButton()).top, 900);
+                scrollTo(offset(AjaxContainer.getContainer()).top, 900);
             }
         );
     }
