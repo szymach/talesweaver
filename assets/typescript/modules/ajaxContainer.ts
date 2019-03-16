@@ -1,14 +1,13 @@
 import { addClass, removeClass, trigger } from '../common';
-const delegate = require('delegate');
+const Gator = require('gator');
 
 export module AjaxContainer
 {
     export function init(): void
     {
-        delegate(
-            document.querySelector('main'),
-            '#clear-ajax',
+        Gator(document.querySelector('main')).on(
             'click',
+            '#clear-ajax',
             (event: Event): void => {
                 event.preventDefault();
                 event.stopPropagation();

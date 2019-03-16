@@ -7,25 +7,18 @@ interface AlertsResponse
 
 export module Alerts
 {
-    export function init() : void
+    export function init(): void
     {
-        document.querySelectorAll('.alert .close').forEach((element : Element) => {
-            element.addEventListener('click', (event : Event) : void => {
-                const target = event.target as HTMLElement;
-                hide(findAncestor(target, '.alert'));
-            })
-        });
-
         setAlertFadeOuts();
     }
 
-    export function displayAlerts() : void
+    export function displayAlerts(): void
     {
         const alerts = document.getElementById('alerts');
         ajaxGetCall(
             alerts.getAttribute('data-alert-url'),
-            function () {
-                const response : AlertsResponse = this.response;
+            function (): void {
+                const response: AlertsResponse = this.response;
                 if (null !== response.alerts) {
                     alerts.insertAdjacentHTML('beforeend', response.alerts);
                     setAlertFadeOuts();
@@ -34,11 +27,29 @@ export module Alerts
         );
     }
 
-    function setAlertFadeOuts() : void {
-        document.querySelectorAll('#alerts .alert').forEach((alert : Element) : void => {
-            window.setTimeout(() => {
-                fadeOut(alert, 1);
-            }, 3000);
-        });
+    export function displayErrorAlert(): void
+    {
+        const alerts = document.getElementById('alerts');
+        alerts.insertAdjacentHTML('beforeend', '<p class="alert alert-danger">Wystąpił błąd</p>');
+    }
+
+    function setAlertFadeOuts(): void
+    {
+        document.querySelectorAll('.alert .close').forEach(
+            (element: Element): void => {
+                element.addEventListener('click', (event: Event): void => {
+                    const target = event.target as HTMLElement;
+                    hide(findAncestor(target, '.alert'));
+                })
+            }
+        );
+
+        document.querySelectorAll('#alerts .alert').forEach(
+            (alert: Element): void => {
+                window.setTimeout((): void => {
+                    fadeOut(alert, 1);
+                }, 3000);
+            }
+        );
     }
 }

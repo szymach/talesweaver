@@ -1,6 +1,7 @@
 const bootstrap = require('bootstrap.native');
-const delegate = require('delegate');
+const Gator = require('gator');
 import { addClass, ajaxGetCall, trigger, removeClass } from '../common';
+import { AjaxContainer } from './ajaxContainer';
 
 interface DisplayResponse
 {
@@ -11,12 +12,12 @@ export module Display
 {
     export function init(): void
     {
-        delegate(
-            document.querySelector('main'),
-            '.js-display',
+        Gator(document.querySelector('main')).on(
             'click',
+            '.js-display',
             (event : Event) => {
                 const target = event.target as HTMLElement;
+                closeAllModals();
                 ajaxGetCall(
                     target.getAttribute('data-display-url'),
                     function (): void {
@@ -37,7 +38,7 @@ export module Display
         const modalDisplay = document.getElementById('modal-display');
         if (null !== modalDisplay) {
             document.getElementById('modal-display')
-                .addEventListener('hidden.bs.modal', (event : Event): void => {
+                .addEventListener('hidden.bs.modal', (event: Event): void => {
                     const target = event.target as HTMLElement;
                     const classToRemove : string = target.getAttribute('data-class-to-remove');
                     if (typeof classToRemove !== 'undefined') {
@@ -48,10 +49,13 @@ export module Display
         }
     }
 
-    export function closeAllModals() : void
+    export function closeAllModals(): void
     {
-        document.querySelectorAll('.modal.in').forEach((element : Element) => {
-            trigger(element.querySelector('[data-dismiss=modal]'), 'click');
-        });
+        document.querySelectorAll('.modal.in').forEach(
+            (element : Element) => {
+                trigger(element.querySelector('[data-dismiss=modal]'), 'click');
+            }
+        );
+        AjaxContainer.clearAjaxContainer();
     }
 }

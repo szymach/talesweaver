@@ -1,7 +1,8 @@
 import { AjaxContainer } from './ajaxContainer';
 import { Alerts } from './alerts';
+import { Display } from './display';
 const bootstrap = require('bootstrap.native');
-const delegate = require('delegate');
+const Gator = require('gator');
 import { addClass, findAncestor, hasClass, ajaxGetCall, removeClass } from '../common';
 
 interface ListResponse
@@ -18,10 +19,9 @@ export module Lists
             closeMobileSublists();
         });
 
-        delegate(
-            document.querySelector('main'),
-            '.js-list-toggle',
+        Gator(document.querySelector('main')).on(
             'click',
+            '.js-list-toggle',
             (event: Event): void => {
                 event.preventDefault();
                 event.stopPropagation();
@@ -30,10 +30,9 @@ export module Lists
             }
         );
 
-        delegate(
-            document.querySelector('main'),
-            '.js-delete',
+        Gator(document.querySelector('main')).on(
             'click',
+            '.js-delete',
             (event: Event): void => {
                 event.preventDefault();
                 event.stopPropagation();
@@ -42,10 +41,9 @@ export module Lists
             }
         );
 
-        delegate(
-            document.querySelector('main'),
-            '.js-load-sublist',
+        Gator(document.querySelector('main')).on(
             'click',
+            '.js-load-sublist',
             (event: Event): void => {
                 event.preventDefault();
                 event.stopPropagation();
@@ -54,10 +52,9 @@ export module Lists
             }
         );
 
-        delegate(
-            document.querySelector('main'),
-            '.js-ajax-pagination + .pagination a',
+        Gator(document.querySelector('main')).on(
             'click',
+            '.js-ajax-pagination + .pagination a',
             function (event: Event): void {
                 event.preventDefault();
                 event.stopPropagation();
@@ -66,10 +63,9 @@ export module Lists
             }
         );
 
-        delegate(
-            document.querySelector('main'),
-            '.js-list-action',
+        Gator(document.querySelector('main')).on(
             'click',
+            '.js-list-action',
             (event: Event): void => {
                 event.preventDefault();
                 event.stopPropagation();
@@ -78,10 +74,9 @@ export module Lists
             }
         );
 
-        delegate(
-            document.querySelector('main'),
-            '.js-trigger-sidelist-mobile',
+        Gator(document.querySelector('main')).on(
             'click',
+            '.js-trigger-sidelist-mobile',
             (event: Event): void => {
                 event.preventDefault();
                 event.stopPropagation();
@@ -129,6 +124,7 @@ export module Lists
             return;
         }
 
+        Display.closeAllModals();
         closeSublists();
         const containerWrapper: HTMLElement = findAncestor(target, 'li');
         const container: HTMLElement = containerWrapper.querySelector('.js-list-container');
@@ -176,6 +172,7 @@ export module Lists
     {
         closeSublists();
         closeMobileSublists();
+        Display.closeAllModals();
         ajaxGetCall(
             target.getAttribute('data-list-url'),
             function(): void {
