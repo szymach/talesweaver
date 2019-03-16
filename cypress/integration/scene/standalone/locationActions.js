@@ -22,6 +22,7 @@ describe('Location sidemenu actions', () => {
             cy.get('#modal-display h4').contains(/^Miejsce$/).should('be.visible');
             cy.get('#modal-display').contains('Zamknij').click();
             cy.get('@locations').find('.js-list-toggle').click();
+            cy.wait(2000);
         });
 
         cy.get('@locations').within(() => {

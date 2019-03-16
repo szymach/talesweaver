@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Bus;
 
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Stamp\HandledStamp;
 use Talesweaver\Application\Bus\QueryBus as ApplicationQueryBus;
 
 class QueryBus implements ApplicationQueryBus
@@ -21,6 +22,12 @@ class QueryBus implements ApplicationQueryBus
 
     public function query(object $query)
     {
-        return $this->messenger->dispatch($query);
+        $envelope = $this->messenger->dispatch($query);
+        $handledStamp = $envelope->last(HandledStamp::class);
+        if (null === $handledStamp || false === $handledStamp instanceof HandledStamp) {
+            return null;
+        }
+
+        return $handledStamp->getResult();
     }
 }

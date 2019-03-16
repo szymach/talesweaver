@@ -1,6 +1,5 @@
 language: php
 php: 7.2
-sudo: false
 cache:
     yarn: true
     directories:
@@ -27,7 +26,7 @@ env:
 before_install:
     - phpenv config-rm xdebug.ini
     - echo 'date.timezone = "Europe/Warsaw"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-    - "curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.7.0"
+    - "curl -o- -L https://yarnpkg.com/install.sh | bash -s --"
     - "export PATH=$HOME/.yarn/bin:$PATH"
 
 install:
@@ -36,6 +35,7 @@ install:
     - "[ -f vendor/bin/deptrac.phar ] || curl -LS http://get.sensiolabs.de/deptrac.phar -o vendor/bin/deptrac.phar && chmod +x vendor/bin/deptrac.phar"
     - bin/console doctrine:database:create
     - bin/console doctrine:schema:create
+    - nvm install 10
 
 script:
     - vendor/bin/phpcs

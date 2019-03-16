@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Bus\Middleware;
 
+use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
+use Symfony\Component\Messenger\Middleware\StackInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
@@ -21,8 +23,9 @@ class AuthorAccessMiddleware implements MiddlewareInterface
         $this->authorContext = $authorContext;
     }
 
-    public function handle($message, callable $next): void
+    public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {
+        $message = $envelope->getMessage();
         if (true === $message instanceof AuthorAccessInterface) {
             $author = $this->authorContext->getAuthor();
             if (false === $message->isAllowed($author)) {
@@ -34,6 +37,6 @@ class AuthorAccessMiddleware implements MiddlewareInterface
             }
         }
 
-        $next($message);
+        return $stack->next()->handle($envelope, $stack);
     }
 }

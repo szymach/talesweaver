@@ -7,11 +7,12 @@ namespace Talesweaver\Tests\Integration\Symfony\Bus\Middleware;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use stdClass;
+use Symfony\Component\Messenger\Envelope;
+use Symfony\Component\Messenger\Middleware\StackMiddleware;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Security\AuthorAwareInterface;
 use Talesweaver\Integration\Symfony\Bus\Middleware\AuthorAwareMiddleware;
-use Talesweaver\Tests\Helper\CallableClass;
 
 class AuthorAwareMiddlewareTest extends TestCase
 {
@@ -24,14 +25,16 @@ class AuthorAwareMiddlewareTest extends TestCase
     {
         $message = $this->getMockBuilder(stdClass::class)->setMethods(['setAuthor'])->getMock();
         $message->expects($this->never())->method('setAuthor');
+        $envelope = new Envelope($message);
+
+        $stack = $this->createMock(StackMiddleware::class);
+        $stack->expects($this->once())->method('next')->willReturn($stack);
+        $stack->expects($this->once())->method('handle')->with($envelope, $stack)->willReturn($envelope);
 
         $this->authorContext->expects($this->never())->method('getAuthor');
 
-        $callable = $this->createMock(CallableClass::class);
-        $callable->expects($this->once())->method('__invoke')->with($message);
-
         $middleware = new AuthorAwareMiddleware($this->authorContext);
-        $middleware->handle($message, $callable);
+        $middleware->handle($envelope, $stack);
     }
 
     public function testSettingUser()
@@ -42,11 +45,14 @@ class AuthorAwareMiddlewareTest extends TestCase
         $message = $this->createMock(AuthorAwareInterface::class);
         $message->expects($this->once())->method('setAuthor')->with($author);
 
-        $callable = $this->createMock(CallableClass::class);
-        $callable->expects($this->once())->method('__invoke')->with($message);
+        $envelope = new Envelope($message);
+
+        $stack = $this->createMock(StackMiddleware::class);
+        $stack->expects($this->once())->method('next')->willReturn($stack);
+        $stack->expects($this->once())->method('handle')->with($envelope, $stack)->willReturn($envelope);
 
         $middleware = new AuthorAwareMiddleware($this->authorContext);
-        $middleware->handle($message, $callable);
+        $middleware->handle($envelope, $stack);
     }
 
     protected function setUp()

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Bus\Middleware;
 
+use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
+use Symfony\Component\Messenger\Middleware\StackInterface;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Application\Session\Flash;
 use Talesweaver\Application\Session\FlashBag;
@@ -21,18 +23,19 @@ class MessagesMiddleware implements MiddlewareInterface
         $this->flashBag = $flashBag;
     }
 
-    public function handle($command, callable $next): void
+    public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {
-        $next($command);
-        if (false === $command instanceof MessageCommandInterface) {
-            return;
+        $command = $envelope->getMessage();
+        $response = $stack->next()->handle($envelope, $stack);
+        if (true === $command instanceof MessageCommandInterface) {
+            $message = $command->getMessage();
+            $this->flashBag->add(new Flash(
+                $message->getType(),
+                $message->getTranslationKey(),
+                $message->getTranslationParameters()
+            ));
         }
 
-        $message = $command->getMessage();
-        $this->flashBag->add(new Flash(
-            $message->getType(),
-            $message->getTranslationKey(),
-            $message->getTranslationParameters()
-        ));
+        return $response;
     }
 }

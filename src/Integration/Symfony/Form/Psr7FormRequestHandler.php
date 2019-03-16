@@ -17,11 +17,11 @@ class Psr7FormRequestHandler implements RequestHandlerInterface
     /**
      * @var ServerParams
      */
-    private $serverParams;
+    private $serverParameters;
 
-    public function __construct(ServerParams $serverParams)
+    public function __construct(ServerParams $serverParameters)
     {
-        $this->serverParams = $serverParams;
+        $this->serverParameters = $serverParameters;
     }
 
     public function handleRequest(FormInterface $form, $request = null)
@@ -54,13 +54,13 @@ class Psr7FormRequestHandler implements RequestHandlerInterface
             // Mark the form with an error if the uploaded size was too large
             // This is done here and not in FormValidator because $_POST is
             // empty when that error occurs. Hence the form is never submitted.
-            if ($this->serverParams->hasPostMaxSizeBeenExceeded()) {
+            if ($this->serverParameters->hasPostMaxSizeBeenExceeded()) {
                 // Submit the form, but don't clear the default values
                 $form->submit(null, false);
                 $form->addError(new FormError(
                     call_user_func($form->getConfig()->getOption('upload_max_size_message')),
                     null,
-                    ['{{ max }}' => $this->serverParams->getNormalizedIniPostMaxSize()]
+                    ['{{ max }}' => $this->serverParameters->getNormalizedIniPostMaxSize()]
                 ));
                 return;
             }

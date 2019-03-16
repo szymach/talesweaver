@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Bus\Middleware;
 
+use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
+use Symfony\Component\Messenger\Middleware\StackInterface;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Security\AuthorAwareInterface;
 
@@ -20,12 +22,13 @@ class AuthorAwareMiddleware implements MiddlewareInterface
         $this->authorContext = $authorContext;
     }
 
-    public function handle($message, callable $next): void
+    public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {
+        $message = $envelope->getMessage();
         if (true === $message instanceof AuthorAwareInterface) {
             $message->setAuthor($this->authorContext->getAuthor());
         }
 
-        $next($message);
+        return $stack->next()->handle($envelope, $stack);
     }
 }

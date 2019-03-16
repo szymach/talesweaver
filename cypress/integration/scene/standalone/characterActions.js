@@ -22,6 +22,7 @@ describe('Character sidemenu actions', () => {
             cy.get('#modal-display h4').contains(/^Postać$/).should('be.visible');
             cy.get('#modal-display').contains('Zamknij').click();
             cy.get('@characters').find('.js-list-toggle').click();
+            cy.wait(2000);
         });
 
         cy.get('@characters').within(() => {

@@ -8,12 +8,13 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
 use stdClass;
+use Symfony\Component\Messenger\Envelope;
+use Symfony\Component\Messenger\Middleware\StackMiddleware;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
 use Talesweaver\Integration\Symfony\Bus\Middleware\AuthorAccessMiddleware;
-use Talesweaver\Tests\Helper\CallableClass;
 
 class AuthorAccessMiddlewareTest extends TestCase
 {
@@ -24,14 +25,16 @@ class AuthorAccessMiddlewareTest extends TestCase
 
     public function testSkippingIncorrectMessageInstance()
     {
-        $message = new stdClass();
+        $envelope = new Envelope(new stdClass());
 
         $this->authorContext->expects($this->never())->method('getAuthor');
 
-        $callable = $this->createMock(CallableClass::class);
-        $callable->expects($this->once())->method('__invoke')->with($message);
+        $stack = $this->createMock(StackMiddleware::class);
+        $stack->expects($this->once())->method('next')->willReturn($stack);
+        $stack->expects($this->once())->method('handle')->with($envelope, $stack)->willReturn($envelope);
+
         $middleware = new AuthorAccessMiddleware($this->authorContext);
-        $middleware->handle($message, $callable);
+        $middleware->handle($envelope, $stack);
     }
 
     public function testUserAllowed()
@@ -42,17 +45,19 @@ class AuthorAccessMiddlewareTest extends TestCase
         $message = $this->createMock(AuthorAccessInterface::class);
         $message->expects($this->once())->method('isAllowed')->with($author)->willReturn(true);
 
-        $callable = $this->createMock(CallableClass::class);
-        $callable->expects($this->once())->method('__invoke')->with($message);
+        $envelope = new Envelope($message);
+        $stack = $this->createMock(StackMiddleware::class);
+        $stack->expects($this->once())->method('next')->willReturn($stack);
+        $stack->expects($this->once())->method('handle')->with($envelope, $stack)->willReturn($envelope);
 
         $middleware = new AuthorAccessMiddleware($this->authorContext);
-        $middleware->handle($message, $callable);
+        $middleware->handle($envelope, $stack);
     }
 
     public function testUserNotAllowedException()
     {
-        $callable = $this->createMock(CallableClass::class);
-        $callable->expects($this->never())->method('__invoke');
+        $stack = $this->createMock(StackMiddleware::class);
+        $stack->expects($this->never())->method('next');
 
         $author = $this->createMock(Author::class);
         $id = $this->createMock(UuidInterface::class);
@@ -62,6 +67,7 @@ class AuthorAccessMiddlewareTest extends TestCase
 
         $message = $this->createMock(AuthorAccessInterface::class);
         $message->expects($this->once())->method('isAllowed')->with($author)->willReturn(false);
+        $envelope = new Envelope($message);
 
         $this->expectException(AccessDeniedException::class);
         $this->expectExceptionMessage(sprintf(
@@ -70,7 +76,7 @@ class AuthorAccessMiddlewareTest extends TestCase
         ));
 
         $middleware = new AuthorAccessMiddleware($this->authorContext);
-        $middleware->handle($message, $callable);
+        $middleware->handle($envelope, $stack);
     }
 
     protected function setUp()

@@ -1,4 +1,4 @@
-describe('Item sidemenu actions', () => {
+describe('Location sidemenu actions', () => {
 
     beforeEach(() => {
         cy.visitStandaloneScene();
@@ -22,11 +22,12 @@ describe('Item sidemenu actions', () => {
             cy.get('#modal-display h4').contains(/^Przedmiot$/).should('be.visible');
             cy.get('#modal-display').contains('Zamknij').click();
             cy.get('@items').find('.js-list-toggle').click();
+            cy.wait(2000);
         });
 
         cy.get('@items').within(() => {
             cy.get('.js-list-toggle').click();
-            cy.get('.js-edit-form').last().click();
+            cy.contains(/^Przedmiot$/).next().find('.js-edit-form').click();
         }).then(() => {
             cy.contains('Edycja przedmiotu');
             cy.get('input[name="edit[name]"]').type('{selectall}Przedmiot edytowany{enter}');
@@ -35,7 +36,7 @@ describe('Item sidemenu actions', () => {
 
         cy.get('@items').within(() => {
             cy.get('.js-list-toggle').click();
-            cy.get('.js-delete').last().click();
+            cy.contains('Przedmiot edy').next().find('.js-delete').click();
         }).then(() => {
             cy.get('#modal-confirm').click().then(() => {
                 cy.contains('Przedmiot "Przedmiot edytowany" został usunięty.').should('be.visible');

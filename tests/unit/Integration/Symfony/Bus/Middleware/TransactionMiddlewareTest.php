@@ -10,8 +10,9 @@ use Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use stdClass;
+use Symfony\Component\Messenger\Envelope;
+use Symfony\Component\Messenger\Middleware\StackMiddleware;
 use Talesweaver\Integration\Symfony\Bus\Middleware\TransactionMiddleware;
-use Talesweaver\Tests\Helper\CallableClass;
 
 class TransactionMiddlewareTest extends TestCase
 {
@@ -22,10 +23,11 @@ class TransactionMiddlewareTest extends TestCase
 
     public function testNoExceptionThrown()
     {
-        $command = new stdClass();
+        $envelope = new Envelope(new stdClass());
 
-        $callable = $this->createMock(CallableClass::class);
-        $callable->expects($this->once())->method('__invoke')->with($command);
+        $stack = $this->createMock(StackMiddleware::class);
+        $stack->expects($this->once())->method('next')->willReturn($stack);
+        $stack->expects($this->once())->method('handle')->with($envelope, $stack)->willReturn($envelope);
 
         $this->manager->expects($this->once())->method('flush');
         $this->manager->expects($this->once())->method('commit');
@@ -34,19 +36,20 @@ class TransactionMiddlewareTest extends TestCase
         $this->manager->expects($this->never())->method('rollback');
 
         $middleware = new TransactionMiddleware($this->manager);
-        $middleware->handle($command, $callable);
+        $middleware->handle($envelope, $stack);
     }
 
     public function testExceptionThrownWithActiveTransaction()
     {
         $this->expectException(Exception::class);
 
-        $command = new stdClass();
+        $envelope = new Envelope(new stdClass());
 
-        $callable = $this->createMock(CallableClass::class);
-        $callable->expects($this->once())
-            ->method('__invoke')
-            ->with($command)
+        $stack = $this->createMock(StackMiddleware::class);
+        $stack->expects($this->once())->method('next')->willReturn($stack);
+        $stack->expects($this->once())
+            ->method('handle')
+            ->with($envelope, $stack)
             ->will($this->throwException(new Exception()))
         ;
 
@@ -60,19 +63,20 @@ class TransactionMiddlewareTest extends TestCase
         $this->manager->expects($this->once())->method('rollback');
 
         $middleware = new TransactionMiddleware($this->manager);
-        $middleware->handle($command, $callable);
+        $middleware->handle($envelope, $stack);
     }
 
     public function testExceptionThrownWithoutActiveTransaction()
     {
         $this->expectException(Exception::class);
 
-        $command = new stdClass();
+        $envelope = new Envelope(new stdClass());
 
-        $callable = $this->createMock(CallableClass::class);
-        $callable->expects($this->once())
-            ->method('__invoke')
-            ->with($command)
+        $stack = $this->createMock(StackMiddleware::class);
+        $stack->expects($this->once())->method('next')->willReturn($stack);
+        $stack->expects($this->once())
+            ->method('handle')
+            ->with($envelope, $stack)
             ->will($this->throwException(new Exception()))
         ;
 
@@ -86,7 +90,7 @@ class TransactionMiddlewareTest extends TestCase
         $this->manager->expects($this->never())->method('rollback');
 
         $middleware = new TransactionMiddleware($this->manager);
-        $middleware->handle($command, $callable);
+        $middleware->handle($envelope, $stack);
     }
 
     protected function setUp()

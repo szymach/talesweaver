@@ -7,13 +7,13 @@ namespace Talesweaver\Tests\Integration\Symfony\Bus\Middleware;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use stdClass;
-use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Envelope;
+use Symfony\Component\Messenger\Middleware\StackMiddleware;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Application\Session\Flash;
 use Talesweaver\Application\Session\FlashBag;
 use Talesweaver\Integration\Symfony\Bus\Middleware\MessagesMiddleware;
-use Talesweaver\Tests\Helper\CallableClass;
 
 class MessagesMiddlewareTest extends TestCase
 {
@@ -24,16 +24,18 @@ class MessagesMiddlewareTest extends TestCase
 
     public function testSkippsWhenUnsupportedMessageInstance()
     {
-        $command = $this->getMockBuilder(stdClass::class)->setMethods(['getMessage'])->getMock();
-        $command->expects($this->never())->method('getMessage');
+        $message = $this->getMockBuilder(stdClass::class)->setMethods(['getMessage'])->getMock();
+        $message->expects($this->never())->method('getMessage');
+        $envelope = new Envelope($message);
 
         $this->flashBag->expects($this->never())->method('add');
 
-        $callable = $this->createMock(CallableClass::class);
-        $callable->expects($this->once())->method('__invoke')->with($command);
+        $stack = $this->createMock(StackMiddleware::class);
+        $stack->expects($this->once())->method('next')->willReturn($stack);
+        $stack->expects($this->once())->method('handle')->with($envelope, $stack)->willReturn($envelope);
 
         $middleware = new MessagesMiddleware($this->flashBag);
-        $middleware->handle($command, $callable);
+        $middleware->handle($envelope, $stack);
     }
 
     public function testSettingFlashMessage()
@@ -46,13 +48,16 @@ class MessagesMiddlewareTest extends TestCase
         $command = $this->createMock(MessageCommandInterface::class);
         $command->expects($this->once())->method('getMessage')->willReturn($message);
 
+        $envelope = new Envelope($command);
+
         $this->flashBag->expects($this->once())->method('add')->with($this->isInstanceOf(Flash::class));
 
-        $callable = $this->createMock(CallableClass::class);
-        $callable->expects($this->once())->method('__invoke')->with($command);
+        $stack = $this->createMock(StackMiddleware::class);
+        $stack->expects($this->once())->method('next')->willReturn($stack);
+        $stack->expects($this->once())->method('handle')->with($envelope, $stack)->willReturn($envelope);
 
         $middleware = new MessagesMiddleware($this->flashBag);
-        $middleware->handle($command, $callable);
+        $middleware->handle($envelope, $stack);
     }
 
     protected function setUp()
