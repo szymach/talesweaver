@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace Talesweaver\Application\Form\Event;
 
 use InvalidArgumentException;
+use Talesweaver\Domain\Event\Death;
 use Talesweaver\Domain\Event\Meeting;
-use Talesweaver\Application\Form\Type\Event\Meeting as MeetingForm;
+use Talesweaver\Application\Form\Type;
 
 final class SceneEvents
 {
-    public const ALL_FORMS = [Meeting::class => MeetingForm::class];
+    public const ALL_FORMS = [
+        Meeting::class => Type\Event\Meeting::class,
+        Death::class => Type\Event\Death::class
+    ];
 
     public static function isEvent(string $model): void
     {

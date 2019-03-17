@@ -227,7 +227,7 @@ event:
     actions:
         create: Nowe wydarzenie
     'Talesweaver\Domain\Event\Meeting':
-        name: 'Spotkanie:'
+        name: Spotkanie
         create: Nowe spotkanie
         description: >
             <span class="underline">%root%</span> z
@@ -236,6 +236,15 @@ event:
         fields:
             root: Pierwsza osoba
             relation: Druga osoba
+            location: Miejsce
+    'Talesweaver\Domain\Event\Death':
+        name: Śmierć
+        create: Nowe spotkanie
+        description: >
+            <span class="underline">%character%</span> zmarł/a w
+            <span class="underline">%location%</span>
+        fields:
+            character: Osoba
             location: Miejsce
     modal:
         title: Wybierz wydarzenie do dodania
