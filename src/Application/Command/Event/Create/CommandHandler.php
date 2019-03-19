@@ -26,7 +26,6 @@ class CommandHandler implements CommandHandlerInterface
             new Event(
                 $command->getId(),
                 $command->getName(),
-                $command->getModel(),
                 $command->getScene(),
                 $command->getAuthor()
             )

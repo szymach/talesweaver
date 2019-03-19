@@ -11,7 +11,6 @@ use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Scene\Create\DTO as CreateDTO;
 use Talesweaver\Application\Command\Scene\Edit\Command;
 use Talesweaver\Application\Command\Scene\Edit\DTO as EditDTO;
-use Talesweaver\Application\Form\Event\SceneEvents;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\FormHandlerInterface;
 use Talesweaver\Application\Form\FormViewInterface;
@@ -130,8 +129,7 @@ class EditController
             'characters' => [],
             'items' => [],
             'locations' => [],
-            'events' => [],
-            'eventModels' => SceneEvents::getAllEvents()
+            'events' => []
         ];
 
         if (null !== $scene->getChapter()) {

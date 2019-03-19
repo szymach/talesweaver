@@ -1,8 +1,6 @@
 ---
 event:
     exists: Wydarzenie o danej nazwie już istnieje!
-    meeting:
-        cannot_meet_itself: Postać nie może spotkać samej siebie.
 
 unqiue_dto:
     exists: Podana wartość jest już używana!

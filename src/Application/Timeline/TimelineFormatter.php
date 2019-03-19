@@ -53,18 +53,10 @@ abstract class TimelineFormatter
 
     private function formatEvents(array $events): array
     {
-        return array_reduce($events, function (array $initial, Event $event): array {
-            $model = $event->getModel();
-            $modelClass = get_class($model);
-            $shortClassName = (new ReflectionClass($model))->getShortName();
-            $initial["event.{$modelClass}.name"] = [
-                self::EVENT_ICONS[$modelClass] => $this->htmlContent->fromTemplate(
-                    sprintf('scene/events/models/%s.html.twig', mb_strtolower($shortClassName)),
-                    ['name' => $event->getName(), 'model' => $model]
-                )
-            ];
+        return array_reduce($events, function (array $accumulator, Event $event): array {
+            $accumulator[] = $event->getName();
 
-            return $initial;
+            return $accumulator;
         }, []);
     }
 }

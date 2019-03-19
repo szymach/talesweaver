@@ -11,7 +11,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Valid;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Event\Create\DTO;
@@ -49,24 +48,17 @@ class CreateType extends AbstractType implements Create
                 }
             ])]
         ]);
-
-        $builder->add('model', $options['model'], [
-            'label' => false,
-            'scene' => $scene,
-            'constraints' => [new NotBlank(), new Valid()]
-        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            'attr' => ['class' => 'js-form'],
             'data_class' => DTO::class,
-            'model' => null,
-            'scene' => null,
-            'attr' => ['class' => 'js-form']
+            'scene' => null
         ]);
+
         $resolver->setAllowedTypes('scene', [Scene::class]);
-        $resolver->setAllowedTypes('model', ['string']);
-        $resolver->setRequired(['scene', 'model']);
+        $resolver->setRequired(['scene']);
     }
 }

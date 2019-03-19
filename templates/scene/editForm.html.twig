@@ -29,7 +29,7 @@
             {% include 'scene/characters/listHeader.html.twig' with { sceneId: sceneId, chapterId: chapterId } only %}
             {% include 'scene/items/listHeader.html.twig' with { sceneId: sceneId, chapterId: chapterId } only %}
             {% include 'scene/locations/listHeader.html.twig' with { sceneId: sceneId, chapterId: chapterId} only %}
-            {% include 'scene/events/listHeader.html.twig' with { sceneId: sceneId, chapterId: chapterId, eventModels: eventModels } only %}
+            {% include 'scene/events/listHeader.html.twig' with { sceneId: sceneId, chapterId: chapterId } only %}
         {% endblock %}
     {% endembed %}
 {% endblock %}

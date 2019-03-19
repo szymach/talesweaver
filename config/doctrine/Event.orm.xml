@@ -12,7 +12,6 @@
         <id name="id" type="uuid"/>
         <field name="createdAt" type="datetime"/>
         <field name="updatedAt" type="datetime" nullable="true"/>
-        <field name="model" type="json_array" column="model"/>
 
         <one-to-many field="translations" target-entity="Talesweaver\Domain\Translation\EventTranslation" mapped-by="event">
             <cascade>
@@ -31,12 +30,6 @@
                 <join-column on-delete="CASCADE"/>
             </join-columns>
         </many-to-one>
-
-        <entity-listeners>
-            <entity-listener class="Talesweaver\Integration\Doctrine\Listener\ModelParserListener">
-                <lifecycle-callback type="postLoad" method="postLoad"/>
-            </entity-listener>
-        </entity-listeners>
 
     </entity>
 </doctrine-mapping>

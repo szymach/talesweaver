@@ -9,7 +9,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Command\Event\Edit\Command;
 use Talesweaver\Application\Command\Event\Edit\DTO;
-use Talesweaver\Application\Form\Event\EventModelResolver;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Event\Edit;
 use Talesweaver\Application\Http\ApiResponseFactoryInterface;
@@ -31,11 +30,6 @@ class EditController
     private $formHandlerFactory;
 
     /**
-     * @var EventModelResolver
-     */
-    private $eventModelResolver;
-
-    /**
      * @var CommandBus
      */
     private $commandBus;
@@ -53,14 +47,12 @@ class EditController
     public function __construct(
         EventResolver $eventResolver,
         FormHandlerFactoryInterface $formHandlerFactory,
-        EventModelResolver $eventModelResolver,
         CommandBus $commandBus,
         ApiResponseFactoryInterface $responseFactory,
         UrlGenerator $urlGenerator
     ) {
         $this->eventResolver = $eventResolver;
         $this->formHandlerFactory = $formHandlerFactory;
-        $this->eventModelResolver = $eventModelResolver;
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
         $this->urlGenerator = $urlGenerator;
@@ -76,7 +68,6 @@ class EditController
             [
                 'action' => $this->urlGenerator->generate('event_edit', ['id' => $event->getId()]),
                 'eventId' => $event->getId(),
-                'model' => $this->eventModelResolver->resolve(get_class($event->getModel())),
                 'scene' => $event->getScene()
             ]
         );
@@ -94,11 +85,7 @@ class EditController
 
     private function processFormDataAndRedirect(Event $event, DTO $dto): ResponseInterface
     {
-        $this->commandBus->dispatch(new Command(
-            $event,
-            new ShortText($dto->getName()),
-            $dto->getModel()
-        ));
+        $this->commandBus->dispatch(new Command($event, new ShortText($dto->getName())));
 
         return $this->responseFactory->success();
     }

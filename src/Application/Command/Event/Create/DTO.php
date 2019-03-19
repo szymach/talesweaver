@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Command\Event\Create;
 
-use JsonSerializable;
 use Talesweaver\Domain\Scene;
 
 class DTO
@@ -13,11 +12,6 @@ class DTO
      * @var string
      */
     private $name;
-
-    /**
-     * @var JsonSerializable
-     */
-    private $model;
 
     /**
      * @var Scene
@@ -37,16 +31,6 @@ class DTO
     public function setName(?string $name): void
     {
         $this->name = $name;
-    }
-
-    public function getModel(): ?JsonSerializable
-    {
-        return $this->model;
-    }
-
-    public function setModel(?JsonSerializable $model): void
-    {
-        $this->model = $model;
     }
 
     public function getScene(): Scene

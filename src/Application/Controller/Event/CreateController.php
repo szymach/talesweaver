@@ -10,7 +10,6 @@ use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Command\Event\Create\Command;
 use Talesweaver\Application\Command\Event\Create\DTO;
-use Talesweaver\Application\Form\Event\EventModelResolver;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Event\Create;
 use Talesweaver\Application\Http\ApiResponseFactoryInterface;
@@ -32,11 +31,6 @@ class CreateController
     private $formHandlerFactory;
 
     /**
-     * @var EventModelResolver
-     */
-    private $eventModelResolver;
-
-    /**
      * @var CommandBus
      */
     private $commandBus;
@@ -54,14 +48,12 @@ class CreateController
     public function __construct(
         SceneResolver $sceneResolver,
         FormHandlerFactoryInterface $formHandlerFactory,
-        EventModelResolver $eventModelResolver,
         CommandBus $commandBus,
         ApiResponseFactoryInterface $responseFactory,
         UrlGenerator $urlGenerator
     ) {
         $this->sceneResolver = $sceneResolver;
         $this->formHandlerFactory = $formHandlerFactory;
-        $this->eventModelResolver = $eventModelResolver;
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
         $this->urlGenerator = $urlGenerator;
@@ -70,18 +62,13 @@ class CreateController
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
         $scene = $this->sceneResolver->fromRequest($request);
-        $model = $request->getAttribute('model');
         $formHandler = $this->formHandlerFactory->createWithRequest(
             $request,
             Create::class,
             new DTO($scene),
             [
                 'scene' => $scene,
-                'model' => $this->eventModelResolver->resolve($model),
-                'action' => $this->urlGenerator->generate(
-                    'event_add',
-                    ['id' => $scene->getId(), 'model' => $model]
-                )
+                'action' => $this->urlGenerator->generate('event_add', ['id' => $scene->getId()])
             ]
         );
 
@@ -99,7 +86,7 @@ class CreateController
     private function processFormDataAndRedirect(Scene $scene, DTO $dto): ResponseInterface
     {
         $this->commandBus->dispatch(
-            new Command(Uuid::uuid4(), $scene, new ShortText($dto->getName()), $dto->getModel())
+            new Command(Uuid::uuid4(), $scene, new ShortText($dto->getName()))
         );
 
         return $this->responseFactory->success();

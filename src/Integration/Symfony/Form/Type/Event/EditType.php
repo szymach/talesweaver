@@ -49,11 +49,6 @@ class EditType extends AbstractType implements Edit
                 }
             ])]
         ]);
-
-        $builder->add('model', $options['model'], [
-            'label' => false,
-            'scene' => $options['scene']
-        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -61,14 +56,12 @@ class EditType extends AbstractType implements Edit
         $resolver->setDefaults([
             'attr' => ['class' => 'js-form'],
             'data_class' => DTO::class,
-            'model' => null,
-            'scene' => null,
-            'eventId' => null
+            'eventId' => null,
+            'scene' => null
         ]);
 
         $resolver->setAllowedTypes('eventId', ['null', UuidInterface::class]);
         $resolver->setAllowedTypes('scene', [Scene::class]);
-        $resolver->setAllowedTypes('model', ['string']);
-        $resolver->setRequired(['scene', 'model']);
+        $resolver->setRequired(['scene']);
     }
 }

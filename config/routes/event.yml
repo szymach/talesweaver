@@ -12,11 +12,9 @@ event_options:
     methods:  GET
 
 event_add:
-    path: /add/{id}/{model}
+    path: /add/{id}
     controller: Talesweaver\Application\Controller\Event\CreateController
     methods:  GET|POST
-    requirements:
-        model: .+
 
 event_edit:
     path: /edit/{id}

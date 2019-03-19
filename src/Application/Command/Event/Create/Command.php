@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Command\Event\Create;
 
-use JsonSerializable;
 use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Application\Command\Security\Traits\AuthorAwareTrait;
 use Talesweaver\Application\Messages\CreationSuccessMessage;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
-use Talesweaver\Application\Command\Security\Traits\AuthorAwareTrait;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
@@ -35,17 +34,11 @@ class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCom
      */
     private $name;
 
-    /**
-     * @var JsonSerializable|null
-     */
-    private $model;
-
-    public function __construct(UuidInterface $id, Scene $scene, ShortText $name, JsonSerializable $model)
+    public function __construct(UuidInterface $id, Scene $scene, ShortText $name)
     {
         $this->id = $id;
         $this->scene = $scene;
         $this->name = $name;
-        $this->model = $model;
     }
 
     public function getId(): UuidInterface
@@ -63,17 +56,8 @@ class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCom
         return $this->name;
     }
 
-    public function getModel(): JsonSerializable
-    {
-        return $this->model;
-    }
-
     public function isAllowed(Author $author): bool
     {
-        if ($this->model instanceof AuthorAccessInterface && false === $this->model->isAllowed($author)) {
-            return false;
-        }
-
         return $author === $this->scene->getCreatedBy();
     }
 

@@ -17,7 +17,6 @@ services:
     Talesweaver\Application\Bus\CommandBus: '@Talesweaver\Integration\Symfony\Bus\CommandBus'
     Talesweaver\Application\Bus\EventBus: '@Talesweaver\Integration\Symfony\Bus\EventBus'
     Talesweaver\Application\Bus\QueryBus: '@Talesweaver\Integration\Symfony\Bus\QueryBus'
-    Talesweaver\Application\Form\Event\EventModelResolver: '@Talesweaver\Integration\Symfony\Form\Event\EventModelResolver'
     Talesweaver\Application\Form\FormHandlerFactoryInterface: '@Talesweaver\Integration\Symfony\Form\FormHandlerFactory'
     Talesweaver\Application\Http\HtmlContent: '@Talesweaver\Integration\Symfony\Http\HtmlContent'
     Talesweaver\Application\Http\ApiResponseFactoryInterface: '@Talesweaver\Integration\Symfony\Http\ApiResponseFactory'
@@ -77,17 +76,7 @@ services:
         resource: "../src/Integration/Doctrine/{DataFixtures,Repository}/*"
 
     Talesweaver\Integration\Symfony\:
-        resource: "../src/Integration/Symfony/{Bus/Middleware,Form/{Event,Type},Http,JSON,Mail,Menu,Repository,Security,Session,Validation}/*"
-
-    # Doctrine
-    entity_listener.event:
-        class: Talesweaver\Integration\Doctrine\Listener\ModelParserListener
-        autoconfigure: false
-        tags: [{ name: doctrine.orm.entity_listener }]
-
-    # Do not remove, because it is not explicitly used and is removed from the container
-    Talesweaver\Integration\Symfony\JSON\EventParser:
-        public: true
+        resource: "../src/Integration/Symfony/{Bus/Middleware,Form/{Event,Type},Http,Mail,Menu,Repository,Security,Session,Validation}/*"
 
     # Menu
     app.menu.main:

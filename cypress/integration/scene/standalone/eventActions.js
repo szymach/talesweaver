@@ -13,9 +13,6 @@ describe('Event sidemenu actions', () => {
         }).then(() => {
             cy.get('@ajax-container').contains('Nowe wydarzenie').should('be.visible');
             cy.get('@ajax-container').get('[name="create[name]"]').type('Spotkanie');
-            cy.get('@ajax-container').get('[name="create[model][root]"]').select('Postać do spotkania 1');
-            cy.get('@ajax-container').get('[name="create[model][location]"]').select('Miejsce do spotkania 1');
-            cy.get('@ajax-container').get('[name="create[model][relation]"]').select('Postać do spotkania 2');
             cy.get('@ajax-container').contains('Zapisz').click();
             cy.contains('Pomyślnie dodano nowe wydarzenie o nazwie "Spotkanie"').should('be.visible');
         });
@@ -35,9 +32,6 @@ describe('Event sidemenu actions', () => {
         }).then(() => {
             cy.get('@ajax-container').contains('Edycja wydarzenia').should('be.visible');
             cy.get('@ajax-container').get('[name="edit[name]"]').type('{selectall}Spotkanie edytowane');
-            cy.get('@ajax-container').get('[name="edit[model][root]"]').select('Postać do spotkania 2');
-            cy.get('@ajax-container').get('[name="edit[model][location]"]').select('Miejsce do spotkania 2');
-            cy.get('@ajax-container').get('[name="edit[model][relation]"]').select('Postać do spotkania 3');
             cy.get('@ajax-container').contains('Zapisz').click();
             cy.contains('Zapisano zmiany w wydarzeniu.').should('be.visible');
         });

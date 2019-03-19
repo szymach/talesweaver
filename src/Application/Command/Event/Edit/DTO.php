@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Command\Event\Edit;
 
-use JsonSerializable;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Event;
 
@@ -20,16 +19,10 @@ class DTO
      */
     private $name;
 
-    /**
-     * @var JsonSerializable
-     */
-    private $model;
-
     public function __construct(Event $event)
     {
         $this->id = $event->getId();
         $this->name = (string) $event->getName();
-        $this->model = $event->getModel();
     }
 
     public function getId(): UuidInterface
@@ -45,15 +38,5 @@ class DTO
     public function setName(?string $name): void
     {
         $this->name = $name;
-    }
-
-    public function getModel(): ?JsonSerializable
-    {
-        return $this->model;
-    }
-
-    public function setModel(?JsonSerializable $model): void
-    {
-        $this->model = $model;
     }
 }

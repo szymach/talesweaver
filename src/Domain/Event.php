@@ -6,7 +6,6 @@ namespace Talesweaver\Domain;
 
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
-use JsonSerializable;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Traits\CreatedByTrait;
 use Talesweaver\Domain\Traits\TimestampableTrait;
@@ -23,11 +22,6 @@ class Event
     private $id;
 
     /**
-     * @var JsonSerializable
-     */
-    private $model;
-
-    /**
      * @var ShortText
      */
     private $name;
@@ -40,20 +34,17 @@ class Event
     /**
      * @param UuidInterface $id
      * @param ShortText $name
-     * @param JsonSerializable $model
      * @param Scene $scene
      * @param Author $author
      */
     public function __construct(
         UuidInterface $id,
         ShortText $name,
-        JsonSerializable $model,
         Scene $scene,
         Author $author
     ) {
         $this->id = $id;
         $this->name = $name;
-        $this->model = $model;
         $this->scene = $scene;
         $this->createdAt = new DateTimeImmutable();
         $this->createdBy = $author;
@@ -67,19 +58,12 @@ class Event
 
     /**
      * @param ShortText $name
-     * @param JsonSerializable $model
      * @return void
      */
-    public function edit(ShortText $name, JsonSerializable $model): void
+    public function edit(ShortText $name): void
     {
         $this->name = $name;
-        $this->model = $model;
         $this->update();
-    }
-
-    public function setParsedModel(JsonSerializable $model): void
-    {
-        $this->model = $model;
     }
 
     public function getId(): UuidInterface
@@ -90,11 +74,6 @@ class Event
     public function getName(): ShortText
     {
         return $this->name;
-    }
-
-    public function getModel()
-    {
-        return $this->model;
     }
 
     public function getScene(): Scene
