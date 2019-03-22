@@ -221,6 +221,7 @@ scene:
 
 event:
     name: Nazwa
+    characters: Uczestnicy
     header:
         new: Nowe wydarzenie
         edit: Edycja wydarzenia

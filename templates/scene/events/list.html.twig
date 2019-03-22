@@ -1,7 +1,6 @@
 <ul class="js-ajax-pagination" data-list-url="{{ path('event_list', { id: sceneId, page: events.currentPage }) }}">
     {% if events|length > 0 %}
         {% for event in events %}
-            {% set model = event.model %}
             <li>
                 <span>{{ event.name|truncate(20) }}</span>
                 <span class="list-actions">

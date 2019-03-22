@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Talesweaver\Application\Command\Event\Edit;
 
 use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event;
 
-class DTO
+final class DTO
 {
     /**
      * @var UuidInterface
@@ -19,9 +20,15 @@ class DTO
      */
     private $name;
 
+    /**
+     * @var Character[]
+     */
+    private $characters;
+
     public function __construct(Event $event)
     {
         $this->id = $event->getId();
+        $this->characters = [];
         $this->name = (string) $event->getName();
     }
 
@@ -38,5 +45,15 @@ class DTO
     public function setName(?string $name): void
     {
         $this->name = $name;
+    }
+
+    public function getCharacters(): array
+    {
+        return $this->characters;
+    }
+
+    public function setCharacters(array $characters): void
+    {
+        $this->characters = $characters;
     }
 }

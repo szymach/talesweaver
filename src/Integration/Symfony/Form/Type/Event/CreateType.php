@@ -52,13 +52,15 @@ class CreateType extends AbstractType implements Create
         ]);
 
         $builder->add('characters', EntityType::class, [
+            'label' => 'event.characters',
             'class' => Character::class,
             'choices' => $options['characters'],
             'choice_label' => function (Character $choice): string {
                 return (string) $choice->getName();
             },
             'multiple' => true,
-            'expanded' => true
+            'expanded' => true,
+            'required' => false
         ]);
     }
 

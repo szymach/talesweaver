@@ -20,7 +20,7 @@ use Talesweaver\Application\Query\Character\ForScene;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-class CreateController
+final class CreateController
 {
     /**
      * @var SceneResolver

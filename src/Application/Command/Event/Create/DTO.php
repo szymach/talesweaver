@@ -7,7 +7,7 @@ namespace Talesweaver\Application\Command\Event\Create;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Scene;
 
-class DTO
+final class DTO
 {
     /**
      * @var string

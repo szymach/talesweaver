@@ -7,6 +7,7 @@ namespace Talesweaver\Application\Controller\Event;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
+use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Event\Edit\Command;
 use Talesweaver\Application\Command\Event\Edit\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
@@ -14,6 +15,7 @@ use Talesweaver\Application\Form\Type\Event\Edit;
 use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\EventResolver;
 use Talesweaver\Application\Http\UrlGenerator;
+use Talesweaver\Application\Query\Character\ForScene;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\ValueObject\ShortText;
 
@@ -28,6 +30,11 @@ class EditController
      * @var FormHandlerFactoryInterface
      */
     private $formHandlerFactory;
+
+    /**
+     * @var QueryBus
+     */
+    private $queryBus;
 
     /**
      * @var CommandBus
@@ -47,12 +54,14 @@ class EditController
     public function __construct(
         EventResolver $eventResolver,
         FormHandlerFactoryInterface $formHandlerFactory,
+        QueryBus $queryBus,
         CommandBus $commandBus,
         ApiResponseFactoryInterface $responseFactory,
         UrlGenerator $urlGenerator
     ) {
         $this->eventResolver = $eventResolver;
         $this->formHandlerFactory = $formHandlerFactory;
+        $this->queryBus = $queryBus;
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
         $this->urlGenerator = $urlGenerator;
@@ -67,6 +76,7 @@ class EditController
             new DTO($event),
             [
                 'action' => $this->urlGenerator->generate('event_edit', ['id' => $event->getId()]),
+                'characters' => $this->queryBus->query(new ForScene($event->getScene())),
                 'eventId' => $event->getId(),
                 'scene' => $event->getScene()
             ]

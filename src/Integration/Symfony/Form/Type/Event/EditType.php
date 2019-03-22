@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Form\Type\Event;
 
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,9 +18,10 @@ use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Event\Edit\DTO;
 use Talesweaver\Application\Form\Type\Event\Edit;
 use Talesweaver\Application\Query\Event\EntityExists;
+use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Scene;
 
-class EditType extends AbstractType implements Edit
+final class EditType extends AbstractType implements Edit
 {
     /**
      * @var QueryBus
@@ -49,18 +51,35 @@ class EditType extends AbstractType implements Edit
                 }
             ])]
         ]);
+
+        $builder->add('characters', EntityType::class, [
+            'label' => 'event.characters',
+            'class' => Character::class,
+            'choices' => $options['characters'],
+            'choice_label' => function (Character $choice): string {
+                return (string) $choice->getName();
+            },
+            'multiple' => true,
+            'expanded' => true,
+            'required' => false
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'attr' => ['class' => 'js-form'],
+            'characters' => [],
             'data_class' => DTO::class,
             'eventId' => null,
             'scene' => null
         ]);
 
-        $resolver->setAllowedTypes('eventId', ['null', UuidInterface::class]);
+        $resolver->setAllowedTypes('characters', ['array']);
+        $resolver->setRequired(['characters']);
+
+        $resolver->setAllowedTypes('eventId', [UuidInterface::class]);
+
         $resolver->setAllowedTypes('scene', [Scene::class]);
         $resolver->setRequired(['scene']);
     }
