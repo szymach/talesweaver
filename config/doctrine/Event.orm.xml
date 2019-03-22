@@ -20,6 +20,9 @@
             </cascade>
         </one-to-many>
 
+        <many-to-many field="characters" target-entity="Talesweaver\Domain\Character" />
+        <many-to-many field="items" target-entity="Talesweaver\Domain\Item" />
+
         <many-to-one field="scene" target-entity="Talesweaver\Domain\Scene" inversed-by="events">
             <join-columns>
                 <join-column on-delete="CASCADE"/>

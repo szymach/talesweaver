@@ -13,16 +13,20 @@ use Talesweaver\Integration\Symfony\Form\Type\Event\CreateType;
 use Talesweaver\Integration\Symfony\Form\Type\Event\EditType;
 use Talesweaver\Tests\FunctionalTester;
 
-class FormTypeCest
+final class FormTypeCest
 {
-    public function testValidCreateFormSubmission(FunctionalTester $I)
+    public function testValidCreateFormSubmission(FunctionalTester $I): void
     {
         $I->loginAsUser();
         $scene = $I->haveCreatedAScene('Scena');
-        $form = $this->fetchCreateForm($I, $scene);
+        $character2 = $I->haveCreatedACharacter('Postać 2', $scene);
+        $form = $this->fetchCreateForm($I, $scene, [$character2]);
         $form->handleRequest($I->getRequest([
             'create' => [
-                'name' => 'Wydarzenie'
+                'name' => 'Wydarzenie',
+                'characters' => [
+                    0 => $character2->getId()->toString()
+                ]
             ]
         ]));
 
@@ -35,13 +39,15 @@ class FormTypeCest
         $data = $form->getData();
         $I->assertInstanceOf(Create\DTO::class, $data);
         $I->assertEquals('Wydarzenie', $data->getName());
+        $I->assertCount(1, $data->getCharacters());
+        $I->assertEquals('Postać 2', (string) $data->getCharacters()[0]->getName());
     }
 
-    public function testInvalidCreateFormSubmission(FunctionalTester $I)
+    public function testInvalidCreateFormSubmission(FunctionalTester $I): void
     {
         $I->loginAsUser();
         $scene = $I->haveCreatedAScene('Scena');
-        $form = $this->fetchCreateForm($I, $scene);
+        $form = $this->fetchCreateForm($I, $scene, []);
         $form->handleRequest($I->getRequest([
             'create' => [
                 'name' => null
@@ -54,10 +60,11 @@ class FormTypeCest
         $I->assertFalse($form->isValid());
 
         $I->assertInstanceOf(Create\DTO::class, $form->getData());
-        $I->assertEquals($form->getData()->getName(), null);
+        $I->assertEquals(null, $form->getData()->getName());
+        $I->assertEquals([], $form->getData()->getCharacters());
     }
 
-    public function testValidEditFormSubmission(FunctionalTester $I)
+    public function testValidEditFormSubmission(FunctionalTester $I): void
     {
         $I->loginAsUser();
         $scene = $I->haveCreatedAScene('Scena');
@@ -79,7 +86,7 @@ class FormTypeCest
         $I->assertEquals('Wydarzenie', $data->getName());
     }
 
-    public function testInvalidEditFormSubmission(FunctionalTester $I)
+    public function testInvalidEditFormSubmission(FunctionalTester $I): void
     {
         $I->loginAsUser();
         $scene = $I->haveCreatedAScene('Scena');
@@ -102,12 +109,12 @@ class FormTypeCest
         $I->assertEquals(null, $data->getName());
     }
 
-    private function fetchCreateForm(FunctionalTester $I, Scene $scene): FormInterface
+    private function fetchCreateForm(FunctionalTester $I, Scene $scene, array $characters): FormInterface
     {
         return $I->createForm(
             CreateType::class,
             new Create\DTO($scene),
-            ['scene' => $scene, 'scene' => $scene]
+            ['characters' => $characters, 'scene' => $scene]
         );
     }
 

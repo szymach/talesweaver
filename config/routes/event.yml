@@ -6,11 +6,6 @@ event_list:
         page: 1
     methods:  GET
 
-event_options:
-    path: /options/{id}
-    controller: Talesweaver\Application\Controller\Event\OptionsListController
-    methods:  GET
-
 event_add:
     path: /add/{id}
     controller: Talesweaver\Application\Controller\Event\CreateController

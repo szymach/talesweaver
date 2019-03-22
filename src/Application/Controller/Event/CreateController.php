@@ -8,6 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Bus\CommandBus;
+use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Event\Create\Command;
 use Talesweaver\Application\Command\Event\Create\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
@@ -15,6 +16,7 @@ use Talesweaver\Application\Form\Type\Event\Create;
 use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\SceneResolver;
 use Talesweaver\Application\Http\UrlGenerator;
+use Talesweaver\Application\Query\Character\ForScene;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
 
@@ -29,6 +31,11 @@ class CreateController
      * @var FormHandlerFactoryInterface
      */
     private $formHandlerFactory;
+
+    /**
+     * @var QueryBus
+     */
+    private $queryBus;
 
     /**
      * @var CommandBus
@@ -48,12 +55,14 @@ class CreateController
     public function __construct(
         SceneResolver $sceneResolver,
         FormHandlerFactoryInterface $formHandlerFactory,
+        QueryBus $queryBus,
         CommandBus $commandBus,
         ApiResponseFactoryInterface $responseFactory,
         UrlGenerator $urlGenerator
     ) {
         $this->sceneResolver = $sceneResolver;
         $this->formHandlerFactory = $formHandlerFactory;
+        $this->queryBus = $queryBus;
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
         $this->urlGenerator = $urlGenerator;
@@ -67,8 +76,9 @@ class CreateController
             Create::class,
             new DTO($scene),
             [
-                'scene' => $scene,
-                'action' => $this->urlGenerator->generate('event_add', ['id' => $scene->getId()])
+                'action' => $this->urlGenerator->generate('event_add', ['id' => $scene->getId()]),
+                'characters' => $this->queryBus->query(new ForScene($scene)),
+                'scene' => $scene
             ]
         );
 

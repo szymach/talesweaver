@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Command\Event\Create;
 
+use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Scene;
 
 class DTO
@@ -18,8 +19,14 @@ class DTO
      */
     private $scene;
 
+    /**
+     * @var Character[]
+     */
+    private $characters;
+
     public function __construct(Scene $scene)
     {
+        $this->characters = [];
         $this->scene = $scene;
     }
 
@@ -36,5 +43,15 @@ class DTO
     public function getScene(): Scene
     {
         return $this->scene;
+    }
+
+    public function getCharacters(): array
+    {
+        return $this->characters;
+    }
+
+    public function setCharacters(array $characters): void
+    {
+        $this->characters = $characters;
     }
 }

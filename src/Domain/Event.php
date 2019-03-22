@@ -6,6 +6,7 @@ namespace Talesweaver\Domain;
 
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Traits\CreatedByTrait;
 use Talesweaver\Domain\Traits\TimestampableTrait;
@@ -32,6 +33,16 @@ class Event
     private $scene;
 
     /**
+     * @var Character[]|Collection
+     */
+    private $characters;
+
+    /**
+     * @var Item[]|Collection
+     */
+    private $items;
+
+    /**
      * @param UuidInterface $id
      * @param ShortText $name
      * @param Scene $scene
@@ -48,6 +59,8 @@ class Event
         $this->scene = $scene;
         $this->createdAt = new DateTimeImmutable();
         $this->createdBy = $author;
+        $this->characters = new ArrayCollection();
+        $this->items = new ArrayCollection();
         $this->translations = new ArrayCollection();
     }
 
@@ -79,5 +92,15 @@ class Event
     public function getScene(): Scene
     {
         return $this->scene;
+    }
+
+    public function getCharacters(): array
+    {
+        return $this->characters->toArray();
+    }
+
+    public function getItems(): array
+    {
+        return $this->items->toArray();
     }
 }
