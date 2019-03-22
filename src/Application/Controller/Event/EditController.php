@@ -19,7 +19,7 @@ use Talesweaver\Application\Query\Character\ForScene;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-class EditController
+final class EditController
 {
     /**
      * @var EventResolver
@@ -95,7 +95,9 @@ class EditController
 
     private function processFormDataAndRedirect(Event $event, DTO $dto): ResponseInterface
     {
-        $this->commandBus->dispatch(new Command($event, new ShortText($dto->getName())));
+        $this->commandBus->dispatch(
+            new Command($event, new ShortText($dto->getName()), $dto->getCharacters())
+        );
 
         return $this->responseFactory->success();
     }

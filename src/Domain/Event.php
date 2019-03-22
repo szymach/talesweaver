@@ -47,19 +47,21 @@ class Event
      * @param ShortText $name
      * @param Scene $scene
      * @param Author $author
+     * @param Character[] $characters
      */
     public function __construct(
         UuidInterface $id,
         ShortText $name,
         Scene $scene,
-        Author $author
+        Author $author,
+        array $characters = []
     ) {
         $this->id = $id;
         $this->name = $name;
         $this->scene = $scene;
         $this->createdAt = new DateTimeImmutable();
         $this->createdBy = $author;
-        $this->characters = new ArrayCollection();
+        $this->characters = new ArrayCollection($characters);
         $this->items = new ArrayCollection();
         $this->translations = new ArrayCollection();
     }
@@ -71,11 +73,13 @@ class Event
 
     /**
      * @param ShortText $name
+     * @param Character[] $characters
      * @return void
      */
-    public function edit(ShortText $name): void
+    public function edit(ShortText $name, array $characters): void
     {
         $this->name = $name;
+        $this->characters = $characters;
         $this->update();
     }
 

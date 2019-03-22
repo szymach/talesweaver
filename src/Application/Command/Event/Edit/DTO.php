@@ -28,7 +28,7 @@ final class DTO
     public function __construct(Event $event)
     {
         $this->id = $event->getId();
-        $this->characters = [];
+        $this->characters = $event->getCharacters();
         $this->name = (string) $event->getName();
     }
 

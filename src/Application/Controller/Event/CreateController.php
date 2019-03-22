@@ -96,7 +96,7 @@ final class CreateController
     private function processFormDataAndRedirect(Scene $scene, DTO $dto): ResponseInterface
     {
         $this->commandBus->dispatch(
-            new Command(Uuid::uuid4(), $scene, new ShortText($dto->getName()))
+            new Command(Uuid::uuid4(), $scene, new ShortText($dto->getName()), $dto->getCharacters())
         );
 
         return $this->responseFactory->success();
