@@ -4,6 +4,16 @@
     </button>
     <h4 class="modal-title">{{ event.name }}</h4>
 </div>
+<div class="modal-body">
+    {% if event.characters|length > 0 %}
+        <h5>{{ 'event.characters'|trans }}</h5>
+        <ul>
+            {% for character in event.characters %}
+                <li>{{ character.name }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">
         {{- 'modal.close'|trans -}}
