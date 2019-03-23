@@ -7,7 +7,6 @@ namespace Talesweaver\Application\Controller\Location;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
-use Talesweaver\Application\Command\Location\Edit\Command;
 use Talesweaver\Application\Command\Location\Edit\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Location\Edit;
@@ -16,11 +15,8 @@ use Talesweaver\Application\Http\Entity\LocationResolver;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Location;
-use Talesweaver\Domain\ValueObject\File;
-use Talesweaver\Domain\ValueObject\LongText;
-use Talesweaver\Domain\ValueObject\ShortText;
 
-class EditController
+final class EditController
 {
     /**
      * @var LocationResolver
@@ -94,12 +90,7 @@ class EditController
 
     private function processFormDataAndRedirect(Location $location, DTO $dto): ResponseInterface
     {
-        $this->commandBus->dispatch(new Command(
-            $location,
-            new ShortText($dto->getName()),
-            LongText::fromNullableString($dto->getDescription()),
-            File::fromNullableValue($dto->getAvatar())
-        ));
+        $this->commandBus->dispatch($dto->toCommand($location));
 
         return $this->responseFactory->success();
     }

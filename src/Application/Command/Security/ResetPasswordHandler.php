@@ -6,7 +6,7 @@ namespace Talesweaver\Application\Command\Security;
 
 use Talesweaver\Application\Bus\CommandHandlerInterface;
 
-class ResetPasswordHandler implements CommandHandlerInterface
+final class ResetPasswordHandler implements CommandHandlerInterface
 {
     public function __invoke(ResetPassword $command): void
     {

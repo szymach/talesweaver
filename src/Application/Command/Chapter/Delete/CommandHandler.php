@@ -7,7 +7,7 @@ namespace Talesweaver\Application\Command\Chapter\Delete;
 use Talesweaver\Application\Bus\CommandHandlerInterface;
 use Talesweaver\Domain\Chapters;
 
-class CommandHandler implements CommandHandlerInterface
+final class CommandHandler implements CommandHandlerInterface
 {
     /**
      * @var Chapters

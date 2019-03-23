@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Command\Event\Edit;
 
+use Assert\Assertion;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Item;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 final class DTO
 {
@@ -17,7 +19,7 @@ final class DTO
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
 
@@ -34,9 +36,20 @@ final class DTO
     public function __construct(Event $event)
     {
         $this->id = $event->getId();
+        $this->name = (string) $event->getName();
         $this->characters = $event->getCharacters();
         $this->items = $event->getItems();
-        $this->name = (string) $event->getName();
+    }
+
+    public function toCommand(Event $event): Command
+    {
+        Assertion::notNull($this->name);
+        return new Command(
+            $event,
+            new ShortText($this->name),
+            $this->characters,
+            $this->items
+        );
     }
 
     public function getId(): UuidInterface

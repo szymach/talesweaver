@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Command\Item\Edit;
 
+use Assert\Assertion;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Item;
+use Talesweaver\Domain\ValueObject\File;
+use Talesweaver\Domain\ValueObject\LongText;
+use Talesweaver\Domain\ValueObject\ShortText;
 
-class DTO
+final class DTO
 {
     /**
      * @var UuidInterface
@@ -15,17 +19,17 @@ class DTO
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $description;
 
     /**
-     * @var object
+     * @var object|null
      */
     private $avatar;
 
@@ -33,8 +37,19 @@ class DTO
     {
         $this->id = $item->getId();
         $this->name = (string) $item->getName();
-        $this->description = (string) $item->getDescription();
+        $this->description = null !== $item->getDescription() ? (string) $item->getDescription() : null;
         $this->avatar = $item->getAvatar();
+    }
+
+    public function toCommand(Item $item): Command
+    {
+        Assertion::notNull($this->name);
+        return new Command(
+            $item,
+            new ShortText($this->name),
+            LongText::fromNullableString($this->description),
+            File::fromNullableValue($this->avatar)
+        );
     }
 
     public function getId(): UuidInterface

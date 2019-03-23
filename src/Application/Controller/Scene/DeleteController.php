@@ -49,7 +49,7 @@ class DeleteController
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
         $scene = $this->sceneResolver->fromRequest($request);
-        $chapterId = $scene->getChapter() ? $scene->getChapter()->getId(): null;
+        $chapterId = null !== $scene->getChapter() ? $scene->getChapter()->getId(): null;
         $this->commandBus->dispatch(new Command($scene));
 
         if (true === is_xml_http_request($request)) {

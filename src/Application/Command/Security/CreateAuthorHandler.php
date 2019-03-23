@@ -12,7 +12,7 @@ use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Authors;
 use function generate_user_token;
 
-class CreateAuthorHandler implements CommandHandlerInterface
+final class CreateAuthorHandler implements CommandHandlerInterface
 {
     /**
      * @var Authors

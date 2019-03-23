@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Command\Character\Edit;
 
-use Doctrine\Common\Collections\Collection;
+use Assert\Assertion;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\ValueObject\File;
+use Talesweaver\Domain\ValueObject\LongText;
+use Talesweaver\Domain\ValueObject\ShortText;
 
-class DTO
+final class DTO
 {
     /**
      * @var UuidInterface
@@ -17,22 +20,22 @@ class DTO
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $description;
 
     /**
-     * @var object
+     * @var object|null
      */
     private $avatar;
 
     /**
-     * @var Scene[]|Collection
+     * @var Scene[]
      */
     private $scenes;
 
@@ -41,8 +44,19 @@ class DTO
         $this->id = $character->getId();
         $this->name = (string) $character->getName();
         $this->avatar = null !== $character->getAvatar() ? $character->getAvatar()->getValue() : null;
-        $this->description = (string) $character->getDescription();
+        $this->description = null !== $character->getDescription() ? (string) $character->getDescription() : null;
         $this->scenes = $character->getScenes();
+    }
+
+    public function toCommand(Character $character): Command
+    {
+        Assertion::notNull($this->name);
+        return new Command(
+            $character,
+            new ShortText($this->name),
+            LongText::fromNullableString($this->description),
+            File::fromNullableValue($this->avatar)
+        );
     }
 
     public function getId(): UuidInterface
@@ -80,7 +94,7 @@ class DTO
         $this->avatar = $avatar;
     }
 
-    public function getScenes(): Collection
+    public function getScenes(): array
     {
         return $this->scenes;
     }

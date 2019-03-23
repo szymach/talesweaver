@@ -6,7 +6,7 @@ namespace Talesweaver\Application\Query\Scene;
 
 use Ramsey\Uuid\UuidInterface;
 
-class EntityExists
+final class EntityExists
 {
     /**
      * @var string
@@ -14,12 +14,12 @@ class EntityExists
     private $title;
 
     /**
-     * @var UuidInterface
+     * @var UuidInterface|null
      */
     private $id;
 
     /**
-     * @var UuidInterface
+     * @var UuidInterface|null
      */
     private $chapterId;
 

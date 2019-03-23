@@ -8,7 +8,7 @@ use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\PasswordResetToken;
 
-class ResetPassword implements MessageCommandInterface
+final class ResetPassword implements MessageCommandInterface
 {
     /**
      * @var PasswordResetToken

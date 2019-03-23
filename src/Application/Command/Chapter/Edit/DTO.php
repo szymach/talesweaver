@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Command\Chapter\Edit;
 
+use Assert\Assertion;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\ValueObject\ShortText;
 
-class DTO
+final class DTO
 {
     /**
      * @var UuidInterface
@@ -16,12 +18,12 @@ class DTO
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $title;
 
     /**
-     * @var Book
+     * @var Book|null
      */
     private $book;
 
@@ -30,6 +32,17 @@ class DTO
         $this->id = $chapter->getId();
         $this->title = (string) $chapter->getTitle();
         $this->book = $chapter->getBook();
+    }
+
+    public function toCommand(Chapter $chapter): Command
+    {
+        Assertion::notNull($this->title);
+
+        return new Command(
+            $chapter,
+            new ShortText($this->title),
+            $this->book
+        );
     }
 
     public function getId(): UuidInterface

@@ -136,9 +136,9 @@ class Character
         $this->update();
     }
 
-    public function getScenes(): Collection
+    public function getScenes(): array
     {
-        return $this->scenes;
+        return $this->scenes->toArray();
     }
 
     private function assertSceneConsistency(Scene $scene): void

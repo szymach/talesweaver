@@ -8,7 +8,7 @@ use Talesweaver\Application\Bus\CommandHandlerInterface;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Books;
 
-class CommandHandler implements CommandHandlerInterface
+final class CommandHandler implements CommandHandlerInterface
 {
     /**
      * @var Books

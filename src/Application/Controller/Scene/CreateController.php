@@ -62,9 +62,7 @@ class CreateController
     private function processFormDataAndRedirect(DTO $dto): ResponseInterface
     {
         $id = Uuid::uuid4();
-        $this->commandBus->dispatch(
-            new Command($id, new ShortText($dto->getTitle()), $dto->getChapter())
-        );
+        $this->commandBus->dispatch($dto->toCommand($id));
 
         return $this->responseFactory->redirectToRoute('scene_edit', ['id' => $id]);
     }

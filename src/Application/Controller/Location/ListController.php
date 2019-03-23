@@ -47,7 +47,7 @@ class ListController
             [
                 'locations' => $this->queryBus->query(new LocationsPage($scene, $page)),
                 'sceneId' => $scene->getId(),
-                'chapterId' => $scene->getChapter() ? $scene->getChapter()->getId(): null,
+                'chapterId' => null !== $scene->getChapter() ? $scene->getChapter()->getId(): null,
                 'page' => $page
             ]
         );

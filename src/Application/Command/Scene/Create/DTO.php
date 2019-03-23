@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Command\Scene\Create;
 
+use Assert\Assertion;
+use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\ValueObject\ShortText;
 
-class DTO
+final class DTO
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $title;
 
@@ -21,6 +24,12 @@ class DTO
     public function __construct(?Chapter $chapter = null)
     {
         $this->chapter = $chapter;
+    }
+
+    public function toCommand(UuidInterface $id): Command
+    {
+        Assertion::notNull($this->title);
+        return new Command($id, new ShortText($this->title), $this->chapter);
     }
 
     public function setTitle(?string $title): void

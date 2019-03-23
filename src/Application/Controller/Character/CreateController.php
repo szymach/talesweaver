@@ -20,7 +20,7 @@ use Talesweaver\Domain\ValueObject\File;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-class CreateController
+final class CreateController
 {
     /**
      * @var SceneResolver
@@ -87,13 +87,7 @@ class CreateController
 
     private function processFormDataAndRedirect(Scene $scene, DTO $dto): ResponseInterface
     {
-        $this->commandBus->dispatch(new Command(
-            $scene,
-            Uuid::uuid4(),
-            new ShortText($dto->getName()),
-            LongText::fromNullableString($dto->getDescription()),
-            File::fromNullableValue($dto->getAvatar())
-        ));
+        $this->commandBus->dispatch($dto->toCommand($scene, Uuid::uuid4()));
 
         return $this->responseFactory->success();
     }

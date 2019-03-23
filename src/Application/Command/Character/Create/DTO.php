@@ -4,24 +4,28 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Command\Character\Create;
 
-use FSi\DoctrineExtensions\Uploadable\File;
+use Assert\Assertion;
+use Ramsey\Uuid\UuidInterface;
 use SplFileInfo;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\ValueObject\File;
+use Talesweaver\Domain\ValueObject\LongText;
+use Talesweaver\Domain\ValueObject\ShortText;
 
-class DTO
+final class DTO
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $description;
 
     /**
-     * @var File|SplFileInfo
+     * @var File|SplFileInfo|null
      */
     private $avatar;
 
@@ -33,6 +37,19 @@ class DTO
     public function __construct(Scene $scene)
     {
         $this->scene = $scene;
+    }
+
+    public function toCommand(Scene $scene, UuidInterface $id): Command
+    {
+        Assertion::notNull($this->name);
+
+        return new Command(
+            $scene,
+            $id,
+            new ShortText($this->name),
+            LongText::fromNullableString($this->description),
+            File::fromNullableValue($this->avatar)
+        );
     }
 
     public function getName(): ?string
@@ -55,11 +72,6 @@ class DTO
         $this->description = $description;
     }
 
-    public function getScene(): Scene
-    {
-        return $this->scene;
-    }
-
     public function getAvatar()
     {
         return $this->avatar;
@@ -68,5 +80,10 @@ class DTO
     public function setAvatar($avatar): void
     {
         $this->avatar = $avatar;
+    }
+
+    public function getScene(): Scene
+    {
+        return $this->scene;
     }
 }

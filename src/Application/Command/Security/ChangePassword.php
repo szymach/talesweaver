@@ -8,7 +8,7 @@ use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\Author;
 
-class ChangePassword implements MessageCommandInterface
+final class ChangePassword implements MessageCommandInterface
 {
     /**
      * @var Author
@@ -38,10 +38,6 @@ class ChangePassword implements MessageCommandInterface
 
     public function getMessage(): Message
     {
-        return new Message(
-            'security.change_password.alert.success',
-            [],
-            'success'
-        );
+        return new Message('security.change_password.alert.success', [], 'success');
     }
 }

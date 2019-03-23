@@ -14,7 +14,7 @@ use Talesweaver\Domain\ValueObject\File;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-class Command implements AuthorAccessInterface, MessageCommandInterface
+final class Command implements AuthorAccessInterface, MessageCommandInterface
 {
     /**
      * @var Character
@@ -27,7 +27,7 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
     private $name;
 
     /**
-     * @var LongText
+     * @var LongText|null
      */
     private $description;
 

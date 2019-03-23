@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Controller\Security;
 
+use Assert\Assertion;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
+use Talesweaver\Application\Command\Security\ChangePassword;
 use Talesweaver\Application\Form;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Security\AuthorContext;
-use Talesweaver\Application\Command\Security\ChangePassword;
+use Talesweaver\Domain\Author;
 
-class ChangePasswordController
+final class ChangePasswordController
 {
     /**
      * @var FormHandlerFactoryInterface
@@ -54,12 +56,8 @@ class ChangePasswordController
             Form\Type\Security\ChangePassword::class
         );
         if (true === $formHandler->isSubmissionValid()) {
-            $this->commandBus->dispatch(new ChangePassword(
-                $this->authorContext->getAuthor(),
-                $formHandler->getData()['newPassword']
-            ));
+            $this->handleFormSubmission($formHandler->getData());
 
-            $this->authorContext->logout();
             return $this->responseFactory->redirectToRoute('login');
         }
 
@@ -67,5 +65,17 @@ class ChangePasswordController
             'security/changePassword.html.twig',
             ['form' => $formHandler->createView()]
         );
+    }
+
+    private function handleFormSubmission(array $formData): void
+    {
+        $author = $this->authorContext->getAuthor();
+        Assertion::notNull($author);
+
+        $newPassword = $formData['newPassword'];
+        Assertion::notNull($newPassword);
+
+        $this->commandBus->dispatch(new ChangePassword($author, $newPassword));
+        $this->authorContext->logout();
     }
 }

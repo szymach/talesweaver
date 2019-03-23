@@ -6,7 +6,7 @@ namespace Talesweaver\Application\Command\Item\AddToScene;
 
 use Talesweaver\Application\Bus\CommandHandlerInterface;
 
-class CommandHandler implements CommandHandlerInterface
+final class CommandHandler implements CommandHandlerInterface
 {
     public function __invoke(Command $command): void
     {

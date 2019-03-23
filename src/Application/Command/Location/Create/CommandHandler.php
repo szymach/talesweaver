@@ -8,7 +8,7 @@ use Talesweaver\Application\Bus\CommandHandlerInterface;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Locations;
 
-class CommandHandler implements CommandHandlerInterface
+final class CommandHandler implements CommandHandlerInterface
 {
     /**
      * @var Locations

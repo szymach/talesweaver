@@ -13,7 +13,7 @@ use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-class Command implements AuthorAccessInterface, MessageCommandInterface
+final class Command implements AuthorAccessInterface, MessageCommandInterface
 {
     /**
      * @var UuidInterface

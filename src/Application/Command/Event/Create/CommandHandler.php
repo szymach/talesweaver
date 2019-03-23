@@ -8,7 +8,7 @@ use Talesweaver\Application\Bus\CommandHandlerInterface;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Events;
 
-class CommandHandler implements CommandHandlerInterface
+final class CommandHandler implements CommandHandlerInterface
 {
     /**
      * @var Events

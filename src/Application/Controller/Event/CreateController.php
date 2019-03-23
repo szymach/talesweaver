@@ -9,7 +9,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Bus\QueryBus;
-use Talesweaver\Application\Command\Event\Create\Command;
 use Talesweaver\Application\Command\Event\Create\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Event\Create;
@@ -18,7 +17,6 @@ use Talesweaver\Application\Http\Entity\SceneResolver;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Application\Query;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Domain\ValueObject\ShortText;
 
 final class CreateController
 {
@@ -96,15 +94,7 @@ final class CreateController
 
     private function processFormDataAndRedirect(Scene $scene, DTO $dto): ResponseInterface
     {
-        $this->commandBus->dispatch(
-            new Command(
-                Uuid::uuid4(),
-                $scene,
-                new ShortText($dto->getName()),
-                $dto->getCharacters(),
-                $dto->getItems()
-            )
-        );
+        $this->commandBus->dispatch($dto->toCommand(Uuid::uuid4(), $scene));
 
         return $this->responseFactory->success();
     }

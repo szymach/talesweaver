@@ -8,7 +8,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Bus\CommandBus;
-use Talesweaver\Application\Command\Item\Create\Command;
 use Talesweaver\Application\Command\Item\Create\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Item\Create;
@@ -16,11 +15,8 @@ use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\SceneResolver;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Domain\ValueObject\File;
-use Talesweaver\Domain\ValueObject\LongText;
-use Talesweaver\Domain\ValueObject\ShortText;
 
-class CreateController
+final class CreateController
 {
     /**
      * @var SceneResolver
@@ -87,13 +83,7 @@ class CreateController
 
     private function processFormDataAndRedirect(Scene $scene, DTO $dto): ResponseInterface
     {
-        $this->commandBus->dispatch(new Command(
-            $scene,
-            Uuid::uuid4(),
-            new ShortText($dto->getName()),
-            LongText::fromNullableString($dto->getDescription()),
-            File::fromNullableValue($dto->getAvatar())
-        ));
+        $this->commandBus->dispatch($dto->toCommand($scene, Uuid::uuid4()));
 
         return $this->responseFactory->success();
     }

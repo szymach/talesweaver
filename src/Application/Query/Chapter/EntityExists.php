@@ -6,7 +6,7 @@ namespace Talesweaver\Application\Query\Chapter;
 
 use Ramsey\Uuid\UuidInterface;
 
-class EntityExists
+final class EntityExists
 {
     /**
      * @var string
@@ -14,23 +14,23 @@ class EntityExists
     private $title;
 
     /**
-     * @var UuidInterface
+     * @var UuidInterface|null
      */
     private $id;
 
     /**
-     * @var UuidInterface
+     * @var UuidInterface|null
      */
     private $bookId;
 
-    public function __construct(?string $title, ?UuidInterface $id, ?UuidInterface $bookId)
+    public function __construct(string $title, ?UuidInterface $id, ?UuidInterface $bookId)
     {
         $this->title = $title;
         $this->id = $id;
         $this->bookId = $bookId;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }

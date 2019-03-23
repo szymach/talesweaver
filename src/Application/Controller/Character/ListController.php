@@ -11,7 +11,7 @@ use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\SceneResolver;
 use Talesweaver\Application\Query\Character\CharactersPage;
 
-class ListController
+final class ListController
 {
     /**
      * @var SceneResolver
@@ -47,7 +47,7 @@ class ListController
             [
                 'characters' => $this->queryBus->query(new CharactersPage($scene, $page)),
                 'sceneId' => $scene->getId(),
-                'chapterId' => $scene->getChapter() ? $scene->getChapter()->getId(): null,
+                'chapterId' => null !== $scene->getChapter() ? $scene->getChapter()->getId(): null,
                 'page' => $page
             ]
         );

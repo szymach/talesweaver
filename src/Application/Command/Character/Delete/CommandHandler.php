@@ -7,7 +7,7 @@ namespace Talesweaver\Application\Command\Character\Delete;
 use Talesweaver\Application\Bus\CommandHandlerInterface;
 use Talesweaver\Domain\Characters;
 
-class CommandHandler implements CommandHandlerInterface
+final class CommandHandler implements CommandHandlerInterface
 {
     /**
      * @var Characters

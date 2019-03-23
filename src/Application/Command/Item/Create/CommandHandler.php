@@ -8,7 +8,7 @@ use Talesweaver\Application\Bus\CommandHandlerInterface;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Items;
 
-class CommandHandler implements CommandHandlerInterface
+final class CommandHandler implements CommandHandlerInterface
 {
     /**
      * @var Items

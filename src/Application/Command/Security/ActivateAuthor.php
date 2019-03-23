@@ -9,7 +9,7 @@ use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\Author;
 
-class ActivateAuthor implements MessageCommandInterface
+final class ActivateAuthor implements MessageCommandInterface
 {
     /**
      * @var Author

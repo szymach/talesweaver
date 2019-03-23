@@ -12,7 +12,7 @@ use Talesweaver\Application\Command\Security\Traits\AuthorAwareTrait;
 use Talesweaver\Domain\Security\AuthorAwareInterface;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-class Command implements MessageCommandInterface, AuthorAwareInterface
+final class Command implements MessageCommandInterface, AuthorAwareInterface
 {
     use AuthorAwareTrait;
 

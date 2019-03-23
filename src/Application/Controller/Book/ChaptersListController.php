@@ -16,7 +16,7 @@ use Talesweaver\Application\Http\Entity\BookResolver;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Application\Query\Book\ChaptersPage;
 
-class ChaptersListController
+final class ChaptersListController
 {
     /**
      * @var ApiResponseFactoryInterface
@@ -59,7 +59,7 @@ class ChaptersListController
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $book = $this->bookResolver->nullableFromRequest($request);
+        $book = $this->bookResolver->fromRequest($request);
         $page = (int) $request->getAttribute('page', 1);
         return $this->responseFactory->list(
             'book/chapters/list.html.twig',

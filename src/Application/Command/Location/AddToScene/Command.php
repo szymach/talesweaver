@@ -12,7 +12,7 @@ use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
 
-class Command implements AuthorAccessInterface, MessageCommandInterface
+final class Command implements AuthorAccessInterface, MessageCommandInterface
 {
     /**
      * @var Scene

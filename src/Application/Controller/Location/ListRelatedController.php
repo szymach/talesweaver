@@ -48,7 +48,7 @@ class ListRelatedController
                 'list' => $this->queryBus->query(new RelatedPage($scene, $page)),
                 'sceneId' => $scene->getId(),
                 'sceneTitle' => $scene->getTitle(),
-                'chapterId' => $scene->getChapter() ? $scene->getChapter()->getId(): null,
+                'chapterId' => null !== $scene->getChapter() ? $scene->getChapter()->getId(): null,
                 'type' => 'location'
             ]
         );

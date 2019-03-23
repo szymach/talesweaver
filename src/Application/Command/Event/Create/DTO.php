@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Command\Event\Create;
 
+use Assert\Assertion;
+use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 final class DTO
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
 
@@ -35,6 +38,18 @@ final class DTO
         $this->characters = [];
         $this->items = [];
         $this->scene = $scene;
+    }
+
+    public function toCommand(UuidInterface $id, Scene $scene): Command
+    {
+        Assertion::notNull($this->name);
+        return new Command(
+            $id,
+            $scene,
+            new ShortText($this->name),
+            $this->characters,
+            $this->items
+        );
     }
 
     public function getName(): ?string

@@ -7,7 +7,7 @@ namespace Talesweaver\Application\Command\Book\Delete;
 use Talesweaver\Application\Bus\CommandHandlerInterface;
 use Talesweaver\Domain\Books;
 
-class CommandHandler implements CommandHandlerInterface
+final class CommandHandler implements CommandHandlerInterface
 {
     /**
      * @var Books

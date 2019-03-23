@@ -15,7 +15,7 @@ use Talesweaver\Application\Form\Type\Book\Create;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-class CreateController
+final class CreateController
 {
     /**
      * @var ResponseFactoryInterface
@@ -58,7 +58,7 @@ class CreateController
     private function processFormDataAndRedirect(DTO $dto): ResponseInterface
     {
         $bookId = Uuid::uuid4();
-        $this->commandBus->dispatch(new Command($bookId, new ShortText($dto->getTitle())));
+        $this->commandBus->dispatch($dto->toCommand($bookId));
 
         return $this->responseFactory->redirectToRoute('book_edit', ['id' => $bookId]);
     }

@@ -6,7 +6,7 @@ namespace Talesweaver\Application\Command\Security;
 
 use Talesweaver\Application\Bus\CommandHandlerInterface;
 
-class ChangePasswordHandler implements CommandHandlerInterface
+final class ChangePasswordHandler implements CommandHandlerInterface
 {
     public function __invoke(ChangePassword $command): void
     {

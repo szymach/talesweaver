@@ -17,19 +17,19 @@ use Talesweaver\Domain\ValueObject\File;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCommandInterface
+final class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCommandInterface
 {
     use AuthorAwareTrait;
-
-    /**
-     * @var Scene
-     */
-    private $scene;
 
     /**
      * @var UuidInterface
      */
     private $id;
+
+    /**
+     * @var Scene
+     */
+    private $scene;
 
     /**
      * @var ShortText

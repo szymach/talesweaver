@@ -15,7 +15,7 @@ use Talesweaver\Domain\Security\AuthorAccessInterface;
 use Talesweaver\Domain\Security\AuthorAwareInterface;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCommandInterface
+final class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCommandInterface
 {
     use AuthorAwareTrait;
 

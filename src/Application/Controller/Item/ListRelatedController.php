@@ -11,7 +11,7 @@ use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\SceneResolver;
 use Talesweaver\Application\Query\Item\RelatedPage;
 
-class ListRelatedController
+final class ListRelatedController
 {
     /**
      * @var SceneResolver
@@ -48,7 +48,7 @@ class ListRelatedController
                 'list' => $this->queryBus->query(new RelatedPage($scene, $page)),
                 'sceneId' => $scene->getId(),
                 'sceneTitle' => $scene->getTitle(),
-                'chapterId' => $scene->getChapter() ? $scene->getChapter()->getId(): null,
+                'chapterId' => null !== $scene->getChapter() ? $scene->getChapter()->getId(): null,
                 'type' => 'item'
             ]
         );

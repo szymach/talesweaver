@@ -7,7 +7,6 @@ namespace Talesweaver\Application\Controller\Chapter;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
-use Talesweaver\Application\Command\Chapter\Edit\Command;
 use Talesweaver\Application\Command\Chapter\Edit\DTO;
 use Talesweaver\Application\Command\Scene;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
@@ -18,9 +17,8 @@ use Talesweaver\Application\Http\Entity\ChapterResolver;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Chapter;
-use Talesweaver\Domain\ValueObject\ShortText;
 
-class EditController
+final class EditController
 {
     /**
      * @var ChapterResolver
@@ -89,11 +87,7 @@ class EditController
 
     private function processFormDataAndRedirect(Chapter $chapter, DTO $dto): ResponseInterface
     {
-        $this->commandBus->dispatch(new Command(
-            $chapter,
-            new ShortText($dto->getTitle()),
-            $dto->getBook()
-        ));
+        $this->commandBus->dispatch($dto->toCommand($chapter));
 
         return $this->responseFactory->redirectToRoute('chapter_edit', ['id' => $chapter->getId()]);
     }

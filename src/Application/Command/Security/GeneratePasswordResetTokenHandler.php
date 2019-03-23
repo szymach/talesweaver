@@ -14,7 +14,7 @@ use Talesweaver\Domain\PasswordResetTokens;
 use Talesweaver\Domain\ValueObject\Email;
 use function generate_user_token;
 
-class GeneratePasswordResetTokenHandler implements CommandHandlerInterface
+final class GeneratePasswordResetTokenHandler implements CommandHandlerInterface
 {
     /**
      * @var PasswordResetTokens

@@ -7,7 +7,7 @@ namespace Talesweaver\Application\Command\Event\Delete;
 use Talesweaver\Application\Bus\CommandHandlerInterface;
 use Talesweaver\Domain\Events;
 
-class CommandHandler implements CommandHandlerInterface
+final class CommandHandler implements CommandHandlerInterface
 {
     /**
      * @var Events

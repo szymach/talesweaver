@@ -8,16 +8,14 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Bus\CommandBus;
-use Talesweaver\Application\Command\Chapter\Create\Command;
 use Talesweaver\Application\Command\Chapter\Create\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Chapter\Create;
 use Talesweaver\Application\Http\Entity\BookResolver;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Domain\Book;
-use Talesweaver\Domain\ValueObject\ShortText;
 
-class CreateController
+final class CreateController
 {
     /**
      * @var BookResolver
@@ -74,9 +72,7 @@ class CreateController
     private function processFormDataAndRedirect(DTO $dto, ?Book $book): ResponseInterface
     {
         $chapterId = Uuid::uuid4();
-        $this->commandBus->dispatch(
-            new Command($chapterId, new ShortText($dto->getTitle()), $book)
-        );
+        $this->commandBus->dispatch($dto->toCommand($chapterId, $book));
 
         return $this->responseFactory->redirectToRoute('chapter_edit', ['id' => $chapterId]);
     }

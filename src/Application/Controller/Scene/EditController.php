@@ -9,7 +9,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Scene\Create\DTO as CreateDTO;
-use Talesweaver\Application\Command\Scene\Edit\Command;
 use Talesweaver\Application\Command\Scene\Edit\DTO as EditDTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\FormHandlerInterface;
@@ -22,10 +21,8 @@ use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Query\Chapter\ScenesPage;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Domain\ValueObject\LongText;
-use Talesweaver\Domain\ValueObject\ShortText;
 
-class EditController
+final class EditController
 {
     /**
      * @var SceneResolver
@@ -104,12 +101,7 @@ class EditController
 
     private function processFormDataAndRedirect(Scene $scene, EditDTO $dto, bool $isAjax): ResponseInterface
     {
-        $this->commandBus->dispatch(new Command(
-            $scene,
-            new ShortText($dto->getTitle()),
-            LongText::fromNullableString($dto->getText()),
-            $dto->getChapter()
-        ));
+        $this->commandBus->dispatch($dto->toCommand($scene));
 
         return true === $isAjax
             ? $this->apiResponseFactory->success()

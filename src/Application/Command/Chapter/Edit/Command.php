@@ -13,7 +13,7 @@ use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-class Command implements AuthorAccessInterface, MessageCommandInterface
+final class Command implements AuthorAccessInterface, MessageCommandInterface
 {
     /**
      * @var Chapter
@@ -26,7 +26,7 @@ class Command implements AuthorAccessInterface, MessageCommandInterface
     private $title;
 
     /**
-     * @var Book
+     * @var Book|null
      */
     private $book;
 

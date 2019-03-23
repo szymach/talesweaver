@@ -8,7 +8,7 @@ use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\ValueObject\Email;
 
-class GeneratePasswordResetToken implements MessageCommandInterface
+final class GeneratePasswordResetToken implements MessageCommandInterface
 {
     /**
      * @var Email

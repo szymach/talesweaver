@@ -12,7 +12,7 @@ use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\ChapterResolver;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 
-class DeleteController
+final class DeleteController
 {
     /**
      * @var ChapterResolver
@@ -49,7 +49,7 @@ class DeleteController
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
         $chapter = $this->chapterResolver->fromRequest($request);
-        $bookId = $chapter->getBook() ? $chapter->getBook()->getId(): null;
+        $bookId = null !== $chapter->getBook() ? $chapter->getBook()->getId(): null;
         $this->commandBus->dispatch(new Command($chapter));
 
         if (true === is_xml_http_request($request)) {

@@ -7,7 +7,6 @@ namespace Talesweaver\Application\Controller\Book;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
-use Talesweaver\Application\Command\Book\Edit\Command;
 use Talesweaver\Application\Command\Book\Edit\DTO;
 use Talesweaver\Application\Command\Chapter;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
@@ -18,10 +17,8 @@ use Talesweaver\Application\Http\Entity\BookResolver;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Book;
-use Talesweaver\Domain\ValueObject\LongText;
-use Talesweaver\Domain\ValueObject\ShortText;
 
-class EditController
+final class EditController
 {
     /**
      * @var BookResolver
@@ -88,11 +85,7 @@ class EditController
 
     private function processFormDataAndRedirect(Book $book, DTO $dto): ResponseInterface
     {
-        $this->commandBus->dispatch(new Command(
-            $book,
-            new ShortText($dto->getTitle()),
-            LongText::fromNullableString($dto->getDescription())
-        ));
+        $this->commandBus->dispatch($dto->toCommand($book));
 
         return $this->responseFactory->redirectToRoute('book_edit', ['id' => $book->getId()]);
     }

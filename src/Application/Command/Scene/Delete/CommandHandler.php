@@ -7,7 +7,7 @@ namespace Talesweaver\Application\Command\Scene\Delete;
 use Talesweaver\Application\Bus\CommandHandlerInterface;
 use Talesweaver\Domain\Scenes;
 
-class CommandHandler implements CommandHandlerInterface
+final class CommandHandler implements CommandHandlerInterface
 {
     /**
      * @var Scenes

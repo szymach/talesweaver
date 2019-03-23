@@ -97,9 +97,7 @@ final class EditController
 
     private function processFormDataAndRedirect(Event $event, DTO $dto): ResponseInterface
     {
-        $this->commandBus->dispatch(
-            new Command($event, new ShortText($dto->getName()), $dto->getCharacters(), $dto->getItems())
-        );
+        $this->commandBus->dispatch($dto->toCommand($event));
 
         return $this->responseFactory->success();
     }

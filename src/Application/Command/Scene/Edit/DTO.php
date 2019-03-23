@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Command\Scene\Edit;
 
+use Assert\Assertion;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\ValueObject\LongText;
+use Talesweaver\Domain\ValueObject\ShortText;
 
-class DTO
+final class DTO
 {
     /**
      * @var UuidInterface
@@ -16,17 +19,17 @@ class DTO
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $title;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $text;
 
     /**
-     * @var Chapter
+     * @var Chapter|null
      */
     private $chapter;
 
@@ -34,8 +37,19 @@ class DTO
     {
         $this->id = $scene->getId();
         $this->title = (string) $scene->getTitle();
-        $this->text = (string) $scene->getText();
+        $this->text = null !== $scene->getText() ? (string) $scene->getText() : null;
         $this->chapter = $scene->getChapter();
+    }
+
+    public function toCommand(Scene $scene): Command
+    {
+        Assertion::notNull($this->title);
+        return new Command(
+            $scene,
+            new ShortText($this->title),
+            LongText::fromNullableString($this->text),
+            $this->chapter
+        );
     }
 
     public function getId(): UuidInterface

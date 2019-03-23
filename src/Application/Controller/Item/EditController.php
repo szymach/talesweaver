@@ -7,7 +7,6 @@ namespace Talesweaver\Application\Controller\Item;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
-use Talesweaver\Application\Command\Item\Edit\Command;
 use Talesweaver\Application\Command\Item\Edit\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Item\Edit;
@@ -16,11 +15,8 @@ use Talesweaver\Application\Http\Entity\ItemResolver;
 use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Item;
-use Talesweaver\Domain\ValueObject\File;
-use Talesweaver\Domain\ValueObject\LongText;
-use Talesweaver\Domain\ValueObject\ShortText;
 
-class EditController
+final class EditController
 {
     /**
      * @var ItemResolver
@@ -94,12 +90,7 @@ class EditController
 
     private function processFormDataAndRedirect(Item $item, DTO $dto): ResponseInterface
     {
-        $this->commandBus->dispatch(new Command(
-            $item,
-            new ShortText($dto->getName()),
-            LongText::fromNullableString($dto->getDescription()),
-            File::fromNullableValue($dto->getAvatar())
-        ));
+        $this->commandBus->dispatch($dto->toCommand($item));
 
         return $this->responseFactory->success();
     }

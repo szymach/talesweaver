@@ -13,7 +13,7 @@ use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Query\Security\AuthorByToken;
 use Talesweaver\Domain\Author;
 
-class ActivationController
+final class ActivationController
 {
     /**
      * @var CommandBus
@@ -51,9 +51,13 @@ class ActivationController
 
     private function getAuthor(?string $code): Author
     {
+        if (null === $code || '' === $code) {
+            throw $this->responseFactory->notFound('No code provided');
+        }
+
         $author = $this->queryBus->query(new AuthorByToken($code));
         if (false === $author instanceof Author) {
-            throw $this->responseFactory->notFound(sprintf('No author for code "%s"', $code));
+            throw $this->responseFactory->notFound("No author for code \"{$code}\"");
         }
 
         return $author;
