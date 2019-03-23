@@ -1,8 +1,8 @@
-{% if paginator.nbPages > 1 %}{% spaceless %}
+{% if paginator.nbPages > 1 %}{% filter spaceless %}
 {{ pagerfanta(paginator, 'twitter_bootstrap3', {
     prev_message: '<',
     next_message: '>',
     routeName: route|default(app.request.get('_route')),
     routeParams: parameters|default(app.request.get('_route_params'))
 }) }}
-{% endspaceless %}{% endif %}
+{% endfilter %}{% endif %}

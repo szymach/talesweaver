@@ -9,7 +9,7 @@
         {% if timeline|length > 0 %}
             <div class="col-xs-12 col-sm-6 col-md-4 dashboard-timeline">
                 <h3>{{ 'dashboard.timeline'|trans }}</h3>
-                <ul class="list-unstyled">{% spaceless %}
+                <ul class="list-unstyled">{% filter spaceless %}
                     {% for item in timeline %}
                         <li>
                             <h5 class="inline-block">
@@ -21,7 +21,7 @@
                             </h5>
                         </li>
                     {% endfor %}
-                {% endspaceless %}</ul>
+                {% endfilter %}</ul>
             </div>
         {% endif %}
     </div>
