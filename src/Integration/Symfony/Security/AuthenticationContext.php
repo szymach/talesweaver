@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Talesweaver\Application\Security\AuthenticationContext as ApplicationAuthenticationContext;
 
-class AuthenticationContext implements ApplicationAuthenticationContext
+final class AuthenticationContext implements ApplicationAuthenticationContext
 {
     /**
      * @var AuthenticationUtils
@@ -28,6 +28,7 @@ class AuthenticationContext implements ApplicationAuthenticationContext
 
     public function lastError(): ?string
     {
+        /** @var AuthenticationException|string|null $error */
         $error = $this->authenticationUtilities->getLastAuthenticationError();
         if (null === $error || true === is_string($error)) {
             $value = $error;
@@ -36,9 +37,10 @@ class AuthenticationContext implements ApplicationAuthenticationContext
         } else {
             throw new RuntimeException(sprintf(
                 'Unable to read last authentication error from "%s"',
-                is_object($error) ? get_class($error) : gettype($error)
+                get_class($error)
             ));
         }
+
         return $value;
     }
 }

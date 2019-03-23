@@ -26,15 +26,13 @@ class UserProvider implements UserProviderInterface
 
     public function loadUserByUsername($username): UserInterface
     {
-        if (null === $username) {
+        if ('' === $username) {
             throw new UsernameNotFoundException('No username provided.');
         }
 
         $user = $this->queryBus->query(new AuthorByEmail(new Email($username)));
         if (null === $user) {
-            throw new UsernameNotFoundException(
-                sprintf('Username "%s" does not exist.', $username)
-            );
+            throw new UsernameNotFoundException("Username \"{$username}\" does not exist.");
         }
 
         return new User($user);
