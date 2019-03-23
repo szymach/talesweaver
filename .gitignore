@@ -7,6 +7,7 @@ var/log/*
 
 # Parameters
 .env
+.phpcs-cache
 
 # Assets and user uploads
 node_modules/

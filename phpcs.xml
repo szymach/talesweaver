@@ -8,6 +8,7 @@
 
     <exclude-pattern>*.js</exclude-pattern>
 
+    <arg name="cache" value=".phpcs-cache"/>
     <arg name="encoding" value="utf-8"/>
     <arg name="report" value="full"/>
     <arg name="report-width" value="120"/>
