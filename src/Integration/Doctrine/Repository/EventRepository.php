@@ -48,18 +48,6 @@ class EventRepository extends AutoWireableTranslatableRepository
         ;
     }
 
-    public function findInEventsById(Author $author, UuidInterface $id): array
-    {
-        return $this->createQueryBuilder('e')
-            ->where('e.model LIKE :id')
-            ->andWhere('e.createdBy = :author')
-            ->setParameter('id', sprintf('%%"%s"%%', $id->toString()))
-            ->setParameter('author', $author)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
     public function findLatest(
         Author $author,
         string $locale,

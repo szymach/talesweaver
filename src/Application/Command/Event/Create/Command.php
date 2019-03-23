@@ -49,10 +49,14 @@ final class Command implements AuthorAccessInterface, AuthorAwareInterface, Mess
 
     public function __construct(UuidInterface $id, Scene $scene, ShortText $name, array $characters, array $items)
     {
-        Assertion::allIsInstanceOf($characters, Character::class,
+        Assertion::allIsInstanceOf(
+            $characters,
+            Character::class,
             "Not all objects that were passed are characters (scene \"{$scene->getId()->toString()}\")."
         );
-        Assertion::allIsInstanceOf($items, Item::class,
+        Assertion::allIsInstanceOf(
+            $items,
+            Item::class,
             "Not all objects that were passed are items (scene \"{$scene->getId()->toString()}\")."
         );
 

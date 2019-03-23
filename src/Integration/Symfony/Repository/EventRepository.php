@@ -55,14 +55,6 @@ class EventRepository implements Events
         );
     }
 
-    public function findInEventsById(UuidInterface $id): array
-    {
-        return $this->doctrineRepository->findInEventsById(
-            $this->authorContext->getAuthor(),
-            $id
-        );
-    }
-
     public function entityExists(string $name, ?UuidInterface $id, ?UuidInterface $sceneId): bool
     {
         if (null !== $sceneId) {

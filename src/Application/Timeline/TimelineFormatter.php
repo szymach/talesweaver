@@ -5,20 +5,12 @@ declare(strict_types=1);
 namespace Talesweaver\Application\Timeline;
 
 use Ramsey\Uuid\UuidInterface;
-use ReflectionClass;
 use Talesweaver\Application\Http\HtmlContent;
-use Talesweaver\Domain\Event;
-use Talesweaver\Domain\Event\Meeting;
 use Talesweaver\Domain\Events;
 use Talesweaver\Domain\Scenes;
-use function mb_strtolower;
 
 abstract class TimelineFormatter
 {
-    private const EVENT_ICONS = [
-        Meeting::class => 'fa fa-users'
-    ];
-
     /**
      * @var Scenes
      */
@@ -43,20 +35,8 @@ abstract class TimelineFormatter
 
     public function getTimeline(UuidInterface $id): array
     {
-        return array_merge(
-            ['event.timeline.creation' => $this->getCreation($this->scenes, $id)],
-            $this->formatEvents($this->events->findInEventsById($id))
-        );
+        return ['event.timeline.creation' => $this->getCreation($this->scenes, $id)];
     }
 
     abstract protected function getCreation(Scenes $scenes, UuidInterface $id): array;
-
-    private function formatEvents(array $events): array
-    {
-        return array_reduce($events, function (array $accumulator, Event $event): array {
-            $accumulator[] = $event->getName();
-
-            return $accumulator;
-        }, []);
-    }
 }

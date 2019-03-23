@@ -7,6 +7,7 @@ namespace Talesweaver\Application\Command\Event\Edit;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event;
+use Talesweaver\Domain\Item;
 
 final class DTO
 {

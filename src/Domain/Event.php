@@ -75,13 +75,14 @@ class Event
     /**
      * @param ShortText $name
      * @param Character[] $characters
+     * @param Item[] $items
      * @return void
      */
     public function edit(ShortText $name, array $characters, array $items): void
     {
         $this->name = $name;
-        $this->characters = $characters;
-        $this->items = $items;
+        $this->characters = new ArrayCollection($characters);
+        $this->items = new ArrayCollection($items);
         $this->update();
     }
 

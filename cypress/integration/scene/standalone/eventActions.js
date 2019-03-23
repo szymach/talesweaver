@@ -1,15 +1,14 @@
 describe('Event sidemenu actions', () => {
 
     beforeEach(() => {
-    cy.visitStandaloneScene();
-    cy.registerAjaxContainerAlias();
-    cy.get('.side-menu ul li').contains('Wydarzenia').parents('li').first().as('events');
+        cy.visitStandaloneScene();
+        cy.registerAjaxContainerAlias();
+        cy.get('.side-menu ul li').contains('Wydarzenia').parents('li').first().as('events');
     });
 
     it('creates, edits and deletes an event', () => {
         cy.get('@events').within(() => {
-            cy.get('.js-list-toggle[title="Nowe wydarzenie"]').click();
-            cy.get('.js-load-form').click();
+            cy.get('.js-load-form[title="Nowe wydarzenie"]').click();
         }).then(() => {
             cy.get('@ajax-container').contains('Nowe wydarzenie').should('be.visible');
             cy.get('@ajax-container').get('[name="create[name]"]').type('Spotkanie');

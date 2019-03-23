@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Application\Command\Event\Create;
 
 use Talesweaver\Domain\Character;
+use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Scene;
 
 final class DTO

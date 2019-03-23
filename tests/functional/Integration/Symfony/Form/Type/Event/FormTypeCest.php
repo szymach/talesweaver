@@ -133,8 +133,13 @@ final class FormTypeCest
         );
     }
 
-    private function fetchEditForm(FunctionalTester $I, Scene $scene, Event $event, array $characters, array $items): FormInterface
-    {
+    private function fetchEditForm(
+        FunctionalTester $I,
+        Scene $scene,
+        Event $event,
+        array $characters,
+        array $items
+    ): FormInterface {
         return $I->createForm(
             EditType::class,
             new Edit\DTO($event),
