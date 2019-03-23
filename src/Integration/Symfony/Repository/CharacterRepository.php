@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Repository;
 
 use Ramsey\Uuid\UuidInterface;
+use RuntimeException;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Characters;
@@ -71,12 +72,14 @@ class CharacterRepository implements Characters
                 $name,
                 $sceneId
             );
-        } else {
+        } elseif (null !== $id) {
             $exists = $this->doctrineRepository->nameConflictsWithRelated(
                 $this->authorContext->getAuthor(),
                 $name,
                 $id
             );
+        } else {
+            throw new RuntimeException('Neither character nor scene id provided');
         }
 
         return $exists;

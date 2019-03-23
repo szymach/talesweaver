@@ -29,7 +29,7 @@ class Book
     private $title;
 
     /**
-     * @var LongText
+     * @var LongText|null
      */
     private $description;
 

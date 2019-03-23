@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Security;
 
+use Assert\Assertion;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -98,7 +100,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
         $email = $request->request->get('_email');
         $password = $request->request->get('_password');
-        $request->getSession()->set(Security::LAST_USERNAME, $email);
+
+        $this->getSession($request)->set(Security::LAST_USERNAME, $email);
 
         return ['email' => $email, 'password' => $password];
     }
@@ -110,7 +113,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        $request->getSession()->set(
+        $this->getSession($request)->set(
             Security::AUTHENTICATION_ERROR,
             $this->translator->trans($exception->getMessageKey(), $exception->getMessageData(), 'security')
         );
@@ -138,6 +141,14 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     protected function getLoginUrl(): string
     {
         // unused
+    }
+
+    private function getSession(Request $request): SessionInterface
+    {
+        $session = $request->getSession();
+        Assertion::notNull($session);
+
+        return $session;
     }
 
     private function validateCsrfToken(Request $request): void

@@ -29,12 +29,12 @@ class Scene
     private $title;
 
     /**
-     * @var LongText
+     * @var LongText|null
      */
     private $text;
 
     /**
-     * @var Chapter
+     * @var Chapter|null
      */
     private $chapter;
 

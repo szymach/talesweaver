@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony;
 
+use Assert\Assertion;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -88,7 +89,10 @@ class Kernel extends BaseKernel implements CompilerPassInterface
             array_keys($container->findTaggedServiceIds('form.type')),
             function (array $accumulator, string $id) use ($container): array {
                 $definition = $container->getDefinition($id);
-                if (true === is_subclass_of($definition->getClass(), Form::class, true)) {
+                $definitionClass = $definition->getClass();
+                Assertion::notNull($definitionClass, "Service with id \"{$id}\" has no class!");
+
+                if (true === is_subclass_of($definitionClass, Form::class, true)) {
                     $accumulator[] = $definition;
                 }
 

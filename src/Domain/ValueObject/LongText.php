@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Domain\ValueObject;
 
-class LongText
+final class LongText
 {
     /**
      * @var string
@@ -17,7 +17,8 @@ class LongText
             return null;
         }
 
-        if (0 === mb_strlen(preg_replace('/[\xc2\xa0\s]/', '', strip_tags(html_entity_decode($value))))) {
+        $strippedValue = preg_replace('/[\xc2\xa0\s]/', '', strip_tags(html_entity_decode($value)));
+        if (false === is_string($strippedValue) || 0 === mb_strlen($strippedValue)) {
             return null;
         }
 

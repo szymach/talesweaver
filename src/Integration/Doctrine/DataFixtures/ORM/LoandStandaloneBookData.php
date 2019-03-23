@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Doctrine\DataFixtures\ORM;
 
+use Assert\Assertion;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -21,6 +22,7 @@ class LoandStandaloneBookData implements ORMFixtureInterface, OrderedFixtureInte
     {
         /* @var $author Author */
         $author = $manager->getRepository(Author::class)->findOneBy([]);
+        Assertion::notNull($author);
 
         $book = new Book(Uuid::uuid4(), new ShortText('Książka'), $author);
         $book->setLocale(self::LOCALE);

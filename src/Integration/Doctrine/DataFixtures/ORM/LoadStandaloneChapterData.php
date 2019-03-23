@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Doctrine\DataFixtures\ORM;
 
+use Assert\Assertion;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -24,6 +25,7 @@ class LoadStandaloneChapterData implements ORMFixtureInterface, OrderedFixtureIn
     {
         /* @var $author Author */
         $author = $manager->getRepository(Author::class)->findOneBy([]);
+        Assertion::notNull($author);
 
         $chapter = new Chapter(Uuid::uuid4(), new ShortText('Rozdział'), null, $author);
         $chapter->setLocale(self::LOCALE);

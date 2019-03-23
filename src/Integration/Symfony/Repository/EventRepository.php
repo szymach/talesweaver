@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Repository;
 
 use Ramsey\Uuid\UuidInterface;
+use RuntimeException;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Events;
@@ -63,12 +64,14 @@ class EventRepository implements Events
                 $name,
                 $sceneId
             );
-        } else {
+        } elseif (null !== $id) {
             $exists = $this->doctrineRepository->nameConflictsWithRelated(
                 $this->authorContext->getAuthor(),
                 $name,
                 $id
             );
+        } else {
+            throw new RuntimeException('Neither event nor scene id provided');
         }
 
         return $exists;

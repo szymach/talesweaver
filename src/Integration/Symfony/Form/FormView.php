@@ -27,6 +27,10 @@ class FormView extends SymfonyFormView implements FormViewInterface
     public function __construct(?SymfonyFormView $formFiew)
     {
         parent::__construct();
+        if (null === $formFiew) {
+            return;
+        }
+
         $this->vars = $formFiew->vars;
         $this->parent = $formFiew->parent;
         $this->children = $formFiew->children;

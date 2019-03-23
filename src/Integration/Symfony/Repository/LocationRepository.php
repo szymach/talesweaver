@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Repository;
 
 use Ramsey\Uuid\UuidInterface;
+use RuntimeException;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Locations;
@@ -71,12 +72,14 @@ class LocationRepository implements Locations
                 $name,
                 $sceneId
             );
-        } else {
+        } elseif (null !== $id) {
             $exists = $this->doctrineRepository->nameConflictsWithRelated(
                 $this->authorContext->getAuthor(),
                 $name,
                 $id
             );
+        } else {
+            throw new RuntimeException('Neither location nor scene id provided');
         }
 
         return $exists;

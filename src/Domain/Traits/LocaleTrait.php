@@ -7,7 +7,7 @@ namespace Talesweaver\Domain\Traits;
 trait LocaleTrait
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $locale;
 

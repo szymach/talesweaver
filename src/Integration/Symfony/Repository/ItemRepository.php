@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Repository;
 
 use Ramsey\Uuid\UuidInterface;
+use RuntimeException;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Items;
@@ -71,12 +72,14 @@ class ItemRepository implements Items
                 $name,
                 $sceneId
             );
-        } else {
+        } elseif (null !== $id) {
             $exists = $this->doctrineRepository->nameConflictsWithRelated(
                 $this->authorContext->getAuthor(),
                 $name,
                 $id
             );
+        } else {
+            throw new RuntimeException('Neither item nor scene id provided');
         }
 
         return $exists;

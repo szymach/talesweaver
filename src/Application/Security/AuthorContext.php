@@ -8,6 +8,6 @@ use Talesweaver\Domain\Author;
 
 interface AuthorContext
 {
-    public function getAuthor(): ?Author;
+    public function getAuthor(): Author;
     public function logout(): void;
 }

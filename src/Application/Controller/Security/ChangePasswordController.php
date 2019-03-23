@@ -69,13 +69,13 @@ final class ChangePasswordController
 
     private function handleFormSubmission(array $formData): void
     {
-        $author = $this->authorContext->getAuthor();
-        Assertion::notNull($author);
-
         $newPassword = $formData['newPassword'];
         Assertion::notNull($newPassword);
 
-        $this->commandBus->dispatch(new ChangePassword($author, $newPassword));
+        $this->commandBus->dispatch(
+            new ChangePassword($this->authorContext->getAuthor(), $newPassword)
+        );
+
         $this->authorContext->logout();
     }
 }

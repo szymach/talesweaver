@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Talesweaver\Application\Security\AuthorContext as ApplicationAuthorContext;
 use Talesweaver\Domain\Author;
 
-class AuthorContext implements ApplicationAuthorContext
+final class AuthorContext implements ApplicationAuthorContext
 {
     /**
      * @var TokenStorageInterface

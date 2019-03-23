@@ -29,7 +29,7 @@ class Chapter
     private $title;
 
     /**
-     * @var Book
+     * @var Book|null
      */
     private $book;
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Doctrine\DataFixtures\ORM;
 
+use Assert\Assertion;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -22,6 +23,7 @@ class LoadStandaloneSceneData implements ORMFixtureInterface, OrderedFixtureInte
     {
         /* @var $author Author */
         $author = $manager->getRepository(Author::class)->findOneBy([]);
+        Assertion::notNull($author);
 
         $scene = new Scene(Uuid::uuid4(), new ShortText('Scena'), null, $author);
         $scene->setLocale(self::LOCALE);
