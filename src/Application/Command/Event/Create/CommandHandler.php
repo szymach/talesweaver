@@ -28,7 +28,8 @@ class CommandHandler implements CommandHandlerInterface
                 $command->getName(),
                 $command->getScene(),
                 $command->getAuthor(),
-                $command->getCharacters()
+                $command->getCharacters(),
+                $command->getItems()
             )
         );
     }

@@ -16,7 +16,7 @@ use Talesweaver\Application\Form\Type\Event\Create;
 use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\SceneResolver;
 use Talesweaver\Application\Http\UrlGenerator;
-use Talesweaver\Application\Query\Character\ForScene;
+use Talesweaver\Application\Query;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
 
@@ -77,7 +77,8 @@ final class CreateController
             new DTO($scene),
             [
                 'action' => $this->urlGenerator->generate('event_add', ['id' => $scene->getId()]),
-                'characters' => $this->queryBus->query(new ForScene($scene)),
+                'characters' => $this->queryBus->query(new Query\Character\ForScene($scene)),
+                'items' => $this->queryBus->query(new Query\Item\ForScene($scene)),
                 'scene' => $scene
             ]
         );
@@ -96,7 +97,13 @@ final class CreateController
     private function processFormDataAndRedirect(Scene $scene, DTO $dto): ResponseInterface
     {
         $this->commandBus->dispatch(
-            new Command(Uuid::uuid4(), $scene, new ShortText($dto->getName()), $dto->getCharacters())
+            new Command(
+                Uuid::uuid4(),
+                $scene,
+                new ShortText($dto->getName()),
+                $dto->getCharacters(),
+                $dto->getItems()
+            )
         );
 
         return $this->responseFactory->success();

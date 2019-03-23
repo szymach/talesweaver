@@ -54,7 +54,8 @@ class Event
         ShortText $name,
         Scene $scene,
         Author $author,
-        array $characters = []
+        array $characters = [],
+        array $items = []
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -62,7 +63,7 @@ class Event
         $this->createdAt = new DateTimeImmutable();
         $this->createdBy = $author;
         $this->characters = new ArrayCollection($characters);
-        $this->items = new ArrayCollection();
+        $this->items = new ArrayCollection($items);
         $this->translations = new ArrayCollection();
     }
 
@@ -76,10 +77,11 @@ class Event
      * @param Character[] $characters
      * @return void
      */
-    public function edit(ShortText $name, array $characters): void
+    public function edit(ShortText $name, array $characters, array $items): void
     {
         $this->name = $name;
         $this->characters = $characters;
+        $this->items = $items;
         $this->update();
     }
 

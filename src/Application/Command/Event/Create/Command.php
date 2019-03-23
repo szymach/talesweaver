@@ -12,6 +12,7 @@ use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Character;
+use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
 use Talesweaver\Domain\Security\AuthorAwareInterface;
@@ -41,16 +42,25 @@ final class Command implements AuthorAccessInterface, AuthorAwareInterface, Mess
      */
     private $characters;
 
-    public function __construct(UuidInterface $id, Scene $scene, ShortText $name, array $characters)
+    /**
+     * @var Item[]
+     */
+    private $items;
+
+    public function __construct(UuidInterface $id, Scene $scene, ShortText $name, array $characters, array $items)
     {
         Assertion::allIsInstanceOf($characters, Character::class,
             "Not all objects that were passed are characters (scene \"{$scene->getId()->toString()}\")."
+        );
+        Assertion::allIsInstanceOf($items, Item::class,
+            "Not all objects that were passed are items (scene \"{$scene->getId()->toString()}\")."
         );
 
         $this->id = $id;
         $this->scene = $scene;
         $this->name = $name;
         $this->characters = $characters;
+        $this->items = $items;
     }
 
     public function getId(): UuidInterface
@@ -73,6 +83,11 @@ final class Command implements AuthorAccessInterface, AuthorAwareInterface, Mess
         return $this->characters;
     }
 
+    public function getItems(): array
+    {
+        return $this->items;
+    }
+
     public function isAllowed(Author $author): bool
     {
         $charactersBelong = array_reduce(
@@ -87,7 +102,19 @@ final class Command implements AuthorAccessInterface, AuthorAwareInterface, Mess
             true
         );
 
-        return $author === $this->scene->getCreatedBy() && true === $charactersBelong;
+        $itemsBelong = array_reduce(
+            $this->items,
+            function (bool $accumulator, Item $item) use ($author): bool {
+                if (false === $accumulator) {
+                    return $accumulator;
+                }
+
+                return $author === $item->getCreatedBy();
+            },
+            true
+        );
+
+        return $author === $this->scene->getCreatedBy() && true === $charactersBelong && true === $itemsBelong;
     }
 
     public function getMessage(): Message

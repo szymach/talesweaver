@@ -41,10 +41,16 @@ class EventModule extends Module
         $this->queryBus = $container->getService(QueryBus::class);
     }
 
-    public function haveCreatedAnEvent(string $name, Scene $scene): Event
-    {
+    public function haveCreatedAnEvent(
+        string $name,
+        Scene $scene,
+        array $characters = [],
+        array $items = []
+    ): Event {
         $id = Uuid::uuid4();
-        $this->commandBus->dispatch(new Command($id, $scene, new ShortText($name)));
+        $this->commandBus->dispatch(
+            new Command($id, $scene, new ShortText($name), $characters, $items)
+        );
 
         $event = $this->queryBus->query(new ById($id));
         $this->assertInstanceOf(Event::class, $event);

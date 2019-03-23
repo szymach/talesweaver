@@ -10,6 +10,7 @@ use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event;
+use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
 use Talesweaver\Domain\ValueObject\ShortText;
 
@@ -30,11 +31,17 @@ final class Command implements AuthorAccessInterface, MessageCommandInterface
      */
     private $characters;
 
-    public function __construct(Event $event, ShortText $name, array $characters)
+    /**
+     * @var Item[]
+     */
+    private $items;
+
+    public function __construct(Event $event, ShortText $name, array $characters, array $items)
     {
         $this->event = $event;
         $this->name = $name;
         $this->characters = $characters;
+        $this->items = $items;
     }
 
     public function getName(): ShortText
@@ -52,6 +59,11 @@ final class Command implements AuthorAccessInterface, MessageCommandInterface
         return $this->characters;
     }
 
+    public function getItems(): array
+    {
+        return $this->items;
+    }
+
     public function isAllowed(Author $author): bool
     {
         $charactersBelong = array_reduce(
@@ -66,7 +78,19 @@ final class Command implements AuthorAccessInterface, MessageCommandInterface
             true
         );
 
-        return $author === $this->event->getCreatedBy() && true === $charactersBelong;
+        $itemsBelong = array_reduce(
+            $this->items,
+            function (bool $accumulator, Item $item) use ($author): bool {
+                if (false === $accumulator) {
+                    return $accumulator;
+                }
+
+                return $author === $item->getCreatedBy();
+            },
+            true
+        );
+
+        return $author === $this->event->getCreatedBy() && true === $charactersBelong && true === $itemsBelong;
     }
 
     public function getMessage(): Message

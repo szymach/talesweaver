@@ -19,6 +19,7 @@ use Talesweaver\Application\Command\Event\Edit\DTO;
 use Talesweaver\Application\Form\Type\Event\Edit;
 use Talesweaver\Application\Query\Event\EntityExists;
 use Talesweaver\Domain\Character;
+use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Scene;
 
 final class EditType extends AbstractType implements Edit
@@ -63,6 +64,18 @@ final class EditType extends AbstractType implements Edit
             'expanded' => true,
             'required' => false
         ]);
+
+        $builder->add('items', EntityType::class, [
+            'label' => 'event.items',
+            'class' => Item::class,
+            'choices' => $options['items'],
+            'choice_label' => function (Item $choice): string {
+                return (string) $choice->getName();
+            },
+            'multiple' => true,
+            'expanded' => true,
+            'required' => false
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -72,6 +85,7 @@ final class EditType extends AbstractType implements Edit
             'characters' => [],
             'data_class' => DTO::class,
             'eventId' => null,
+            'items' => [],
             'scene' => null
         ]);
 
@@ -79,6 +93,9 @@ final class EditType extends AbstractType implements Edit
         $resolver->setRequired(['characters']);
 
         $resolver->setAllowedTypes('eventId', [UuidInterface::class]);
+
+        $resolver->setAllowedTypes('items', ['array']);
+        $resolver->setRequired(['items']);
 
         $resolver->setAllowedTypes('scene', [Scene::class]);
         $resolver->setRequired(['scene']);

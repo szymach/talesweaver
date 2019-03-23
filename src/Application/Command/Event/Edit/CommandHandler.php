@@ -10,6 +10,10 @@ final class CommandHandler implements CommandHandlerInterface
 {
     public function __invoke(Command $command): void
     {
-        $command->getEvent()->edit($command->getName(), $command->getCharacters());
+        $command->getEvent()->edit(
+            $command->getName(),
+            $command->getCharacters(),
+            $command->getItems()
+        );
     }
 }

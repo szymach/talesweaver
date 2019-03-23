@@ -25,10 +25,16 @@ final class DTO
      */
     private $characters;
 
+    /**
+     * @var Item[]
+     */
+    private $items;
+
     public function __construct(Event $event)
     {
         $this->id = $event->getId();
         $this->characters = $event->getCharacters();
+        $this->items = $event->getItems();
         $this->name = (string) $event->getName();
     }
 
@@ -55,5 +61,15 @@ final class DTO
     public function setCharacters(array $characters): void
     {
         $this->characters = $characters;
+    }
+
+    public function getItems(): array
+    {
+        return $this->items;
+    }
+
+    public function setItems(array $items): void
+    {
+        $this->items = $items;
     }
 }

@@ -15,7 +15,7 @@ use Talesweaver\Application\Form\Type\Event\Edit;
 use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\EventResolver;
 use Talesweaver\Application\Http\UrlGenerator;
-use Talesweaver\Application\Query\Character\ForScene;
+use Talesweaver\Application\Query;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\ValueObject\ShortText;
 
@@ -70,13 +70,15 @@ final class EditController
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
         $event = $this->eventResolver->fromRequest($request);
+        $scene = $event->getScene();
         $formHandler = $this->formHandlerFactory->createWithRequest(
             $request,
             Edit::class,
             new DTO($event),
             [
                 'action' => $this->urlGenerator->generate('event_edit', ['id' => $event->getId()]),
-                'characters' => $this->queryBus->query(new ForScene($event->getScene())),
+                'characters' => $this->queryBus->query(new Query\Character\ForScene($scene)),
+                'items' => $this->queryBus->query(new Query\Item\ForScene($scene)),
                 'eventId' => $event->getId(),
                 'scene' => $event->getScene()
             ]
@@ -96,7 +98,7 @@ final class EditController
     private function processFormDataAndRedirect(Event $event, DTO $dto): ResponseInterface
     {
         $this->commandBus->dispatch(
-            new Command($event, new ShortText($dto->getName()), $dto->getCharacters())
+            new Command($event, new ShortText($dto->getName()), $dto->getCharacters(), $dto->getItems())
         );
 
         return $this->responseFactory->success();

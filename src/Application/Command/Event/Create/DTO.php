@@ -24,9 +24,15 @@ final class DTO
      */
     private $characters;
 
+    /**
+     * @var Item[]
+     */
+    private $items;
+
     public function __construct(Scene $scene)
     {
         $this->characters = [];
+        $this->items = [];
         $this->scene = $scene;
     }
 
@@ -53,5 +59,15 @@ final class DTO
     public function setCharacters(array $characters): void
     {
         $this->characters = $characters;
+    }
+
+    public function getItems(): array
+    {
+        return $this->items;
+    }
+
+    public function setItems(array $items): void
+    {
+        $this->items = $items;
     }
 }

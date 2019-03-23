@@ -18,6 +18,7 @@ use Talesweaver\Application\Command\Event\Create\DTO;
 use Talesweaver\Application\Form\Type\Event\Create;
 use Talesweaver\Application\Query\Event\EntityExists;
 use Talesweaver\Domain\Character;
+use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Scene;
 
 class CreateType extends AbstractType implements Create
@@ -62,6 +63,18 @@ class CreateType extends AbstractType implements Create
             'expanded' => true,
             'required' => false
         ]);
+
+        $builder->add('items', EntityType::class, [
+            'label' => 'event.items',
+            'class' => Item::class,
+            'choices' => $options['items'],
+            'choice_label' => function (Item $choice): string {
+                return (string) $choice->getName();
+            },
+            'multiple' => true,
+            'expanded' => true,
+            'required' => false
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -70,11 +83,15 @@ class CreateType extends AbstractType implements Create
             'attr' => ['class' => 'js-form'],
             'characters' => [],
             'data_class' => DTO::class,
+            'items' => [],
             'scene' => null
         ]);
 
         $resolver->setAllowedTypes('characters', ['array']);
         $resolver->setRequired(['characters']);
+
+        $resolver->setAllowedTypes('items', ['array']);
+        $resolver->setRequired(['items']);
 
         $resolver->setAllowedTypes('scene', [Scene::class]);
         $resolver->setRequired(['scene']);
