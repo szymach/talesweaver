@@ -16,6 +16,7 @@ use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
 use Talesweaver\Domain\Security\AuthorAwareInterface;
+use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 
 final class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCommandInterface
@@ -38,6 +39,11 @@ final class Command implements AuthorAccessInterface, AuthorAwareInterface, Mess
     private $name;
 
     /**
+     * @var LongText|null
+     */
+    private $description;
+
+    /**
      * @var Character[]
      */
     private $characters;
@@ -47,8 +53,14 @@ final class Command implements AuthorAccessInterface, AuthorAwareInterface, Mess
      */
     private $items;
 
-    public function __construct(UuidInterface $id, Scene $scene, ShortText $name, array $characters, array $items)
-    {
+    public function __construct(
+        UuidInterface $id,
+        Scene $scene,
+        ShortText $name,
+        ?LongText $description,
+        array $characters,
+        array $items
+    ) {
         Assertion::allIsInstanceOf(
             $characters,
             Character::class,
@@ -63,6 +75,7 @@ final class Command implements AuthorAccessInterface, AuthorAwareInterface, Mess
         $this->id = $id;
         $this->scene = $scene;
         $this->name = $name;
+        $this->description = $description;
         $this->characters = $characters;
         $this->items = $items;
     }
@@ -80,6 +93,11 @@ final class Command implements AuthorAccessInterface, AuthorAwareInterface, Mess
     public function getName(): ShortText
     {
         return $this->name;
+    }
+
+    public function getDescription(): ?LongText
+    {
+        return $this->description;
     }
 
     public function getCharacters(): array

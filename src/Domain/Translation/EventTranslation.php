@@ -22,7 +22,7 @@ class EventTranslation
     private $name;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $description;
 

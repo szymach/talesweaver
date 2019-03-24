@@ -11,6 +11,7 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Traits\CreatedByTrait;
 use Talesweaver\Domain\Traits\TimestampableTrait;
 use Talesweaver\Domain\Traits\TranslatableTrait;
+use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 
 class Event
@@ -26,6 +27,11 @@ class Event
      * @var ShortText
      */
     private $name;
+
+    /**
+     * @var LongText|null
+     */
+    private $description;
 
     /**
      * @var Scene
@@ -45,6 +51,7 @@ class Event
     /**
      * @param UuidInterface $id
      * @param ShortText $name
+     * @param LongText|null $description
      * @param Scene $scene
      * @param Author $author
      * @param Character[] $characters
@@ -52,6 +59,7 @@ class Event
     public function __construct(
         UuidInterface $id,
         ShortText $name,
+        ?LongText $description,
         Scene $scene,
         Author $author,
         array $characters = [],
@@ -59,6 +67,7 @@ class Event
     ) {
         $this->id = $id;
         $this->name = $name;
+        $this->description = $description;
         $this->scene = $scene;
         $this->createdAt = new DateTimeImmutable();
         $this->createdBy = $author;
@@ -74,13 +83,15 @@ class Event
 
     /**
      * @param ShortText $name
+     * @param LongText|null $description
      * @param Character[] $characters
      * @param Item[] $items
      * @return void
      */
-    public function edit(ShortText $name, array $characters, array $items): void
+    public function edit(ShortText $name, ?LongText $description, array $characters, array $items): void
     {
         $this->name = $name;
+        $this->description = $description;
         $this->characters = new ArrayCollection($characters);
         $this->items = new ArrayCollection($items);
         $this->update();
@@ -94,6 +105,11 @@ class Event
     public function getName(): ShortText
     {
         return $this->name;
+    }
+
+    public function getDescription(): ?LongText
+    {
+        return $this->description;
     }
 
     public function getScene(): Scene

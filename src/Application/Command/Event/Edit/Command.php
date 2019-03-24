@@ -12,6 +12,7 @@ use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
+use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 
 final class Command implements AuthorAccessInterface, MessageCommandInterface
@@ -27,6 +28,11 @@ final class Command implements AuthorAccessInterface, MessageCommandInterface
     private $name;
 
     /**
+     * @var LongText|null
+     */
+    private $description;
+
+    /**
      * @var Character[]
      */
     private $characters;
@@ -36,10 +42,11 @@ final class Command implements AuthorAccessInterface, MessageCommandInterface
      */
     private $items;
 
-    public function __construct(Event $event, ShortText $name, array $characters, array $items)
+    public function __construct(Event $event, ShortText $name, ?LongText $description, array $characters, array $items)
     {
         $this->event = $event;
         $this->name = $name;
+        $this->description = $description;
         $this->characters = $characters;
         $this->items = $items;
     }
@@ -47,6 +54,11 @@ final class Command implements AuthorAccessInterface, MessageCommandInterface
     public function getName(): ShortText
     {
         return $this->name;
+    }
+
+    public function getDescription(): ?LongText
+    {
+        return $this->description;
     }
 
     public function getEvent(): Event

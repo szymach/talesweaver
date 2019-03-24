@@ -6,6 +6,7 @@ namespace Talesweaver\Integration\Symfony\Form\Type\Event;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,7 +20,6 @@ use Talesweaver\Application\Form\Type\Event\Create;
 use Talesweaver\Application\Query\Event\EntityExists;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Item;
-use Talesweaver\Domain\Scene;
 
 class CreateType extends AbstractType implements Create
 {
@@ -52,29 +52,39 @@ class CreateType extends AbstractType implements Create
             ])]
         ]);
 
-        $builder->add('characters', EntityType::class, [
-            'label' => 'event.characters',
-            'class' => Character::class,
-            'choices' => $options['characters'],
-            'choice_label' => function (Character $choice): string {
-                return (string) $choice->getName();
-            },
-            'multiple' => true,
-            'expanded' => true,
+        $builder->add('description', TextareaType::class, [
+            'label' => 'event.description',
+            'attr' => ['class' => 'ckeditor'],
             'required' => false
         ]);
 
-        $builder->add('items', EntityType::class, [
-            'label' => 'event.items',
-            'class' => Item::class,
-            'choices' => $options['items'],
-            'choice_label' => function (Item $choice): string {
-                return (string) $choice->getName();
-            },
-            'multiple' => true,
-            'expanded' => true,
-            'required' => false
-        ]);
+        if (0 < count($options['characters'])) {
+            $builder->add('characters', EntityType::class, [
+                'label' => 'event.characters',
+                'class' => Character::class,
+                'choices' => $options['characters'],
+                'choice_label' => function (Character $choice): string {
+                    return (string) $choice->getName();
+                },
+                'multiple' => true,
+                'expanded' => true,
+                'required' => false
+            ]);
+        }
+
+        if (0 < count($options['items'])) {
+            $builder->add('items', EntityType::class, [
+                'label' => 'event.items',
+                'class' => Item::class,
+                'choices' => $options['items'],
+                'choice_label' => function (Item $choice): string {
+                    return (string) $choice->getName();
+                },
+                'multiple' => true,
+                'expanded' => true,
+                'required' => false
+            ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -83,17 +93,12 @@ class CreateType extends AbstractType implements Create
             'attr' => ['class' => 'js-form'],
             'characters' => [],
             'data_class' => DTO::class,
-            'items' => [],
-            'scene' => null
+            'items' => []
         ]);
 
+        $resolver->setRequired(['characters', 'items', 'scene']);
+
         $resolver->setAllowedTypes('characters', ['array']);
-        $resolver->setRequired(['characters']);
-
         $resolver->setAllowedTypes('items', ['array']);
-        $resolver->setRequired(['items']);
-
-        $resolver->setAllowedTypes('scene', [Scene::class]);
-        $resolver->setRequired(['scene']);
     }
 }

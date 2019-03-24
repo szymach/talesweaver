@@ -10,6 +10,7 @@
             <generator strategy="IDENTITY"/>
         </id>
         <field name="name" type="short_text"/>
+        <field name="description" type="long_text" nullable="true"/>
         <field name="locale" length="2">
             <fsi:translatable-locale />
         </field>

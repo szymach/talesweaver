@@ -9,6 +9,7 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 
 final class DTO
@@ -19,9 +20,9 @@ final class DTO
     private $name;
 
     /**
-     * @var Scene
+     * @var string|null
      */
-    private $scene;
+    private $description;
 
     /**
      * @var Character[]
@@ -32,6 +33,11 @@ final class DTO
      * @var Item[]
      */
     private $items;
+
+    /**
+     * @var Scene
+     */
+    private $scene;
 
     public function __construct(Scene $scene)
     {
@@ -47,6 +53,7 @@ final class DTO
             $id,
             $scene,
             new ShortText($this->name),
+            LongText::fromNullableString($this->description),
             $this->characters,
             $this->items
         );
@@ -62,9 +69,14 @@ final class DTO
         $this->name = $name;
     }
 
-    public function getScene(): Scene
+    public function getDescription(): ?string
     {
-        return $this->scene;
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
     }
 
     public function getCharacters(): array
@@ -85,5 +97,10 @@ final class DTO
     public function setItems(array $items): void
     {
         $this->items = $items;
+    }
+
+    public function getScene(): Scene
+    {
+        return $this->scene;
     }
 }

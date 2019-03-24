@@ -5,6 +5,7 @@
     <h4 class="modal-title">{{ event.name }}</h4>
 </div>
 <div class="modal-body">
+    {{ event.description|raw }}
     {% if event.characters|length > 0 %}
         <h5>{{ 'event.characters'|trans }}</h5>
         <ul>

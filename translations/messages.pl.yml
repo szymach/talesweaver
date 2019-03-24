@@ -221,6 +221,7 @@ scene:
 
 event:
     name: Nazwa
+    description: Opis
     characters: Uczestnicy
     items: Przedmioty
     header:

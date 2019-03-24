@@ -8,6 +8,7 @@
 
         <fsi:translatable-locale field="locale" />
         <fsi:translatable-field field="name" mappedBy="translations" />
+        <fsi:translatable-field field="description" mappedBy="translations" />
 
         <id name="id" type="uuid"/>
         <field name="createdAt" type="datetime"/>
