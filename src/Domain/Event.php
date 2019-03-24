@@ -34,9 +34,9 @@ class Event
     private $description;
 
     /**
-     * @var Scene
+     * @var Location|null
      */
-    private $scene;
+    private $location;
 
     /**
      * @var Character[]|Collection
@@ -49,9 +49,15 @@ class Event
     private $items;
 
     /**
+     * @var Scene
+     */
+    private $scene;
+
+    /**
      * @param UuidInterface $id
      * @param ShortText $name
      * @param LongText|null $description
+     * @param Location|null $location
      * @param Scene $scene
      * @param Author $author
      * @param Character[] $characters
@@ -60,6 +66,7 @@ class Event
         UuidInterface $id,
         ShortText $name,
         ?LongText $description,
+        ?Location $location,
         Scene $scene,
         Author $author,
         array $characters = [],
@@ -68,6 +75,7 @@ class Event
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
+        $this->location = $location;
         $this->scene = $scene;
         $this->createdAt = new DateTimeImmutable();
         $this->createdBy = $author;
@@ -84,14 +92,16 @@ class Event
     /**
      * @param ShortText $name
      * @param LongText|null $description
+     * @param Location|null $location
      * @param Character[] $characters
      * @param Item[] $items
      * @return void
      */
-    public function edit(ShortText $name, ?LongText $description, array $characters, array $items): void
+    public function edit(ShortText $name, ?LongText $description, ?Location $location, array $characters, array $items): void
     {
         $this->name = $name;
         $this->description = $description;
+        $this->location = $location;
         $this->characters = new ArrayCollection($characters);
         $this->items = new ArrayCollection($items);
         $this->update();
@@ -110,6 +120,11 @@ class Event
     public function getDescription(): ?LongText
     {
         return $this->description;
+    }
+
+    public function getLocation(): ?Location
+    {
+        return $this->location;
     }
 
     public function getScene(): Scene

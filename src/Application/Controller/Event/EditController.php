@@ -8,7 +8,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Bus\QueryBus;
-use Talesweaver\Application\Command\Event\Edit\Command;
 use Talesweaver\Application\Command\Event\Edit\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Event\Edit;
@@ -17,7 +16,6 @@ use Talesweaver\Application\Http\Entity\EventResolver;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Application\Query;
 use Talesweaver\Domain\Event;
-use Talesweaver\Domain\ValueObject\ShortText;
 
 final class EditController
 {
@@ -78,8 +76,9 @@ final class EditController
             [
                 'action' => $this->urlGenerator->generate('event_edit', ['id' => $event->getId()]),
                 'characters' => $this->queryBus->query(new Query\Character\ForScene($scene)),
-                'items' => $this->queryBus->query(new Query\Item\ForScene($scene)),
                 'eventId' => $event->getId(),
+                'items' => $this->queryBus->query(new Query\Item\ForScene($scene)),
+                'locations' => $this->queryBus->query(new Query\Location\ForScene($scene)),
                 'scene' => $event->getScene()
             ]
         );

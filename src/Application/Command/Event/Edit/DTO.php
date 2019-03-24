@@ -9,6 +9,7 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Item;
+use Talesweaver\Domain\Location;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 
@@ -30,6 +31,11 @@ final class DTO
     private $description;
 
     /**
+     * @var Location|null
+     */
+    private $location;
+
+    /**
      * @var Character[]
      */
     private $characters;
@@ -46,6 +52,7 @@ final class DTO
         $this->description = null !== $event->getDescription() ? (string) $event->getDescription() : null;
         $this->characters = $event->getCharacters();
         $this->items = $event->getItems();
+        $this->location = $event->getLocation();
     }
 
     public function toCommand(Event $event): Command
@@ -55,6 +62,7 @@ final class DTO
             $event,
             new ShortText($this->name),
             LongText::fromNullableString($this->description),
+            $this->location,
             $this->characters,
             $this->items
         );
@@ -83,6 +91,16 @@ final class DTO
     public function setDescription(?string $description): void
     {
         $this->description = $description;
+    }
+
+    public function getLocation(): ?Location
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?Location $location): void
+    {
+        $this->location = $location;
     }
 
     public function getCharacters(): array

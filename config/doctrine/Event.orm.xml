@@ -21,6 +21,7 @@
             </cascade>
         </one-to-many>
 
+        <many-to-one field="location" target-entity="Talesweaver\Domain\Location" />
         <many-to-many field="characters" target-entity="Talesweaver\Domain\Character" />
         <many-to-many field="items" target-entity="Talesweaver\Domain\Item" />
 

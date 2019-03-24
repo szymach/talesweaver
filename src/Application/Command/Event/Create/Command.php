@@ -13,6 +13,7 @@ use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Item;
+use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
 use Talesweaver\Domain\Security\AuthorAwareInterface;
@@ -39,6 +40,11 @@ final class Command implements AuthorAccessInterface, AuthorAwareInterface, Mess
     private $name;
 
     /**
+     * @var Location|null
+     */
+    private $location;
+
+    /**
      * @var LongText|null
      */
     private $description;
@@ -58,6 +64,7 @@ final class Command implements AuthorAccessInterface, AuthorAwareInterface, Mess
         Scene $scene,
         ShortText $name,
         ?LongText $description,
+        ?Location $location,
         array $characters,
         array $items
     ) {
@@ -76,6 +83,7 @@ final class Command implements AuthorAccessInterface, AuthorAwareInterface, Mess
         $this->scene = $scene;
         $this->name = $name;
         $this->description = $description;
+        $this->location = $location;
         $this->characters = $characters;
         $this->items = $items;
     }
@@ -98,6 +106,11 @@ final class Command implements AuthorAccessInterface, AuthorAwareInterface, Mess
     public function getDescription(): ?LongText
     {
         return $this->description;
+    }
+
+    public function getLocation(): ?Location
+    {
+        return $this->location;
     }
 
     public function getCharacters(): array
@@ -136,7 +149,11 @@ final class Command implements AuthorAccessInterface, AuthorAwareInterface, Mess
             true
         );
 
-        return $author === $this->scene->getCreatedBy() && true === $charactersBelong && true === $itemsBelong;
+        return $author === $this->scene->getCreatedBy()
+            && (null === $this->location || $author === $this->location->getCreatedBy())
+            && true === $charactersBelong
+            && true === $itemsBelong
+        ;
     }
 
     public function getMessage(): Message

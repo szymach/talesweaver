@@ -6,7 +6,7 @@ namespace Talesweaver\Application\Query\Location;
 
 use Talesweaver\Domain\Scene;
 
-class ForScene
+final class ForScene
 {
     /**
      * @var Scene

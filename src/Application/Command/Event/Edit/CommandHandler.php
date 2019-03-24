@@ -13,6 +13,7 @@ final class CommandHandler implements CommandHandlerInterface
         $command->getEvent()->edit(
             $command->getName(),
             $command->getDescription(),
+            $command->getLocation(),
             $command->getCharacters(),
             $command->getItems()
         );

@@ -77,6 +77,7 @@ final class CreateController
                 'action' => $this->urlGenerator->generate('event_add', ['id' => $scene->getId()]),
                 'characters' => $this->queryBus->query(new Query\Character\ForScene($scene)),
                 'items' => $this->queryBus->query(new Query\Item\ForScene($scene)),
+                'locations' => $this->queryBus->query(new Query\Location\ForScene($scene)),
                 'scene' => $scene
             ]
         );

@@ -20,6 +20,7 @@ use Talesweaver\Application\Form\Type\Event\Create;
 use Talesweaver\Application\Query\Event\EntityExists;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Item;
+use Talesweaver\Domain\Location;
 
 class CreateType extends AbstractType implements Create
 {
@@ -58,6 +59,18 @@ class CreateType extends AbstractType implements Create
             'required' => false
         ]);
 
+        if (0 < count($options['locations'])) {
+            $builder->add('location', EntityType::class, [
+                'label' => 'event.location',
+                'class' => Location::class,
+                'choices' => $options['locations'],
+                'choice_label' => function (Location $choice): string {
+                    return (string) $choice->getName();
+                },
+                'required' => false
+            ]);
+        }
+
         if (0 < count($options['characters'])) {
             $builder->add('characters', EntityType::class, [
                 'label' => 'event.characters',
@@ -93,12 +106,14 @@ class CreateType extends AbstractType implements Create
             'attr' => ['class' => 'js-form'],
             'characters' => [],
             'data_class' => DTO::class,
-            'items' => []
+            'items' => [],
+            'locations' => []
         ]);
 
-        $resolver->setRequired(['characters', 'items', 'scene']);
+        $resolver->setRequired(['characters', 'items', 'locations', 'scene']);
 
         $resolver->setAllowedTypes('characters', ['array']);
         $resolver->setAllowedTypes('items', ['array']);
+        $resolver->setAllowedTypes('locations', ['array']);
     }
 }

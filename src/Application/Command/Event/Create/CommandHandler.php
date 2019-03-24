@@ -27,6 +27,7 @@ final class CommandHandler implements CommandHandlerInterface
                 $command->getId(),
                 $command->getName(),
                 $command->getDescription(),
+                $command->getLocation(),
                 $command->getScene(),
                 $command->getAuthor(),
                 $command->getCharacters(),

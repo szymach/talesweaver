@@ -11,6 +11,7 @@ use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Item;
+use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
@@ -28,6 +29,11 @@ final class Command implements AuthorAccessInterface, MessageCommandInterface
     private $name;
 
     /**
+     * @var Location|null
+     */
+    private $location;
+
+    /**
      * @var LongText|null
      */
     private $description;
@@ -42,11 +48,18 @@ final class Command implements AuthorAccessInterface, MessageCommandInterface
      */
     private $items;
 
-    public function __construct(Event $event, ShortText $name, ?LongText $description, array $characters, array $items)
-    {
+    public function __construct(
+        Event $event,
+        ShortText $name,
+        ?LongText $description,
+        ?Location $location,
+        array $characters,
+        array $items
+    ) {
         $this->event = $event;
         $this->name = $name;
         $this->description = $description;
+        $this->location = $location;
         $this->characters = $characters;
         $this->items = $items;
     }
@@ -59,6 +72,11 @@ final class Command implements AuthorAccessInterface, MessageCommandInterface
     public function getDescription(): ?LongText
     {
         return $this->description;
+    }
+
+    public function getLocation(): ?Location
+    {
+        return $this->location;
     }
 
     public function getEvent(): Event
@@ -102,7 +120,11 @@ final class Command implements AuthorAccessInterface, MessageCommandInterface
             true
         );
 
-        return $author === $this->event->getCreatedBy() && true === $charactersBelong && true === $itemsBelong;
+        return $author === $this->event->getCreatedBy()
+            && (null === $this->location || $author === $this->location->getCreatedBy())
+            && true === $charactersBelong
+            && true === $itemsBelong
+        ;
     }
 
     public function getMessage(): Message
