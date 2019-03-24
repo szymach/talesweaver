@@ -24,7 +24,7 @@ module.exports = {
         pathinfo: false
     },
     resolve: {
-        extensions: [ '.js', ".ts" ]
+        extensions: ['.js', ".ts"]
     },
     plugins: [
         new MiniCssExtractPlugin({ filename: '[name].css' }),
@@ -75,9 +75,9 @@ module.exports = {
             {
                 test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
                 exclude: [path.resolve(__dirname, "node_modules/@ckeditor")],
-                use: [ 'file-loader' ]
+                use: ['file-loader']
             },
-            { test: /ckeditor5-[^/]+\/theme\/icons\/[^/]+\.svg$/, use: [ 'raw-loader' ] },
+            { test: /ckeditor5-[^/]+\/theme\/icons\/[^/]+\.svg$/, use: ['raw-loader'] },
             {
                 test: /ckeditor5-[^/]+\/theme\/[\w-/]+\.css$/,
                 use: [
@@ -85,11 +85,11 @@ module.exports = {
                     'css-loader',
                     {
                         loader: 'postcss-loader',
-                        options: styles.getPostCssConfig( {
+                        options: styles.getPostCssConfig({
                             themeImporter: {
-                                themePath: require.resolve( '@ckeditor/ckeditor5-theme-lark' )
+                                themePath: require.resolve('@ckeditor/ckeditor5-theme-lark')
                             }
-                        } )
+                        })
                     }
                 ]
             }

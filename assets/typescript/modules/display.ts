@@ -26,6 +26,14 @@ export module Display {
                 );
             }
         );
+
+        Gator(document.querySelector('body')).on(
+            'click',
+            '.js-close-modal',
+            () => {
+                new bootstrap.Modal(document.getElementById('modal-display')).hide();
+            }
+        );
     }
 
     export function closeAllModals(): void {
