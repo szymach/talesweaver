@@ -44,12 +44,13 @@ class EventModule extends Module
     public function haveCreatedAnEvent(
         string $name,
         Scene $scene,
+        ?Location $location = null,
         array $characters = [],
         array $items = []
     ): Event {
         $id = Uuid::uuid4();
         $this->commandBus->dispatch(
-            new Command($id, $scene, new ShortText($name), $characters, $items)
+            new Command($id, $scene, new ShortText($name), $location, null, $characters, $items)
         );
 
         $event = $this->queryBus->query(new ById($id));

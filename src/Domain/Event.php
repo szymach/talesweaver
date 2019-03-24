@@ -97,8 +97,13 @@ class Event
      * @param Item[] $items
      * @return void
      */
-    public function edit(ShortText $name, ?LongText $description, ?Location $location, array $characters, array $items): void
-    {
+    public function edit(
+        ShortText $name,
+        ?LongText $description,
+        ?Location $location,
+        array $characters,
+        array $items
+    ): void {
         $this->name = $name;
         $this->description = $description;
         $this->location = $location;
