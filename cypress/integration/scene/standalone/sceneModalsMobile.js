@@ -63,10 +63,7 @@ describe('Modal opening', () => {
             cy.get('@events').parent().find('.js-list-toggle[title="Lista"]').click().then(() => {
                 cy.get('@events').parent().find('.js-list-container').should('be.visible');
                 cy.get('@events').parent().find('[title="Nowe wydarzenie"]').click().then(() => {
-                    cy.get('@events').parent().find('.js-list-container').should('be.visible');
-                    cy.get('@events').parent().find('.js-list-container [title="Nowe spotkanie"]').click().then(() => {
-                        cy.get('@ajax-container').contains('Nowe wydarzenie').should('be.visible');
-                    });
+                    cy.get('@ajax-container').contains('Nowe wydarzenie').should('be.visible');
                 });
             });
         });
