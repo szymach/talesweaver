@@ -6,6 +6,9 @@
 </div>
 <div class="modal-body">
     {{ event.description|raw }}
+    {% if event.location is not null %}
+        <h5>{{ 'event.display.location'|trans }}</h5>{{ event.location }}
+    {% endif %}
     {% if event.characters|length > 0 %}
         <h5>{{ 'event.characters'|trans }}</h5>
         <ul>

@@ -230,6 +230,8 @@ event:
         edit: Edycja wydarzenia
     actions:
         create: Nowe wydarzenie
+    display:
+        location: Miejsce
     modal:
         title: Wybierz wydarzenie do dodania
     timeline:

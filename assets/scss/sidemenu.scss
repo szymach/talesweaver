@@ -44,7 +44,7 @@ $sidemenu-shadow: inset 0px 0px 2px 0px $gray-light;
                     padding: 10px 10px 10px 0;
                 }
 
-                span {
+                span:not(.fa) {
                     display: inline-block;
                     vertical-align: middle;
                 }
