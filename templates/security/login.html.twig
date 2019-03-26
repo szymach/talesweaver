@@ -4,8 +4,8 @@
 {% block subheader 'security.login.header'|trans %}
 
 {% block links %}
-    <a class="btn btn-default btn-sm" href="{{ path('password_reset_request') }}">{{ 'security.login.password_reset'|trans }}</a>
-    <a class="btn btn-default btn-sm" href="{{ path('register') }}">{{ 'security.login.register'|trans }}</a>
+    <a class="btn btn-default btn-sm" href="{{ path('password_reset_request') }}" tabindex="4">{{ 'security.login.password_reset'|trans }}</a>
+    <a class="btn btn-default btn-sm" href="{{ path('register') }}" tabindex="5">{{ 'security.login.register'|trans }}</a>
 {% endblock %}
 
 {% block body %}
@@ -29,6 +29,7 @@
                                placeholder="{{ 'security.login.email.placeholder'|trans }}"
                                {% if lastUsername is empty %}autofocus="autofocus"{% endif %}
                                value="{{ lastUsername }}"
+                               tabindex="1"
                         />
                     </div>
                 </div>
@@ -41,12 +42,13 @@
                                class="form-control"
                                placeholder="{{ 'security.login.password.placeholder'|trans }}"
                                {% if lastUsername is not empty %}autofocus="autofocus"{% endif %}
+                               tabindex="2"
                         />
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-xs-12 text-right">
-                        <button class="btn btn-sm btn-success">{{ 'security.login.submit'|trans }}</button>
+                        <button class="btn btn-sm btn-success" tabindex="3">{{ 'security.login.submit'|trans }}</button>
                     </div>
                 </div>
                 {% if app.environment != 'test' %}

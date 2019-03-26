@@ -70,3 +70,7 @@ table:not(.dashboard) {
         width: 22px;
     }
 }
+
+.btn-success:focus {
+    background-color: darken($brand-success, 6%);
+}
