@@ -23,7 +23,12 @@
         {% endfor %}
         <main class="container">
             <h1 class="text-center">{{ 'security.header'|trans }}</h1>
-            <h3 class="text-center" style="margin-bottom: 50px;">{% block subheader '' %}</h3>
+            <h3 class="text-center" style="margin-bottom: 30px;">{% block subheader '' %}</h3>
+            <div class="row" style="margin-bottom: 30px;">
+                <div class="col-xs-12 text-center">
+                    {% block links '' %}
+                </div>
+            </div>
             {% block body '' %}
         </main>
         <script src="{{ absolute_url(asset('assets/main.js')) }}"></script>
