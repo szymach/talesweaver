@@ -2,18 +2,15 @@ import { ajaxGetCall, ajaxPostCall, offset, scrollTo, trigger } from '../common'
 import { AjaxContainer } from './ajaxContainer';
 import { Alerts } from './alerts';
 import { Display } from './display';
-const Gator = require('gator');
 import { Lists } from './lists';
+const Gator = require('gator');
 
-interface FormResponse
-{
+interface FormResponse {
     form?: string | null
 }
 
-export module Forms
-{
-    export function init(): void
-    {
+export module Forms {
+    export function init(): void {
         Gator(document.querySelector('main, .modal')).on(
             'click',
             '.js-load-form',
@@ -30,15 +27,13 @@ export module Forms
         );
     }
 
-    export function getForm(url : string): void
-    {
+    export function getForm(url: string): void {
         Lists.closeSublists();
         Lists.closeMobileSublists();
 
         ajaxGetCall(
             url,
-            function(): void {
-                const response: FormResponse = this.response;
+            function (response: FormResponse): void {
                 AjaxContainer.displayAjaxContainerWithContent(response.form);
                 bindAjaxForm();
                 triggerAutofocus();
@@ -46,8 +41,7 @@ export module Forms
         );
     }
 
-    function bindAjaxForm(): void
-    {
+    function bindAjaxForm(): void {
         const container = AjaxContainer.getContainer();
         Gator(container).off('submit');
         Gator(container).on('submit', '.js-form', (event: Event): boolean => {
@@ -56,7 +50,7 @@ export module Forms
 
             submitForm(<HTMLFormElement>event.target);
             const input: HTMLElement = AjaxContainer.getContainer().querySelector('form input');
-            if (null !== input) {
+            if (null !== input && undefined !== input) {
                 trigger(input, 'focus');
             }
 
@@ -64,10 +58,8 @@ export module Forms
         });
     }
 
-    function submitForm(form: HTMLFormElement): void
-    {
-        const handleErrorCallback = (xhr: { target: { response: FormResponse } }): void => {
-            const response: FormResponse = xhr.target.response;
+    function submitForm(form: HTMLFormElement): void {
+        const handleErrorCallback = (response: FormResponse): void => {
             if (typeof response.form !== 'undefined' && null !== response.form) {
                 AjaxContainer.displayAjaxContainerWithContent(response.form);
             } else {
@@ -85,8 +77,7 @@ export module Forms
         );
     }
 
-    function triggerAutofocus(): void
-    {
+    function triggerAutofocus(): void {
         const input: HTMLElement = AjaxContainer.getContainer().querySelector('[autofocus="autofocus"]');
         if (null === input) {
             return;

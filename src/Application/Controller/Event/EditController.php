@@ -68,8 +68,22 @@ final class EditController
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
         $event = $this->eventResolver->fromRequest($request);
+        $formHandler = $this->createFormHandler($request, $event);
+        if (true === $formHandler->isSubmissionValid()) {
+            return $this->processFormDataAndRedirect($event, $formHandler->getData());
+        }
+
+        return $this->responseFactory->form(
+            'partial/simpleForm.html.twig',
+            ['form' => $formHandler->createView(), 'title' => 'event.header.edit'],
+            $formHandler->displayErrors()
+        );
+    }
+
+    private function createFormHandler(ServerRequestInterface $request, Event $event)
+    {
         $scene = $event->getScene();
-        $formHandler = $this->formHandlerFactory->createWithRequest(
+        return $this->formHandlerFactory->createWithRequest(
             $request,
             Edit::class,
             new DTO($event),
@@ -81,16 +95,6 @@ final class EditController
                 'locations' => $this->queryBus->query(new Query\Location\ForScene($scene)),
                 'scene' => $event->getScene()
             ]
-        );
-
-        if (true === $formHandler->isSubmissionValid()) {
-            return $this->processFormDataAndRedirect($event, $formHandler->getData());
-        }
-
-        return $this->responseFactory->form(
-            'partial/simpleForm.html.twig',
-            ['form' => $formHandler->createView(), 'title' => 'event.header.edit'],
-            $formHandler->displayErrors()
         );
     }
 

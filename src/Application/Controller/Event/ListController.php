@@ -11,7 +11,7 @@ use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\SceneResolver;
 use Talesweaver\Application\Query\Event\EventsPage;
 
-class ListController
+final class ListController
 {
     /**
      * @var SceneResolver

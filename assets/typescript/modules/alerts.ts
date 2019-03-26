@@ -1,24 +1,19 @@
 import { ajaxGetCall, findAncestor, hide, fadeOut } from '../common';
 
-interface AlertsResponse
-{
+interface AlertsResponse {
     alerts?: string | null
 }
 
-export module Alerts
-{
-    export function init(): void
-    {
+export module Alerts {
+    export function init(): void {
         setAlertFadeOuts();
     }
 
-    export function displayAlerts(): void
-    {
-        const alerts = document.getElementById('alerts');
+    export function displayAlerts(): void {
+        const alerts = getAlerts();
         ajaxGetCall(
             alerts.getAttribute('data-alert-url'),
-            function (): void {
-                const response: AlertsResponse = this.response;
+            function (response: AlertsResponse): void {
                 if (null !== response.alerts) {
                     alerts.insertAdjacentHTML('beforeend', response.alerts);
                     setAlertFadeOuts();
@@ -27,14 +22,16 @@ export module Alerts
         );
     }
 
-    export function displayErrorAlert(): void
-    {
-        const alerts = document.getElementById('alerts');
-        alerts.insertAdjacentHTML('beforeend', '<p class="alert alert-danger">Wystąpił błąd</p>');
+    export function displayErrorAlert(): void {
+        const alerts = getAlerts();
+        alerts.insertAdjacentHTML(
+            'beforeend',
+            '<p class="alert alert-danger">' + alerts.getAttribute('data-error-content') + '</p>'
+        );
+        setAlertFadeOuts();
     }
 
-    function setAlertFadeOuts(): void
-    {
+    function setAlertFadeOuts(): void {
         document.querySelectorAll('.alert .close').forEach(
             (element: Element): void => {
                 element.addEventListener('click', (event: Event): void => {
@@ -51,5 +48,9 @@ export module Alerts
                 }, 3000);
             }
         );
+    }
+
+    function getAlerts(): HTMLElement {
+        return document.getElementById('alerts');
     }
 }

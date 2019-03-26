@@ -33,6 +33,10 @@ table:not(.dashboard) {
     }
 }
 
+#alerts {
+    position: relative;
+}
+
 .alert:not(.alert-form) {
     position: fixed;
     text-align: center;

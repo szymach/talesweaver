@@ -17,9 +17,8 @@ export module Display {
                 closeAllModals();
                 ajaxGetCall(
                     target.getAttribute('data-display-url'),
-                    function (): void {
+                    function (response: DisplayResponse): void {
                         const modal: HTMLElement = document.getElementById('modal-display');
-                        const response: DisplayResponse = this.response;
                         modal.querySelector('.modal-content').innerHTML = response.display;
                         new bootstrap.Modal(modal).show();
                     }

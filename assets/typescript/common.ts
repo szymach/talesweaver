@@ -1,7 +1,8 @@
+import axios from 'axios';
+import { Alerts } from './modules/alerts';
 import { Backdrop } from './modules/backdrop';
 
-export function hasClass(element : HTMLElement, className: string): boolean
-{
+export function hasClass(element: HTMLElement, className: string): boolean {
     let check;
     if (element.classList) {
         check = element.classList.contains(className);
@@ -12,8 +13,7 @@ export function hasClass(element : HTMLElement, className: string): boolean
     return check;
 }
 
-export function addClass(element: HTMLElement, className : string) : void
-{
+export function addClass(element: HTMLElement, className: string): void {
     if (null === element) {
         return;
     }
@@ -25,8 +25,7 @@ export function addClass(element: HTMLElement, className : string) : void
     }
 }
 
-export function removeClass(element: HTMLElement, className : string) : void
-{
+export function removeClass(element: HTMLElement, className: string): void {
     if (null === element) {
         return;
     }
@@ -41,8 +40,7 @@ export function removeClass(element: HTMLElement, className : string) : void
     }
 }
 
-export function findAncestor(element : HTMLElement, selector : string) : HTMLElement
-{
+export function findAncestor(element: HTMLElement, selector: string): HTMLElement {
     while (
         (element = element.parentElement)
         && !((element.matches || element.matches).call(element, selector))
@@ -51,48 +49,52 @@ export function findAncestor(element : HTMLElement, selector : string) : HTMLEle
 }
 
 export function ajaxGetCall(
-    url : string,
-    onLoad : any,
-    onError? : any
-) : void {
-    const request = new XMLHttpRequest();
-    request.onloadstart = Backdrop.showBackdrop;
-    request.onloadend = Backdrop.hideBackdrop;
-    request.onerror = Backdrop.hideBackdrop;
-    request.open('GET', url, true);
-    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    request.responseType = 'json';
-    request.onload = onLoad;
-    if (null !== onError) {
-        request.onerror = onError;
-    }
-
-    request.send();
+    url: string,
+    onLoad: any,
+    onError?: any
+): void {
+    Backdrop.showBackdrop();
+    axios.get(url, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    }).then(function (response) {
+        onLoad(response.data);
+        Backdrop.hideBackdrop();
+    }).catch(function () {
+        if (null !== onError && undefined !== onError) {
+            onError();
+        } else {
+            Alerts.displayErrorAlert();
+        }
+        Backdrop.hideBackdrop();
+    });
 }
 
 export function ajaxPostCall(
-    url : string,
-    data : FormData,
-    onLoad : any,
-    onError? : any
-) : void {
-    const request = new XMLHttpRequest();
-    request.onloadstart = Backdrop.showBackdrop;
-    request.onloadend = Backdrop.hideBackdrop;
-    request.onerror = Backdrop.hideBackdrop;
-    request.open('POST', url, true);
-    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    request.responseType = 'json';
-    request.onload = onLoad;
-    if (null !== onError) {
-        request.onerror = onError;
-    }
-
-    request.send(data);
+    url: string,
+    data: FormData,
+    onLoad: any,
+    onError?: any
+): void {
+    Backdrop.showBackdrop();
+    axios.post(url, data, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        validateStatus: function (status): boolean {
+            return (200 <= status && 300 > status) || 400 === status;
+        }
+    }).then(function (response): void {
+        onLoad(response.data);
+        Backdrop.hideBackdrop();
+    }).catch(function (response): void {
+        if (undefined !== response.data && null !== onError && undefined !== onError) {
+            onError(response.data);
+        } else {
+            Alerts.displayErrorAlert();
+        }
+        Backdrop.hideBackdrop();
+    });
 }
 
-export function trigger(element : HTMLElement, eventName : string): void
-{
+export function trigger(element: HTMLElement, eventName: string): void {
     if (null === element) {
         return;
     }
@@ -102,8 +104,7 @@ export function trigger(element : HTMLElement, eventName : string): void
     element.dispatchEvent(event);
 }
 
-export function show(element : HTMLElement): void
-{
+export function show(element: HTMLElement): void {
     if (null === element) {
         return;
     }
@@ -111,8 +112,7 @@ export function show(element : HTMLElement): void
     element.style.display = '';
 }
 
-export function hide(element : HTMLElement): void
-{
+export function hide(element: HTMLElement): void {
     if (null === element) {
         return;
     }
@@ -120,8 +120,7 @@ export function hide(element : HTMLElement): void
     element.style.display = 'none';
 }
 
-export function offset(element : HTMLElement) : {top : number, left : number}
-{
+export function offset(element: HTMLElement): { top: number, left: number } {
     const rectangle = element.getBoundingClientRect();
     return {
         top: rectangle.top + document.body.scrollTop,
@@ -129,9 +128,7 @@ export function offset(element : HTMLElement) : {top : number, left : number}
     }
 }
 
-
-export function scrollTo(to : number, duration : number)
-{
+export function scrollTo(to: number, duration: number) {
     const element = document.scrollingElement || document.documentElement,
         start = element.scrollTop,
         change = to - start,
@@ -160,12 +157,11 @@ export function scrollTo(to : number, duration : number)
                 element.scrollTop = to;
             }
         }
-    ;
+        ;
     animateScroll();
 };
 
-export function ready(callback : () => void): void
-{
+export function ready(callback: () => void): void {
     if (document.readyState !== "loading") {
         callback();
     } else {
@@ -173,21 +169,15 @@ export function ready(callback : () => void): void
     }
 }
 
-export function fadeOut(fadeTarget : Element, duration : number): void
-{
+export function fadeOut(fadeTarget: Element, duration: number): void {
     const transitionStates = '-webkit-transition-: opacity ' + duration + 's ease-in-out;' +
         ' -moz-transition-: opacity ' + duration + 's ease-in-out;' +
         ' -o-transition-: opacity ' + duration + 's ease-in-out;' +
         ' transition: opacity ' + duration + 's ease-in-out;' +
         ' opacity: 0;'
-    ;
+        ;
     fadeTarget.setAttribute('style', transitionStates);
     window.setTimeout(() => {
         fadeTarget.parentElement.removeChild(fadeTarget)
     }, duration * 1000);
 }
-
-// export function eventTarget(event : Event, selector : string): HTMLElement
-// {
-//     const target = event.currentTarget;
-// }
