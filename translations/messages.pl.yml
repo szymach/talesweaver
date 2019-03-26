@@ -336,9 +336,9 @@ pagination:
     next: Następna
 
 display:
-    go_to: Przejdź do strony z podglądem
+    title: Przejdź do strony z podglądem
     label: Podgląd
 
 pdf:
     label: PDF
-    render: Pobierz w formacie PDF
+    title: Pobierz w formacie PDF

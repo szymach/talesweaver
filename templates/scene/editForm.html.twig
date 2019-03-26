@@ -2,10 +2,23 @@
 
 {% block seoTitle 'scene.seo_title.form.edit'|trans({ '%title%': title }) %}
 {% block rightMenu %}
-    {% include 'scene/actions.html.twig' with {
-        sceneId: sceneId,
+    {% include 'partial/topMenuActions.html.twig' with {
         returnUrl: chapterId ? path('chapter_edit', { id: chapterId }) : path('scene_list', { page: app.request.get('page') }),
-        returnLabel: (chapterId ? 'scene.back.to_chapter' : 'scene.back.to_list')|trans
+        returnLabel: (chapterId ? 'scene.back.to_chapter' : 'scene.back.to_list')|trans,
+        actions: [
+            {
+                url: path('scene_display', { id: sceneId }),
+                attributes: { target: '_blank', title: 'display.title'|trans },
+                icon: 'fa fa-eye',
+                label: 'display.label'|trans
+            },
+            {
+                url: path('scene_pdf', { id: sceneId }),
+                attributes: { target: '_blank', title: 'pdf.title'|trans },
+                icon: 'fa fa-file-pdf-o',
+                label: 'pdf.label'|trans
+            }
+        ]
     } only %}
 {% endblock %}
 
