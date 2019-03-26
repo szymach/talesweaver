@@ -34,6 +34,7 @@
          class="container"
          data-alert-url="{{ path('alerts') }}"
          data-error-content="{{ 'alert.error'|trans }}"
+         data-timedout-content="{{ 'alert.timed_out'|trans }}"
     >
         {% block alerts '' %}
         {% include 'partial/alerts.html.twig' %}

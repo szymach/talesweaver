@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { Alerts } from './modules/alerts';
 import { Backdrop } from './modules/backdrop';
 
@@ -50,30 +50,33 @@ export function findAncestor(element: HTMLElement, selector: string): HTMLElemen
 
 export function ajaxGetCall(
     url: string,
-    onLoad: any,
-    onError?: any
+    successCallback: any,
+    errorCallback?: any
 ): void {
     Backdrop.showBackdrop();
     axios.get(url, {
         headers: { 'X-Requested-With': 'XMLHttpRequest' }
-    }).then(function (response) {
-        onLoad(response.data);
-        Backdrop.hideBackdrop();
-    }).catch(function () {
-        if (null !== onError && undefined !== onError) {
-            onError();
-        } else {
-            Alerts.displayErrorAlert();
+    }).then(
+        (response): void => {
+            handleSuccessResponse(response, successCallback);
         }
-        Backdrop.hideBackdrop();
-    });
+    ).catch(
+        (): void => {
+            if (true === isDefinedErrorCallback(errorCallback)) {
+                errorCallback();
+            } else {
+                Alerts.displayErrorAlert();
+            }
+            Backdrop.hideBackdrop();
+        }
+    );
 }
 
 export function ajaxPostCall(
     url: string,
     data: FormData,
-    onLoad: any,
-    onError?: any
+    successCallback: any,
+    errorCallback?: any
 ): void {
     Backdrop.showBackdrop();
     axios.post(url, data, {
@@ -81,17 +84,20 @@ export function ajaxPostCall(
         validateStatus: function (status): boolean {
             return (200 <= status && 300 > status) || 400 === status;
         }
-    }).then(function (response): void {
-        onLoad(response.data);
-        Backdrop.hideBackdrop();
-    }).catch(function (response): void {
-        if (undefined !== response.data && null !== onError && undefined !== onError) {
-            onError(response.data);
-        } else {
-            Alerts.displayErrorAlert();
+    }).then(
+        (response): void => {
+            handleSuccessResponse(response, successCallback);
         }
-        Backdrop.hideBackdrop();
-    });
+    ).catch(
+        (response): void => {
+            if (undefined !== response.data && true === isDefinedErrorCallback(errorCallback)) {
+                errorCallback(response.data);
+            } else {
+                Alerts.displayErrorAlert();
+            }
+            Backdrop.hideBackdrop();
+        }
+    );
 }
 
 export function trigger(element: HTMLElement, eventName: string): void {
@@ -180,4 +186,17 @@ export function fadeOut(fadeTarget: Element, duration: number): void {
     window.setTimeout(() => {
         fadeTarget.parentElement.removeChild(fadeTarget)
     }, duration * 1000);
+}
+
+function handleSuccessResponse(response: AxiosResponse, successCallback: any): void {
+    if (response.request.responseURL.endsWith('/login')) {
+        Alerts.displaySessionTimedoutAlert();
+    } else {
+        successCallback(response.data);
+    }
+    Backdrop.hideBackdrop();
+}
+
+function isDefinedErrorCallback(errorCallback: any): boolean {
+    return null !== errorCallback && undefined !== errorCallback;
 }

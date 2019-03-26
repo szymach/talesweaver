@@ -328,6 +328,7 @@ alert:
     success: Operacja wykonana pomyślnie!
     autosave_success: Pomyślnie dokonano operacji autozapisu!
     error: Nastąpił błąd podczas wykonywania operacji!
+    timed_out: Twoja sesja wygasła, odśwież stronę i zaloguj się ponownie.
     close: Zamknij
 
 pagination:

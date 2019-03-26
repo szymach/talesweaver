@@ -31,6 +31,15 @@ export module Alerts {
         setAlertFadeOuts();
     }
 
+    export function displaySessionTimedoutAlert() {
+        const alerts = getAlerts();
+        alerts.insertAdjacentHTML(
+            'beforeend',
+            '<p class="alert alert-danger">' + alerts.getAttribute('data-timedout-content') + '</p>'
+        );
+        setAlertFadeOuts();
+    }
+
     function setAlertFadeOuts(): void {
         document.querySelectorAll('.alert .close').forEach(
             (element: Element): void => {
