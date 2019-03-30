@@ -79,10 +79,7 @@ export module Forms {
 
     function triggerAutofocus(): void {
         const input: HTMLElement = AjaxContainer.getContainer().querySelector('[autofocus="autofocus"]');
-        if (null === input) {
-            return;
-        }
 
-        trigger(input, 'focus');
+        input.focus();
     }
 }

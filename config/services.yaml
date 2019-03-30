@@ -12,7 +12,6 @@ services:
             $newAuthorMailer: '@Talesweaver\Integration\Symfony\Mail\RegistrationMailer'
             $passwordResetMailer: '@Talesweaver\Integration\Symfony\Mail\PasswordResetMailer'
 
-    Knp\Menu\FactoryInterface: "@knp_menu.factory"
     Knp\Snappy\GeneratorInterface: "@knp_snappy.pdf"
     Talesweaver\Application\Bus\CommandBus: '@Talesweaver\Integration\Symfony\Bus\CommandBus'
     Talesweaver\Application\Bus\EventBus: '@Talesweaver\Integration\Symfony\Bus\EventBus'
@@ -82,13 +81,6 @@ services:
     Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory:
         alias: sensio_framework_extra.psr7.http_message_factory
         public: false
-
-    # Menu
-    app.menu.main:
-        class: Knp\Menu\MenuItem
-        factory: ['@Talesweaver\Integration\Symfony\Menu\Builder', createMainMenu]
-        tags:
-            - { name: knp_menu.menu, alias: main }
 
     # Doctrine Extensions
     fsi_doctrine_extensions.filehandler.chain:

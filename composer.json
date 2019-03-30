@@ -43,7 +43,6 @@
         "doctrine/doctrine-bundle": "^1.9",
         "doctrine/orm": "^2.5",
         "fsi/doctrine-extensions-bundle": "^2.0",
-        "knplabs/knp-menu-bundle": "^2.1",
         "knplabs/knp-snappy-bundle": "^1.4",
         "ramsey/uuid-doctrine": "^1.2",
         "symfony/asset": "^4.1",

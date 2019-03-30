@@ -14,7 +14,7 @@ describe('Book sidemenu actions', () => {
     });
 
     it('opens a list of chapters on mobile', () => {
-        cy.viewport(768, 800);
+        cy.viewport(719, 800);
         cy.get('.side-menu ul [title="Rozdziały"]').as('chapters');
         cy.get('@chapters').click().then(() => {
             cy.get('.h4').contains('Rozdziały').should('be.visible');

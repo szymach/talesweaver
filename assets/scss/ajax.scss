@@ -1,24 +1,15 @@
-#backdrop.active {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 10000;
-}
-
 .content-container {
     position: relative;
 
     #ajax-container {
         display: none;
-        background-color: $body-bg;
+        background-color: $white;
         position: absolute;
         top: 0;
         left: 15px;
         right: 15px;
         min-height: 400px;
-        z-index: 10;
+        z-index: 99;
         box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
         padding: 15px;
 
@@ -37,8 +28,17 @@
         left: 0;
         right: 0;
         bottom: 0;
-        z-index: 9;
         background-color: rgba(0, 0, 0, 0.6);
+        z-index: 98;
+    }
+
+    #form-backdrop.active {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 98;
     }
 }
 

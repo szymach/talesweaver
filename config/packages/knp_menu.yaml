@@ -1,4 +1,0 @@
----
-knp_menu:
-    twig:
-        template: menu\knpDropdown.html.twig

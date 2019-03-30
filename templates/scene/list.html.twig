@@ -3,13 +3,13 @@
 {% block seoTitle 'scene.seo_title.list'|trans %}
 {% block body %}
     <div class="row">
-        <div class="col-xs-12 col-md-offset-3 col-md-6 text-right">
+        <div class="col-sm offset-md-3 col-md-6 text-right">
             {% include 'partial/pagination.html.twig' with { paginator: scenes } %}
         </div>
     </div>
     <div class="row">
         {% if scenes|length > 0 %}
-            <div class="col-xs-12 col-md-offset-3 col-md-6">
+            <div class="col-sm offset-md-3 col-md-6">
                 <table class="table">
                     <tbody>
                         {% for scene in scenes %}
@@ -46,7 +46,7 @@
                     </tfoot>
                 </table>
             {% else %}
-                <div class="col-xs-12 text-center">
+                <div class="col-sm text-center">
                     <h4>{{- 'scene.list.standalone.no_results.header'|trans -}}</h4>
                     <a class="btn btn-sm btn-success"
                        href="{{ path('scene_create') }}"

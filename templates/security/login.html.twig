@@ -4,50 +4,50 @@
 {% block subheader 'security.login.header'|trans %}
 
 {% block links %}
-    <a class="btn btn-default btn-sm" href="{{ path('password_reset_request') }}" tabindex="4">{{ 'security.login.password_reset'|trans }}</a>
-    <a class="btn btn-default btn-sm" href="{{ path('register') }}" tabindex="5">{{ 'security.login.register'|trans }}</a>
+    <a class="btn btn-link btn-sm" href="{{ path('register') }}" tabindex="4">{{ 'security.login.register'|trans }}</a>
+    <a class="btn btn-link btn-sm" href="{{ path('password_reset_request') }}"tabindex="5">{{ 'security.login.password_reset'|trans }}</a>
 {% endblock %}
 
 {% block body %}
     {% if error %}
         <div class="row">
-            <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="col-md-6 offset-md-3">
                 <div class="alert alert-danger alert-form text-center" role="alert">{{ error }}</div>
             </div>
         </div>
     {% endif %}
     <div class="row">
-        <div class="col-xs-12 col-sm-offset-3 col-sm-6">
-            <form method="POST" class="form-horizontal" novalidate="novalidate">
-                <div class="form-group">
-                    <label for="email" class="col-sm-2 control-label">{{ 'security.login.email.label'|trans }}</label>
-                    <div class="col-sm-10">
+        <div class="col-sm-6 offset-sm-3">
+            <form method="POST" novalidate="novalidate">
+                <div class="form-group row">
+                    <label for="email" class="col-sm-2 col-form-label">{{ 'security.login.email.label'|trans }}</label>
+                    <div class="col-sm">
                         <input id="email"
-                               type="email"
-                               name="_email"
-                               class="form-control"
-                               placeholder="{{ 'security.login.email.placeholder'|trans }}"
-                               {% if lastUsername is empty %}autofocus="autofocus"{% endif %}
-                               value="{{ lastUsername }}"
-                               tabindex="1"
+                            type="email"
+                            name="_email"
+                            class="form-control"
+                            placeholder="{{ 'security.login.email.placeholder'|trans }}"
+                            {% if lastUsername is empty %}autofocus="autofocus"{% endif %}
+                            value="{{ lastUsername }}"
+                            tabindex="1"
                         />
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="password" class="col-sm-2 control-label">{{ 'security.login.password.label'|trans }}</label>
-                    <div class="col-sm-10">
+                <div class="form-group row">
+                    <label for="password" class="col-sm-2 col-form-label">{{ 'security.login.password.label'|trans }}</label>
+                    <div class="col-sm">
                         <input id="password"
-                               type="password"
-                               name="_password"
-                               class="form-control"
-                               placeholder="{{ 'security.login.password.placeholder'|trans }}"
-                               {% if lastUsername is not empty %}autofocus="autofocus"{% endif %}
-                               tabindex="2"
+                            type="password"
+                            name="_password"
+                            class="form-control"
+                            placeholder="{{ 'security.login.password.placeholder'|trans }}"
+                            {% if lastUsername is not empty %}autofocus="autofocus"{% endif %}
+                            tabindex="2"
                         />
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-xs-12 text-right">
+                <div class="form-group row">
+                    <div class="col-sm text-right">
                         <button class="btn btn-sm btn-success" tabindex="3">{{ 'security.login.submit'|trans }}</button>
                     </div>
                 </div>

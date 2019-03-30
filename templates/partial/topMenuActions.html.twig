@@ -1,24 +1,24 @@
 {% import _self as macros %}
 <ul class="nav navbar-nav nav-actions">
     {% for action in actions|default([]) %}
-        {{ macros.menuItem(action.url, action.attributes, action.icon, action.label, 'visible-xs') }}
+        {{ macros.menuItem(action.url, action.attributes, action.icon, action.label, 'd-sm-block d-md-none d-xl-none') }}
     {% endfor %}
     {% if returnUrl is defined and returnLabel is defined %}
         {{ macros.menuItem(returnUrl, {}, 'fa-angle-left', returnLabel, '') }}
     {% endif %}
     {% if actions is defined %}
-        <li class="dropdown hidden-xs">
-            {{ macros.dropDownItem('crud.actions'|trans) }}
-            <ul class="dropdown-menu">
+        <li class="dropdown d-sm-none d-md-block d-xl-block">
+            {{ macros.dropDownItem('crud.actions'|trans, 'menu-actions') }}
+            <ul class="dropdown-menu" aria-labelledby="menu-actions">
                 {% for action in actions %}
                     {{ macros.menuItem(action.url, action.attributes, action.icon, action.label, '') }}
                 {% endfor %}
             </ul>
         </li>
     {% endif %}
-    <li class="last dropdown hidden-xs">
-        {{ macros.dropDownItem(app.user.username) }}
-        <ul class="dropdown-menu">
+    <li class="dropdown d-sm-none d-md-block d-xl-block">
+        {{ macros.dropDownItem(app.user.username, 'menu-user') }}
+        <ul class="dropdown-menu" aria-labelledby="menu-user">
             {{ macros.menuItem(path('change_password'), {}, 'fa-lock', 'menu.change_password'|trans, '') }}
             {{ macros.menuItem(path('logout'), {}, 'fa-power-off', 'menu.logout'|trans, '') }}
         </ul>
@@ -26,15 +26,21 @@
 </ul>
 
 {% macro menuItem(url, attributes, icon, label, linkClass) %}
-    <li{% if linkClass is not empty %} class="{{ linkClass }}"{% endif %}>
-        <a href="{{ url }}"{% for name, value in attributes %} {{ name }}="{{ value }}"{% endfor %}>
+    <li class="nav-item{% if linkClass is not empty %} {{ linkClass }}{% endif %}">
+        <a href="{{ url }}"{% for name, value in attributes %} {{ name }}="{{ value }}"{% endfor %} class="nav-link">
             <span class="fa {{ icon }}"></span> {{ label }}
         </a>
     </li>
 {% endmacro %}
 
-{% macro dropDownItem(label) %}
-    <a href="#" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {{ label }} <i class="fa fa-caret-down"></i>
-    </a>
+{% macro dropDownItem(label, target) %}
+    <button class="btn btn-link dropdown-toggle nav-link"
+            type="button"
+            id="{{ target }}"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+    >
+        {{- label -}}
+    </button>
 {% endmacro %}

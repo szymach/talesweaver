@@ -1,4 +1,4 @@
-import { addClass, removeClass } from '../common';
+import { addClass, removeClass, setCursor } from '../common';
 
 export module Backdrop
 {
@@ -24,11 +24,6 @@ export module Backdrop
 
     export function getBackdrop(): HTMLElement
     {
-        return document.getElementById('backdrop');
-    }
-
-    function setCursor(value: string): void
-    {
-        document.querySelector('html').style.cursor = value;
+        return document.getElementById('form-backdrop');
     }
 }

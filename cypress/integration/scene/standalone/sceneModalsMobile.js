@@ -2,7 +2,7 @@ describe('Modal opening', () => {
 
     beforeEach(() => {
         cy.visitStandaloneScene();
-        cy.viewport(768, 800);
+        cy.viewport(719, 800);
         cy.registerAjaxContainerAlias();
         cy.get('.side-menu ul [title="Postacie"]').as('characters');
         cy.get('.side-menu ul [title="Przedmioty"]').as('items');
@@ -22,6 +22,7 @@ describe('Modal opening', () => {
                 cy.get('@characters').parent().find('.js-list-container').should('be.visible');
                 cy.get('@characters').parent().find('[title="Nowa postać"]').click().then(() => {
                     cy.get('@ajax-container').contains('Nowa postać').should('be.visible');
+                    cy.get('#clear-ajax').click();
                 });
             });
         });
@@ -36,6 +37,7 @@ describe('Modal opening', () => {
                 cy.get('@items').parent().find('.js-list-container').should('be.visible');
                 cy.get('@items').parent().find('[title="Nowy przedmiot"]').click().then(() => {
                     cy.get('@ajax-container').contains('Nowy przedmiot').should('be.visible');
+                    cy.get('#clear-ajax').click();
                 });
             });
         });
@@ -50,6 +52,7 @@ describe('Modal opening', () => {
                 cy.get('@locations').parent().find('.js-list-container').should('be.visible');
                 cy.get('@locations').parent().find('[title="Nowe miejsce"]').click().then(() => {
                     cy.get('@ajax-container').contains('Nowe miejsce').should('be.visible');
+                    cy.get('#clear-ajax').click();
                 });
             });
         });
@@ -64,6 +67,7 @@ describe('Modal opening', () => {
                 cy.get('@events').parent().find('.js-list-container').should('be.visible');
                 cy.get('@events').parent().find('[title="Nowe wydarzenie"]').click().then(() => {
                     cy.get('@ajax-container').contains('Nowe wydarzenie').should('be.visible');
+                    cy.get('#clear-ajax').click();
                 });
             });
         });

@@ -11,7 +11,8 @@ describe('Character sidemenu actions', () => {
             cy.get('.js-load-form').click();
         }).then(() => {
             cy.get('@ajax-container').contains('Nowa postać').should('be.visible');
-            cy.get('@ajax-container').get('input[name="create[name]"]').type('Postać{enter}');
+            cy.get('@ajax-container').find('input[name="create[name]"]').type('Postać');
+            cy.get('@ajax-container').contains('Zapisz').click();
             cy.contains('Pomyślnie dodano nową postać o imieniu "Postać"').should('be.visible');
         });
 
@@ -30,8 +31,9 @@ describe('Character sidemenu actions', () => {
             cy.get('.js-list-toggle').click();
             cy.contains(/^Postać$/).next().find('.js-edit-form').click();
         }).then(() => {
-            cy.contains('Edycja postaci');
-            cy.get('input[name="edit[name]"]').type('{selectall}Postać edytowana{enter}');
+            cy.get('@ajax-container').contains('Edycja postaci').should('be.visible');
+            cy.get('@ajax-container').find('input[name="edit[name]"]').type('{selectall}Postać edytowana');
+            cy.get('@ajax-container').contains('Zapisz').click();
             cy.contains('Zapisano zmiany w postaci.').should('be.visible');
         });
 

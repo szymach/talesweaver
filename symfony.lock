@@ -113,12 +113,6 @@
     "knplabs/knp-gaufrette-bundle": {
         "version": "v0.4.0"
     },
-    "knplabs/knp-menu": {
-        "version": "2.3.0"
-    },
-    "knplabs/knp-menu-bundle": {
-        "version": "v2.2.1"
-    },
     "knplabs/knp-snappy": {
         "version": "v1.0.3"
     },

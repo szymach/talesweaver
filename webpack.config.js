@@ -12,7 +12,6 @@ module.exports = {
         main: [
             path.resolve(__dirname, "node_modules/font-awesome/scss/font-awesome.scss"),
             "bootstrap-loader",
-            "./assets/scss/base.scss",
             "./assets/typescript/app.ts"
         ],
         ckeditor: ["./assets/scss/ckeditor.scss", "./assets/js/ckeditor.js"]

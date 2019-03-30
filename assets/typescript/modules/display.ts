@@ -1,4 +1,4 @@
-const bootstrap = require('bootstrap.native');
+const bootstrap = require('bootstrap.native/dist/bootstrap-native-v4');
 const Gator = require('gator');
 import { ajaxGetCall, trigger } from '../common';
 import { AjaxContainer } from './ajaxContainer';

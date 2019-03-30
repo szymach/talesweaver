@@ -1,6 +1,6 @@
 import { AjaxContainer } from './modules/ajaxContainer';
 import { Alerts } from './modules/alerts';
-const bootstrap = require('bootstrap.native');
+const bootstrap = require('bootstrap.native/dist/bootstrap-native-v4');
 import { Display } from './modules/display';
 import { Forms } from './modules/forms';
 import { Lists } from './modules/lists';
@@ -12,8 +12,8 @@ ready((): void => {
     Display.init();
     Forms.init();
     Lists.init();
-    // workaround dropdowns not working with data-toggle="dropdown"
-    document.querySelectorAll('.dropdown-toggle').forEach((element : Element) => {
+
+    document.querySelectorAll('.dropdown-toggle').forEach((element: Element) => {
         new bootstrap.Dropdown(element);
     });
 });

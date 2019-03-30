@@ -1,7 +1,7 @@
 import { AjaxContainer } from './ajaxContainer';
 import { Alerts } from './alerts';
 import { Display } from './display';
-const bootstrap = require('bootstrap.native');
+const bootstrap = require('bootstrap.native/dist/bootstrap-native-v4');
 const Gator = require('gator');
 import { addClass, findAncestor, hasClass, ajaxGetCall, removeClass } from '../common';
 

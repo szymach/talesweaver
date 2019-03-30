@@ -1,10 +1,9 @@
 $sidemenu-active-menu-bg: #f7f7f7;
-$sidemenu-shadow: inset 0px 0px 2px 0px $gray-light;
 
 .side-menu {
-    background: $body-bg;
-    border-left: 1px solid $gray-light;
-    position: fixed;
+    background-color: $sidemenu-active-menu-bg;
+    border-left: 1px solid $gray-300;
+    position: absolute;
     top: 0;
     bottom: 0;
     right: 0;
@@ -12,12 +11,12 @@ $sidemenu-shadow: inset 0px 0px 2px 0px $gray-light;
     transform: translateZ(0) scale(1,1);
     -webkit-transition: width .1s linear;
     -webkit-transform: translateZ(0) scale(1,1);
-    z-index: 99;
+    z-index: 97;
     padding-top: 65px;
     overflow: visible;
     width: 60px;
 
-    @media (min-width: $screen-md-min) {
+    @include media-breakpoint-up(md) {
         width: 225px;
     }
 
@@ -36,7 +35,7 @@ $sidemenu-shadow: inset 0px 0px 2px 0px $gray-light;
             .h4 {
                 display: none;
                 margin: 5px 0;
-                @media (min-width: $screen-md-min) {
+                @include media-breakpoint-up(md) {
                     display: inline-block;
                 }
 
@@ -73,9 +72,6 @@ $sidemenu-shadow: inset 0px 0px 2px 0px $gray-light;
             &.mobile-expanded {
                 .fa.logo-icon {
                     background-color: $sidemenu-active-menu-bg;
-                    -webkit-box-shadow: inset -1px 0px 2px 0px $gray-light;
-                    -moz-box-shadow: inset -1px 0px 2px 0px $gray-light;
-                    box-shadow: inset -1px 0px 2px 0px $gray-light;
 
                     & + .h4 {
                         display: inline-block;
@@ -83,67 +79,61 @@ $sidemenu-shadow: inset 0px 0px 2px 0px $gray-light;
                         right: 60px;
                         top: 0;
                         height: 36px;
-                        width: 250px;
+                        width: 200px;
                         margin-top: 0;
                         padding-left: 10px;
                         vertical-align: middle;
-                        -webkit-box-shadow: inset 0px 0px 2px 0px $gray-light;
-                        -moz-box-shadow: inset 0px 0px 2px 0px $gray-light;
-                        box-shadow: inset 0px 0px 2px 0px $gray-light;
                         background-color: $sidemenu-active-menu-bg;
+                        border: 1px solid $gray-300;
+                        border-right: none;
                         padding-top: 3px;
+
+                        @include media-breakpoint-up(md) {
+                            width: 300px;
+                        }
 
                         & + .js-list-container {
                             top: 36px;
-                            -webkit-box-shadow: inset 1px -1px 1px 0px $gray-light;
-                            -moz-box-shadow: inset 1px -1px 1px 0px $gray-light;
-                            box-shadow: inset 1px -1px 1px 0px $gray-light;
+                            border-right: none;
                         }
                     }
                 }
 
                 form {
                     background-color: $sidemenu-active-menu-bg;
+                    border: 1px solid $gray-300;
+                    border-top: none;
+                    border-right: none;
                     margin-left: -10px;
-                    margin-top: 5px;
                     padding: 10px;
-                    -webkit-box-shadow: inset 0px 0px 1px 0  $gray-light;
-                    -moz-box-shadow: inset 0px 0px 1px 0  $gray-light;
-                    box-shadow: inset 0px 0px 1px 0  $gray-light;
                 }
             }
 
             &.js-loaded {
                 background-color: $sidemenu-active-menu-bg;
-                -webkit-box-shadow: $sidemenu-shadow;
-                -moz-box-shadow: $sidemenu-shadow;
-                box-shadow: $sidemenu-shadow;
-
-                &.mobile-expanded .fa.logo-icon + .h4 {
-                    -webkit-box-shadow: inset 1px 1px 2px 0px $gray-light;
-                    -moz-box-shadow: inset 1px 1px 2px 0px $gray-light;
-                    box-shadow: inset 1px 1px 2px 0px $gray-light;
-                }
 
                 .js-list-container {
                     position: absolute;
                     right: 60px;
                     top: 0;
-                    width: 250px;
-                    height: 150px;
-                    -webkit-box-shadow: inset 1px 0px 2px 0px $gray-light;
-                    -moz-box-shadow: inset 1px 0px 2px 0px $gray-light;
-                    box-shadow: inset 1px 0px 2px 0px $gray-light;
+                    width: 200px;
+                    min-height: 150px;
                     background-color: $sidemenu-active-menu-bg;
+                    border: 1px solid $gray-300;
 
-                    @media (min-width: $screen-md-min) {
+                    @include media-breakpoint-up(md) {
+                        width: 300px;
+                    }
+
+                    @include media-breakpoint-up(md) {
                         right: 225px;
                     }
                 }
             }
 
             .js-ajax-pagination {
-                height: 100px;
+                min-height: 110px;
+                padding-right: 10px;
             }
 
             & > a:not(.btn) {
@@ -159,18 +149,28 @@ $sidemenu-shadow: inset 0px 0px 2px 0px $gray-light;
             }
 
             .sublist-label {
-                display: inline-block;
+                display: block;
                 min-width: 95px;
 
                 &.no-results {
                     padding: 5px 8px 5px 10px;
                     line-height: 20px;
                 }
+
+                @include media-breakpoint-up(md) {
+                    display: inline-block;
+                }
             }
 
             .list-actions {
-                float: right;
-                padding-right: 10px;
+                display: block;
+                text-align: left;
+
+                @include media-breakpoint-up(md) {
+                    float: right;
+                    display: inline-block;
+                    text-align: initial;
+                }
             }
         }
 
@@ -179,18 +179,16 @@ $sidemenu-shadow: inset 0px 0px 2px 0px $gray-light;
             padding: 0;
             margin: 0 10px 0 0;
             text-align: right;
-            box-shadow: none;
 
             li {
                 display: inline-block;
-                min-height: 15px;
-                line-height: 15px;
+                line-height: 25px;
                 padding: 0;
 
                 & > a, span {
                     display: inline-block;
                     padding: 0 5px;
-                    font-size: 13px;
+                    font-size: 16px;
                 }
             }
         }

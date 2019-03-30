@@ -11,7 +11,8 @@ describe('Location sidemenu actions', () => {
             cy.get('.js-load-form').click();
         }).then(() => {
             cy.get('@ajax-container').contains('Nowe miejsce').should('be.visible');
-            cy.get('@ajax-container').get('input[name="create[name]"]').type('Miejsce{enter}');
+            cy.get('@ajax-container').find('input[name="create[name]"]').type('Miejsce');
+            cy.get('@ajax-container').contains('Zapisz').click();
             cy.contains('Pomyślnie dodano nowe miejsce o nazwie "Miejsce"').should('be.visible');
         });
 
@@ -29,8 +30,9 @@ describe('Location sidemenu actions', () => {
             cy.get('.js-list-toggle').click();
             cy.contains(/^Miejsce$/).next().find('.js-edit-form').click();
         }).then(() => {
-            cy.contains('Edycja miejsca');
-            cy.get('input[name="edit[name]"]').type('{selectall}Miejsce edytowane{enter}');
+            cy.get('@ajax-container').contains('Edycja miejsca').should('be.visible');
+            cy.get('@ajax-container').find('input[name="edit[name]"]').type('{selectall}Miejsce edytowane');
+            cy.get('@ajax-container').contains('Zapisz').click();
             cy.contains('Zapisano zmiany w miejscu.').should('be.visible');
         });
 

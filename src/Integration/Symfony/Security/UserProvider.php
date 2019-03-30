@@ -24,9 +24,14 @@ class UserProvider implements UserProviderInterface
         $this->queryBus = $queryBus;
     }
 
+    /**
+     * @param string|null $username
+     * @return UserInterface
+     * @throws UsernameNotFoundException
+     */
     public function loadUserByUsername($username): UserInterface
     {
-        if ('' === $username) {
+        if ('' === $username || null === $username) {
             throw new UsernameNotFoundException('No username provided.');
         }
 

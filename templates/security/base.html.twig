@@ -3,12 +3,12 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block seoTitle 'meta.title'|trans %}</title>
-        <meta name="description" content="{% block seoDescription '' %}">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-        <link rel="stylesheet" href="{{ absolute_url(asset('assets/main.css')) }}">
+        <meta name="description" content="{% block seoDescription '' %}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+        <link rel="stylesheet" href="{{ absolute_url(asset('assets/main.css')) }}" />
         {% block stylesheets '' %}
-        <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+        <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
     </head>
     <body>
         {% for type, messages in app.flashes %}
@@ -25,7 +25,7 @@
             <h1 class="text-center">{{ 'security.header'|trans }}</h1>
             <h4 class="text-center" style="margin-bottom: 20px;">{% block subheader '' %}</h4>
             <div class="row" style="margin-bottom: 30px;">
-                <div class="col-xs-12 text-center">
+                <div class="col-sm text-center">
                     {% block links '' %}
                 </div>
             </div>
@@ -35,4 +35,3 @@
         {% block javascripts '' %}
     </body>
 </html>
-

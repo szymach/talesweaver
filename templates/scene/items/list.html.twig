@@ -2,29 +2,29 @@
     {% if items|length > 0 %}
         {% for item in items %}
             <li>
-                <span class="sublist-label">{{ item|truncate(15) }}</span>
+                <span class="sublist-label">{{ item|truncate(25) }}</span>
                 <span class="list-actions">
-                    <button class="js-load-form js-edit-form btn btn-xs btn-primary"
+                    <button class="js-load-form js-edit-form btn btn-sm btn-primary"
                             data-form-url="{{ path('item_edit', { id: item.id }) }}"
                             title="{{ 'crud.edit'|trans }}"
                             >
                         <span class="fa fa-edit"></span>
                     </button>
-                    <button class="js-display btn btn-xs btn-default"
+                    <button class="js-display btn btn-sm btn-outline-secondary"
                             data-display-url="{{ path('item_display', { id: item.id }) }}"
                             title="{{ 'crud.display'|trans }}"
                             >
                         <span class="fa fa-eye"></span>
                     </button>
                     {% if chapterId and 1 < item.scenes|length %}
-                        <button class="js-list-delete js-delete btn btn-xs btn-warning"
+                        <button class="js-list-delete js-delete btn btn-sm btn-warning"
                                 data-delete-url="{{ path('item_remove_from_scene', { scene_id: sceneId, item_id: item.id }) }}"
                                 title="{{ 'crud.remove_from_scene'|trans }}"
                                 >
                             <span class="fa fa-scissors"></span>
                         </button>
                     {% endif %}
-                    <button class="js-list-delete js-delete btn btn-xs btn-danger"
+                    <button class="js-list-delete js-delete btn btn-sm btn-danger"
                             data-delete-url="{{ path('item_delete', { id: item.id }) }}"
                             title="{{ 'crud.delete'|trans }}"
                             >

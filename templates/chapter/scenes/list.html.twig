@@ -2,17 +2,17 @@
     {% for scene in scenes %}
         <li>
             <span class="sublist-label">{{ scene }}</span>
-            <span class="pull-right pr-10">
-                <a class="btn btn-xs btn-primary"
+            <span class="list-actions">
+                <a class="btn btn-sm btn-primary"
                    href="{{ path('scene_edit', { id: scene.id }) }}"
                    title="{{ 'crud.edit'|trans }}"
-                   >
+                >
                     <span class="fa fa-edit"></span>
                 </a>
-                <button class="js-list-delete js-delete btn btn-xs btn-danger"
+                <button class="js-list-delete js-delete btn btn-sm btn-danger"
                         data-delete-url="{{ path('scene_delete', { id: scene.id }) }}"
                         title="{{ 'crud.delete'|trans }}"
-                        >
+                >
                     <span class="fa fa-trash"></span>
                 </button>
             </span>

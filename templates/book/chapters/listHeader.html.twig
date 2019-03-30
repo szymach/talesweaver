@@ -1,9 +1,9 @@
 <li>
-    <i class="fa fa-2x fa-book visible-xs visible-sm js-trigger-sidelist-mobile logo-icon cursor-pointer"
+    <i class="fa fa-2x fa-book d-sm-block d-md-none d-xl-none js-trigger-sidelist-mobile logo-icon cursor-pointer"
        title="{{ 'book.chapters'|trans }}"
     ></i>
     <span class="h4">
-        <button class="btn btn-xs btn-default js-list-toggle"
+        <button class="btn btn-sm btn-outline-secondary js-list-toggle"
                 data-list-url="{{ path('book_chapter_list', { id: bookId, page: 1 }) }}"
                 title="{{ 'crud.list'|trans }}"
         >

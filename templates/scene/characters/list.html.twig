@@ -2,32 +2,32 @@
     {% if characters|length > 0 %}
         {% for character in characters %}
             <li>
-                <span class="sublist-label">{{ character|truncate(20) }}</span>
+                <span class="sublist-label">{{ character|truncate(25) }}</span>
                 <span class="list-actions">
-                    <button class="js-load-form js-edit-form btn btn-xs btn-primary"
+                    <button class="js-load-form js-edit-form btn btn-sm btn-primary"
                             data-form-url="{{ path('character_edit', { id: character.id }) }}"
                             title="{{ 'crud.edit'|trans }}"
-                            >
+                    >
                         <span class="fa fa-edit"></span>
                     </button>
-                    <button class="js-display btn btn-xs btn-default"
+                    <button class="js-display btn btn-sm btn-outline-secondary"
                             data-display-url="{{ path('character_display', { id: character.id }) }}"
                             title="{{ 'crud.display'|trans }}"
-                            >
+                    >
                         <span class="fa fa-eye"></span>
                     </button>
                     {% if chapterId and 1 < character.scenes|length %}
-                        <button class="js-list-delete js-delete btn btn-xs btn-warning"
+                        <button class="js-list-delete js-delete btn btn-sm btn-warning"
                                 data-delete-url="{{ path('character_remove_from_scene', { scene_id: sceneId, character_id: character.id }) }}"
                                 title="{{ 'crud.remove_from_scene'|trans }}"
-                                >
+                        >
                             <span class="fa fa-scissors"></span>
                         </button>
                     {% endif %}
-                    <button class="js-list-delete js-delete btn btn-xs btn-danger"
+                    <button class="js-list-delete js-delete btn btn-sm btn-danger"
                             data-delete-url="{{ path('character_delete', { id: character.id }) }}"
                             title="{{ 'crud.delete'|trans }}"
-                            >
+                    >
                         <span class="fa fa-trash"></span>
                     </button>
                 </span>

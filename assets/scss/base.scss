@@ -1,4 +1,4 @@
-@import 'paper/_variables';
+@import 'sandstone/_bootswatch';
 @import 'ajax';
 @import 'form';
 @import 'modal';
@@ -16,6 +16,7 @@ body {
 }
 
 main {
+    padding-top: 15px;
     padding-bottom: 15px;
 }
 
@@ -46,12 +47,16 @@ table:not(.dashboard) {
     right: 0;
     margin-bottom: 0;
 
-    @media (min-width: $screen-md-min) {
+    @include media-breakpoint-up(md) {
         min-width: 400px;
         max-width: 600px;
         bottom: 30px;
         right: 60px;
         left: inherit;
+    }
+
+    div {
+        margin: 5px 0;
     }
 }
 
@@ -72,5 +77,5 @@ table:not(.dashboard) {
 }
 
 .btn-success:focus {
-    background-color: darken($brand-success, 6%);
+    background-color: darken($success, 6%);
 }

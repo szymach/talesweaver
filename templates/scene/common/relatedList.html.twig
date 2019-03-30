@@ -1,4 +1,9 @@
-<h3>{{ (type ~ '.header.related')|trans }}</h3>
+<h3 style="padding-bottom: 5px;">
+    {{ (type ~ '.header.related')|trans }}
+    <button id="clear-ajax" type="button" class="btn btn-outline-secondary pull-right">
+        &times;
+    </button>
+</h3>
 <table class="table">
     {% if 0 < list|length %}
         <thead>

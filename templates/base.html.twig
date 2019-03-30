@@ -3,30 +3,40 @@
 <head>
     <meta charset="UTF-8" />
     <title>{% block seoTitle 'meta.title'|trans %}</title>
-    <meta name="description" content="{% block seoDescription '' %}">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <meta name="description" content="{% block seoDescription '' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700">
     <link rel="stylesheet" href="{{ absolute_url(asset('assets/main.css')) }}">
     {% block stylesheets '' %}
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 </head>
 <body>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">{{ 'menu.toggle'|trans }}</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div id="navbar" aria-expande="false" class="navbar-collapse collapse">
-                {% block menu knp_menu_render('main') %}
-                {% block rightMenu %}
-                {% include 'partial/topMenuActions.html.twig' with {} only %}
-                {% endblock %}
+            <a class="navbar-brand" href="{{ path('index') }}">{{ 'meta.title'|trans }}</a>
+            <button class="navbar-toggler btn collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#menu"
+                    aria-controls="menu"
+                    aria-expanded="false"
+                    aria-label="{{ 'menu.toggle'|trans }}"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse" id="menu">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('book_list') }}">{{ 'menu.books'|trans }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('chapter_list') }}">{{ 'menu.chapters'|trans }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('scene_list') }}">{{ 'menu.scenes'|trans }}</a>
+                    </li>
+                </ul>
+                {% block rightMenu '' %}
             </div>
         </div>
     </nav>
@@ -47,6 +57,5 @@
     {% block modals '' %}
     <script src="{{ absolute_url(asset('assets/main.js')) }}" async></script>
     {% block javascripts '' %}
-    <div id="backdrop"></div>
 </body>
 </html>

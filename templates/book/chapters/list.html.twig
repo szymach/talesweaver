@@ -2,14 +2,14 @@
     {% for chapter in chapters %}
         <li>
             <span class="sublist-label">{{ chapter.title }}</span>
-            <span class="pull-right pr-10">
-                <a class="btn btn-xs btn-primary"
+            <span class="list-actions">
+                <a class="btn btn-sm btn-primary"
                    href="{{ path('chapter_edit', { id: chapter.id }) }}"
                    title="{{ 'crud.edit'|trans }}"
                    >
                     <span class="fa fa-edit"></span>
                 </a>
-                <button class="js-list-delete js-delete btn btn-xs btn-danger"
+                <button class="js-list-delete js-delete btn btn-sm btn-danger"
                         data-delete-url="{{ path('chapter_delete', { id: chapter.id }) }}"
                         title="{{ 'crud.delete'|trans }}"
                         >

@@ -188,6 +188,10 @@ export function fadeOut(fadeTarget: Element, duration: number): void {
     }, duration * 1000);
 }
 
+export function setCursor(value: string): void {
+    document.querySelector('html').style.cursor = value;
+}
+
 function handleSuccessResponse(response: AxiosResponse, successCallback: any): void {
     if (response.request.responseURL.endsWith('/login')) {
         Alerts.displaySessionTimedoutAlert();

@@ -1,14 +1,4 @@
 .modal-body {
-    .scene-item-description {
-        &:before {
-            content: "";
-            width: 50px;
-            display: block;
-            margin: 10px 0 5px 0;
-            border-top: 1px solid rgba(170, 170, 170, .5);
-        }
-    }
-
     ol, ul {
         padding-left: 20px;
     }

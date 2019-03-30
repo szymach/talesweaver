@@ -14,7 +14,6 @@ class DashboardControllerCest
         $I->amOnPage('/pl');
         $I->seeElement('h3');
         $I->see('Witaj w aplikacji Bajkopisarz!');
-        $I->see('Start');
         $I->see('Książki');
         $I->see('Rozdziały');
         $I->see('Sceny');
