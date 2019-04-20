@@ -2,11 +2,11 @@ $sidemenu-active-menu-bg: #f7f7f7;
 
 .side-menu {
     background-color: $sidemenu-active-menu-bg;
-    border-left: 1px solid $gray-300;
-    border-bottom: 1px solid $gray-300;
+    border: 1px solid $gray-300;
+    border-top: none;
     position: absolute;
     top: 0;
-    right: 0;
+    right: 15px;
     transition: width .1s linear;
     transform: translateZ(0) scale(1,1);
     -webkit-transition: width .1s linear;
@@ -14,7 +14,7 @@ $sidemenu-active-menu-bg: #f7f7f7;
     z-index: 97;
     padding-top: 53px;
     overflow: visible;
-    width: 60px;
+    width: 61px;
 
     @include media-breakpoint-up(md) {
         padding-top: 60px;
@@ -121,7 +121,7 @@ $sidemenu-active-menu-bg: #f7f7f7;
                     }
 
                     @include media-breakpoint-up(md) {
-                        right: 225px;
+                        right: 224px;
                     }
                 }
             }
