@@ -31,8 +31,8 @@ class FormControllerCest
         $I->canSeeAlert('Pomyślnie dodano nową scenę o tytule "Tytuł nowej sceny"');
         $I->seeElement('form[name="edit"]');
         $I->seeInTitle('Tytuł nowej sceny');
-        $I->see('Podgląd', 'a');
-        $I->see('PDF', 'a');
+        $I->seeElement('a[title="Przejdź do strony z podglądem"]');
+        $I->seeElement('a[title="Pobierz w formacie PDF"]');
         $I->see('Wróć do listy', 'a');
         $I->seeElement('nav.side-menu');
         $I->see('Postacie', 'span');

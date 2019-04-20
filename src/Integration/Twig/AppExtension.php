@@ -17,9 +17,9 @@ final class AppExtension extends AbstractExtension
                 function (string $currentRoute, string $checkedRoute): bool {
                     if ('book_list' === $checkedRoute && 0 === strpos($currentRoute, 'book_')) {
                         $isActive = true;
-                    } elseif('chapter_list' === $checkedRoute && 0 === strpos($currentRoute, 'chapter_')) {
+                    } elseif ('chapter_list' === $checkedRoute && 0 === strpos($currentRoute, 'chapter_')) {
                         $isActive = true;
-                    } elseif('scene_list' === $checkedRoute && 0 === strpos($currentRoute, 'scene_')) {
+                    } elseif ('scene_list' === $checkedRoute && 0 === strpos($currentRoute, 'scene_')) {
                         $isActive = true;
                     } else {
                         $isActive = false;

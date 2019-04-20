@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class FormModule extends Module
 {
-    public const ERROR_SELECTOR = '.help-block .list-unstyled li';
+    public const ERROR_SELECTOR = '* .form-error-message';
     public const LOCALE = 'pl';
 
     /**

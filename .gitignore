@@ -14,9 +14,7 @@ var/sessions/*
 node_modules/
 public/assets/
 public/bundles/
-public/uploaded/
-public/uploaded_dev/
-public/uploaded_tst/
+public/uploaded*
 
 # Composer PHAR
 composer.phar
