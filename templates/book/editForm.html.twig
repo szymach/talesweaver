@@ -35,8 +35,8 @@
                 bookId: bookId,
                 chapterForm: chapterForm
             } only %}
-            {#{{ macros.sidemenuLink('eye', 'display.title'|trans, 'display.label'|trans, path('book_display', { id: bookId })) }}
-            {{ macros.sidemenuLink('file-pdf-o', 'pdf.title'|trans, 'pdf.label'|trans, path('book_pdf', { id: bookId })) }}#}
+            {{ macros.sidemenuLink('eye', 'display.title'|trans, 'display.label'|trans, path('book_display', { id: bookId })) }}
+            {{ macros.sidemenuLink('file-pdf-o', 'pdf.title'|trans, 'pdf.label'|trans, path('book_pdf', { id: bookId })) }}
         </ul>
     </nav>
 {% endblock %}

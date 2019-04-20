@@ -1,0 +1,17 @@
+{% extends 'displayBase.html.twig' %}
+
+{% block body %}
+    <h1 style="margin-bottom: 30px;" class="text-center">{{ book.title }}</h1>
+    {% for chapter in book.chapters if chapter.scenes|length > 0 %}
+        <div class="row">
+            <div class="col-sm offset-sm-1 col-md-8 offset-md-2">
+                <div class="display scene">
+                    {% for scene in chapter.scenes if scene.text|length > 0%}
+                        <h2 style="margin-bottom: 30px;" class="text-center">{{ scene.title }}</h2>
+                        {{ scene.text|raw }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

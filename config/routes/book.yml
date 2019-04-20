@@ -27,6 +27,16 @@ book_delete:
         page: 1
     methods:  GET
 
+book_display:
+    path: /display/{id}
+    controller: Talesweaver\Application\Controller\Book\DisplayController
+    methods:  GET
+
+book_pdf:
+    path: /pdf/{id}
+    controller: Talesweaver\Application\Controller\Book\PdfController
+    methods:  GET
+
 book_chapter_list:
     path: /chapters/{id}/{page}
     controller: Talesweaver\Application\Controller\Book\ChaptersListController
