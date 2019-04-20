@@ -25,19 +25,9 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-collapse collapse" id="menu">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('book_list') }}">{{ 'menu.books'|trans }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('chapter_list') }}">{{ 'menu.chapters'|trans }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('scene_list') }}">{{ 'menu.scenes'|trans }}</a>
-                    </li>
-                </ul>
+                {% include 'partial/topMenu.html.twig' with {} only %}
                 {% block rightMenu %}
-                    {% include 'partial/topMenuActions.html.twig' with {} %}
+                    {% include 'partial/topMenuActions.html.twig' with {} only %}
                 {% endblock %}
             </div>
         </div>
@@ -48,7 +38,6 @@
          data-error-content="{{ 'alert.error'|trans }}"
          data-timedout-content="{{ 'alert.timed_out'|trans }}"
     >
-        {% block alerts '' %}
         {% include 'partial/alerts.html.twig' %}
     </div>
     <main class="container">

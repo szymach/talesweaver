@@ -1,0 +1,13 @@
+{% import _self as macros %}
+{% set currentRoute = app.request.get('_route') %}
+<ul class="navbar-nav mr-auto">
+    {{ macros.item('book_list', 'menu.books'|trans, currentRoute) }}
+    {{ macros.item('chapter_list', 'menu.chapters'|trans, currentRoute) }}
+    {{ macros.item('scene_list', 'menu.scenes'|trans, currentRoute) }}
+</ul>
+
+{% macro item(route, label, currentRoute) %}
+    <li class="nav-item{% if isActiveMenuItem(currentRoute, route) %} active{% endif %}">
+        <a class="nav-link" href="{{ path(route) }}">{{ label }}</a>
+    </li>
+{% endmacro %}
