@@ -2,8 +2,8 @@
 
 {% import 'partial/macros.html.twig' as macros %}
 
-{% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
-{% form_theme chapterForm 'bootstrap_4_layout.html.twig' %}
+{% form_theme form 'form/formTheme.html.twig' %}
+{% form_theme chapterForm 'form/formTheme.html.twig' %}
 
 {% block seoTitle 'book.seo_title.form.edit'|trans({ '%title%': title }) %}
 {% block rightMenu %}
