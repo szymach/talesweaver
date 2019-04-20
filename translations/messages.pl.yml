@@ -126,7 +126,9 @@ book:
     description: Opis
     placeholder:
         title: Podaj tytuł książki i zapisz, by móc dodawać rozdziały
-    chapters: Rozdziały
+    chapters:
+        title: Rozdziały
+        no_results: Książka nie posiada żadnych rozdziałów.
     actions:
         create: Nowa
         add_chapter: Dodaj
@@ -154,7 +156,9 @@ chapter:
             book: Podaj tytuł rozdziału
             standalone: Podaj tytuł rozdziału i zapisz, by móc dodawać sceny
         book: 'Przypisz do książki'
-    scenes: Sceny
+    scenes:
+        title: Sceny
+        no_results: Rozdział nie posiada żadnych scen.
     book: Książka
     actions:
         create: Nowy

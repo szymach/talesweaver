@@ -1,6 +1,6 @@
 <li>
     <i class="fa fa-2x fa-book d-sm-block d-md-none d-xl-none js-trigger-sidelist-mobile logo-icon cursor-pointer"
-       title="{{ 'book.chapters'|trans }}"
+       title="{{ 'book.chapters.title'|trans }}"
     ></i>
     <span class="h4">
         <button class="btn btn-sm btn-outline-secondary js-list-toggle"
@@ -9,7 +9,7 @@
         >
             <span class="fa fa-list"></span>
         </button>
-        <span>{{ 'book.chapters'|trans }}</span>
+        <span>{{ 'book.chapters.title'|trans }}</span>
         {{ form_start(chapterForm) }}
             {{ form_row(chapterForm.title, { label: false }) }}
             {{ form_rest(chapterForm) }}

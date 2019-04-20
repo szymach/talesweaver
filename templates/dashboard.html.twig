@@ -2,26 +2,30 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-sm col-sm-6 col-md-8 text-center">
+        <div class="col-sm col-md-7 text-center">
             <h3>{{ 'dashboard.header.top'|trans }}</h3>
             <h4>{{ 'dashboard.header.bottom'|trans }}</h4>
         </div>
         {% if timeline|length > 0 %}
-            <div class="col-sm col-sm-6 col-md-4 dashboard-timeline">
-                <h3>{{ 'dashboard.timeline'|trans }}</h3>
-                <ul class="list-unstyled">{% filter spaceless %}
-                    {% for item in timeline %}
-                        <li>
-                            <h5 class="inline-block">
-                                <i class="fa {{ item.updated ? 'fa-history' : 'fa-plus-circle' }}" title="{{ ('dashboard.updated.' ~ item.updated)|trans }}"></i>&nbsp;|&nbsp;
-                                <i class="fa {{ item.icon }}" title="{{ ('dashboard.type.' ~ item.class)|trans }}"></i>&nbsp;|&nbsp;
-                                <a href="{{ path(item.route, { id: item.id }) }}" title="{{ 'crud.edit'|trans }}">
-                                    <i class="fa fa-edit"></i>
-                                </a>&nbsp;|&nbsp;{{ item.label }}
-                            </h5>
-                        </li>
-                    {% endfor %}
-                {% endfilter %}</ul>
+            <div class="col-sm col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ 'dashboard.timeline'|trans }}</h3>
+                        <ul class="list-unstyled dashboard-timeline">{% filter spaceless %}
+                            {% for item in timeline %}
+                                <li>
+                                    <h5 class="inline-block">
+                                        <i class="fa fa-{{ item.updated ? 'history' : 'plus-circle' }}" title="{{ ('dashboard.updated.' ~ item.updated)|trans }}"></i>&nbsp;|&nbsp;
+                                        <i class="fa fa-{{ item.icon }}" title="{{ ('dashboard.type.' ~ item.class)|trans }}"></i>&nbsp;|&nbsp;
+                                        <a href="{{ path(item.route, { id: item.id }) }}" title="{{ 'crud.edit'|trans }}">
+                                            <i class="fa fa-edit"></i>
+                                        </a>&nbsp;|&nbsp;{{ item.label }}
+                                    </h5>
+                                </li>
+                            {% endfor %}
+                        {% endfilter %}</ul>
+                    </div>
+                </div>
             </div>
         {% endif %}
     </div>

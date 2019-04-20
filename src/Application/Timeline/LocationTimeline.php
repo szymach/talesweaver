@@ -11,6 +11,6 @@ class LocationTimeline extends TimelineFormatter
 {
     protected function getCreation(Scenes $scenes, UuidInterface $id): array
     {
-        return ['fa fa-user-plus' => $scenes->firstLocationOccurence($id)];
+        return ['user-plus' => $scenes->firstLocationOccurence($id)];
     }
 }

@@ -17,9 +17,9 @@ use Talesweaver\Domain\Scenes;
 class FullHandler implements QueryHandlerInterface
 {
     private const ICONS = [
-        Book::class => 'fa-book',
-        Chapter::class => 'fa-clipboard',
-        Scene::class => 'fa-sticky-note'
+        Book::class => 'book',
+        Chapter::class => 'clipboard',
+        Scene::class => 'sticky-note'
     ];
 
     private const ROUTES = [

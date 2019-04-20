@@ -11,6 +11,6 @@ class ItemTimeline extends TimelineFormatter
 {
     protected function getCreation(Scenes $scenes, UuidInterface $id): array
     {
-        return ['fa fa-user-plus' => $scenes->firstItemOccurence($id)];
+        return ['user-plus' => $scenes->firstItemOccurence($id)];
     }
 }
