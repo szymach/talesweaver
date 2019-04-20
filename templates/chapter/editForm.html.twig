@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% import 'partial/macros.html.twig' as macros %}
+
 {% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
 {% form_theme sceneForm 'bootstrap_4_layout.html.twig' %}
 
@@ -7,31 +9,17 @@
 {% block rightMenu %}
     {% include 'partial/topMenuActions.html.twig' with {
         returnUrl: bookId ? path('book_edit', { id: bookId }) : path('chapter_list'),
-        returnLabel: bookId ? 'chapter.back.to_book'|trans : 'chapter.back.to_list'|trans,
-        actions: [
-            {
-                url: path('chapter_display', { id: chapterId }),
-                attributes: { target: '_blank', title: 'display.go_to'|trans },
-                icon: 'fa fa-eye',
-                label: 'display.label'|trans
-            },
-            {
-                url: path('chapter_pdf', { id: chapterId }),
-                attributes: { target: '_blank', title: 'pdf.render'|trans },
-                icon: 'fa fa-file-pdf-o',
-                label: 'pdf.label'|trans
-            }
-        ]
+        returnLabel: bookId ? 'chapter.back.to_book'|trans : 'chapter.back.to_list'|trans
     } only %}
 {% endblock %}
 
 {% block body %}
     <div class="row">
-        <div class="col-sm-10 offset-sm-1">
+        <div class="col col-sm-8 offset-sm-1">
             {{ form_start(form) }}
                 {{ form_row(form.title) }}
-                <div class="form-group">
-                    <div class="col-sm-10 text-right">
+                <div class="form-group row">
+                    <div class="col text-right">
                         <button class="btn btn-success pull-right">{{ 'crud.save'|trans }}</button>
                     </div>
                 </div>
@@ -39,12 +27,14 @@
         </div>
     </div>
     <div id="ajax-container"></div>
-    {% embed 'partial/sideMenu.html.twig' %}
-        {% block listContent %}
+    <nav class="side-menu">
+        <ul>
             {% include 'chapter/scenes/listHeader.html.twig' with {
                 chapterId: chapterId,
                 sceneForm: sceneForm
             } only %}
-        {% endblock %}
-    {% endembed %}
+            {{ macros.sidemenuLink('eye', 'display.title'|trans, 'display.label'|trans, path('chapter_display', { id: chapterId })) }}
+            {{ macros.sidemenuLink('file-pdf-o', 'pdf.title'|trans, 'pdf.label'|trans, path('chapter_pdf', { id: chapterId })) }}
+        </ul>
+    </nav>
 {% endblock %}

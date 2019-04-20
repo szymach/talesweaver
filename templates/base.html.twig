@@ -36,7 +36,9 @@
                         <a class="nav-link" href="{{ path('scene_list') }}">{{ 'menu.scenes'|trans }}</a>
                     </li>
                 </ul>
-                {% block rightMenu '' %}
+                {% block rightMenu %}
+                    {% include 'partial/topMenuActions.html.twig' with {} %}
+                {% endblock %}
             </div>
         </div>
     </nav>

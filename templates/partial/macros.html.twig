@@ -1,0 +1,43 @@
+{% macro sidemenuLink(icon, title, label, link) %}
+    <li>
+        <a class="fa fa-2x fa-{{ icon }} d-sm-block d-md-none d-xl-none logo-icon"
+           href="{{ link }}"
+           target="_blank"
+           title="{{ title }}"
+        ></a>
+        <span class="h4">
+            <a class="btn btn-sm btn-outline-secondary" href="{{ link }}" target="_blank" title="{{ title }}">
+                <span class="fa fa-{{ icon }}"></span>
+            </a>
+            <span>{{ label }}</span>
+        </span>
+    </li>
+{% endmacro %}
+
+{% macro menuItem(url, attributes, icon, label, linkClass) %}
+    <li class="nav-item{% if linkClass is not empty %} {{ linkClass }}{% endif %}">
+        <a href="{{ url }}"{% for name, value in attributes %} {{ name }}="{{ value }}"{% endfor %} class="nav-link">
+            <span class="fa {{ icon }}"></span> {{ label }}
+        </a>
+    </li>
+{% endmacro %}
+
+{% macro dropdownToggle(label, target) %}
+    <button class="btn btn-link dropdown-toggle nav-link"
+            type="button"
+            id="{{ target }}"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+    >
+        {{- label -}}
+    </button>
+{% endmacro %}
+
+{% macro dropdownItem(url, attributes, icon, label, linkClass) %}
+    <li class="dropdown-item">
+        <a href="{{ url }}"{% for name, value in attributes %} {{ name }}="{{ value }}"{% endfor %}>
+            <span class="fa {{ icon }}"></span> {{ label }}
+        </a>
+    </li>
+{% endmacro %}

@@ -20,12 +20,7 @@ nav.navbar {
 }
 
 ul.dropdown-menu {
-    border-radius: 0;
-    border: none;
-    background-color: transparent;
-    padding: 0;
-
-    .btn {
+    a {
         display: block;
         width: 100%;
     }

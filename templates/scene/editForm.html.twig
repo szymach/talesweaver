@@ -1,17 +1,13 @@
 {% extends 'base.html.twig' %}
 
+{% import 'partial/macros.html.twig' as macros %}
+
 {% block seoTitle 'scene.seo_title.form.edit'|trans({ '%title%': title }) %}
 {% block rightMenu %}
     {% include 'partial/topMenuActions.html.twig' with {
         returnUrl: chapterId ? path('chapter_edit', { id: chapterId }) : path('scene_list', { page: app.request.get('page') }),
         returnLabel: (chapterId ? 'scene.back.to_chapter' : 'scene.back.to_list')|trans,
         actions: [
-            {
-                url: path('scene_display', { id: sceneId }),
-                attributes: { target: '_blank', title: 'display.title'|trans },
-                icon: 'fa fa-eye',
-                label: 'display.label'|trans
-            },
             {
                 url: path('scene_pdf', { id: sceneId }),
                 attributes: { target: '_blank', title: 'pdf.title'|trans },
@@ -30,8 +26,8 @@
             <div id="form-backdrop"></div>
         </div>
     </div>
-    {% embed 'partial/sideMenu.html.twig'%}
-        {% block listContent %}
+    <nav class="side-menu">
+        <ul>
             {% if chapterTitle is not null and relatedScenes|length > 0 %}
                 {% include 'scene/related/listHeader.html.twig' with {
                     chapterTitle: chapterTitle,
@@ -43,8 +39,10 @@
             {% include 'scene/items/listHeader.html.twig' with { sceneId: sceneId, chapterId: chapterId } only %}
             {% include 'scene/locations/listHeader.html.twig' with { sceneId: sceneId, chapterId: chapterId} only %}
             {% include 'scene/events/listHeader.html.twig' with { sceneId: sceneId, chapterId: chapterId } only %}
-        {% endblock %}
-    {% endembed %}
+            {{ macros.sidemenuLink('eye', 'display.title'|trans, 'display.label'|trans, path('scene_display', { id: sceneId })) }}
+            {{ macros.sidemenuLink('file-pdf-o', 'pdf.title'|trans, 'pdf.label'|trans, path('scene_pdf', { id: sceneId })) }}
+        </ul>
+    </nav>
 {% endblock %}
 
 {% block modals %}
