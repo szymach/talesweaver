@@ -1,0 +1,12 @@
+.display {
+    text-align: justify;
+    display: none;
+
+    &.show {
+        display: block;
+    }
+
+    & > p {
+        text-indent: 25px;
+    }
+}

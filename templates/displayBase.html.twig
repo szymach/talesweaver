@@ -2,6 +2,7 @@
 <html lang="{{ app.request.locale }}">
     <head>
         <meta charset="UTF-8" />
+        <title>{% block seoTitle 'meta.title'|trans %}</title>
         <link rel="stylesheet" href="{{ absolute_url(asset('assets/main.css')) }}">
     </head>
     <body>

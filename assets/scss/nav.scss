@@ -19,6 +19,10 @@ nav.navbar {
     }
 }
 
+.dropdown-toggle {
+    margin-top: -1px;
+}
+
 ul.dropdown-menu {
     a {
         display: block;

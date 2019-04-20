@@ -1,5 +1,6 @@
 @import 'sandstone/_bootswatch';
 @import 'ajax';
+@import 'display';
 @import 'form';
 @import 'modal';
 @import 'nav';
@@ -23,14 +24,6 @@ main {
 table:not(.dashboard) {
     th:last-child, td:last-child {
         text-align: right;
-    }
-}
-
-.display {
-    text-align: justify;
-
-    & > p {
-        text-indent: 25px;
     }
 }
 

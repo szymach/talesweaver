@@ -1,16 +1,19 @@
 {% extends 'displayBase.html.twig' %}
 
+{% block seoTitle book.title %}
+
 {% block body %}
     <h1 style="margin-bottom: 30px;" class="text-center">{{ book.title }}</h1>
     {% for chapter in book.chapters if chapter.scenes|length > 0 %}
         <div class="row">
             <div class="col-sm offset-sm-1 col-md-8 offset-md-2">
-                <div class="display scene">
-                    {% for scene in chapter.scenes if scene.text|length > 0%}
-                        <h2 style="margin-bottom: 30px;" class="text-center">{{ scene.title }}</h2>
+                <h2 style="margin-bottom: 30px;" class="text-center">{{ chapter.title }}</h2>
+                {% for scene in chapter.scenes if scene.text|length > 0%}
+                    <div class="display{% if loop.first %} show{% endif %}">
+                        <h3 style="margin-bottom: 30px;" class="text-center">{{ scene.title }}</h3>
                         {{ scene.text|raw }}
-                    {% endfor %}
-                </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     {% endfor %}
