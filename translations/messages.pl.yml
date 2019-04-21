@@ -342,6 +342,7 @@ pagination:
 display:
     title: Przejdź do strony z podglądem
     label: Podgląd
+    show_hide: Pokaż / ukryj
 
 pdf:
     label: PDF

@@ -49,8 +49,7 @@ class ResetPasswordControllerCest
         $I->click('Zmień hasło');
         $I->canSeeCurrentUrlEquals('/pl/login');
         $I->canSeeAlert(
-            'Pomyślnie zmieniono hasło do konta. Możesz się teraz nim zalogować'
-            . ' do aplikacji.'
+            'Pomyślnie zmieniono hasło do konta. Możesz się teraz nim zalogować do aplikacji.'
         );
         $I->fillField('Email', AuthorModule::AUTHOR_EMAIL);
         $I->fillField('Hasło', 'nowe_haslo_123');

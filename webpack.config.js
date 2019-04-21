@@ -14,7 +14,8 @@ module.exports = {
             "bootstrap-loader",
             "./assets/typescript/app.ts"
         ],
-        ckeditor: ["./assets/scss/ckeditor.scss", "./assets/js/ckeditor.js"]
+        ckeditor: ["./assets/scss/ckeditor.scss", "./assets/js/ckeditor.js"],
+        display: "./assets/typescript/displayOnly.ts"
     },
     devtool: 'cheap-module-eval-source-map',
     output: {

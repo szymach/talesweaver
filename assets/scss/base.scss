@@ -32,18 +32,17 @@ table:not(.dashboard) {
 }
 
 .alert:not(.alert-form) {
-    position: fixed;
-    text-align: center;
-    z-index: 100;
-    bottom: 0;
     left: 0;
-    right: 0;
     margin-bottom: 0;
+    position: fixed;
+    right: 0;
+    text-align: center;
+    top: 60px;
+    z-index: 100;
 
     @include media-breakpoint-up(md) {
         min-width: 400px;
         max-width: 600px;
-        bottom: 30px;
         right: 60px;
         left: inherit;
     }
@@ -65,4 +64,13 @@ table:not(.dashboard) {
 
 .btn-success:focus {
     background-color: darken($success, 6%);
+}
+
+blockquote {
+    border-left: solid 5px hsl(0, 0%, 80%);
+    font-style: italic;
+    margin-left: 0;
+    overflow: hidden;
+    padding-right: 1.5em;
+    padding-left: 1.5em;
 }
