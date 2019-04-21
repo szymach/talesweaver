@@ -19,7 +19,7 @@
                                         <i class="fa fa-{{ item.icon }}" title="{{ ('dashboard.type.' ~ item.class)|trans }}"></i>&nbsp;|&nbsp;
                                         <a href="{{ path(item.route, { id: item.id }) }}" title="{{ 'crud.edit'|trans }}">
                                             <i class="fa fa-edit"></i>
-                                        </a>&nbsp;|&nbsp;{{ item.label }}
+                                        </a>&nbsp;|&nbsp;{{ item.label|truncate(25) }}
                                     </h5>
                                 </li>
                             {% endfor %}
