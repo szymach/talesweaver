@@ -28,7 +28,7 @@
     </div>
     <div id="ajax-container"></div>
     <nav class="side-menu">
-        <ul>
+        <ul id="side-menu" class="collapse show">
             {% include 'chapter/scenes/listHeader.html.twig' with {
                 chapterId: chapterId,
                 sceneForm: sceneForm
@@ -36,5 +36,10 @@
             {{ macros.sidemenuLink('eye', 'display.title'|trans, 'display.label'|trans, path('chapter_display', { id: chapterId })) }}
             {{ macros.sidemenuLink('file-pdf-o', 'pdf.title'|trans, 'pdf.label'|trans, path('chapter_pdf', { id: chapterId })) }}
         </ul>
+        <div data-target="#side-menu" data-toggle="collapse" class="text-center">
+            <button class="btn btn-sm" style="width: 100%;">
+                <span class="fa fa-chevron-up"></span>
+            </button>
+        </div>
     </nav>
 {% endblock %}
