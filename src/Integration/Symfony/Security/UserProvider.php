@@ -11,8 +11,9 @@ use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Query\Security\AuthorByEmail;
 use Talesweaver\Domain\ValueObject\Email;
 use Talesweaver\Integration\Symfony\Security\User;
+use Throwable;
 
-class UserProvider implements UserProviderInterface
+final class UserProvider implements UserProviderInterface
 {
     /**
      * @var QueryBus
@@ -35,7 +36,13 @@ class UserProvider implements UserProviderInterface
             throw new UsernameNotFoundException('No username provided.');
         }
 
-        $user = $this->queryBus->query(new AuthorByEmail(new Email($username)));
+        try {
+            $email = new Email($username);
+        } catch (Throwable $ex) {
+            throw new UsernameNotFoundException("\"{$username}\" is not a valid email.");
+        }
+
+        $user = $this->queryBus->query(new AuthorByEmail($email));
         if (null === $user) {
             throw new UsernameNotFoundException("Username \"{$username}\" does not exist.");
         }

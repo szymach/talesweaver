@@ -103,7 +103,7 @@ class Author
     public function getPasswordResetToken(): ?PasswordResetToken
     {
         $tokens = $this->passwordResetTokens->filter(function (PasswordResetToken $token): bool {
-            return $token->isValid();
+            return true === $token->isActive() && true === $token->isValid();
         });
 
         return false === $tokens->isEmpty() ? $tokens->first() : null;

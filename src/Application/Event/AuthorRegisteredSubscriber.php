@@ -7,7 +7,7 @@ namespace Talesweaver\Application\Event;
 use Talesweaver\Application\Bus\EventSubscriberInterface;
 use Talesweaver\Application\Mailer\AuthorActionMailer;
 
-class AuthorRegisteredSubscriber implements EventSubscriberInterface
+final class AuthorRegisteredSubscriber implements EventSubscriberInterface
 {
     /**
      * @var AuthorActionMailer

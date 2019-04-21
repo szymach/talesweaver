@@ -20,14 +20,9 @@ class PasswordResetTokenRepository extends ServiceEntityRepository implements Pa
         parent::__construct($registry, PasswordResetToken::class);
     }
 
-    public function findOneByEmail(string $email): ?PasswordResetToken
+    public function findActiveByCode(string $code): ?PasswordResetToken
     {
-        return $this->findOneBy(['email' => $email]);
-    }
-
-    public function findOneByCode(string $code): ?PasswordResetToken
-    {
-        return $this->findOneBy(['value' => $code]);
+        return $this->findOneBy(['value' => $code, 'active' => true]);
     }
 
     public function findOneByAuthor(Author $author): ?PasswordResetToken

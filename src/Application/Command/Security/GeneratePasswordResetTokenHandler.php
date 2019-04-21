@@ -9,6 +9,7 @@ use DateTimeImmutable;
 use RuntimeException;
 use Talesweaver\Application\Bus\CommandHandlerInterface;
 use Talesweaver\Application\Bus\EventBus;
+use Talesweaver\Application\Event\PasswordTokenGenerated;
 use Talesweaver\Domain\Authors;
 use Talesweaver\Domain\PasswordResetTokens;
 use Talesweaver\Domain\ValueObject\Email;
@@ -31,11 +32,8 @@ final class GeneratePasswordResetTokenHandler implements CommandHandlerInterface
      */
     private $eventBus;
 
-    public function __construct(
-        PasswordResetTokens $tokens,
-        Authors $authors,
-        EventBus $eventBus
-    ) {
+    public function __construct(PasswordResetTokens $tokens, Authors $authors, EventBus $eventBus)
+    {
         $this->tokens = $tokens;
         $this->authors = $authors;
         $this->eventBus = $eventBus;
@@ -55,7 +53,7 @@ final class GeneratePasswordResetTokenHandler implements CommandHandlerInterface
         }
 
         $author->addPasswordResetToken(generate_user_token());
-        $this->eventBus->send($author);
+        $this->eventBus->send(new PasswordTokenGenerated($author));
     }
 
     private function isRequestTooSoon(Email $email): bool

@@ -6,7 +6,7 @@ namespace Talesweaver\Application\Event;
 
 use Talesweaver\Domain\Author;
 
-class PasswordTokenGenerated
+final class PasswordTokenGenerated
 {
     /**
      * @var Author

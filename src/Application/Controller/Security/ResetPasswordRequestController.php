@@ -9,10 +9,10 @@ use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Command\Security\GeneratePasswordResetToken;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
-use Talesweaver\Application\Form\Type\Security\ResetPassword;
+use Talesweaver\Application\Form\Type\Security\ResetPassword\Request;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 
-class ResetPasswordRequestController
+final class ResetPasswordRequestController
 {
     /**
      * @var FormHandlerFactoryInterface
@@ -41,10 +41,9 @@ class ResetPasswordRequestController
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $formHandler = $this->formHandlerFactory->createWithRequest($request, ResetPassword\Request::class);
+        $formHandler = $this->formHandlerFactory->createWithRequest($request, Request::class);
         if (true === $formHandler->isSubmissionValid()) {
             $this->commandBus->dispatch(new GeneratePasswordResetToken($formHandler->getData()['email']));
-
             return $this->responseFactory->redirectToRoute('index');
         }
 

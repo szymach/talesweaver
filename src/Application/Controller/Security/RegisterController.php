@@ -12,7 +12,7 @@ use Talesweaver\Application\Form\Type\Security\Register;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Command\Security\CreateAuthor;
 
-class RegisterController
+final class RegisterController
 {
     /**
      * @var FormHandlerFactoryInterface

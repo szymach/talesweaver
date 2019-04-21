@@ -7,7 +7,7 @@ namespace Talesweaver\Application\Event;
 use Talesweaver\Application\Bus\EventSubscriberInterface;
 use Talesweaver\Application\Mailer\AuthorActionMailer;
 
-class PasswordTokenGeneratedSubscriber implements EventSubscriberInterface
+final class PasswordTokenGeneratedSubscriber implements EventSubscriberInterface
 {
     /**
      * @var AuthorActionMailer

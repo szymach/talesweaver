@@ -6,7 +6,7 @@ namespace Talesweaver\Application\Event;
 
 use Talesweaver\Domain\Author;
 
-class AuthorRegistered
+final class AuthorRegistered
 {
     /**
      * @var Author

@@ -6,10 +6,5 @@ services:
 
     Talesweaver\Integration\Twig\:
         resource: "../../src/Integration/Twig/*"
-        tags:
-            - { name: twig.extension }
 
-    twig.extension.text:
-        class: Twig_Extensions_Extension_Text
-        tags:
-            - { name: twig.extension }
+    Twig\Extensions\TextExtension: ~

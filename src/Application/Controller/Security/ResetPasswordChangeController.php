@@ -7,19 +7,20 @@ namespace Talesweaver\Application\Controller\Security;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
+use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Security\ResetPassword;
-use Talesweaver\Application\Form;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
+use Talesweaver\Application\Form\Type\Security\ResetPassword\Change;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
+use Talesweaver\Application\Query\Security\PasswordResetTokenByCode;
 use Talesweaver\Domain\PasswordResetToken;
-use Talesweaver\Domain\PasswordResetTokens;
 
-class ResetPasswordChangeController
+final class ResetPasswordChangeController
 {
     /**
-     * @var PasswordResetTokens
+     * @var QueryBus
      */
-    private $resetPasswordTokens;
+    private $queryBus;
 
     /**
      * @var FormHandlerFactoryInterface
@@ -37,12 +38,12 @@ class ResetPasswordChangeController
     private $responseFactory;
 
     public function __construct(
-        PasswordResetTokens $resetPasswordTokens,
+        QueryBus $queryBus,
         FormHandlerFactoryInterface $formHandlerFactory,
         CommandBus $commandBus,
         ResponseFactoryInterface $responseFactory
     ) {
-        $this->resetPasswordTokens = $resetPasswordTokens;
+        $this->queryBus = $queryBus;
         $this->formHandlerFactory = $formHandlerFactory;
         $this->commandBus = $commandBus;
         $this->responseFactory = $responseFactory;
@@ -51,13 +52,9 @@ class ResetPasswordChangeController
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
         $token = $this->getToken($request->getAttribute('code'));
-        $formHandler = $this->formHandlerFactory->createWithRequest(
-            $request,
-            Form\Type\Security\ResetPassword\Change::class
-        );
+        $formHandler = $this->formHandlerFactory->createWithRequest($request, Change::class);
         if (true === $formHandler->isSubmissionValid()) {
             $this->commandBus->dispatch(new ResetPassword($token, $formHandler->getData()['password']));
-
             return $this->responseFactory->redirectToRoute('index');
         }
 
@@ -69,25 +66,19 @@ class ResetPasswordChangeController
 
     private function getToken(string $code): PasswordResetToken
     {
-        $token = $this->resetPasswordTokens->findOneByCode($code);
+        $token = $this->queryBus->query(new PasswordResetTokenByCode($code));
         if (null === $token) {
-            throw $this->responseFactory->notFound(sprintf(
-                'No password reset token found for code "%s".',
-                $code
-            ));
+            throw $this->responseFactory->notFound("No password reset token found for code \"{$code}\".");
         }
 
         if (false === $token->isValid()) {
-            throw $this->responseFactory->notFound(
-                sprintf('Token for code "%s" has expired.', $code)
-            );
+            throw $this->responseFactory->notFound("Token for code \"{$code}\" has expired.");
         }
 
         if (false === $token->isActive()) {
-            throw $this->responseFactory->notFound(sprintf(
-                'Token for code "%s" has already been used or made obsolete.',
-                $code
-            ));
+            throw $this->responseFactory->notFound(
+                "Token for code \"{$code}\" has already been used or made obsolete."
+            );
         }
 
         return $token;
