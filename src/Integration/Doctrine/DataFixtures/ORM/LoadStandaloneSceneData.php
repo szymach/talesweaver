@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Doctrine\DataFixtures\ORM;
 
 use Assert\Assertion;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -15,9 +16,14 @@ use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-class LoadStandaloneSceneData implements ORMFixtureInterface, OrderedFixtureInterface
+class LoadStandaloneSceneData implements FixtureGroupInterface, ORMFixtureInterface, OrderedFixtureInterface
 {
     private const LOCALE = 'pl';
+
+    public static function getGroups(): array
+    {
+        return ['integration'];
+    }
 
     public function load(ObjectManager $manager)
     {

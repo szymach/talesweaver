@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Doctrine\DataFixtures\ORM;
 
 use Assert\Assertion;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -14,9 +15,14 @@ use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-class LoandStandaloneBookData implements ORMFixtureInterface, OrderedFixtureInterface
+class LoandStandaloneBookData implements FixtureGroupInterface, ORMFixtureInterface, OrderedFixtureInterface
 {
     private const LOCALE = 'pl';
+
+    public static function getGroups(): array
+    {
+        return ['integration'];
+    }
 
     public function load(ObjectManager $manager)
     {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Doctrine\DataFixtures\ORM;
 
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -12,8 +13,13 @@ use Talesweaver\Domain\Author;
 use Talesweaver\Domain\ValueObject\Email;
 use function generate_user_token;
 
-class LoadUserData implements ORMFixtureInterface, OrderedFixtureInterface
+class LoadUserData implements FixtureGroupInterface, ORMFixtureInterface, OrderedFixtureInterface
 {
+    public static function getGroups(): array
+    {
+        return ['integration'];
+    }
+
     public function load(ObjectManager $manager)
     {
         $user = new Author(Uuid::uuid4(), new Email('user@example.com'), 'password', generate_user_token());
