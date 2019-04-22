@@ -4,19 +4,21 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Doctrine\DataFixtures\ORM;
 
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
-use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\ValueObject\Email;
 use function generate_user_token;
 
-class LoadUserData implements FixtureGroupInterface, ORMFixtureInterface
+class LoadUserData extends Fixture implements FixtureGroupInterface
 {
+    public const AUTHOR = 'author';
+
     public static function getGroups(): array
     {
-        return ['integration'];
+        return ['development', 'integration'];
     }
 
     public function load(ObjectManager $manager)
@@ -25,5 +27,7 @@ class LoadUserData implements FixtureGroupInterface, ORMFixtureInterface
         $user->activate();
         $manager->persist($user);
         $manager->flush();
+
+        $this->addReference(self::AUTHOR, $user);
     }
 }

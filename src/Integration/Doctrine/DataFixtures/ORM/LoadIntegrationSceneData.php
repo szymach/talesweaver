@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Doctrine\DataFixtures\ORM;
 
 use Assert\Assertion;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
-use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
@@ -16,7 +16,7 @@ use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-class LoadIntegrationSceneData implements DependentFixtureInterface, FixtureGroupInterface, ORMFixtureInterface
+class LoadIntegrationSceneData extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
     private const LOCALE = 'pl';
 
@@ -32,9 +32,9 @@ class LoadIntegrationSceneData implements DependentFixtureInterface, FixtureGrou
 
     public function load(ObjectManager $manager)
     {
-        /* @var $author Author */
-        $author = $manager->getRepository(Author::class)->findOneBy([]);
-        Assertion::notNull($author);
+        /* @var $author Author|null */
+        $author = $this->getReference(LoadUserData::AUTHOR);
+        Assertion::isInstanceOf($author, Author::class);
 
         $scene = new Scene(Uuid::uuid4(), new ShortText('Scena'), null, $author);
         $scene->setLocale(self::LOCALE);
