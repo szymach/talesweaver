@@ -15,7 +15,7 @@ use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-class LoandStandaloneBookData implements FixtureGroupInterface, ORMFixtureInterface, OrderedFixtureInterface
+class LoadStandaloneBookData implements FixtureGroupInterface, ORMFixtureInterface, OrderedFixtureInterface
 {
     private const LOCALE = 'pl';
 
