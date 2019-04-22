@@ -7,7 +7,7 @@ namespace Talesweaver\Integration\Doctrine\DataFixtures\ORM;
 use Assert\Assertion;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Author;
@@ -18,13 +18,18 @@ use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-class LoadStandaloneChapterData implements FixtureGroupInterface, ORMFixtureInterface, OrderedFixtureInterface
+class LoadIntegrationChapterData implements DependentFixtureInterface, FixtureGroupInterface, ORMFixtureInterface
 {
     private const LOCALE = 'pl';
 
     public static function getGroups(): array
     {
         return ['integration'];
+    }
+
+    public function getDependencies(): array
+    {
+        return [LoadIntegrationBookData::class, LoadUserData::class];
     }
 
     public function load(ObjectManager $manager)
@@ -59,10 +64,5 @@ class LoadStandaloneChapterData implements FixtureGroupInterface, ORMFixtureInte
         $manager->persist($scene1);
         $manager->persist($scene2);
         $manager->flush();
-    }
-
-    public function getOrder()
-    {
-        return 2;
     }
 }
