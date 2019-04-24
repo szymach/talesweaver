@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Query\Scene;
 
-class ScenesPage
+final class ScenesPage
 {
     /**
      * @var int

@@ -39,6 +39,13 @@ class SceneRepository implements Scenes
         ]);
     }
 
+    public function findAll(): array
+    {
+        return $this->doctrineRepository->findBy([
+            'createdBy' => $this->authorContext->getAuthor()
+        ]);
+    }
+
     public function findOneByTitle(ShortText $title): ?Scene
     {
         return $this->doctrineRepository->createTranslatableQueryBuilder('s')
@@ -74,7 +81,7 @@ class SceneRepository implements Scenes
         );
     }
 
-    public function findLatest(int $limit = 5): array
+    public function findLatest(int $limit = 3): array
     {
         return $this->doctrineRepository->findLatest(
             $this->authorContext->getAuthor(),

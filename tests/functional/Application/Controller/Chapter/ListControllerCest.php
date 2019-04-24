@@ -12,7 +12,7 @@ class ListControllerCest
     {
         $I->loginAsUser();
         $I->amOnPage('/pl/chapter/list');
-        $I->see('Nie masz jeszcze żadnego nieprzypisanego do książki rozdziału.', 'h4');
+        $I->see('Nie masz jeszcze żadnego rozdziału.', 'h4');
         $I->see('Dodaj nowy!', 'a[href="/pl/chapter/create"]');
         $I->cantSeeElement('table');
 

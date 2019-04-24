@@ -64,7 +64,7 @@ class BookRepository implements Books
         $this->doctrineRepository->remove($this->authorContext->getAuthor(), $id);
     }
 
-    public function findLatest(int $limit = 5): array
+    public function findLatest(int $limit = 3): array
     {
         return $this->doctrineRepository->findLatest(
             $this->authorContext->getAuthor(),

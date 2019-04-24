@@ -6,6 +6,12 @@
         {% if books|length > 0 %}
             <div class="col-sm offset-md-3 col-md-6">
                 <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-right">{{ 'book.title'|trans }}</th>
+                            <th class="text-right"></th>
+                        </tr>
+                    </thead>
                     <tbody>
                         {% for book in books %}
                             <tr>
@@ -14,13 +20,13 @@
                                     <a class="btn btn-sm btn-primary"
                                        href="{{ path('book_edit', { id: book.id }) }}"
                                        title="{{ 'crud.edit'|trans }}"
-                                       >
+                                    >
                                         <span class="fa fa-edit"></span>
                                     </a>
                                     <a class="btn btn-sm btn-danger js-delete"
                                        href="{{ path('book_delete', { id: book.id, page: app.request.get('page') }) }}"
                                        title="{{ 'crud.delete'|trans }}"
-                                       >
+                                    >
                                         <span class="fa fa-trash"></span>
                                     </a>
                                 </td>

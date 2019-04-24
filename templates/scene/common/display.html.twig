@@ -7,13 +7,13 @@
 {% if view.avatar is not null or view.description is not empty %}
 <div class="modal-body">
     <div class="row">
-        {% if view.avatar %}
+        {% if view.avatar is not empty %}
             <div class="col-5">
                 <img class="img-fluid center-block" src="{{ fsi_file_url(view.avatar.value) }}" />
             </div>
         {% endif %}
         {% if view.description is not empty %}
-            <div class="col-7">
+            <div class="col{% if view.avatar is not empty %}-7{% endif %}">
                 {{ view.description|raw }}
             </div>
         {% endif %}

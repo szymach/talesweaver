@@ -167,7 +167,7 @@ chapter:
         create: Nowy
         standalone:
             no_results:
-                header: Nie masz jeszcze żadnego nieprzypisanego do książki rozdziału.
+                header: Nie masz jeszcze żadnego rozdziału.
                 add_new: Dodaj nowy!
     back:
         to_book: Wróć do książki
@@ -205,7 +205,7 @@ scene:
         create: Nowa
         standalone:
             no_results:
-                header: Nie masz jeszcze żadnej nieprzypisanej do rozdziału sceny.
+                header: Nie masz jeszcze żadnej sceny.
                 add_new: Dodaj nową!
     tabs:
         basic: Treść

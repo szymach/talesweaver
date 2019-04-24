@@ -11,6 +11,7 @@ use Talesweaver\Domain\ValueObject\ShortText;
 interface Scenes extends LatestChangesAwareRepository
 {
     public function find(UuidInterface $id): ?Scene;
+    public function findAll(): array;
     public function findForChapter(Chapter $chapter): array;
     public function findStandalone(): array;
     public function findOneByTitle(ShortText $title): ?Scene;

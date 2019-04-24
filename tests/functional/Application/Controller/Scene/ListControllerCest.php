@@ -12,7 +12,7 @@ class ListControllerCest
     {
         $I->loginAsUser();
         $I->amOnPage('/pl/scene/list');
-        $I->see('Nie masz jeszcze żadnej nieprzypisanej do rozdziału sceny.', 'h4');
+        $I->see('Nie masz jeszcze żadnej sceny.', 'h4');
         $I->see('Dodaj nową!', 'a[href="/pl/scene/create"]');
         $I->cantSeeElement('table');
 

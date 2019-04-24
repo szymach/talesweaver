@@ -11,21 +11,29 @@
         {% if scenes|length > 0 %}
             <div class="col-sm offset-md-3 col-md-6">
                 <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-right">{{ 'scene.title'|trans }}</th>
+                            <th class="text-right">{{ 'scene.chapter'|trans }}</th>
+                            <th class="text-right"></th>
+                        </tr>
+                    </thead>
                     <tbody>
                         {% for scene in scenes %}
                             <tr>
                                 <td class="text-right">{{ scene }}</td>
+                                <td class="text-right">{{ scene.chapter }}</td>
                                 <td>
                                     <a class="btn btn-sm btn-primary"
                                        href="{{ path('scene_edit', { id: scene.id }) }}"
                                        title="{{ 'crud.edit'|trans }}"
-                                       >
+                                    >
                                         <span class="fa fa-edit"></span>
                                     </a>
                                     <a class="btn btn-sm btn-danger js-delete"
                                        href="{{ path('scene_delete', { id: scene.id }) }}"
                                        title="{{ 'crud.delete'|trans }}"
-                                       >
+                                    >
                                         <span class="fa fa-trash"></span>
                                     </a>
                                 </td>
@@ -34,11 +42,11 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="2" class="text-right">
+                            <td colspan="3" class="text-right">
                                 <a class="btn btn-sm btn-success"
                                    href="{{ path('scene_create') }}"
                                    title="{{ 'scene.list.create'|trans }}"
-                                   >
+                                >
                                     <span class="fa fa-plus"></span>
                                 </a>
                             </td>
@@ -51,7 +59,7 @@
                     <a class="btn btn-sm btn-success"
                        href="{{ path('scene_create') }}"
                        title="{{ 'scene.actions.create'|trans }}"
-                       >
+                    >
                         <span class="fa fa-plus"></span> {{ 'scene.list.standalone.no_results.add_new'|trans }}
                     </a>
                 </div>

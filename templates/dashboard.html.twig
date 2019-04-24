@@ -10,16 +10,15 @@
             <div class="col-sm col-md-5">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title">{{ 'dashboard.timeline'|trans }}</h3>
+                        <h3 class="card-title text-left">{{ 'dashboard.timeline'|trans }}</h3>
                         <ul class="list-unstyled dashboard-timeline">{% filter spaceless %}
                             {% for item in timeline %}
                                 <li>
                                     <h5 class="inline-block">
-                                        <i class="fa fa-{{ item.updated ? 'history' : 'plus-circle' }}" title="{{ ('dashboard.updated.' ~ item.updated)|trans }}"></i>&nbsp;|&nbsp;
-                                        <i class="fa fa-{{ item.icon }}" title="{{ ('dashboard.type.' ~ item.class)|trans }}"></i>&nbsp;|&nbsp;
-                                        <a href="{{ path(item.route, { id: item.id }) }}" title="{{ 'crud.edit'|trans }}">
-                                            <i class="fa fa-edit"></i>
-                                        </a>&nbsp;|&nbsp;{{ item.label|truncate(25) }}
+                                        <i class="fa fa-{{ item.updated ? 'history' : 'plus-circle' }}" title="{{ ('dashboard.updated.' ~ item.updated)|trans }}"></i>
+                                        <a href="{{ path(item.route, { id: item.id }) }}" title="{{ ('dashboard.type.' ~ item.class)|trans }}">
+                                            {{ item.label|truncate(25) }}
+                                        </a>
                                     </h5>
                                 </li>
                             {% endfor %}
