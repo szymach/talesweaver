@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Repository;
 
+use Doctrine\DBAL\FetchMode;
+use Doctrine\ORM\EntityManagerInterface;
+use FSi\DoctrineExtensions\Translatable\TranslatableListener;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Talesweaver\Application\Security\AuthorContext;
@@ -16,18 +19,34 @@ use Talesweaver\Integration\Doctrine\Repository\SceneRepository as DoctrineRepos
 class SceneRepository implements Scenes
 {
     /**
+     * @var EntityManagerInterface
+     */
+    private $manager;
+
+    /**
      * @var DoctrineRepository
      */
     private $doctrineRepository;
+
+    /**
+     * @var TranslatableListener
+     */
+    private $listener;
 
     /**
      * @var AuthorContext
      */
     private $authorContext;
 
-    public function __construct(DoctrineRepository $doctrineRepository, AuthorContext $authorContext)
-    {
+    public function __construct(
+        EntityManagerInterface $manager,
+        TranslatableListener $listener,
+        DoctrineRepository $doctrineRepository,
+        AuthorContext $authorContext
+    ) {
+        $this->manager = $manager;
         $this->doctrineRepository = $doctrineRepository;
+        $this->listener = $listener;
         $this->authorContext = $authorContext;
     }
 
@@ -39,11 +58,34 @@ class SceneRepository implements Scenes
         ]);
     }
 
-    public function findAll(): array
+    public function createListView(): array
     {
-        return $this->doctrineRepository->findBy([
-            'createdBy' => $this->authorContext->getAuthor()
-        ]);
+        $statement = $this->manager
+            ->getConnection()
+            ->createQueryBuilder()
+            ->select('s.id, st.title AS title')
+            ->addSelect('ct.title AS chapter')
+            ->addSelect('bt.title AS book')
+            ->from('scene', 's')
+            ->innerJoin('s', 'scene_translation', 'st', 's.id = st.scene_id AND st.locale = :locale')
+            ->leftJoin('s', 'chapter', 'c', 's.chapter_id = c.id')
+            ->leftJoin('c', 'chapter_translation', 'ct', 'c.id = ct.chapter_id AND ct.locale = :locale')
+            ->leftJoin('c', 'book', 'b', 'c.book_id = b.id')
+            ->leftJoin('b', 'book_translation', 'bt', 'b.id = bt.book_id AND bt.locale = :locale')
+            ->where('s.created_by_id = :author')
+            ->setParameter('author', $this->authorContext->getAuthor()->getId())
+            ->setParameter('locale', $this->listener->getLocale())
+            ->orderBy('c.book_id')
+            ->orderBy('s.chapter_id')
+            ->addOrderBy('st.title')
+            ->execute()
+        ;
+
+        if (null === $statement) {
+            return [];
+        }
+
+        return $statement->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     public function findOneByTitle(ShortText $title): ?Scene

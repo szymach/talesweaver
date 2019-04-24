@@ -12,6 +12,7 @@ services:
             $newAuthorMailer: '@Talesweaver\Integration\Symfony\Mail\RegistrationMailer'
             $passwordResetMailer: '@Talesweaver\Integration\Symfony\Mail\PasswordResetMailer'
 
+    FSi\DoctrineExtensions\Translatable\TranslatableListener: "@fsi_doctrine_extensions.listener.translatable"
     Knp\Snappy\GeneratorInterface: "@knp_snappy.pdf"
     Talesweaver\Application\Bus\CommandBus: '@Talesweaver\Integration\Symfony\Bus\CommandBus'
     Talesweaver\Application\Bus\EventBus: '@Talesweaver\Integration\Symfony\Bus\EventBus'
