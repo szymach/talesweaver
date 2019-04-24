@@ -10,7 +10,7 @@ use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Query\Scene\ScenesPage;
 
-class ListController
+final class ListController
 {
     /**
      * @var ResponseFactoryInterface
@@ -32,11 +32,7 @@ class ListController
     {
         return $this->responseFactory->fromTemplate(
             'scene/list.html.twig',
-            [
-                'scenes' => $this->queryBus->query(
-                    new ScenesPage($request->getAttribute('page'))
-                )
-            ]
+            ['scenes' => $this->queryBus->query(new ScenesPage((int) $request->getAttribute('page', 1)))]
         );
     }
 }

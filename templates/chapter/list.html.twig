@@ -3,29 +3,32 @@
 {% block seoTitle 'chapter.seo_title.list'|trans %}
 {% block body %}
     <div class="row">
-        <div class="col-sm offset-md-3 col-md-6  text-right">
-            {% include 'partial/pagination.html.twig' with { paginator: chapters } %}
-        </div>
-    </div>
-    <div class="row">
         {% if chapters|length > 0 %}
-            <div class="col-sm offset-md-3 col-md-6 ">
+            <div class="col-sm offset-md-3 col-md-6">
                 <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-right">{{ 'chapter.title'|trans }}</th>
+                            <th class="text-right">{{ 'chapter.book'|trans }}</th>
+                            <th class="text-right"></th>
+                        </tr>
+                    </thead>
                     <tbody>
                         {% for chapter in chapters %}
                             <tr>
                                 <td class="text-right">{{ chapter }}</td>
+                                <td class="text-right">{{ chapter.book }}</td>
                                 <td>
                                     <a class="btn btn-sm btn-primary"
                                        href="{{ path('chapter_edit', { id: chapter.id, page: page }) }}"
                                        title="{{ 'crud.edit'|trans }}"
-                                       >
+                                    >
                                         <span class="fa fa-edit"></span>
                                     </a>
                                     <a class="btn btn-sm btn-danger js-delete"
                                        href="{{ path('chapter_delete', { id: chapter.id, page: page }) }}"
                                        title="{{ 'crud.delete'|trans }}"
-                                       >
+                                    >
                                         <span class="fa fa-trash"></span>
                                     </a>
                                 </td>
@@ -34,17 +37,20 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="2" class="text-right">
+                            <td colspan="3" class="text-right">
                                 <a class="btn btn-sm btn-success"
                                    href="{{ path('chapter_create', { page: page }) }}"
                                    title="{{ 'chapter.list.create'|trans }}"
-                                   >
+                                >
                                     <span class="fa fa-plus"></span>
                                 </a>
                             </td>
                         </tr>
                     </tfoot>
                 </table>
+            </div>
+            <div class="col-sm offset-md-3 col-md-6 offset">
+                {% include 'partial/pagination.html.twig' with { paginator: chapters } only %}
             </div>
         {% else %}
             <div class="col-sm text-center">

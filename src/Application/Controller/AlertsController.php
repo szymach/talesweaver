@@ -7,7 +7,7 @@ namespace Talesweaver\Application\Controller;
 use Psr\Http\Message\ResponseInterface;
 use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 
-class AlertsController
+final class AlertsController
 {
     /**
      * @var ApiResponseFactoryInterface

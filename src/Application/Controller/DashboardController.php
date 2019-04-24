@@ -9,7 +9,7 @@ use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Query\Timeline\Full;
 
-class DashboardController
+final class DashboardController
 {
     /**
      * @var QueryBus

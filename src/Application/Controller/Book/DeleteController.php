@@ -46,7 +46,7 @@ class DeleteController
 
         return $this->responseFactory->redirectToRoute(
             'book_list',
-            ['page' => $request->getAttribute('page')]
+            ['page' => $request->getAttribute('page', 1)]
         );
     }
 }

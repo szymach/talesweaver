@@ -45,14 +45,6 @@ class ChapterRepository implements Chapters
         ]);
     }
 
-    public function findStandalone(): array
-    {
-        return $this->doctrineRepository->findBy([
-            'book' => null,
-            'createdBy' => $this->authorContext->getAuthor()
-        ]);
-    }
-
     public function findForBook(Book $book): array
     {
         return $this->doctrineRepository->findForAuthorAndBook(

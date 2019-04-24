@@ -9,7 +9,7 @@ use Pagerfanta\Pagerfanta;
 use Talesweaver\Application\Bus\QueryHandlerInterface;
 use Talesweaver\Domain\Chapters;
 
-class ChaptersPageHandler implements QueryHandlerInterface
+final class ChaptersPageHandler implements QueryHandlerInterface
 {
     /**
      * @var Chapters
@@ -23,7 +23,7 @@ class ChaptersPageHandler implements QueryHandlerInterface
 
     public function __invoke(ChaptersPage $query): Pagerfanta
     {
-        $pager = new Pagerfanta(new ArrayAdapter($this->chapters->findStandalone()));
+        $pager = new Pagerfanta(new ArrayAdapter($this->chapters->findAll()));
         $pager->setMaxPerPage(10);
         $pager->setCurrentPage($query->getPage());
 

@@ -60,7 +60,7 @@ class DeleteController
             ? $this->responseFactory->redirectToRoute('chapter_edit', ['id' => $chapterId])
             : $this->responseFactory->redirectToRoute(
                 'scene_list',
-                ['page' => $request->getAttribute('page')]
+                ['page' => $request->getAttribute('page', 1)]
             )
         ;
     }

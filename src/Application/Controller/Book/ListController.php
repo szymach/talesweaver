@@ -10,7 +10,7 @@ use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Query\Book\BooksPage;
 
-class ListController
+final class ListController
 {
     /**
      * @var ResponseFactoryInterface
@@ -32,7 +32,7 @@ class ListController
     {
         return $this->responseFactory->fromTemplate(
             'book/list.html.twig',
-            ['books' => $this->queryBus->query(new BooksPage($request->getAttribute('page')))]
+            ['books' => $this->queryBus->query(new BooksPage((int) $request->getAttribute('page', 1)))]
         );
     }
 }

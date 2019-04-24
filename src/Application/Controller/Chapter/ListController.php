@@ -10,7 +10,7 @@ use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Query\Chapter\ChaptersPage;
 
-class ListController
+final class ListController
 {
     /**
      * @var ResponseFactoryInterface

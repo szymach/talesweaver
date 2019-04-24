@@ -3,11 +3,6 @@
 {% block seoTitle 'book.seo_title.list'|trans %}
 {% block body %}
     <div class="row">
-        <div class="col-sm offset-md-3 col-md-6 text-right">
-            {% include 'partial/pagination.html.twig' with { paginator: books } only %}
-        </div>
-    </div>
-    <div class="row">
         {% if books|length > 0 %}
             <div class="col-sm offset-md-3 col-md-6">
                 <table class="table">
@@ -57,5 +52,10 @@
                 </a>
             </div>
         {% endif %}
+    </div>
+    <div class="row">
+        <div class="col-sm offset-md-3 col-md-6">
+            {% include 'partial/pagination.html.twig' with { paginator: books } only %}
+        </div>
     </div>
 {% endblock %}
