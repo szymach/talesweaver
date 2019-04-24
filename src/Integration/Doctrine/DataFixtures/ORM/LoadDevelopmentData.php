@@ -9,6 +9,8 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Faker\Factory;
+use Faker\Generator;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Book;
@@ -17,6 +19,7 @@ use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 
 final class LoadDevelopmentData extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
@@ -28,6 +31,11 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
     private const ITEM_COUNT = 3;
     private const LOCATION_COUNT = 4;
     private const LOCALE = 'pl';
+
+    /**
+     * @var Generator|null
+     */
+    private $faker;
 
     public static function getGroups(): array
     {
@@ -75,12 +83,17 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
     private function addScenesToChapter(ObjectManager $manager, Chapter $chapter): void
     {
         for ($i = 0; $i <= self::SCENE_COUNT; $i++) {
-            $scene = new Scene(Uuid::uuid4(), new ShortText("Scena {$i}"), $chapter, $chapter->getCreatedBy());
+            $title = new ShortText("Scena {$i}");
+            $scene = new Scene(Uuid::uuid4(), $title, $chapter, $chapter->getCreatedBy());
+            $scene->edit($title, LongText::fromNullableString($this->getFaker()->paragraphs(40, true)), $chapter);
             $scene->setLocale(self::LOCALE);
+
             $this->addCharactersToScene($scene);
             $this->addItemsToScene($scene);
             $this->addLocationsToScene($scene);
+
             $chapter->addScene($scene);
+
             $manager->persist($scene);
         }
     }
@@ -88,7 +101,14 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
     private function addCharactersToScene(Scene $scene): void
     {
         for ($i = 0; $i <= self::CHARACTER_COUNT; $i++) {
-            $character = new Character(Uuid::uuid4(), $scene, new ShortText("Postać {$i}"), null, null, $scene->getCreatedBy());
+            $character = new Character(
+                Uuid::uuid4(),
+                $scene,
+                new ShortText("Postać {$i}"),
+                LongText::fromNullableString($this->getFaker()->paragraphs(5, true)),
+                null,
+                $scene->getCreatedBy()
+            );
             $character->setLocale(self::LOCALE);
             $scene->addCharacter($character);
         }
@@ -97,7 +117,14 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
     private function addItemsToScene(Scene $scene): void
     {
         for ($i = 0; $i <= self::ITEM_COUNT; $i++) {
-            $item = new Item(Uuid::uuid4(), $scene, new ShortText("Przedmiot {$i}"), null, null, $scene->getCreatedBy());
+            $item = new Item(
+                Uuid::uuid4(),
+                $scene,
+                new ShortText("Przedmiot {$i}"),
+                LongText::fromNullableString($this->getFaker()->paragraphs(5, true)),
+                null,
+                $scene->getCreatedBy()
+            );
             $item->setLocale(self::LOCALE);
             $scene->addItem($item);
         }
@@ -106,9 +133,25 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
     private function addLocationsToScene(Scene $scene): void
     {
         for ($i = 0; $i <= self::LOCATION_COUNT; $i++) {
-            $location = new Location(Uuid::uuid4(), $scene, new ShortText("Miejsce {$i}"), null, null, $scene->getCreatedBy());
+            $location = new Location(
+                Uuid::uuid4(),
+                $scene,
+                new ShortText("Miejsce {$i}"),
+                LongText::fromNullableString($this->getFaker()->paragraphs(5, true)),
+                null,
+                $scene->getCreatedBy()
+            );
             $location->setLocale(self::LOCALE);
             $scene->addLocation($location);
         }
+    }
+
+    private function getFaker(): Generator
+    {
+        if (null === $this->faker) {
+            $this->faker = Factory::create('pl_PL');
+        }
+
+        return $this->faker;
     }
 }

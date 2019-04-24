@@ -92,6 +92,9 @@
     "fsi/doctrine-extensions-bundle": {
         "version": "2.0-dev"
     },
+    "fzaninotto/faker": {
+        "version": "v1.8.0"
+    },
     "guzzlehttp/guzzle": {
         "version": "6.3.0"
     },
