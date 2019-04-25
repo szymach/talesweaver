@@ -22,9 +22,9 @@ class Psr7Extension extends AbstractTypeExtension
         $this->formRequestHandler = $formRequestHandler;
     }
 
-    public function getExtendedType(): string
+    public static function getExtendedTypes(): array
     {
-        return FormType::class;
+        return [FormType::class];
     }
 
     public function configureOptions(OptionsResolver $resolver): void

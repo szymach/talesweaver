@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\RequestHandlerInterface;
 use Symfony\Component\Form\Util\ServerParams;
 
-class Psr7FormRequestHandler implements RequestHandlerInterface
+final class Psr7FormRequestHandler implements RequestHandlerInterface
 {
     /**
      * @var ServerParams

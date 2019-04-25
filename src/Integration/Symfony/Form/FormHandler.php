@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormInterface;
 use Talesweaver\Application\Form\FormHandlerInterface;
 use Talesweaver\Application\Form\FormViewInterface;
 
-class FormHandler implements FormHandlerInterface
+final class FormHandler implements FormHandlerInterface
 {
     /**
      * @var FormInterface

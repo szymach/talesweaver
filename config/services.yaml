@@ -78,11 +78,6 @@ services:
     Talesweaver\Integration\Symfony\:
         resource: "../src/Integration/Symfony/{Bus/Middleware,Form/{Event,Type},Http,Mail,Menu,Repository,Security,Session,Validation}/*"
 
-    # Http
-    Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory:
-        alias: sensio_framework_extra.psr7.http_message_factory
-        public: false
-
     # Doctrine Extensions
     fsi_doctrine_extensions.filehandler.chain:
         class: Talesweaver\Integration\DoctrineExtensions\Uploadable\FileHandler\DomainFileHandler

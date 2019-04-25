@@ -8,7 +8,7 @@ use Assert\Assertion;
 use InvalidArgumentException;
 use Talesweaver\Application\Form\Form;
 
-class FormClassResolver
+final class FormClassResolver
 {
     /**
      * @var Form[]

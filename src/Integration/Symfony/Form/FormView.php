@@ -7,7 +7,7 @@ namespace Talesweaver\Integration\Symfony\Form;
 use Symfony\Component\Form\FormView as SymfonyFormView;
 use Talesweaver\Application\Form\FormViewInterface;
 
-class FormView extends SymfonyFormView implements FormViewInterface
+final class FormView extends SymfonyFormView implements FormViewInterface
 {
     /**
      * @var array

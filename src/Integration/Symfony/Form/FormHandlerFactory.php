@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\FormHandlerInterface;
 
-class FormHandlerFactory implements FormHandlerFactoryInterface
+final class FormHandlerFactory implements FormHandlerFactoryInterface
 {
     /**
      * @var FormClassResolver

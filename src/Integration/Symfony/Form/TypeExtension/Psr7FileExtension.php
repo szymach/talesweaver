@@ -15,9 +15,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Psr7FileExtension extends AbstractTypeExtension
 {
-    public function getExtendedType(): string
+    public static function getExtendedTypes(): array
     {
-        return FileType::class;
+        return [FileType::class];
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
