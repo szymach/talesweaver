@@ -15,7 +15,7 @@
                     <tbody>
                         {% for book in books %}
                             <tr>
-                                <td class="text-right">{{ book }}</td>
+                                <td class="text-right">{{ book.title }}</td>
                                 <td>
                                     <a class="btn btn-sm btn-primary"
                                        href="{{ path('book_edit', { id: book.id }) }}"

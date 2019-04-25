@@ -31,7 +31,7 @@ class SceneRepository implements Scenes
     /**
      * @var TranslatableListener
      */
-    private $listener;
+    private $translatableListener;
 
     /**
      * @var AuthorContext
@@ -40,13 +40,13 @@ class SceneRepository implements Scenes
 
     public function __construct(
         EntityManagerInterface $manager,
-        TranslatableListener $listener,
+        TranslatableListener $translatableListener,
         DoctrineRepository $doctrineRepository,
         AuthorContext $authorContext
     ) {
         $this->manager = $manager;
         $this->doctrineRepository = $doctrineRepository;
-        $this->listener = $listener;
+        $this->translatableListener = $translatableListener;
         $this->authorContext = $authorContext;
     }
 
@@ -60,8 +60,7 @@ class SceneRepository implements Scenes
 
     public function createListView(): array
     {
-        $statement = $this->manager
-            ->getConnection()
+        $statement = $this->manager->getConnection()
             ->createQueryBuilder()
             ->select('s.id, st.title AS title')
             ->addSelect('ct.title AS chapter')
@@ -74,7 +73,7 @@ class SceneRepository implements Scenes
             ->leftJoin('b', 'book_translation', 'bt', 'b.id = bt.book_id AND bt.locale = :locale')
             ->where('s.created_by_id = :author')
             ->setParameter('author', $this->authorContext->getAuthor()->getId())
-            ->setParameter('locale', $this->listener->getLocale())
+            ->setParameter('locale', $this->translatableListener->getLocale())
             ->orderBy('c.book_id')
             ->orderBy('s.chapter_id')
             ->addOrderBy('st.title')

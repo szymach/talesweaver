@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Repository;
 
+use Doctrine\DBAL\FetchMode;
+use Doctrine\ORM\EntityManagerInterface;
+use FSi\DoctrineExtensions\Translatable\TranslatableListener;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Book;
@@ -14,18 +17,34 @@ use Talesweaver\Integration\Doctrine\Repository\BookRepository as DoctrineReposi
 class BookRepository implements Books
 {
     /**
+     * @var EntityManagerInterface
+     */
+    private $manager;
+
+    /**
      * @var DoctrineRepository
      */
     private $doctrineRepository;
+
+    /**
+     * @var TranslatableListener
+     */
+    private $translatableListener;
 
     /**
      * @var AuthorContext
      */
     private $authorContext;
 
-    public function __construct(DoctrineRepository $doctrineRepository, AuthorContext $authorContext)
-    {
+    public function __construct(
+        EntityManagerInterface $manager,
+        TranslatableListener $translatableListener,
+        DoctrineRepository $doctrineRepository,
+        AuthorContext $authorContext
+    ) {
+        $this->manager = $manager;
         $this->doctrineRepository = $doctrineRepository;
+        $this->translatableListener = $translatableListener;
         $this->authorContext = $authorContext;
     }
 
@@ -54,9 +73,23 @@ class BookRepository implements Books
 
     public function findAll(): array
     {
-        return $this->doctrineRepository->findBy([
-            'createdBy' => $this->authorContext->getAuthor()
-        ]);
+        $statement = $this->manager->getConnection()
+            ->createQueryBuilder()
+            ->select('b.id, bt.title AS title')
+            ->from('book', 'b')
+            ->leftJoin('b', 'book_translation', 'bt', 'b.id = bt.book_id AND bt.locale = :locale')
+            ->where('b.created_by_id = :author')
+            ->setParameter('author', $this->authorContext->getAuthor()->getId())
+            ->setParameter('locale', $this->translatableListener->getLocale())
+            ->orderBy('bt.title')
+            ->execute()
+        ;
+
+        if (null === $statement) {
+            return [];
+        }
+
+        return $statement->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     public function remove(UuidInterface $id): void
