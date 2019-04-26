@@ -23,7 +23,7 @@ final class BooksPageHandler implements QueryHandlerInterface
 
     public function __invoke(BooksPage $query): Pagerfanta
     {
-        $pager = new Pagerfanta(new ArrayAdapter($this->books->findAll()));
+        $pager = new Pagerfanta(new ArrayAdapter($this->books->createListView()));
         $pager->setMaxPerPage(5);
         $pager->setCurrentPage($query->getPage());
 

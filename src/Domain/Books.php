@@ -11,6 +11,7 @@ use Talesweaver\Domain\ValueObject\ShortText;
 interface Books extends LatestChangesAwareRepository
 {
     public function add(Book $book): void;
+    public function createListView(): array;
     public function findOneByTitle(ShortText $title): ?Book;
     public function find(UuidInterface $id): ?Book;
     public function findAll(): array;

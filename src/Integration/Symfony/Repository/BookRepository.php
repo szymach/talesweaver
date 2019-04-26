@@ -71,7 +71,7 @@ class BookRepository implements Books
         ]);
     }
 
-    public function findAll(): array
+    public function createListView(): array
     {
         $statement = $this->manager->getConnection()
             ->createQueryBuilder()
@@ -90,6 +90,13 @@ class BookRepository implements Books
         }
 
         return $statement->fetchAll(FetchMode::ASSOCIATIVE);
+    }
+
+    public function findAll(): array
+    {
+        return $this->doctrineRepository->findBy([
+            'createdBy' => $this->authorContext->getAuthor()
+        ]);
     }
 
     public function remove(UuidInterface $id): void

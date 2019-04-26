@@ -7,7 +7,7 @@ namespace Talesweaver\Application\Query\Chapter;
 use Talesweaver\Application\Bus\QueryHandlerInterface;
 use Talesweaver\Domain\Chapters;
 
-class StandaloneHandler implements QueryHandlerInterface
+final class StandaloneHandler implements QueryHandlerInterface
 {
     /**
      * @var Chapters
