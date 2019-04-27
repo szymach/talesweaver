@@ -2,7 +2,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ClearWebpackPlugin = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
 const { styles } = require('@ckeditor/ckeditor5-dev-utils');
 const path = require('path');
 
@@ -14,7 +13,11 @@ module.exports = {
             "bootstrap-loader",
             "./assets/typescript/app.ts"
         ],
-        ckeditor: ["./assets/scss/ckeditor.scss", "./assets/js/ckeditor.js"],
+        ckeditor: [
+            "./assets/scss/ckeditor.scss",
+            "./assets/js/ckeditor.js",
+            path.resolve(__dirname, "node_modules/@ckeditor/ckeditor5-build-classic/build/translations/pl.js")
+        ],
         display: "./assets/typescript/displayOnly.ts"
     },
     devtool: 'cheap-module-eval-source-map',
@@ -29,7 +32,6 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin({ filename: '[name].css' }),
         new OptimizeCssAssetsPlugin(),
-        new CKEditorWebpackPlugin({ language: 'pl' }),
         new ClearWebpackPlugin(['public/assets'], { root: __dirname, verbose: true })
     ],
     optimization: {
