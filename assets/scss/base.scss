@@ -74,3 +74,17 @@ blockquote {
     padding-right: 1.5em;
     padding-left: 1.5em;
 }
+
+.pagination {
+    .page-item {
+        .page-link:hover {
+            background: $primary;
+            border-color: $primary;
+            color: $white;
+        }
+
+        &.disabled {
+            cursor: not-allowed;
+        }
+    }
+}

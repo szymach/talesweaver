@@ -85,18 +85,18 @@ $navbar-light-active-color:         $black !default;
 
 // Pagination
 
-$pagination-color:                  $gray-600 !default;
-$pagination-bg:                     $gray-200 !default;
-$pagination-border-color:           $gray-300 !default;
+$pagination-color:                  $primary !default;
+$pagination-bg:                     $white !default;
+$pagination-border-color:           $primary !default;
 
 $pagination-hover-color:            $pagination-color !default;
 
-$pagination-active-color:           $pagination-color !default;
-$pagination-active-bg:              $gray-300 !default;
-$pagination-active-border-color:    $gray-300 !default;
+$pagination-active-color:           $white !default;
+$pagination-active-bg:              $primary !default;
+$pagination-active-border-color:    $primary !default;
 
-$pagination-disabled-color:         $gray-300 !default;
-$pagination-disabled-bg:            $gray-200 !default;
+$pagination-disabled-color:         $gray-600 !default;
+$pagination-disabled-bg:            $white !default;
 $pagination-disabled-border-color:  $pagination-border-color !default;
 
 // Cards
