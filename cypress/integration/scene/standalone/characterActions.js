@@ -24,7 +24,6 @@ describe('Character sidemenu actions', () => {
             cy.get('#modal-display').contains('Zamknij').click();
             cy.get('#modal-display').should('not.be.visible');
             cy.get('@characters').find('.js-list-toggle').click();
-            cy.wait(2000);
         });
 
         cy.get('@characters').within(() => {
@@ -39,8 +38,7 @@ describe('Character sidemenu actions', () => {
 
         cy.get('@characters').within(() => {
             cy.get('.js-list-toggle').click();
-            cy.get('.pagination .next a').click();
-            // increasing timeout does not work
+            cy.get('.pagination .next').click();
             cy.wait(2000);
             cy.get('.sublist-label').contains('Postać edytowana').next().find('.js-delete').click();
         }).then(() => {

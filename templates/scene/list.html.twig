@@ -2,8 +2,8 @@
 
 {% block seoTitle 'scene.seo_title.list'|trans %}
 {% block body %}
-    <div class="row">
-        {% if scenes|length > 0 %}
+    {% if scenes|length > 0 %}
+        <div class="row">
             <div class="col-sm offset-md-3 col-md-6">
                 <table class="table">
                     <thead>
@@ -51,19 +51,23 @@
                     </tfoot>
                 </table>
             </div>
+        </div>
+        <div class="row">
             <div class="col-sm offset-md-3 col-md-6 text-right">
                 {% include 'partial/pagination.html.twig' with { paginator: scenes } %}
             </div>
-            {% else %}
-                <div class="col-sm text-center">
-                    <h4>{{- 'scene.list.standalone.no_results.header'|trans -}}</h4>
-                    <a class="btn btn-sm btn-success"
-                       href="{{ path('scene_create') }}"
-                       title="{{ 'scene.actions.create'|trans }}"
-                    >
-                        <span class="fa fa-plus"></span> {{ 'scene.list.standalone.no_results.add_new'|trans }}
-                    </a>
-                </div>
-            {% endif %}
-    </div>
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-sm text-center">
+                <h4>{{- 'scene.list.standalone.no_results.header'|trans -}}</h4>
+                <a class="btn btn-sm btn-success"
+                   href="{{ path('scene_create') }}"
+                   title="{{ 'scene.actions.create'|trans }}"
+                   >
+                    <span class="fa fa-plus"></span> {{ 'scene.list.standalone.no_results.add_new'|trans }}
+                </a>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}

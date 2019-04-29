@@ -29,26 +29,28 @@ table:not(.dashboard) {
 
 #alerts {
     position: relative;
-}
 
-.alert:not(.alert-form) {
-    left: 0;
-    margin-bottom: 0;
-    position: fixed;
-    right: 0;
-    text-align: center;
-    top: 60px;
-    z-index: 100;
+    .alert {
+        left: 0;
+        margin-bottom: 0;
+        padding: .5rem 3.8125rem .5rem 1.25rem;
+        position: fixed;
+        right: 0;
+        text-align: center;
+        top: 60px;
+        z-index: 100;
 
-    @include media-breakpoint-up(md) {
-        min-width: 400px;
-        max-width: 600px;
-        right: 60px;
-        left: inherit;
-    }
+        @include media-breakpoint-up(md) {
+            min-width: 400px;
+            max-width: 600px;
+            left: 50%;
+            right: inherit;
+            margin-left: -200px;
+        }
 
-    div {
-        margin: 5px 0;
+        div {
+            margin: 5px 0;
+        }
     }
 }
 

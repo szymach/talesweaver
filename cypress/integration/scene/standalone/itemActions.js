@@ -24,7 +24,6 @@ describe('Location sidemenu actions', () => {
             cy.get('#modal-display').contains('Zamknij').click();
             cy.get('#modal-display').should('not.be.visible');
             cy.get('@items').find('.js-list-toggle').click();
-            cy.wait(2000);
         });
 
         cy.get('@items').within(() => {

@@ -85,7 +85,7 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
         for ($i = 0; $i <= self::SCENE_COUNT; $i++) {
             $title = new ShortText("Scena {$i}");
             $scene = new Scene(Uuid::uuid4(), $title, $chapter, $chapter->getCreatedBy());
-            $scene->edit($title, LongText::fromNullableString($this->getFaker()->paragraphs(40, true)), $chapter);
+            $scene->edit($title, LongText::fromNullableString($this->createRandomText(40)), $chapter);
             $scene->setLocale(self::LOCALE);
 
             $this->addCharactersToScene($scene);
@@ -105,7 +105,7 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
                 Uuid::uuid4(),
                 $scene,
                 new ShortText("Postać {$i}"),
-                LongText::fromNullableString($this->getFaker()->paragraphs(5, true)),
+                LongText::fromNullableString($this->createRandomText(5)),
                 null,
                 $scene->getCreatedBy()
             );
@@ -121,7 +121,7 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
                 Uuid::uuid4(),
                 $scene,
                 new ShortText("Przedmiot {$i}"),
-                LongText::fromNullableString($this->getFaker()->paragraphs(5, true)),
+                LongText::fromNullableString($this->createRandomText(5)),
                 null,
                 $scene->getCreatedBy()
             );
@@ -137,13 +137,21 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
                 Uuid::uuid4(),
                 $scene,
                 new ShortText("Miejsce {$i}"),
-                LongText::fromNullableString($this->getFaker()->paragraphs(5, true)),
+                LongText::fromNullableString($this->createRandomText(5)),
                 null,
                 $scene->getCreatedBy()
             );
             $location->setLocale(self::LOCALE);
             $scene->addLocation($location);
         }
+    }
+
+    private function createRandomText(int $number): string
+    {
+        $text = $this->getFaker()->paragraphs($number, true);
+        Assertion::string($text);
+
+        return $text;
     }
 
     private function getFaker(): Generator

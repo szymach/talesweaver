@@ -176,6 +176,10 @@ export function ready(callback: () => void): void {
 }
 
 export function fadeOut(fadeTarget: Element, duration: number): void {
+    if (null === fadeTarget || typeof fadeTarget === 'undefined') {
+        return;
+    }
+
     const transitionStates = '-webkit-transition-: opacity ' + duration + 's ease-in-out;' +
         ' -moz-transition-: opacity ' + duration + 's ease-in-out;' +
         ' -o-transition-: opacity ' + duration + 's ease-in-out;' +
@@ -184,7 +188,12 @@ export function fadeOut(fadeTarget: Element, duration: number): void {
         ;
     fadeTarget.setAttribute('style', transitionStates);
     window.setTimeout(() => {
-        fadeTarget.parentElement.removeChild(fadeTarget)
+        const parent = fadeTarget.parentElement;
+        if (null === parent || typeof parent === 'undefined') {
+            return;
+        }
+
+        parent.removeChild(fadeTarget)
     }, duration * 1000);
 }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Repository;
 
+use Doctrine\DBAL\Driver\Statement;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\ORM\EntityManagerInterface;
 use FSi\DoctrineExtensions\Translatable\TranslatableListener;
@@ -85,7 +86,7 @@ class BookRepository implements Books
             ->execute()
         ;
 
-        if (null === $statement) {
+        if (false === $statement instanceof Statement) {
             return [];
         }
 
