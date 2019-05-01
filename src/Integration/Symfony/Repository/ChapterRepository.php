@@ -95,14 +95,6 @@ class ChapterRepository implements Chapters
         ]);
     }
 
-    public function findForBook(Book $book): array
-    {
-        return $this->doctrineRepository->findForAuthorAndBook(
-            $this->authorContext->getAuthor(),
-            $book
-        );
-    }
-
     public function findOneByTitle(ShortText $title): ?Chapter
     {
         return $this->doctrineRepository->createTranslatableQueryBuilder('c')

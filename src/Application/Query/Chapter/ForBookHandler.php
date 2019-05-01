@@ -21,6 +21,6 @@ final class ForBookHandler implements QueryHandlerInterface
 
     public function __invoke(ForBook $query): array
     {
-        return $this->chapters->findForBook($query->getBook());
+        return $this->chapters->createListView($query->getBook());
     }
 }
