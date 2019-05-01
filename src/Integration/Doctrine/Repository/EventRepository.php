@@ -9,7 +9,10 @@ use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
+use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event;
+use Talesweaver\Domain\Item;
+use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
 
 class EventRepository extends AutoWireableTranslatableRepository
@@ -42,6 +45,45 @@ class EventRepository extends AutoWireableTranslatableRepository
             ->andWhere('e.createdBy = :author')
             ->orderBy('t.name', 'ASC')
             ->setParameter('scene', $scene)
+            ->setParameter('author', $author)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findForCharacter(Author $author, Character $character): array
+    {
+        return $this->createTranslatableQueryBuilder('e')
+            ->where(':character MEMBER OF e.characters')
+            ->andWhere('e.createdBy = :author')
+            ->orderBy('t.name', 'ASC')
+            ->setParameter('character', $character)
+            ->setParameter('author', $author)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findForItem(Author $author, Item $item): array
+    {
+        return $this->createTranslatableQueryBuilder('e')
+            ->where(':item MEMBER OF e.items')
+            ->andWhere('e.createdBy = :author')
+            ->orderBy('t.name', 'ASC')
+            ->setParameter('item', $item)
+            ->setParameter('author', $author)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findForLocation(Author $author, Location $location): array
+    {
+        return $this->createTranslatableQueryBuilder('e')
+            ->where('e.location = :location')
+            ->andWhere('e.createdBy = :author')
+            ->orderBy('t.name', 'ASC')
+            ->setParameter('location', $location)
             ->setParameter('author', $author)
             ->getQuery()
             ->getResult()

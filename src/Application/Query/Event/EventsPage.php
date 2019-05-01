@@ -6,7 +6,7 @@ namespace Talesweaver\Application\Query\Event;
 
 use Talesweaver\Domain\Scene;
 
-class EventsPage
+final class EventsPage
 {
     /**
      * @var Scene

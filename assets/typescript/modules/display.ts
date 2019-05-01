@@ -20,6 +20,7 @@ export module Display {
                     function (response: DisplayResponse): void {
                         const modal: HTMLElement = document.getElementById('modal-display');
                         modal.querySelector('.modal-content').innerHTML = response.display;
+                        initScripts();
                         new bootstrap.Modal(modal).show();
                     }
                 );
@@ -42,5 +43,11 @@ export module Display {
             }
         );
         AjaxContainer.clearAjaxContainer();
+    }
+
+    function initScripts() {
+        document.querySelectorAll('[data-toggle="tab"]').forEach((element: Element) => {
+            new bootstrap.Tab(element);
+        });
     }
 }

@@ -7,8 +7,11 @@ namespace Talesweaver\Integration\Symfony\Repository;
 use Ramsey\Uuid\UuidInterface;
 use RuntimeException;
 use Talesweaver\Application\Security\AuthorContext;
+use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Events;
+use Talesweaver\Domain\Item;
+use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Doctrine\Repository\EventRepository as DoctrineRepository;
 
@@ -53,6 +56,30 @@ class EventRepository implements Events
         return $this->doctrineRepository->findForScene(
             $this->authorContext->getAuthor(),
             $scene
+        );
+    }
+
+    public function findForCharacter(Character $character): array
+    {
+        return $this->doctrineRepository->findForCharacter(
+            $this->authorContext->getAuthor(),
+            $character
+        );
+    }
+
+    public function findForItem(Item $item): array
+    {
+        return $this->doctrineRepository->findForItem(
+            $this->authorContext->getAuthor(),
+            $item
+        );
+    }
+
+    public function findForLocation(Location $location): array
+    {
+        return $this->doctrineRepository->findForLocation(
+            $this->authorContext->getAuthor(),
+            $location
         );
     }
 

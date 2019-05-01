@@ -9,7 +9,7 @@ use Pagerfanta\Pagerfanta;
 use Talesweaver\Application\Bus\QueryHandlerInterface;
 use Talesweaver\Domain\Events;
 
-class EventsPageHandler implements QueryHandlerInterface
+final class EventsPageHandler implements QueryHandlerInterface
 {
     /**
      * @var Events

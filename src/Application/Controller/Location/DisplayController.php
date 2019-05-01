@@ -9,6 +9,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\LocationResolver;
+use Talesweaver\Application\Query\Event\LocationView;
 
 final class DisplayController
 {
@@ -43,7 +44,10 @@ final class DisplayController
         return $this->responseFactory->display(
             'scene\common\display.html.twig',
             [
-                'view' => $location
+                'name' => $location->getName(),
+                'description' => $location->getDescription(),
+                'avatar' => $location->getAvatar(),
+                'events' => $this->queryBus->query(new LocationView($location))
             ]
         );
     }

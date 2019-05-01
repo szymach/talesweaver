@@ -9,6 +9,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\ItemResolver;
+use Talesweaver\Application\Query\Event\ItemView;
 
 final class DisplayController
 {
@@ -43,7 +44,10 @@ final class DisplayController
         return $this->responseFactory->display(
             'scene\common\display.html.twig',
             [
-                'view' => $item
+                'name' => $item->getName(),
+                'description' => $item->getDescription(),
+                'avatar' => $item->getAvatar(),
+                'events' => $this->queryBus->query(new ItemView($item))
             ]
         );
     }

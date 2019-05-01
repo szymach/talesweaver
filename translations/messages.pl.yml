@@ -207,7 +207,6 @@ scene:
                 header: Nie masz jeszcze żadnej sceny.
                 add_new: Dodaj nową!
     tabs:
-        basic: Treść
         characters: Postacie
         locations: Miejsca
         items: Przedmioty
@@ -221,6 +220,9 @@ scene:
         form:
             create: Nowa scena
             edit: '%title% - edycja'
+    modal:
+        events: Wydarzenia
+        description: Opis
 
 event:
     name: Nazwa

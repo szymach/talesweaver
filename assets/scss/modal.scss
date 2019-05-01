@@ -1,5 +1,8 @@
 .modal-body {
-    ol, ul {
-        padding-left: 20px;
+    .tab-pane {
+        padding: 10px;
+        ol, ul {
+            padding-left: 15px;
+        }
     }
 }
