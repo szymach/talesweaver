@@ -7,7 +7,7 @@ namespace Talesweaver\Application\Controller;
 use Psr\Http\Message\ResponseInterface;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Query\Timeline\Full;
+use Talesweaver\Application\Query\User\LatestChanges;
 
 final class DashboardController
 {
@@ -31,7 +31,7 @@ final class DashboardController
     {
         return $this->responseFactory->fromTemplate(
             'dashboard.html.twig',
-            ['timeline' => $this->queryBus->query(new Full())]
+            ['timeline' => $this->queryBus->query(new LatestChanges())]
         );
     }
 }

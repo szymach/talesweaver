@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Talesweaver\Domain;
 
 use Ramsey\Uuid\UuidInterface;
-use Talesweaver\Domain\Repository\LatestChangesAwareRepository;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-interface Chapters extends LatestChangesAwareRepository
+interface Chapters
 {
     public function createListView(): array;
     public function find(UuidInterface $id): ?Chapter;

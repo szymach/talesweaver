@@ -4,25 +4,26 @@
     <div class="row">
         <div class="col-sm col-md-7 text-center">
             <h3>{{ 'dashboard.header.top'|trans }}</h3>
-            <h4>{{ 'dashboard.header.bottom'|trans }}</h4>
         </div>
         {% if timeline|length > 0 %}
             <div class="col-sm col-md-5">
-                <div class="card">
+                <div class="card border-secondary">
+                    <h4 class="card-header border-secondary">{{ 'dashboard.timeline'|trans }}</h4>
                     <div class="card-body">
-                        <h3 class="card-title text-left">{{ 'dashboard.timeline'|trans }}</h3>
-                        <ul class="list-unstyled dashboard-timeline">{% filter spaceless %}
+                        <ul class="list-unstyled">
                             {% for item in timeline %}
                                 <li>
-                                    <h5 class="inline-block">
-                                        <i class="fa fa-{{ item.updated ? 'history' : 'plus-circle' }}" title="{{ ('dashboard.updated.' ~ item.updated)|trans }}"></i>
-                                        <a href="{{ path(item.route, { id: item.id }) }}" title="{{ ('dashboard.type.' ~ item.class)|trans }}">
+                                    <h5>
+                                        <i class="fa fa-{{ item.updated ? 'history' : 'plus-circle' }} mr-2"
+                                           title="{{ ('dashboard.updated.' ~ item.updated)|trans }}"
+                                        ></i>
+                                        <a href="{{ item.url }}" title="{{ ('dashboard.type.' ~ item.class)|trans }}">
                                             {{ item.label|truncate(25) }}
                                         </a>
                                     </h5>
                                 </li>
                             {% endfor %}
-                        {% endfilter %}</ul>
+                        </ul>
                     </div>
                 </div>
             </div>

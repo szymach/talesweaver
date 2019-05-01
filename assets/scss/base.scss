@@ -1,6 +1,5 @@
 @import 'sandstone/_bootswatch';
 @import 'ajax';
-@import 'display';
 @import 'form';
 @import 'modal';
 @import 'nav';
@@ -51,16 +50,6 @@ table:not(.dashboard) {
         div {
             margin: 5px 0;
         }
-    }
-}
-
-.dashboard-timeline {
-    h5 {
-        margin: 5px 0;
-    }
-
-    i {
-        width: 22px;
     }
 }
 

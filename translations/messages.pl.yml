@@ -111,7 +111,6 @@ security:
 dashboard:
     header:
         top: Witaj w aplikacji Bajkopisarz!
-        bottom: Wybierz jedną z pozycji u góry by rozpocząć pracę.
     timeline: Ostatnie zmiany
     type:
         'Talesweaver\Domain\Book': Książka

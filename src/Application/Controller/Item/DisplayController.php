@@ -9,10 +9,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\ItemResolver;
-use Talesweaver\Application\Query\Timeline\ForEntity;
-use Talesweaver\Domain\Item;
 
-class DisplayController
+final class DisplayController
 {
     /**
      * @var ItemResolver
@@ -45,10 +43,7 @@ class DisplayController
         return $this->responseFactory->display(
             'scene\common\display.html.twig',
             [
-                'view' => $item,
-                'timeline' => $this->queryBus->query(
-                    new ForEntity($item->getId(), Item::class)
-                )
+                'view' => $item
             ]
         );
     }

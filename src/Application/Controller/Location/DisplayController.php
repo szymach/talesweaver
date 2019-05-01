@@ -9,10 +9,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\LocationResolver;
-use Talesweaver\Application\Query\Timeline\ForEntity;
-use Talesweaver\Domain\Location;
 
-class DisplayController
+final class DisplayController
 {
     /**
      * @var LocationResolver
@@ -45,10 +43,7 @@ class DisplayController
         return $this->responseFactory->display(
             'scene\common\display.html.twig',
             [
-                'view' => $location,
-                'timeline' => $this->queryBus->query(
-                    new ForEntity($location->getId(), Location::class)
-                )
+                'view' => $location
             ]
         );
     }

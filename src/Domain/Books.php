@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Talesweaver\Domain;
 
 use Ramsey\Uuid\UuidInterface;
-use Talesweaver\Domain\Repository\LatestChangesAwareRepository;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-interface Books extends LatestChangesAwareRepository
+interface Books
 {
     public function add(Book $book): void;
     public function createListView(): array;
