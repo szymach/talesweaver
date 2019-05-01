@@ -8,7 +8,7 @@ use Talesweaver\Application\Bus\QueryHandlerInterface;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Chapters;
 
-class ByIdHandler implements QueryHandlerInterface
+final class ByIdHandler implements QueryHandlerInterface
 {
     /**
      * @var Chapters

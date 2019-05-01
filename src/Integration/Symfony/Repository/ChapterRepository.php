@@ -58,9 +58,9 @@ class ChapterRepository implements Chapters
         ]);
     }
 
-    public function createListView(): array
+    public function createListView(?Book $book): array
     {
-        $statement = $this->manager->getConnection()
+        $query = $this->manager->getConnection()
             ->createQueryBuilder()
             ->select('c.id, ct.title AS title')
             ->addSelect('bt.title AS book')
@@ -69,13 +69,18 @@ class ChapterRepository implements Chapters
             ->leftJoin('c', 'book', 'b', 'c.book_id = b.id')
             ->leftJoin('b', 'book_translation', 'bt', 'b.id = bt.book_id AND bt.locale = :locale')
             ->where('c.created_by_id = :author')
-            ->setParameter('author', $this->authorContext->getAuthor()->getId())
-            ->setParameter('locale', $this->translatableListener->getLocale())
             ->orderBy('c.book_id')
             ->addOrderBy('ct.title')
-            ->execute()
+            ->groupBy('c.id')
+            ->setParameter('author', $this->authorContext->getAuthor()->getId())
+            ->setParameter('locale', $this->translatableListener->getLocale())
         ;
 
+        if (null !== $book) {
+            $query->andWhere('b.id = :book')->setParameter('book', $book->getId());
+        }
+
+        $statement = $query->execute();
         if (false === $statement instanceof Statement) {
             return [];
         }

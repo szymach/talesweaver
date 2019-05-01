@@ -7,7 +7,7 @@ namespace Talesweaver\Application\Query\Chapter;
 use Talesweaver\Application\Bus\QueryHandlerInterface;
 use Talesweaver\Domain\Chapters;
 
-class EntityExistsHandler implements QueryHandlerInterface
+final class EntityExistsHandler implements QueryHandlerInterface
 {
     /**
      * @var Chapters

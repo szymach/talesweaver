@@ -9,7 +9,7 @@ use Talesweaver\Domain\ValueObject\ShortText;
 
 interface Chapters
 {
-    public function createListView(): array;
+    public function createListView(?Book $book): array;
     public function find(UuidInterface $id): ?Chapter;
     public function findForBook(Book $book): array;
     public function findOneByTitle(ShortText $title): ?Chapter;

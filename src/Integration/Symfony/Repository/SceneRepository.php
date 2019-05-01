@@ -59,9 +59,9 @@ class SceneRepository implements Scenes
         ]);
     }
 
-    public function createListView(): array
+    public function createListView(?Chapter $chapter): array
     {
-        $statement = $this->manager->getConnection()
+        $query = $this->manager->getConnection()
             ->createQueryBuilder()
             ->select('s.id, st.title AS title')
             ->addSelect('ct.title AS chapter')
@@ -73,14 +73,19 @@ class SceneRepository implements Scenes
             ->leftJoin('c', 'book', 'b', 'c.book_id = b.id')
             ->leftJoin('b', 'book_translation', 'bt', 'b.id = bt.book_id AND bt.locale = :locale')
             ->where('s.created_by_id = :author')
+            ->groupBy('s.id')
+            ->orderBy('c.book_id')
+            ->addOrderBy('s.chapter_id')
+            ->addOrderBy('st.title')
             ->setParameter('author', $this->authorContext->getAuthor()->getId())
             ->setParameter('locale', $this->translatableListener->getLocale())
-            ->orderBy('c.book_id')
-            ->orderBy('s.chapter_id')
-            ->addOrderBy('st.title')
-            ->execute()
         ;
 
+        if (null !== $chapter) {
+            $query->andWhere('c.id = :chapter')->setParameter('chapter', $chapter->getId());
+        }
+
+        $statement = $query->execute();
         if (false === $statement instanceof Statement) {
             return [];
         }
@@ -106,21 +111,6 @@ class SceneRepository implements Scenes
     public function remove(UuidInterface $id): void
     {
         $this->doctrineRepository->remove($this->authorContext->getAuthor(), $id);
-    }
-
-    public function findStandalone(): array
-    {
-        return $this->doctrineRepository->findStandaloneForAuthor(
-            $this->authorContext->getAuthor()
-        );
-    }
-
-    public function findForChapter(Chapter $chapter): array
-    {
-        return $this->doctrineRepository->findForAuthorAndChapter(
-            $this->authorContext->getAuthor(),
-            $chapter
-        );
     }
 
     public function findLatest(int $limit = 3): array
@@ -149,50 +139,5 @@ class SceneRepository implements Scenes
         }
 
         return $exists;
-    }
-
-    public function firstCharacterOccurence(UuidInterface $id): string
-    {
-        $author = $this->authorContext->getAuthor();
-        $result = $this->doctrineRepository->firstCharacterOccurence($author, $id);
-        if (null === $result) {
-            throw new AccessDeniedException(sprintf(
-                'Character with id "%s" does not belong to user "%s"',
-                $id->toString(),
-                $author->getId()->toString()
-            ));
-        }
-
-        return $result;
-    }
-
-    public function firstItemOccurence(UuidInterface $id): string
-    {
-        $author = $this->authorContext->getAuthor();
-        $result = $this->doctrineRepository->firstItemOccurence($author, $id);
-        if (null === $result) {
-            throw new AccessDeniedException(sprintf(
-                'Item with id "%s" does not belong to user "%s"',
-                $id->toString(),
-                $author->getId()->toString()
-            ));
-        }
-
-        return $result;
-    }
-
-    public function firstLocationOccurence(UuidInterface $id): string
-    {
-        $author = $this->authorContext->getAuthor();
-        $result = $this->doctrineRepository->firstLocationOccurence($author, $id);
-        if (null === $result) {
-            throw new AccessDeniedException(sprintf(
-                'Location with id "%s" does not belong to user "%s"',
-                $id->toString(),
-                $author->getId()->toString()
-            ));
-        }
-
-        return $result;
     }
 }

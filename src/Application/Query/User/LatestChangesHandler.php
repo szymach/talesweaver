@@ -54,8 +54,8 @@ final class LatestChangesHandler implements QueryHandlerInterface
             $this->mapItemsToView($this->bookRepository->findLatest(), Book::class, 'book_edit'),
             $this->mapItemsToView($this->chapterRepository->findLatest(), Chapter::class, 'chapter_edit'),
             $this->mapItemsToView($this->sceneRepository->findLatest(), Scene::class, 'scene_edit')
-
         );
+
         uasort($timeline, function (array $a, array $b): int {
             return -($a['date'] <=> $b['date']);
         });

@@ -9,7 +9,6 @@ use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
-use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
 
 class SceneRepository extends AutoWireableTranslatableRepository
@@ -32,75 +31,6 @@ class SceneRepository extends AutoWireableTranslatableRepository
             ->andWhere('s.createdBy = :createdBy')
             ->getQuery()
             ->execute(['id' => $id->toString(), 'createdBy' => $author])
-        ;
-    }
-
-    public function findStandaloneForAuthor(Author $author): array
-    {
-        return $this->createQueryBuilder('s')
-            ->where('s.createdBy = :author')
-            ->andWhere('s.chapter IS NULL')
-            ->orderBy('s.createdAt')
-            ->setParameter('author', $author)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
-    public function findForAuthorAndChapter(Author $author, Chapter $chapter): array
-    {
-        return $this->createQueryBuilder('s')
-            ->where('s.chapter = :chapter')
-            ->andWhere('s.createdBy = :author')
-            ->orderBy('s.createdAt')
-            ->setParameter('chapter', $chapter)
-            ->setParameter('author', $author)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
-    public function firstCharacterOccurence(Author $author, UuidInterface $id): ?string
-    {
-        return $this->createFirstOccurenceQueryBuilder($author, $id)
-            ->join('s.characters', 'c')
-            ->andWhere('c MEMBER OF s.characters')
-            ->andWhere('c.id = :id')
-            ->getQuery()
-            ->getSingleScalarResult()
-        ;
-    }
-
-    public function firstItemOccurence(Author $author, UuidInterface $id): ?string
-    {
-        return $this->createFirstOccurenceQueryBuilder($author, $id)
-            ->join('s.items', 'i')
-            ->andWhere('i MEMBER OF s.items')
-            ->andWhere('i.id = :id')
-            ->getQuery()
-            ->getSingleScalarResult()
-        ;
-    }
-
-    public function firstLocationOccurence(Author $author, UuidInterface $id): ?string
-    {
-        return $this->createFirstOccurenceQueryBuilder($author, $id)
-            ->join('s.locations', 'l')
-            ->andWhere('l MEMBER OF s.locations')
-            ->andWhere('l.id = :id')
-            ->getQuery()
-            ->getSingleScalarResult()
-        ;
-    }
-
-    public function firstSceneOccurence(Author $author, UuidInterface $id): ?string
-    {
-        return $this->createFirstOccurenceQueryBuilder($author, $id)
-            ->join('s.scenes', 'l')
-            ->andWhere('l MEMBER OF s.scenes')
-            ->andWhere('l.id = :id')
-            ->getQuery()
-            ->getSingleScalarResult()
         ;
     }
 
@@ -164,20 +94,6 @@ class SceneRepository extends AutoWireableTranslatableRepository
             ->setParameter('author', $author)
             ->setParameter('title', $title)
             ->setParameter('locale', $this->getTranslatableListener()->getLocale())
-        ;
-    }
-
-    private function createFirstOccurenceQueryBuilder(Author $author, UuidInterface $id): QueryBuilder
-    {
-        return $this->getEntityManager()
-            ->createQueryBuilder()
-            ->select('st.title')
-            ->from($this->getEntityName(), 's')
-            ->join('s.translations', 'st')
-            ->where('s.createdBy = :author')
-            ->setParameter('id', $id)
-            ->setParameter('author', $author)
-            ->setMaxResults(1)
         ;
     }
 }
