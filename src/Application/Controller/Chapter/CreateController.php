@@ -52,7 +52,7 @@ final class CreateController
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
         $book = $this->bookResolver->nullableFromRequest($request);
-        $bookId = $book ? $book->getId() : null;
+        $bookId = null !== $book ? $book->getId() : null;
         $formHandler = $this->formHandlerFactory->createWithRequest(
             $request,
             Create::class,

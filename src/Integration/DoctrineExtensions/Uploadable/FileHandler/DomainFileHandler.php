@@ -30,7 +30,7 @@ class DomainFileHandler implements Handler
     }
 
     /**
-     * @param File $file
+     * @param mixed $file
      * @return string
      */
     public function getContent($file): string
@@ -39,7 +39,7 @@ class DomainFileHandler implements Handler
     }
 
     /**
-     * @param File $file
+     * @param mixed $file
      * @return string
      */
     public function getName($file): string

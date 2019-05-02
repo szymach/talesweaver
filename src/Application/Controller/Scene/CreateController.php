@@ -9,12 +9,10 @@ use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Bus\CommandBus;
+use Talesweaver\Application\Command\Scene\Create\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Scene\Create;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Command\Scene\Create\Command;
-use Talesweaver\Application\Command\Scene\Create\DTO;
-use Talesweaver\Domain\ValueObject\ShortText;
 
 class CreateController
 {
@@ -70,6 +68,6 @@ class CreateController
     private function getChapterId(DTO $dto): ?UuidInterface
     {
         $chapter = $dto->getChapter();
-        return $chapter ? $chapter->getId(): null;
+        return null !== $chapter ? $chapter->getId(): null;
     }
 }

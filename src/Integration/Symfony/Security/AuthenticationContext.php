@@ -28,7 +28,7 @@ final class AuthenticationContext implements ApplicationAuthenticationContext
 
     public function lastError(): ?string
     {
-        /** @var AuthenticationException|string|null $error */
+        /** @var AuthenticationException|string|null|object $error */
         $error = $this->authenticationUtilities->getLastAuthenticationError();
         if (null === $error || true === is_string($error)) {
             $value = $error;
