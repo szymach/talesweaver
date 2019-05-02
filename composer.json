@@ -98,6 +98,28 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "sniffer": "vendor/bin/phpcs",
+        "phpstan": "vendor/bin/phpstan analyse -l 7 -c phpstan.neon src",
+        "deptrac": [
+            "[ -f vendor/bin/deptrac.phar ] || curl -LS http://get.sensiolabs.de/deptrac.phar -o vendor/bin/deptrac.phar && chmod +x vendor/bin/deptrac.phar",
+            "vendor/bin/deptrac.phar analyze --formatter-graphviz=0 config/layers.yml"
+        ],
+        "linters": [
+            "bin/console lint:yaml config",
+            "bin/console lint:yaml translations",
+            "bin/console lint:twig templates"
+        ],
+        "create-schema": [
+            "bin/console doctrine:database:create",
+            "bin/console doctrine:schema:create"
+        ],
+        "validate-schema": "bin/console doctrine:schema:validate",
+        "static-analysis": [
+            "@sniffer",
+            "@phpstan",
+            "@deptrac",
+            "@linters"
         ]
     },
     "extra": {

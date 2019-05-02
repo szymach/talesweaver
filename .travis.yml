@@ -32,19 +32,15 @@ before_install:
 install:
     - composer install -n
     - composer validate
-    - "[ -f vendor/bin/deptrac.phar ] || curl -LS http://get.sensiolabs.de/deptrac.phar -o vendor/bin/deptrac.phar && chmod +x vendor/bin/deptrac.phar"
-    - bin/console doctrine:database:create
-    - bin/console doctrine:schema:create
+    - composer run create-schema
     - nvm install 10
 
 script:
-    - vendor/bin/phpcs
-    - vendor/bin/deptrac.phar analyze --formatter-graphviz=0 config/layers.yml
-    - bin/console lint:yaml config
-    - bin/console lint:yaml translations
-    - bin/console lint:twig templates
-    - bin/console doctrine:schema:validate
-    - vendor/bin/phpstan analyse -l 7 -c phpstan.neon src
+    - composer run sniffer
+    - composer run deptrac
+    - composer run linters
+    - composer run phpstan
+    - composer run validate-schema
     - vendor/bin/codecept run
     - bin/console doctrine:fixtures:load -n --group=integration
     - APP_ENV=test php -d variables_order=EGPCS -S 127.0.0.1:8000 -t public > var/log/server.log 2>&1 &

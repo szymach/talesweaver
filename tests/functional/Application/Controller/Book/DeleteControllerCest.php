@@ -8,7 +8,7 @@ use Talesweaver\Tests\FunctionalTester;
 
 class DeleteControllerCest
 {
-    public function testBookDeletetion(FunctionalTester $I): void
+    public function testBookDeletion(FunctionalTester $I): void
     {
         $I->loginAsUser();
         $bookId = $I->haveCreatedABook('Tytuł nowej książki')->getId();
