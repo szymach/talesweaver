@@ -19,7 +19,7 @@ use Talesweaver\Application\Command\Chapter\Edit\DTO;
 use Talesweaver\Application\Form\Type\Chapter\Edit;
 use Talesweaver\Application\Query\Chapter\EntityExists;
 
-class EditType extends AbstractType implements Edit
+final class EditType extends AbstractType implements Edit
 {
     /**
      * @var QueryBus
@@ -38,23 +38,11 @@ class EditType extends AbstractType implements Edit
         $builder->add('title', TextType::class, [
             'label' => 'chapter.title',
             'attr' => ['autofocus' => 'autofocus'],
-            'constraints' => [new NotBlank(), new Length(['max' => 255]), new Callback([
-                'callback' => function (
-                    ?string $title,
-                    ExecutionContextInterface $context
-                ) use (
-                    $bookId,
-                    $chapterId
-                ): void {
-                    if (null === $title || '' === $title) {
-                        return;
-                    }
-
-                    if (true === $this->queryBus->query(new EntityExists($title, $chapterId, $bookId))) {
-                        $context->buildViolation('chapter.exists')->addViolation();
-                    }
-                }
-            ])]
+            'constraints' => [
+                new NotBlank(),
+                new Length(['max' => 255]),
+                $this->createTitleConstraint($bookId, $chapterId)
+            ]
         ]);
     }
 
@@ -70,5 +58,26 @@ class EditType extends AbstractType implements Edit
         $resolver->setAllowedTypes('bookId', ['null', UuidInterface::class]);
         $resolver->setAllowedTypes('chapterId', [UuidInterface::class]);
         $resolver->setRequired(['chapterId']);
+    }
+
+    private function createTitleConstraint(?UuidInterface $bookId, ?UuidInterface $chapterId): Callback
+    {
+        return new Callback([
+            'callback' => function (
+                ?string $title,
+                ExecutionContextInterface $context
+            ) use (
+                $bookId,
+                $chapterId
+            ): void {
+                if (null === $title || '' === $title) {
+                    return;
+                }
+
+                if (true === $this->queryBus->query(new EntityExists($title, $chapterId, $bookId))) {
+                    $context->buildViolation('chapter.exists')->addViolation();
+                }
+            }
+        ]);
     }
 }

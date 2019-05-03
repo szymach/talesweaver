@@ -53,7 +53,7 @@ final class EditType extends AbstractType implements Edit
                 'constraints' => [
                     new NotBlank(),
                     new Length(['max' => 255]),
-                    new Callback(['callback' => $this->validationCallback($options['sceneId'])])
+                    $this->validationCallback($options['sceneId'])
                 ]
             ]);
 
@@ -86,17 +86,19 @@ final class EditType extends AbstractType implements Edit
         $resolver->setRequired(['sceneId']);
     }
 
-    private function validationCallback(UuidInterface $sceneId): callable
+    private function validationCallback(UuidInterface $sceneId): Callback
     {
-        return function (?string $name, ExecutionContextInterface $context) use ($sceneId): void {
-            if (null === $name || '' === $name) {
-                return;
-            }
+        return new Callback([
+            'callback' => function (?string $name, ExecutionContextInterface $context) use ($sceneId): void {
+                if (null === $name || '' === $name) {
+                    return;
+                }
 
-            if (true === $this->queryBus->query(new EntityExists($name, $sceneId, null))) {
-                $context->buildViolation('scene.exists')->addViolation();
+                if (true === $this->queryBus->query(new EntityExists($name, $sceneId, null))) {
+                    $context->buildViolation('scene.exists')->addViolation();
+                }
             }
-        };
+        ]);
     }
 
     private function getChapterChoices(?Book $book): array
@@ -119,15 +121,6 @@ final class EditType extends AbstractType implements Edit
         return $label;
     }
 
-    private function getChapter(?DTO $dto): ?Chapter
-    {
-        if (null === $dto) {
-            return null;
-        }
-
-        return $dto->getChapter();
-    }
-
     private function getBook(?Chapter $chapter): ?Book
     {
         if (null === $chapter) {
@@ -135,5 +128,14 @@ final class EditType extends AbstractType implements Edit
         }
 
         return $chapter->getBook();
+    }
+
+    private function getChapter(?DTO $dto): ?Chapter
+    {
+        if (null === $dto) {
+            return null;
+        }
+
+        return $dto->getChapter();
     }
 }
