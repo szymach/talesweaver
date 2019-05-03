@@ -24,7 +24,7 @@ use Talesweaver\Domain\ValueObject\ShortText;
 
 final class LoadDevelopmentData extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
-    private const BOOK_COUNT = 8;
+    private const BOOK_COUNT = 5;
     private const CHAPTER_COUNT = 5;
     private const SCENE_COUNT = 6;
     private const CHARACTER_COUNT = 2;
@@ -59,31 +59,36 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
 
     private function createBooks(ObjectManager $manager, Author $author): void
     {
-        for ($i = 0; $i <= self::BOOK_COUNT; $i++) {
+        for ($i = 1; $i <= self::BOOK_COUNT; $i++) {
             $book = new Book(Uuid::uuid4(), new ShortText("Książka {$i}"), $author);
             $book->setLocale(self::LOCALE);
             $manager->persist($book);
 
-            $this->addChaptersToBook($manager, $book);
+            $this->addChaptersToBook($manager, $book, $i);
         }
     }
 
-    private function addChaptersToBook(ObjectManager $manager, Book $book): void
+    private function addChaptersToBook(ObjectManager $manager, Book $book, int $bookIndex): void
     {
-        for ($i = 0; $i <= self::CHAPTER_COUNT; $i++) {
-            $chapter = new Chapter(Uuid::uuid4(), new ShortText("Rozdział {$i}"), $book, $book->getCreatedBy());
+        for ($i = 1; $i <= self::CHAPTER_COUNT; $i++) {
+            $chapter = new Chapter(
+                Uuid::uuid4(),
+                new ShortText("Rozdział {$i} {$bookIndex}"),
+                $book,
+                $book->getCreatedBy()
+            );
             $chapter->setLocale(self::LOCALE);
             $book->addChapter($chapter);
             $manager->persist($chapter);
 
-            $this->addScenesToChapter($manager, $chapter);
+            $this->addScenesToChapter($manager, $chapter, $bookIndex, $i);
         }
     }
 
-    private function addScenesToChapter(ObjectManager $manager, Chapter $chapter): void
+    private function addScenesToChapter(ObjectManager $manager, Chapter $chapter, int $bookIndex, $chapterIndex): void
     {
-        for ($i = 0; $i <= self::SCENE_COUNT; $i++) {
-            $title = new ShortText("Scena {$i}");
+        for ($i = 1; $i <= self::SCENE_COUNT; $i++) {
+            $title = new ShortText("Scena {$i} {$bookIndex} {$chapterIndex}");
             $scene = new Scene(Uuid::uuid4(), $title, $chapter, $chapter->getCreatedBy());
             $scene->edit($title, LongText::fromNullableString($this->createRandomText(40)), $chapter);
             $scene->setLocale(self::LOCALE);
@@ -92,9 +97,9 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
             $this->addItemsToScene($scene);
             $this->addLocationsToScene($scene);
 
-            $chapter->addScene($scene);
-
             $manager->persist($scene);
+
+            $chapter->addScene($scene);
         }
     }
 
