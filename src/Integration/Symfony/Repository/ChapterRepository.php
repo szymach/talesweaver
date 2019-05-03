@@ -71,7 +71,6 @@ class ChapterRepository implements Chapters
             ->where('c.created_by_id = :author')
             ->orderBy('c.book_id')
             ->addOrderBy('ct.title')
-            ->groupBy('c.id')
             ->setParameter('author', $this->authorContext->getAuthor()->getId())
             ->setParameter('locale', $this->translatableListener->getLocale())
         ;

@@ -80,7 +80,6 @@ class BookRepository implements Books
             ->from('book', 'b')
             ->leftJoin('b', 'book_translation', 'bt', 'b.id = bt.book_id AND bt.locale = :locale')
             ->where('b.created_by_id = :author')
-            ->groupBy('b.id')
             ->orderBy('bt.title')
             ->setParameter('author', $this->authorContext->getAuthor()->getId())
             ->setParameter('locale', $this->translatableListener->getLocale())

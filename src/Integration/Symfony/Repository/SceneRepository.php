@@ -9,7 +9,6 @@ use Doctrine\DBAL\FetchMode;
 use Doctrine\ORM\EntityManagerInterface;
 use FSi\DoctrineExtensions\Translatable\TranslatableListener;
 use Ramsey\Uuid\UuidInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
@@ -73,7 +72,6 @@ class SceneRepository implements Scenes
             ->leftJoin('c', 'book', 'b', 'c.book_id = b.id')
             ->leftJoin('b', 'book_translation', 'bt', 'b.id = bt.book_id AND bt.locale = :locale')
             ->where('s.created_by_id = :author')
-            ->groupBy('s.id')
             ->orderBy('c.book_id')
             ->addOrderBy('s.chapter_id')
             ->addOrderBy('st.title')
