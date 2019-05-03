@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Doctrine\Repository;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\DBAL\Driver\Statement;
+use Doctrine\DBAL\FetchMode;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
@@ -35,28 +37,34 @@ class ChapterRepository extends AutoWireableTranslatableRepository
         ;
     }
 
-    public function findForAuthor(Author $author): array
+    public function createListView(Author $author, ?Book $book): array
     {
-        return $this->createQueryBuilder('c')
-            ->where('c.createdBy = :author')
-            ->andWhere('c.book IS NULL')
-            ->setParameter('author', $author)
-            ->getQuery()
-            ->getResult()
+        $query = $this->getEntityManager()
+            ->getConnection()
+            ->createQueryBuilder()
+            ->select('c.id, ct.title AS title')
+            ->addSelect('bt.title AS book')
+            ->from('chapter', 'c')
+            ->leftJoin('c', 'chapter_translation', 'ct', 'c.id = ct.chapter_id AND ct.locale = :locale')
+            ->leftJoin('c', 'book', 'b', 'c.book_id = b.id')
+            ->leftJoin('b', 'book_translation', 'bt', 'b.id = bt.book_id AND bt.locale = :locale')
+            ->where('c.created_by_id = :author')
+            ->orderBy('c.book_id')
+            ->addOrderBy('ct.title')
+            ->setParameter('author', $author->getId()->toString())
+            ->setParameter('locale', $this->getTranslatableListener()->getLocale())
         ;
-    }
 
-    public function findForAuthorAndBook(Author $author, Book $book): array
-    {
-        return $this->createQueryBuilder('c')
-            ->where('c.book = :book')
-            ->andWhere('c.createdBy = :author')
-            ->orderBy('c.createdAt')
-            ->setParameter('book', $book)
-            ->setParameter('author', $author)
-            ->getQuery()
-            ->getResult()
-        ;
+        if (null !== $book) {
+            $query->andWhere('b.id = :book')->setParameter('book', $book->getId());
+        }
+
+        $statement = $query->execute();
+        if (false === $statement instanceof Statement) {
+            return [];
+        }
+
+        return $statement->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     public function findLatest(Author $author, int $limit): array

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Repository;
 
-use Doctrine\DBAL\Driver\Statement;
-use Doctrine\DBAL\FetchMode;
 use Doctrine\ORM\EntityManagerInterface;
 use FSi\DoctrineExtensions\Translatable\TranslatableListener;
 use Ramsey\Uuid\UuidInterface;
@@ -60,31 +58,18 @@ class ChapterRepository implements Chapters
 
     public function createListView(?Book $book): array
     {
-        $query = $this->manager->getConnection()
-            ->createQueryBuilder()
-            ->select('c.id, ct.title AS title')
-            ->addSelect('bt.title AS book')
-            ->from('chapter', 'c')
-            ->leftJoin('c', 'chapter_translation', 'ct', 'c.id = ct.chapter_id AND ct.locale = :locale')
-            ->leftJoin('c', 'book', 'b', 'c.book_id = b.id')
-            ->leftJoin('b', 'book_translation', 'bt', 'b.id = bt.book_id AND bt.locale = :locale')
-            ->where('c.created_by_id = :author')
-            ->orderBy('c.book_id')
-            ->addOrderBy('ct.title')
-            ->setParameter('author', $this->authorContext->getAuthor()->getId())
-            ->setParameter('locale', $this->translatableListener->getLocale())
-        ;
+        return $this->doctrineRepository->createListView(
+            $this->authorContext->getAuthor(),
+            $book
+        );
+    }
 
-        if (null !== $book) {
-            $query->andWhere('b.id = :book')->setParameter('book', $book->getId());
-        }
-
-        $statement = $query->execute();
-        if (false === $statement instanceof Statement) {
-            return [];
-        }
-
-        return $statement->fetchAll(FetchMode::ASSOCIATIVE);
+    public function findByBook(Book $book): array
+    {
+        return $this->doctrineRepository->findBy([
+            'book' => $book,
+            'createdBy' => $this->authorContext->getAuthor()
+        ]);
     }
 
     public function findAll(): array

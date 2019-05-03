@@ -11,6 +11,7 @@ interface Chapters
 {
     public function createListView(?Book $book): array;
     public function find(UuidInterface $id): ?Chapter;
+    public function findByBook(Book $book): array;
     public function findLatest(int $limit = 3): array;
     public function findOneByTitle(ShortText $title): ?Chapter;
     public function findAll(): array;

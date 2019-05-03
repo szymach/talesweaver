@@ -27,7 +27,7 @@ use Talesweaver\Application\Query\Scene\EntityExists;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 
-class EditType extends AbstractType implements Edit
+final class EditType extends AbstractType implements Edit
 {
     /**
      * @var QueryBus
@@ -107,18 +107,16 @@ class EditType extends AbstractType implements Edit
     private function getChapterChoiceLabel(?Book $book): callable
     {
         if (null !== $book) {
-            return function (Chapter $chapter): string {
-                return (string) $chapter->getTitle();
+            $label = function (Chapter $chapter) use ($book): string {
+                return sprintf('%s (%s)', $chapter->getTitle(), $book->getTitle());
             };
         } else {
-            return function (Chapter $chapter): string {
-                $book = $chapter->getBook();
-                return null !== $book
-                    ? sprintf('%s (%s)', $chapter->getTitle(), $book->getTitle())
-                    : (string) $chapter->getTitle()
-                ;
+            $label = function (Chapter $chapter): string {
+                return (string) $chapter->getTitle();
             };
         }
+
+        return $label;
     }
 
     private function getChapter(?DTO $dto): ?Chapter

@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Repository;
 
-use Doctrine\DBAL\Driver\Statement;
-use Doctrine\DBAL\FetchMode;
 use Doctrine\ORM\EntityManagerInterface;
-use FSi\DoctrineExtensions\Translatable\TranslatableListener;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Book;
@@ -28,24 +25,17 @@ class BookRepository implements Books
     private $doctrineRepository;
 
     /**
-     * @var TranslatableListener
-     */
-    private $translatableListener;
-
-    /**
      * @var AuthorContext
      */
     private $authorContext;
 
     public function __construct(
         EntityManagerInterface $manager,
-        TranslatableListener $translatableListener,
         DoctrineRepository $doctrineRepository,
         AuthorContext $authorContext
     ) {
         $this->manager = $manager;
         $this->doctrineRepository = $doctrineRepository;
-        $this->translatableListener = $translatableListener;
         $this->authorContext = $authorContext;
     }
 
@@ -72,25 +62,17 @@ class BookRepository implements Books
         ]);
     }
 
+    public function findByBook(Book $book): array
+    {
+        return $this->doctrineRepository->findBy([
+            'book' => $book,
+            'createdBy' => $this->authorContext->getAuthor()
+        ]);
+    }
+
     public function createListView(): array
     {
-        $statement = $this->manager->getConnection()
-            ->createQueryBuilder()
-            ->select('b.id, bt.title AS title')
-            ->from('book', 'b')
-            ->leftJoin('b', 'book_translation', 'bt', 'b.id = bt.book_id AND bt.locale = :locale')
-            ->where('b.created_by_id = :author')
-            ->orderBy('bt.title')
-            ->setParameter('author', $this->authorContext->getAuthor()->getId())
-            ->setParameter('locale', $this->translatableListener->getLocale())
-            ->execute()
-        ;
-
-        if (false === $statement instanceof Statement) {
-            return [];
-        }
-
-        return $statement->fetchAll(FetchMode::ASSOCIATIVE);
+        return $this->doctrineRepository->createListView($this->authorContext->getAuthor());
     }
 
     public function findAll(): array

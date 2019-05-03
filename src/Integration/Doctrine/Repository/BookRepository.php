@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Doctrine\Repository;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\DBAL\Driver\Statement;
+use Doctrine\DBAL\FetchMode;
 use Doctrine\ORM\Query\Expr\Join;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
@@ -45,12 +47,34 @@ class BookRepository extends AutoWireableTranslatableRepository
             ->join('e.translations', 't', Join::WITH, 't.locale = :locale')
             ->where('e.createdBy = :author')
             ->orderBy('date', 'DESC')
-            ->setParameter('locale', $this->getTranslatableListener()->getLocale())
             ->setParameter('author', $author)
+            ->setParameter('locale', $this->getTranslatableListener()->getLocale())
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function createListView(Author $author): array
+    {
+        $statement = $this->getEntityManager()
+            ->getConnection()
+            ->createQueryBuilder()
+            ->select('b.id, bt.title AS title')
+            ->from('book', 'b')
+            ->leftJoin('b', 'book_translation', 'bt', 'b.id = bt.book_id AND bt.locale = :locale')
+            ->where('b.created_by_id = :author')
+            ->orderBy('bt.title')
+            ->setParameter('author', $author->getId())
+            ->setParameter('locale', $this->getTranslatableListener()->getLocale())
+            ->execute()
+        ;
+
+        if (false === $statement instanceof Statement) {
+            return [];
+        }
+
+        return $statement->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     public function entityExists(Author $author, string $title, ?UuidInterface $id): bool
