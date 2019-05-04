@@ -1,5 +1,6 @@
 <ul class="js-ajax-pagination list-inline" data-list-url="{{ path('book_chapter_list', { id: bookId }) }}">
     {% for chapter in chapters %}
+        {% set displayUrl = path('chapter_display', { id: chapter.id }) %}
         <li class="list-inline-item pt-2">
             <div class="card">
                 <div class="card-body">
@@ -11,8 +12,9 @@
                         >
                             <span class="fa fa-edit"></span>
                         </a>
-                        <a class="btn btn-sm btn-outline-secondary"
-                           href="{{ path('chapter_display', { id: chapter.id }) }}"
+                        <a class="js-display btn btn-sm btn-outline-secondary"
+                           href="{{ displayUrl }}"
+                           data-display-url="{{ displayUrl }}"
                            target="_blank"
                            title="{{ 'crud.display'|trans }}"
                         >

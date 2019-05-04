@@ -6,8 +6,10 @@ namespace Talesweaver\Application\Controller\Book;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\BookResolver;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
+use function is_xml_http_request;
 
 final class DisplayController
 {
@@ -21,17 +23,31 @@ final class DisplayController
      */
     private $responseFactory;
 
-    public function __construct(BookResolver $bookResolver, ResponseFactoryInterface $responseFactory)
-    {
+    /**
+     * @var ApiResponseFactoryInterface
+     */
+    private $apiResponseFactory;
+
+    public function __construct(
+        BookResolver $bookResolver,
+        ResponseFactoryInterface $responseFactory,
+        ApiResponseFactoryInterface $apiResponseFactory
+    ) {
         $this->bookResolver = $bookResolver;
         $this->responseFactory = $responseFactory;
+        $this->apiResponseFactory = $apiResponseFactory;
     }
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        return $this->responseFactory->fromTemplate(
-            'book/display.html.twig',
-            ['book' => $this->bookResolver->fromRequest($request)]
-        );
+        $book = $this->bookResolver->fromRequest($request);
+        $parameters = ['title' => $book->getTitle(), 'chapters' => $book->getChapters()];
+        if (true === is_xml_http_request($request)) {
+            $response = $this->apiResponseFactory->display('display/modal.html.twig', $parameters);
+        } else {
+            $response = $this->responseFactory->fromTemplate('display/standalone.html.twig', $parameters);
+        }
+
+        return $response;
     }
 }

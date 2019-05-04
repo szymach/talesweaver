@@ -4,7 +4,6 @@
 @import 'modal';
 @import 'nav';
 @import 'sidemenu';
-@import 'utilities';
 
 html {
     height: 100%;
@@ -78,4 +77,8 @@ blockquote {
             cursor: not-allowed;
         }
     }
+}
+
+.fa {
+    pointer-events: none;
 }

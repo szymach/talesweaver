@@ -13,7 +13,10 @@ export module Display {
             'click',
             '.js-display',
             (event: Event) => {
+                event.preventDefault();
+                event.stopPropagation();
                 const target = event.target as HTMLElement;
+
                 closeAllModals();
                 ajaxGetCall(
                     target.getAttribute('data-display-url'),

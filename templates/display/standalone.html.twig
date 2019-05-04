@@ -1,0 +1,34 @@
+{% extends 'displayBase.html.twig' %}
+
+{% import _self as macros %}
+
+{% block seoTitle title %}
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <h1>{{ title }}</h1>
+            {% if chapters is defined %}
+                {% for chapter in chapters if chapter.scenes|length > 0 %}
+                    <h2>{{ chapter.title }}</h2>
+                    {{ macros.scenes(chapter.scenes) }}
+                {% endfor %}
+            {% elseif scenes is defined %}
+                {{ macros.scenes(scenes) }}
+            {% elseif text is defined %}
+                {{ macros.text(text) }}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% macro scenes(scenes) %}
+    {% import _self as macros %}
+    {% for scene in scenes if scene.text is not empty %}
+        <h3>{{ scene.title }}</h3>
+        {{ macros.text(scene.text) }}
+    {% endfor %}
+{% endmacro %}
+
+{% macro text(text) %}
+    <div>{{ text|raw }}</div>
+{% endmacro %}

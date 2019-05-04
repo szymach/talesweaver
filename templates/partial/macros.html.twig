@@ -1,6 +1,23 @@
 {% macro sidemenuDisplayLink(link) %}
-    {% import _self as macros %}
-    {{ macros.sidemenuLink('eye', 'display.title'|trans, 'display.label'|trans, link) }}
+    <li>
+        <a class="js-display fa fa-2x fa-eye d-sm-block d-md-none d-xl-none logo-icon"
+           href="{{ link }}"
+           data-display-url="{{ link }}"
+           target="_blank"
+           title="{{ 'display.title'|trans }}"
+        ></a>
+        <span class="h4">
+            <a class="js-display btn btn-sm btn-outline-secondary"
+               href="{{ link }}"
+               data-display-url="{{ link }}"
+               target="_blank"
+               title="{{ 'display.title'|trans }}"
+            >
+                <span class="fa fa-eye"></span>
+            </a>
+            <span>{{ 'display.label'|trans }}</span>
+        </span>
+    </li>
 {% endmacro %}
 
 {% macro sidemenuPdfLink(link) %}
