@@ -7,6 +7,7 @@ namespace Talesweaver\Application\Controller\Book;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
+use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Book\Edit\DTO;
 use Talesweaver\Application\Command\Chapter;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
@@ -16,6 +17,7 @@ use Talesweaver\Application\Form\Type\Chapter\Create;
 use Talesweaver\Application\Http\Entity\BookResolver;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
+use Talesweaver\Application\Query\Book\ChaptersPage;
 use Talesweaver\Domain\Book;
 
 final class EditController
@@ -29,6 +31,11 @@ final class EditController
      * @var CommandBus
      */
     private $commandBus;
+
+    /**
+     * @var QueryBus
+     */
+    private $queryBus;
 
     /**
      * @var ResponseFactoryInterface
@@ -48,12 +55,14 @@ final class EditController
     public function __construct(
         BookResolver $bookResolver,
         CommandBus $commandBus,
+        QueryBus $queryBus,
         ResponseFactoryInterface $responseFactory,
         FormHandlerFactoryInterface $formHandlerFactory,
         UrlGenerator $urlGenerator
     ) {
         $this->bookResolver = $bookResolver;
         $this->commandBus = $commandBus;
+        $this->queryBus = $queryBus;
         $this->responseFactory = $responseFactory;
         $this->formHandlerFactory = $formHandlerFactory;
         $this->urlGenerator = $urlGenerator;
@@ -78,7 +87,8 @@ final class EditController
                 'form' => $formHandler->createView(),
                 'chapterForm' => $this->createChapterForm($request, $book),
                 'bookId' => $book->getId(),
-                'title' => $book->getTitle()
+                'title' => $book->getTitle(),
+                'chapters' => $this->queryBus->query(new ChaptersPage($book, 1))
             ]
         );
     }

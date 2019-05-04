@@ -9,7 +9,7 @@ use Pagerfanta\Pagerfanta;
 use Talesweaver\Application\Bus\QueryHandlerInterface;
 use Talesweaver\Domain\Chapters;
 
-class ChaptersPageHandler implements QueryHandlerInterface
+final class ChaptersPageHandler implements QueryHandlerInterface
 {
     /**
      * @var Chapters

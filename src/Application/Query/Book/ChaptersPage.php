@@ -6,7 +6,7 @@ namespace Talesweaver\Application\Query\Book;
 
 use Talesweaver\Domain\Book;
 
-class ChaptersPage
+final class ChaptersPage
 {
     /**
      * @var Book

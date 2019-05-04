@@ -1,26 +1,34 @@
-<ul class="js-ajax-pagination" data-list-url="{{ path('book_chapter_list', { id: bookId }) }}">
-    {% if chapters|length > 0 %}
-        {% for chapter in chapters %}
-            <li>
-                <span class="sublist-label">{{ chapter.title }}</span>
-                <span class="list-actions">
-                    <a class="btn btn-sm btn-primary"
-                       href="{{ path('chapter_edit', { id: chapter.id }) }}"
-                       title="{{ 'crud.edit'|trans }}"
-                       >
-                        <span class="fa fa-edit"></span>
-                    </a>
-                    <button class="js-list-delete js-delete btn btn-sm btn-danger"
-                            data-delete-url="{{ path('chapter_delete', { id: chapter.id }) }}"
-                            title="{{ 'crud.delete'|trans }}"
-                            >
-                        <span class="fa fa-trash"></span>
-                    </button>
-                </span>
-            </li>
-        {% endfor %}
-    {% else %}
-        <li><span class="sublist-label no-results">{{ 'book.chapters.no_results'|trans }}</span></li>
-    {% endif %}
+<ul class="js-ajax-pagination list-inline" data-list-url="{{ path('book_chapter_list', { id: bookId }) }}">
+    {% for chapter in chapters %}
+        <li class="list-inline-item pt-2">
+            <div class="card">
+                <div class="card-body">
+                    {% apply spaceless %}
+                    <h5 class="card-title">{{ chapter.title }}</h5>
+                    <div class="text-center">
+                        <a class="btn btn-sm btn-primary"
+                           href="{{ path('chapter_edit', { id: chapter.id }) }}"
+                           title="{{ 'crud.edit'|trans }}"
+                        >
+                            <span class="fa fa-edit"></span>
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary"
+                           href="{{ path('chapter_display', { id: chapter.id }) }}"
+                           title="{{ 'crud.display'|trans }}"
+                        >
+                            <span class="fa fa-eye"></span>
+                        </a>
+                        <button class="js-list-delete js-delete btn btn-sm btn-danger"
+                                data-delete-url="{{ path('chapter_delete', { id: chapter.id }) }}"
+                                title="{{ 'crud.delete'|trans }}"
+                        >
+                            <span class="fa fa-trash"></span>
+                        </button>
+                    </div>
+                    {% endapply %}
+                </div>
+            </div>
+        </li>
+    {% endfor %}
 </ul>
 {% include 'partial/pagination.html.twig' with { paginator: chapters, route: 'book_chapter_list', parameters: { id: bookId, page: page }} only %}

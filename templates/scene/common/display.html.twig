@@ -17,7 +17,7 @@
                 {{ macros.tab('displayContentTab', 'displayContent', 'scene.modal.description', 'active') }}
                 {{ macros.tab('displayEventsTab', 'displayEvents', 'scene.modal.events', '') }}
             </ul>
-            <div class="tab-content pt-2 pb-2" id="displayTabsContent">
+            <div class="tab-content pt-2 pb-2">
                 {{ macros.tabContent('displayContent', 'displayContentTab', macros.content(description), 'show active') }}
                 {{ macros.tabContent('displayEvents', 'displayEventsTab', macros.events(events), 'pl-2 pr-2') }}
             </div>
