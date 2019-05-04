@@ -3,7 +3,6 @@
         <li class="list-inline-item pt-2">
             <div class="card">
                 <div class="card-body">
-                    {% apply spaceless %}
                     <h5 class="card-title">{{ chapter.title }}</h5>
                     <div class="text-center">
                         <a class="btn btn-sm btn-primary"
@@ -14,6 +13,7 @@
                         </a>
                         <a class="btn btn-sm btn-outline-secondary"
                            href="{{ path('chapter_display', { id: chapter.id }) }}"
+                           target="_blank"
                            title="{{ 'crud.display'|trans }}"
                         >
                             <span class="fa fa-eye"></span>
@@ -25,7 +25,6 @@
                             <span class="fa fa-trash"></span>
                         </button>
                     </div>
-                    {% endapply %}
                 </div>
             </div>
         </li>

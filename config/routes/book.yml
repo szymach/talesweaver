@@ -44,3 +44,11 @@ book_chapter_list:
         page: 1
     condition: "request.isXmlHttpRequest()"
     methods:  GET
+
+book_scene_list:
+    path: /scenes/{id}/{page}
+    controller: Talesweaver\Application\Controller\Book\ScenesListController
+    defaults:
+        page: 1
+    condition: "request.isXmlHttpRequest()"
+    methods:  GET

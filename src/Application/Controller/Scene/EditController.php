@@ -8,19 +8,20 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Bus\QueryBus;
-use Talesweaver\Application\Command\Scene\Create\DTO as CreateDTO;
 use Talesweaver\Application\Command\Scene\Edit\DTO as EditDTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
-use Talesweaver\Application\Form\FormHandlerInterface;
 use Talesweaver\Application\Form\FormViewInterface;
-use Talesweaver\Application\Form\Type\Scene\Create;
 use Talesweaver\Application\Form\Type\Scene\Edit;
 use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\SceneResolver;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Query\Chapter\ScenesPage;
-use Talesweaver\Domain\Chapter;
+use Talesweaver\Application\Query\Character\CharactersPage;
+use Talesweaver\Application\Query\Event\EventsPage;
+use Talesweaver\Application\Query\Item\ItemsPage;
+use Talesweaver\Application\Query\Location\LocationsPage;
 use Talesweaver\Domain\Scene;
+use function is_xml_http_request;
 
 final class EditController
 {
@@ -92,7 +93,7 @@ final class EditController
         } else {
             $response = $this->responseFactory->fromTemplate(
                 'scene/editForm.html.twig',
-                $this->getViewParameters($request, $scene, $formHandler)
+                $this->getViewParameters($scene, $formHandler->createView())
             );
         }
 
@@ -109,19 +110,16 @@ final class EditController
         ;
     }
 
-    private function getViewParameters(
-        ServerRequestInterface $request,
-        Scene $scene,
-        FormHandlerInterface $formHandler
-    ): array {
+    private function getViewParameters(Scene $scene, FormViewInterface $form): array
+    {
         $parameters = [
-            'form' => $formHandler->createView(),
+            'form' => $form,
             'sceneId' => $scene->getId(),
             'title' => $scene->getTitle(),
-            'characters' => [],
-            'items' => [],
-            'locations' => [],
-            'events' => []
+            'characters' => $this->queryBus->query(new CharactersPage($scene, 1)),
+            'items' => $this->queryBus->query(new ItemsPage($scene, 1)),
+            'locations' => $this->queryBus->query(new LocationsPage($scene, 1)),
+            'events' => $this->queryBus->query(new EventsPage($scene, 1))
         ];
 
         if (null !== $scene->getChapter()) {
@@ -129,7 +127,6 @@ final class EditController
             $parameters['chapterTitle'] = $chapter->getTitle();
             $parameters['chapterId'] = $chapter->getId();
             $parameters['relatedScenes'] = $this->queryBus->query(new ScenesPage($chapter, 1));
-            $parameters['nextSceneForm'] = $this->createNextSceneForm($request, $chapter);
         } else {
             $parameters['chapterTitle'] = null;
             $parameters['chapterId'] = null;
@@ -137,14 +134,5 @@ final class EditController
         }
 
         return $parameters;
-    }
-
-    private function createNextSceneForm(ServerRequestInterface $request, Chapter $chapter): FormViewInterface
-    {
-        return $this->formHandlerFactory->createWithRequest(
-            $request,
-            Create::class,
-            new CreateDTO($chapter)
-        )->createView();
     }
 }

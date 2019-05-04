@@ -5,10 +5,14 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Doctrine\Repository;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\DBAL\Driver\Statement;
+use Doctrine\DBAL\FetchMode;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
+use Talesweaver\Domain\Book;
+use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
 
 class SceneRepository extends AutoWireableTranslatableRepository
@@ -32,6 +36,64 @@ class SceneRepository extends AutoWireableTranslatableRepository
             ->getQuery()
             ->execute(['id' => $id->toString(), 'createdBy' => $author])
         ;
+    }
+
+    public function createBookListView(Author $author, Book $book): array
+    {
+        $query = $this->getEntityManager()->getConnection()
+            ->createQueryBuilder()
+            ->select('s.id, st.title')
+            ->from('scene', 's')
+            ->innerJoin('s', 'scene_translation', 'st', 's.id = st.scene_id AND st.locale = :locale')
+            ->innerJoin('s', 'chapter', 'c', 's.chapter_id = c.id')
+            ->innerJoin('c', 'book', 'b', 'c.book_id = b.id AND b.id = :book')
+            ->where('s.created_by_id = :author')
+            ->orderBy('s.chapter_id')
+            ->addOrderBy('st.title')
+            ->setParameter('author', $author->getId())
+            ->setParameter('book', $book->getId())
+            ->setParameter('locale', $this->getTranslatableListener()->getLocale())
+        ;
+
+        $statement = $query->execute();
+        if (false === $statement instanceof Statement) {
+            return [];
+        }
+
+        return $statement->fetchAll(FetchMode::ASSOCIATIVE);
+    }
+
+    public function createListView(Author $author, ?Chapter $chapter): array
+    {
+        $query = $this->getEntityManager()->getConnection()
+            ->createQueryBuilder()
+            ->select('s.id, st.title AS title')
+            ->addSelect('ct.title AS chapter')
+            ->addSelect('bt.title AS book')
+            ->from('scene', 's')
+            ->innerJoin('s', 'scene_translation', 'st', 's.id = st.scene_id AND st.locale = :locale')
+            ->leftJoin('s', 'chapter', 'c', 's.chapter_id = c.id')
+            ->leftJoin('c', 'chapter_translation', 'ct', 'c.id = ct.chapter_id AND ct.locale = :locale')
+            ->leftJoin('c', 'book', 'b', 'c.book_id = b.id')
+            ->leftJoin('b', 'book_translation', 'bt', 'b.id = bt.book_id AND bt.locale = :locale')
+            ->where('s.created_by_id = :author')
+            ->orderBy('c.book_id')
+            ->addOrderBy('s.chapter_id')
+            ->addOrderBy('st.title')
+            ->setParameter('author', $author->getId())
+            ->setParameter('locale', $this->getTranslatableListener()->getLocale())
+        ;
+
+        if (null !== $chapter) {
+            $query->andWhere('c.id = :chapter')->setParameter('chapter', $chapter->getId());
+        }
+
+        $statement = $query->execute();
+        if (false === $statement instanceof Statement) {
+            return [];
+        }
+
+        return $statement->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     public function findLatest(Author $author, int $limit): array

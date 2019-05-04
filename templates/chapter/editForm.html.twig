@@ -3,7 +3,6 @@
 {% import 'partial/macros.html.twig' as macros %}
 
 {% form_theme form 'form/formTheme.html.twig' %}
-{% form_theme sceneForm 'form/formTheme.html.twig' %}
 
 {% block seoTitle 'chapter.seo_title.form.edit'|trans({ '%title%': title }) %}
 {% block rightMenu %}
@@ -16,30 +15,37 @@
 {% block body %}
     <div class="row">
         <div class="col col-sm-8 offset-sm-1">
-            {{ form_start(form) }}
-                {{ form_row(form.title) }}
-                <div class="form-group row">
-                    <div class="col text-right">
-                        <button class="btn btn-success pull-right">{{ 'crud.save'|trans }}</button>
-                    </div>
-                </div>
-            {{ form_end(form) }}
+            {{ macros.tabNavigation([
+                macros.tab('formContentTab', 'formContent', 'common.content', 'active'),
+                macros.tab('scenesTab', 'scenes', 'common.scenes', '')
+            ]) }}
         </div>
     </div>
-    <div id="ajax-container"></div>
-    <nav class="side-menu">
-        <ul id="side-menu" class="collapse show">
-            {% include 'chapter/scenes/listHeader.html.twig' with {
-                chapterId: chapterId,
-                sceneForm: sceneForm
-            } only %}
-            {{ macros.sidemenuLink('eye', 'display.title'|trans, 'display.label'|trans, path('chapter_display', { id: chapterId })) }}
-            {{ macros.sidemenuLink('file-pdf-o', 'pdf.title'|trans, 'pdf.label'|trans, path('chapter_pdf', { id: chapterId })) }}
-        </ul>
-        <div data-target="#side-menu" data-toggle="collapse" class="text-center">
-            <button class="btn btn-sm" style="width: 100%;">
-                <span class="fa fa-chevron-up"></span>
-            </button>
+    <div class="row">
+        <div class="col col-sm-8 offset-sm-1">
+            <div class="tab-content pt-2 pb-2">
+                {{ macros.tabContent(
+                    'formContent',
+                    'formContentTab',
+                    include('chapter/tab/content.html.twig', { form: form }, with_context = false),
+                    'active show'
+                ) }}
+                {{ macros.tabContent(
+                    'scenes',
+                    'scenesTab',
+                    include('chapter/tab/scenes.html.twig', { chapterId: chapterId, scenes: scenes, page: 1 }, with_context = false),
+                    ''
+                ) }}
+            </div>
         </div>
-    </nav>
+    </div>
+    {% embed 'partial/sidemenu.html.twig' with {
+        display: macros.sidemenuDisplayLink(path('chapter_display', { id: chapterId })),
+        pdf: macros.sidemenuPdfLink(path('chapter_pdf', { id: chapterId }))
+    } %}
+        {% block content %}
+            {{ display|raw }}
+            {{ pdf|raw }}
+        {% endblock %}
+    {% endembed %}
 {% endblock %}

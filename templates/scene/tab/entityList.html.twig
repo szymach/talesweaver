@@ -1,0 +1,43 @@
+<ul class="js-ajax-pagination list-inline" data-list-url="{{ path(entity ~ '_list', { id: sceneId, page: list.currentPage }) }}">
+    {% if list|length > 0 %}
+        {% for item in list %}
+            {% set itemId = item.id %}
+            <li class="list-inline-item pt-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name|truncate(25) }}</h5>
+                        <div class="text-center">
+                            <button class="js-load-form js-edit-form btn btn-sm btn-primary"
+                                    data-form-url="{{ path(entity ~ '_edit', { id: itemId }) }}"
+                                    title="{{ 'crud.edit'|trans }}"
+                            >
+                                <span class="fa fa-edit"></span>
+                            </button>
+                            <button class="js-display btn btn-sm btn-outline-secondary"
+                                    data-display-url="{{ path(entity ~ '_display', { id: itemId }) }}"
+                                    title="{{ 'crud.display'|trans }}"
+                            >
+                                <span class="fa fa-eye"></span>
+                            </button>
+                            {% if sceneId and 1 < item.scenes|length %}
+                                <button class="js-list-delete js-delete btn btn-sm btn-warning"
+                                        data-delete-url="{{ path(entity ~ '_remove_from_scene', { scene_id: sceneId, id: itemId }) }}"
+                                        title="{{ 'crud.remove_from_scene'|trans }}"
+                                >
+                                    <span class="fa fa-scissors"></span>
+                                </button>
+                            {% endif %}
+                            <button class="js-list-delete js-delete btn btn-sm btn-danger"
+                                    data-delete-url="{{ path(entity ~ '_delete', { id: itemId }) }}"
+                                    title="{{ 'crud.delete'|trans }}"
+                            >
+                                <span class="fa fa-trash"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    {% endif %}
+</ul>
+{% include 'partial/pagination.html.twig' with { paginator: list, route: entity ~ '_list', parameters: { id: sceneId, page: page }} only %}

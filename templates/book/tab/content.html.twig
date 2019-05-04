@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.description) }}
+    {{ form_rest(form) }}
+    <div class="form-group row">
+        <div class="col text-right">
+            <button class="btn btn-success">{{ 'crud.save'|trans }}</button>
+        </div>
+    </div>
+{{ form_end(form) }}

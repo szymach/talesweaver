@@ -7,15 +7,14 @@ namespace Talesweaver\Application\Controller\Chapter;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
+use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Chapter\Edit\DTO;
-use Talesweaver\Application\Command\Scene;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
-use Talesweaver\Application\Form\FormViewInterface;
 use Talesweaver\Application\Form\Type\Chapter\Edit;
-use Talesweaver\Application\Form\Type\Scene\Create;
 use Talesweaver\Application\Http\Entity\ChapterResolver;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
+use Talesweaver\Application\Query\Chapter\ScenesPage;
 use Talesweaver\Domain\Chapter;
 
 final class EditController
@@ -41,6 +40,11 @@ final class EditController
     private $commandBus;
 
     /**
+     * @var QueryBus
+     */
+    private $queryBus;
+
+    /**
      * @var ResponseFactoryInterface
      */
     private $responseFactory;
@@ -50,12 +54,14 @@ final class EditController
         FormHandlerFactoryInterface $formHandlerFactory,
         UrlGenerator $urlGenerator,
         CommandBus $commandBus,
+        QueryBus $queryBus,
         ResponseFactoryInterface $responseFactory
     ) {
         $this->chapterResolver = $chapterResolver;
         $this->formHandlerFactory = $formHandlerFactory;
         $this->urlGenerator = $urlGenerator;
         $this->commandBus = $commandBus;
+        $this->queryBus = $queryBus;
         $this->responseFactory = $responseFactory;
     }
 
@@ -80,7 +86,7 @@ final class EditController
                 'chapterId' => $chapter->getId(),
                 'bookId' => $bookId,
                 'title' => $chapter->getTitle(),
-                'sceneForm' => $this->createSceneForm($request, $chapter)
+                'scenes' => $this->queryBus->query(new ScenesPage($chapter, 1))
             ]
         );
     }
@@ -90,18 +96,5 @@ final class EditController
         $this->commandBus->dispatch($dto->toCommand($chapter));
 
         return $this->responseFactory->redirectToRoute('chapter_edit', ['id' => $chapter->getId()]);
-    }
-
-    private function createSceneForm(ServerRequestInterface $request, Chapter $chapter): FormViewInterface
-    {
-        return $this->formHandlerFactory->createWithRequest(
-            $request,
-            Create::class,
-            new Scene\Create\DTO($chapter),
-            [
-                'action' => $this->urlGenerator->generate('scene_create'),
-                'title_placeholder' => 'scene.placeholder.title.chapter'
-            ]
-        )->createView();
     }
 }

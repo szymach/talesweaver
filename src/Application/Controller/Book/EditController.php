@@ -9,15 +9,13 @@ use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Book\Edit\DTO;
-use Talesweaver\Application\Command\Chapter;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
-use Talesweaver\Application\Form\FormViewInterface;
 use Talesweaver\Application\Form\Type\Book\Edit;
-use Talesweaver\Application\Form\Type\Chapter\Create;
 use Talesweaver\Application\Http\Entity\BookResolver;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Application\Query\Book\ChaptersPage;
+use Talesweaver\Application\Query\Book\ScenesPage;
 use Talesweaver\Domain\Book;
 
 final class EditController
@@ -85,10 +83,10 @@ final class EditController
             'book/editForm.html.twig',
             [
                 'form' => $formHandler->createView(),
-                'chapterForm' => $this->createChapterForm($request, $book),
                 'bookId' => $book->getId(),
                 'title' => $book->getTitle(),
-                'chapters' => $this->queryBus->query(new ChaptersPage($book, 1))
+                'chapters' => $this->queryBus->query(new ChaptersPage($book, 1)),
+                'scenes' => $this->queryBus->query(new ScenesPage($book, 1))
             ]
         );
     }
@@ -98,18 +96,5 @@ final class EditController
         $this->commandBus->dispatch($dto->toCommand($book));
 
         return $this->responseFactory->redirectToRoute('book_edit', ['id' => $book->getId()]);
-    }
-
-    private function createChapterForm(ServerRequestInterface $request, Book $book): FormViewInterface
-    {
-        return $this->formHandlerFactory->createWithRequest(
-            $request,
-            Create::class,
-            new Chapter\Create\DTO(),
-            [
-                'action' => $this->urlGenerator->generate('chapter_create', ['bookId' => $book->getId()]),
-                'title_placeholder' => 'chapter.placeholder.title.book'
-            ]
-        )->createView();
     }
 }

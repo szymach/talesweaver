@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Repository;
 
-use Doctrine\DBAL\Driver\Statement;
-use Doctrine\DBAL\FetchMode;
 use Doctrine\ORM\EntityManagerInterface;
 use FSi\DoctrineExtensions\Translatable\TranslatableListener;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Security\AuthorContext;
+use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\Scenes;
@@ -58,37 +57,20 @@ class SceneRepository implements Scenes
         ]);
     }
 
+    public function createBookListView(Book $book): array
+    {
+        return $this->doctrineRepository->createBookListView(
+            $this->authorContext->getAuthor(),
+            $book
+        );
+    }
+
     public function createListView(?Chapter $chapter): array
     {
-        $query = $this->manager->getConnection()
-            ->createQueryBuilder()
-            ->select('s.id, st.title AS title')
-            ->addSelect('ct.title AS chapter')
-            ->addSelect('bt.title AS book')
-            ->from('scene', 's')
-            ->innerJoin('s', 'scene_translation', 'st', 's.id = st.scene_id AND st.locale = :locale')
-            ->leftJoin('s', 'chapter', 'c', 's.chapter_id = c.id')
-            ->leftJoin('c', 'chapter_translation', 'ct', 'c.id = ct.chapter_id AND ct.locale = :locale')
-            ->leftJoin('c', 'book', 'b', 'c.book_id = b.id')
-            ->leftJoin('b', 'book_translation', 'bt', 'b.id = bt.book_id AND bt.locale = :locale')
-            ->where('s.created_by_id = :author')
-            ->orderBy('c.book_id')
-            ->addOrderBy('s.chapter_id')
-            ->addOrderBy('st.title')
-            ->setParameter('author', $this->authorContext->getAuthor()->getId())
-            ->setParameter('locale', $this->translatableListener->getLocale())
-        ;
-
-        if (null !== $chapter) {
-            $query->andWhere('c.id = :chapter')->setParameter('chapter', $chapter->getId());
-        }
-
-        $statement = $query->execute();
-        if (false === $statement instanceof Statement) {
-            return [];
-        }
-
-        return $statement->fetchAll(FetchMode::ASSOCIATIVE);
+        return $this->doctrineRepository->createListView(
+            $this->authorContext->getAuthor(),
+            $chapter
+        );
     }
 
     public function findOneByTitle(ShortText $title): ?Scene

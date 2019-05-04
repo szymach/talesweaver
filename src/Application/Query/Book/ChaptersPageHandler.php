@@ -24,7 +24,7 @@ final class ChaptersPageHandler implements QueryHandlerInterface
     public function __invoke(ChaptersPage $query): Pagerfanta
     {
         $pager = new Pagerfanta(new ArrayAdapter($this->chapters->createListView($query->getBook())));
-        $pager->setMaxPerPage(10);
+        $pager->setMaxPerPage(9);
         $pager->setCurrentPage($query->getPage());
 
         return $pager;

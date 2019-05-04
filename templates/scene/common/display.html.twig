@@ -1,31 +1,33 @@
+{% set hasAvatar = avatar is not empty %}
 {% set hasDescription = description is not empty %}
 {% set hasEvents = events|length > 0 %}
-{% import _self as macros %}
+{% import 'partial/macros.html.twig' as macros %}
+{% import _self as self_macros %}
 <div class="modal-header">
     <h4 class="modal-title">{{ name }}</h4>
     <button type="button" class="js-close-modal close" aria-label="{{ 'modal.close'|trans }}">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
-{% if hasDescription or hasEvents or avatar is not empty %}
+{% if hasDescription or hasEvents or hasAvatar %}
     <div class="modal-body">
-        {% if avatar is not empty %}
+        {% if hasAvatar %}
             <img class="img-fluid mb-3" src="{{ fsi_file_url(avatar.value) }}" />
         {% endif %}
         {% if hasDescription and hasEvents %}
-            <ul class="nav nav-tabs" role="tablist">
-                {{ macros.tab('displayContentTab', 'displayContent', 'scene.modal.description', 'active') }}
-                {{ macros.tab('displayEventsTab', 'displayEvents', 'scene.modal.events', '') }}
-            </ul>
+            {{ macros.tabNavigation(
+                macros.tab('displayContentTab', 'displayContent', 'scene.modal.description', 'active'),
+                macros.tab('displayEventsTab', 'displayEvents', 'scene.modal.events', '')
+            ) }}
             <div class="tab-content pt-2 pb-2">
-                {{ macros.tabContent('displayContent', 'displayContentTab', macros.content(description), 'show active') }}
-                {{ macros.tabContent('displayEvents', 'displayEventsTab', macros.events(events), 'pl-2 pr-2') }}
+                {{ macros.tabContent('displayContent', 'displayContentTab', self_macros.content(description), 'show active') }}
+                {{ macros.tabContent('displayEvents', 'displayEventsTab', self_macros.events(events), 'pl-2 pr-2') }}
             </div>
         {% elseif hasDescription %}
-            {{ macros.content(description) }}
+            {{ self_macros.content(description) }}
         {% elseif hasEvents %}
             <h5>{{ 'scene.modal.events'|trans }}</h5>
-            {{ macros.events(events) }}
+            {{ self_macros.events(events) }}
         {% endif %}
     </div>
 {% endif %}
@@ -34,18 +36,6 @@
         {{- 'modal.close'|trans -}}
     </button>
 </div>
-
-{% macro tab(id, href, content, class) %}
-    <li class="nav-item">
-        <a class="nav-link {{ class }}" id="{{ id }}" href="#{{ href }}" data-toggle="tab">{{ content|trans }}</a>
-    </li>
-{% endmacro %}
-
-{% macro tabContent(id, tabId, content, class) %}
-    <div class="tab-pane fade {{ class }}" id="{{ id }}" role="tabpanel" aria-labelledby="{{ tabId }}">
-        {{ content|raw }}
-    </div>
-{% endmacro %}
 
 {% macro content(description) %}
     <div class="row">

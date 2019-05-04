@@ -1,3 +1,13 @@
+{% macro sidemenuDisplayLink(link) %}
+    {% import _self as macros %}
+    {{ macros.sidemenuLink('eye', 'display.title'|trans, 'display.label'|trans, link) }}
+{% endmacro %}
+
+{% macro sidemenuPdfLink(link) %}
+    {% import _self as macros %}
+    {{ macros.sidemenuLink('file-pdf-o', 'pdf.title'|trans, 'pdf.label'|trans, link) }}
+{% endmacro %}
+
 {% macro sidemenuLink(icon, title, label, link) %}
     <li>
         <a class="fa fa-2x fa-{{ icon }} d-sm-block d-md-none d-xl-none logo-icon"
@@ -40,4 +50,24 @@
             <span class="fa {{ icon }}"></span> {{ label }}
         </a>
     </li>
+{% endmacro %}
+
+{% macro tabNavigation(tabs) %}
+    <ul class="nav nav-tabs" role="tablist">
+        {% for tab in tabs %}
+            {{ tab|raw }}
+        {% endfor %}
+    </ul>
+{% endmacro %}
+
+{% macro tab(id, href, content, class) %}
+    <li class="nav-item">
+        <a class="nav-link {{ class }}" id="{{ id }}" href="#{{ href }}" data-toggle="tab">{{ content|trans }}</a>
+    </li>
+{% endmacro %}
+
+{% macro tabContent(id, tabId, content, class) %}
+    <div class="tab-pane fade {{ class }}" id="{{ id }}" role="tabpanel" aria-labelledby="{{ tabId }}">
+        {{ content|raw }}
+    </div>
 {% endmacro %}

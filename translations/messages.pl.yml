@@ -4,9 +4,6 @@ meta:
 
 menu:
     start: Start
-    books: Książki
-    chapters: Rozdziały
-    scenes: Sceny
     change_password: Zmień hasło
     toggle: Przełącz nawigację
     logout: Wyloguj
@@ -21,6 +18,12 @@ crud:
     display: Podgląd
     close: Zamknij
     remove_from_scene: Usuń ze sceny
+
+common:
+    books: Książki
+    chapters: Rozdziały
+    scenes: Sceny
+    content: Treść
 
 security:
     header: Bajkopisarz
@@ -125,9 +128,6 @@ book:
     description: Opis
     placeholder:
         title: Podaj tytuł książki i zapisz, by móc dodawać rozdziały
-    chapters:
-        title: Rozdziały
-        no_results: Książka nie posiada żadnych rozdziałów.
     actions:
         create: Nowa
         add_chapter: Dodaj
@@ -155,9 +155,6 @@ chapter:
             book: Podaj tytuł rozdziału
             standalone: Podaj tytuł rozdziału i zapisz, by móc dodawać sceny
         book: 'Przypisz do książki'
-    scenes:
-        title: Sceny
-        no_results: Rozdział nie posiada żadnych scen.
     book: Książka
     actions:
         create: Nowy
@@ -211,6 +208,7 @@ scene:
         locations: Miejsca
         items: Przedmioty
         events: Wydarzenia
+        related: Rozdział
     alert:
         created: 'Pomyślnie dodano nową scenę o tytule "%title%".'
         edit: Zapisano zmiany w scenie.

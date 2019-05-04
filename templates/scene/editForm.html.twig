@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% import 'partial/macros.html.twig' as macros %}
+{% set hasChapter = chapterId is not null %}
 
 {% block seoTitle 'scene.seo_title.form.edit'|trans({ '%title%': title }) %}
 {% block rightMenu %}
@@ -20,34 +21,70 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-xs-10 offset-sm-1 col-md-8 offset-md-1 content-container">
-            {% include 'scene/form/editForm.html.twig' with { form: form } only %}
-            <div id="ajax-container"></div>
-            <div id="form-backdrop"></div>
+        <div class="col col-sm-8 offset-sm-1">
+            {{ macros.tabNavigation([
+                macros.tab('formContentTab', 'formContent', 'common.content', 'active'),
+                hasChapter ? macros.tab('relatedScenesTab', 'relatedScenes', 'scene.tabs.related', '') : '',
+                macros.tab('charactersTab', 'characters', 'scene.tabs.characters', ''),
+                macros.tab('itemsTab', 'items', 'scene.tabs.items', ''),
+                macros.tab('locationsTab', 'locations', 'scene.tabs.locations', ''),
+                macros.tab('eventsTab', 'events', 'scene.tabs.events', '')
+            ]) }}
         </div>
     </div>
-    <nav class="side-menu">
-        <ul id="side-menu" class="collapse show">
-            {% if chapterTitle is not null and relatedScenes|length > 0 %}
-                {% include 'scene/related/listHeader.html.twig' with {
-                    chapterTitle: chapterTitle,
-                    chapterId: chapterId,
-                    form: nextSceneForm
-                } only %}
-            {% endif %}
-            {% include 'scene/characters/listHeader.html.twig' with { sceneId: sceneId, chapterId: chapterId } only %}
-            {% include 'scene/items/listHeader.html.twig' with { sceneId: sceneId, chapterId: chapterId } only %}
-            {% include 'scene/locations/listHeader.html.twig' with { sceneId: sceneId, chapterId: chapterId} only %}
-            {% include 'scene/events/listHeader.html.twig' with { sceneId: sceneId, chapterId: chapterId } only %}
-            {{ macros.sidemenuLink('eye', 'display.title'|trans, 'display.label'|trans, path('scene_display', { id: sceneId })) }}
-            {{ macros.sidemenuLink('file-pdf-o', 'pdf.title'|trans, 'pdf.label'|trans, path('scene_pdf', { id: sceneId })) }}
-        </ul>
-        <div data-target="#side-menu" data-toggle="collapse" class="text-center">
-            <button class="btn btn-sm" style="width: 100%;">
-                <span class="fa fa-chevron-up"></span>
-            </button>
+    <div class="row">
+        <div class="col col-sm-8 offset-sm-1">
+            <div class="tab-content pt-2 pb-2">
+                {{ macros.tabContent(
+                    'formContent',
+                    'formContentTab',
+                    include('scene/form/editForm.html.twig', { form: form }, with_context = false),
+                    'active show'
+                ) }}
+                {% if hasChapter %}
+                    {{ macros.tabContent(
+                        'relatedScenes',
+                        'relatedScenesTab',
+                        include('scene/tab/relatedScenes.html.twig', { chapterId: chapterId, list: relatedScenes, page: 1 }, with_context = false),
+                        ''
+                    ) }}
+                {% endif %}
+                {{ macros.tabContent(
+                    'characters',
+                    'charactersTab',
+                    include('scene/tab/entityList.html.twig', { sceneId: sceneId, list: characters, entity: 'character', page: 1 }, with_context = false),
+                    ''
+                ) }}
+                {{ macros.tabContent(
+                    'items',
+                    'itemsTab',
+                    include('scene/tab/entityList.html.twig', { sceneId: sceneId, list: items, entity: 'item', page: 1 }, with_context = false),
+                    ''
+                ) }}
+                {{ macros.tabContent(
+                    'locations',
+                    'locationsTab',
+                    include('scene/tab/entityList.html.twig', { sceneId: sceneId, list: locations, entity: 'location', page: 1 }, with_context = false),
+                    ''
+                ) }}
+                {{ macros.tabContent(
+                    'events',
+                    'eventsTab',
+                    include('scene/tab/events.html.twig', { sceneId: sceneId, events: events, page: 1 }, with_context = false),
+                    ''
+                ) }}
+            </div>
         </div>
-    </nav>
+    </div>
+    {% embed 'partial/sidemenu.html.twig' with {
+        display: macros.sidemenuDisplayLink(path('scene_display', { id: sceneId })),
+        pdf: macros.sidemenuPdfLink(path('scene_pdf', { id: sceneId }))
+    } %}
+        {% block content %}
+            {{ display|raw }}
+            {{ pdf|raw }}
+        {% endblock %}
+    {% endembed %}
 {% endblock %}
 
 {% block modals %}
