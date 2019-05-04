@@ -32,7 +32,7 @@ function initializeCKEditor(elements)
             'redo'
         ]
     }).then(editor => {
-        bindAutosave(editor);
+//        bindAutosave(editor);
     }).catch(error => {
         console.error(error);
     });
