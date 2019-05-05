@@ -6,7 +6,7 @@ namespace Talesweaver\Application\Query\Character;
 
 use Talesweaver\Domain\Scene;
 
-class RelatedPage
+final class RelatedPage
 {
     /**
      * @var Scene

@@ -7,7 +7,7 @@ namespace Talesweaver\Application\Query\Location;
 use Talesweaver\Application\Bus\QueryHandlerInterface;
 use Talesweaver\Domain\Locations;
 
-class EntityExistsHandler implements QueryHandlerInterface
+final class EntityExistsHandler implements QueryHandlerInterface
 {
     /**
      * @var Locations

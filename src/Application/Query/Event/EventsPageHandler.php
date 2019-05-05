@@ -26,7 +26,7 @@ final class EventsPageHandler implements QueryHandlerInterface
         $pager = new Pagerfanta(
             new ArrayAdapter($this->events->findForScene($query->getScene()))
         );
-        $pager->setMaxPerPage(3);
+        $pager->setMaxPerPage(9);
         $pager->setCurrentPage($query->getPage());
 
         return $pager;

@@ -2,7 +2,6 @@ import { ajaxGetCall, ajaxPostCall, offset, scrollTo, trigger } from '../common'
 import { AjaxContainer } from './ajaxContainer';
 import { Alerts } from './alerts';
 import { Display } from './display';
-import { Lists } from './lists';
 const Gator = require('gator');
 
 interface FormResponse {
@@ -28,9 +27,6 @@ export module Forms {
     }
 
     export function getForm(url: string): void {
-        Lists.closeSublists();
-        Lists.closeMobileSublists();
-
         ajaxGetCall(
             url,
             function (response: FormResponse): void {

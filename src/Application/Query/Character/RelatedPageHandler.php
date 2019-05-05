@@ -9,7 +9,7 @@ use Pagerfanta\Pagerfanta;
 use Talesweaver\Application\Bus\QueryHandlerInterface;
 use Talesweaver\Domain\Characters;
 
-class RelatedPageHandler implements QueryHandlerInterface
+final class RelatedPageHandler implements QueryHandlerInterface
 {
     /**
      * @var Characters

@@ -11,7 +11,7 @@ use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\SceneResolver;
 use Talesweaver\Application\Query\Location\LocationsPage;
 
-class ListController
+final class ListController
 {
     /**
      * @var SceneResolver
@@ -43,9 +43,10 @@ class ListController
         $scene = $this->sceneResolver->fromRequest($request);
         $page = (int) $request->getAttribute('page', 1);
         return $this->responseFactory->list(
-            'scene\locations\list.html.twig',
+            'scene\tab\entityList.html.twig',
             [
-                'locations' => $this->queryBus->query(new LocationsPage($scene, $page)),
+                'list' => $this->queryBus->query(new LocationsPage($scene, $page)),
+                'entity' => 'location',
                 'sceneId' => $scene->getId(),
                 'chapterId' => null !== $scene->getChapter() ? $scene->getChapter()->getId(): null,
                 'page' => $page

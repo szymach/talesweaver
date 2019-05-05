@@ -43,9 +43,10 @@ final class ListController
         $scene = $this->sceneResolver->fromRequest($request);
         $page = (int) $request->getAttribute('page', 1);
         return $this->responseFactory->list(
-            'scene\items\list.html.twig',
+            'scene\tab\entityList.html.twig',
             [
-                'items' => $this->queryBus->query(new ItemsPage($scene, $page)),
+                'list' => $this->queryBus->query(new ItemsPage($scene, $page)),
+                'entity' => 'item',
                 'sceneId' => $scene->getId(),
                 'chapterId' => null !== $scene->getChapter() ? $scene->getChapter()->getId(): null,
                 'page' => $page

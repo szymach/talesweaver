@@ -26,7 +26,7 @@ final class LocationsPageHandler implements QueryHandlerInterface
         $pager = new Pagerfanta(
             new ArrayAdapter($this->locations->findForScene($query->getScene()))
         );
-        $pager->setMaxPerPage(10);
+        $pager->setMaxPerPage(9);
         $pager->setCurrentPage($query->getPage());
 
         return $pager;

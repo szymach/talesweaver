@@ -7,7 +7,7 @@ namespace Talesweaver\Application\Query\Character;
 use Talesweaver\Application\Bus\QueryHandlerInterface;
 use Talesweaver\Domain\Characters;
 
-class ForSceneHandler implements QueryHandlerInterface
+final class ForSceneHandler implements QueryHandlerInterface
 {
     /**
      * @var Characters

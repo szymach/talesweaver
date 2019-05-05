@@ -62,7 +62,7 @@ final class ChaptersListController
         $book = $this->bookResolver->fromRequest($request);
         $page = (int) $request->getAttribute('page', 1);
         return $this->responseFactory->list(
-            'book/chapters/list.html.twig',
+            'book/tab/chapters.html.twig',
             [
                 'bookId' => $book->getId(),
                 'chapters' => $this->queryBus->query(new ChaptersPage($book, $page)),

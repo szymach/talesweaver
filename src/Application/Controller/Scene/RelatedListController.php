@@ -11,7 +11,7 @@ use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\ChapterResolver;
 use Talesweaver\Application\Query\Chapter\ScenesPage;
 
-class RelatedListController
+final class RelatedListController
 {
     /**
      * @var ChapterResolver
@@ -49,11 +49,10 @@ class RelatedListController
         $chapter = $this->chapterResolver->fromRequest($request);
         $page = (int) $request->getAttribute('page', 1);
         return $this->responseFactory->list(
-            'scene/related/list.html.twig',
+            'scene/tab/relatedScenes.html.twig',
             [
                 'chapterId' => $chapter->getId(),
-                'chapterTitle' => $chapter->getTitle(),
-                'scenes' => $this->queryBus->query(new ScenesPage($chapter, $page)),
+                'list' => $this->queryBus->query(new ScenesPage($chapter, $page)),
                 'page' => $page
             ]
         );

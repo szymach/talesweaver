@@ -43,7 +43,7 @@ final class ListController
         $scene = $this->sceneResolver->fromRequest($request);
         $page = (int) $request->getAttribute('page', 1);
         return $this->responseFactory->list(
-            'scene\events\list.html.twig',
+            'scene\tab\events.html.twig',
             [
                 'events' => $this->queryBus->query(new EventsPage($scene, $page)),
                 'sceneId' => $scene->getId(),

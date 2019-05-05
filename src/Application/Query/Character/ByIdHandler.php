@@ -8,7 +8,7 @@ use Talesweaver\Application\Bus\QueryHandlerInterface;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Characters;
 
-class ByIdHandler implements QueryHandlerInterface
+final class ByIdHandler implements QueryHandlerInterface
 {
     /**
      * @var Characters

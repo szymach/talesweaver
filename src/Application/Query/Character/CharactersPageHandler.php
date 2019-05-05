@@ -26,7 +26,7 @@ final class CharactersPageHandler implements QueryHandlerInterface
         $pager = new Pagerfanta(
             new ArrayAdapter($this->characters->findForScene($query->getScene()))
         );
-        $pager->setMaxPerPage(10);
+        $pager->setMaxPerPage(9);
         $pager->setCurrentPage($query->getPage());
 
         return $pager;

@@ -6,7 +6,7 @@ namespace Talesweaver\Application\Query\Location;
 
 use Ramsey\Uuid\UuidInterface;
 
-class ById
+final class ById
 {
     /**
      * @var UuidInterface

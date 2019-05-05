@@ -7,7 +7,7 @@ namespace Talesweaver\Application\Query\Location;
 use Talesweaver\Application\Bus\QueryHandlerInterface;
 use Talesweaver\Domain\Locations;
 
-class ForSceneHandler implements QueryHandlerInterface
+final class ForSceneHandler implements QueryHandlerInterface
 {
     /**
      * @var Locations

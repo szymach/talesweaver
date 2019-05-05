@@ -8,7 +8,7 @@ use Talesweaver\Application\Bus\QueryHandlerInterface;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Locations;
 
-class ByIdHandler implements QueryHandlerInterface
+final class ByIdHandler implements QueryHandlerInterface
 {
     /**
      * @var Locations

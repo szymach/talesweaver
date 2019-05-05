@@ -59,7 +59,7 @@ final class ScenesListController
         $book = $this->bookResolver->fromRequest($request);
         $page = (int) $request->getAttribute('page', 1);
         return $this->responseFactory->list(
-            'book/scenes/list.html.twig',
+            'book/tab/scenes.html.twig',
             [
                 'bookId' => $book->getId(),
                 'scenes' => $this->queryBus->query(new ScenesPage($book, $page)),

@@ -35,13 +35,13 @@
                     'chapters',
                     'chaptersTab',
                     include('book/tab/chapters.html.twig', { bookId: bookId, chapters: chapters, page: 1 }, with_context = false),
-                    ''
+                    'js-list-container'
                 ) }}
                 {{ macros.tabContent(
                     'scenes',
                     'scenesTab',
                     include('book/tab/scenes.html.twig', { bookId: bookId, scenes: scenes, page: 1 }, with_context = false),
-                    ''
+                    'js-list-container'
                 ) }}
             </div>
         </div>

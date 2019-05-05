@@ -7,7 +7,7 @@ namespace Talesweaver\Application\Query\Character;
 use Talesweaver\Application\Bus\QueryHandlerInterface;
 use Talesweaver\Domain\Characters;
 
-class EntityExistsHandler implements QueryHandlerInterface
+final class EntityExistsHandler implements QueryHandlerInterface
 {
     /**
      * @var Characters

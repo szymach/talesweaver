@@ -9,7 +9,7 @@ use Pagerfanta\Pagerfanta;
 use Talesweaver\Application\Bus\QueryHandlerInterface;
 use Talesweaver\Domain\Locations;
 
-class RelatedPageHandler implements QueryHandlerInterface
+final class RelatedPageHandler implements QueryHandlerInterface
 {
     /**
      * @var Locations
@@ -26,7 +26,7 @@ class RelatedPageHandler implements QueryHandlerInterface
         $pager = new Pagerfanta(
             new ArrayAdapter($this->locations->findRelated($query->getScene()))
         );
-        $pager->setMaxPerPage(10);
+        $pager->setMaxPerPage(9);
         $pager->setCurrentPage($query->getPage());
 
         return $pager;

@@ -46,32 +46,32 @@
                         'relatedScenes',
                         'relatedScenesTab',
                         include('scene/tab/relatedScenes.html.twig', { chapterId: chapterId, list: relatedScenes, page: 1 }, with_context = false),
-                        ''
+                        'js-list-container'
                     ) }}
                 {% endif %}
                 {{ macros.tabContent(
                     'characters',
                     'charactersTab',
                     include('scene/tab/entityList.html.twig', { sceneId: sceneId, list: characters, entity: 'character', page: 1 }, with_context = false),
-                    ''
+                    'js-list-container'
                 ) }}
                 {{ macros.tabContent(
                     'items',
                     'itemsTab',
                     include('scene/tab/entityList.html.twig', { sceneId: sceneId, list: items, entity: 'item', page: 1 }, with_context = false),
-                    ''
+                    'js-list-container'
                 ) }}
                 {{ macros.tabContent(
                     'locations',
                     'locationsTab',
                     include('scene/tab/entityList.html.twig', { sceneId: sceneId, list: locations, entity: 'location', page: 1 }, with_context = false),
-                    ''
+                    'js-list-container'
                 ) }}
                 {{ macros.tabContent(
                     'events',
                     'eventsTab',
                     include('scene/tab/events.html.twig', { sceneId: sceneId, events: events, page: 1 }, with_context = false),
-                    ''
+                    'js-list-container'
                 ) }}
             </div>
         </div>
