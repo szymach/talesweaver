@@ -16,6 +16,7 @@ use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Character;
+use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
@@ -30,6 +31,7 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
     private const CHARACTER_COUNT = 2;
     private const ITEM_COUNT = 3;
     private const LOCATION_COUNT = 4;
+    private const EVENT_COUNT = 4;
     private const LOCALE = 'pl';
 
     /**
@@ -96,6 +98,7 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
             $this->addCharactersToScene($scene);
             $this->addItemsToScene($scene);
             $this->addLocationsToScene($scene);
+            $this->addEventsToScene($manager, $scene);
 
             $manager->persist($scene);
 
@@ -105,7 +108,7 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
 
     private function addCharactersToScene(Scene $scene): void
     {
-        for ($i = 0; $i <= self::CHARACTER_COUNT; $i++) {
+        for ($i = 1; $i <= self::CHARACTER_COUNT; $i++) {
             $character = new Character(
                 Uuid::uuid4(),
                 $scene,
@@ -121,7 +124,7 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
 
     private function addItemsToScene(Scene $scene): void
     {
-        for ($i = 0; $i <= self::ITEM_COUNT; $i++) {
+        for ($i = 1; $i <= self::ITEM_COUNT; $i++) {
             $item = new Item(
                 Uuid::uuid4(),
                 $scene,
@@ -137,7 +140,7 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
 
     private function addLocationsToScene(Scene $scene): void
     {
-        for ($i = 0; $i <= self::LOCATION_COUNT; $i++) {
+        for ($i = 1; $i <= self::LOCATION_COUNT; $i++) {
             $location = new Location(
                 Uuid::uuid4(),
                 $scene,
@@ -148,6 +151,24 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
             );
             $location->setLocale(self::LOCALE);
             $scene->addLocation($location);
+        }
+    }
+
+    private function addEventsToScene(ObjectManager $manager, Scene $scene): void
+    {
+        for ($i = 1; $i <= self::EVENT_COUNT; $i++) {
+            $event = new Event(
+                Uuid::uuid4(),
+                new ShortText("Miejsce {$i}"),
+                LongText::fromNullableString($this->createRandomText(5)),
+                $this->getFaker()->randomElement($scene->getLocations()),
+                $scene,
+                $scene->getCreatedBy(),
+                $this->getFaker()->randomElements($scene->getCharacters(), 2),
+                $this->getFaker()->randomElements($scene->getItems(), 2)
+            );
+            $event->setLocale(self::LOCALE);
+            $manager->persist($event);
         }
     }
 

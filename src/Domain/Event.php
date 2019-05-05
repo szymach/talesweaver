@@ -61,6 +61,7 @@ class Event
      * @param Scene $scene
      * @param Author $author
      * @param Character[] $characters
+     * @param Item[] $items
      */
     public function __construct(
         UuidInterface $id,

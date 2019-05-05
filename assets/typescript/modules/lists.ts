@@ -1,9 +1,8 @@
 import { AjaxContainer } from './ajaxContainer';
 import { Alerts } from './alerts';
-import { Display } from './display';
 const bootstrap = require('bootstrap.native/dist/bootstrap-native-v4');
 const Gator = require('gator');
-import { addClass, findAncestor, hasClass, ajaxGetCall, removeClass } from '../common';
+import { findAncestor, hasClass, ajaxGetCall } from '../common';
 
 interface ListResponse {
     list?: string | null
@@ -56,6 +55,7 @@ export module Lists {
                 ajaxGetCall(
                     target.getAttribute('data-delete-url'),
                     (): void => {
+                        refreshList(target);
                         Alerts.displayAlerts();
                     },
                     (): void => {
@@ -77,6 +77,7 @@ export module Lists {
             target.getAttribute('data-action-url'),
             function (): void {
                 AjaxContainer.clearAjaxContainer();
+                refreshList(target);
                 Alerts.displayAlerts();
             }
         );
@@ -85,6 +86,16 @@ export module Lists {
     function paginateList(target: HTMLElement): void {
         ajaxGetCall(
             target.getAttribute('href'),
+            function (response: ListResponse): void {
+                AjaxContainer.clearAjaxContainer();
+                findAncestor(target, '.js-list-container').innerHTML = response.list;
+            }
+        );
+    }
+
+    function refreshList(target: HTMLElement): void {
+        ajaxGetCall(
+            findAncestor(target, '.js-ajax-pagination').getAttribute('data-list-url'),
             function (response: ListResponse): void {
                 AjaxContainer.clearAjaxContainer();
                 findAncestor(target, '.js-list-container').innerHTML = response.list;

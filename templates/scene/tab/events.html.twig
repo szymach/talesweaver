@@ -1,27 +1,27 @@
-<ul class="js-ajax-pagination" data-list-url="{{ path('event_list', { id: sceneId, page: events.currentPage }) }}">
+<ul class="js-ajax-pagination list-inline" data-list-url="{{ path('event_list', { id: sceneId, page: events.currentPage }) }}">
     {% if events|length > 0 %}
         {% for event in events %}
             <li class="list-inline-item pt-2">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">{{ event.name|truncate(25) }}</h5>>
+                        <h5 class="card-title">{{ event.name|truncate(25) }}</h5>
                         <div class="text-center">
                             <button class="js-load-form js-edit-form btn btn-sm btn-primary"
                                     data-form-url="{{ path('event_edit', { id: event.id }) }}"
                                     title="{{ 'crud.edit'|trans }}"
-                                    >
+                            >
                                 <span class="fa fa-edit"></span>
                             </button>
                             <button class="js-display btn btn-sm btn-outline-secondary"
                                     data-display-url="{{ path('event_display', { id: event.id }) }}"
                                     title="{{ 'crud.display'|trans }}"
-                                    >
+                            >
                                 <span class="fa fa-eye"></span>
                             </button>
                             <button class="js-list-delete js-delete btn btn-sm btn-danger"
                                     data-delete-url="{{ path('event_delete', { id: event.id }) }}"
                                     title="{{ 'crud.delete'|trans }}"
-                                    >
+                            >
                                 <span class="fa fa-trash"></span>
                             </button>
                         </div>

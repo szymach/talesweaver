@@ -20,6 +20,12 @@
                         >
                             <span class="fa fa-eye"></span>
                         </a>
+                        <button class="js-list-delete js-delete btn btn-sm btn-danger"
+                                data-delete-url="{{ path('scene_delete', { id: item.id }) }}"
+                                title="{{ 'crud.delete'|trans }}"
+                        >
+                            <span class="fa fa-trash"></span>
+                        </button>
                     </div>
                 </div>
             </div>
