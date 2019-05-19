@@ -1,0 +1,14 @@
+{% form_theme form 'form/formTheme.html.twig' %}
+
+<div class="row">
+    <div class="col">
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+    {{ form_end(form) }}
+    </div>
+</div>
+<script>
+    var event = document.createEvent('Event');
+    event.initEvent('ckeditor:initialize', true, true);
+    document.getElementById('modal-form').dispatchEvent(event);
+</script>

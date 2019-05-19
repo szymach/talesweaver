@@ -316,8 +316,14 @@ location:
         no_results: Brak miejsc do przypisania.
 
 modal:
-    action_confirmation: Potwierdzenie akcji
-    deletion_confirmation: Czy na pewno chcesz usunąć wybrany element?
+    delete:
+        title: Potwierdzenie akcji
+        content: Czy na pewno chcesz usunąć wybrany element?
+    form:
+        title: Formularz
+        submit: Zapisz
+    list:
+        title: Lista
     close: Zamknij
 
 side_menu:

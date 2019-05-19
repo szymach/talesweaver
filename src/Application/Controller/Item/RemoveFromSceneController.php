@@ -50,7 +50,7 @@ class RemoveFromSceneController
     {
         $this->commandBus->dispatch(new Command(
             $this->sceneResolver->fromRequest($request, 'scene_id'),
-            $this->itemResolver->fromRequest($request, 'item_id')
+            $this->itemResolver->fromRequest($request, 'id')
         ));
 
         return $this->responseFactory->success();

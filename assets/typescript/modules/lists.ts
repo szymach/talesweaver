@@ -1,11 +1,11 @@
-import { AjaxContainer } from './ajaxContainer';
 import { Alerts } from './alerts';
+import { ajaxGetCall, findAncestor, hasClass } from '../common';
 const bootstrap = require('bootstrap.native/dist/bootstrap-native-v4');
 const Gator = require('gator');
-import { findAncestor, hasClass, ajaxGetCall } from '../common';
 
 interface ListResponse {
-    list?: string | null
+    list?: string | null,
+    title?: string | null
 }
 
 export module Lists {
@@ -34,24 +34,44 @@ export module Lists {
 
         Gator(document.querySelector('main')).on(
             'click',
-            '.js-list-action',
+            '.js-load-sublist',
             (event: Event): void => {
                 event.preventDefault();
                 event.stopPropagation();
+
+                loadSublist(event.target as HTMLElement);
+            }
+        );
+
+        Gator(document.querySelector('body')).on(
+            'click',
+            '.js-list-action',
+            (event: Event): void => {
+                event.preventDefault();
 
                 performListAction(event.target as HTMLElement);
             }
         );
     }
 
+    export function refreshList(target: HTMLElement): void {
+        if (false === hasClass(target, 'js-ajax-pagination')) {
+            target = findAncestor(target, '.js-ajax-pagination');
+        }
+
+        ajaxGetCall(
+            target.getAttribute('data-list-url'),
+            function (response: ListResponse): void {
+                findAncestor(target, '.js-list-container').innerHTML = response.list;
+            }
+        );
+    }
 
     function deleteItem(target: HTMLElement): void {
         const modalElement = new bootstrap.Modal(document.getElementById('modal-delete'));
-        modalElement.show();
         const clickEvent = (): void => {
             modalElement.hide();
             if (hasClass(target, 'js-list-delete')) {
-                AjaxContainer.clearAjaxContainer();
                 ajaxGetCall(
                     target.getAttribute('data-delete-url'),
                     (): void => {
@@ -70,13 +90,27 @@ export module Lists {
         const modalConfirm: HTMLElement = document.getElementById('modal-confirm');
         modalConfirm.removeEventListener('click', clickEvent);
         modalConfirm.addEventListener('click', clickEvent);
+
+        modalElement.show();
+    }
+
+    function loadSublist(target: HTMLElement): void {
+        const modal = getModal();
+        ajaxGetCall(
+            target.getAttribute('data-list-url'),
+            function (response: ListResponse): void {
+                modal.querySelector('.modal-title').innerHTML = response.title;
+                modal.querySelector('.modal-body').innerHTML = response.list;
+
+                new bootstrap.Modal(modal).show();
+            }
+        );
     }
 
     function performListAction(target: HTMLElement): void {
         ajaxGetCall(
             target.getAttribute('data-action-url'),
             function (): void {
-                AjaxContainer.clearAjaxContainer();
                 refreshList(target);
                 Alerts.displayAlerts();
             }
@@ -87,19 +121,12 @@ export module Lists {
         ajaxGetCall(
             target.getAttribute('href'),
             function (response: ListResponse): void {
-                AjaxContainer.clearAjaxContainer();
                 findAncestor(target, '.js-list-container').innerHTML = response.list;
             }
         );
     }
 
-    function refreshList(target: HTMLElement): void {
-        ajaxGetCall(
-            findAncestor(target, '.js-ajax-pagination').getAttribute('data-list-url'),
-            function (response: ListResponse): void {
-                AjaxContainer.clearAjaxContainer();
-                findAncestor(target, '.js-list-container').innerHTML = response.list;
-            }
-        );
+    function getModal(): HTMLElement {
+        return document.getElementById('modal-list');
     }
 }

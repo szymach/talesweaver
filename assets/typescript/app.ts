@@ -1,13 +1,11 @@
-import { AjaxContainer } from './modules/ajaxContainer';
 import { Alerts } from './modules/alerts';
-const bootstrap = require('bootstrap.native/dist/bootstrap-native-v4');
 import { Display } from './modules/display';
 import { Forms } from './modules/forms';
 import { Lists } from './modules/lists';
 import { addClass, ready, removeClass } from './common';
+const bootstrap = require('bootstrap.native/dist/bootstrap-native-v4');
 
 ready((): void => {
-    AjaxContainer.init();
     Alerts.init();
     Display.init();
     Forms.init();

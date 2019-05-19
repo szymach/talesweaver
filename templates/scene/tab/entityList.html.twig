@@ -1,4 +1,20 @@
-<ul class="js-ajax-pagination list-inline" data-list-url="{{ path(entity ~ '_list', { id: sceneId, page: list.currentPage }) }}">
+<div class="text-right pb-2">
+    <button class="btn btn-sm btn-success js-load-form"
+            title="{{ (entity ~ '.actions.create')|trans }}"
+            data-form-url="{{ path(entity ~ '_new', { id: sceneId }) }}"
+    >
+        <span class="fa fa-plus"></span>
+    </button>
+    {% if chapterId is not empty %}
+        <button class="btn btn-sm btn-outline-secondary js-load-sublist"
+                title="{{ (entity ~ '.actions.add_existing')|trans }}"
+                data-list-url="{{ path(entity ~ '_related', { id: sceneId }) }}"
+        >
+            <span class="fa fa-link"></span>
+        </button>
+    {% endif %}
+</div>
+<ul class="js-ajax-pagination list-inline" data-list-url="{{ path(entity ~ '_list', { id: sceneId, page: page }) }}">
     {% if list|length > 0 %}
         {% for item in list %}
             {% set itemId = item.id %}
@@ -19,11 +35,11 @@
                             >
                                 <span class="fa fa-eye"></span>
                             </button>
-                            {% if sceneId and 1 < item.scenes|length %}
+                            {% if 1 < item.scenes|length %}
                                 <button class="js-list-delete js-delete btn btn-sm btn-warning"
                                         data-delete-url="{{ path(entity ~ '_remove_from_scene', { scene_id: sceneId, id: itemId }) }}"
                                         title="{{ 'crud.remove_from_scene'|trans }}"
-                                >
+                            >
                                     <span class="fa fa-scissors"></span>
                                 </button>
                             {% endif %}

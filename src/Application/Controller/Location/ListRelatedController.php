@@ -6,6 +6,7 @@ namespace Talesweaver\Application\Controller\Location;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\SceneResolver;
@@ -50,7 +51,8 @@ class ListRelatedController
                 'sceneTitle' => $scene->getTitle(),
                 'chapterId' => null !== $scene->getChapter() ? $scene->getChapter()->getId(): null,
                 'type' => 'location'
-            ]
+            ],
+            'location.header.related'
         );
     }
 }

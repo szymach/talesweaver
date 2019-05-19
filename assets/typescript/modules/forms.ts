@@ -1,11 +1,13 @@
 import { ajaxGetCall, ajaxPostCall, offset, scrollTo, trigger } from '../common';
-import { AjaxContainer } from './ajaxContainer';
 import { Alerts } from './alerts';
 import { Display } from './display';
+import { Lists } from './lists';
+const bootstrap = require('bootstrap.native/dist/bootstrap-native-v4');
 const Gator = require('gator');
 
 interface FormResponse {
-    form?: string | null
+    form?: string | null,
+    title?: string | null
 }
 
 export module Forms {
@@ -15,40 +17,43 @@ export module Forms {
             '.js-load-form',
             (event: Event): void => {
                 event.preventDefault();
-                event.stopPropagation();
 
                 const element: HTMLElement = event.target as HTMLElement;
 
                 Display.closeAllModals();
-                getForm(element.getAttribute('data-form-url'));
-                scrollTo(offset(AjaxContainer.getContainer()).top, 900);
+                loadForm(element);
+                scrollTo(offset(getModal()).top, 900);
+            }
+        );
+
+        Gator(document.getElementById('modal-form-submit')).on(
+            'click',
+            (event: Event): void => {
+                event.preventDefault();
+
+                submitForm(<HTMLFormElement>getModal().querySelector('.js-form'));
             }
         );
     }
 
-    export function getForm(url: string): void {
+    function loadForm(button: HTMLElement): void {
         ajaxGetCall(
-            url,
+            button.getAttribute('data-form-url'),
             function (response: FormResponse): void {
-                AjaxContainer.displayAjaxContainerWithContent(response.form);
-                bindAjaxForm();
-                triggerAutofocus();
+                const modal = getModal();
+                displayModal(modal, response);
+                bindAjaxForm(modal);
+                triggerAutofocus(modal);
             }
         );
     }
 
-    function bindAjaxForm(): void {
-        const container = AjaxContainer.getContainer();
-        Gator(container).off('submit');
-        Gator(container).on('submit', '.js-form', (event: Event): boolean => {
+    function bindAjaxForm(modal: HTMLElement): void {
+        Gator(modal).off('submit');
+        Gator(modal).on('submit', '.js-form', (event: Event): boolean => {
             event.preventDefault();
-            event.stopPropagation();
 
             submitForm(<HTMLFormElement>event.target);
-            const input: HTMLElement = AjaxContainer.getContainer().querySelector('form input');
-            if (null !== input && undefined !== input) {
-                trigger(input, 'focus');
-            }
 
             return false;
         });
@@ -56,10 +61,16 @@ export module Forms {
 
     function submitForm(form: HTMLFormElement): void {
         const handleErrorCallback = (response: FormResponse): void => {
+            const modal = getModal();
             if (typeof response.form !== 'undefined' && null !== response.form) {
-                AjaxContainer.displayAjaxContainerWithContent(response.form);
+                displayModal(modal, response);
+                const input: HTMLElement = modal.querySelector('form input');
+                if (null !== input && undefined !== input) {
+                    trigger(input, 'focus');
+                }
             } else {
-                AjaxContainer.clearAjaxContainer();
+                clearModal(modal);
+                Lists.refreshList(document.querySelector('.tab-content .tab-pane.active .js-ajax-pagination'));
             }
 
             Alerts.displayAlerts();
@@ -73,8 +84,27 @@ export module Forms {
         );
     }
 
-    function triggerAutofocus(): void {
-        const input: HTMLElement = AjaxContainer.getContainer().querySelector('[autofocus="autofocus"]');
+    function getModal(): HTMLElement {
+        return document.getElementById('modal-form');
+    }
+
+    function displayModal(modal: HTMLElement, response: FormResponse): void {
+        modal.querySelector('.modal-title').innerHTML = response.title;
+        modal.querySelector('.modal-body').innerHTML = response.form;
+        trigger(modal, 'ckeditor:initialize');
+        new bootstrap.Modal(modal).show()
+    }
+
+    function clearModal(modal: HTMLElement): void {
+        new bootstrap.Modal(modal).hide();
+        Gator(modal).on('hidden.bs.modal', (): void => {
+            modal.querySelector('.modal-title').innerHTML = '';
+            modal.querySelector('.modal-body').innerHTML = '';
+        });
+    }
+
+    function triggerAutofocus(modal: HTMLElement): void {
+        const input: HTMLElement = modal.querySelector('[autofocus="autofocus"]');
 
         input.focus();
     }

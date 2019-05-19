@@ -74,9 +74,10 @@ final class EditController
         }
 
         return $this->responseFactory->form(
-            'partial/simpleForm.html.twig',
-            ['form' => $formHandler->createView(), 'title' => 'event.header.edit'],
-            $formHandler->displayErrors()
+            'form\modalContent.html.twig',
+            ['form' => $formHandler->createView()],
+            $formHandler->displayErrors(),
+            'event.header.edit'
         );
     }
 

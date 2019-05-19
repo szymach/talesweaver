@@ -34,11 +34,11 @@ location_related:
     methods:  GET
 
 location_add_to_scene:
-    path: /add-to-scene/{scene_id}/{location_id}
+    path: /add-to-scene/{scene_id}/{id}
     controller: Talesweaver\Application\Controller\Location\AddToSceneController
     methods:  GET
 
 location_remove_from_scene:
-    path: /remove-from-scene/{scene_id}/{location_id}
+    path: /remove-from-scene/{scene_id}/{id}
     controller: Talesweaver\Application\Controller\Location\RemoveFromSceneController
     methods:  GET

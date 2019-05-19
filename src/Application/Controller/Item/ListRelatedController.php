@@ -50,7 +50,8 @@ final class ListRelatedController
                 'sceneTitle' => $scene->getTitle(),
                 'chapterId' => null !== $scene->getChapter() ? $scene->getChapter()->getId(): null,
                 'type' => 'item'
-            ]
+            ],
+            'item.header.related'
         );
     }
 }

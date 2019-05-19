@@ -1,14 +1,10 @@
 .ck-editor__main .ck-editor__editable.ck-rounded-corners {
     padding: 1em;
-    min-height: 500px;
+    min-height: 400px;
     max-height: 600px;
     cursor: text;
 
     .ckeditor-small & {
         min-height: 400px;
-    }
-
-    #ajax-container & {
-        min-height: 300px;
     }
 }

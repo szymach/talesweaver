@@ -34,11 +34,11 @@ character_related:
     methods:  GET
 
 character_add_to_scene:
-    path: /add-to-scene/{scene_id}/{character_id}
+    path: /add-to-scene/{scene_id}/{id}
     controller: Talesweaver\Application\Controller\Character\AddToSceneController
     methods:  GET
 
 character_remove_from_scene:
-    path: /remove-from-scene/{scene_id}/{character_id}
+    path: /remove-from-scene/{scene_id}/{id}
     controller: Talesweaver\Application\Controller\Character\RemoveFromSceneController
     methods:  GET

@@ -87,9 +87,10 @@ final class CreateController
         }
 
         return $this->responseFactory->form(
-            'partial/simpleForm.html.twig',
-            ['form' => $formHandler->createView(), 'title' => 'event.header.new'],
-            $formHandler->displayErrors()
+            'form\modalContent.html.twig',
+            ['form' => $formHandler->createView()],
+            $formHandler->displayErrors(),
+            'event.header.new'
         );
     }
 

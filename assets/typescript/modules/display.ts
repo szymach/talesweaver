@@ -1,7 +1,6 @@
 const bootstrap = require('bootstrap.native/dist/bootstrap-native-v4');
 const Gator = require('gator');
 import { ajaxGetCall, trigger } from '../common';
-import { AjaxContainer } from './ajaxContainer';
 
 interface DisplayResponse {
     display?: string | null
@@ -14,7 +13,6 @@ export module Display {
             '.js-display',
             (event: Event) => {
                 event.preventDefault();
-                event.stopPropagation();
                 const target = event.target as HTMLElement;
 
                 closeAllModals();
@@ -45,7 +43,6 @@ export module Display {
                 trigger(element.querySelector('[data-dismiss=modal]'), 'click');
             }
         );
-        AjaxContainer.clearAjaxContainer();
     }
 
     function initScripts() {

@@ -40,6 +40,6 @@ class PdfController
             $filename = sprintf('%s_%s', (string) $scene->getBook()->getTitle(), $filename);
         }
 
-        return $this->responseFactory->toPdf($filename, 'scene/display.html.twig', ['scene' => $scene], null);
+        return $this->responseFactory->toPdf($filename, 'display/standalone.html.twig', ['scene' => $scene], null);
     }
 }

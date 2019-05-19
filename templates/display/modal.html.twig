@@ -23,7 +23,6 @@
 </div>
 
 {% macro scenes(scenes) %}
-    {% import _self as macros %}
     {% for scene in scenes if scene.text is not empty %}
         <h3>{{ scene.title }}</h3>
         {{ macros.text(scene.text) }}

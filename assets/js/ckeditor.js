@@ -3,9 +3,9 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 ready(() => {
     initializeCKEditor(document.querySelector('.ckeditor'));
 
-    const ajaxContainer = document.getElementById('ajax-container');
-    ajaxContainer.addEventListener('ckeditor:initialize', () => {
-        initializeCKEditor(ajaxContainer.querySelector('.ckeditor'));
+    const formModal = document.getElementById('modal-form');
+    formModal.addEventListener('ckeditor:initialize', () => {
+        initializeCKEditor(formModal.querySelector('.ckeditor'));
     }, false);
 });
 

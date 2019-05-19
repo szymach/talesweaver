@@ -39,7 +39,7 @@ class PdfController
 
         return $this->responseFactory->toPdf(
             $filename,
-            'chapter/display.html.twig',
+            'display/standalone.html.twig',
             ['chapter' => $chapter],
             null
         );

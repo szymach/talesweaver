@@ -52,19 +52,19 @@
                 {{ macros.tabContent(
                     'characters',
                     'charactersTab',
-                    include('scene/tab/entityList.html.twig', { sceneId: sceneId, list: characters, entity: 'character', page: 1 }, with_context = false),
+                    include('scene/tab/entityList.html.twig', { sceneId: sceneId, chapterId: chapterId, list: characters, entity: 'character', page: 1 }, with_context = false),
                     'js-list-container'
                 ) }}
                 {{ macros.tabContent(
                     'items',
                     'itemsTab',
-                    include('scene/tab/entityList.html.twig', { sceneId: sceneId, list: items, entity: 'item', page: 1 }, with_context = false),
+                    include('scene/tab/entityList.html.twig', { sceneId: sceneId, chapterId: chapterId, list: items, entity: 'item', page: 1 }, with_context = false),
                     'js-list-container'
                 ) }}
                 {{ macros.tabContent(
                     'locations',
                     'locationsTab',
-                    include('scene/tab/entityList.html.twig', { sceneId: sceneId, list: locations, entity: 'location', page: 1 }, with_context = false),
+                    include('scene/tab/entityList.html.twig', { sceneId: sceneId, chapterId: chapterId, list: locations, entity: 'location', page: 1 }, with_context = false),
                     'js-list-container'
                 ) }}
                 {{ macros.tabContent(
@@ -88,7 +88,9 @@
 {% endblock %}
 
 {% block modals %}
-    {% include 'partial/displayModal.html.twig' %}
+    {% include 'modal/display.html.twig' with {} only %}
+    {% include 'modal/form.html.twig' with {} only %}
+    {% include 'modal/list.html.twig' with {} only %}
 {% endblock %}
 
 {% block stylesheets %}

@@ -8,7 +8,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Bus\CommandBus;
-use Talesweaver\Application\Command\Character\Create\Command;
 use Talesweaver\Application\Command\Character\Create\DTO;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Character\Create;
@@ -16,9 +15,6 @@ use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\SceneResolver;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Scene;
-use Talesweaver\Domain\ValueObject\File;
-use Talesweaver\Domain\ValueObject\LongText;
-use Talesweaver\Domain\ValueObject\ShortText;
 
 final class CreateController
 {
@@ -79,9 +75,10 @@ final class CreateController
         }
 
         return $this->responseFactory->form(
-            'partial\simpleForm.html.twig',
-            ['form' => $formHandler->createView(), 'title' => 'character.header.new'],
-            $formHandler->displayErrors()
+            'form\modalContent.html.twig',
+            ['form' => $formHandler->createView()],
+            $formHandler->displayErrors(),
+            'character.header.new'
         );
     }
 

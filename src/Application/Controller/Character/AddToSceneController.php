@@ -50,7 +50,7 @@ class AddToSceneController
     {
         $this->commandBus->dispatch(new Command(
             $this->sceneResolver->fromRequest($request, 'scene_id'),
-            $this->characterResolver->fromRequest($request, 'character_id')
+            $this->characterResolver->fromRequest($request, 'id')
         ));
 
         return $this->responseFactory->success();

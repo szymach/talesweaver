@@ -58,7 +58,7 @@
 {% endblock %}
 
 {% block modals %}
-    {% include 'partial/displayModal.html.twig' with { class: 'modal-lg' } only %}
+    {% include 'modal/display.html.twig' with { class: 'modal-lg' } only %}
 {% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ absolute_url(asset('assets/ckeditor.css')) }}">

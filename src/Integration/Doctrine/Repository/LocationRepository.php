@@ -62,6 +62,7 @@ class LocationRepository extends AutoWireableTranslatableRepository
             ->andWhere(':scene NOT MEMBER OF l.scenes')
             ->orWhere('s.id IS NULL')
             ->orderBy('t.name', 'ASC')
+            ->groupBy('l.id')
             ->setParameter('chapter', $scene->getChapter())
             ->setParameter('scene', $scene)
             ->setParameter('author', $author)
