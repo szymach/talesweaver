@@ -14,7 +14,7 @@ use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Scene\Create;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 
-class CreateController
+final class CreateController
 {
     /**
      * @var FormHandlerFactoryInterface

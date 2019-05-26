@@ -25,7 +25,7 @@ use Talesweaver\Application\Query\Scene\EntityExists;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 
-class CreateType extends AbstractType implements Create
+final class CreateType extends AbstractType implements Create
 {
     /**
      * @var QueryBus
@@ -76,7 +76,7 @@ class CreateType extends AbstractType implements Create
             'method' => Request::METHOD_POST,
             'title_placeholder' => 'scene.placeholder.title.standalone'
         ]);
-        $resolver->setAllowedTypes('title_placeholder', ['null', 'string']);
+        $resolver->setAllowedTypes('title_placeholder', ['string']);
     }
 
     private function validationCallback(?Chapter $chapter): callable
@@ -95,7 +95,9 @@ class CreateType extends AbstractType implements Create
 
     private function getChapterChoices(?Book $book): array
     {
-        return $this->queryBus->query(null !== $book ? new ForBook($book) : new Standalone());
+        return $this->queryBus->query(
+            null !== $book ? new ForBook($book) : new Standalone()
+        );
     }
 
     private function getChapterChoiceLabel(?Book $book): callable

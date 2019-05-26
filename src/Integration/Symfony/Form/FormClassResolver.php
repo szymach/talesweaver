@@ -37,10 +37,7 @@ final class FormClassResolver
         );
 
         if (null === $form) {
-            throw new InvalidArgumentException(sprintf(
-                '"%s" does not have a corresponding Symfony form.',
-                $identity
-            ));
+            throw new InvalidArgumentException("\"{$identity}\" does not have a corresponding Symfony form.");
         }
 
         return get_class($form);

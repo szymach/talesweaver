@@ -158,7 +158,7 @@ chapter:
     book: Książka
     actions:
         create: Nowy
-        add_scene: Dodaj
+        create_scene: Nowa scena
     list:
         create: Nowy
         standalone:
@@ -192,6 +192,8 @@ scene:
         chapter: 'Przypisz do rozdziału'
     chapter: Rozdział
     book: Książka
+    header:
+        new: Nowa scena
     actions:
         create: Nowa
     back:

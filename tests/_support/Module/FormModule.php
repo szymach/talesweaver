@@ -10,6 +10,7 @@ use Codeception\TestInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class FormModule extends Module
 {
@@ -63,6 +64,14 @@ class FormModule extends Module
     public function seeErrorAlert(string $content): void
     {
         $this->symfony->see($content, '.alert-danger.alert-form');
+    }
+
+    public function grabCsrfTokenFor(string $tokenId): string
+    {
+        /** @var CsrfTokenManagerInterface $manager */
+        $manager = $this->symfony->grabService('security.csrf.token_manager');
+
+        return $manager->getToken($tokenId)->getValue();
     }
 
     /**

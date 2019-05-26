@@ -21,6 +21,6 @@ final class AlertsController
 
     public function __invoke(): ResponseInterface
     {
-        return $this->responseFactory->keyForTemplate('alerts', 'partial/alerts.html.twig', []);
+        return $this->responseFactory->keyForTemplate('alerts', 'partial/alerts.html.twig', [], null);
     }
 }

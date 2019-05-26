@@ -6,13 +6,12 @@ namespace Talesweaver\Application\Controller\Location;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\SceneResolver;
 use Talesweaver\Application\Query\Location\RelatedPage;
 
-class ListRelatedController
+final class ListRelatedController
 {
     /**
      * @var SceneResolver

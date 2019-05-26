@@ -14,4 +14,6 @@ interface FormHandlerFactoryInterface
         $data = null,
         array $options = []
     ): FormHandlerInterface;
+
+    public function createView(string $type, array $options = []): FormHandlerInterface;
 }

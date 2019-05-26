@@ -35,10 +35,10 @@ class FormControllerCest
         $I->seeElement('a[title="Pobierz w formacie PDF"]');
         $I->see('Wróć do listy', 'a');
         $I->seeElement('nav.side-menu');
-        $I->see('Postacie', 'span');
-        $I->see('Przedmioty', 'span');
-        $I->see('Miejsca', 'span');
-        $I->see('Wydarzenia', 'span');
+        $I->see('Postacie', 'a');
+        $I->see('Przedmioty', 'a');
+        $I->see('Miejsca', 'a');
+        $I->see('Wydarzenia', 'a');
 
         $I->submitForm('form[name="edit"]', [
             'edit[title]' => 'Zmieniony tytuł sceny',
@@ -70,24 +70,5 @@ class FormControllerCest
         $updatedScene = $I->grabSceneByTitle('Scena edytowana');
         $I->assertEquals('Scena edytowana', $updatedScene->getTitle());
         $I->assertEquals('Opis sceny', $updatedScene->getText());
-    }
-
-    public function nextSceneForm(FunctionalTester $I): void
-    {
-        $I->loginAsUser();
-        $sceneId = $I->haveCreatedAScene(
-            'Tytuł nowej sceny',
-            $I->haveCreatedAChapter('Rozdział')
-        )->getId()->toString();
-
-        $I->amOnPage("/pl/scene/edit/{$sceneId}");
-        $I->seeElement('nav form[name="create"]');
-        $I->seeElement('form[name="edit"]');
-        $I->submitForm('nav form[name="create"]', ['create[title]' => 'Zmieniony tytuł sceny']);
-        $I->seeCurrentUrlMatches(
-            '/\/pl\/scene\/edit\/[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/'
-        );
-        $I->seeResponseCodeIs(200);
-        $I->seeInTitle('Zmieniony tytuł sceny - edycja');
     }
 }

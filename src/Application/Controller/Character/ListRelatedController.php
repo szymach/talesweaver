@@ -11,7 +11,7 @@ use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\SceneResolver;
 use Talesweaver\Application\Query\Character\RelatedPage;
 
-class ListRelatedController
+final class ListRelatedController
 {
     /**
      * @var SceneResolver

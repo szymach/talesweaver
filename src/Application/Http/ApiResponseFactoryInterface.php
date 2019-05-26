@@ -11,7 +11,12 @@ interface ApiResponseFactoryInterface
     public function success(array $data = []): ResponseInterface;
     public function error(array $data = ['error' => 'error']): ResponseInterface;
     public function display(string $template, array $parameters, string $title = null): ResponseInterface;
-    public function form(string $template, array $parameters, bool $displayErrors, string $title = null): ResponseInterface;
+    public function form(
+        string $template,
+        array $parameters,
+        bool $displayErrors,
+        string $title = null
+    ): ResponseInterface;
     public function list(string $template, array $parameters, string $title = null): ResponseInterface;
     public function keyForTemplate(
         string $key,

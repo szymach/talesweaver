@@ -29,16 +29,22 @@ chapter_scenes_list:
     condition: "request.isXmlHttpRequest()"
     methods:  GET
 
+chapter_display:
+    path: /display/{id}
+    controller: Talesweaver\Application\Controller\Chapter\DisplayController
+    methods:  GET
+
+chapter_add_scene:
+    path: /scene/{id}
+    controller: Talesweaver\Application\Controller\Chapter\SceneAddController
+    methods: [GET, POST]
+    condition: "request.isXmlHttpRequest()"
+
 chapter_delete:
     path: /delete/{id}/{page}
     controller: Talesweaver\Application\Controller\Chapter\DeleteController
     defaults:
         page: 1
-    methods:  GET
-
-chapter_display:
-    path: /display/{id}
-    controller: Talesweaver\Application\Controller\Chapter\DisplayController
     methods:  GET
 
 chapter_pdf:

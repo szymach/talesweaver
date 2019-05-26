@@ -43,6 +43,18 @@ final class FormHandlerFactory implements FormHandlerFactoryInterface
         );
     }
 
+    public function createView(string $type, array $options = array()): FormHandlerInterface
+    {
+        return new FormHandler(
+            $this->formFactory->create(
+                $this->getFormClass($type),
+                null,
+                array_merge(['psr7' => true], $options)
+            ),
+            null
+        );
+    }
+
     private function getFormClass(string $type): string
     {
         return $this->formClassResolver->resolve($type);

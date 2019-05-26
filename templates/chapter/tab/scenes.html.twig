@@ -1,3 +1,11 @@
+<div class="text-right pb-2">
+    <button class="btn btn-sm btn-success js-load-form"
+            title="{{ 'chapter.actions.create_scene'|trans }}"
+            data-form-url="{{ path('chapter_add_scene', { id: chapterId }) }}"
+    >
+        <span class="fa fa-plus"></span>
+    </button>
+</div>
 <ul class="js-ajax-pagination list-inline" data-list-url="{{ path('chapter_scenes_list', { id: chapterId }) }}">
     {% if scenes|length > 0 %}
         {% for scene in scenes %}

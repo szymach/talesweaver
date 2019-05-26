@@ -10,7 +10,7 @@ use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\HtmlContent;
 use Zend\Diactoros\Response\JsonResponse;
 
-class ApiResponseFactory implements ApiResponseFactoryInterface
+final class ApiResponseFactory implements ApiResponseFactoryInterface
 {
     /**
      * @var HtmlContent
@@ -43,8 +43,12 @@ class ApiResponseFactory implements ApiResponseFactoryInterface
         return $this->keyForTemplate('list', $template, $parameters, $title);
     }
 
-    public function form(string $template, array $parameters, bool $displayErrors, string $title = null): ResponseInterface
-    {
+    public function form(
+        string $template,
+        array $parameters,
+        bool $displayErrors,
+        string $title = null
+    ): ResponseInterface {
         return $this->keyForTemplate(
             'form',
             $template,
