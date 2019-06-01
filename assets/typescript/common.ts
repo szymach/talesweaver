@@ -60,15 +60,6 @@ export function ajaxGetCall(
         (response): void => {
             handleSuccessResponse(response, successCallback);
         }
-    ).catch(
-        (): void => {
-            if (true === isDefinedErrorCallback(errorCallback)) {
-                errorCallback();
-            } else {
-                Alerts.displayErrorAlert();
-            }
-            Backdrop.hideBackdrop();
-        }
     );
 }
 

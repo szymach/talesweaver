@@ -17,7 +17,7 @@ crud:
     delete: Usuń
     display: Podgląd
     close: Zamknij
-    remove_from_scene: Usuń ze sceny
+    remove_from_scene: Usuń ze sceny
 
 common:
     books: Książki
@@ -255,7 +255,7 @@ character:
     actions:
         add_to_scene: 'Dodaj do sceny "%scene%"'
         create: Nowa postać
-        add_existing: Dodaj postać z innej sceny
+        add_existing: Dodaj postać z innej sceny
     header:
         new: Nowa postać
         edit: Edycja postaci
@@ -277,7 +277,7 @@ item:
     avatar: Zdjęcie
     actions:
         create: Nowy przedmiot
-        add_existing: Dodaj przedmiot z innej sceny
+        add_existing: Dodaj przedmiot z innej sceny
         add_to_scene: 'Dodaj do sceny "%scene%"'
     header:
         new: Nowy przedmiot

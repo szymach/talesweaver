@@ -1,5 +1,5 @@
 <table class="table">
-    {% if 0 < list|length %}
+    {% if 0 != list|length %}
         <thead>
             <tr>
                 <th>{{ (type ~ '.name')|trans }}</th>

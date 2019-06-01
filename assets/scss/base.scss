@@ -35,8 +35,8 @@ table:not(.dashboard) {
         position: fixed;
         right: 0;
         text-align: center;
-        top: 60px;
-        z-index: 100;
+        top: 15px;
+        z-index: 10000;
 
         @include media-breakpoint-up(md) {
             min-width: 400px;

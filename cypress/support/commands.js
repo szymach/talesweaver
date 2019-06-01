@@ -31,17 +31,16 @@ Cypress.Commands.add("visitSceneForChapter", () => {
     cy.get('tr').contains(/^Rozdział$/).parent().find('[title="Edycja"]').click().then(() => {
         cy.url().should('contain', Cypress.config('baseUrl') + '/chapter/edit');
 
-        cy.get('.side-menu ul li').contains('Sceny').parents('li').first().as('scenes');
-        cy.get('@scenes').find('.js-list-toggle').click().then(() => {
-            cy.get('@scenes').within(() => {
-                cy.contains(/^Scena 1$/).next().find('[title="Edycja"]').click().then(() => {
-                    cy.url().should('contain', Cypress.config('baseUrl') + '/scene/edit');
-                })
-            });
+        cy.get('.nav-tabs').contains('Sceny').click();
+        cy.get('#scenes').as('scenes');
+        cy.get('@scenes').within(() => {
+            cy.contains(/^Scena 1$/).next().find('[title="Edycja"]').click().then(() => {
+                cy.url().should('contain', Cypress.config('baseUrl') + '/scene/edit');
+            })
         });
     });
 });
 
-Cypress.Commands.add("registerAjaxContainerAlias", () => {
-    cy.get('#ajax-container').as('ajax-container');
+Cypress.Commands.add('clickTab', (tab) => {
+    cy.get('.nav-tabs').contains(tab).click().wait(500);
 });

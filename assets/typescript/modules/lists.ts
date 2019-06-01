@@ -110,8 +110,14 @@ export module Lists {
     function performListAction(target: HTMLElement): void {
         ajaxGetCall(
             target.getAttribute('data-action-url'),
-            function (): void {
-                refreshList(target);
+            (): void => {
+                refreshList(
+                    document.querySelector('.js-list-container.active .js-ajax-pagination') as HTMLElement
+                );
+                Alerts.displayAlerts();
+                new bootstrap.Modal(getModal()).hide();
+            },
+            (): void => {
                 Alerts.displayAlerts();
             }
         );
