@@ -74,7 +74,7 @@ final class CreateController
             Create::class,
             new DTO($scene),
             [
-                'action' => $this->urlGenerator->generate('event_add', ['id' => $scene->getId()]),
+                'action' => $this->urlGenerator->generate('event_new', ['id' => $scene->getId()]),
                 'characters' => $this->queryBus->query(new Query\Character\ForScene($scene)),
                 'items' => $this->queryBus->query(new Query\Item\ForScene($scene)),
                 'locations' => $this->queryBus->query(new Query\Location\ForScene($scene)),

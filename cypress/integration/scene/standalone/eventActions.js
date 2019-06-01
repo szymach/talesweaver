@@ -2,45 +2,34 @@ describe('Event sidemenu actions', () => {
 
     beforeEach(() => {
         cy.visitStandaloneScene();
-        cy.registerAjaxContainerAlias();
-        cy.get('.side-menu ul li').contains('Wydarzenia').parents('li').first().as('events');
     });
 
-    it('creates, edits and deletes an event', () => {
-        cy.get('@events').within(() => {
-            cy.get('.js-load-form[title="Nowe wydarzenie"]').click();
-        }).then(() => {
-            cy.get('@ajax-container').contains('Nowe wydarzenie').should('be.visible');
-            cy.get('@ajax-container').find('[name="create[name]"]').type('Spotkanie');
-            cy.get('@ajax-container').contains('Zapisz').click();
-            cy.contains('Pomyślnie dodano nowe wydarzenie o nazwie "Spotkanie"').should('be.visible');
-        });
+    it('creates, displays, edits and deletes an event', () => {
+        cy.clickTab('Wydarzenia').then(() => {
+            cy.get('#events').find('[title="Nowe wydarzenie"]').click().then(() => {
+                cy.get('.modal').contains('Nowe wydarzenie').should('be.visible');
+                cy.get('.modal').find('input[name="create[name]"]').type('Spotkanie');
+                cy.get('.modal').contains('Zapisz').click();
+                cy.get('#alerts').contains('Pomyślnie dodano nowe wydarzenie o nazwie "Spotkanie".').should('be.visible');
+            });
 
-        cy.get('@events').within(() => {
-            cy.get('.js-list-toggle').click();
-            cy.contains(/^Spotkanie$/).next().find('.js-display').click();
-        }).then(() => {
-            cy.get('#modal-display h4').contains(/^Spotkanie$/).should('be.visible');
-            cy.get('#modal-display').contains('Zamknij').click();
-            cy.get('@events').find('.js-list-toggle').click();
-        });
+            cy.get('#events').contains(/^Spotkanie$/).parent().find('.js-display').click().then(() => {
+                cy.get('.modal').contains(/^Spotkanie$/);
+                cy.get('.modal').contains('Zamknij').click();
+                cy.get('.modal').should('not.be.visible');
+            });
 
-        cy.get('@events').within(() => {
-            cy.get('.js-list-toggle[title="Lista"]').click();
-            cy.get('.js-load-form.js-edit-form').click();
-        }).then(() => {
-            cy.get('@ajax-container').contains('Edycja wydarzenia').should('be.visible');
-            cy.get('@ajax-container').find('[name="edit[name]"]').type('{selectall}Spotkanie edytowane');
-            cy.get('@ajax-container').contains('Zapisz').click();
-            cy.contains('Zapisano zmiany w wydarzeniu.').should('be.visible');
-        });
+            cy.get('#events').contains(/^Spotkanie$/).parent().find('.js-edit-form').click().then(() => {
+                cy.get('.modal').contains('Edycja wydarzenia');
+                cy.get('.modal').find('input[name="edit[name]"]').type('{selectall}Spotkanie edytowane');
+                cy.get('.modal').contains('Zapisz').click();
+                cy.get('#alerts').contains('Zapisano zmiany w wydarzeniu.').should('be.visible');
+            });
 
-        cy.get('@events').within(() => {
-            cy.get('.js-list-toggle[title="Lista"]').click();
-            cy.get('.js-delete').last().click();
-        }).then(() => {
-            cy.get('#modal-confirm').click().then(() => {
-                cy.contains('Wydarzenie "Spotkanie edytowane" zostało usunięte.').should('be.visible');
+            cy.get('#events').contains('Spotkanie edytowane').parent().find('.js-delete').click().then(() => {
+                cy.get('#modal-confirm').click().then(() => {
+                    cy.get('#alerts').contains('Wydarzenie "Spotkanie edytowane" zostało usunięte.').should('be.visible');
+                });
             });
         });
     });
