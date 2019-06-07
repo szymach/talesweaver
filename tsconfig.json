@@ -10,5 +10,5 @@
     "include": [
         "./assets/typescript/**/*"
     ],
-    "typeRoots": [ "./types", "./node_modules/@types"]
+    "typeRoots": [ "./node_modules/@types"]
 }
