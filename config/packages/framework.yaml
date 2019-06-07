@@ -15,6 +15,4 @@ framework:
         handler_id: ~
         save_path: "%kernel.project_dir%/var/sessions/%kernel.environment%"
     secret: '%env(APP_SECRET)%'
-    templating:
-        engines: [twig]
     trusted_hosts: ~

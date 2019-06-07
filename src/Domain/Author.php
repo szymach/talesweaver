@@ -111,7 +111,7 @@ class Author
 
     private function encodePassword(string $password): string
     {
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        $hashedPassword = password_hash($password, PASSWORD_ARGON2I);
         if (false === $hashedPassword) {
             throw new RuntimeException('Cannot encode password');
         }

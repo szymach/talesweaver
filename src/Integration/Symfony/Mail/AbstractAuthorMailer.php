@@ -6,8 +6,8 @@ namespace Talesweaver\Integration\Symfony\Mail;
 
 use Swift_Mailer;
 use Swift_Message;
-use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Talesweaver\Application\Http\HtmlContent;
 use Talesweaver\Application\Mailer\AuthorActionMailer;
 use Talesweaver\Domain\Author;
 
@@ -19,9 +19,9 @@ abstract class AbstractAuthorMailer implements AuthorActionMailer
     private $mailer;
 
     /**
-     * @var EngineInterface
+     * @var HtmlContent
      */
-    private $templating;
+    private $htmlContent;
 
     /**
      * @var TranslatorInterface
@@ -35,12 +35,12 @@ abstract class AbstractAuthorMailer implements AuthorActionMailer
 
     public function __construct(
         Swift_Mailer $mailer,
-        EngineInterface $templating,
+        HtmlContent $htmlContent,
         TranslatorInterface $translator,
         string $mailerFrom
     ) {
         $this->mailer = $mailer;
-        $this->templating = $templating;
+        $this->htmlContent = $htmlContent;
         $this->translator = $translator;
         $this->mailerFrom = $mailerFrom;
     }
@@ -55,7 +55,7 @@ abstract class AbstractAuthorMailer implements AuthorActionMailer
         $message->setFrom($this->mailerFrom);
         $message->setTo((string) $author->getEmail());
         $message->setBody(
-            $this->templating->render($template, $templateParameters),
+            $this->htmlContent->fromTemplate($template, $templateParameters),
             'text/html'
         );
 

@@ -55,7 +55,7 @@ class AuthorAwareMiddlewareTest extends TestCase
         $middleware->handle($envelope, $stack);
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->authorContext = $this->createMock(AuthorContext::class);
     }

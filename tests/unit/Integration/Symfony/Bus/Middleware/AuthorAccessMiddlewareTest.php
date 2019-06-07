@@ -16,14 +16,14 @@ use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
 use Talesweaver\Integration\Symfony\Bus\Middleware\AuthorAccessMiddleware;
 
-class AuthorAccessMiddlewareTest extends TestCase
+final class AuthorAccessMiddlewareTest extends TestCase
 {
     /**
      * @var AuthorContext|MockObject
      */
     private $authorContext;
 
-    public function testSkippingIncorrectMessageInstance()
+    public function testSkippingIncorrectMessageInstance(): void
     {
         $envelope = new Envelope(new stdClass());
 
@@ -37,7 +37,7 @@ class AuthorAccessMiddlewareTest extends TestCase
         $middleware->handle($envelope, $stack);
     }
 
-    public function testUserAllowed()
+    public function testUserAllowed(): void
     {
         $author = $this->createMock(Author::class);
         $this->authorContext->expects($this->once())->method('getAuthor')->willReturn($author);
@@ -54,7 +54,7 @@ class AuthorAccessMiddlewareTest extends TestCase
         $middleware->handle($envelope, $stack);
     }
 
-    public function testUserNotAllowedException()
+    public function testUserNotAllowedException(): void
     {
         $stack = $this->createMock(StackMiddleware::class);
         $stack->expects($this->never())->method('next');
@@ -79,7 +79,7 @@ class AuthorAccessMiddlewareTest extends TestCase
         $middleware->handle($envelope, $stack);
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->authorContext = $this->createMock(AuthorContext::class);
     }

@@ -93,7 +93,7 @@ class TransactionMiddlewareTest extends TestCase
         $middleware->handle($envelope, $stack);
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->manager = $this->createMock(EntityManagerInterface::class);
         $this->manager->expects($this->once())->method('beginTransaction');

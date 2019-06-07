@@ -60,7 +60,7 @@ class MessagesMiddlewareTest extends TestCase
         $middleware->handle($envelope, $stack);
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->flashBag = $this->createMock(FlashBag::class);
     }
