@@ -9,14 +9,6 @@ Cypress.Commands.add("login", (email, password) => {
     });
 });
 
-Cypress.Commands.add("visitStandaloneBook", () => {
-    cy.visit('/book/list');
-    cy.url().should('eq', Cypress.config('baseUrl') + '/book/list');
-    cy.get('tr').contains(/^Książka$/).parent().find('[title="Edycja"]').click().then(() => {
-        cy.url().should('contain', Cypress.config('baseUrl') + '/book/edit');
-    });
-});
-
 Cypress.Commands.add("visitStandaloneScene", () => {
     cy.visit('/scene/list');
     cy.url().should('eq', Cypress.config('baseUrl') + '/scene/list');

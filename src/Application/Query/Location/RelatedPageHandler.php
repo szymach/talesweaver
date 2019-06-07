@@ -26,7 +26,7 @@ final class RelatedPageHandler implements QueryHandlerInterface
         $pager = new Pagerfanta(
             new ArrayAdapter($this->locations->findRelated($query->getScene()))
         );
-        $pager->setMaxPerPage(9);
+        $pager->setMaxPerPage(10);
         $pager->setCurrentPage($query->getPage());
 
         return $pager;

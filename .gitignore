@@ -1,4 +1,3 @@
-# Cache and logs (Symfony3)
 var/cache/*
 var/log/*
 var/sessions/*
@@ -8,7 +7,8 @@ var/sessions/*
 
 # Parameters
 .env
-.phpcs-cache
+*-cache
+*.cache
 
 # Assets and user uploads
 node_modules/
@@ -19,12 +19,8 @@ public/uploaded*
 # Composer PHAR
 composer.phar
 
-c3.php
 cypress/videos/*
 
 .env
 vendor
-
-###> symfony/web-server-bundle ###
 .web-server-pid
-###< symfony/web-server-bundle ###

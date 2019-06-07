@@ -102,9 +102,9 @@
             "@auto-scripts"
         ],
         "sniffer": "vendor/bin/phpcs",
-        "phpstan": "vendor/bin/phpstan analyse -l 7 -c phpstan.neon src",
+        "stan": "vendor/bin/phpstan analyse -l 7 -c phpstan.neon src",
         "deptrac": [
-            "[ -f vendor/bin/deptrac.phar ] || curl -LS http://get.sensiolabs.de/deptrac.phar -o vendor/bin/deptrac.phar && chmod +x vendor/bin/deptrac.phar",
+            "[ -f vendor/bin/deptrac.phar ] || curl -LS https://github.com/sensiolabs-de/deptrac/releases/download/0.5.0/deptrac.phar -o vendor/bin/deptrac.phar && chmod +x vendor/bin/deptrac.phar",
             "vendor/bin/deptrac.phar analyze --formatter-graphviz=0 config/layers.yml"
         ],
         "linters": [
@@ -122,7 +122,8 @@
             "@phpstan",
             "@deptrac",
             "@linters"
-        ]
+        ],
+        "codecept": "vendor/bin/codecept run"
     },
     "extra": {
         "symfony": {

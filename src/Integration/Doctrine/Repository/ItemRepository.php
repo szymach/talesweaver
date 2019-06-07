@@ -52,14 +52,13 @@ class ItemRepository extends AutoWireableTranslatableRepository
     {
         $qb = $this->createTranslatableQueryBuilder('i');
         return $qb->leftJoin('i.scenes', 's')
-            ->where('i.createdBy = :author')
+            ->andWhere('i.createdBy = :author')
             ->andWhere(
                 $qb->expr()->andX(
                     ':scene NOT MEMBER OF i.scenes',
                     's.chapter = :chapter'
                 )
             )
-            ->andWhere(':scene NOT MEMBER OF i.scenes')
             ->orderBy('t.name', 'ASC')
             ->setParameter('chapter', $scene->getChapter())
             ->setParameter('scene', $scene)

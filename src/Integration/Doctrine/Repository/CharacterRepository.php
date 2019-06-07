@@ -54,10 +54,12 @@ class CharacterRepository extends AutoWireableTranslatableRepository
         $qb = $this->createTranslatableQueryBuilder('c');
         return $qb->leftJoin('c.scenes', 's')
             ->andWhere('c.createdBy = :author')
-            ->andWhere($qb->expr()->andX(
-                ':scene NOT MEMBER OF c.scenes',
-                's.chapter = :chapter'
-            ))
+            ->andWhere(
+                $qb->expr()->andX(
+                    ':scene NOT MEMBER OF c.scenes',
+                    's.chapter = :chapter'
+                )
+            )
             ->orderBy('t.name', 'ASC')
             ->setParameter('chapter', $scene->getChapter())
             ->setParameter('scene', $scene)
