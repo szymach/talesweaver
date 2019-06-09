@@ -21,7 +21,7 @@
 
 {% block body %}
     <div class="row">
-        <div class="col col-sm-8 offset-sm-1">
+        <div class="col col-md-10 offset-md-1">
             {{ macros.tabNavigation([
                 macros.tab('formContentTab', 'formContent', 'common.content', 'active'),
                 hasChapter ? macros.tab('relatedScenesTab', 'relatedScenes', 'scene.tabs.related', '') : '',
@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col col-sm-8 offset-sm-1">
+        <div class="col col-md-10 offset-md-1">
             <div class="tab-content pt-2 pb-2">
                 {{ macros.tabContent(
                     'formContent',

@@ -1,11 +1,13 @@
 {% macro sidemenuDisplayLink(link) %}
     <li>
-        <a class="js-display fa fa-2x fa-eye d-sm-block d-md-none d-xl-none logo-icon"
+        <a class="js-display d-sm-block d-md-none d-xl-none logo-icon"
            href="{{ link }}"
            data-display-url="{{ link }}"
            target="_blank"
            title="{{ 'display.title'|trans }}"
-        ></a>
+        >
+            <span class="fa fa-eye"></span>
+        </a>
         <span class="h4">
             <a class="js-display btn btn-sm btn-outline-secondary"
                href="{{ link }}"
@@ -22,21 +24,19 @@
 
 {% macro sidemenuPdfLink(link) %}
     {% import _self as macros %}
-    {{ macros.sidemenuLink('file-pdf-o', 'pdf.title'|trans, 'pdf.label'|trans, link) }}
-{% endmacro %}
-
-{% macro sidemenuLink(icon, title, label, link) %}
     <li>
-        <a class="fa fa-2x fa-{{ icon }} d-sm-block d-md-none d-xl-none logo-icon"
+        <a class="d-sm-block d-md-none d-xl-none logo-icon"
            href="{{ link }}"
            target="_blank"
-           title="{{ title }}"
-        ></a>
+           title="{{ 'pdf.title'|trans }}"
+        >
+            <span class="fa fa-file-pdf-o"></span>
+        </a>
         <span class="h4">
-            <a class="btn btn-sm btn-outline-secondary" href="{{ link }}" target="_blank" title="{{ title }}">
-                <span class="fa fa-{{ icon }}"></span>
+            <a class="btn btn-sm btn-outline-secondary" href="{{ link }}" target="_blank" title="{{ 'pdf.title'|trans }}">
+                <span class="fa fa-file-pdf-o"></span>
             </a>
-            <span>{{ label }}</span>
+            <span>{{ 'pdf.label'|trans }}</span>
         </span>
     </li>
 {% endmacro %}

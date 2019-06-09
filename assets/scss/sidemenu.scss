@@ -1,13 +1,10 @@
 .side-menu {
+    background-color: $white;
     border: 1px solid $gray-300;
     border-top: none;
     position: absolute;
     top: 0;
     right: 15px;
-    transition: width .1s linear;
-    transform: translateZ(0) scale(1,1);
-    -webkit-transition: width .1s linear;
-    -webkit-transform: translateZ(0) scale(1,1);
     z-index: 97;
     padding-top: 53px;
     overflow: visible;
