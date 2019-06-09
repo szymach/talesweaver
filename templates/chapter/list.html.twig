@@ -15,6 +15,7 @@
                     </thead>
                     <tbody>
                         {% for chapter in chapters %}
+                            {% set chapterId = chapter.id %}
                             <tr>
                                 <td class="text-right">{{ chapter.title }}</td>
                                 <td class="text-right">{{ chapter.book }}</td>
@@ -24,6 +25,13 @@
                                        title="{{ 'crud.edit'|trans }}"
                                     >
                                         <span class="fa fa-edit"></span>
+                                    </a>
+                                    <a class="btn btn-sm btn-outline-secondary js-display"
+                                       href="{{ path('chapter_display', { id: chapterId }) }}"
+                                       data-display-url="{{ path('chapter_display', { id: chapterId }) }}"
+                                       title="{{ 'crud.display'|trans }}"
+                                    >
+                                        <span class="fa fa-eye"></span>
                                     </a>
                                     <a class="btn btn-sm btn-danger js-delete"
                                        href="{{ path('chapter_delete', { id: chapter.id, page: page }) }}"
@@ -68,4 +76,8 @@
             </div>
         </div>
     {% endif %}
+{% endblock %}
+
+{% block modals %}
+    {% include 'modal/display.html.twig' with { class: 'modal-lg'} only %}
 {% endblock %}

@@ -14,19 +14,27 @@
                     </thead>
                     <tbody>
                         {% for book in books %}
+                            {% set bookId = book.id %}
                             <tr>
                                 <td class="text-right">{{ book.title }}</td>
                                 <td>
                                     <a class="btn btn-sm btn-primary"
-                                       href="{{ path('book_edit', { id: book.id }) }}"
+                                       href="{{ path('book_edit', { id: bookId }) }}"
                                        title="{{ 'crud.edit'|trans }}"
-                                       >
+                                    >
                                         <span class="fa fa-edit"></span>
+                                    </a>
+                                    <a class="btn btn-sm btn-outline-secondary js-display"
+                                       href="{{ path('book_display', { id: bookId }) }}"
+                                       data-display-url="{{ path('book_display', { id: bookId }) }}"
+                                       title="{{ 'crud.display'|trans }}"
+                                    >
+                                        <span class="fa fa-eye"></span>
                                     </a>
                                     <a class="btn btn-sm btn-danger js-delete"
                                        href="{{ path('book_delete', { id: book.id, page: app.request.get('page') }) }}"
                                        title="{{ 'crud.delete'|trans }}"
-                                       >
+                                    >
                                         <span class="fa fa-trash"></span>
                                     </a>
                                 </td>
@@ -66,4 +74,8 @@
             </div>
         </div>
     {% endif %}
+{% endblock %}
+
+{% block modals %}
+    {% include 'modal/display.html.twig' with { class: 'modal-lg'} only %}
 {% endblock %}

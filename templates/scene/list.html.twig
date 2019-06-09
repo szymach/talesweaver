@@ -16,6 +16,7 @@
                     </thead>
                     <tbody>
                         {% for scene in scenes %}
+                            {% set sceneId = scene.id %}
                             <tr>
                                 <td class="text-right">{{ scene.title }}</td>
                                 <td class="text-right">{{ scene.chapter }}</td>
@@ -26,6 +27,13 @@
                                        title="{{ 'crud.edit'|trans }}"
                                     >
                                         <span class="fa fa-edit"></span>
+                                    </a>
+                                    <a class="btn btn-sm btn-outline-secondary js-display"
+                                       href="{{ path('scene_display', { id: sceneId }) }}"
+                                       data-display-url="{{ path('scene_display', { id: sceneId }) }}"
+                                       title="{{ 'crud.display'|trans }}"
+                                    >
+                                        <span class="fa fa-eye"></span>
                                     </a>
                                     <a class="btn btn-sm btn-danger js-delete"
                                        href="{{ path('scene_delete', { id: scene.id }) }}"
@@ -70,4 +78,8 @@
             </div>
         </div>
     {% endif %}
+{% endblock %}
+
+{% block modals %}
+    {% include 'modal/display.html.twig' with { class: 'modal-lg'} only %}
 {% endblock %}
