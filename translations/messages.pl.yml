@@ -130,7 +130,7 @@ book:
         title: Podaj tytuł książki i zapisz, by móc dodawać rozdziały
     actions:
         create: Nowa
-        add_chapter: Dodaj
+        create_chapter: Nowy rozdział
     back:
         to_list: Powrót do listy
     list:
@@ -159,6 +159,8 @@ chapter:
     actions:
         create: Nowy
         create_scene: Nowa scena
+    header:
+        new: Nowy rozdział
     list:
         create: Nowy
         standalone:

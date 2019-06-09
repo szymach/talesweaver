@@ -59,6 +59,7 @@
 
 {% block modals %}
     {% include 'modal/display.html.twig' with { class: 'modal-lg' } only %}
+    {% include 'modal/form.html.twig' with {} only %}
 {% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ absolute_url(asset('assets/ckeditor.css')) }}">

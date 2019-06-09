@@ -45,6 +45,12 @@ book_chapter_list:
     condition: "request.isXmlHttpRequest()"
     methods:  GET
 
+book_add_chapter:
+    path: /chapter/{id}
+    controller: Talesweaver\Application\Controller\Book\ChapterAddController
+    methods: [GET, POST]
+    condition: "request.isXmlHttpRequest()"
+
 book_scene_list:
     path: /scenes/{id}/{page}
     controller: Talesweaver\Application\Controller\Book\ScenesListController

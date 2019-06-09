@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Application\Controller\Chapter;
+namespace Talesweaver\Application\Controller\Book;
 
 use Assert\Assertion;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Bus\CommandBus;
-use Talesweaver\Application\Command\Scene\Create\Command;
+use Talesweaver\Application\Command\Chapter\Create\Command;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\FormHandlerInterface;
-use Talesweaver\Application\Form\Type\Chapter\NextScene;
+use Talesweaver\Application\Form\Type\Book\NextChapter;
 use Talesweaver\Application\Http\ApiResponseFactoryInterface;
-use Talesweaver\Application\Http\Entity\ChapterResolver;
+use Talesweaver\Application\Http\Entity\BookResolver;
 use Talesweaver\Application\Http\UrlGenerator;
-use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\Book;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-final class SceneAddController
+final class ChapterAddController
 {
     /**
-     * @var ChapterResolver
+     * @var BookResolver
      */
-    private $chapterResolver;
+    private $bookResolver;
 
     /**
      * @var ApiResponseFactoryInterface
@@ -47,13 +47,13 @@ final class SceneAddController
     private $urlGenerator;
 
     public function __construct(
-        ChapterResolver $chapterResolver,
+        BookResolver $chapterResolver,
         ApiResponseFactoryInterface $apiResponseFactory,
         FormHandlerFactoryInterface $formHandlerFactory,
         CommandBus $commandBus,
         UrlGenerator $urlGenerator
     ) {
-        $this->chapterResolver = $chapterResolver;
+        $this->bookResolver = $chapterResolver;
         $this->apiResponseFactory = $apiResponseFactory;
         $this->formHandlerFactory = $formHandlerFactory;
         $this->commandBus = $commandBus;
@@ -62,11 +62,11 @@ final class SceneAddController
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $chapter = $this->chapterResolver->fromRequest($request);
-        $formHandler = $this->createFormHandler($request, $chapter);
+        $book = $this->bookResolver->fromRequest($request);
+        $formHandler = $this->createFormHandler($request, $book);
         if (true === $formHandler->isSubmissionValid()) {
             return $this->handeFormSubmissionAndReturnSuccessResponse(
-                $chapter,
+                $book,
                 $formHandler->getData()['title']
             );
         }
@@ -75,24 +75,24 @@ final class SceneAddController
             'form/modalContent.html.twig',
             ['form' => $formHandler->createView()],
             $formHandler->displayErrors(),
-            'scene.header.new'
+            'chapter.header.new'
         );
     }
 
     private function createFormHandler(
         ServerRequestInterface $request,
-        Chapter $chapter
+        Book $book
     ): FormHandlerInterface {
         return $this->formHandlerFactory->createWithRequest(
             $request,
-            NextScene::class,
+            NextChapter::class,
             null,
             [
-                'chapter' => $chapter,
+                'book' => $book,
                 'attr' => [
                     'action' => $this->urlGenerator->generate(
-                        'chapter_add_scene',
-                        ['id' => $chapter->getId()]
+                        'book_add_chapter',
+                        ['id' => $book->getId()]
                     ),
                     'class' => 'js-form'
                 ]
@@ -100,10 +100,10 @@ final class SceneAddController
         );
     }
 
-    private function handeFormSubmissionAndReturnSuccessResponse(Chapter $chapter, ?string $title): ResponseInterface
+    private function handeFormSubmissionAndReturnSuccessResponse(Book $book, ?string $title): ResponseInterface
     {
         Assertion::notNull($title);
-        $this->commandBus->dispatch(new Command(Uuid::uuid4(), new ShortText($title), $chapter));
+        $this->commandBus->dispatch(new Command(Uuid::uuid4(), new ShortText($title), $book));
         return $this->apiResponseFactory->success([]);
     }
 }

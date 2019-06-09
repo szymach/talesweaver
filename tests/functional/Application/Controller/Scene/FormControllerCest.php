@@ -7,7 +7,7 @@ namespace Talesweaver\Tests\Application\Controller\Scene;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Tests\FunctionalTester;
 
-class FormControllerCest
+final class FormControllerCest
 {
     public function renderView(FunctionalTester $I): void
     {

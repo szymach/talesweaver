@@ -1,3 +1,11 @@
+<div class="text-right pb-2">
+    <button class="btn btn-sm btn-success js-load-form"
+            title="{{ 'book.actions.create_chapter'|trans }}"
+            data-form-url="{{ path('book_add_chapter', { id: bookId }) }}"
+    >
+        <span class="fa fa-plus"></span>
+    </button>
+</div>
 <ul class="js-ajax-pagination list-inline" data-list-url="{{ path('book_chapter_list', { id: bookId }) }}">
     {% for chapter in chapters %}
         {% set displayUrl = path('chapter_display', { id: chapter.id }) %}
