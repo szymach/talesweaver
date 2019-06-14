@@ -72,35 +72,9 @@ function initializeCKEditor(elements)
                 });
             }
         },
-    }).then(editor => {
-
     }).catch(error => {
         console.error(error);
     });
-}
-
-function displayAlerts()
-{
-    const alerts = document.getElementById('alerts');
-    const request = new XMLHttpRequest();
-    request.open('GET', alerts.getAttribute('data-alert-url'), true);
-    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    request.responseType = 'json';
-    request.onload = () => {
-        if (200 === request.status) {
-            const response = request.response;
-            if (typeof response.alerts !== 'undefined' && '' !== response.alerts) {
-                alerts.innerHTML = response.alerts;
-                Array.prototype.filter.call(alerts.querySelectorAll('.alert'), (alert) => {
-                    window.setTimeout(() => {
-                        fadeOut(alert, 1);
-                    }, 30000);
-                });
-            }
-        }
-    };
-
-    request.send();
 }
 
 function hasClass(element, className)
@@ -128,16 +102,4 @@ function ready(fn)
     } else {
         document.addEventListener('DOMContentLoaded', fn);
     }
-}
-
-function fadeOut(fadeTarget, duration)
-{
-    let transitionStates = '-webkit-transition: opacity ' + duration + 's ease-in-out;' +
-        '-moz-transition: opacity ' + duration + 's ease-in-out;' +
-        '-o-transition: opacity ' + duration + 's ease-in-out;' +
-        'transition: opacity ' + duration + 's ease-in-out;' +
-        'opacity: 0;'
-    ;
-    fadeTarget.setAttribute('style', transitionStates);
-    fadeTarget.parentElement.removeChild(fadeTarget);
 }
