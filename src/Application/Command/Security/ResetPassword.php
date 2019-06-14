@@ -40,4 +40,9 @@ final class ResetPassword implements MessageCommandInterface
     {
         return new Message('security.reset_password.change.alert.success', [], 'success');
     }
+
+    public function isMuted(): bool
+    {
+        return false;
+    }
 }

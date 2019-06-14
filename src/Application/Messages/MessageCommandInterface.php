@@ -7,4 +7,5 @@ namespace Talesweaver\Application\Messages;
 interface MessageCommandInterface
 {
     public function getMessage(): Message;
+    public function isMuted(): bool;
 }

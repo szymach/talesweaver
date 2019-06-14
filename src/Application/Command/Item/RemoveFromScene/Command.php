@@ -54,4 +54,9 @@ final class Command implements AuthorAccessInterface, MessageCommandInterface
             ['%title%' => $this->item->getName(), '%sceneTitle%' => $this->scene->getTitle()]
         );
     }
+
+    public function isMuted(): bool
+    {
+        return false;
+    }
 }

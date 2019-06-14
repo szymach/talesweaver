@@ -1,4 +1,4 @@
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ClassicEditor from 'ckeditor';
 
 ready(() => {
     initializeCKEditor(document.querySelector('.ckeditor'));
@@ -30,61 +30,52 @@ function initializeCKEditor(elements)
             'blockQuote',
             'undo',
             'redo'
-        ]
+        ],
+        autosave: {
+            save(editor) {
+                if (typeof editor === 'undefined' || typeof editor.sourceElement === 'undefined') {
+                    return;
+                }
+
+                const element = editor.sourceElement;
+                if (element.value === editor.getData()) {
+                    return;
+                }
+                const form = findAncestor(element, 'form');
+                if (false === hasClass(form, 'autosave')) {
+                    return;
+                }
+
+                return new Promise((resolve, reject) => {
+                    const url = form.getAttribute('action') ? form.getAttribute('action') : window.location.href;
+                    element.value = editor.getData();
+
+                    const request = new XMLHttpRequest();
+                    request.open('POST', url, true);
+                    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                    request.responseType = 'json';
+                    request.onload = function () {
+                        if (request.status >= 200 && request.status < 400) {
+                            displayAlerts();
+                        } else {
+                            let response = request.response;
+                            if (typeof response.form !== 'undefined') {
+                                form.outerHTML = response.form;
+                            }
+                        }
+                        resolve();
+                    };
+                    request.onerror = () => {
+                        reject('Request failed');
+                    };
+                    request.send(new FormData(form));
+                });
+            }
+        },
     }).then(editor => {
-//        bindAutosave(editor);
+
     }).catch(error => {
         console.error(error);
-    });
-}
-
-const savesScheduled = [];
-function bindAutosave(editor)
-{
-    if (typeof editor === 'undefined') {
-        return;
-    }
-
-    editor.model.document.on('change', () => {
-        if (typeof editor.element === 'undefined') {
-            return;
-        }
-
-        const element = editor.element;
-        const form = findAncestor(element, 'form');
-        if (false === hasClass(form, 'autosave')) {
-            return;
-        }
-
-        const id = element.getAttribute('id');
-        if (savesScheduled[id] || editor.data.get() === element.value) {
-            return;
-        }
-
-        const url = form.getAttribute('action') ? form.getAttribute('action') : window.location.href;
-        window.setTimeout(() => {
-            element.value = editor.data.get();
-            savesScheduled[id] = true;
-            const request = new XMLHttpRequest();
-            request.open('POST', url, true);
-            request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-            request.responseType = 'json';
-            request.onload = function () {
-                if (request.status >= 200 && request.status < 400) {
-                    displayAlerts();
-                } else {
-                    let response = request.response;
-                    if (typeof response.form !== 'undefined') {
-                        form.outerHTML = response.form;
-                    }
-                }
-                savesScheduled[id] = false;
-            };
-            request.onerror = () => {
-                savesScheduled[id] = false;
-            };
-            request.send(new FormData(form));
-        }, 30000000);
     });
 }
 

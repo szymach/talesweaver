@@ -16,7 +16,7 @@ module.exports = {
         ckeditor: [
             "./assets/scss/ckeditor.scss",
             "./assets/js/ckeditor.js",
-            path.resolve(__dirname, "node_modules/@ckeditor/ckeditor5-build-classic/build/translations/pl.js")
+            path.resolve(__dirname, 'assets/js/ckeditor/pl.js')
         ],
         display: "./assets/typescript/displayOnly.ts"
     },
@@ -27,7 +27,10 @@ module.exports = {
         pathinfo: false
     },
     resolve: {
-        extensions: ['.js', ".ts"]
+        extensions: ['.js', ".ts"],
+        alias: {
+            ckeditor: path.resolve(__dirname, 'assets/js/ckeditor/build-classic.js')
+        }
     },
     plugins: [
         new MiniCssExtractPlugin({ filename: '[name].css' }),
@@ -79,22 +82,7 @@ module.exports = {
                 exclude: [path.resolve(__dirname, "node_modules/@ckeditor")],
                 use: ['file-loader']
             },
-            { test: /ckeditor5-[^/]+\/theme\/icons\/[^/]+\.svg$/, use: ['raw-loader'] },
-            {
-                test: /ckeditor5-[^/]+\/theme\/[\w-/]+\.css$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    {
-                        loader: 'postcss-loader',
-                        options: styles.getPostCssConfig({
-                            themeImporter: {
-                                themePath: require.resolve('@ckeditor/ckeditor5-theme-lark')
-                            }
-                        })
-                    }
-                ]
-            }
+            { test: /ckeditor5-[^/]+\/theme\/icons\/[^/]+\.svg$/, use: ['raw-loader'] }
         ]
     },
     performance: { hints: false },

@@ -94,4 +94,9 @@ final class Command implements AuthorAccessInterface, AuthorAwareInterface, Mess
     {
         return new CreationSuccessMessage('character', ['%title%' => (string) $this->name]);
     }
+
+    public function isMuted(): bool
+    {
+        return false;
+    }
 }

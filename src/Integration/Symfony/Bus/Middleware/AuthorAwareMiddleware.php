@@ -10,7 +10,7 @@ use Symfony\Component\Messenger\Middleware\StackInterface;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Security\AuthorAwareInterface;
 
-class AuthorAwareMiddleware implements MiddlewareInterface
+final class AuthorAwareMiddleware implements MiddlewareInterface
 {
     /**
      * @var AuthorContext

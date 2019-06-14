@@ -40,4 +40,9 @@ final class ActivateAuthor implements MessageCommandInterface
             'success'
         );
     }
+
+    public function isMuted(): bool
+    {
+        return false;
+    }
 }

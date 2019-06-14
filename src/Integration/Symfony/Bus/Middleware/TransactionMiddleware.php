@@ -10,7 +10,7 @@ use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
 use Throwable;
 
-class TransactionMiddleware implements MiddlewareInterface
+final class TransactionMiddleware implements MiddlewareInterface
 {
     /**
      * @var EntityManagerInterface

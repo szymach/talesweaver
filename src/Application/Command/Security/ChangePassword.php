@@ -40,4 +40,9 @@ final class ChangePassword implements MessageCommandInterface
     {
         return new Message('security.change_password.alert.success', [], 'success');
     }
+
+    public function isMuted(): bool
+    {
+        return false;
+    }
 }

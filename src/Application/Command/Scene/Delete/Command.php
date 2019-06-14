@@ -51,4 +51,9 @@ final class Command implements AuthorAccessInterface, MessageCommandInterface
     {
         return new DeletionSuccessMessage('scene', ['%title%' => $this->title]);
     }
+
+    public function isMuted(): bool
+    {
+        return false;
+    }
 }

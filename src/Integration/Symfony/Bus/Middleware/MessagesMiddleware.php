@@ -11,7 +11,7 @@ use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Application\Session\Flash;
 use Talesweaver\Application\Session\FlashBag;
 
-class MessagesMiddleware implements MiddlewareInterface
+final class MessagesMiddleware implements MiddlewareInterface
 {
     /**
      * @var FlashBag
@@ -27,7 +27,7 @@ class MessagesMiddleware implements MiddlewareInterface
     {
         $command = $envelope->getMessage();
         $response = $stack->next()->handle($envelope, $stack);
-        if (true === $command instanceof MessageCommandInterface) {
+        if (true === $command instanceof MessageCommandInterface && false === $command->isMuted()) {
             $message = $command->getMessage();
             $this->flashBag->add(new Flash(
                 $message->getType(),

@@ -68,4 +68,9 @@ final class Command implements AuthorAccessInterface, AuthorAwareInterface, Mess
     {
         return new CreationSuccessMessage('chapter', ['%title%' => $this->title]);
     }
+
+    public function isMuted(): bool
+    {
+        return false;
+    }
 }

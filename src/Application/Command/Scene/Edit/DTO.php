@@ -41,14 +41,15 @@ final class DTO
         $this->chapter = $scene->getChapter();
     }
 
-    public function toCommand(Scene $scene): Command
+    public function toCommand(Scene $scene, bool $muteMessage): Command
     {
         Assertion::notNull($this->title);
         return new Command(
             $scene,
             new ShortText($this->title),
             LongText::fromNullableString($this->text),
-            $this->chapter
+            $this->chapter,
+            $muteMessage
         );
     }
 

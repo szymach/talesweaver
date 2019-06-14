@@ -12,7 +12,7 @@ use Talesweaver\Application\Command\Security\Traits\AuthorAwareTrait;
 use Talesweaver\Domain\Security\AuthorAwareInterface;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-final class Command implements MessageCommandInterface, AuthorAwareInterface
+final class Command implements AuthorAwareInterface, MessageCommandInterface
 {
     use AuthorAwareTrait;
 
@@ -45,5 +45,10 @@ final class Command implements MessageCommandInterface, AuthorAwareInterface
     public function getMessage(): Message
     {
         return new CreationSuccessMessage('book', ['%title%' => $this->title]);
+    }
+
+    public function isMuted(): bool
+    {
+        return false;
     }
 }

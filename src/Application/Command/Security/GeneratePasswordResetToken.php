@@ -29,4 +29,9 @@ final class GeneratePasswordResetToken implements MessageCommandInterface
     {
         return new Message('security.reset_password.request.alert.success', [], 'success');
     }
+
+    public function isMuted(): bool
+    {
+        return false;
+    }
 }

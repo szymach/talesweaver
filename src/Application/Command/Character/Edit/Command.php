@@ -73,4 +73,9 @@ final class Command implements AuthorAccessInterface, MessageCommandInterface
     {
         return new EditionSuccessMessage('character');
     }
+
+    public function isMuted(): bool
+    {
+        return false;
+    }
 }

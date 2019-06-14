@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
 
-class AuthorAccessMiddleware implements MiddlewareInterface
+final class AuthorAccessMiddleware implements MiddlewareInterface
 {
     /**
      * @var AuthorContext

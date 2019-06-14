@@ -102,7 +102,7 @@ final class EditController
 
     private function processFormDataAndRedirect(Scene $scene, EditDTO $dto, bool $isAjax): ResponseInterface
     {
-        $this->commandBus->dispatch($dto->toCommand($scene));
+        $this->commandBus->dispatch($dto->toCommand($scene, $isAjax));
 
         return true === $isAjax
             ? $this->apiResponseFactory->success()

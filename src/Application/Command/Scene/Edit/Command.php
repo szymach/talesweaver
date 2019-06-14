@@ -36,12 +36,18 @@ final class Command implements AuthorAccessInterface, MessageCommandInterface
      */
     private $chapter;
 
-    public function __construct(Scene $scene, ShortText $title, ?LongText $text, ?Chapter $chapter)
+    /**
+     * @var bool
+     */
+    private $muteMessage;
+
+    public function __construct(Scene $scene, ShortText $title, ?LongText $text, ?Chapter $chapter, bool $muteMessage)
     {
         $this->scene = $scene;
         $this->title = $title;
         $this->text = $text;
         $this->chapter = $chapter;
+        $this->muteMessage = $muteMessage;
     }
 
     public function getScene(): Scene
@@ -72,5 +78,10 @@ final class Command implements AuthorAccessInterface, MessageCommandInterface
     public function getMessage(): Message
     {
         return new EditionSuccessMessage('scene');
+    }
+
+    public function isMuted(): bool
+    {
+        return $this->muteMessage;
     }
 }

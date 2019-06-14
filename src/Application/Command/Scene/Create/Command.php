@@ -58,4 +58,9 @@ final class Command implements MessageCommandInterface, AuthorAwareInterface
     {
         return new CreationSuccessMessage('scene', ['%title%' => $this->title]);
     }
+
+    public function isMuted(): bool
+    {
+        return false;
+    }
 }

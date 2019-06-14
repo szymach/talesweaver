@@ -38,4 +38,9 @@ final class CreateAuthor implements MessageCommandInterface
     {
         return new Message('security.registration.alert.success', [], 'success');
     }
+
+    public function isMuted(): bool
+    {
+        return false;
+    }
 }
