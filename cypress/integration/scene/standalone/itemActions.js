@@ -20,6 +20,7 @@ describe('Item actions', () => {
             });
 
             cy.get('#items').contains(/^Przedmiot$/).parent().find('.js-edit-form').click().then(() => {
+                cy.get('.modal.show').scrollTo('top');
                 cy.get('.modal').contains('Edycja przedmiotu').should('be.visible');
                 cy.get('.modal').find('input[name="edit[name]"]').type('{selectall}Przedmiot edytowany');
                 cy.get('.modal').contains('Zapisz').click();

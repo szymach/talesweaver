@@ -11,7 +11,6 @@ describe('Location actions', () => {
 
     it('adds a location from another scene and removes it', () => {
         cy.get('#locations').find('[title="Dodaj miejsce z innej sceny"]').click().then(() => {
-            cy.wait(5000);
             cy.get('#modal-list').contains('Dodawanie istniejącego miejsca').should('be.visible');
             cy.get('#modal-list').get('td').contains('Miejsce 2').parent().get('.js-list-action').click().then(() => {
                 cy.contains('Dodano miejsce "Miejsce 2" do sceny "Scena 1".').should('be.visible').parent().find('button').click();

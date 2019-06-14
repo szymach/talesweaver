@@ -36,3 +36,15 @@ Cypress.Commands.add("visitSceneForChapter", () => {
 Cypress.Commands.add('clickTab', (tab) => {
     cy.get('.nav-tabs').contains(tab).click().wait(500);
 });
+
+// Workaround for the CKEditor autosve plugin firing on 'beforeunload' event,
+// causing Chrome to block it.
+Cypress.on('window:before:load', function(window) {
+    const original = window.addEventListener;
+    window.addEventListener = function() {
+        if (arguments && arguments[0] === 'beforeunload') {
+            return;
+        }
+        return original.apply(this, arguments);
+    };
+});
