@@ -1,17 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% import 'partial/macros.html.twig' as macros %}
-
 {% form_theme form 'form/formTheme.html.twig' %}
 
 {% block seoTitle 'book.seo_title.form.edit'|trans({ '%title%': title }) %}
-{% block rightMenu %}
-    {% include 'partial/topMenuActions.html.twig' with {
-        returnUrl: path('book_list', { page: app.request.get('page', 1) }),
-        returnLabel: 'book.back.to_list'|trans
-    } only %}
-{% endblock %}
-
 {% block body %}
     <div class="row">
         <div class="col col-md-10 offset-md-1">
@@ -19,7 +11,10 @@
                 macros.tab('formContentTab', 'formContent', 'common.content', 'active'),
                 macros.tab('chaptersTab', 'chapters', 'common.chapters', ''),
                 macros.tab('scenesTab', 'scenes', 'common.scenes', '')
-            ]) }}
+            ], {
+                link: path('book_list', { page: app.request.get('page', 1) }),
+                label: 'book.back.to_list'|trans
+            }) }}
         </div>
     </div>
     <div class="row">
@@ -46,13 +41,11 @@
             </div>
         </div>
     </div>
-    {% embed 'partial/sidemenu.html.twig' with {
-        display: macros.sidemenuDisplayLink(path('book_display', { id: bookId })),
-        pdf: macros.sidemenuPdfLink(path('book_pdf', { id: bookId }))
-    } %}
+    {% embed 'partial/sidemenu.html.twig' with { bookId: bookId } %}
+        {% import 'partial/macros.html.twig' as macros %}
         {% block content %}
-            {{ display|raw }}
-            {{ pdf|raw }}
+            {{ macros.sidemenuDisplayLink(path('book_display', { id: bookId })) }}
+            {{ macros.sidemenuPdfLink(path('book_pdf', { id: bookId })) }}
         {% endblock %}
     {% endembed %}
 {% endblock %}

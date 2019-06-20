@@ -3,13 +3,6 @@
 {% form_theme form 'form/formTheme.html.twig' %}
 
 {% block seoTitle 'book.seo_title.form.create'|trans %}
-{% block rightMenu %}
-    {% include 'partial/topMenuActions.html.twig' with {
-        returnUrl: path('book_list', { page: app.request.get('page', 1) }),
-        returnLabel: 'book.back.to_list'|trans
-    } only %}
-{% endblock %}
-
 {% block body %}
     <div class="row">
         <div class="col-md-10 offset-md-1">
@@ -17,13 +10,15 @@
                 {{ form_row(form.title) }}
                 {{ form_row(form.description) }}
                 {{ form_rest(form) }}
-                {{ form_rest(form) }}
                 <div class="form-group row">
                     <div class="col text-right">
+                        <a class="btn btn-outline-secondary" href="{{ path('book_list', { page: app.request.get('page', 1) }) }}">
+                            <span class="fa fa-angle-left"></span>
+                            {{ 'book.back.to_list'|trans }}
+                        </a>
                         <button class="btn btn-success">{{ 'crud.save'|trans }}</button>
                     </div>
                 </div>
-            {{ form_end(form) }}
             {{ form_end(form) }}
         </div>
     </div>

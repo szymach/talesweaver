@@ -5,12 +5,6 @@
 {% form_theme form 'form/formTheme.html.twig' %}
 
 {% block seoTitle 'chapter.seo_title.form.edit'|trans({ '%title%': title }) %}
-{% block rightMenu %}
-    {% include 'partial/topMenuActions.html.twig' with {
-        returnUrl: bookId ? path('book_edit', { id: bookId }) : path('chapter_list'),
-        returnLabel: bookId ? 'chapter.back.to_book'|trans : 'chapter.back.to_list'|trans
-    } only %}
-{% endblock %}
 
 {% block body %}
     <div class="row">
@@ -18,7 +12,10 @@
             {{ macros.tabNavigation([
                 macros.tab('formContentTab', 'formContent', 'common.content', 'active'),
                 macros.tab('scenesTab', 'scenes', 'common.scenes', '')
-            ]) }}
+            ], {
+                link: bookId is not null ? path('book_edit', { id: bookId }) : path('chapter_list'),
+                label: (bookId is not null ? 'chapter.back.to_book' : 'chapter.back.to_list')|trans
+            }) }}
         </div>
     </div>
     <div class="row">

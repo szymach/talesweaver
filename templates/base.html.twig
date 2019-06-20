@@ -1,52 +1,25 @@
 <!DOCTYPE html>
 <html lang="{{ app.request.locale }}">
-<head>
-    <meta charset="UTF-8" />
-    <title>{% block seoTitle 'meta.title'|trans %}</title>
-    <meta name="description" content="{% block seoDescription '' %}" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700">
-    <link rel="stylesheet" href="{{ absolute_url(asset('assets/main.css')) }}">
-    {% block stylesheets '' %}
-    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
-</head>
-<body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="{{ path('index') }}">{{ 'meta.title'|trans }}</a>
-            <button class="navbar-toggler btn collapsed"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#menu"
-                    aria-controls="menu"
-                    aria-expanded="false"
-                    aria-label="{{ 'menu.toggle'|trans }}"
-            >
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse" id="menu">
-                {% include 'partial/topMenu.html.twig' with {} only %}
-                {% block rightMenu %}
-                    {% include 'partial/topMenuActions.html.twig' with {} only %}
-                {% endblock %}
-            </div>
-        </div>
-    </nav>
-    <div id="alerts"
-         class="container"
-         data-alert-url="{{ path('alerts') }}"
-         data-error-content="{{ 'alert.error'|trans }}"
-         data-timedout-content="{{ 'alert.timed_out'|trans }}"
-    >
-        {% include 'partial/alerts.html.twig' %}
-    </div>
-    <main class="container">
-        {% block body '' %}
-    </main>
-    <footer>{% block footer '' %}</footer>
-    {% include 'modal/delete.html.twig' %}
-    {% block modals '' %}
-    <script src="{{ absolute_url(asset('assets/main.js')) }}" async></script>
-    {% block javascripts '' %}
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block seoTitle 'meta.title'|trans %}</title>
+        <meta name="description" content="{% block seoDescription '' %}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700">
+        <link rel="stylesheet" href="{{ absolute_url(asset('assets/main.css')) }}">
+        {% block stylesheets '' %}
+        <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    </head>
+    <body>
+        {% include 'partial/topMenu.html.twig' with {} only %}
+        {% include 'partial/alertsContainer.html.twig' with {} only %}
+        <main class="container">
+            {% block body '' %}
+        </main>
+        <footer>{% block footer '' %}</footer>
+        <script src="{{ absolute_url(asset('assets/main.js')) }}" async></script>
+        {% block javascripts '' %}
+        {% include 'modal/delete.html.twig' %}
+        {% block modals '' %}
+    </body>
 </html>

@@ -1,0 +1,8 @@
+<div id="alerts"
+     class="container"
+     data-alert-url="{{ path('alerts') }}"
+     data-error-content="{{ 'alert.error'|trans }}"
+     data-timedout-content="{{ 'alert.timed_out'|trans }}"
+>
+    {% include 'partial/alerts.html.twig' with {} only %}
+</div>

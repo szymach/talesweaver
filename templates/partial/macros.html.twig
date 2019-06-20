@@ -23,7 +23,6 @@
 {% endmacro %}
 
 {% macro sidemenuPdfLink(link) %}
-    {% import _self as macros %}
     <li>
         <a class="d-sm-block d-md-none d-xl-none logo-icon"
            href="{{ link }}"
@@ -49,6 +48,12 @@
     </li>
 {% endmacro %}
 
+{% macro mainMenuItem(route, label, currentRoute) %}
+    <li class="nav-item{% if isActiveMenuItem(currentRoute, route) %} active{% endif %}">
+        <a class="nav-link" href="{{ path(route) }}">{{ label }}</a>
+    </li>
+{% endmacro %}
+
 {% macro dropdownToggle(label, target) %}
     <button class="btn btn-link dropdown-toggle nav-link"
             type="button"
@@ -69,11 +74,19 @@
     </li>
 {% endmacro %}
 
-{% macro tabNavigation(tabs) %}
+{% macro tabNavigation(tabs, return = null) %}
     <ul class="nav nav-tabs" role="tablist">
         {% for tab in tabs %}
             {{ tab|raw }}
         {% endfor %}
+        {% if return is not null %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ return.link }}">
+                    <span class="fa fa-angle-left"></span>
+                    {{ return.label }}
+                </a>
+            </li>
+        {% endif %}
     </ul>
 {% endmacro %}
 
