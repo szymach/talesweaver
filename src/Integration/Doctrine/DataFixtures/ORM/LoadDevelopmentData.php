@@ -159,7 +159,7 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
         for ($i = 1; $i <= self::EVENT_COUNT; $i++) {
             $event = new Event(
                 Uuid::uuid4(),
-                new ShortText("Miejsce {$i}"),
+                new ShortText("Wydarzenie {$i}"),
                 LongText::fromNullableString($this->createRandomText(5)),
                 $this->getFaker()->randomElement($scene->getLocations()),
                 $scene,

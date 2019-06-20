@@ -28,7 +28,7 @@
             <join-column on-delete="CASCADE"/>
         </many-to-one>
 
-        <many-to-many field="scenes" target-entity="Talesweaver\Domain\Scene" mapped-by="characters"/>
+        <many-to-many field="scenes" target-entity="Talesweaver\Domain\Scene" mapped-by="characters" fetch="EXTRA_LAZY" />
 
     </entity>
 </doctrine-mapping>

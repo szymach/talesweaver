@@ -40,12 +40,9 @@ class EventRepository extends AutoWireableTranslatableRepository
 
     public function findForScene(Author $author, Scene $scene): array
     {
-        return $this->createTranslatableQueryBuilder('e')
-            ->where('e.scene = :scene')
-            ->andWhere('e.createdBy = :author')
-            ->orderBy('t.name', 'ASC')
+        return $this->createForAuthorQueryBuilder($author)
+            ->andWhere('e.scene = :scene')
             ->setParameter('scene', $scene)
-            ->setParameter('author', $author)
             ->getQuery()
             ->getResult()
         ;
@@ -53,12 +50,9 @@ class EventRepository extends AutoWireableTranslatableRepository
 
     public function findForCharacter(Author $author, Character $character): array
     {
-        return $this->createTranslatableQueryBuilder('e')
-            ->where(':character MEMBER OF e.characters')
-            ->andWhere('e.createdBy = :author')
-            ->orderBy('t.name', 'ASC')
+        return $this->createForAuthorQueryBuilder($author)
+            ->andWhere(':character MEMBER OF e.characters')
             ->setParameter('character', $character)
-            ->setParameter('author', $author)
             ->getQuery()
             ->getResult()
         ;
@@ -66,12 +60,9 @@ class EventRepository extends AutoWireableTranslatableRepository
 
     public function findForItem(Author $author, Item $item): array
     {
-        return $this->createTranslatableQueryBuilder('e')
-            ->where(':item MEMBER OF e.items')
-            ->andWhere('e.createdBy = :author')
-            ->orderBy('t.name', 'ASC')
+        return $this->createForAuthorQueryBuilder($author)
+            ->andWhere(':item MEMBER OF e.items')
             ->setParameter('item', $item)
-            ->setParameter('author', $author)
             ->getQuery()
             ->getResult()
         ;
@@ -79,36 +70,9 @@ class EventRepository extends AutoWireableTranslatableRepository
 
     public function findForLocation(Author $author, Location $location): array
     {
-        return $this->createTranslatableQueryBuilder('e')
-            ->where('e.location = :location')
-            ->andWhere('e.createdBy = :author')
-            ->orderBy('t.name', 'ASC')
+        return $this->createForAuthorQueryBuilder($author)
+            ->andWhere('e.location = :location')
             ->setParameter('location', $location)
-            ->setParameter('author', $author)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
-    public function findLatest(
-        Author $author,
-        string $locale,
-        string $label = 'title',
-        int $limit = 5
-    ): array {
-        return $this->getEntityManager()
-            ->createQueryBuilder()
-            ->select('(CASE WHEN e.updatedAt IS NOT NULL THEN e.updatedAt ELSE e.createdAt END) AS date')
-            ->addSelect('(CASE WHEN e.updatedAt IS NOT NULL THEN 1 ELSE 0 END) AS updated')
-            ->addSelect('e.id')
-            ->addSelect(sprintf('t.%s AS label', $label))
-            ->from($this->getEntityName(), 'e')
-            ->join('e.translations', 't', Join::WITH, 't.locale = :locale')
-            ->where('e.createdBy = :author')
-            ->orderBy('date', 'DESC')
-            ->setParameter('locale', $locale)
-            ->setParameter('author', $author)
-            ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
         ;
@@ -137,6 +101,21 @@ class EventRepository extends AutoWireableTranslatableRepository
             ->innerJoin('e.scene', 's', Join::WITH, sprintf('s.id IN (%s)', $qb->getDQL()))
             ->getQuery()
             ->getSingleScalarResult()
+        ;
+    }
+
+    private function createForAuthorQueryBuilder(Author $author): QueryBuilder
+    {
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('e.id, t.name')
+            ->from($this->getEntityName(), 'e')
+            ->join('e.translations', 't', Join::WITH, 't.locale = :locale')
+            ->where('e.createdBy = :author')
+            ->orderBy('t.name', 'ASC')
+            ->groupBy('e.id')
+            ->setParameter('author', $author)
+            ->setParameter('locale', $this->getTranslatableListener()->getLocale())
         ;
     }
 

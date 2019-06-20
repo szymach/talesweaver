@@ -51,10 +51,10 @@ class SceneRepository implements Scenes
 
     public function find(UuidInterface $id): ?Scene
     {
-        return $this->doctrineRepository->findOneBy([
-            'id' => $id,
-            'createdBy' => $this->authorContext->getAuthor()
-        ]);
+        return $this->doctrineRepository->findByIdForAuthor(
+            $this->authorContext->getAuthor(),
+            $id
+        );
     }
 
     public function createBookListView(Book $book): array

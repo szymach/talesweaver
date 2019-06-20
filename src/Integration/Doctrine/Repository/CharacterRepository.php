@@ -37,13 +37,20 @@ class CharacterRepository extends AutoWireableTranslatableRepository
 
     public function findForAuthorAndScene(Author $author, Scene $scene): array
     {
-        return $this->createTranslatableQueryBuilder('c')
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('c')
             ->addSelect('t')
-            ->andWhere(':scene MEMBER OF c.scenes')
+            ->from($this->getEntityName(), 'c')
+            ->join('c.translations', 't', Join::WITH, 't.locale = :locale')
+            ->join('c.scenes', 's')
+            ->where(':scene MEMBER OF c.scenes')
             ->andWhere('c.createdBy = :author')
             ->orderBy('t.name', 'ASC')
+            ->groupBy('c.id')
             ->setParameter('author', $author)
             ->setParameter('scene', $scene)
+            ->setParameter('locale', $this->getTranslatableListener()->getLocale())
             ->getQuery()
             ->getResult()
         ;

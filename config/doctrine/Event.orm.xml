@@ -21,13 +21,13 @@
             </cascade>
         </one-to-many>
 
-        <many-to-one field="location" target-entity="Talesweaver\Domain\Location">
+        <many-to-one field="location" target-entity="Talesweaver\Domain\Location" fetch="EXTRA_LAZY">
             <join-columns>
                 <join-column on-delete="SET NULL"/>
             </join-columns>
         </many-to-one>
-        <many-to-many field="characters" target-entity="Talesweaver\Domain\Character" />
-        <many-to-many field="items" target-entity="Talesweaver\Domain\Item" />
+        <many-to-many field="characters" target-entity="Talesweaver\Domain\Character" fetch="EXTRA_LAZY" />
+        <many-to-many field="items" target-entity="Talesweaver\Domain\Item" fetch="EXTRA_LAZY" />
 
         <many-to-one field="scene" target-entity="Talesweaver\Domain\Scene" inversed-by="events">
             <join-columns>

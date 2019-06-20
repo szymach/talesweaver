@@ -30,6 +30,6 @@
             </join-columns>
         </many-to-one>
 
-        <many-to-many field="scenes" target-entity="Talesweaver\Domain\Scene" mapped-by="locations"/>
+        <many-to-many field="scenes" target-entity="Talesweaver\Domain\Scene" mapped-by="locations" fetch="EXTRA_LAZY"/>
     </entity>
 </doctrine-mapping>

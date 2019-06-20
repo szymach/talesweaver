@@ -23,7 +23,9 @@ final class FormTypeCest
         $character2 = $I->haveCreatedACharacter('Postać 2', $scene);
         $item1 = $I->haveCreatedAnItem('Przedmiot 1', $scene);
         $item2 = $I->haveCreatedAnItem('Przedmiot 2', $scene);
-        $form = $this->fetchCreateForm($I, $scene, [$character1, $character2], [$item1, $item2]);
+        $location1 = $I->haveCreatedALocation('Miejsce 1', $scene);
+        $location2 = $I->haveCreatedALocation('Miejsce 2', $scene);
+        $form = $this->fetchCreateForm($I, $scene, [$character1, $character2], [$item1, $item2], [$location1, $location2]);
         $form->handleRequest($I->getRequest([
             'create' => [
                 'name' => 'Wydarzenie',
@@ -32,7 +34,8 @@ final class FormTypeCest
                 ],
                 'items' => [
                     0 => $item1->getId()->toString()
-                ]
+                ],
+                'location' => $location2->getId()->toString()
             ]
         ]));
 
@@ -48,13 +51,14 @@ final class FormTypeCest
         $I->assertCount(1, $data->getCharacters());
         $I->assertEquals('Postać 2', (string) $data->getCharacters()[0]->getName());
         $I->assertEquals('Przedmiot 1', (string) $data->getItems()[0]->getName());
+        $I->assertEquals('Miejsce 2', (string) $data->getLocation()->getName());
     }
 
     public function testInvalidCreateFormSubmission(FunctionalTester $I): void
     {
         $I->loginAsUser();
         $scene = $I->haveCreatedAScene('Scena');
-        $form = $this->fetchCreateForm($I, $scene, [], []);
+        $form = $this->fetchCreateForm($I, $scene, [], [], []);
         $form->handleRequest($I->getRequest(['create' => ['name' => null]]));
 
         $I->assertTrue($form->isSynchronized());
@@ -79,7 +83,9 @@ final class FormTypeCest
         $character2 = $I->haveCreatedACharacter('Postać 2', $scene);
         $item1 = $I->haveCreatedAnItem('Przedmiot 1', $scene);
         $item2 = $I->haveCreatedAnItem('Przedmiot 2', $scene);
-        $form = $this->fetchEditForm($I, $scene, $event, [$character1, $character2], [$item1, $item2]);
+        $location1 = $I->haveCreatedALocation('Miejsce 1', $scene);
+        $location2 = $I->haveCreatedALocation('Miejsce 2', $scene);
+        $form = $this->fetchEditForm($I, $scene, $event, [$character1, $character2], [$item1, $item2], [$location1, $location2]);
         $form->handleRequest($I->getRequest([
             'edit' => [
                 'name' => 'Wydarzenie',
@@ -88,7 +94,8 @@ final class FormTypeCest
                 ],
                 'items' => [
                     0 => $item2->getId()->toString()
-                ]
+                ],
+                'location' => $location1->getId()->toString()
             ]
         ]));
         $I->assertTrue($form->isSynchronized());
@@ -102,6 +109,7 @@ final class FormTypeCest
         $I->assertEquals('Wydarzenie', $data->getName());
         $I->assertEquals('Postać 2', (string) $data->getCharacters()[0]->getName());
         $I->assertEquals('Przedmiot 2', (string) $data->getItems()[0]->getName());
+        $I->assertEquals('Miejsce 1', (string) $data->getLocation()->getName());
     }
 
     public function testInvalidEditFormSubmission(FunctionalTester $I): void
@@ -109,7 +117,7 @@ final class FormTypeCest
         $I->loginAsUser();
         $scene = $I->haveCreatedAScene('Scena');
         $event = $I->haveCreatedAnEvent('Spotkanie', $scene);
-        $form = $this->fetchEditForm($I, $scene, $event, [], []);
+        $form = $this->fetchEditForm($I, $scene, $event, [], [], []);
         $form->handleRequest($I->getRequest(['edit' => ['name' => null]]));
 
         $I->assertTrue($form->isSynchronized());
@@ -124,12 +132,17 @@ final class FormTypeCest
         $I->assertEquals([], $data->getCharacters());
     }
 
-    private function fetchCreateForm(FunctionalTester $I, Scene $scene, array $characters, array $items): FormInterface
-    {
+    private function fetchCreateForm(
+        FunctionalTester $I,
+        Scene $scene,
+        array $characters,
+        array $items,
+        array $locations
+    ): FormInterface {
         return $I->createForm(
             CreateType::class,
             new Create\DTO($scene),
-            ['characters' => $characters, 'items' => $items, 'scene' => $scene]
+            ['characters' => $characters, 'items' => $items, 'scene' => $scene, 'locations' => $locations]
         );
     }
 
@@ -138,12 +151,19 @@ final class FormTypeCest
         Scene $scene,
         Event $event,
         array $characters,
-        array $items
+        array $items,
+        array $locations
     ): FormInterface {
         return $I->createForm(
             EditType::class,
             new Edit\DTO($event),
-            ['eventId' => $event->getId(), 'characters' => $characters, 'items' => $items, 'scene' => $scene]
+            [
+                'eventId' => $event->getId(),
+                'characters' => $characters,
+                'items' => $items,
+                'scene' => $scene,
+                'locations' => $locations
+            ]
         );
     }
 }

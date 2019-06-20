@@ -104,10 +104,7 @@ class CreateType extends AbstractType implements Create
     {
         $resolver->setDefaults([
             'attr' => ['class' => 'js-form'],
-            'characters' => [],
-            'data_class' => DTO::class,
-            'items' => [],
-            'locations' => []
+            'data_class' => DTO::class
         ]);
 
         $resolver->setRequired(['characters', 'items', 'locations', 'scene']);

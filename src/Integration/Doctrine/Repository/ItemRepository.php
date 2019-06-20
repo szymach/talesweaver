@@ -37,12 +37,20 @@ class ItemRepository extends AutoWireableTranslatableRepository
 
     public function findForAuthorAndScene(Author $author, Scene $scene): array
     {
-        return $this->createTranslatableQueryBuilder('i')
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('i')
+            ->addSelect('t')
+            ->from($this->getEntityName(), 'i')
+            ->join('i.translations', 't', Join::WITH, 't.locale = :locale')
+            ->join('i.scenes', 's')
             ->where(':scene MEMBER OF i.scenes')
             ->andWhere('i.createdBy = :author')
             ->orderBy('t.name', 'ASC')
-            ->setParameter('scene', $scene)
+            ->groupBy('i.id')
             ->setParameter('author', $author)
+            ->setParameter('scene', $scene)
+            ->setParameter('locale', $this->getTranslatableListener()->getLocale())
             ->getQuery()
             ->getResult()
         ;

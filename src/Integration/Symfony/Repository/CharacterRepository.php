@@ -12,7 +12,7 @@ use Talesweaver\Domain\Characters;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Doctrine\Repository\CharacterRepository as DoctrineRepository;
 
-class CharacterRepository implements Characters
+final class CharacterRepository implements Characters
 {
     /**
      * @var DoctrineRepository

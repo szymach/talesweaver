@@ -104,14 +104,10 @@ final class EditType extends AbstractType implements Edit
     {
         $resolver->setDefaults([
             'attr' => ['class' => 'js-form'],
-            'characters' => [],
-            'data_class' => DTO::class,
-            'eventId' => null,
-            'items' => [],
-            'locations' => []
+            'data_class' => DTO::class
         ]);
 
-        $resolver->setRequired(['characters', 'items', 'scene', 'locations']);
+        $resolver->setRequired(['characters', 'eventId', 'items', 'scene', 'locations']);
 
         $resolver->setAllowedTypes('characters', ['array']);
         $resolver->setAllowedTypes('eventId', [UuidInterface::class]);

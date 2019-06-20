@@ -37,12 +37,20 @@ class LocationRepository extends AutoWireableTranslatableRepository
 
     public function findForAuthorAndScene(Author $author, Scene $scene): array
     {
-        return $this->createTranslatableQueryBuilder('l')
-            ->andWhere(':scene MEMBER OF l.scenes')
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('l')
+            ->addSelect('t')
+            ->from($this->getEntityName(), 'l')
+            ->join('l.translations', 't', Join::WITH, 't.locale = :locale')
+            ->join('l.scenes', 's')
+            ->where(':scene MEMBER OF l.scenes')
             ->andWhere('l.createdBy = :author')
             ->orderBy('t.name', 'ASC')
-            ->setParameter('scene', $scene)
+            ->groupBy('l.id')
             ->setParameter('author', $author)
+            ->setParameter('scene', $scene)
+            ->setParameter('locale', $this->getTranslatableListener()->getLocale())
             ->getQuery()
             ->getResult()
         ;
