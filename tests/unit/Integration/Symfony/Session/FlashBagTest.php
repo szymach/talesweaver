@@ -31,18 +31,18 @@ class FlashBagTest extends TestCase
 
     public function testMessageAdded(): void
     {
-        $this->flashBag->expects($this->exactly(2))->method('add')->withConsecutive(
+        $this->flashBag->expects(self::exactly(2))->method('add')->withConsecutive(
             ['success', 'success message'],
             ['error', 'an error message']
         );
 
-        $this->flashBag->expects($this->exactly(2))
+        $this->flashBag->expects(self::exactly(2))
             ->method('peek')
             ->withConsecutive(['success'], ['error'])
             ->willReturnOnConsecutiveCalls([], [])
         ;
 
-        $this->translator->expects($this->exactly(2))
+        $this->translator->expects(self::exactly(2))
             ->method('trans')
             ->withConsecutive(
                 ['message key', ['1' => '2']],
@@ -60,13 +60,13 @@ class FlashBagTest extends TestCase
         $flash1 = new Flash('success', 'message key', ['1' => '2']);
         $flash2 = new Flash('success', 'message key', ['1' => '2']);
 
-        $this->flashBag->expects($this->once())->method('add')->with('success', 'translated message');
-        $this->flashBag->expects($this->exactly(2))
+        $this->flashBag->expects(self::once())->method('add')->with('success', 'translated message');
+        $this->flashBag->expects(self::exactly(2))
             ->method('peek')
             ->with('success')
             ->willReturnOnConsecutiveCalls([], ['translated message'])
         ;
-        $this->translator->expects($this->exactly(2))
+        $this->translator->expects(self::exactly(2))
             ->method('trans')
             ->with('message key', ['1' => '2'])
             ->willReturn('translated message')
@@ -82,7 +82,7 @@ class FlashBagTest extends TestCase
         $this->translator = $this->createMock(TranslatorInterface::class);
 
         $session = $this->createMock(Session::class);
-        $session->expects($this->once())->method('getFlashBag')->willReturn($this->flashBag);
+        $session->expects(self::once())->method('getFlashBag')->willReturn($this->flashBag);
         $this->applicationFlashBag = new FlashBag($session, $this->translator);
     }
 }

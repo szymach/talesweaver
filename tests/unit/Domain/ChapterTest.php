@@ -16,27 +16,27 @@ class ChapterTest extends TestCase
 {
     public function testExceptionWhenCreatingWithDifferentBookAuthor()
     {
-        $this->expectException(DomainException::class);
-        $this->expectExceptionMessage(
+        self::expectException(DomainException::class);
+        self::expectExceptionMessage(
             'Chapter for user "chapter author id" with title "Chapter" cannot be assigned to book'
             . ' "incorrect book id", whose author is "book author id"'
         );
 
         $chapterAuthorId = $this->createMock(UuidInterface::class);
-        $chapterAuthorId->expects($this->exactly(1))->method('toString')->willReturn('chapter author id');
+        $chapterAuthorId->expects(self::exactly(1))->method('toString')->willReturn('chapter author id');
         $chapterAuthor = $this->createMock(Author::class);
-        $chapterAuthor->expects($this->exactly(2))->method('getId')->willReturn($chapterAuthorId);
+        $chapterAuthor->expects(self::exactly(2))->method('getId')->willReturn($chapterAuthorId);
 
         $bookAuthorId = $this->createMock(UuidInterface::class);
-        $bookAuthorId->expects($this->exactly(1))->method('toString')->willReturn('book author id');
+        $bookAuthorId->expects(self::exactly(1))->method('toString')->willReturn('book author id');
         $bookAuthor = $this->createMock(Author::class);
-        $bookAuthor->expects($this->exactly(2))->method('getId')->willReturn($bookAuthorId);
+        $bookAuthor->expects(self::exactly(2))->method('getId')->willReturn($bookAuthorId);
 
         $bookId = $this->createMock(UuidInterface::class);
-        $bookId->expects($this->once())->method('toString')->willReturn('incorrect book id');
+        $bookId->expects(self::once())->method('toString')->willReturn('incorrect book id');
         $book = $this->createMock(Book::class);
-        $book->expects($this->once())->method('getId')->willReturn($bookId);
-        $book->expects($this->exactly(2))->method('getCreatedBy')->willReturn($bookAuthor);
+        $book->expects(self::once())->method('getId')->willReturn($bookId);
+        $book->expects(self::exactly(2))->method('getCreatedBy')->willReturn($bookAuthor);
 
         new Chapter(
             $this->createMock(UuidInterface::class),
@@ -48,19 +48,19 @@ class ChapterTest extends TestCase
 
     public function testExceptionWhenEditingWithDifferentBookAuthor()
     {
-        $this->expectException(DomainException::class);
-        $this->expectExceptionMessage(
+        self::expectException(DomainException::class);
+        self::expectExceptionMessage(
             'Chapter for user "chapter author id" with title "Chapter" cannot be'
             . ' assigned to book "incorrect book id", whose author is "new book author id"'
         );
 
         $chapterAuthorId = $this->createMock(UuidInterface::class);
-        $chapterAuthorId->expects($this->once())->method('toString')->willReturn('chapter author id');
+        $chapterAuthorId->expects(self::once())->method('toString')->willReturn('chapter author id');
         $chapterAuthor = $this->createMock(Author::class);
-        $chapterAuthor->expects($this->exactly(4))->method('getId')->willReturn($chapterAuthorId);
+        $chapterAuthor->expects(self::exactly(4))->method('getId')->willReturn($chapterAuthorId);
 
         $chapterBook = $this->createMock(Book::class);
-        $chapterBook->expects($this->once())->method('getCreatedBy')->willReturn($chapterAuthor);
+        $chapterBook->expects(self::once())->method('getCreatedBy')->willReturn($chapterAuthor);
 
         $chapter = new Chapter(
             $this->createMock(UuidInterface::class),
@@ -70,15 +70,15 @@ class ChapterTest extends TestCase
         );
 
         $newBookAuthorId = $this->createMock(UuidInterface::class);
-        $newBookAuthorId->expects($this->once())->method('toString')->willReturn('new book author id');
+        $newBookAuthorId->expects(self::once())->method('toString')->willReturn('new book author id');
         $newBookAuthor = $this->createMock(Author::class);
-        $newBookAuthor->expects($this->exactly(2))->method('getId')->willReturn($newBookAuthorId);
+        $newBookAuthor->expects(self::exactly(2))->method('getId')->willReturn($newBookAuthorId);
 
         $newBookId = $this->createMock(UuidInterface::class);
-        $newBookId->expects($this->once())->method('toString')->willReturn('incorrect book id');
+        $newBookId->expects(self::once())->method('toString')->willReturn('incorrect book id');
         $newBook = $this->createMock(Book::class);
-        $newBook->expects($this->once())->method('getId')->willReturn($newBookId);
-        $newBook->expects($this->exactly(2))->method('getCreatedBy')->willReturn($newBookAuthor);
+        $newBook->expects(self::once())->method('getId')->willReturn($newBookId);
+        $newBook->expects(self::exactly(2))->method('getCreatedBy')->willReturn($newBookAuthor);
 
         $chapter->edit(new ShortText('Chapter'), $newBook);
     }

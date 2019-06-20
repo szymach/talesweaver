@@ -25,14 +25,14 @@ class MessagesMiddlewareTest extends TestCase
     public function testSkippsWhenUnsupportedMessageInstance()
     {
         $message = $this->getMockBuilder(stdClass::class)->setMethods(['getMessage'])->getMock();
-        $message->expects($this->never())->method('getMessage');
+        $message->expects(self::never())->method('getMessage');
         $envelope = new Envelope($message);
 
-        $this->flashBag->expects($this->never())->method('add');
+        $this->flashBag->expects(self::never())->method('add');
 
         $stack = $this->createMock(StackMiddleware::class);
-        $stack->expects($this->once())->method('next')->willReturn($stack);
-        $stack->expects($this->once())->method('handle')->with($envelope, $stack)->willReturn($envelope);
+        $stack->expects(self::once())->method('next')->willReturn($stack);
+        $stack->expects(self::once())->method('handle')->with($envelope, $stack)->willReturn($envelope);
 
         $middleware = new MessagesMiddleware($this->flashBag);
         $middleware->handle($envelope, $stack);
@@ -41,20 +41,20 @@ class MessagesMiddlewareTest extends TestCase
     public function testSettingFlashMessage()
     {
         $message = $this->createMock(Message::class);
-        $message->expects($this->once())->method('getType')->willReturn('success');
-        $message->expects($this->once())->method('getTranslationKey')->willReturn('message key');
-        $message->expects($this->once())->method('getTranslationParameters')->willReturn([]);
+        $message->expects(self::once())->method('getType')->willReturn('success');
+        $message->expects(self::once())->method('getTranslationKey')->willReturn('message key');
+        $message->expects(self::once())->method('getTranslationParameters')->willReturn([]);
 
         $command = $this->createMock(MessageCommandInterface::class);
-        $command->expects($this->once())->method('getMessage')->willReturn($message);
+        $command->expects(self::once())->method('getMessage')->willReturn($message);
 
         $envelope = new Envelope($command);
 
-        $this->flashBag->expects($this->once())->method('add')->with($this->isInstanceOf(Flash::class));
+        $this->flashBag->expects(self::once())->method('add')->with(self::isInstanceOf(Flash::class));
 
         $stack = $this->createMock(StackMiddleware::class);
-        $stack->expects($this->once())->method('next')->willReturn($stack);
-        $stack->expects($this->once())->method('handle')->with($envelope, $stack)->willReturn($envelope);
+        $stack->expects(self::once())->method('next')->willReturn($stack);
+        $stack->expects(self::once())->method('handle')->with($envelope, $stack)->willReturn($envelope);
 
         $middleware = new MessagesMiddleware($this->flashBag);
         $middleware->handle($envelope, $stack);

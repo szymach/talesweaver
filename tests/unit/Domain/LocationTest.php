@@ -20,7 +20,7 @@ class LocationTest extends Unit
     public function testProperLocationCreation()
     {
         $scene = $this->createMock(Scene::class);
-        $scene->expects($this->once())->method('addLocation')->with($this->isInstanceOf(Location::class));
+        $scene->expects(self::once())->method('addLocation')->with(self::isInstanceOf(Location::class));
 
         $location = new Location(
             $this->createMock(UuidInterface::class),
@@ -30,30 +30,30 @@ class LocationTest extends Unit
             null,
             $this->createMock(Author::class)
         );
-        $this->assertContains($scene, $location->getScenes());
+        self::assertContains($scene, $location->getScenes());
     }
 
     public function testExceptionWhenNewSceneHasNoChapterAndCurrentOnesDo()
     {
-        $this->expectException(DomainException::class);
-        $this->expectExceptionMessage(
+        self::expectException(DomainException::class);
+        self::expectExceptionMessage(
             'Scene "a scene id" is inconsistent with other scenes of location "location\'s id"'
         );
 
         $chapter = $this->createMock(Chapter::class);
 
         $sceneAssigned = $this->createMock(Scene::class);
-        $sceneAssigned->expects($this->exactly(1))->method('getChapter')->willReturn($chapter);
+        $sceneAssigned->expects(self::exactly(1))->method('getChapter')->willReturn($chapter);
 
         $unassignedSceneId = $this->createMock(UuidInterface::class);
-        $unassignedSceneId->expects($this->once())->method('toString')->willReturn('a scene id');
+        $unassignedSceneId->expects(self::once())->method('toString')->willReturn('a scene id');
 
         $sceneUnassigned = $this->createMock(Scene::class);
-        $sceneUnassigned->expects($this->once())->method('getId')->willReturn($unassignedSceneId);
-        $sceneUnassigned->expects($this->exactly(1))->method('getChapter')->willReturn(null);
+        $sceneUnassigned->expects(self::once())->method('getId')->willReturn($unassignedSceneId);
+        $sceneUnassigned->expects(self::exactly(1))->method('getChapter')->willReturn(null);
 
         $locationId = $this->createMock(UuidInterface::class);
-        $locationId->expects($this->once())->method('toString')->willReturn('location\'s id');
+        $locationId->expects(self::once())->method('toString')->willReturn('location\'s id');
         $location = new Location(
             $locationId,
             $sceneAssigned,
@@ -67,36 +67,36 @@ class LocationTest extends Unit
 
     public function testExceptionWhenTheNewChapterHasADifferentBook()
     {
-        $this->expectException(DomainException::class);
-        $this->expectExceptionMessage(
+        self::expectException(DomainException::class);
+        self::expectExceptionMessage(
             'Scene "scene id" is inconsistent with other scenes of location "location with an id"'
         );
 
         // Scene 1
         $book = $this->createMock(Book::class);
         $chapterWithABook = $this->createMock(Chapter::class);
-        $chapterWithABook->expects($this->once())->method('getBook')->willReturn($book);
+        $chapterWithABook->expects(self::once())->method('getBook')->willReturn($book);
 
         $sceneWithABook = $this->createMock(Scene::class);
-        $sceneWithABook->expects($this->once())->method('getChapter')->willReturn($chapterWithABook);
+        $sceneWithABook->expects(self::once())->method('getChapter')->willReturn($chapterWithABook);
 
         // Scene 2
         $differentBook = $this->createMock(Book::class);
 
         $chapterWithADifferentBook = $this->createMock(Chapter::class);
-        $chapterWithADifferentBook->expects($this->once())->method('getBook')->willReturn($differentBook);
+        $chapterWithADifferentBook->expects(self::once())->method('getBook')->willReturn($differentBook);
 
         $sceneWithADifferentBookId = $this->createMock(UuidInterface::class);
-        $sceneWithADifferentBookId->expects($this->once())->method('toString')->willReturn('scene id');
+        $sceneWithADifferentBookId->expects(self::once())->method('toString')->willReturn('scene id');
         $sceneWithADifferentBook = $this->createMock(Scene::class);
-        $sceneWithADifferentBook->expects($this->once())->method('getId')->willReturn($sceneWithADifferentBookId);
-        $sceneWithADifferentBook->expects($this->once())
+        $sceneWithADifferentBook->expects(self::once())->method('getId')->willReturn($sceneWithADifferentBookId);
+        $sceneWithADifferentBook->expects(self::once())
             ->method('getChapter')
             ->willReturn($chapterWithADifferentBook)
         ;
 
         $locationId = $this->createMock(UuidInterface::class);
-        $locationId->expects($this->once())->method('toString')->willReturn('location with an id');
+        $locationId->expects(self::once())->method('toString')->willReturn('location with an id');
         $location = new Location(
             $locationId,
             $sceneWithABook,
@@ -110,8 +110,8 @@ class LocationTest extends Unit
 
     public function testNotRemovingFromOnlyScene(): void
     {
-        $this->expectException(DomainException::class);
-        $this->expectExceptionMessage(
+        self::expectException(DomainException::class);
+        self::expectExceptionMessage(
             'Cannot remove location "location id" from scene "scene 1", because it is it\'s only scene!'
         );
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Domain\Tests\ValueObject;
+namespace Talesweaver\Tests\Domain\ValueObject;
 
 use PHPUnit\Framework\TestCase;
 use Talesweaver\Domain\ValueObject\LongText;
@@ -11,17 +11,17 @@ class LongTextTest extends TestCase
 {
     public function testNullValue(): void
     {
-        $this->assertNull(LongText::fromNullableString(null));
+        self::assertNull(LongText::fromNullableString(null));
     }
 
     public function testEmptyString()
     {
-        $this->assertNull(LongText::fromNullableString('  '));
+        self::assertNull(LongText::fromNullableString('  '));
     }
 
     public function testEmptyHtmlString()
     {
-        $this->assertNull(LongText::fromNullableString(
+        self::assertNull(LongText::fromNullableString(
             '<p> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>'
         ));
     }
@@ -29,6 +29,6 @@ class LongTextTest extends TestCase
     public function testSuccessfullCreation()
     {
         $longText = LongText::fromNullableString('some text');
-        $this->assertEquals('some text', (string) $longText);
+        self::assertEquals('some text', (string) $longText);
     }
 }

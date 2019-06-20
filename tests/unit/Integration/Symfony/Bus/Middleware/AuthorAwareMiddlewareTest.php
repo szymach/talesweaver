@@ -24,14 +24,14 @@ class AuthorAwareMiddlewareTest extends TestCase
     public function testSkippingIncorrectMessageInstance()
     {
         $message = $this->getMockBuilder(stdClass::class)->setMethods(['setAuthor'])->getMock();
-        $message->expects($this->never())->method('setAuthor');
+        $message->expects(self::never())->method('setAuthor');
         $envelope = new Envelope($message);
 
         $stack = $this->createMock(StackMiddleware::class);
-        $stack->expects($this->once())->method('next')->willReturn($stack);
-        $stack->expects($this->once())->method('handle')->with($envelope, $stack)->willReturn($envelope);
+        $stack->expects(self::once())->method('next')->willReturn($stack);
+        $stack->expects(self::once())->method('handle')->with($envelope, $stack)->willReturn($envelope);
 
-        $this->authorContext->expects($this->never())->method('getAuthor');
+        $this->authorContext->expects(self::never())->method('getAuthor');
 
         $middleware = new AuthorAwareMiddleware($this->authorContext);
         $middleware->handle($envelope, $stack);
@@ -40,16 +40,16 @@ class AuthorAwareMiddlewareTest extends TestCase
     public function testSettingUser()
     {
         $author = $this->createMock(Author::class);
-        $this->authorContext->expects($this->once())->method('getAuthor')->willReturn($author);
+        $this->authorContext->expects(self::once())->method('getAuthor')->willReturn($author);
 
         $message = $this->createMock(AuthorAwareInterface::class);
-        $message->expects($this->once())->method('setAuthor')->with($author);
+        $message->expects(self::once())->method('setAuthor')->with($author);
 
         $envelope = new Envelope($message);
 
         $stack = $this->createMock(StackMiddleware::class);
-        $stack->expects($this->once())->method('next')->willReturn($stack);
-        $stack->expects($this->once())->method('handle')->with($envelope, $stack)->willReturn($envelope);
+        $stack->expects(self::once())->method('next')->willReturn($stack);
+        $stack->expects(self::once())->method('handle')->with($envelope, $stack)->willReturn($envelope);
 
         $middleware = new AuthorAwareMiddleware($this->authorContext);
         $middleware->handle($envelope, $stack);

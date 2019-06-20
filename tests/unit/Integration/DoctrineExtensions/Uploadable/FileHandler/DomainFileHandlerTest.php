@@ -20,7 +20,7 @@ class DomainFileHandlerTest extends Unit
     public function testSupportingDomainFile(): void
     {
         $handler = new DomainFileHandler([$this->createMock(FileHandlerInterface::class)]);
-        $this->assertTrue($handler->supports($this->createMock(File::class)));
+        self::assertTrue($handler->supports($this->createMock(File::class)));
     }
 
     /**
@@ -29,52 +29,52 @@ class DomainFileHandlerTest extends Unit
     public function testNotSupportingOtherFiles(string $class): void
     {
         $handler = new DomainFileHandler([$this->createMock(FileHandlerInterface::class)]);
-        $this->assertFalse($handler->supports($this->createMock($class)));
+        self::assertFalse($handler->supports($this->createMock($class)));
     }
 
     public function testUsingCorrectHandler(): void
     {
         $handlerSupporting = $this->createMock(FileHandlerInterface::class);
-        $handlerSupporting->expects($this->once())
+        $handlerSupporting->expects(self::once())
             ->method('supports')
-            ->with($this->isInstanceOf(SplTempFileObject::class))
+            ->with(self::isInstanceOf(SplTempFileObject::class))
             ->willReturn(true)
         ;
-        $handlerSupporting->expects($this->once())
+        $handlerSupporting->expects(self::once())
             ->method('getName')
-            ->with($this->isInstanceOf(SplTempFileObject::class))
+            ->with(self::isInstanceOf(SplTempFileObject::class))
             ->willReturn('file name')
         ;
-        $handlerSupporting->expects($this->once())
+        $handlerSupporting->expects(self::once())
             ->method('getContent')
-            ->with($this->isInstanceOf(SplTempFileObject::class))
+            ->with(self::isInstanceOf(SplTempFileObject::class))
             ->willReturn('file contents')
         ;
 
         $handlerNotSupporting = $this->createMock(FileHandlerInterface::class);
-        $handlerNotSupporting->expects($this->once())
+        $handlerNotSupporting->expects(self::once())
             ->method('supports')
-            ->with($this->isInstanceOf(SplTempFileObject::class))
+            ->with(self::isInstanceOf(SplTempFileObject::class))
             ->willReturn(false)
         ;
-        $handlerNotSupporting->expects($this->never())->method('getName');
-        $handlerNotSupporting->expects($this->never())->method('getContent');
+        $handlerNotSupporting->expects(self::never())->method('getName');
+        $handlerNotSupporting->expects(self::never())->method('getContent');
 
         $domainFile = File::fromNullableValue(new SplTempFileObject());
         $handler = new DomainFileHandler([$handlerNotSupporting, $handlerSupporting]);
-        $this->assertEquals('file name', $handler->getName($domainFile));
-        $this->assertEquals('file contents', $handler->getContent($domainFile));
+        self::assertEquals('file name', $handler->getName($domainFile));
+        self::assertEquals('file contents', $handler->getContent($domainFile));
     }
 
     public function testExceptionWhenFileValueHasNoCorrespondingHandler()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('No file handler for object of class "SplTempFileObject"');
+        self::expectException(InvalidArgumentException::class);
+        self::expectExceptionMessage('No file handler for object of class "SplTempFileObject"');
 
         $handlerNotSupporting = $this->createMock(FileHandlerInterface::class);
-        $handlerNotSupporting->expects($this->once())
+        $handlerNotSupporting->expects(self::once())
             ->method('supports')
-            ->with($this->isInstanceOf(SplTempFileObject::class))
+            ->with(self::isInstanceOf(SplTempFileObject::class))
             ->willReturn(false)
         ;
 

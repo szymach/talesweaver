@@ -27,11 +27,11 @@ final class AuthorAccessMiddlewareTest extends TestCase
     {
         $envelope = new Envelope(new stdClass());
 
-        $this->authorContext->expects($this->never())->method('getAuthor');
+        $this->authorContext->expects(self::never())->method('getAuthor');
 
         $stack = $this->createMock(StackMiddleware::class);
-        $stack->expects($this->once())->method('next')->willReturn($stack);
-        $stack->expects($this->once())->method('handle')->with($envelope, $stack)->willReturn($envelope);
+        $stack->expects(self::once())->method('next')->willReturn($stack);
+        $stack->expects(self::once())->method('handle')->with($envelope, $stack)->willReturn($envelope);
 
         $middleware = new AuthorAccessMiddleware($this->authorContext);
         $middleware->handle($envelope, $stack);
@@ -40,15 +40,15 @@ final class AuthorAccessMiddlewareTest extends TestCase
     public function testUserAllowed(): void
     {
         $author = $this->createMock(Author::class);
-        $this->authorContext->expects($this->once())->method('getAuthor')->willReturn($author);
+        $this->authorContext->expects(self::once())->method('getAuthor')->willReturn($author);
 
         $message = $this->createMock(AuthorAccessInterface::class);
-        $message->expects($this->once())->method('isAllowed')->with($author)->willReturn(true);
+        $message->expects(self::once())->method('isAllowed')->with($author)->willReturn(true);
 
         $envelope = new Envelope($message);
         $stack = $this->createMock(StackMiddleware::class);
-        $stack->expects($this->once())->method('next')->willReturn($stack);
-        $stack->expects($this->once())->method('handle')->with($envelope, $stack)->willReturn($envelope);
+        $stack->expects(self::once())->method('next')->willReturn($stack);
+        $stack->expects(self::once())->method('handle')->with($envelope, $stack)->willReturn($envelope);
 
         $middleware = new AuthorAccessMiddleware($this->authorContext);
         $middleware->handle($envelope, $stack);
@@ -57,20 +57,20 @@ final class AuthorAccessMiddlewareTest extends TestCase
     public function testUserNotAllowedException(): void
     {
         $stack = $this->createMock(StackMiddleware::class);
-        $stack->expects($this->never())->method('next');
+        $stack->expects(self::never())->method('next');
 
         $author = $this->createMock(Author::class);
         $id = $this->createMock(UuidInterface::class);
-        $id->expects($this->once())->method('toString')->willReturn('an uuid');
-        $author->expects($this->once())->method('getId')->willReturn($id);
-        $this->authorContext->expects($this->once())->method('getAuthor')->willReturn($author);
+        $id->expects(self::once())->method('toString')->willReturn('an uuid');
+        $author->expects(self::once())->method('getId')->willReturn($id);
+        $this->authorContext->expects(self::once())->method('getAuthor')->willReturn($author);
 
         $message = $this->createMock(AuthorAccessInterface::class);
-        $message->expects($this->once())->method('isAllowed')->with($author)->willReturn(false);
+        $message->expects(self::once())->method('isAllowed')->with($author)->willReturn(false);
         $envelope = new Envelope($message);
 
-        $this->expectException(AccessDeniedException::class);
-        $this->expectExceptionMessage(sprintf(
+        self::expectException(AccessDeniedException::class);
+        self::expectExceptionMessage(sprintf(
             'Access denied to command "%s" for author "an uuid"',
             get_class($message)
         ));

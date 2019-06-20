@@ -117,7 +117,7 @@
             "bin/console doctrine:schema:create"
         ],
         "validate-schema": "bin/console doctrine:schema:validate",
-        "static-analysis": [
+        "analysis": [
             "@sniffer",
             "@phpstan",
             "@deptrac",

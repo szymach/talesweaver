@@ -20,7 +20,7 @@ class ItemTest extends Unit
     public function testProperItemCreation()
     {
         $scene = $this->createMock(Scene::class);
-        $scene->expects($this->once())->method('addItem')->with($this->isInstanceOf(Item::class));
+        $scene->expects(self::once())->method('addItem')->with(self::isInstanceOf(Item::class));
 
         $item = new Item(
             $this->createMock(UuidInterface::class),
@@ -30,30 +30,30 @@ class ItemTest extends Unit
             null,
             $this->createMock(Author::class)
         );
-        $this->assertContains($scene, $item->getScenes());
+        self::assertContains($scene, $item->getScenes());
     }
 
     public function testExceptionWhenNewSceneHasNoChapterAndCurrentOnesDo()
     {
-        $this->expectException(DomainException::class);
-        $this->expectExceptionMessage(
+        self::expectException(DomainException::class);
+        self::expectExceptionMessage(
             'Scene "inconsistent scene id" is inconsistent with other scenes of item "some item id"'
         );
 
         $chapter = $this->createMock(Chapter::class);
 
         $sceneAssigned = $this->createMock(Scene::class);
-        $sceneAssigned->expects($this->exactly(1))->method('getChapter')->willReturn($chapter);
+        $sceneAssigned->expects(self::exactly(1))->method('getChapter')->willReturn($chapter);
 
         $unassignedSceneId = $this->createMock(UuidInterface::class);
-        $unassignedSceneId->expects($this->once())->method('toString')->willReturn('inconsistent scene id');
+        $unassignedSceneId->expects(self::once())->method('toString')->willReturn('inconsistent scene id');
 
         $sceneUnassigned = $this->createMock(Scene::class);
-        $sceneUnassigned->expects($this->once())->method('getId')->willReturn($unassignedSceneId);
-        $sceneUnassigned->expects($this->exactly(1))->method('getChapter')->willReturn(null);
+        $sceneUnassigned->expects(self::once())->method('getId')->willReturn($unassignedSceneId);
+        $sceneUnassigned->expects(self::exactly(1))->method('getChapter')->willReturn(null);
 
         $itemId = $this->createMock(UuidInterface::class);
-        $itemId->expects($this->once())->method('toString')->willReturn('some item id');
+        $itemId->expects(self::once())->method('toString')->willReturn('some item id');
         $item = new Item(
             $itemId,
             $sceneAssigned,
@@ -67,36 +67,36 @@ class ItemTest extends Unit
 
     public function testExceptionWhenTheNewChapterHasADifferentBook()
     {
-        $this->expectException(DomainException::class);
-        $this->expectExceptionMessage(
+        self::expectException(DomainException::class);
+        self::expectExceptionMessage(
             'Scene "id of scene with a book" is inconsistent with other scenes of item "item"'
         );
 
         // Scene 1
         $book = $this->createMock(Book::class);
         $chapterWithABook = $this->createMock(Chapter::class);
-        $chapterWithABook->expects($this->once())->method('getBook')->willReturn($book);
+        $chapterWithABook->expects(self::once())->method('getBook')->willReturn($book);
 
         $sceneWithABook = $this->createMock(Scene::class);
-        $sceneWithABook->expects($this->once())->method('getChapter')->willReturn($chapterWithABook);
+        $sceneWithABook->expects(self::once())->method('getChapter')->willReturn($chapterWithABook);
 
         // Scene 2
         $differentBook = $this->createMock(Book::class);
 
         $chapterWithADifferentBook = $this->createMock(Chapter::class);
-        $chapterWithADifferentBook->expects($this->once())->method('getBook')->willReturn($differentBook);
+        $chapterWithADifferentBook->expects(self::once())->method('getBook')->willReturn($differentBook);
 
         $sceneWithADifferentBookId = $this->createMock(UuidInterface::class);
-        $sceneWithADifferentBookId->expects($this->once())->method('toString')->willReturn('id of scene with a book');
+        $sceneWithADifferentBookId->expects(self::once())->method('toString')->willReturn('id of scene with a book');
         $sceneWithADifferentBook = $this->createMock(Scene::class);
-        $sceneWithADifferentBook->expects($this->once())->method('getId')->willReturn($sceneWithADifferentBookId);
-        $sceneWithADifferentBook->expects($this->once())
+        $sceneWithADifferentBook->expects(self::once())->method('getId')->willReturn($sceneWithADifferentBookId);
+        $sceneWithADifferentBook->expects(self::once())
             ->method('getChapter')
             ->willReturn($chapterWithADifferentBook)
         ;
 
         $itemId = $this->createMock(UuidInterface::class);
-        $itemId->expects($this->once())->method('toString')->willReturn('item');
+        $itemId->expects(self::once())->method('toString')->willReturn('item');
         $item = new Item(
             $itemId,
             $sceneWithABook,
@@ -110,8 +110,8 @@ class ItemTest extends Unit
 
     public function testNotRemovingFromOnlyScene(): void
     {
-        $this->expectException(DomainException::class);
-        $this->expectExceptionMessage(
+        self::expectException(DomainException::class);
+        self::expectExceptionMessage(
             'Cannot remove item "item id" from scene "scene 1", because it is it\'s only scene!'
         );
 

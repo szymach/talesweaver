@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Domain\Tests\ValueObject;
+namespace Talesweaver\Tests\Domain\ValueObject;
 
 use Assert\InvalidArgumentException;
 use Codeception\Test\Unit;
@@ -18,15 +18,15 @@ class ShortTextTest extends Unit
 
     public function testEmptyString(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The short text needs at least 1 character.');
+        self::expectException(InvalidArgumentException::class);
+        self::expectExceptionMessage('The short text needs at least 1 character.');
         new ShortText('');
     }
 
     public function testTooLongString(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The text can be only 255 characters long, but is "256"');
+        self::expectException(InvalidArgumentException::class);
+        self::expectExceptionMessage('The text can be only 255 characters long, but is "256"');
         new ShortText($this->tester->createTooLongString());
     }
 }

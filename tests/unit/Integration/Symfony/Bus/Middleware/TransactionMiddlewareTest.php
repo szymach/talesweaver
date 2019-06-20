@@ -26,14 +26,14 @@ class TransactionMiddlewareTest extends TestCase
         $envelope = new Envelope(new stdClass());
 
         $stack = $this->createMock(StackMiddleware::class);
-        $stack->expects($this->once())->method('next')->willReturn($stack);
-        $stack->expects($this->once())->method('handle')->with($envelope, $stack)->willReturn($envelope);
+        $stack->expects(self::once())->method('next')->willReturn($stack);
+        $stack->expects(self::once())->method('handle')->with($envelope, $stack)->willReturn($envelope);
 
-        $this->manager->expects($this->once())->method('flush');
-        $this->manager->expects($this->once())->method('commit');
+        $this->manager->expects(self::once())->method('flush');
+        $this->manager->expects(self::once())->method('commit');
 
-        $this->manager->expects($this->never())->method('getConnection');
-        $this->manager->expects($this->never())->method('rollback');
+        $this->manager->expects(self::never())->method('getConnection');
+        $this->manager->expects(self::never())->method('rollback');
 
         $middleware = new TransactionMiddleware($this->manager);
         $middleware->handle($envelope, $stack);
@@ -41,26 +41,26 @@ class TransactionMiddlewareTest extends TestCase
 
     public function testExceptionThrownWithActiveTransaction()
     {
-        $this->expectException(Exception::class);
+        self::expectException(Exception::class);
 
         $envelope = new Envelope(new stdClass());
 
         $stack = $this->createMock(StackMiddleware::class);
-        $stack->expects($this->once())->method('next')->willReturn($stack);
-        $stack->expects($this->once())
+        $stack->expects(self::once())->method('next')->willReturn($stack);
+        $stack->expects(self::once())
             ->method('handle')
             ->with($envelope, $stack)
             ->will($this->throwException(new Exception()))
         ;
 
-        $this->manager->expects($this->never())->method('flush');
-        $this->manager->expects($this->never())->method('commit');
+        $this->manager->expects(self::never())->method('flush');
+        $this->manager->expects(self::never())->method('commit');
 
         $connection = $this->createMock(Connection::class);
-        $connection->expects($this->once())->method('isTransactionActive')->willReturn(true);
+        $connection->expects(self::once())->method('isTransactionActive')->willReturn(true);
 
-        $this->manager->expects($this->once())->method('getConnection')->willReturn($connection);
-        $this->manager->expects($this->once())->method('rollback');
+        $this->manager->expects(self::once())->method('getConnection')->willReturn($connection);
+        $this->manager->expects(self::once())->method('rollback');
 
         $middleware = new TransactionMiddleware($this->manager);
         $middleware->handle($envelope, $stack);
@@ -68,26 +68,26 @@ class TransactionMiddlewareTest extends TestCase
 
     public function testExceptionThrownWithoutActiveTransaction()
     {
-        $this->expectException(Exception::class);
+        self::expectException(Exception::class);
 
         $envelope = new Envelope(new stdClass());
 
         $stack = $this->createMock(StackMiddleware::class);
-        $stack->expects($this->once())->method('next')->willReturn($stack);
-        $stack->expects($this->once())
+        $stack->expects(self::once())->method('next')->willReturn($stack);
+        $stack->expects(self::once())
             ->method('handle')
             ->with($envelope, $stack)
             ->will($this->throwException(new Exception()))
         ;
 
-        $this->manager->expects($this->never())->method('flush');
-        $this->manager->expects($this->never())->method('commit');
+        $this->manager->expects(self::never())->method('flush');
+        $this->manager->expects(self::never())->method('commit');
 
         $connection = $this->createMock(Connection::class);
-        $connection->expects($this->once())->method('isTransactionActive')->willReturn(false);
+        $connection->expects(self::once())->method('isTransactionActive')->willReturn(false);
 
-        $this->manager->expects($this->once())->method('getConnection')->willReturn($connection);
-        $this->manager->expects($this->never())->method('rollback');
+        $this->manager->expects(self::once())->method('getConnection')->willReturn($connection);
+        $this->manager->expects(self::never())->method('rollback');
 
         $middleware = new TransactionMiddleware($this->manager);
         $middleware->handle($envelope, $stack);
@@ -96,6 +96,6 @@ class TransactionMiddlewareTest extends TestCase
     protected function setUp(): void
     {
         $this->manager = $this->createMock(EntityManagerInterface::class);
-        $this->manager->expects($this->once())->method('beginTransaction');
+        $this->manager->expects(self::once())->method('beginTransaction');
     }
 }

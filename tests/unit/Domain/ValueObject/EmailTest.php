@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Domain\Tests\ValueObject;
+namespace Talesweaver\Tests\Domain\ValueObject;
 
 use Assert\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
@@ -15,8 +15,8 @@ class EmailTest extends TestCase
      */
     public function testIncorrectEmail(string $value, string $exceptionMessage): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage($exceptionMessage);
+        self::expectException(InvalidArgumentException::class);
+        self::expectExceptionMessage($exceptionMessage);
 
         new Email($value);
     }
