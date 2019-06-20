@@ -49,16 +49,7 @@ class PasswordResetTokenRepository extends ServiceEntityRepository implements Pa
 
     public function deactivatePreviousTokens(Email $email): void
     {
-        $previousTokensIds = $this->getEntityManager()
-            ->createQueryBuilder()
-            ->select('pt.id')
-            ->from($this->getEntityName(), 'pt')
-            ->join('pt.author', 'a', Join::WITH, 'a.email = :email')
-            ->setParameter('email', $email)
-            ->getQuery()
-            ->getResult()
-        ;
-
+        $previousTokensIds = $this->getPreviousTokensIds($email);
         if (0 === count($previousTokensIds)) {
             return;
         }
@@ -66,12 +57,24 @@ class PasswordResetTokenRepository extends ServiceEntityRepository implements Pa
         $this->getEntityManager()
             ->createQueryBuilder()
             ->update($this->getEntityName(), 'pt')
-            ->set('pt.active', ':false')
+            ->set('pt.active = false')
             ->where('pt.id IN (:ids)')
             ->setParameter('ids', $previousTokensIds)
-            ->setParameter('false', false)
             ->getQuery()
             ->execute()
+        ;
+    }
+
+    private function getPreviousTokensIds(Email $email): array
+    {
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('pt.id')
+            ->from($this->getEntityName(), 'pt')
+            ->join('pt.author', 'a', Join::WITH, 'a.email = :email')
+            ->setParameter('email', $email)
+            ->getQuery()
+            ->getResult()
         ;
     }
 }
