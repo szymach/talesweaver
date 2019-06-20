@@ -1,34 +1,41 @@
-{% extends 'displayBase.html.twig' %}
-
 {% import _self as macros %}
-
-{% block seoTitle title %}
-{% block body %}
-    <div class="row">
-        <div class="col">
-            <h1>{{ title }}</h1>
-            {% if chapters is defined %}
-                {% for chapter in chapters if chapter.scenes|length > 0 %}
-                    <h2>{{ chapter.title }}</h2>
-                    {{ macros.scenes(chapter.scenes) }}
-                {% endfor %}
-            {% elseif scenes is defined %}
-                {{ macros.scenes(scenes) }}
-            {% elseif text is defined %}
-                {{ macros.text(text) }}
-            {% endif %}
-        </div>
-    </div>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="UTF-8" />
+        <title>{{ title|default('meta.title'|trans) }}</title>
+        <link rel="stylesheet" href="{{ absolute_url(asset('assets/main.css')) }}">
+    </head>
+    <body>
+        <main class="display container px-lg-5">
+            <div class="row px-lg-5">
+                <div class="col">
+                    <h1 class="text-center">{{ title }}</h1>
+                    {% if chapters is defined %}
+                        {% for chapter in chapters if chapter.scenes|length > 0 %}
+                            <h2 class="text-center">{{ chapter.title }}</h2>
+                            {{ macros.scenes(chapter.scenes) }}
+                        {% endfor %}
+                    {% elseif scenes is defined %}
+                        {{ macros.scenes(scenes) }}
+                    {% elseif text is defined %}
+                        {{ macros.text(text) }}
+                    {% endif %}
+                </div>
+            </div>
+        </main>
+        <script src="{{ absolute_url(asset('assets/display.js')) }}" async></script>
+    </body>
+</html>
 
 {% macro scenes(scenes) %}
     {% import _self as macros %}
     {% for scene in scenes if scene.text is not empty %}
-        <h3>{{ scene.title }}</h3>
+        <h3 class="text-center">{{ scene.title }}</h3>
         {{ macros.text(scene.text) }}
     {% endfor %}
 {% endmacro %}
 
 {% macro text(text) %}
-    <div>{{ text|raw }}</div>
+    <section>{{ text|raw }}</section>
 {% endmacro %}

@@ -29,7 +29,7 @@ module.exports = {
     resolve: {
         extensions: ['.js', ".ts"],
         alias: {
-            ckeditor: path.resolve(__dirname, 'assets/js/ckeditor/build-classic.js')
+            ckeditor: path.resolve(__dirname, 'assets/js/ckeditor/ckeditor.js')
         }
     },
     plugins: [

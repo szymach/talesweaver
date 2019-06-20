@@ -1,0 +1,11 @@
+.display {
+    max-width: 1000px;
+
+    section + h1 + section + h2, section + h3 {
+        margin-top: 30px;
+    }
+
+    h1 + section, h2 + section, h3 + section {
+        margin-top: 30px;
+    }
+}

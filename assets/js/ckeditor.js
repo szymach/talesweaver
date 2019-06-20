@@ -24,6 +24,7 @@ function initializeCKEditor(elements)
             'heading',
             'bold',
             'italic',
+            'alignment',
             'link',
             'bulletedList',
             'numberedList',
@@ -31,6 +32,9 @@ function initializeCKEditor(elements)
             'undo',
             'redo'
         ],
+        alignment: {
+            options: [ 'left', 'justify', 'right' ]
+        },
         autosave: {
             save(editor) {
                 if (typeof editor === 'undefined' || typeof editor.sourceElement === 'undefined') {
@@ -55,9 +59,7 @@ function initializeCKEditor(elements)
                     request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                     request.responseType = 'json';
                     request.onload = function () {
-                        if (request.status >= 200 && request.status < 400) {
-                            displayAlerts();
-                        } else {
+                        if (request.status < 200 && request.status >= 400) {
                             let response = request.response;
                             if (typeof response.form !== 'undefined') {
                                 form.outerHTML = response.form;

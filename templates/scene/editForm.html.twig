@@ -88,7 +88,7 @@
 {% endblock %}
 
 {% block modals %}
-    {% include 'modal/display.html.twig' with {} only %}
+    {% include 'modal/display.html.twig' with { class: 'modal-lg' } only %}
     {% include 'modal/form.html.twig' with {} only %}
     {% include 'modal/list.html.twig' with {} only %}
 {% endblock %}
