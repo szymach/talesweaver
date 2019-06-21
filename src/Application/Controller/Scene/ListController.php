@@ -9,7 +9,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Http\Entity\ChapterResolver;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Query\Scene\ChaptersFilter;
+use Talesweaver\Application\Query\Scene\Filters;
 use Talesweaver\Application\Query\Scene\ScenesPage;
 
 final class ListController
@@ -47,9 +47,7 @@ final class ListController
             'scene/list.html.twig',
             [
                 'scenes' => $this->queryBus->query(new ScenesPage($page, $chapter)),
-                'filters' => $this->queryBus->query(
-                    new ChaptersFilter(null !== $chapter ? $chapter->getId() : null)
-                ),
+                'filters' => $this->queryBus->query(new Filters($chapter)),
                 'page' => $page
             ]
         );

@@ -63,7 +63,7 @@ final class BookResolver
     public function nullableFromQuery(ServerRequestInterface $request, string $idAttribute = 'id'): ?Book
     {
         $id = $request->getQueryParams()[$idAttribute] ?? null;
-        if (null === $id) {
+        if (null === $id || false === Uuid::isValid($id)) {
             return null;
         }
 

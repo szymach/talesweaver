@@ -7,7 +7,7 @@ namespace Talesweaver\Application\Query\Chapter;
 use Talesweaver\Application\Bus\QueryHandlerInterface;
 use Talesweaver\Domain\Books;
 
-final class BooksFilterHandler implements QueryHandlerInterface
+final class FiltersHandler implements QueryHandlerInterface
 {
     /**
      * @var Books
@@ -19,12 +19,13 @@ final class BooksFilterHandler implements QueryHandlerInterface
         $this->books = $books;
     }
 
-    public function __invoke(BooksFilter $query): array
+    public function __invoke(Filters $query): array
     {
+        $book = $query->getBook();
         return [
             'book' => [
                 'options' => $this->books->createListView(),
-                'selected' => $query->getSelectedId()
+                'selected' => null !== $book ? $book->getId() : null
             ]
         ];
     }
