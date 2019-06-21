@@ -42,7 +42,7 @@ final class ListController
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
         $page = (int) $request->getAttribute('page', 1);
-        $book = $this->bookResolver->nullableFromQuery($request, 'book');
+        $book = $this->bookResolver->fromQueryFilter($request);
         return $this->responseFactory->fromTemplate(
             'chapter/list.html.twig',
             [

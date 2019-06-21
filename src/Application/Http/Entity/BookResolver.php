@@ -60,9 +60,12 @@ final class BookResolver
         return $book;
     }
 
-    public function nullableFromQuery(ServerRequestInterface $request, string $idAttribute = 'id'): ?Book
-    {
-        $id = $request->getQueryParams()[$idAttribute] ?? null;
+    public function fromQueryFilter(
+        ServerRequestInterface $request,
+        string $filterKey = 'filter',
+        string $idAttribute = 'book'
+    ): ?Book {
+        $id = $request->getQueryParams()[$filterKey][$idAttribute] ?? null;
         if (null === $id || false === Uuid::isValid($id)) {
             return null;
         }

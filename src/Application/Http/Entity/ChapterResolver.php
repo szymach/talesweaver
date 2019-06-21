@@ -61,9 +61,12 @@ final class ChapterResolver
         return $chapter;
     }
 
-    public function nullableFromQuery(ServerRequestInterface $request, string $idAttribute = 'id'): ?Chapter
-    {
-        $id = $request->getQueryParams()[$idAttribute] ?? null;
+    public function fromQueryFilter(
+        ServerRequestInterface $request,
+        string $filterKey = 'filter',
+        string $idAttribute = 'chapter'
+    ): ?Chapter {
+        $id = $request->getQueryParams()[$filterKey][$idAttribute] ?? null;
         if (null === $id || false === Uuid::isValid($id)) {
             return null;
         }

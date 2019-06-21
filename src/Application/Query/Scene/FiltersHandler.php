@@ -33,7 +33,7 @@ final class FiltersHandler implements QueryHandlerInterface
         return [
             'book' => [
                 'options' => $this->books->createListView(),
-                'selected' => null !== $chapter ? $chapter->getId() : null
+                'selected' => null !== $book ? $book->getId() : null
             ],
             'chapter' => [
                 'options' => $this->chapters->createListView($book),

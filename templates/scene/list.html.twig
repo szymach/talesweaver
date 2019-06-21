@@ -2,7 +2,7 @@
 
 {% block seoTitle 'scene.seo_title.list'|trans %}
 {% block body %}
-    {% include 'partial/filters.html.twig' with { filters: filters, clearPath: path('scene_list') } only %}
+    {% include 'partial/filters.html.twig' with { filters: filters } only %}
     {% if scenes|length > 0 %}
         <div class="row">
             <div class="col-sm offset-md-2 col-md-8">

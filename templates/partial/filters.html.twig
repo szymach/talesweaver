@@ -1,9 +1,10 @@
+{% set currentRoute = path(app.request.get('_route'), { page: 1 }) %}
 <div class="row">
     <div class="col-sm offset-md-2 col-md-8 mb-3">
-        <form class="form-inline pull-right">
+        <form class="form-inline pull-right" action="{{ currentRoute }}">
             {% for name, filter in filters %}
                 <div class="form-group">
-                    <select class="form-control" name="{{ name }}">
+                    <select class="form-control" name="filter[{{ name }}]">
                         <option value="">{{ ('filter.' ~ name)|trans }}</option>
                         {% for option in filter.options %}
                             <option value="{{ option.id }}"{% if option.id == filter.selected %} selected="selected"{% endif %}>
@@ -14,7 +15,7 @@
                 </div>
             {% endfor %}
             <div class="form-group">
-                <a class="btn btn-outline-secondary ml-1" href="{{ clearPath }}">{{ 'filter.clear'|trans }}</a>
+                <a class="btn btn-outline-secondary ml-1" href="{{ currentRoute }}">{{ 'filter.clear'|trans }}</a>
                 <button class="btn btn-outline-success ml-1">{{ 'filter.submit'|trans }}</button>
             </div>
         </form>

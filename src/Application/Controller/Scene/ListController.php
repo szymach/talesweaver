@@ -50,8 +50,8 @@ final class ListController
     public function __invoke(ServerRequestInterface $request) : ResponseInterface
     {
         $page = (int) $request->getAttribute('page', 1);
-        $book = $this->bookResolver->nullableFromQuery($request, 'book');
-        $chapter = $this->chapterResolver->nullableFromQuery($request, 'chapter');
+        $book = $this->bookResolver->fromQueryFilter($request);
+        $chapter = $this->chapterResolver->fromQueryFilter($request);
         return $this->responseFactory->fromTemplate(
             'scene/list.html.twig',
             [
