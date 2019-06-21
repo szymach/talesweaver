@@ -15,10 +15,10 @@
             <img class="img-fluid mb-3" src="{{ fsi_file_url(avatar.value) }}" />
         {% endif %}
         {% if hasDescription and hasEvents %}
-            {{ macros.tabNavigation(
+            {{ macros.tabNavigation([
                 macros.tab('displayContentTab', 'displayContent', 'scene.modal.description', 'active'),
                 macros.tab('displayEventsTab', 'displayEvents', 'scene.modal.events', '')
-            ) }}
+            ]) }}
             <div class="tab-content pt-2 pb-2">
                 {{ macros.tabContent('displayContent', 'displayContentTab', self_macros.content(description), 'show active') }}
                 {{ macros.tabContent('displayEvents', 'displayEventsTab', self_macros.events(events), 'pl-2 pr-2') }}
@@ -48,7 +48,7 @@
 {% macro events(events) %}
     <ol>
         {% for event in events %}
-            <li>{{ event }}</li>
+            <li>{{ event.name }}</li>
         {% endfor %}
     </ol>
 {% endmacro %}

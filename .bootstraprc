@@ -31,7 +31,7 @@ styles:
   button-group: true
   card: true
   close: true
-  custom-forms: false
+  custom-forms: true
   dropdown: true
   input-group: true
   jumbotron: false

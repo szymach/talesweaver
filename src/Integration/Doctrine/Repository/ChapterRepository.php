@@ -56,7 +56,7 @@ class ChapterRepository extends AutoWireableTranslatableRepository
         ;
 
         if (null !== $book) {
-            $query->andWhere('b.id = :book')->setParameter('book', $book->getId());
+            $query->andWhere('b.id = :book')->setParameter('book', $book->getId()->toString());
         }
 
         $statement = $query->execute();

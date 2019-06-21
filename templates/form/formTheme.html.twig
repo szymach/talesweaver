@@ -3,7 +3,7 @@
 {% block fsi_file_widget %}
     {% set type = type|default('file') %}
     {% set required = false %}
-    {{ block('form_widget') }}
+    {{ block('file_widget') }}
     {% if form.vars.data is not null %}
         {% if is_fsi_file(form.vars.data) %}
             <div>
@@ -20,7 +20,7 @@
 {% block fsi_image_widget %}
     {% set type = type|default('file') %}
     {% set required = false %}
-    {{ block('form_widget') }}
+    {{ block('file_widget') }}
     {% if form.vars.data is not null %}
         {% if is_fsi_file(form.vars.data) %}
             <img src="{{ fsi_file_url(form.vars.data) }}" class="img-thumbnail" width="200" />
@@ -34,7 +34,7 @@
     {% set fileForm = form[form.vars.name] %}
     {% set type = type|default('file') %}
     {{ form_widget(fileForm) }}
-    <div{% if fileForm.vars.data is null or not is_fsi_file(fileForm.vars.data) %} class="hidden"{% endif %}>
+    <div{% if fileForm.vars.data is null or not is_fsi_file(fileForm.vars.data) %} class="d-none"{% endif %}>
         {{ form_widget(form.remove) }}
         {{ form_label(form.remove) }}
     </div>

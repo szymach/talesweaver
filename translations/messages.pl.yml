@@ -356,3 +356,8 @@ display:
 pdf:
     label: PDF
     title: Pobierz w formacie PDF
+
+filter:
+    book: Wybierz książkę
+    submit: Filtruj
+    clear: Wyczyść

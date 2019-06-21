@@ -8,9 +8,8 @@ use Talesweaver\Tests\FunctionalTester;
 
 class ListControllerCest
 {
-    public function testChapterList(FunctionalTester $I)
+    public function testChapterList(FunctionalTester $I): void
     {
-        $I->loginAsUser();
         $I->amOnPage('/pl/chapter/list');
         $I->see('Nie masz jeszcze żadnego rozdziału.', 'h4');
         $I->see('Dodaj nowy!', 'a[href="/pl/chapter/create"]');
@@ -25,5 +24,29 @@ class ListControllerCest
 
         $I->click('a[title="Edycja"]');
         $I->canSeeInTitle('Rozdział - edycja');
+    }
+
+    public function testFilteringChapterList(FunctionalTester $I): void
+    {
+        $book = $I->haveCreatedABook('Książka 1');
+        $I->haveCreatedAChapter('Rozdział książki 1', $book);
+        $I->haveCreatedAChapter('Rozdział książki 2', $I->haveCreatedABook('Książka 2'));
+
+        $I->amOnPage("/pl/chapter/list");
+        $I->see('Rozdział książki 1', 'td');
+        $I->see('Rozdział książki 2', 'td');
+
+        $I->selectOption('select[name="book"]', $book->getId()->toString());
+        $I->click('Filtruj');
+        $I->see('Rozdział książki 1', 'td');
+        $I->cantSee('Rozdział książki 2', 'td');
+    }
+
+    /**
+     * @phpcs:disable
+     */
+    public function _before(FunctionalTester $I): void
+    {
+        $I->loginAsUser();
     }
 }

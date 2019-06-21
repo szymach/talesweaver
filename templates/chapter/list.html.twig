@@ -2,6 +2,7 @@
 
 {% block seoTitle 'chapter.seo_title.list'|trans %}
 {% block body %}
+    {% include 'partial/filters.html.twig' with { filters: filters, clearPath: path('chapter_list') } only %}
     {% if chapters|length > 0 %}
         <div class="row">
             <div class="col-sm offset-md-2 col-md-8">
@@ -34,7 +35,7 @@
                                         <span class="fa fa-eye"></span>
                                     </a>
                                     <a class="btn btn-sm btn-danger js-delete"
-                                       href="{{ path('chapter_delete', { id: chapter.id, page: page }) }}"
+                                       href="{{ path('chapter_delete', { id: chapterId, page: page }) }}"
                                        title="{{ 'crud.delete'|trans }}"
                                     >
                                         <span class="fa fa-trash"></span>

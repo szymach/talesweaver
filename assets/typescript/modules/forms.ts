@@ -4,6 +4,7 @@ import { Display } from './display';
 import { Lists } from './lists';
 const bootstrap = require('bootstrap.native/dist/bootstrap-native-v4');
 const Gator = require('gator');
+import bsCustomFileInput from 'bs-custom-file-input';
 
 interface FormResponse {
     form?: string | null,
@@ -44,6 +45,7 @@ export module Forms {
                 displayModal(modal, response);
                 bindAjaxForm(modal);
                 triggerAutofocus(modal);
+                bsCustomFileInput.init();
             }
         );
     }

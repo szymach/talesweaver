@@ -12,7 +12,7 @@ use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Query\Book\ById;
 use Talesweaver\Domain\Book;
 
-class BookResolver
+final class BookResolver
 {
     /**
      * @var ResponseFactoryInterface
@@ -53,6 +53,21 @@ class BookResolver
         }
 
         $book = $this->queryForBook($id);
+        if (false === $book instanceof Book) {
+            null;
+        }
+
+        return $book;
+    }
+
+    public function nullableFromQuery(ServerRequestInterface $request, string $idAttribute = 'id'): ?Book
+    {
+        $id = $request->getQueryParams()[$idAttribute] ?? null;
+        if (null === $id) {
+            return null;
+        }
+
+        $book = $this->queryForBook(Uuid::fromString($id));
         if (false === $book instanceof Book) {
             null;
         }
