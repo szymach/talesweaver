@@ -50,7 +50,7 @@ class TransactionMiddlewareTest extends TestCase
         $stack->expects(self::once())
             ->method('handle')
             ->with($envelope, $stack)
-            ->will($this->throwException(new Exception()))
+            ->will(self::throwException(new Exception()))
         ;
 
         $this->manager->expects(self::never())->method('flush');
@@ -77,7 +77,7 @@ class TransactionMiddlewareTest extends TestCase
         $stack->expects(self::once())
             ->method('handle')
             ->with($envelope, $stack)
-            ->will($this->throwException(new Exception()))
+            ->will(self::throwException(new Exception()))
         ;
 
         $this->manager->expects(self::never())->method('flush');

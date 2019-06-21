@@ -1,16 +1,21 @@
 includes:
     - vendor/phpstan/phpstan-beberlei-assert/extension.neon
     - vendor/phpstan/phpstan-doctrine/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
 
 parameters:
-	polluteScopeWithLoopInitialAssignments: false
-	polluteScopeWithAlwaysIterableForeach: false
-	checkAlwaysTrueCheckTypeFunctionCall: true
-	checkAlwaysTrueInstanceof: true
-	checkAlwaysTrueStrictComparison: true
-	checkFunctionNameCase: true
-	reportMaybesInMethodSignatures: true
-	reportStaticMethodSignatures: true
+        autoload_directories:
+            - %currentWorkingDirectory%/tests/functional
+            - %currentWorkingDirectory%/tests/unit
+            - %currentWorkingDirectory%/tests/_support
+        polluteScopeWithLoopInitialAssignments: false
+        polluteScopeWithAlwaysIterableForeach: false
+        checkAlwaysTrueCheckTypeFunctionCall: true
+        checkAlwaysTrueInstanceof: true
+        checkAlwaysTrueStrictComparison: true
+        checkFunctionNameCase: true
+        reportMaybesInMethodSignatures: true
+        reportStaticMethodSignatures: true
 
 rules:
 	- PHPStan\Rules\BooleansInConditions\BooleanInBooleanAndRule

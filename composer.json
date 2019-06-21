@@ -23,14 +23,14 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Talesweaver\\Tests\\Domain\\": ["tests/unit/Domain"],
+            "Talesweaver\\Tests\\Domain\\": "tests/unit/Domain",
             "Talesweaver\\Tests\\Integration\\": [
                 "tests/functional/Integration",
                 "tests/unit/Integration"
             ],
-            "Talesweaver\\Tests\\Helper\\": ["tests/_support/Helper"],
-            "Talesweaver\\Tests\\Module\\": ["tests/_support/Module"],
-            "Talesweaver\\Tests\\Query\\": ["tests/_support/Query"]
+            "Talesweaver\\Tests\\Helper\\": "tests/_support/Helper",
+            "Talesweaver\\Tests\\Module\\": "tests/_support/Module",
+            "Talesweaver\\Tests\\Query\\": "tests/_support/Query"
         }
     },
     "require": {
@@ -74,6 +74,7 @@
         "phpstan/phpstan": "^0.11.0",
         "phpstan/phpstan-beberlei-assert": "^0.11.0",
         "phpstan/phpstan-doctrine": "^0.11.0",
+        "phpstan/phpstan-phpunit": "^0.11.2",
         "phpstan/phpstan-strict-rules": "^0.11.0",
         "phpunit/phpunit": "^7.0",
         "squizlabs/php_codesniffer": "^3.0",
@@ -102,7 +103,7 @@
             "@auto-scripts"
         ],
         "sniffer": "vendor/bin/phpcs",
-        "stan": "vendor/bin/phpstan analyse -l 7 -c phpstan.neon src",
+        "stan": "vendor/bin/phpstan analyse -l 7 -c phpstan.neon src tests/functional tests/unit tests/_support/Query",
         "deptrac": [
             "[ -f vendor/bin/deptrac.phar ] || curl -LS https://github.com/sensiolabs-de/deptrac/releases/download/0.5.0/deptrac.phar -o vendor/bin/deptrac.phar && chmod +x vendor/bin/deptrac.phar",
             "vendor/bin/deptrac.phar analyze --formatter-graphviz=0 config/layers.yml"

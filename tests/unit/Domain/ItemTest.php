@@ -117,14 +117,20 @@ class ItemTest extends Unit
 
         $chapter = $this->createMock(Chapter::class);
 
+        /** @var UuidInterface $sceneId */
+        $sceneId = $this->makeEmpty(UuidInterface::class, ['toString' => 'scene 1']);
+        /** @var Scene $scene1 */
         $scene1 = $this->makeEmpty(Scene::class, [
-            'getId' => $this->makeEmpty(UuidInterface::class, ['toString' => 'scene 1']),
+            'getId' => $sceneId,
             'getChapter' => $chapter
         ]);
+        /** @var Scene $scene2 */
         $scene2 = $this->makeEmpty(Scene::class, ['getChapter' => $chapter]);
 
+        /** @var UuidInterface $id */
+        $id = $this->makeEmpty(UuidInterface::class, ['toString' => 'item id']);
         $item = new Item(
-            $this->makeEmpty(UuidInterface::class, ['toString' => 'item id']),
+            $id,
             $scene1,
             new ShortText('Item'),
             null,

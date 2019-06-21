@@ -25,7 +25,13 @@ final class FormTypeCest
         $item2 = $I->haveCreatedAnItem('Przedmiot 2', $scene);
         $location1 = $I->haveCreatedALocation('Miejsce 1', $scene);
         $location2 = $I->haveCreatedALocation('Miejsce 2', $scene);
-        $form = $this->fetchCreateForm($I, $scene, [$character1, $character2], [$item1, $item2], [$location1, $location2]);
+        $form = $this->fetchCreateForm(
+            $I,
+            $scene,
+            [$character1, $character2],
+            [$item1, $item2],
+            [$location1, $location2]
+        );
         $form->handleRequest($I->getRequest([
             'create' => [
                 'name' => 'Wydarzenie',
@@ -85,7 +91,14 @@ final class FormTypeCest
         $item2 = $I->haveCreatedAnItem('Przedmiot 2', $scene);
         $location1 = $I->haveCreatedALocation('Miejsce 1', $scene);
         $location2 = $I->haveCreatedALocation('Miejsce 2', $scene);
-        $form = $this->fetchEditForm($I, $scene, $event, [$character1, $character2], [$item1, $item2], [$location1, $location2]);
+        $form = $this->fetchEditForm(
+            $I,
+            $scene,
+            $event,
+            [$character1, $character2],
+            [$item1, $item2],
+            [$location1, $location2]
+        );
         $form->handleRequest($I->getRequest([
             'edit' => [
                 'name' => 'Wydarzenie',

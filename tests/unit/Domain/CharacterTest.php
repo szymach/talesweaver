@@ -116,14 +116,20 @@ class CharacterTest extends Unit
 
         $chapter = $this->createMock(Chapter::class);
 
+        /** @var UuidInterface $sceneId */
+        $sceneId = $this->makeEmpty(UuidInterface::class, ['toString' => 'scene 1']);
+        /** @var Scene $scene1 */
         $scene1 = $this->makeEmpty(Scene::class, [
-            'getId' => $this->makeEmpty(UuidInterface::class, ['toString' => 'scene 1']),
+            'getId' => $sceneId,
             'getChapter' => $chapter
         ]);
+        /** @var Scene $scene2 */
         $scene2 = $this->makeEmpty(Scene::class, ['getChapter' => $chapter]);
 
+        /** @var UuidInterface $id */
+        $id = $this->makeEmpty(UuidInterface::class, ['toString' => 'character id']);
         $character = new Character(
-            $this->makeEmpty(UuidInterface::class, ['toString' => 'character id']),
+            $id,
             $scene1,
             new ShortText('Character'),
             null,

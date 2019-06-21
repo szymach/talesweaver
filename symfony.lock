@@ -242,6 +242,9 @@
     "phpstan/phpstan-doctrine": {
         "version": "0.10"
     },
+    "phpstan/phpstan-phpunit": {
+        "version": "0.11.2"
+    },
     "phpstan/phpstan-strict-rules": {
         "version": "0.11"
     },
