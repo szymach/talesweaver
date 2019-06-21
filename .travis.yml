@@ -6,12 +6,8 @@ cache:
         - ~/.cache/Cypress
         - node_modules
         - vendor
-addons:
-    apt:
-        sources:
-            - mysql-5.7-trusty
-        packages:
-            - mysql-server
+
+services: mysql
 env:
     global:
         - SYMFONY_DEPRECATIONS_HELPER=weak
