@@ -15,7 +15,7 @@ use Talesweaver\Domain\Scenes;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Doctrine\Repository\SceneRepository as DoctrineRepository;
 
-class SceneRepository implements Scenes
+final class SceneRepository implements Scenes
 {
     /**
      * @var EntityManagerInterface
@@ -65,10 +65,11 @@ class SceneRepository implements Scenes
         );
     }
 
-    public function createListView(?Chapter $chapter): array
+    public function createListView(?Book $book, ?Chapter $chapter): array
     {
         return $this->doctrineRepository->createListView(
             $this->authorContext->getAuthor(),
+            $book,
             $chapter
         );
     }

@@ -28,18 +28,22 @@ final class ListControllerCest
 
     public function testFilteringSceneList(FunctionalTester $I): void
     {
+        $book = $I->haveCreatedABook('Książka');
         $chapter = $I->haveCreatedAChapter('Rozdział 1');
-        $I->haveCreatedAScene('Scena rozdziału 1', $chapter);
-        $I->haveCreatedAScene('Scena rozdziału 2', $I->haveCreatedAChapter('Rozdział 2'));
+        $I->haveCreatedAScene('Scena 1 rozdziału 1', $chapter);
+        $I->haveCreatedAScene('Scena 2 rozdziału 1', $chapter);
+        $I->haveCreatedAScene('Scena rozdziału 2', $I->haveCreatedAChapter('Rozdział 2', $book));
 
         $I->amOnPage('/pl/scene/list');
-        $I->see('Scena rozdziału 1', 'td');
+        $I->see('Scena 1 rozdziału 1', 'td');
+        $I->see('Scena 2 rozdziału 1', 'td');
         $I->see('Scena rozdziału 2', 'td');
 
-        $I->selectOption('select[name="chapter"]', $chapter->getId()->toString());
+        $I->selectOption('select[name="book"]', $book->getId()->toString());
         $I->click('Filtruj');
-        $I->see('Scena rozdziału 1', 'td');
-        $I->cantSee('Scena rozdziału 2', 'td');
+        $I->cantSee('Scena 1 rozdziału 1', 'td');
+        $I->cantSee('Scena 2 rozdziału 1', 'td');
+        $I->see('Scena rozdziału 2', 'td');
     }
 
     /**

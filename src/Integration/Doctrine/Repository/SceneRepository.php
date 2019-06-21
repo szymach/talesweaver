@@ -83,7 +83,7 @@ class SceneRepository extends AutoWireableTranslatableRepository
         return $statement->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
-    public function createListView(Author $author, ?Chapter $chapter): array
+    public function createListView(Author $author, ?Book $book, ?Chapter $chapter): array
     {
         $query = $this->getEntityManager()->getConnection()
             ->createQueryBuilder()
@@ -103,6 +103,10 @@ class SceneRepository extends AutoWireableTranslatableRepository
             ->setParameter('author', $author->getId())
             ->setParameter('locale', $this->getTranslatableListener()->getLocale())
         ;
+
+        if (null !== $book) {
+            $query->andWhere('b.id = :book')->setParameter('book', $book->getId());
+        }
 
         if (null !== $chapter) {
             $query->andWhere('c.id = :chapter')->setParameter('chapter', $chapter->getId());
