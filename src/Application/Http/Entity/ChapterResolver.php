@@ -12,7 +12,7 @@ use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Query\Chapter\ById;
 use Talesweaver\Domain\Chapter;
 
-class ChapterResolver
+final class ChapterResolver
 {
 
     /**
@@ -54,6 +54,21 @@ class ChapterResolver
         }
 
         $chapter = $this->queryForChapter($id);
+        if (false === $chapter instanceof Chapter) {
+            null;
+        }
+
+        return $chapter;
+    }
+
+    public function nullableFromQuery(ServerRequestInterface $request, string $idAttribute = 'id'): ?Chapter
+    {
+        $id = $request->getQueryParams()[$idAttribute] ?? null;
+        if (null === $id) {
+            return null;
+        }
+
+        $chapter = $this->queryForChapter(Uuid::fromString($id));
         if (false === $chapter instanceof Chapter) {
             null;
         }

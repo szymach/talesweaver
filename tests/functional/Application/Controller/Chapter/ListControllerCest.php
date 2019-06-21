@@ -6,7 +6,7 @@ namespace Talesweaver\Tests\Application\Controller\Chapter;
 
 use Talesweaver\Tests\FunctionalTester;
 
-class ListControllerCest
+final class ListControllerCest
 {
     public function testChapterList(FunctionalTester $I): void
     {

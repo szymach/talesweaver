@@ -359,5 +359,6 @@ pdf:
 
 filter:
     book: Wybierz książkę
+    chapter: Wybierz rozdział
     submit: Filtruj
     clear: Wyczyść
