@@ -8,6 +8,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Bus\QueryBus;
+use Talesweaver\Application\Http\FilterSet;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Query\Chapter\ById;
 use Talesweaver\Domain\Chapter;
@@ -63,7 +64,7 @@ final class ChapterResolver
 
     public function fromQueryFilter(
         ServerRequestInterface $request,
-        string $filterKey = 'filter',
+        string $filterKey = FilterSet::QUERY_KEY,
         string $idAttribute = 'chapter'
     ): ?Chapter {
         $id = $request->getQueryParams()[$filterKey][$idAttribute] ?? null;

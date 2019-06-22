@@ -4,7 +4,7 @@
         <form class="form-inline pull-right" action="{{ currentRoute }}">
             {% for filter in filters %}
                 <div class="form-group{% if not loop.last %} mr-1{% endif %}">
-                    <select class="form-control" name="filter[{{ filter.name }}]">
+                    <select class="form-control" name="{{ filters.queryKey }}[{{ filter.name }}]">
                         <option value="">{{ ('filter.' ~ filter.name)|trans }}</option>
                         {% for option in filter.options %}
                             <option value="{{ option.id }}"{% if option.id == filter.selected %} selected="selected"{% endif %}>
