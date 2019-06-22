@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Application\Query\Scene;
 
 use Talesweaver\Application\Bus\QueryHandlerInterface;
+use Talesweaver\Application\Http\Filter;
 use Talesweaver\Domain\Books;
 use Talesweaver\Domain\Chapters;
 
@@ -31,14 +32,16 @@ final class FiltersHandler implements QueryHandlerInterface
         $book = $query->getBook();
         $chapter = $query->getChapter();
         return [
-            'book' => [
-                'options' => $this->books->createListView(),
-                'selected' => null !== $book ? $book->getId() : null
-            ],
-            'chapter' => [
-                'options' => $this->chapters->createListView($book),
-                'selected' => null !== $chapter ? $chapter->getId() : null
-            ]
+            new Filter(
+                'book',
+                $this->books->createListView(),
+                null !== $book ? $book->getId() : null
+            ),
+            new Filter(
+                'chapter',
+                $this->chapters->createListView($book),
+                null !== $chapter ? $chapter->getId() : null
+            )
         ];
     }
 }

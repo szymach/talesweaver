@@ -2,10 +2,10 @@
 <div class="row">
     <div class="col-sm offset-md-2 col-md-8 mb-3">
         <form class="form-inline pull-right" action="{{ currentRoute }}">
-            {% for name, filter in filters %}
-                <div class="form-group">
-                    <select class="form-control" name="filter[{{ name }}]">
-                        <option value="">{{ ('filter.' ~ name)|trans }}</option>
+            {% for filter in filters %}
+                <div class="form-group{% if not loop.last %} mr-1{% endif %}">
+                    <select class="form-control" name="filter[{{ filter.name }}]">
+                        <option value="">{{ ('filter.' ~ filter.name)|trans }}</option>
                         {% for option in filter.options %}
                             <option value="{{ option.id }}"{% if option.id == filter.selected %} selected="selected"{% endif %}>
                                 {{ option.title }}
