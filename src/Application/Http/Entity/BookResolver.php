@@ -8,7 +8,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Bus\QueryBus;
-use Talesweaver\Application\Http\FilterSet;
+use Talesweaver\Application\Data\FilterSet;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Query\Book\ById;
 use Talesweaver\Domain\Book;

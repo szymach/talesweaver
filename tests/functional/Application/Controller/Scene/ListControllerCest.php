@@ -39,7 +39,7 @@ final class ListControllerCest
         $I->see('Scena 2 rozdziału 1', 'td');
         $I->see('Scena rozdziału 2', 'td');
 
-        $I->selectOption('select[name="book"]', $book->getId()->toString());
+        $I->selectOption('select[name="filters[book]"]', $book->getId()->toString());
         $I->click('Filtruj');
         $I->cantSee('Scena 1 rozdziału 1', 'td');
         $I->cantSee('Scena 2 rozdziału 1', 'td');

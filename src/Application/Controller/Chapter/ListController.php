@@ -9,8 +9,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Http\Entity\BookResolver;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Query\Chapter\Filters;
 use Talesweaver\Application\Query\Chapter\ChaptersPage;
+use Talesweaver\Application\Query\Chapter\Filters;
 
 final class ListController
 {

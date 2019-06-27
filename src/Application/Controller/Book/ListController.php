@@ -30,9 +30,13 @@ final class ListController
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
+        $page = (int) $request->getAttribute('page', 1);
         return $this->responseFactory->fromTemplate(
             'book/list.html.twig',
-            ['books' => $this->queryBus->query(new BooksPage((int) $request->getAttribute('page', 1)))]
+            [
+                'books' => $this->queryBus->query(new BooksPage($page)),
+                'page' => $page
+            ]
         );
     }
 }

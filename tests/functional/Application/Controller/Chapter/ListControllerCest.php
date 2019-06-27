@@ -36,10 +36,16 @@ final class ListControllerCest
         $I->see('Rozdział książki 1', 'td');
         $I->see('Rozdział książki 2', 'td');
 
-        $I->selectOption('select[name="book"]', $book->getId()->toString());
+        $I->selectOption('select[name="filters[book]"]', $book->getId()->toString());
         $I->click('Filtruj');
         $I->see('Rozdział książki 1', 'td');
         $I->cantSee('Rozdział książki 2', 'td');
+
+        $I->click('Wyczyść');
+        $I->see('Rozdział książki 1', 'td');
+        $I->see('Rozdział książki 2', 'td');
+
+        $I->click('Sortuj wg książki malejąco', 'a');
     }
 
     /**

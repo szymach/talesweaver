@@ -25,6 +25,7 @@ services:
     Talesweaver\Application\Security\AuthorContext: '@Talesweaver\Integration\Symfony\Security\AuthorContext'
     Talesweaver\Application\Security\AuthenticationContext: '@Talesweaver\Integration\Symfony\Security\AuthenticationContext'
     Talesweaver\Application\Session\FlashBag: '@Talesweaver\Integration\Symfony\Session\FlashBag'
+    Talesweaver\Application\Session\Session: '@Talesweaver\Integration\Symfony\Session\Session'
     Talesweaver\Domain\Authors: '@Talesweaver\Integration\Doctrine\Repository\AuthorRepository'
     Talesweaver\Domain\Books: '@Talesweaver\Integration\Symfony\Repository\BookRepository'
     Talesweaver\Domain\Chapters: '@Talesweaver\Integration\Symfony\Repository\ChapterRepository'

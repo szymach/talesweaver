@@ -2,81 +2,26 @@
 
 {% block seoTitle 'chapter.seo_title.list'|trans %}
 {% block body %}
-    {% include 'partial/filters.html.twig' with { filters: filters } only %}
-    {% if chapters|length > 0 %}
-        <div class="row">
-            <div class="col-sm offset-md-2 col-md-8">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="text-right">{{ 'chapter.title'|trans }}</th>
-                            <th class="text-right">{{ 'chapter.book'|trans }}</th>
-                            <th class="text-right"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for chapter in chapters %}
-                            {% set chapterId = chapter.id %}
-                            <tr>
-                                <td class="text-right">{{ chapter.title }}</td>
-                                <td class="text-right">{{ chapter.book }}</td>
-                                <td>
-                                    <a class="btn btn-sm btn-primary"
-                                       href="{{ path('chapter_edit', { id: chapter.id, page: page }) }}"
-                                       title="{{ 'crud.edit'|trans }}"
-                                    >
-                                        <span class="fa fa-edit"></span>
-                                    </a>
-                                    <a class="btn btn-sm btn-outline-secondary js-display"
-                                       href="{{ path('chapter_display', { id: chapterId }) }}"
-                                       data-display-url="{{ path('chapter_display', { id: chapterId }) }}"
-                                       title="{{ 'crud.display'|trans }}"
-                                    >
-                                        <span class="fa fa-eye"></span>
-                                    </a>
-                                    <a class="btn btn-sm btn-danger js-delete"
-                                       href="{{ path('chapter_delete', { id: chapterId, page: page }) }}"
-                                       title="{{ 'crud.delete'|trans }}"
-                                    >
-                                        <span class="fa fa-trash"></span>
-                                    </a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="3" class="text-right">
-                                <a class="btn btn-sm btn-success"
-                                   href="{{ path('chapter_create', { page: page }) }}"
-                                   title="{{ 'chapter.list.create'|trans }}"
-                                >
-                                    <span class="fa fa-plus"></span>
-                                </a>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm offset-md-2 col-md-8">
-                {% include 'partial/pagination.html.twig' with { paginator: chapters } only %}
-            </div>
-        </div>
-    {% else %}
-        <div class="row">
-            <div class="col-sm text-center">
-                <h4>{{- 'chapter.list.standalone.no_results.header'|trans -}}</h4>
-                <a class="btn btn-sm btn-success"
-                   href="{{ path('chapter_create') }}"
-                   title="{{ 'chapter.actions.create'|trans }}"
-                >
-                    <span class="fa fa-plus"></span> {{ 'chapter.list.standalone.no_results.add_new'|trans }}
-                </a>
-            </div>
-        </div>
-    {% endif %}
+    {% include 'partial/dataList.html.twig' with {
+        filters: filters,
+        headers: chapters.headers,
+        rows: chapters.paginator,
+        create: {
+            label: 'chapter.list.create',
+            path: path('chapter_create', { page: page })
+        },
+        noResults: {
+            header: 'chapter.list.standalone.no_results.header',
+            action: 'chapter.list.standalone.no_results.add_new',
+            title: 'chapter.actions.create'
+        },
+        action: {
+            edit: 'chapter_edit',
+            display: 'chapter_display',
+            delete: 'chapter_delete'
+        },
+        page: page
+    } only %}
 {% endblock %}
 
 {% block modals %}

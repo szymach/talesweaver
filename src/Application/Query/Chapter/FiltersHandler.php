@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Talesweaver\Application\Query\Chapter;
 
 use Talesweaver\Application\Bus\QueryHandlerInterface;
-use Talesweaver\Application\Http\Filter;
-use Talesweaver\Application\Http\FilterSet;
+use Talesweaver\Application\Data\Filter;
+use Talesweaver\Application\Data\FilterSet;
 use Talesweaver\Domain\Books;
 
 final class FiltersHandler implements QueryHandlerInterface

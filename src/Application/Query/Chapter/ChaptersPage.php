@@ -18,10 +18,16 @@ final class ChaptersPage
      */
     private $book;
 
-    public function __construct(int $page, ?Book $book)
+    /**
+     * @var int
+     */
+    private $perPage;
+
+    public function __construct(int $page, ?Book $book, int $perPage = 10)
     {
         $this->page = $page;
         $this->book = $book;
+        $this->perPage = $perPage;
     }
 
     public function getPage(): int
@@ -32,5 +38,10 @@ final class ChaptersPage
     public function getBook(): ?Book
     {
         return $this->book;
+    }
+
+    public function getPerPage(): int
+    {
+        return $this->perPage;
     }
 }

@@ -6,7 +6,12 @@ namespace Talesweaver\Application\Query\Book;
 
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
+use Ramsey\Uuid\Uuid;
 use Talesweaver\Application\Bus\QueryHandlerInterface;
+use Talesweaver\Application\Data\Cell;
+use Talesweaver\Application\Data\DataSet;
+use Talesweaver\Application\Data\Header;
+use Talesweaver\Application\Data\Row;
 use Talesweaver\Domain\Books;
 
 final class BooksPageHandler implements QueryHandlerInterface
@@ -21,12 +26,30 @@ final class BooksPageHandler implements QueryHandlerInterface
         $this->books = $books;
     }
 
-    public function __invoke(BooksPage $query): Pagerfanta
+    public function __invoke(BooksPage $query): DataSet
     {
-        $pager = new Pagerfanta(new ArrayAdapter($this->books->createListView()));
-        $pager->setMaxPerPage(5);
-        $pager->setCurrentPage($query->getPage());
+        $pagerfanta = new Pagerfanta(
+            new ArrayAdapter($this->mapListToRows())
+        );
+        $pagerfanta->setMaxPerPage($query->getPerPage());
+        $pagerfanta->setCurrentPage($query->getPage());
 
-        return $pager;
+        return new DataSet(
+            [new Header('book.title', true)],
+            $pagerfanta
+        );
+    }
+
+    private function mapListToRows(): array
+    {
+        return array_map(
+            function (array $row): Row {
+                return new Row(
+                    Uuid::fromString($row['id']),
+                    [new Cell($row['title'])]
+                );
+            },
+            $this->books->createListView()
+        );
     }
 }

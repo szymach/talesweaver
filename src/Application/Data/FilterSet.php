@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Application\Http;
+namespace Talesweaver\Application\Data;
 
 use Assert\Assertion;
 use Countable;
@@ -11,6 +11,10 @@ use Iterator;
 final class FilterSet implements Countable, Iterator
 {
     public const QUERY_KEY = 'filters';
+    public const SORT_ASCENDING = 'asc';
+    public const SORT_DESCENDING = 'desc';
+    public const SORT_CLEAR = 'clear';
+    public const SORT_QUERY_KEY = 'sort';
 
     /**
      * @var Filter[]
@@ -29,7 +33,7 @@ final class FilterSet implements Countable, Iterator
         $this->position = 0;
     }
 
-    public final function queryKey(): string
+    final public static function queryKey(): string
     {
         return self::QUERY_KEY;
     }
@@ -37,11 +41,6 @@ final class FilterSet implements Countable, Iterator
     public function count(): int
     {
         return count($this->filters);
-    }
-
-    public function rewind(): void
-    {
-        $this->position = 0;
     }
 
     public function current()
@@ -56,7 +55,12 @@ final class FilterSet implements Countable, Iterator
 
     public function next(): void
     {
-        ++$this->position;
+        $this->position++;
+    }
+
+    public function rewind(): void
+    {
+        $this->position = 0;
     }
 
     public function valid(): bool

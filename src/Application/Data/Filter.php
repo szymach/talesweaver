@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Application\Http;
+namespace Talesweaver\Application\Data;
 
 use Ramsey\Uuid\UuidInterface;
 

@@ -20,7 +20,7 @@ main {
 }
 
 table:not(.dashboard) {
-    th:last-child, td:last-child {
+    th, td {
         text-align: right;
     }
 }

@@ -2,78 +2,26 @@
 
 {% block seoTitle 'book.seo_title.list'|trans %}
 {% block body %}
-    {% if books|length > 0 %}
-        <div class="row">
-            <div class="col-sm offset-md-2 col-md-8">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="text-right">{{ 'book.title'|trans }}</th>
-                            <th class="text-right"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for book in books %}
-                            {% set bookId = book.id %}
-                            <tr>
-                                <td class="text-right">{{ book.title }}</td>
-                                <td>
-                                    <a class="btn btn-sm btn-primary"
-                                       href="{{ path('book_edit', { id: bookId }) }}"
-                                       title="{{ 'crud.edit'|trans }}"
-                                    >
-                                        <span class="fa fa-edit"></span>
-                                    </a>
-                                    <a class="btn btn-sm btn-outline-secondary js-display"
-                                       href="{{ path('book_display', { id: bookId }) }}"
-                                       data-display-url="{{ path('book_display', { id: bookId }) }}"
-                                       title="{{ 'crud.display'|trans }}"
-                                    >
-                                        <span class="fa fa-eye"></span>
-                                    </a>
-                                    <a class="btn btn-sm btn-danger js-delete"
-                                       href="{{ path('book_delete', { id: book.id, page: app.request.get('page') }) }}"
-                                       title="{{ 'crud.delete'|trans }}"
-                                    >
-                                        <span class="fa fa-trash"></span>
-                                    </a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="2" class="text-right">
-                                <a class="btn btn-sm btn-success"
-                                   href="{{ path('book_create') }}"
-                                   title="{{ 'book.list.create'|trans }}"
-                                >
-                                    <span class="fa fa-plus"></span>
-                                </a>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm offset-md-2 col-md-8">
-                {% include 'partial/pagination.html.twig' with { paginator: books } only %}
-            </div>
-        </div>
-    {% else %}
-        <div class="row">
-            <div class="col-sm text-center">
-                <h4>{{ 'book.list.no_results.header'|trans }}</h4>
-                <a class="btn btn-sm btn-success"
-                   href="{{ path('book_create') }}"
-                   title="{{ 'book.actions.create'|trans }}"
-                >
-                    <span class="fa fa-plus"></span> {{ 'book.list.no_results.add_new'|trans }}
-                </a>
-            </div>
-        </div>
-    {% endif %}
+    {% include 'partial/dataList.html.twig' with {
+        filters: null,
+        headers: books.headers,
+        rows: books.paginator,
+        create: {
+            label: 'book.list.create',
+            path: path('book_create', { page: page })
+        },
+        noResults: {
+            header: 'book.list.standalone.no_results.header',
+            action: 'book.list.standalone.no_results.add_new',
+            title: 'book.actions.create'
+        },
+        action: {
+            edit: 'book_edit',
+            display: 'book_display',
+            delete: 'book_delete'
+        },
+        page: page
+    } only %}
 {% endblock %}
 
 {% block modals %}
