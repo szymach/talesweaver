@@ -23,7 +23,11 @@ final class ScenesPageHandler implements QueryHandlerInterface
 
     public function __invoke(ScenesPage $query): Pagerfanta
     {
-        $pager = new Pagerfanta(new ArrayAdapter($this->scenes->createBookListView($query->getBook())));
+        $pager = new Pagerfanta(
+            new ArrayAdapter(
+                $this->scenes->createBookListView($query->getBook())
+            )
+        );
         $pager->setMaxPerPage(9);
         $pager->setCurrentPage($query->getPage());
 

@@ -25,7 +25,7 @@ final class ScenesPageHandler implements QueryHandlerInterface
     {
         $pager = new Pagerfanta(
             new ArrayAdapter(
-                $this->scenes->createListView(null, $query->getChapter())
+                $this->scenes->createListView(null, $query->getChapter(), null)
             )
         );
         $pager->setMaxPerPage(9);

@@ -32,18 +32,24 @@ final class ListControllerCest
         $chapter = $I->haveCreatedAChapter('Rozdział 1');
         $I->haveCreatedAScene('Scena 1 rozdziału 1', $chapter);
         $I->haveCreatedAScene('Scena 2 rozdziału 1', $chapter);
-        $I->haveCreatedAScene('Scena rozdziału 2', $I->haveCreatedAChapter('Rozdział 2', $book));
+        $I->haveCreatedAScene('Scena 1 rozdziału 2', $I->haveCreatedAChapter('Rozdział 2', $book));
 
         $I->amOnPage('/pl/scene/list');
         $I->see('Scena 1 rozdziału 1', 'td');
         $I->see('Scena 2 rozdziału 1', 'td');
-        $I->see('Scena rozdziału 2', 'td');
+        $I->see('Scena 1 rozdziału 2', 'td');
+
+        $I->click('Sortuj malejąco', 'th:first-child a');
+        $I->see('Scena 2 rozdziału 1', 'tr:first-child td');
+
+        $I->click('Sortuj rosnąco', 'th:first-child a');
+        $I->see('Scena 1 rozdziału 1', 'tr:first-child td');
 
         $I->selectOption('select[name="filters[book]"]', $book->getId()->toString());
         $I->click('Filtruj');
         $I->cantSee('Scena 1 rozdziału 1', 'td');
         $I->cantSee('Scena 2 rozdziału 1', 'td');
-        $I->see('Scena rozdziału 2', 'td');
+        $I->see('Scena 1 rozdziału 2', 'td');
     }
 
     /**

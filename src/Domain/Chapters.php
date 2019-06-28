@@ -6,10 +6,11 @@ namespace Talesweaver\Domain;
 
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\ValueObject\ShortText;
+use Talesweaver\Domain\ValueObject\Sort;
 
 interface Chapters
 {
-    public function createListView(?Book $book): array;
+    public function createListView(?Book $book, ?Sort $sort): array;
     public function find(UuidInterface $id): ?Chapter;
     public function findByBook(Book $book): array;
     public function findLatest(int $limit = 3): array;

@@ -11,6 +11,7 @@ use Doctrine\ORM\Query\Expr\Join;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Book;
+use Talesweaver\Domain\ValueObject\Sort;
 
 class BookRepository extends AutoWireableTranslatableRepository
 {
@@ -55,21 +56,30 @@ class BookRepository extends AutoWireableTranslatableRepository
         ;
     }
 
-    public function createListView(Author $author): array
+    public function createListView(Author $author, ?Sort $sort): array
     {
-        $statement = $this->getEntityManager()
+        $query = $this->getEntityManager()
             ->getConnection()
             ->createQueryBuilder()
             ->select('b.id, bt.title')
             ->from($this->getClassMetadata()->getTableName(), 'b')
-            ->leftJoin('b', 'book_translation', 'bt', 'b.id = bt.book_id AND bt.locale = :locale')
+            ->innerJoin('b', 'book_translation', 'bt', 'b.id = bt.book_id AND bt.locale = :locale')
             ->where('b.created_by_id = :author')
-            ->orderBy('bt.title')
             ->setParameter('author', $author->getId())
             ->setParameter('locale', $this->getTranslatableListener()->getLocale())
-            ->execute()
         ;
 
+        if (null !== $sort) {
+            switch ($sort->getField()) {
+                case 'title':
+                    $query->orderBy('bt.title', $sort->getDirection());
+                    break;
+                default:
+                    $query->orderBy('bt.title', 'asc');
+            }
+        }
+
+        $statement = $query->execute();
         if (false === $statement instanceof Statement) {
             return [];
         }

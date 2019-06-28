@@ -35,12 +35,12 @@ final class FiltersHandler implements QueryHandlerInterface
         return new FilterSet([
             new Filter(
                 'book',
-                $this->books->createListView(),
+                $this->books->createListView(null),
                 null !== $book ? $book->getId() : null
             ),
             new Filter(
                 'chapter',
-                $this->chapters->createListView($book),
+                $this->chapters->createListView($book, null),
                 null !== $chapter ? $chapter->getId() : null
             )
         ]);

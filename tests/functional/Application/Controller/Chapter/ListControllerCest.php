@@ -45,7 +45,11 @@ final class ListControllerCest
         $I->see('Rozdział książki 1', 'td');
         $I->see('Rozdział książki 2', 'td');
 
-        $I->click('Sortuj wg książki malejąco', 'a');
+        $I->click('Sortuj malejąco', 'th:first-child a');
+        $I->see('Rozdział książki 2', 'tr:first-child td');
+
+        $I->click('Sortuj rosnąco', 'th:first-child a');
+        $I->see('Rozdział książki 1', 'tr:first-child td');
     }
 
     /**

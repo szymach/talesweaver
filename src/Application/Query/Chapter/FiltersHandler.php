@@ -27,7 +27,7 @@ final class FiltersHandler implements QueryHandlerInterface
         return new FilterSet([
             new Filter(
                 'book',
-                $this->books->createListView(),
+                $this->books->createListView(null),
                 null !== $book ? $book->getId() : null
             )
         ]);

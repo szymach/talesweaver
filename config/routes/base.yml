@@ -9,3 +9,11 @@ alerts:
     controller: Talesweaver\Application\Controller\AlertsController
     methods:  GET
     condition: "request.isXmlHttpRequest()"
+
+sort:
+    path: /sort/{list}/{direction}/{field}/{redirect}
+    controller: Talesweaver\Application\Controller\SortController
+    methods:  GET
+    requirements:
+        direction: asc|desc
+        redirect: .+

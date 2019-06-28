@@ -12,6 +12,7 @@ use Talesweaver\Application\Data\Cell;
 use Talesweaver\Application\Data\DataSet;
 use Talesweaver\Application\Data\Header;
 use Talesweaver\Application\Data\Row;
+use Talesweaver\Application\Data\Sortable;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scenes;
@@ -23,9 +24,15 @@ final class ScenesPageHandler implements QueryHandlerInterface
      */
     private $scenes;
 
-    public function __construct(Scenes $scenes)
+    /**
+     * @var Sortable
+     */
+    private $sortable;
+
+    public function __construct(Scenes $scenes, Sortable $sortable)
     {
         $this->scenes = $scenes;
+        $this->sortable = $sortable;
     }
 
     public function __invoke(ScenesPage $query): DataSet
@@ -40,9 +47,9 @@ final class ScenesPageHandler implements QueryHandlerInterface
 
         return new DataSet(
             [
-                new Header('scene.title', true),
-                new Header('scene.chapter', false),
-                new Header('scene.book', false)
+                new Header('scene.title', 'title', true),
+                new Header('scene.chapter', 'chapter', true),
+                new Header('scene.book', 'book', true)
             ],
             $pagerfanta
         );
@@ -61,7 +68,7 @@ final class ScenesPageHandler implements QueryHandlerInterface
                     ]
                 );
             },
-            $this->scenes->createListView($book, $chapter)
+            $this->scenes->createListView($book, $chapter, $this->sortable->createFromSession('scenes'))
         );
     }
 }

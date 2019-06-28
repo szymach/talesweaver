@@ -13,6 +13,7 @@ use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\Scenes;
 use Talesweaver\Domain\ValueObject\ShortText;
+use Talesweaver\Domain\ValueObject\Sort;
 use Talesweaver\Integration\Doctrine\Repository\SceneRepository as DoctrineRepository;
 
 final class SceneRepository implements Scenes
@@ -65,12 +66,13 @@ final class SceneRepository implements Scenes
         );
     }
 
-    public function createListView(?Book $book, ?Chapter $chapter): array
+    public function createListView(?Book $book, ?Chapter $chapter, ?Sort $sort): array
     {
         return $this->doctrineRepository->createListView(
             $this->authorContext->getAuthor(),
             $book,
-            $chapter
+            $chapter,
+            $sort
         );
     }
 

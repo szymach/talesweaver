@@ -14,6 +14,7 @@ use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\ValueObject\Sort;
 
 class SceneRepository extends AutoWireableTranslatableRepository
 {
@@ -83,7 +84,7 @@ class SceneRepository extends AutoWireableTranslatableRepository
         return $statement->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
-    public function createListView(Author $author, ?Book $book, ?Chapter $chapter): array
+    public function createListView(Author $author, ?Book $book, ?Chapter $chapter, ?Sort $sort): array
     {
         $query = $this->getEntityManager()->getConnection()
             ->createQueryBuilder()
@@ -97,12 +98,25 @@ class SceneRepository extends AutoWireableTranslatableRepository
             ->leftJoin('c', 'book', 'b', 'c.book_id = b.id')
             ->leftJoin('b', 'book_translation', 'bt', 'b.id = bt.book_id AND bt.locale = :locale')
             ->where('s.created_by_id = :author')
-            ->orderBy('c.book_id')
-            ->addOrderBy('s.chapter_id')
-            ->addOrderBy('st.title')
             ->setParameter('author', $author->getId())
             ->setParameter('locale', $this->getTranslatableListener()->getLocale())
         ;
+
+        if (null !== $sort) {
+            switch ($sort->getField()) {
+                case 'title':
+                    $query->orderBy('title', $sort->getDirection());
+                    break;
+                case 'chapter':
+                    $query->orderBy('chapter', $sort->getDirection());
+                    break;
+                case 'book':
+                    $query->orderBy('book', $sort->getDirection());
+                    break;
+                default:
+                    $query->orderBy('book', 'asc')->addOrderBy('chapter', 'asc')->addOrderBy('title', 'asc');
+            }
+        }
 
         if (null !== $book) {
             $query->andWhere('b.id = :book')->setParameter('book', $book->getId());

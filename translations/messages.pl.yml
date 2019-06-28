@@ -362,3 +362,7 @@ filter:
     chapter: Wybierz rozdział
     submit: Filtruj
     clear: Wyczyść
+
+sort:
+    asc: Sortuj rosnąco
+    desc: Sortuj malejąco

@@ -10,7 +10,7 @@ use Pagerfanta\Pagerfanta;
 final class DataSet
 {
     /**
-     * @var string
+     * @var Header[]
      */
     private $headers;
 

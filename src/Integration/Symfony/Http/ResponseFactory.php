@@ -17,7 +17,7 @@ use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 
-class ResponseFactory implements ResponseFactoryInterface
+final class ResponseFactory implements ResponseFactoryInterface
 {
     private const DEFAULT_PDF_OPTIONS = [
         'margin-top' => '10mm',
@@ -59,6 +59,11 @@ class ResponseFactory implements ResponseFactoryInterface
     public function redirectToRoute(string $route, array $parameters = []): ResponseInterface
     {
         return new RedirectResponse($this->urlGenerator->generate($route, $parameters));
+    }
+
+    public function redirectToUri(string $uri): ResponseInterface
+    {
+        return new RedirectResponse($uri);
     }
 
     public function toPdf(string $filename, string $template, array $parameters, ?array $options): ResponseInterface

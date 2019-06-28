@@ -12,9 +12,10 @@ use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Chapters;
 use Talesweaver\Domain\ValueObject\ShortText;
+use Talesweaver\Domain\ValueObject\Sort;
 use Talesweaver\Integration\Doctrine\Repository\ChapterRepository as DoctrineRepository;
 
-class ChapterRepository implements Chapters
+final class ChapterRepository implements Chapters
 {
     /**
      * @var EntityManagerInterface
@@ -56,11 +57,12 @@ class ChapterRepository implements Chapters
         ]);
     }
 
-    public function createListView(?Book $book): array
+    public function createListView(?Book $book, ?Sort $sort): array
     {
         return $this->doctrineRepository->createListView(
             $this->authorContext->getAuthor(),
-            $book
+            $book,
+            $sort
         );
     }
 

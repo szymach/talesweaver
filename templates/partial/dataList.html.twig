@@ -8,7 +8,23 @@
                 <thead>
                     <tr>
                         {% for header in headers %}
-                            <th>{{ header.label|trans }}</th>
+                            <th>
+                                {{ header.label|trans }}
+                                {% if header.sortable %}
+                                    <a href="{{ path('sort', { list: sort, field: header.field, direction: 'asc', redirect: app.request.uri }) }}"
+                                       class="btn btn-sm btn-outline-secondary"
+                                       title="{{ 'sort.asc'|trans }}"
+                                    >
+                                        <span class="fa fa-sort-alpha-asc"></span>
+                                    </a>
+                                    <a href="{{ path('sort', { list: sort, field: header.field, direction: 'desc', redirect: app.request.uri }) }}"
+                                       class="btn btn-sm btn-outline-secondary"
+                                       title="{{ 'sort.desc'|trans }}"
+                                    >
+                                        <span class="fa fa-sort-alpha-desc"></span>
+                                    </a>
+                                {% endif %}
+                            </th>
                         {% endfor %}
                         <th></th>
                     </tr>

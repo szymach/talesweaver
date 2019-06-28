@@ -70,7 +70,7 @@ services:
         public: true
 
     Talesweaver\Application\:
-        resource: "../src/Application/{Http/Entity,Timeline}/*"
+        resource: "../src/Application/{Data,Http/Entity,Timeline}/*"
         exclude: "../src/{Http,Security}/function/*"
 
     Talesweaver\Integration\Doctrine\:

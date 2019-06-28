@@ -12,6 +12,7 @@ use Talesweaver\Application\Data\Cell;
 use Talesweaver\Application\Data\DataSet;
 use Talesweaver\Application\Data\Header;
 use Talesweaver\Application\Data\Row;
+use Talesweaver\Application\Data\Sortable;
 use Talesweaver\Domain\Books;
 
 final class BooksPageHandler implements QueryHandlerInterface
@@ -21,9 +22,15 @@ final class BooksPageHandler implements QueryHandlerInterface
      */
     private $books;
 
-    public function __construct(Books $books)
+    /**
+     * @var Sortable
+     */
+    private $sortable;
+
+    public function __construct(Books $books, Sortable $sortable)
     {
         $this->books = $books;
+        $this->sortable = $sortable;
     }
 
     public function __invoke(BooksPage $query): DataSet
@@ -35,7 +42,7 @@ final class BooksPageHandler implements QueryHandlerInterface
         $pagerfanta->setCurrentPage($query->getPage());
 
         return new DataSet(
-            [new Header('book.title', true)],
+            [new Header('book.title', 'title', true)],
             $pagerfanta
         );
     }
@@ -49,7 +56,7 @@ final class BooksPageHandler implements QueryHandlerInterface
                     [new Cell($row['title'])]
                 );
             },
-            $this->books->createListView()
+            $this->books->createListView($this->sortable->createFromSession('books'))
         );
     }
 }

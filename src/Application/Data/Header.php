@@ -12,19 +12,30 @@ final class Header
     private $label;
 
     /**
+     * @var string
+     */
+    private $field;
+
+    /**
      * @var bool
      */
     private $sortable;
 
-    public function __construct(string $label, bool $sortable)
+    public function __construct(string $label, string $field, bool $sortable)
     {
         $this->label = $label;
+        $this->field = $field;
         $this->sortable = $sortable;
     }
 
     public function getLabel(): string
     {
         return $this->label;
+    }
+
+    public function getField(): string
+    {
+        return $this->field;
     }
 
     public function isSortable(): bool

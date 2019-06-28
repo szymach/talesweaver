@@ -13,6 +13,7 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\ValueObject\Sort;
 
 class ChapterRepository extends AutoWireableTranslatableRepository
 {
@@ -37,7 +38,7 @@ class ChapterRepository extends AutoWireableTranslatableRepository
         ;
     }
 
-    public function createListView(Author $author, ?Book $book): array
+    public function createListView(Author $author, ?Book $book, ?Sort $sort): array
     {
         $query = $this->getEntityManager()
             ->getConnection()
@@ -54,6 +55,19 @@ class ChapterRepository extends AutoWireableTranslatableRepository
             ->setParameter('author', $author->getId()->toString())
             ->setParameter('locale', $this->getTranslatableListener()->getLocale())
         ;
+
+        if (null !== $sort) {
+            switch ($sort->getField()) {
+                case 'title':
+                    $query->orderBy('title', $sort->getDirection());
+                    break;
+                case 'book':
+                    $query->orderBy('book', $sort->getDirection());
+                    break;
+                default:
+                    $query->orderBy('title', 'asc');
+            }
+        }
 
         if (null !== $book) {
             $query->andWhere('b.id = :book')->setParameter('book', $book->getId()->toString());

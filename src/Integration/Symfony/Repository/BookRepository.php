@@ -10,6 +10,7 @@ use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Books;
 use Talesweaver\Domain\ValueObject\ShortText;
+use Talesweaver\Domain\ValueObject\Sort;
 use Talesweaver\Integration\Doctrine\Repository\BookRepository as DoctrineRepository;
 
 class BookRepository implements Books
@@ -70,9 +71,9 @@ class BookRepository implements Books
         ]);
     }
 
-    public function createListView(): array
+    public function createListView(?Sort $sort): array
     {
-        return $this->doctrineRepository->createListView($this->authorContext->getAuthor());
+        return $this->doctrineRepository->createListView($this->authorContext->getAuthor(), $sort);
     }
 
     public function findAll(): array
