@@ -12,13 +12,13 @@
                                 {{ header.label|trans }}
                                 {% if header.sortable %}
                                     <a href="{{ path('sort', { list: sort, field: header.field, direction: 'asc', redirect: app.request.uri }) }}"
-                                       class="btn btn-sm btn-outline-secondary"
+                                       class="btn btn-sm {% if isActiveSort(sort, header.field, 'asc') %}btn-secondary{% else %}btn-outline-secondary{% endif %}"
                                        title="{{ 'sort.asc'|trans }}"
                                     >
                                         <span class="fa fa-sort-alpha-asc"></span>
                                     </a>
                                     <a href="{{ path('sort', { list: sort, field: header.field, direction: 'desc', redirect: app.request.uri }) }}"
-                                       class="btn btn-sm btn-outline-secondary"
+                                       class="btn btn-sm {% if isActiveSort(sort, header.field, 'desc') %}btn-secondary{% else %}btn-outline-secondary{% endif %}"
                                        title="{{ 'sort.desc'|trans }}"
                                     >
                                         <span class="fa fa-sort-alpha-desc"></span>

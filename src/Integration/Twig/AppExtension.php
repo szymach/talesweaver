@@ -4,11 +4,22 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Twig;
 
+use Talesweaver\Application\Data\Sortable;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 final class AppExtension extends AbstractExtension
 {
+    /**
+     * @var Sortable
+     */
+    private $sortable;
+
+    public function __construct(Sortable $sortable)
+    {
+        $this->sortable = $sortable;
+    }
+
     public function getFunctions()
     {
         return [
@@ -16,6 +27,17 @@ final class AppExtension extends AbstractExtension
                 'isActiveMenuItem',
                 function (string $currentRoute, string $checkedRoute): bool {
                     return $this->isActiveMenuItemFunction($currentRoute, $checkedRoute);
+                }
+            ),
+            new TwigFunction(
+                'isActiveSort',
+                function (string $list, string $field, string $direction): bool {
+                    $current = $this->sortable->createFromSession($list);
+                    if (null === $current) {
+                        return false;
+                    }
+
+                    return $field === $current->getField() && $direction === $current->getDirection();
                 }
             )
         ];
