@@ -62,7 +62,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="3" class="text-right">
+                        <td colspan="{{ headers|length + 1 }}" class="text-right">
                             <a class="btn btn-sm btn-success" href="{{ create.path }}" title="{{ create.label|trans }}">
                                 <span class="fa fa-plus"></span>
                             </a>

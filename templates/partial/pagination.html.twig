@@ -1,8 +1,8 @@
 {% if paginator.nbPages > 1 %}
 {% set parameters = parameters|default(app.request.get('_route_params')) %}
-{% set filter = app.request.get('filter', []) %}
-{% if 0 != filter|length %}
-    {% set parameters = parameters|merge({ filter: filter }) %}
+{% set filters = app.request.get('filters', []) %}
+{% if 0 != filters|length %}
+    {% set parameters = parameters|merge({ filters: filters }) %}
 {% endif %}
 {{ pagerfanta(paginator, 'twitter_bootstrap4', {
     prev_message: '<',
