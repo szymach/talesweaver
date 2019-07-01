@@ -112,7 +112,7 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
             $character = new Character(
                 Uuid::uuid4(),
                 $scene,
-                new ShortText("Postać {$i}"),
+                new ShortText("Postać {$i} ({$scene->getTitle()})"),
                 LongText::fromNullableString($this->createRandomText(5)),
                 null,
                 $scene->getCreatedBy()
@@ -128,7 +128,7 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
             $item = new Item(
                 Uuid::uuid4(),
                 $scene,
-                new ShortText("Przedmiot {$i}"),
+                new ShortText("Przedmiot {$i} ({$scene->getTitle()})"),
                 LongText::fromNullableString($this->createRandomText(5)),
                 null,
                 $scene->getCreatedBy()
@@ -144,7 +144,7 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
             $location = new Location(
                 Uuid::uuid4(),
                 $scene,
-                new ShortText("Miejsce {$i}"),
+                new ShortText("Miejsce {$i} ({$scene->getTitle()})"),
                 LongText::fromNullableString($this->createRandomText(5)),
                 null,
                 $scene->getCreatedBy()
@@ -159,7 +159,7 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
         for ($i = 1; $i <= self::EVENT_COUNT; $i++) {
             $event = new Event(
                 Uuid::uuid4(),
-                new ShortText("Wydarzenie {$i}"),
+                new ShortText("Wydarzenie {$i} ({$scene->getTitle()})"),
                 LongText::fromNullableString($this->createRandomText(5)),
                 $this->getFaker()->randomElement($scene->getLocations()),
                 $scene,
