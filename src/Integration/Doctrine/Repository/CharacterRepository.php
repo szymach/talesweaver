@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Doctrine\Repository;
 
+use Assert\Assertion;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
+use Talesweaver\Domain\Book;
+use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Scene;
 
@@ -58,32 +61,59 @@ class CharacterRepository extends AutoWireableTranslatableRepository
 
     public function findRelatedToScene(Author $author, Scene $scene): array
     {
-        $qb = $this->createTranslatableQueryBuilder('c');
-        return $qb->leftJoin('c.scenes', 's')
+        Assertion::notNull($scene->getChapter());
+        $qb = $this->createQueryBuilder('c')
+            ->innerJoin('c.translations', 't', Join::WITH, 't.locale = :locale')
+            ->innerJoin('c.scenes', 's')
             ->andWhere('c.createdBy = :author')
-            ->andWhere(
+        ;
+
+        if (null !== $scene->getChapter()->getBook()) {
+            $qb->innerJoin('s.chapter', 'ch')
+                ->innerJoin('ch.book', 'b')
+                ->andWhere(
+                    $qb->expr()->andX(
+                        ':scene NOT MEMBER OF c.scenes',
+                        'ch.book = :book'
+                    )
+                )->setParameter('book', $scene->getChapter()->getBook());
+        } else {
+            $qb->andWhere(
                 $qb->expr()->andX(
                     ':scene NOT MEMBER OF c.scenes',
                     's.chapter = :chapter'
                 )
-            )
-            ->orderBy('t.name', 'ASC')
-            ->setParameter('chapter', $scene->getChapter())
+            )->setParameter('chapter', $scene->getChapter());
+        }
+
+        return $qb->orderBy('t.name', 'ASC')
+            ->groupBy('c.id')
             ->setParameter('scene', $scene)
             ->setParameter('author', $author)
+            ->setParameter('locale', $this->getTranslatableListener()->getLocale())
             ->getQuery()
             ->getResult()
         ;
     }
 
-    public function existsForSceneWithName(Author $author, string $name, UuidInterface $sceneId): bool
+    public function existsForSceneWithName(Author $author, string $name, Scene $scene): bool
     {
-        return 0 !== (int) $this->countForNameQb($author, $name, null)
-            ->innerJoin('c.scenes', 's', Join::WITH, 's.id = :sceneId')
-            ->setParameter('sceneId', $sceneId)
-            ->getQuery()
-            ->getSingleScalarResult()
-        ;
+        $qb = $this->countForNameQb($author, $name, null);
+        if (null !== $scene->getChapter()) {
+            if (null !== $scene->getChapter()->getBook()) {
+                $qb->innerJoin(Book::class, 'b', Join::WITH, 'b = :book')
+                    ->setParameter('book', $scene->getChapter()->getBook())
+                ;
+            } else {
+                $qb->innerJoin(Chapter::class, 'ch', Join::WITH, 'ch = :chapter')
+                    ->setParameter('chapter', $scene->getChapter())
+                ;
+            }
+        } else {
+            $qb->innerJoin('c.scenes', 's', Join::WITH, 's = :scene')->setParameter('scene', $scene);
+        }
+
+        return 0 !== (int) $qb->getQuery()->getSingleScalarResult();
     }
 
     public function nameConflictsWithRelated(Author $author, string $name, UuidInterface $id): bool

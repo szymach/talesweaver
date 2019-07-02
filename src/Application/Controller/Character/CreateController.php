@@ -66,7 +66,7 @@ final class CreateController
             new DTO($scene),
             [
                 'action' => $this->urlGenerator->generate('character_new', ['id' => $scene->getId()]),
-                'sceneId' => $scene->getId()
+                'scene' => $scene
             ]
         );
 

@@ -120,7 +120,7 @@
         "validate-schema": "bin/console doctrine:schema:validate",
         "analysis": [
             "@sniffer",
-            "@phpstan",
+            "@stan",
             "@deptrac",
             "@linters"
         ],

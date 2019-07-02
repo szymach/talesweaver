@@ -64,13 +64,13 @@ final class CharacterRepository implements Characters
         );
     }
 
-    public function entityExists(string $name, ?UuidInterface $id, ?UuidInterface $sceneId): bool
+    public function entityExists(string $name, ?UuidInterface $id, ?Scene $scene): bool
     {
-        if (null !== $sceneId) {
+        if (null !== $scene) {
             $exists = $this->doctrineRepository->existsForSceneWithName(
                 $this->authorContext->getAuthor(),
                 $name,
-                $sceneId
+                $scene
             );
         } elseif (null !== $id) {
             $exists = $this->doctrineRepository->nameConflictsWithRelated(
@@ -79,7 +79,9 @@ final class CharacterRepository implements Characters
                 $id
             );
         } else {
-            throw new RuntimeException('Neither character nor scene id provided');
+            throw new RuntimeException(
+                "Neither character nor scene provided for name \"{$name}\"."
+            );
         }
 
         return $exists;

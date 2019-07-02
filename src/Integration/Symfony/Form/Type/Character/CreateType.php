@@ -21,8 +21,9 @@ use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Character\Create\DTO;
 use Talesweaver\Application\Form\Type\Character\Create;
 use Talesweaver\Application\Query\Character\EntityExists;
+use Talesweaver\Domain\Scene;
 
-class CreateType extends AbstractType implements Create
+final class CreateType extends AbstractType implements Create
 {
     /**
      * @var QueryBus
@@ -36,17 +37,18 @@ class CreateType extends AbstractType implements Create
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $sceneId = $options['sceneId'];
+        /** @var Scene $scene */
+        $scene = $options['scene'];
         $builder->add('name', TextType::class, [
             'label' => 'character.name',
             'attr' => ['autofocus' => 'autofocus'],
             'constraints' => [new NotBlank(), new Length(['max' => 255]), new Callback([
-                'callback' => function (?string $name, ExecutionContextInterface $context) use ($sceneId): void {
+                'callback' => function (?string $name, ExecutionContextInterface $context) use ($scene): void {
                     if (null === $name || '' === $name) {
                         return;
                     }
 
-                    if (true === $this->queryBus->query(new EntityExists($name, null, $sceneId))) {
+                    if (true === $this->queryBus->query(new EntityExists($name, null, $scene))) {
                         $context->buildViolation('character.exists')->addViolation();
                     }
                 }
@@ -68,13 +70,13 @@ class CreateType extends AbstractType implements Create
 
     public function configureOptions(OptionsResolver $resolver)
     {
+        $resolver->setRequired(['scene']);
         $resolver->setDefaults([
             'attr' => ['class' => 'js-form'],
             'data_class' => DTO::class,
-            'method' => Request::METHOD_POST,
-            'sceneId' => null
+            'method' => Request::METHOD_POST
         ]);
 
-        $resolver->setAllowedTypes('sceneId', ['null', UuidInterface::class]);
+        $resolver->setAllowedTypes('scene', [Scene::class]);
     }
 }

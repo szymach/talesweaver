@@ -16,7 +16,7 @@ use Talesweaver\Application\Http\Entity\SceneResolver;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Domain\Scene;
 
-class CreateController
+final class CreateController
 {
     /**
      * @var SceneResolver
@@ -66,7 +66,7 @@ class CreateController
             new DTO($scene),
             [
                 'action' => $this->urlGenerator->generate('location_new', ['id' => $scene->getId()]),
-                'sceneId' => $scene->getId()
+                'scene' => $scene
             ]
         );
 

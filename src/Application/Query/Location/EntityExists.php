@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Application\Query\Location;
 
 use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Domain\Scene;
 
 final class EntityExists
 {
@@ -21,13 +22,13 @@ final class EntityExists
     /**
      * @var UuidInterface|null
      */
-    private $sceneId;
+    private $scene;
 
-    public function __construct(string $name, ?UuidInterface $id, ?UuidInterface $sceneId)
+    public function __construct(string $name, ?UuidInterface $id, ?Scene $scene)
     {
         $this->name = $name;
         $this->id = $id;
-        $this->sceneId = $sceneId;
+        $this->scene = $scene;
     }
 
     public function getName(): string
@@ -40,8 +41,8 @@ final class EntityExists
         return $this->id;
     }
 
-    public function getSceneId(): ?UuidInterface
+    public function getScene(): ?Scene
     {
-        return $this->sceneId;
+        return $this->scene;
     }
 }

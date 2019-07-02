@@ -12,7 +12,7 @@ use Talesweaver\Domain\Locations;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Doctrine\Repository\LocationRepository as DoctrineRepository;
 
-class LocationRepository implements Locations
+final class LocationRepository implements Locations
 {
     /**
      * @var DoctrineRepository
@@ -64,13 +64,13 @@ class LocationRepository implements Locations
         );
     }
 
-    public function entityExists(string $name, ?UuidInterface $id, ?UuidInterface $sceneId): bool
+    public function entityExists(string $name, ?UuidInterface $id, ?Scene $scene): bool
     {
-        if (null !== $sceneId) {
+        if (null !== $scene) {
             $exists = $this->doctrineRepository->existsForSceneWithName(
                 $this->authorContext->getAuthor(),
                 $name,
-                $sceneId
+                $scene
             );
         } elseif (null !== $id) {
             $exists = $this->doctrineRepository->nameConflictsWithRelated(
@@ -79,7 +79,9 @@ class LocationRepository implements Locations
                 $id
             );
         } else {
-            throw new RuntimeException('Neither location nor scene id provided');
+            throw new RuntimeException(
+                "Neither location nor scene provided for name \"{$name}\"."
+            );
         }
 
         return $exists;

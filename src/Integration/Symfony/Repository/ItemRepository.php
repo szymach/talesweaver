@@ -12,7 +12,7 @@ use Talesweaver\Domain\Items;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Doctrine\Repository\ItemRepository as DoctrineRepository;
 
-class ItemRepository implements Items
+final class ItemRepository implements Items
 {
     /**
      * @var DoctrineRepository
@@ -64,13 +64,13 @@ class ItemRepository implements Items
         );
     }
 
-    public function entityExists(string $name, ?UuidInterface $id, ?UuidInterface $sceneId): bool
+    public function entityExists(string $name, ?UuidInterface $id, ?Scene $scene): bool
     {
-        if (null !== $sceneId) {
+        if (null !== $scene) {
             $exists = $this->doctrineRepository->existsForSceneWithName(
                 $this->authorContext->getAuthor(),
                 $name,
-                $sceneId
+                $scene
             );
         } elseif (null !== $id) {
             $exists = $this->doctrineRepository->nameConflictsWithRelated(
@@ -79,7 +79,9 @@ class ItemRepository implements Items
                 $id
             );
         } else {
-            throw new RuntimeException('Neither item nor scene id provided');
+            throw new RuntimeException(
+                "Neither item nor scene provided for name \"{$name}\"."
+            );
         }
 
         return $exists;

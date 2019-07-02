@@ -21,6 +21,6 @@ class EntityExistsHandler implements QueryHandlerInterface
 
     public function __invoke(EntityExists $query): bool
     {
-        return $this->items->entityExists($query->getName(), $query->getId(), $query->getSceneId());
+        return $this->items->entityExists($query->getName(), $query->getId(), $query->getScene());
     }
 }
