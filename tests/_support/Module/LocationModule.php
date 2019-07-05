@@ -11,6 +11,7 @@ use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Location\Create\Command;
 use Talesweaver\Application\Query\Location\ById;
+use Talesweaver\Application\Query\Location\ForScene;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
@@ -47,5 +48,39 @@ class LocationModule extends Module
         $this->assertInstanceOf(Location::class, $location);
 
         return $location;
+    }
+
+    public function seeLocationDoesNotExist(string $name, Scene $scene): void
+    {
+        $this->assertNull(
+            $this->findLocationInSceneForName($name, $scene),
+            "Location for scene \"{$scene->getTitle()}\" and name \"{$name}\" should not exist."
+        );
+    }
+
+    public function seeLocationExists(string $name, Scene $scene): void
+    {
+        $this->assertNotNull(
+            $this->findLocationInSceneForName($name, $scene),
+            "Location for scene \"{$scene->getTitle()}\" and name \"{$name}\" should exist."
+        );
+    }
+
+    private function findLocationInSceneForName(string $name, Scene $scene): ?Location
+    {
+        return array_reduce(
+            $this->queryBus->query(new ForScene($scene)),
+            function (?Location $accumulator, Location $location) use ($name): ?Location {
+                if (null !== $accumulator) {
+                    return $accumulator;
+                }
+
+                if ($name === (string) $location->getName()) {
+                    $accumulator = $location;
+                }
+
+                return $accumulator;
+            }
+        );
     }
 }

@@ -20,7 +20,7 @@ final class EntityExists
     private $id;
 
     /**
-     * @var UuidInterface|null
+     * @var Scene|null
      */
     private $scene;
 

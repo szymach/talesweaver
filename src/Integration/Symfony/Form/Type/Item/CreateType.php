@@ -71,7 +71,7 @@ final class CreateType extends AbstractType implements Create
     {
         $resolver->setRequired(['scene']);
         $resolver->setDefaults([
-            'attr' => ['class' => 'js-form'],
+            'attr' => ['class' => 'js-form ckeditor-small'],
             'data_class' => DTO::class,
             'method' => Request::METHOD_POST
         ]);

@@ -15,7 +15,7 @@ use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Scene;
 
-class CharacterRepository extends AutoWireableTranslatableRepository
+final class CharacterRepository extends AutoWireableTranslatableRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -118,18 +118,32 @@ class CharacterRepository extends AutoWireableTranslatableRepository
 
     public function nameConflictsWithRelated(Author $author, string $name, UuidInterface $id): bool
     {
-        $qb = $this->getEntityManager()
+        $bookCharactersDQL = $this->getEntityManager()
             ->createQueryBuilder()
-            ->select('ss.id')
-            ->from(Scene::class, 'ss')
-            ->innerJoin('ss.characters', 'cc', Join::WITH, 'cc.id = :id')
+            ->select('DISTINCT(bs.id)')
+            ->from(Book::class, 'b')
+            ->innerJoin('b.chapters', 'bch')
+            ->innerJoin('bch.scenes', 'bs')
+            ->innerJoin('bs.characters', 'bc', Join::WITH, 'bc.id = :id')
+            ->getDQL()
         ;
 
-        return 0 !== (int) $this->countForNameQb($author, $name, $id)
-            ->innerJoin('c.scenes', 's', Join::WITH, sprintf('s.id IN (%s)', $qb->getDQL()))
-            ->getQuery()
-            ->getSingleScalarResult()
+        $chapterCharactersDQL = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('DISTINCT(cs.id)')
+            ->from(Chapter::class, 'ch')
+            ->innerJoin('ch.scenes', 'cs')
+            ->innerJoin('cs.characters', 'csc', Join::WITH, 'csc.id = :id')
+            ->getDQL()
         ;
+
+        $qb = $this->countForNameQb($author, $name, $id);
+        return 0 !== (int) $qb->andWhere(
+            $qb->expr()->orX(
+                $qb->expr()->in('c.id', $bookCharactersDQL),
+                $qb->expr()->in('c.id', $chapterCharactersDQL)
+            )
+        )->getQuery()->getSingleScalarResult();
     }
 
     private function countForNameQb(Author $author, string $name, ?UuidInterface $id): QueryBuilder

@@ -5,14 +5,16 @@ declare(strict_types=1);
 namespace Talesweaver\Tests\Module;
 
 use Codeception\Module;
+use Codeception\Module\REST;
 use Codeception\Module\Symfony;
 use Codeception\TestInterface;
+use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
-class FormModule extends Module
+final class FormModule extends Module
 {
     public const ERROR_SELECTOR = '* .form-error-message';
     public const LOCALE = 'pl';
@@ -21,6 +23,11 @@ class FormModule extends Module
      * @var Symfony
      */
     private $symfony;
+
+    /**
+     * @var REST
+     */
+    private $rest;
 
     public function createTooLongString(): string
     {
@@ -74,12 +81,22 @@ class FormModule extends Module
         return $manager->getToken($tokenId)->getValue();
     }
 
+    public function fetchTokenFromAjaxResponse(string $fieldId): string
+    {
+        $response = json_decode($this->rest->grabResponse(), true);
+        $this->assertArrayHasKey('form', $response);
+
+        $crawler = new Crawler($response['form']);
+        return $crawler->filter($fieldId)->attr('value');
+    }
+
     /**
      * phpcs:disable
      */
     public function _before(TestInterface $test)
     {
         $this->symfony = $this->getModule('Symfony');
+        $this->rest = $this->getModule('REST');
     }
 
     private function getFormFactory(): FormFactoryInterface

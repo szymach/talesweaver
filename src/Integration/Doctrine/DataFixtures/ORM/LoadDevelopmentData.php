@@ -112,7 +112,12 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
             $character = new Character(
                 Uuid::uuid4(),
                 $scene,
-                new ShortText("Postać {$i} ({$scene->getTitle()}) ({$scene->getChapter()->getTitle()})"),
+                new ShortText(sprintf(
+                    'Postać %s (%s) (%s)',
+                    $i,
+                    (string) $scene->getTitle(),
+                    null !== $scene->getChapter() ? (string) $scene->getChapter()->getTitle() : ''
+                )),
                 LongText::fromNullableString($this->createRandomText(5)),
                 null,
                 $scene->getCreatedBy()
@@ -128,7 +133,12 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
             $item = new Item(
                 Uuid::uuid4(),
                 $scene,
-                new ShortText("Przedmiot {$i} ({$scene->getTitle()}) ({$scene->getChapter()->getTitle()})"),
+                new ShortText(sprintf(
+                    'Przedmiot %s (%s) (%s)',
+                    $i,
+                    (string) $scene->getTitle(),
+                    null !== $scene->getChapter() ? (string) $scene->getChapter()->getTitle() : ''
+                )),
                 LongText::fromNullableString($this->createRandomText(5)),
                 null,
                 $scene->getCreatedBy()
@@ -144,7 +154,12 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
             $location = new Location(
                 Uuid::uuid4(),
                 $scene,
-                new ShortText("Miejsce {$i} ({$scene->getTitle()}) ({$scene->getChapter()->getTitle()})"),
+                new ShortText(sprintf(
+                    'Miejsce %s (%s) (%s)',
+                    $i,
+                    (string) $scene->getTitle(),
+                    null !== $scene->getChapter() ? (string) $scene->getChapter()->getTitle() : ''
+                )),
                 LongText::fromNullableString($this->createRandomText(5)),
                 null,
                 $scene->getCreatedBy()

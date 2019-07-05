@@ -11,6 +11,7 @@ use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Item\Create\Command;
 use Talesweaver\Application\Query\Item\ById;
+use Talesweaver\Application\Query\Item\ForScene;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
@@ -47,5 +48,39 @@ class ItemModule extends Module
         $this->assertInstanceOf(Item::class, $item);
 
         return $item;
+    }
+
+    public function seeItemDoesNotExist(string $name, Scene $scene): void
+    {
+        $this->assertNull(
+            $this->findItemInSceneForName($name, $scene),
+            "Item for scene \"{$scene->getTitle()}\" and name \"{$name}\" should not exist."
+        );
+    }
+
+    public function seeItemExists(string $name, Scene $scene): void
+    {
+        $this->assertNotNull(
+            $this->findItemInSceneForName($name, $scene),
+            "Item for scene \"{$scene->getTitle()}\" and name \"{$name}\" should exist."
+        );
+    }
+
+    private function findItemInSceneForName(string $name, Scene $scene): ?Item
+    {
+        return array_reduce(
+            $this->queryBus->query(new ForScene($scene)),
+            function (?Item $accumulator, Item $item) use ($name): ?Item {
+                if (null !== $accumulator) {
+                    return $accumulator;
+                }
+
+                if ($name === (string) $item->getName()) {
+                    $accumulator = $item;
+                }
+
+                return $accumulator;
+            }
+        );
     }
 }

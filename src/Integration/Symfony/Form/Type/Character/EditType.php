@@ -22,7 +22,7 @@ use Talesweaver\Application\Command\Character\Edit\DTO;
 use Talesweaver\Application\Form\Type\Character\Edit;
 use Talesweaver\Application\Query\Character\EntityExists;
 
-class EditType extends AbstractType implements Edit
+final class EditType extends AbstractType implements Edit
 {
     /**
      * @var QueryBus
@@ -69,7 +69,7 @@ class EditType extends AbstractType implements Edit
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'attr' => ['class' => 'js-form'],
+            'attr' => ['class' => 'js-form ckeditor-small'],
             'data_class' => DTO::class,
             'method' => Request::METHOD_POST,
             'characterId' => null

@@ -10,6 +10,7 @@ use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
+use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
@@ -111,18 +112,32 @@ final class LocationRepository extends AutoWireableTranslatableRepository
 
     public function nameConflictsWithRelated(Author $author, string $name, UuidInterface $id): bool
     {
-        $qb = $this->getEntityManager()
+        $bookLocationsDQL = $this->getEntityManager()
             ->createQueryBuilder()
-            ->select('ss.id')
-            ->from(Scene::class, 'ss')
-            ->innerJoin('ss.locations', 'll', Join::WITH, 'll.id = :id')
+            ->select('DISTINCT(bs.id)')
+            ->from(Book::class, 'b')
+            ->innerJoin('b.chapters', 'bch')
+            ->innerJoin('bch.scenes', 'bs')
+            ->innerJoin('bs.locations', 'bc', Join::WITH, 'bc.id = :id')
+            ->getDQL()
         ;
 
-        return 0 !== (int) $this->countForNameQb($author, $name, $id)
-            ->innerJoin('l.scenes', 's', Join::WITH, sprintf('s.id IN (%s)', $qb->getDQL()))
-            ->getQuery()
-            ->getSingleScalarResult()
+        $chapterLocationsDQL = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('DISTINCT(cs.id)')
+            ->from(Chapter::class, 'ch')
+            ->innerJoin('ch.scenes', 'cs')
+            ->innerJoin('cs.locations', 'csc', Join::WITH, 'csc.id = :id')
+            ->getDQL()
         ;
+
+        $qb = $this->countForNameQb($author, $name, $id);
+        return 0 !== (int) $qb->andWhere(
+            $qb->expr()->orX(
+                $qb->expr()->in('l.id', $bookLocationsDQL),
+                $qb->expr()->in('l.id', $chapterLocationsDQL)
+            )
+        )->getQuery()->getSingleScalarResult();
     }
 
     private function countForNameQb(Author $author, string $name, ?UuidInterface $id): QueryBuilder

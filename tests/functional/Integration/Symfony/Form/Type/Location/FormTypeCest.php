@@ -16,7 +16,7 @@ class FormTypeCest
     {
         $I->loginAsUser();
         $scene = $I->haveCreatedAScene('Scena');
-        $form = $I->createForm(CreateType::class, new Create\DTO($scene), ['sceneId' => $scene->getId()]);
+        $form = $I->createForm(CreateType::class, new Create\DTO($scene), ['scene' => $scene]);
         $form->handleRequest($I->getRequest(['create' => ['name' => 'Miejsce']]));
 
         $I->assertTrue($form->isSynchronized());
@@ -32,7 +32,7 @@ class FormTypeCest
     {
         $I->loginAsUser();
         $scene = $I->haveCreatedAScene('Scena');
-        $form = $I->createForm(CreateType::class, new Create\DTO($scene), ['sceneId' => $scene->getId()]);
+        $form = $I->createForm(CreateType::class, new Create\DTO($scene), ['scene' => $scene]);
         $form->handleRequest($I->getRequest(['create' => ['name' => null]]));
 
         $I->assertTrue($form->isSynchronized());
