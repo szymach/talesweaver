@@ -2,8 +2,9 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xmlns:fsi="http://fsi.pl/schemas/orm/doctrine-extensions-mapping"
-                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
->
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
     <entity repository-class="Talesweaver\Integration\Doctrine\Repository\SceneRepository" name="Talesweaver\Domain\Scene">
 
         <fsi:translatable-locale field="locale" />
@@ -72,6 +73,20 @@
                     <join-column name="location_id" on-delete="CASCADE" />
                 </inverse-join-columns>
             </join-table>
+        </many-to-many>
+        <many-to-many field="publications" target-entity="Talesweaver\Domain\Publication">
+            <join-table name="scene_publications">
+                <join-columns>
+                    <join-column name="scene_id" referenced-column-name="id" on-delete="CASCADE" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="publication_id" referenced-column-name="id" unique="true" on-delete="CASCADE" />
+                </inverse-join-columns>
+            </join-table>
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
         </many-to-many>
 
     </entity>

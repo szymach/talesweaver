@@ -38,6 +38,12 @@ class Publication
      */
     private $locale;
 
+    /**
+     * @param UuidInterface $id
+     * @param LongText $content
+     * @param bool $visible
+     * @param string $locale
+     */
     public function __construct(UuidInterface $id, LongText $content, bool $visible, string $locale)
     {
         $this->id = $id;

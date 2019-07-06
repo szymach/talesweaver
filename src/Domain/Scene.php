@@ -39,24 +39,29 @@ class Scene
     private $chapter;
 
     /**
-     * @var Character[]|Collection
+     * @var Collection<Character>
      */
     private $characters;
 
     /**
-     * @var Item[]|Collection
+     * @var Collection<Item>
      */
     private $items;
 
     /**
-     * @var Location[]|Collection
+     * @var Collection<Location>
      */
     private $locations;
 
     /**
-     * @var Event[]|Collection
+     * @var Collection<Event>
      */
     private $events;
+
+    /**
+     * @var Collection<Publication>
+     */
+    private $publications;
 
     /**
      * @param UuidInterface $id
@@ -74,6 +79,7 @@ class Scene
         $this->events = new ArrayCollection();
         $this->items = new ArrayCollection();
         $this->locations = new ArrayCollection();
+        $this->publications = new ArrayCollection();
         $this->translations = new ArrayCollection();
         $this->createdBy = $author;
         $this->createdAt = new DateTimeImmutable();
