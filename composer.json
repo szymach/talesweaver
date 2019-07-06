@@ -113,6 +113,7 @@
             "bin/console lint:yaml translations",
             "bin/console lint:twig templates"
         ],
+        "codecept": "vendor/bin/codecept run",
         "create-schema": [
             "bin/console doctrine:database:create",
             "bin/console doctrine:schema:create"
@@ -122,9 +123,9 @@
             "@sniffer",
             "@stan",
             "@deptrac",
-            "@linters"
-        ],
-        "codecept": "vendor/bin/codecept run"
+            "@linters",
+            "@codecept"
+        ]
     },
     "extra": {
         "symfony": {

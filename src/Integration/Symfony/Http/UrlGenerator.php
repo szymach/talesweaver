@@ -21,6 +21,6 @@ class UrlGenerator implements ApplicationUrlGenerator
 
     public function generate(string $route, ?array $parameters = []): string
     {
-        return $this->urlGenerator->generate($route, $parameters);
+        return $this->urlGenerator->generate($route, $parameters ?? []);
     }
 }
