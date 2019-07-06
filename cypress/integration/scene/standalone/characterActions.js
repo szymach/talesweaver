@@ -20,7 +20,6 @@ describe('Character actions', () => {
             });
 
             cy.get('#characters').contains(/^Postać$/).parent().find('.js-edit-form').click().then(() => {
-                cy.get('.modal.show').scrollTo('top');
                 cy.get('.modal').contains('Edycja postaci').should('be.visible');
                 cy.get('.modal').find('input[name="edit[name]"]').type('{selectall}Postać edytowana');
                 cy.get('.modal').contains('Zapisz').click();

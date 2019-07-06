@@ -20,7 +20,6 @@ describe('Location actions', () => {
             });
 
             cy.get('#locations').contains(/^Miejsce$/).parent().find('.js-edit-form').click().then(() => {
-                cy.get('.modal.show').scrollTo('top');
                 cy.get('.modal').contains('Edycja miejsca').should('be.visible');
                 cy.get('.modal').find('input[name="edit[name]"]').type('{selectall}Miejsce edytowane');
                 cy.get('.modal').contains('Zapisz').click();

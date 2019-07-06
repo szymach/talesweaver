@@ -20,7 +20,6 @@ describe('Event actions', () => {
             });
 
             cy.get('#events').contains(/^Spotkanie$/).parent().find('.js-edit-form').click().then(() => {
-                cy.get('.modal.show').scrollTo('top');
                 cy.get('.modal').contains('Edycja wydarzenia');
                 cy.get('.modal').find('input[name="edit[name]"]').type('{selectall}Spotkanie edytowane');
                 cy.get('.modal').contains('Zapisz').click();
