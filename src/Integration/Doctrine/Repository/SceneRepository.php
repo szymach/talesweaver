@@ -16,7 +16,7 @@ use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\Sort;
 
-class SceneRepository extends AutoWireableTranslatableRepository
+final class SceneRepository extends AutoWireableTranslatableRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

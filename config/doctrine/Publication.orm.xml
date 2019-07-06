@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:fsi="http://fsi.pl/schemas/orm/doctrine-extensions-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
+>
+    <entity name="Talesweaver\Domain\Publication" repository-class="Talesweaver\Integration\Doctrine\Repository\PublicationRepository">
+
+        <id name="id" type="uuid"/>
+        <field name="locale" length="2"/>
+        <field name="createdAt" type="datetime"/>
+        <field name="content" type="long_text"/>
+        <field name="visible" type="boolean"/>
+
+    </entity>
+</doctrine-mapping>
