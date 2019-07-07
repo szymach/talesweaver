@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Talesweaver\Domain\ValueObject;
 
+use Assert\Assertion;
+
 final class LongText
 {
     /**
@@ -13,16 +15,18 @@ final class LongText
 
     public static function fromNullableString(?string $value): ?self
     {
-        if (null === $value) {
-            return null;
-        }
-
-        $strippedValue = preg_replace('/[\xc2\xa0\s]/', '', strip_tags(html_entity_decode($value)));
-        if (false === is_string($strippedValue) || 0 === mb_strlen($strippedValue)) {
+        if (true === self::isStringEmpty($value)) {
             return null;
         }
 
         return new self(trim($value));
+    }
+
+    public static function fromString(string $value): self
+    {
+        Assertion::false(self::isStringEmpty($value));
+
+        return new self($value);
     }
 
     public function __toString()
@@ -33,6 +37,16 @@ final class LongText
     public function getValue(): string
     {
         return $this->value;
+    }
+
+    private static function isStringEmpty(?string $value): bool
+    {
+        if (null === $value) {
+            return true;
+        }
+
+        $strippedValue = preg_replace('/[\xc2\xa0\s]/', '', strip_tags(html_entity_decode($value)));
+        return false === is_string($strippedValue) || 0 === mb_strlen($strippedValue);
     }
 
     private function __construct(string $value)

@@ -7,6 +7,8 @@ namespace Talesweaver\Domain;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Traits\CreatedByTrait;
 use Talesweaver\Domain\Traits\TimestampableTrait;
@@ -103,6 +105,19 @@ class Scene
         $this->chapter = $chapter;
 
         $this->update();
+    }
+
+    public function publish(LongText $parsedContent, bool $visible): void
+    {
+        $this->publications->add(
+            new Publication(
+                Uuid::uuid4(),
+                $this->createdBy,
+                $parsedContent,
+                $visible,
+                $this->locale
+            )
+        );
     }
 
     public function getId(): UuidInterface
@@ -202,5 +217,23 @@ class Scene
     public function getEvents(): array
     {
         return $this->events->toArray();
+    }
+
+    public function getPublications(): array
+    {
+        return $this->publications->toArray();
+    }
+
+    public function getCurrentPublication(string $locale): ?Publication
+    {
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq('locale', $locale))
+            ->andWhere(Criteria::expr()->eq('visible', true))
+            ->orderBy(['createdAt' => 'DESC'])
+            ->setMaxResults(1)
+        ;
+
+        $result = $this->publications->matching($criteria)->first();
+        return true === $result instanceof Publication ? $result : null;
     }
 }

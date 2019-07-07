@@ -83,10 +83,6 @@
                     <join-column name="publication_id" referenced-column-name="id" unique="true" on-delete="CASCADE" />
                 </inverse-join-columns>
             </join-table>
-            <cascade>
-                <cascade-persist/>
-                <cascade-remove/>
-            </cascade>
         </many-to-many>
 
     </entity>

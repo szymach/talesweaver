@@ -19,7 +19,7 @@ final class HtmlContent implements ApplicationHtmlContent
         $this->twig = $twig;
     }
 
-    public function fromTemplate(string $template, array $parameters)
+    public function fromTemplate(string $template, array $parameters): string
     {
         return $this->twig->render($template, $parameters);
     }

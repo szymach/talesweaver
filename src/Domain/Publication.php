@@ -40,16 +40,18 @@ class Publication
 
     /**
      * @param UuidInterface $id
+     * @param Author $createdBy
      * @param LongText $content
      * @param bool $visible
      * @param string $locale
      */
-    public function __construct(UuidInterface $id, LongText $content, bool $visible, string $locale)
+    public function __construct(UuidInterface $id, Author $createdBy, LongText $content, bool $visible, string $locale)
     {
         $this->id = $id;
         $this->content = $content;
         $this->visible = $visible;
         $this->locale = $locale;
+        $this->createdBy = $createdBy;
         $this->createdAt = new DateTimeImmutable();
     }
 
@@ -61,5 +63,20 @@ class Publication
     public function getContent(): LongText
     {
         return $this->content;
+    }
+
+    public function getCreatedAt(): DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function getVisible(): bool
+    {
+        return $this->visible;
+    }
+
+    public function getLocale(): string
+    {
+        return $this->locale;
     }
 }

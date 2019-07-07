@@ -6,5 +6,5 @@ namespace Talesweaver\Application\Http;
 
 interface HtmlContent
 {
-    public function fromTemplate(string $template, array $parameters);
+    public function fromTemplate(string $template, array $parameters): string;
 }
