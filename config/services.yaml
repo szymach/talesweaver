@@ -53,7 +53,7 @@ services:
             $messenger: '@messenger.bus.queries'
 
     Talesweaver\Application\Command\:
-        resource: "../src/Application/Command/{Book,Chapter,Character,Event,Item,Location,Scene}/*/CommandHandler.php"
+        resource: "../src/Application/Command/*/*/CommandHandler.php"
 
     Talesweaver\Application\Command\Security\:
         resource: "../src/Application/Command/Security/*Handler.php"

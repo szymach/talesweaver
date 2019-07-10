@@ -11,7 +11,6 @@ final class FormControllerCest
 {
     public function renderView(FunctionalTester $I): void
     {
-        $I->loginAsUser();
         $I->amOnPage('/pl/scene/create');
         $I->seeInTitle('Nowa scena');
         $I->seeElement('form[name="create"]');
@@ -22,7 +21,6 @@ final class FormControllerCest
 
     public function submitForms(FunctionalTester $I): void
     {
-        $I->loginAsUser();
         $I->amOnPage('/pl/scene/create');
         $I->submitForm('form[name="create"]', ['create[title]' => 'Tytuł nowej sceny']);
 
@@ -51,7 +49,6 @@ final class FormControllerCest
 
     public function ajaxEditSubmit(FunctionalTester $I): void
     {
-        $I->loginAsUser();
         /* @var $scene Scene */
         $sceneId = $I->haveCreatedAScene('Scena')->getId()->toString();
         $I->amOnPage("/pl/scene/edit/{$sceneId}");
@@ -70,5 +67,13 @@ final class FormControllerCest
         $updatedScene = $I->grabSceneByTitle('Scena edytowana');
         $I->assertEquals('Scena edytowana', $updatedScene->getTitle());
         $I->assertEquals('Opis sceny', $updatedScene->getText());
+    }
+
+    /**
+     * @phpcs:disable
+     */
+    public function _before(FunctionalTest $I): void
+    {
+        $I->loginAsUser();
     }
 }

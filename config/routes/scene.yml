@@ -37,6 +37,11 @@ scene_display:
     controller: Talesweaver\Application\Controller\Scene\DisplayController
     methods:  GET
 
+scene_publish:
+    path: /publish/{id}
+    controller: Talesweaver\Application\Controller\Scene\PublishController
+    methods:  GET
+
 scene_pdf:
     path: /pdf/{id}
     controller: Talesweaver\Application\Controller\Scene\PdfController

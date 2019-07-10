@@ -67,11 +67,13 @@
     </div>
     {% embed 'partial/sidemenu.html.twig' with {
         display: macros.sidemenuDisplayLink(path('scene_display', { id: sceneId })),
-        pdf: macros.sidemenuPdfLink(path('scene_pdf', { id: sceneId }))
+        pdf: macros.sidemenuPdfLink(path('scene_pdf', { id: sceneId })),
+        publish: macros.sidemenuPublishLink(path('scene_publish', { id: sceneId }))
     } %}
         {% block content %}
             {{ display|raw }}
             {{ pdf|raw }}
+            {{ publish|raw }}
         {% endblock %}
     {% endembed %}
 {% endblock %}

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Messages;
 
-class CreationSuccessMessage extends Message
+final class CreationSuccessMessage extends Message
 {
     public function __construct(
         string $translationKeyRoot,
@@ -12,7 +12,7 @@ class CreationSuccessMessage extends Message
         string $type = null
     ) {
         parent::__construct(
-            sprintf('%s.alert.created', $translationKeyRoot),
+            "{$translationKeyRoot}.alert.created",
             $translationParameters,
             $type ?? 'success'
         );

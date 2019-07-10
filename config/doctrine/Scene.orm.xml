@@ -75,6 +75,11 @@
             </join-table>
         </many-to-many>
         <many-to-many field="publications" target-entity="Talesweaver\Domain\Publication">
+            <cascade>
+                <cascade-persist />
+                <cascade-remove />
+                <cascade-refresh />
+            </cascade>
             <join-table name="scene_publications">
                 <join-columns>
                     <join-column name="scene_id" referenced-column-name="id" on-delete="CASCADE" />

@@ -217,6 +217,7 @@ scene:
         created: 'Pomyślnie dodano nową scenę o tytule "%title%".'
         edit: Zapisano zmiany w scenie.
         deleted: 'Scena "%title%" została usunięta.'
+        published: 'Pomyślnie opublikowano treść sceny "%title%".'
     seo_title:
         list: Sceny
         form:
@@ -356,6 +357,15 @@ display:
 pdf:
     label: PDF
     title: Pobierz w formacie PDF
+
+publish:
+    label: Publikuj
+    title: Publikuj aktualną treść
+
+publication:
+    header: Nowa publikacja
+    title: Tytuł
+    visible: Widoczna publicznie
 
 filter:
     book: Wybierz książkę

@@ -9,7 +9,7 @@ use Codeception\Module\Symfony;
 use Codeception\TestInterface;
 use Symfony\Component\Routing\RouterInterface;
 
-class NavigationModule extends Module
+final class NavigationModule extends Module
 {
     private const LOCALE = 'pl';
 
@@ -17,6 +17,14 @@ class NavigationModule extends Module
      * @var Symfony
      */
     private $symfony;
+
+    /**
+     * phpcs:disable
+     */
+    public function _before(TestInterface $test)
+    {
+        $this->symfony = $this->getModule('Symfony');
+    }
 
     public function canSeeIAmOnRouteLocale(
         string $name,
@@ -35,14 +43,6 @@ class NavigationModule extends Module
             $name,
             array_merge(['_locale' => $locale], $parameters)
         );
-    }
-
-    /**
-     * phpcs:disable
-     */
-    public function _before(TestInterface $test)
-    {
-        $this->symfony = $this->getModule('Symfony');
     }
 
     private function getRouter(): RouterInterface

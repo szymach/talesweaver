@@ -40,6 +40,24 @@
     </li>
 {% endmacro %}
 
+{% macro sidemenuPublishLink(link) %}
+    <li>
+        <a class="d-sm-block d-md-none d-xl-none logo-icon"
+           href="{{ link }}"
+           target="_blank"
+           title="{{ 'publish.title'|trans }}"
+        >
+            <span class="fa fa-file-o"></span>
+        </a>
+        <span class="h4">
+            <a class="btn btn-sm btn-outline-secondary" href="{{ link }}" target="_blank" title="{{ 'publish.title'|trans }}">
+                <span class="fa fa-file-o"></span>
+            </a>
+            <span>{{ 'publish.label'|trans }}</span>
+        </span>
+    </li>
+{% endmacro %}
+
 {% macro menuItem(url, attributes, icon, label, linkClass) %}
     <li class="nav-item{% if linkClass is not empty %} {{ linkClass }}{% endif %}">
         <a href="{{ url }}"{% for name, value in attributes %} {{ name }}="{{ value }}"{% endfor %} class="nav-link">

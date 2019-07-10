@@ -6,6 +6,8 @@ namespace Talesweaver\Application\Messages;
 
 class Message
 {
+    public const SUCCESS = 'success';
+
     /**
      * @var string
      */

@@ -70,7 +70,7 @@ class Publication
         return $this->createdAt;
     }
 
-    public function getVisible(): bool
+    public function isVisible(): bool
     {
         return $this->visible;
     }

@@ -17,7 +17,7 @@ use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Tests\Query\Scene\ByTitle;
 
-class SceneModule extends Module
+final class SceneModule extends Module
 {
     /**
      * @var CommandBus
