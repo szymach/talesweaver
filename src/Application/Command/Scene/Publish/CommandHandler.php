@@ -27,7 +27,7 @@ final class CommandHandler implements CommandHandlerInterface
             $command->getTitle(),
             LongText::fromString(
                 $this->htmlContent->fromTemplate(
-                    'display/standalone.html.twig',
+                    'display/publication.html.twig',
                     [
                         'title' => $command->getTitle(),
                         'text' => $scene->getText(),

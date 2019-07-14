@@ -39,6 +39,12 @@ final class AppExtension extends AbstractExtension
 
                     return $field === $current->getField() && $direction === $current->getDirection();
                 }
+            ),
+            new TwigFunction(
+                'fileGetContents',
+                function (string $filePath): string {
+                    return file_get_contents($filePath);
+                }
             )
         ];
     }

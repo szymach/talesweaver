@@ -1,10 +1,12 @@
 {% import _self as macros %}
 <!DOCTYPE html>
-<html lang="{{ app.request.locale }}">
+<html lang="{{ locale }}">
     <head>
         <meta charset="UTF-8" />
         <title>{{ title|default('meta.title'|trans) }}</title>
-        <link rel="stylesheet" href="{{ absolute_url(asset('assets/main.css')) }}">
+        <style>
+            {{ fileGetContents('assets/main.css') }}
+        </style>
     </head>
     <body>
         <main class="display container px-lg-5">
@@ -24,7 +26,9 @@
                 </div>
             </div>
         </main>
-        <script src="{{ absolute_url(asset('assets/display.js')) }}" async></script>
+        <script>
+            {{ fileGetContents('assets/display.js') }}
+        </script>
     </body>
 </html>
 
