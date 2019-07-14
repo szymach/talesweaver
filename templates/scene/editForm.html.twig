@@ -10,6 +10,7 @@
         <div class="col col-md-10 offset-md-1">
             {{ macros.tabNavigation([
                 macros.tab('formContentTab', 'formContent', 'common.content', 'active'),
+                macros.tab('publicationsTab', 'publications', 'publication.tab', ''),
                 hasChapter ? macros.tab('relatedScenesTab', 'relatedScenes', 'scene.tabs.related', '') : '',
                 macros.tab('charactersTab', 'characters', 'scene.tabs.characters', ''),
                 macros.tab('itemsTab', 'items', 'scene.tabs.items', ''),
@@ -29,6 +30,12 @@
                     'formContentTab',
                     include('scene/form/editForm.html.twig', { form: form }, with_context = false),
                     'active show'
+                ) }}
+                {{ macros.tabContent(
+                    'publications',
+                    'publicationsTab',
+                    include('scene/tab/publications.html.twig', { sceneId: sceneId, publications: publications, page: 1 }, with_context = false),
+                    'js-list-container'
                 ) }}
                 {% if hasChapter %}
                     {{ macros.tabContent(
@@ -67,13 +74,11 @@
     </div>
     {% embed 'partial/sidemenu.html.twig' with {
         display: macros.sidemenuDisplayLink(path('scene_display', { id: sceneId })),
-        pdf: macros.sidemenuPdfLink(path('scene_pdf', { id: sceneId })),
-        publish: macros.sidemenuPublishLink(path('scene_publish', { id: sceneId }))
+        pdf: macros.sidemenuPdfLink(path('scene_pdf', { id: sceneId }))
     } %}
         {% block content %}
             {{ display|raw }}
             {{ pdf|raw }}
-            {{ publish|raw }}
         {% endblock %}
     {% endembed %}
 {% endblock %}

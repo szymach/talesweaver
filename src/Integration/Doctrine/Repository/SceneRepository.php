@@ -13,6 +13,7 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\Publication;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\Sort;
 
@@ -181,6 +182,21 @@ final class SceneRepository extends AutoWireableTranslatableRepository
         }
 
         return 0 !== (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function createPublicationListPage(Author $author, Scene $scene): array
+    {
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('p.id, p.title')
+            ->from(Publication::class, 'p')
+            ->innerJoin(Scene::class, 's', Join::WITH, 'p MEMBER OF s.publications AND s = :scene')
+            ->where('s.createdBy = :author')
+            ->setParameter('author', $author)
+            ->setParameter('scene', $scene)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
     private function countForTitleQb(Author $author, string $title): QueryBuilder

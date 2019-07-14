@@ -79,6 +79,15 @@ event:
     options:
         expose: true
 
+publication:
+    resource: "routes/publication.yml"
+    prefix:
+        en: /en/publication
+        pl: /pl/publication
+    condition: "request.isXmlHttpRequest()"
+    options:
+        expose: true
+
 logout:
     path: /logout
     methods:  GET

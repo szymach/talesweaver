@@ -107,12 +107,13 @@ class Scene
         $this->update();
     }
 
-    public function publish(LongText $parsedContent, bool $visible): void
+    public function publish(ShortText $title, LongText $parsedContent, bool $visible): void
     {
         $this->publications->add(
             new Publication(
                 Uuid::uuid4(),
                 $this->createdBy,
+                $title,
                 $parsedContent,
                 $visible,
                 $this->locale

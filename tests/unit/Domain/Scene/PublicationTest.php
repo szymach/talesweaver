@@ -23,10 +23,10 @@ final class PublicationTest extends TestCase
         $scene->setLocale('pl');
         $scene->edit($scene->getTitle(), $content, null);
 
-        $scene->publish($content, false);
+        $scene->publish(new ShortText('Scena'), $content, false);
         self::assertNull($scene->getCurrentPublication('pl'));
 
-        $scene->publish($content, true);
+        $scene->publish(new ShortText('Scena'), $content, true);
         $currentPublication = $scene->getCurrentPublication('pl');
         self::assertNotNull($currentPublication);
         self::assertEquals(

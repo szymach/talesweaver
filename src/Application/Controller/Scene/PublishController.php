@@ -13,6 +13,7 @@ use Talesweaver\Application\Form\FormHandlerInterface;
 use Talesweaver\Application\Form\Type\Scene\Publish;
 use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\SceneResolver;
+use Talesweaver\Application\Http\UrlGenerator;
 
 final class PublishController
 {
@@ -32,6 +33,11 @@ final class PublishController
     private $formHandlerFactory;
 
     /**
+     * @var UrlGenerator
+     */
+    private $urlGenerator;
+
+    /**
      * @var CommandBus
      */
     private $commandBus;
@@ -40,11 +46,13 @@ final class PublishController
         ApiResponseFactoryInterface $apiResponseFactory,
         SceneResolver $sceneResolver,
         FormHandlerFactoryInterface $formHandlerFactory,
+        UrlGenerator $urlGenerator,
         CommandBus $commandBus
     ) {
         $this->apiRresponseFactory = $apiResponseFactory;
         $this->sceneResolver = $sceneResolver;
         $this->formHandlerFactory = $formHandlerFactory;
+        $this->urlGenerator = $urlGenerator;
         $this->commandBus = $commandBus;
     }
 
@@ -66,10 +74,12 @@ final class PublishController
 
     private function createFormHandler(ServerRequestInterface $request): FormHandlerInterface
     {
+        $scene = $this->sceneResolver->fromRequest($request);
         return $this->formHandlerFactory->createWithRequest(
             $request,
             Publish::class,
-            DTO::fromEntity($this->sceneResolver->fromRequest($request))
+            DTO::fromEntity($scene),
+            ['action' => $this->urlGenerator->generate('scene_publish', ['id' => $scene->getId()])]
         );
     }
 

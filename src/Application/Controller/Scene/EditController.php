@@ -20,6 +20,7 @@ use Talesweaver\Application\Query\Character\CharactersPage;
 use Talesweaver\Application\Query\Event\EventsPage;
 use Talesweaver\Application\Query\Item\ItemsPage;
 use Talesweaver\Application\Query\Location\LocationsPage;
+use Talesweaver\Application\Query\Scene\PublicationsPage;
 use Talesweaver\Domain\Scene;
 use function is_xml_http_request;
 
@@ -119,7 +120,8 @@ final class EditController
             'characters' => $this->queryBus->query(new CharactersPage($scene, 1)),
             'items' => $this->queryBus->query(new ItemsPage($scene, 1)),
             'locations' => $this->queryBus->query(new LocationsPage($scene, 1)),
-            'events' => $this->queryBus->query(new EventsPage($scene, 1))
+            'events' => $this->queryBus->query(new EventsPage($scene, 1)),
+            'publications' => $this->queryBus->query(new PublicationsPage($scene, 1)),
         ];
 
         if (null !== $scene->getChapter()) {

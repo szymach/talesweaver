@@ -31,7 +31,7 @@
                 </thead>
                 <tbody>
                     {% for row in rows %}
-                        {% set displayPath = path(action.edit, { id: row.id }) %}
+                        {% set displayPath = path(action.display, { id: row.id }) %}
                         <tr>
                             {% for column in row.columns %}
                                 <td>{{ column.value }}</td>

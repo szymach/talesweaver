@@ -123,4 +123,12 @@ final class SceneRepository implements Scenes
 
         return $exists;
     }
+
+    public function createPublicationListPage(Scene $scene): array
+    {
+        return $this->doctrineRepository->createPublicationListPage(
+            $this->authorContext->getAuthor(),
+            $scene
+        );
+    }
 }

@@ -28,6 +28,11 @@ final class Command implements AuthorAccessInterface, MessageCommandInterface
      */
     private $visible;
 
+    /**
+     * @param Scene $scene
+     * @param ShortText $title
+     * @param bool $visible
+     */
     public function __construct(Scene $scene, ShortText $title, bool $visible)
     {
         $this->scene = $scene;

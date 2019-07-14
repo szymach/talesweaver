@@ -41,7 +41,12 @@ final class DisplayController
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
         $chapter = $this->chapterResolver->fromRequest($request);
-        $parameters = ['title' => $chapter->getTitle(), 'scenes' => $chapter->getScenes()];
+        $parameters = [
+            'title' => $chapter->getTitle(),
+            'scenes' => $chapter->getScenes(),
+            'locale' => $chapter->getLocale()
+        ];
+
         if (true === is_xml_http_request($request)) {
             $response = $this->apiResponseFactory->display('display/modal.html.twig', $parameters);
         } else {

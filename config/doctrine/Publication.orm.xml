@@ -9,8 +9,13 @@
         <id name="id" type="uuid"/>
         <field name="locale" length="2"/>
         <field name="createdAt" type="datetime"/>
+        <field name="title" type="short_text"/>
         <field name="content" type="long_text"/>
         <field name="visible" type="boolean"/>
+
+        <many-to-one field="createdBy" target-entity="Talesweaver\Domain\Author">
+            <join-column on-delete="CASCADE"/>
+        </many-to-one>
 
     </entity>
 </doctrine-mapping>

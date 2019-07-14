@@ -33,6 +33,7 @@ services:
     Talesweaver\Domain\Events: '@Talesweaver\Integration\Symfony\Repository\EventRepository'
     Talesweaver\Domain\Items: '@Talesweaver\Integration\Symfony\Repository\ItemRepository'
     Talesweaver\Domain\Locations: '@Talesweaver\Integration\Symfony\Repository\LocationRepository'
+    Talesweaver\Domain\Publications: '@Talesweaver\Integration\Symfony\Repository\PublicationRepository'
     Talesweaver\Domain\Scenes: '@Talesweaver\Integration\Symfony\Repository\SceneRepository'
     Talesweaver\Domain\PasswordResetTokens: '@Talesweaver\Integration\Doctrine\Repository\PasswordResetTokenRepository'
     Symfony\Component\Form\Util\ServerParams: "@form.server_params"

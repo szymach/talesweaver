@@ -10,9 +10,11 @@ use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Bus\QueryBus;
-use Talesweaver\Application\Command\Scene\Create\Command;
+use Talesweaver\Application\Command\Scene\Create\Command as Create;
+use Talesweaver\Application\Command\Scene\Publish\Command as Publish;
 use Talesweaver\Application\Query\Scene\ById;
 use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\Publication;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Tests\Query\Scene\ByTitle;
@@ -42,7 +44,7 @@ final class SceneModule extends Module
 
     public function haveCreatedAScene(string $title, Chapter $chapter = null): Scene
     {
-        $this->commandBus->dispatch(new Command(Uuid::uuid4(), new ShortText($title), $chapter));
+        $this->commandBus->dispatch(new Create(Uuid::uuid4(), new ShortText($title), $chapter));
 
         return $this->grabSceneByTitle($title);
     }
@@ -58,5 +60,17 @@ final class SceneModule extends Module
     public function seeSceneHasBeenRemoved(UuidInterface $id): void
     {
         $this->assertNull($this->queryBus->query(new ById($id)));
+    }
+
+    public function haveCreatedAScenePublication(
+        Scene $scene,
+        string $title = 'Tytuł',
+        bool $visible = true
+    ): Publication {
+        $this->commandBus->dispatch(
+            new Publish($scene, new ShortText($title), $visible)
+        );
+
+        return $scene->getCurrentPublication('pl');
     }
 }

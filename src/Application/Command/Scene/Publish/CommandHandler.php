@@ -24,10 +24,15 @@ final class CommandHandler implements CommandHandlerInterface
     {
         $scene = $command->getScene();
         $scene->publish(
+            $command->getTitle(),
             LongText::fromString(
                 $this->htmlContent->fromTemplate(
                     'display/standalone.html.twig',
-                    ['title' => $scene->getTitle(), 'text' => $scene->getText()]
+                    [
+                        'title' => $command->getTitle(),
+                        'text' => $scene->getText(),
+                        'locale' => $command->getScene()->getLocale()
+                    ]
                 )
             ),
             $command->isVisible()

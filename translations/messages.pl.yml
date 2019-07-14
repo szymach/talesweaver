@@ -358,14 +358,13 @@ pdf:
     label: PDF
     title: Pobierz w formacie PDF
 
-publish:
-    label: Publikuj
-    title: Publikuj aktualną treść
-
 publication:
+    tab: Publikacje
     header: Nowa publikacja
     title: Tytuł
     visible: Widoczna publicznie
+    action:
+        create: Publikuj
 
 filter:
     book: Wybierz książkę

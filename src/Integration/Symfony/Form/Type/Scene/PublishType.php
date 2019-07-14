@@ -26,12 +26,14 @@ final class PublishType extends AbstractType implements Publish
 
         $builder->add('visible', CheckboxType::class, [
             'label' => 'publication.visible',
+            'attr' => ['class' => 'checkbox-custom'],
             'required' => false
         ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
+        $resolver->setDefault('attr', ['class' => 'js-form']);
         $resolver->setDefault('data_class', DTO::class);
         $resolver->setDefault('method', Request::METHOD_POST);
     }

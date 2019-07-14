@@ -72,7 +72,7 @@ final class FormControllerCest
     /**
      * @phpcs:disable
      */
-    public function _before(FunctionalTest $I): void
+    public function _before(FunctionalTester $I): void
     {
         $I->loginAsUser();
     }

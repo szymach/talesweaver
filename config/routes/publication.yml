@@ -1,0 +1,10 @@
+---
+publication_display:
+    path: /display/{id}
+    controller: Talesweaver\Application\Controller\Publication\DisplayController
+    methods: GET
+
+publication_delete:
+    path: /delete/{id}
+    controller: Talesweaver\Application\Controller\Publication\DeleteController
+    methods: GET

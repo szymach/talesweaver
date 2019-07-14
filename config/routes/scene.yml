@@ -40,6 +40,11 @@ scene_display:
 scene_publish:
     path: /publish/{id}
     controller: Talesweaver\Application\Controller\Scene\PublishController
+    methods:  GET|POST
+
+scene_publication_list:
+    path: /publications/{id}
+    controller: Talesweaver\Application\Controller\Scene\PublicationListController
     methods:  GET
 
 scene_pdf:

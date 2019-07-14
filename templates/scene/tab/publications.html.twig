@@ -1,0 +1,37 @@
+<div class="text-right pb-2">
+    <button class="btn btn-sm btn-success js-load-form"
+            title="{{ 'publication.action.create'|trans }}"
+            data-form-url="{{ path('scene_publish', { id: sceneId }) }}"
+    >
+        <span class="fa fa-plus"></span>
+    </button>
+</div>
+<ul class="js-ajax-pagination list-inline" data-list-url="{{ path('scene_publication_list', { id: sceneId, page: publications.currentPage }) }}">
+    {% if publications|length > 0 %}
+        {% for publication in publications %}
+            {% set id = publication.id %}
+            <li class="list-inline-item pt-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ publication.title|truncate(25) }}</h5>
+                        <div class="text-center">
+                            <button class="js-display btn btn-sm btn-outline-secondary"
+                                    data-display-url="{{ path('publication_display', { id: id }) }}"
+                                    title="{{ 'crud.display'|trans }}"
+                            >
+                                <span class="fa fa-eye"></span>
+                            </button>
+                            <button class="js-list-delete js-delete btn btn-sm btn-danger"
+                                    data-delete-url="{{ path('publication_delete', { id: id }) }}"
+                                    title="{{ 'crud.delete'|trans }}"
+                            >
+                                <span class="fa fa-trash"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    {% endif %}
+</ul>
+{% include 'partial/pagination.html.twig' with { paginator: publications, route: 'publication_list', parameters: { id: sceneId, page: page }} only %}

@@ -8,6 +8,7 @@ use DateTimeImmutable;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Traits\CreatedByTrait;
 use Talesweaver\Domain\ValueObject\LongText;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class Publication
 {
@@ -22,6 +23,11 @@ class Publication
      * @var DateTimeImmutable
      */
     private $createdAt;
+
+    /**
+     * @var ShortText
+     */
+    private $title;
 
     /**
      * @var LongText
@@ -41,13 +47,21 @@ class Publication
     /**
      * @param UuidInterface $id
      * @param Author $createdBy
+     * @param ShortText $title
      * @param LongText $content
      * @param bool $visible
      * @param string $locale
      */
-    public function __construct(UuidInterface $id, Author $createdBy, LongText $content, bool $visible, string $locale)
-    {
+    public function __construct(
+        UuidInterface $id,
+        Author $createdBy,
+        ShortText $title,
+        LongText $content,
+        bool $visible,
+        string $locale
+    ) {
         $this->id = $id;
+        $this->title = $title;
         $this->content = $content;
         $this->visible = $visible;
         $this->locale = $locale;
@@ -58,6 +72,11 @@ class Publication
     public function getId(): UuidInterface
     {
         return $this->id;
+    }
+
+    public function getTitle(): ShortText
+    {
+        return $this->title;
     }
 
     public function getContent(): LongText
