@@ -9,6 +9,12 @@ publication_public_display:
     controller: Talesweaver\Application\Controller\Publication\PublicDisplayController
     methods: GET
 
+publication_toggle_visibility:
+    path: /toggle/{id}
+    controller: Talesweaver\Application\Controller\Publication\TogglePublicVisibilityController
+    condition: "request.isXmlHttpRequest()"
+    methods: GET
+
 publication_delete:
     path: /delete/{id}
     controller: Talesweaver\Application\Controller\Publication\DeleteController

@@ -231,7 +231,6 @@ class Scene
     {
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq('locale', $locale))
-            ->andWhere(Criteria::expr()->eq('visible', true))
             ->orderBy(['createdAt' => 'DESC'])
             ->setMaxResults(1)
         ;

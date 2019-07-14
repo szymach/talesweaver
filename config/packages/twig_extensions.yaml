@@ -3,6 +3,8 @@ services:
         public: false
         autowire: true
         autoconfigure: true
+        bind:
+            $projectDirectory: "%kernel.project_dir%"
 
     Talesweaver\Integration\Twig\:
         resource: "../../src/Integration/Twig/*"

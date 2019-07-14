@@ -15,9 +15,15 @@ final class AppExtension extends AbstractExtension
      */
     private $sortable;
 
-    public function __construct(Sortable $sortable)
+    /**
+     * @var string
+     */
+    private $projectDirectory;
+
+    public function __construct(Sortable $sortable, string $projectDirectory)
     {
         $this->sortable = $sortable;
+        $this->projectDirectory = $projectDirectory;
     }
 
     public function getFunctions()
@@ -43,7 +49,7 @@ final class AppExtension extends AbstractExtension
             new TwigFunction(
                 'fileGetContents',
                 function (string $filePath): string {
-                    return file_get_contents($filePath);
+                    return file_get_contents("{$this->projectDirectory}/public/{$filePath}");
                 }
             )
         ];

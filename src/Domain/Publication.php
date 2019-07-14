@@ -69,6 +69,11 @@ class Publication
         $this->createdAt = new DateTimeImmutable();
     }
 
+    public function toggleVisibility(): void
+    {
+        $this->visible = !$this->visible;
+    }
+
     public function getId(): UuidInterface
     {
         return $this->id;

@@ -369,7 +369,11 @@ publication:
     action:
         create: Publikuj
         public_display: Publiczna strona
+        toggle_visibility: Przełącz widoczność
     alert:
+        visibility_toggled:
+            on: 'Publikacja "%title%" jest widoczna publicznie.'
+            off: 'Publikacja "%title%" nie jest widoczna publicznie.'
         deleted: 'Pomyślnie usunięto publikację o nazwie "%title%"'
 
 filter:
