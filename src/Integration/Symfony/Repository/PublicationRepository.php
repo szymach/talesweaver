@@ -36,6 +36,11 @@ final class PublicationRepository implements Publications
         ]);
     }
 
+    public function findPublic(UuidInterface $id): ?Publication
+    {
+        return $this->doctrineRepository->findOneBy(['id' => $id, 'visible' => true]);
+    }
+
     public function remove(UuidInterface $id): void
     {
         $this->doctrineRepository->remove($this->authorContext->getAuthor(), $id);

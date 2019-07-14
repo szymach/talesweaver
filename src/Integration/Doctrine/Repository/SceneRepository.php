@@ -188,10 +188,11 @@ final class SceneRepository extends AutoWireableTranslatableRepository
     {
         return $this->getEntityManager()
             ->createQueryBuilder()
-            ->select('p.id, p.title, p.createdAt, p.locale')
+            ->select('p.id, p.title, p.createdAt, p.locale, p.visible')
             ->from(Publication::class, 'p')
             ->innerJoin(Scene::class, 's', Join::WITH, 'p MEMBER OF s.publications AND s = :scene')
             ->where('s.createdBy = :author')
+            ->orderBy('p.createdAt', 'DESC')
             ->setParameter('author', $author)
             ->setParameter('scene', $scene)
             ->getQuery()

@@ -7,7 +7,6 @@ namespace Talesweaver\Tests\Module;
 use Codeception\Module;
 use Codeception\Module\Symfony;
 use Codeception\TestInterface;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -117,18 +116,17 @@ class AuthorModule extends Module
         );
     }
 
-    public function getEntityManager(): EntityManagerInterface
-    {
-        return $this->symfony->grabService('doctrine.orm.entity_manager');
-    }
-
     private function getTokenStorage(): TokenStorageInterface
     {
-        return $this->symfony->grabService('security.token_storage');
+        /** @var TokenStorageInterface $tokenStorage */
+        $tokenStorage = $this->symfony->grabService('security.token_storage');
+        return $tokenStorage;
     }
 
     private function getSession(): SessionInterface
     {
-        return $this->symfony->grabService('session');
+        /** @var SessionInterface $session */
+        $session = $this->symfony->grabService('session');
+        return $session;
     }
 }

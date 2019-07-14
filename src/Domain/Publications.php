@@ -9,5 +9,6 @@ use Ramsey\Uuid\UuidInterface;
 interface Publications
 {
     public function find(UuidInterface $id): ?Publication;
+    public function findPublic(UuidInterface $id): ?Publication;
     public function remove(UuidInterface $id): void;
 }

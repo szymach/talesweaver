@@ -19,6 +19,15 @@
                             <small><i>{{ publication.createdAt|date('Y-m-d H:i') }}</i></small>
                         </h5>
                         <div class="text-center">
+                            {% if publication.visible %}
+                                <a class="btn btn-sm btn-primary"
+                                    href="{{ path('publication_public_display', { id: id }) }}"
+                                    target="_blank"
+                                    title="{{ 'publication.action.public_display'|trans }}"
+                                >
+                                    <span class="fa fa-eye"></span>
+                                </a>
+                            {% endif %}
                             <a class="btn btn-sm btn-outline-secondary"
                                 href="{{ path('publication_display', { id: id }) }}"
                                 target="_blank"

@@ -30,4 +30,5 @@ security:
         - { path: ^/(pl|en)/activate, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/(pl|en)/reset-password/request, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/(pl|en)/reset-password/change, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(pl|en)/publication/display-public, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: ROLE_USER }

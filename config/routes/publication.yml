@@ -4,6 +4,11 @@ publication_display:
     controller: Talesweaver\Application\Controller\Publication\DisplayController
     methods: GET
 
+publication_public_display:
+    path: /display-public/{id}
+    controller: Talesweaver\Application\Controller\Publication\PublicDisplayController
+    methods: GET
+
 publication_delete:
     path: /delete/{id}
     controller: Talesweaver\Application\Controller\Publication\DeleteController

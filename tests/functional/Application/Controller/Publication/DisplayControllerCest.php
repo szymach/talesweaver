@@ -10,18 +10,51 @@ use Talesweaver\Tests\FunctionalTester;
 
 final class DisplayControllerCest
 {
-    public function testResponse(FunctionalTester $I): void
+    /**
+     * @var Scene
+     */
+    private $scene;
+
+    /**
+     * @var Publication
+     */
+    private $publication;
+
+    public function testPublicationDisplayPageResponse(FunctionalTester $I): void
+    {
+        $I->amOnPage("/pl/publication/display/{$this->publication->getId()->toString()}");
+        $I->seeResponseCodeIs(200);
+        $I->see('Publikacja');
+    }
+
+    public function testPublicationPublicDisplayPageResponse(FunctionalTester $I): void
+    {
+        $I->amOnPage('/logout');
+        $I->seeCurrentUrlEquals('/pl/login');
+
+        $I->amOnPage("/pl/publication/display/{$this->publication->getId()->toString()}");
+        $I->seeCurrentUrlEquals('/pl/login');
+
+        $I->amOnPage("/pl/publication/display-public/{$this->publication->getId()->toString()}");
+        $I->seeCurrentUrlEquals("/pl/publication/display-public/{$this->publication->getId()->toString()}");
+        $I->seeResponseCodeIs(200);
+        $I->see('Publikacja');
+    }
+
+    /**
+     * @phpcs:disable
+     */
+    public function _before(FunctionalTester $I): void
     {
         $I->loginAsUser();
+
         /** @var Scene $scene */
         $scene = $I->haveCreatedAScene('Scena');
-        $scene->setLocale('pl');
+        $this->scene = $scene;
+        $this->scene->setLocale('pl');
 
         /** @var Publication $publication */
         $publication = $I->haveCreatedAScenePublication($scene, 'Publikacja');
-
-        $I->amOnPage("/pl/publication/display/{$publication->getId()->toString()}");
-        $I->seeResponseCodeIs(200);
-        $I->see('Publikacja');
+        $this->publication = $publication;
     }
 }

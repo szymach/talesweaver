@@ -368,6 +368,7 @@ publication:
         en: Język angielski
     action:
         create: Publikuj
+        public_display: Publiczna strona
     alert:
         deleted: 'Pomyślnie usunięto publikację o nazwie "%title%"'
 
