@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Domain;
 
+use Assert\Assertion;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -109,6 +110,7 @@ class Scene
 
     public function publish(ShortText $title, LongText $parsedContent, bool $visible): void
     {
+        Assertion::notNull($this->locale, "Cannot publish scene \"{$this->id->toString()}\" without a locale");
         $this->publications->add(
             new Publication(
                 Uuid::uuid4(),

@@ -45,5 +45,4 @@ final class DeleteController
 
         return $this->apiResponseFactory->success();
     }
-
 }

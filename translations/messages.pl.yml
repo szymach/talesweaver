@@ -363,6 +363,9 @@ publication:
     header: Nowa publikacja
     title: Tytuł
     visible: Widoczna publicznie
+    locale:
+        pl: Język polski
+        en: Język angielski
     action:
         create: Publikuj
     alert:

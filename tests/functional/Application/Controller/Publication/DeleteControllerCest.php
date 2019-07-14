@@ -27,7 +27,7 @@ final class DeleteControllerCest
         $I->seeResponseCodeIs(200);
 
         /** @var Scene $scene */
-        $scene = $I->grabSceneByTitle('Publikacja');
+        $scene = $I->grabSceneByTitle('Scena');
         $I->assertNull($scene->getCurrentPublication('pl'));
     }
 }

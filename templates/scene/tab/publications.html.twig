@@ -13,7 +13,11 @@
             <li class="list-inline-item pt-2">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">{{ publication.title|truncate(25) }}</h5>
+                        <h5 class="card-title text-center">
+                            {{ publication.title|truncate(25) }}<br />
+                            <small>{{ ('publication.locale.' ~ publication.locale)|trans }}</small><br />
+                            <small><i>{{ publication.createdAt|date('Y-m-d H:i') }}</i></small>
+                        </h5>
                         <div class="text-center">
                             <a class="btn btn-sm btn-outline-secondary"
                                 href="{{ path('publication_display', { id: id }) }}"

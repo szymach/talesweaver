@@ -15,7 +15,7 @@ final class LongText
 
     public static function fromNullableString(?string $value): ?self
     {
-        if (true === self::isStringEmpty($value)) {
+        if (null === $value || true === self::isStringEmpty($value)) {
             return null;
         }
 
@@ -39,12 +39,8 @@ final class LongText
         return $this->value;
     }
 
-    private static function isStringEmpty(?string $value): bool
+    private static function isStringEmpty(string $value): bool
     {
-        if (null === $value) {
-            return true;
-        }
-
         $strippedValue = preg_replace('/[\xc2\xa0\s]/', '', strip_tags(html_entity_decode($value)));
         return false === is_string($strippedValue) || 0 === mb_strlen($strippedValue);
     }
