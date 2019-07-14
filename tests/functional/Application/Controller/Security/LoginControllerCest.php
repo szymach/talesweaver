@@ -7,7 +7,7 @@ namespace Talesweaver\Tests\Application\Controller\Security;
 use Talesweaver\Tests\FunctionalTester;
 use Talesweaver\Tests\Module\AuthorModule;
 
-class LoginControllerCest
+final class LoginControllerCest
 {
     public function loginFormView(FunctionalTester $I)
     {
@@ -47,12 +47,24 @@ class LoginControllerCest
         $I->canSeeCurrentUrlEquals('/pl/login');
         $I->seeErrorAlert('Użytkownik o podanej nazwie nie istnieje.');
 
+        $I->amOnPage('/pl/login');
+        $I->fillField('Hasło', AuthorModule::AUTHOR_PASSWORD);
+        $I->click('Zaloguj');
+        $I->canSeeCurrentUrlEquals('/pl/login');
+        $I->seeErrorAlert('Użytkownik o podanej nazwie nie istnieje.');
+
         $I->getAuthor();
 
         $I->amOnPage('/pl/login');
         $I->click('Zaloguj');
         $I->canSeeCurrentUrlEquals('/pl/login');
         $I->seeErrorAlert('Użytkownik o podanej nazwie nie istnieje.');
+
+        $I->amOnPage('/pl/login');
+        $I->fillField('Email', AuthorModule::AUTHOR_EMAIL);
+        $I->click('Zaloguj');
+        $I->canSeeCurrentUrlEquals('/pl/login');
+        $I->seeErrorAlert('Nieprawidłowe dane.');
 
         $I->amOnPage('/pl/login');
         $I->fillField('Email', AuthorModule::AUTHOR_EMAIL);
