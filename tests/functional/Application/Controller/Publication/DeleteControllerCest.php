@@ -12,6 +12,7 @@ final class DeleteControllerCest
 {
     public function testPublicationDeletion(FunctionalTester $I): void
     {
+        $I->loginAsUser();
         /** @var Scene $scene */
         $scene = $I->haveCreatedAScene('Scena');
         $scene->setLocale('pl');
@@ -26,15 +27,7 @@ final class DeleteControllerCest
         $I->seeResponseCodeIs(200);
 
         /** @var Scene $scene */
-        $scene = $I->grabSceneByTitle('Scena');
+        $scene = $I->grabSceneByTitle('Publikacja');
         $I->assertNull($scene->getCurrentPublication('pl'));
-    }
-
-    /**
-     * @phpcs:disable
-     */
-    public function _before(FunctionalTester $I): void
-    {
-        $I->loginAsUser();
     }
 }

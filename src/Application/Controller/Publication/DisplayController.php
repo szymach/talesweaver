@@ -31,6 +31,6 @@ final class DisplayController
     {
         $publication = $this->publicationResolver->fromRequest($request);
 
-        return $this->responseFactory->fromString($publication->getContent());
+        return $this->responseFactory->fromString((string) $publication->getContent());
     }
 }

@@ -62,7 +62,7 @@ final class Command implements AuthorAccessInterface, MessageCommandInterface
 
     public function getMessage(): Message
     {
-        return new Message('scene.alert.published', ['%title%' => $this->scene->getTitle()], Message::SUCCESS);
+        return new Message('scene.alert.published', ['%title%' => $this->title], Message::SUCCESS);
     }
 
     public function isMuted(): bool

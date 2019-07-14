@@ -7,4 +7,5 @@ publication_display:
 publication_delete:
     path: /delete/{id}
     controller: Talesweaver\Application\Controller\Publication\DeleteController
+    condition: "request.isXmlHttpRequest()"
     methods: GET

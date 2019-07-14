@@ -31,7 +31,7 @@ final class CommandHandler implements CommandHandlerInterface
                     [
                         'title' => $command->getTitle(),
                         'text' => $scene->getText(),
-                        'locale' => $command->getScene()->getLocale()
+                        'locale' => $scene->getLocale()
                     ]
                 )
             ),

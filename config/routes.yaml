@@ -84,7 +84,6 @@ publication:
     prefix:
         en: /en/publication
         pl: /pl/publication
-    condition: "request.isXmlHttpRequest()"
     options:
         expose: true
 

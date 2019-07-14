@@ -56,6 +56,11 @@ final class ResponseFactory implements ResponseFactoryInterface
         return new HtmlResponse($this->htmlContent->fromTemplate($template, $parameters));
     }
 
+    public function fromString(string $content): ResponseInterface
+    {
+        return new HtmlResponse($content);
+    }
+
     public function redirectToRoute(string $route, array $parameters = []): ResponseInterface
     {
         return new RedirectResponse($this->urlGenerator->generate($route, $parameters));

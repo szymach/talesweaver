@@ -10,6 +10,7 @@ use Throwable;
 interface ResponseFactoryInterface
 {
     public function fromTemplate(string $template, array $parameters = []): ResponseInterface;
+    public function fromString(string $content): ResponseInterface;
     public function redirectToRoute(string $route, array $parameters = []): ResponseInterface;
     public function redirectToUri(string $uri): ResponseInterface;
     public function toPdf(string $filename, string $template, array $parameters, ?array $options): ResponseInterface;

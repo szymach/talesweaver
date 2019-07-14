@@ -365,6 +365,8 @@ publication:
     visible: Widoczna publicznie
     action:
         create: Publikuj
+    alert:
+        deleted: 'Pomyślnie usunięto publikację o nazwie "%title%"'
 
 filter:
     book: Wybierz książkę
