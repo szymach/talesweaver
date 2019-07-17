@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Twig;
 
+use Exception;
 use Talesweaver\Application\Data\Sortable;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -49,7 +50,13 @@ final class AppExtension extends AbstractExtension
             new TwigFunction(
                 'fileGetContents',
                 function (string $filePath): string {
-                    return file_get_contents("{$this->projectDirectory}/public/{$filePath}");
+                    $fullPath = "{$this->projectDirectory}/public/{$filePath}";
+                    $contents = file_get_contents($fullPath);
+                    if (false === $contents) {
+                        throw new Exception("Cannot read file {$fullPath}");
+                    }
+
+                    return $contents;
                 }
             )
         ];
