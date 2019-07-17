@@ -37,7 +37,7 @@
                             </a>
                             <button class="js-list-action btn btn-sm {% if publication.visible %}btn-secondary{% else %}btn-outline-secondary{% endif %}"
                                 data-action-url="{{ path('publication_toggle_visibility', { id: id }) }}"
-                                title="{{ 'publication.action.toggle_visibility'|trans }}"
+                                title="{{ ('publication.action.toggle_visibility.' ~ (publication.visible ? 'off' : 'on'))|trans }}"
                             >
                                 <span class="fa {% if publication.visible %}fa-toggle-off{% else %}fa-toggle-on{% endif %}"></span>
                             </button>

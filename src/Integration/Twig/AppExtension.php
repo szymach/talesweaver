@@ -53,7 +53,7 @@ final class AppExtension extends AbstractExtension
                     $fullPath = "{$this->projectDirectory}/public/{$filePath}";
                     $contents = file_get_contents($fullPath);
                     if (false === $contents) {
-                        throw new Exception("Cannot read file {$fullPath}");
+                        throw new Exception("Cannot read file at \"{$fullPath}\"");
                     }
 
                     return $contents;

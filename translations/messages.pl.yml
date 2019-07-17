@@ -361,15 +361,24 @@ pdf:
 publication:
     tab: Publikacje
     header: Nowa publikacja
-    title: Tytuł
-    visible: Widoczna publicznie
+    title:
+        label: Tytuł
+        placeholder:
+            scene: Domyślnie tytuł sceny, podaj inny jeżeli chcesz
+    visible:
+        label: Widoczna publicznie
+        help: >
+            Zaznaczenie tej opcji wygeneruje publicznie dostępny adres dla treści,
+            który można udostępnić osobom bez konta w aplikacji.
     locale:
         pl: Język polski
         en: Język angielski
     action:
         create: Publikuj
         public_display: Publiczna strona
-        toggle_visibility: Przełącz widoczność
+        toggle_visibility:
+            on: Upublicznij stronę z treścią
+            off: Ukryj
     alert:
         visibility_toggled:
             on: 'Publikacja "%title%" jest widoczna publicznie.'

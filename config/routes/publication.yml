@@ -5,7 +5,7 @@ publication_display:
     methods: GET
 
 publication_public_display:
-    path: /display-public/{id}
+    path: /public/{id}
     controller: Talesweaver\Application\Controller\Publication\PublicDisplayController
     methods: GET
 

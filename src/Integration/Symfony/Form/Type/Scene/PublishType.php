@@ -19,14 +19,16 @@ final class PublishType extends AbstractType implements Publish
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title', TextType::class, [
-            'label' => 'publication.title',
+            'label' => 'publication.title.label',
             'constraints' => [new Length(['max' => 255])],
+            'attr' => ['placeholder' => 'publication.title.placeholder.scene'],
             'required' => false
         ]);
 
         $builder->add('visible', CheckboxType::class, [
-            'label' => 'publication.visible',
+            'label' => 'publication.visible.label',
             'attr' => ['class' => 'checkbox-custom'],
+            'help' => 'publication.visible.help',
             'required' => false
         ]);
     }
