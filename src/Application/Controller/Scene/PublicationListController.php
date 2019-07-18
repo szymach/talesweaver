@@ -43,11 +43,13 @@ final class PublicationListController
         $scene = $this->sceneResolver->fromRequest($request);
         $page = (int) $request->getAttribute('page', 1);
         return $this->responseFactory->list(
-            'scene\tab\publications.html.twig',
+            'partial/publications.html.twig',
             [
                 'publications' => $this->queryBus->query(new PublicationsPage($scene, $page)),
-                'sceneId' => $scene->getId(),
-                'page' => $page
+                'createRoute' => 'scene_publish',
+                'createParameters' => ['id' => $scene->getId()],
+                'listRoute' => 'scene_publication_list',
+                'listParameters' => ['id' => $scene->getId(), 'page' => $page],
             ]
         );
     }

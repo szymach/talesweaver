@@ -34,7 +34,17 @@
                 {{ macros.tabContent(
                     'publications',
                     'publicationsTab',
-                    include('scene/tab/publications.html.twig', { sceneId: sceneId, publications: publications, page: 1 }, with_context = false),
+                    include(
+                        'partial/publications.html.twig',
+                        {
+                            createRoute: 'scene_publish',
+                            createParameters: { id: sceneId },
+                            listRoute: 'scene_publication_list',
+                            listParameters: { id: sceneId, page: publications.currentPage },
+                            publications: publications
+                        },
+                        with_context = false
+                    ),
                     'js-list-container'
                 ) }}
                 {% if hasChapter %}
