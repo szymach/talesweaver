@@ -14,6 +14,7 @@ use Talesweaver\Application\Form\Type\Chapter\Edit;
 use Talesweaver\Application\Http\Entity\ChapterResolver;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
+use Talesweaver\Application\Query\Chapter\PublicationsPage;
 use Talesweaver\Application\Query\Chapter\ScenesPage;
 use Talesweaver\Domain\Chapter;
 
@@ -86,7 +87,8 @@ final class EditController
                 'chapterId' => $chapter->getId(),
                 'bookId' => $bookId,
                 'title' => $chapter->getTitle(),
-                'scenes' => $this->queryBus->query(new ScenesPage($chapter, 1))
+                'scenes' => $this->queryBus->query(new ScenesPage($chapter, 1)),
+                'publications' => $this->queryBus->query(new PublicationsPage($chapter, 1)),
             ]
         );
     }

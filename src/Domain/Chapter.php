@@ -10,13 +10,14 @@ use Doctrine\Common\Collections\Collection;
 use DomainException;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Traits\CreatedByTrait;
+use Talesweaver\Domain\Traits\PublishableTrait;
 use Talesweaver\Domain\Traits\TimestampableTrait;
 use Talesweaver\Domain\Traits\TranslatableTrait;
 use Talesweaver\Domain\ValueObject\ShortText;
 
 class Chapter
 {
-    use CreatedByTrait, TimestampableTrait, TranslatableTrait;
+    use CreatedByTrait, PublishableTrait, TimestampableTrait, TranslatableTrait;
 
     /**
      * @var UuidInterface
@@ -34,7 +35,7 @@ class Chapter
     private $book;
 
     /**
-     * @var Scene[]|Collection
+     * @var Collection<Scene>
      */
     private $scenes;
 

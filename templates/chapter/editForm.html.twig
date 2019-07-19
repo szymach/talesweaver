@@ -11,6 +11,7 @@
         <div class="col col-md-10 offset-md-1">
             {{ macros.tabNavigation([
                 macros.tab('formContentTab', 'formContent', 'common.content', 'active'),
+                macros.tab('publicationsTab', 'publications', 'publication.tab', ''),
                 macros.tab('scenesTab', 'scenes', 'common.scenes', '')
             ], {
                 link: bookId is not null ? path('book_edit', { id: bookId }) : path('chapter_list'),
@@ -26,6 +27,22 @@
                     'formContentTab',
                     include('chapter/tab/content.html.twig', { form: form }, with_context = false),
                     'active show'
+                ) }}
+                {{ macros.tabContent(
+                    'publications',
+                    'publicationsTab',
+                    include(
+                        'partial/publications.html.twig',
+                        {
+                            createRoute: 'chapter_publish',
+                            createParameters: { id: chapterId },
+                            listRoute: 'chapter_publication_list',
+                            listParameters: { id: chapterId, page: publications.currentPage },
+                            publications: publications
+                        },
+                        with_context = false
+                    ),
+                    'js-list-container'
                 ) }}
                 {{ macros.tabContent(
                     'scenes',

@@ -47,6 +47,16 @@ chapter_delete:
         page: 1
     methods:  GET
 
+chapter_publish:
+    path: /publish/{id}
+    controller: Talesweaver\Application\Controller\Chapter\PublishController
+    methods:  GET|POST
+
+chapter_publication_list:
+    path: /publications/{id}
+    controller: Talesweaver\Application\Controller\Chapter\PublicationListController
+    methods:  GET
+
 chapter_pdf:
     path: /pdf/{id}
     controller: Talesweaver\Application\Controller\Chapter\PdfController

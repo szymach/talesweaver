@@ -128,4 +128,12 @@ final class ChapterRepository implements Chapters
 
         return $exists;
     }
+
+    public function createPublicationListPage(Chapter $chapter): array
+    {
+        return $this->doctrineRepository->createPublicationListPage(
+            $this->authorContext->getAuthor(),
+            $chapter
+        );
+    }
 }

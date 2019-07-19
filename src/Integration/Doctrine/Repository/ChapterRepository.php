@@ -13,9 +13,10 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\Publication;
 use Talesweaver\Domain\ValueObject\Sort;
 
-class ChapterRepository extends AutoWireableTranslatableRepository
+final class ChapterRepository extends AutoWireableTranslatableRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -128,6 +129,22 @@ class ChapterRepository extends AutoWireableTranslatableRepository
         }
 
         return 0 !== (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function createPublicationListPage(Author $author, Chapter $chapter): array
+    {
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('p.id, p.title, p.createdAt, p.locale, p.visible')
+            ->from(Publication::class, 'p')
+            ->innerJoin(Chapter::class, 'c', Join::WITH, 'p MEMBER OF c.publications AND c = :chapter')
+            ->where('c.createdBy = :author')
+            ->orderBy('p.createdAt', 'DESC')
+            ->setParameter('author', $author)
+            ->setParameter('chapter', $chapter)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
     private function countForTitleQb(Author $author, string $title): QueryBuilder
