@@ -13,7 +13,7 @@ use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Domain\ValueObject\Sort;
 use Talesweaver\Integration\Doctrine\Repository\BookRepository as DoctrineRepository;
 
-class BookRepository implements Books
+final class BookRepository implements Books
 {
     /**
      * @var EntityManagerInterface
@@ -102,6 +102,14 @@ class BookRepository implements Books
             $this->authorContext->getAuthor(),
             $title,
             $id
+        );
+    }
+
+    public function createPublicationListPage(Book $book): array
+    {
+        return $this->doctrineRepository->createPublicationListPage(
+            $this->authorContext->getAuthor(),
+            $book
         );
     }
 }

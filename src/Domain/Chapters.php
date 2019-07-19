@@ -19,5 +19,5 @@ interface Chapters
     public function add(Chapter $chapter): void;
     public function remove(UuidInterface $id): void;
     public function entityExists(string $title, ?UuidInterface $id, ?UuidInterface $bookId): bool;
-    public function createPublicationListPage(Chapter $scene): array;
+    public function createPublicationListPage(Chapter $book): array;
 }

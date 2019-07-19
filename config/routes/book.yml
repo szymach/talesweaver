@@ -32,6 +32,16 @@ book_display:
     controller: Talesweaver\Application\Controller\Book\DisplayController
     methods:  GET
 
+book_publish:
+    path: /publish/{id}
+    controller: Talesweaver\Application\Controller\Book\PublishController
+    methods:  GET|POST
+
+book_publication_list:
+    path: /publications/{id}
+    controller: Talesweaver\Application\Controller\Book\PublicationListController
+    methods:  GET
+
 book_pdf:
     path: /pdf/{id}
     controller: Talesweaver\Application\Controller\Book\PdfController

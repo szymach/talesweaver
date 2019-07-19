@@ -11,9 +11,10 @@ use Doctrine\ORM\Query\Expr\Join;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Book;
+use Talesweaver\Domain\Publication;
 use Talesweaver\Domain\ValueObject\Sort;
 
-class BookRepository extends AutoWireableTranslatableRepository
+final class BookRepository extends AutoWireableTranslatableRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -104,5 +105,21 @@ class BookRepository extends AutoWireableTranslatableRepository
         }
 
         return 0 !== (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function createPublicationListPage(Author $author, Book $book): array
+    {
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('p.id, p.title, p.createdAt, p.locale, p.visible')
+            ->from(Publication::class, 'p')
+            ->innerJoin(Book::class, 'b', Join::WITH, 'p MEMBER OF b.publications AND b = :book')
+            ->where('b.createdBy = :author')
+            ->orderBy('p.createdAt', 'DESC')
+            ->setParameter('author', $author)
+            ->setParameter('book', $book)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }

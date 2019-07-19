@@ -142,6 +142,7 @@ book:
         created: 'Pomyślnie dodano nową książkę o tytule "%title%".'
         edit: Zapisano zmiany w książce.
         deleted: 'Książka "%title%" została usunięta.'
+        published: 'Pomyślnie opublikowano treść książki "%title%".'
     seo_title:
         list: Książki
         form:
@@ -177,6 +178,7 @@ chapter:
         created: 'Pomyślnie dodano nowy rozdział o tytule "%title%".'
         edit: Zapisano zmiany w rozdziale.
         deleted: 'Rozdział "%title%" został usunięty.'
+        published: 'Pomyślnie opublikowano treść rozdziału "%title%".'
     seo_title:
         list: Rozdziały
         form:

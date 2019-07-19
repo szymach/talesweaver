@@ -9,6 +9,7 @@
         <div class="col col-md-10 offset-md-1">
             {{ macros.tabNavigation([
                 macros.tab('formContentTab', 'formContent', 'common.content', 'active'),
+                macros.tab('publicationsTab', 'publications', 'publication.tab', ''),
                 macros.tab('chaptersTab', 'chapters', 'common.chapters', ''),
                 macros.tab('scenesTab', 'scenes', 'common.scenes', '')
             ], {
@@ -25,6 +26,22 @@
                     'formContentTab',
                     include('book/tab/content.html.twig', { form: form }, with_context = false),
                     'active show'
+                ) }}
+                {{ macros.tabContent(
+                    'publications',
+                    'publicationsTab',
+                    include(
+                        'partial/publications.html.twig',
+                        {
+                            createRoute: 'book_publish',
+                            createParameters: { id: bookId },
+                            listRoute: 'book_publication_list',
+                            listParameters: { id: bookId, page: publications.currentPage },
+                            publications: publications
+                        },
+                        with_context = false
+                    ),
+                    'js-list-container'
                 ) }}
                 {{ macros.tabContent(
                     'chapters',

@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Traits\CreatedByTrait;
+use Talesweaver\Domain\Traits\PublishableTrait;
 use Talesweaver\Domain\Traits\TimestampableTrait;
 use Talesweaver\Domain\Traits\TranslatableTrait;
 use Talesweaver\Domain\ValueObject\LongText;
@@ -16,7 +17,7 @@ use Talesweaver\Domain\ValueObject\ShortText;
 
 class Book
 {
-    use CreatedByTrait, TimestampableTrait, TranslatableTrait;
+    use CreatedByTrait, PublishableTrait, TimestampableTrait, TranslatableTrait;
 
     /**
      * @var UuidInterface
@@ -34,7 +35,7 @@ class Book
     private $description;
 
     /**
-     * @var Chapter[]|Collection
+     * @var Collection<Chapter>
      */
     private $chapters;
 

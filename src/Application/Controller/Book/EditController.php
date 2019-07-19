@@ -15,6 +15,7 @@ use Talesweaver\Application\Http\Entity\BookResolver;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
 use Talesweaver\Application\Query\Book\ChaptersPage;
+use Talesweaver\Application\Query\Book\PublicationsPage;
 use Talesweaver\Application\Query\Book\ScenesPage;
 use Talesweaver\Domain\Book;
 
@@ -75,6 +76,7 @@ final class EditController
             new DTO($book),
             ['bookId' => $book->getId()]
         );
+
         if (true === $formHandler->isSubmissionValid()) {
             return $this->processFormDataAndRedirect($book, $formHandler->getData());
         }
@@ -86,7 +88,8 @@ final class EditController
                 'bookId' => $book->getId(),
                 'title' => $book->getTitle(),
                 'chapters' => $this->queryBus->query(new ChaptersPage($book, 1)),
-                'scenes' => $this->queryBus->query(new ScenesPage($book, 1))
+                'scenes' => $this->queryBus->query(new ScenesPage($book, 1)),
+                'publications' => $this->queryBus->query(new PublicationsPage($book, 1)),
             ]
         );
     }

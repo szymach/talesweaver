@@ -31,6 +31,7 @@
                 <join-column on-delete="CASCADE"/>
             </join-columns>
         </many-to-one>
+
         <many-to-many field="publications" target-entity="Talesweaver\Domain\Publication">
             <cascade>
                 <cascade-persist />
