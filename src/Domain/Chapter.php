@@ -50,6 +50,7 @@ class Chapter
         $this->translations = new ArrayCollection();
         $this->createdBy = $author;
         $this->createdAt = new DateTimeImmutable();
+        $this->publications = new ArrayCollection();
     }
 
     public function __toString()
