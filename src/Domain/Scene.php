@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Talesweaver\Domain;
 
-use Assert\Assertion;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\Criteria;
-use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Traits\CreatedByTrait;
+use Talesweaver\Domain\Traits\PublishableTrait;
 use Talesweaver\Domain\Traits\TimestampableTrait;
 use Talesweaver\Domain\Traits\TranslatableTrait;
 use Talesweaver\Domain\ValueObject\LongText;
@@ -19,7 +17,7 @@ use Talesweaver\Domain\ValueObject\ShortText;
 
 class Scene
 {
-    use CreatedByTrait, TimestampableTrait, TranslatableTrait;
+    use CreatedByTrait, PublishableTrait, TimestampableTrait, TranslatableTrait;
 
     /**
      * @var UuidInterface
@@ -62,11 +60,6 @@ class Scene
     private $events;
 
     /**
-     * @var Collection<Publication>
-     */
-    private $publications;
-
-    /**
      * @param UuidInterface $id
      * @param ShortText $title
      * @param Chapter|null $chapter
@@ -106,21 +99,6 @@ class Scene
         $this->chapter = $chapter;
 
         $this->update();
-    }
-
-    public function publish(ShortText $title, LongText $parsedContent, bool $visible): void
-    {
-        Assertion::notNull($this->locale, "Cannot publish scene \"{$this->id->toString()}\" without a locale");
-        $this->publications->add(
-            new Publication(
-                Uuid::uuid4(),
-                $this->createdBy,
-                $title,
-                $parsedContent,
-                $visible,
-                $this->locale
-            )
-        );
     }
 
     public function getId(): UuidInterface
@@ -220,22 +198,5 @@ class Scene
     public function getEvents(): array
     {
         return $this->events->toArray();
-    }
-
-    public function getPublications(): array
-    {
-        return $this->publications->toArray();
-    }
-
-    public function getCurrentPublication(string $locale): ?Publication
-    {
-        $criteria = Criteria::create()
-            ->where(Criteria::expr()->eq('locale', $locale))
-            ->orderBy(['createdAt' => 'DESC'])
-            ->setMaxResults(1)
-        ;
-
-        $result = $this->publications->matching($criteria)->first();
-        return true === $result instanceof Publication ? $result : null;
     }
 }

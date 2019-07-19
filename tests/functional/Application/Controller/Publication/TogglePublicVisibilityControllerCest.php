@@ -21,8 +21,8 @@ final class TogglePublicVisibilityControllerCest
         /** @var Publication $publication */
         $publication = $I->haveCreatedAScenePublication($scene, 'Publikacja', false);
 
-        $I->amOnPage("/pl/publication/display-public/{$publication->getId()->toString()}");
-        $I->seeCurrentUrlEquals("/pl/publication/display-public/{$publication->getId()->toString()}");
+        $I->amOnPage("/pl/publication/public/{$publication->getId()->toString()}");
+        $I->seeCurrentUrlEquals("/pl/publication/public/{$publication->getId()->toString()}");
         $I->seeResponseCodeIs(404);
 
         $I->amOnPage('/');
@@ -30,8 +30,8 @@ final class TogglePublicVisibilityControllerCest
         $I->sendGET("/pl/publication/toggle/{$publication->getId()->toString()}");
         $I->seeResponseCodeIs(200);
 
-        $I->amOnPage("/pl/publication/display-public/{$publication->getId()->toString()}");
-        $I->seeCurrentUrlEquals("/pl/publication/display-public/{$publication->getId()->toString()}");
+        $I->amOnPage("/pl/publication/public/{$publication->getId()->toString()}");
+        $I->seeCurrentUrlEquals("/pl/publication/public/{$publication->getId()->toString()}");
         $I->seeResponseCodeIs(200);
     }
 }

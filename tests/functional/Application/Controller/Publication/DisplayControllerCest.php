@@ -11,20 +11,24 @@ use Talesweaver\Tests\FunctionalTester;
 final class DisplayControllerCest
 {
     /**
-     * @var Scene
+     * @var Publication
      */
-    private $scene;
+    private $visiblePublication;
 
     /**
      * @var Publication
      */
-    private $publication;
+    private $notVisiblePublication;
 
     public function testPublicationDisplayPageResponse(FunctionalTester $I): void
     {
-        $I->amOnPage("/pl/publication/display/{$this->publication->getId()->toString()}");
+        $I->amOnPage("/pl/publication/display/{$this->notVisiblePublication->getId()->toString()}");
         $I->seeResponseCodeIs(200);
-        $I->see('Publikacja');
+        $I->see('Publikacja 1');
+
+        $I->amOnPage("/pl/publication/display/{$this->visiblePublication->getId()->toString()}");
+        $I->seeResponseCodeIs(200);
+        $I->see('Publikacja 2');
     }
 
     public function testPublicationPublicDisplayPageResponse(FunctionalTester $I): void
@@ -32,13 +36,13 @@ final class DisplayControllerCest
         $I->amOnPage('/logout');
         $I->seeCurrentUrlEquals('/pl/login');
 
-        $I->amOnPage("/pl/publication/display/{$this->publication->getId()->toString()}");
-        $I->seeCurrentUrlEquals('/pl/login');
+        $I->amOnPage("/pl/publication/public/{$this->notVisiblePublication->getId()->toString()}");
+        $I->seeResponseCodeIs(404);
 
-        $I->amOnPage("/pl/publication/display-public/{$this->publication->getId()->toString()}");
-        $I->seeCurrentUrlEquals("/pl/publication/display-public/{$this->publication->getId()->toString()}");
+        $I->amOnPage("/pl/publication/public/{$this->visiblePublication->getId()->toString()}");
+        $I->seeCurrentUrlEquals("/pl/publication/public/{$this->visiblePublication->getId()->toString()}");
         $I->seeResponseCodeIs(200);
-        $I->see('Publikacja');
+        $I->see('Publikacja 2');
     }
 
     /**
@@ -50,11 +54,14 @@ final class DisplayControllerCest
 
         /** @var Scene $scene */
         $scene = $I->haveCreatedAScene('Scena');
-        $this->scene = $scene;
-        $this->scene->setLocale('pl');
+        $scene->setLocale('pl');
 
-        /** @var Publication $publication */
-        $publication = $I->haveCreatedAScenePublication($scene, 'Publikacja');
-        $this->publication = $publication;
+        /** @var Publication $notVisiblePublication */
+        $notVisiblePublication = $I->haveCreatedAScenePublication($scene, 'Publikacja 1', false);
+        $this->notVisiblePublication = $notVisiblePublication;
+
+        /** @var Publication $visiblePublication */
+        $visiblePublication = $I->haveCreatedAScenePublication($scene, 'Publikacja 2', true);
+        $this->visiblePublication = $visiblePublication;
     }
 }
