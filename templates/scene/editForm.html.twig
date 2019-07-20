@@ -51,7 +51,16 @@
                     {{ macros.tabContent(
                         'relatedScenes',
                         'relatedScenesTab',
-                        include('scene/tab/relatedScenes.html.twig', { chapterId: chapterId, list: relatedScenes, page: 1 }, with_context = false),
+                        include(
+                            'scene/tab/relatedScenes.html.twig',
+                            {
+                                chapterTitle: chapterTitle,
+                                chapterId: chapterId,
+                                list: relatedScenes,
+                                page: 1
+                            },
+                            with_context = false
+                        ),
                         'js-list-container'
                     ) }}
                 {% endif %}

@@ -126,6 +126,10 @@ dashboard:
 book:
     title: Tytuł
     description: Opis
+    chapters:
+        info: Lista rozdziałów przypisanych do książki.
+    scenes:
+        info: Lista scen przypisanych do książki.
     placeholder:
         title: Podaj tytuł książki i zapisz, by móc dodawać rozdziały
     actions:
@@ -157,6 +161,8 @@ chapter:
             standalone: Podaj tytuł rozdziału i zapisz, by móc dodawać sceny
         book: 'Przypisz do książki'
     book: Książka
+    scenes:
+        info: Lista scen przypisanych do rozdziału.
     actions:
         create: Nowy
         create_scene: Nowa scena
@@ -196,6 +202,8 @@ scene:
         chapter: 'Przypisz do rozdziału'
     chapter: Rozdział
     book: Książka
+    related:
+        info: 'Lista scen przypisanych do rozdziału "%title%".'
     header:
         new: Nowa scena
     actions:
@@ -235,6 +243,7 @@ event:
     location: Miejsce
     characters: Uczestnicy
     items: Przedmioty
+    info: Lista wydarzeń, jakie miały miejsce w tej scenie.
     header:
         new: Nowe wydarzenie
         edit: Edycja wydarzenia
@@ -257,6 +266,11 @@ character:
     name: Imię
     description: Opis
     avatar: Zdjęcie
+    info:
+        chapter: >
+            Lista postaci występujących w scenie. Możesz dodać postacie z innych
+            scen przypisanych do rozdziału.
+        standalone: Lista postaci występujących w scenie.
     actions:
         add_to_scene: 'Dodaj do sceny "%scene%"'
         create: Nowa postać
@@ -280,6 +294,11 @@ item:
     name: Nazwa
     description: Opis
     avatar: Zdjęcie
+    info:
+        chapter: >
+            Lista przedmiotów występujących w scenie. Możesz dodać przedmioty
+            z innych scen przypisanych do rozdziału.
+        standalone: Lista przedmiotów występujących w scenie.
     actions:
         create: Nowy przedmiot
         add_existing: Dodaj przedmiot z innej sceny
@@ -303,6 +322,11 @@ location:
     name: Nazwa
     description: Opis
     avatar: Zdjęcie
+    info:
+        chapter: >
+            Lista miejsc występujących w scenie. Możesz dodać miejsca z innych
+            scen przypisanych do rozdziału.
+        standalone: Lista miejsc występujących w scenie.
     actions:
         create: Nowe miejsce
         add_existing: Dodaj miejsce z innej sceny
@@ -363,6 +387,9 @@ pdf:
 publication:
     tab: Publikacje
     header: Nowa publikacja
+    info: >
+        Publikacje są migawką treści. Można dla nich włączyć publicznie dostępny
+        adres, a w razie czego go wyłączyć.
     title:
         label: Tytuł
         placeholder:

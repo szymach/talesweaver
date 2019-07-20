@@ -25,6 +25,11 @@ table:not(.dashboard) {
     }
 }
 
+.alert-outline-default {
+    border: 1px solid $gray-300;
+    color: $dark;
+}
+
 #alerts {
     position: relative;
 

@@ -1,3 +1,4 @@
+<div class="alert alert-outline-default">{{ 'book.scenes.info'|trans }}</div>
 <ul class="js-ajax-pagination list-inline" data-list-url="{{ path('book_scene_list', { id: bookId }) }}">
     {% for scene in scenes %}
         {% set displayLink = path('scene_display', { id: scene.id }) %}

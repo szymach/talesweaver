@@ -51,6 +51,7 @@ final class RelatedListController
         return $this->responseFactory->list(
             'scene/tab/relatedScenes.html.twig',
             [
+                'chapterTitle' => $chapter->getTitle(),
                 'chapterId' => $chapter->getId(),
                 'list' => $this->queryBus->query(new ScenesPage($chapter, $page)),
                 'page' => $page

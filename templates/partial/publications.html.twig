@@ -1,3 +1,4 @@
+<div class="alert alert-outline-default">{{ 'publication.info'|trans }}</div>
 <div class="text-right pb-2">
     <button class="btn btn-sm btn-success js-load-form"
             title="{{ 'publication.action.create'|trans }}"
@@ -14,7 +15,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title text-center">
-                            {{ publication.title|truncate(25) }}<br />
+                            {{ publication.title|truncate(20) }}<br />
                             <small>{{ ('publication.locale.' ~ publication.locale)|trans }}</small><br />
                             <small><i>{{ publication.createdAt|date('Y-m-d H:i') }}</i></small>
                         </h5>
