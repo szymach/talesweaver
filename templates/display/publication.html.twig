@@ -4,7 +4,6 @@
     <head>
         <meta charset="UTF-8" />
         <title>{{ title|default('meta.title'|trans) }}</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700">
         <style>
             {{ fileGetContents('assets/main.css') }}
         </style>
@@ -34,7 +33,6 @@
 </html>
 
 {% macro scenes(scenes) %}
-    {% import _self as macros %}
     {% for scene in scenes if scene.text is not empty %}
         <h3 class="text-center">{{ scene.title }}</h3>
         {{ macros.text(scene.text) }}
@@ -42,5 +40,5 @@
 {% endmacro %}
 
 {% macro text(text) %}
-    <section>{{ text|raw }}</section>
+    <section class="scene-content">{{ text|raw }}</section>
 {% endmacro %}

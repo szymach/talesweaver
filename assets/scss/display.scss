@@ -1,11 +1,13 @@
 .display {
     max-width: 1000px;
 
-    section + h1 + section + h2, section + h3 {
-        margin-top: 30px;
-    }
-
-    h1 + section, h2 + section, h3 + section {
+    h1 + h2,
+    h1 + h3,
+    h2 + h3,
+    h2 + .scene-content,
+    h3 + .scene-content,
+    .scene-content + h2,
+    .scene-content + h3 {
         margin-top: 30px;
     }
 }

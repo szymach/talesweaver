@@ -5,25 +5,32 @@
     </button>
 </div>
 <div class="modal-body">
-    {{ event.description|raw }}
+    <div class="pb-2">{{ event.description|raw }}</div>
     {% if event.location is not null %}
-        <h5>{{ 'event.display.location'|trans }}</h5>{{ event.location }}
+        <div class="pb-2">
+            <h5>{{ 'event.display.location'|trans }}</h5>
+            {{ event.location }}
+        </div>
     {% endif %}
     {% if event.characters|length > 0 %}
-        <h5>{{ 'event.characters'|trans }}</h5>
-        <ul>
-            {% for character in event.characters %}
-                <li>{{ character.name }}</li>
-            {% endfor %}
-        </ul>
+        <div class="pb-2">
+            <h5>{{ 'event.characters'|trans }}</h5>
+            <ul>
+                {% for character in event.characters %}
+                    <li>{{ character.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
     {% endif %}
     {% if event.items|length > 0 %}
-        <h5>{{ 'event.items'|trans }}</h5>
-        <ul>
-            {% for item in event.items %}
-                <li>{{ item.name }}</li>
-            {% endfor %}
-        </ul>
+        <div class="pb-2">
+            <h5>{{ 'event.items'|trans }}</h5>
+            <ul>
+                {% for item in event.items %}
+                    <li>{{ item.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
     {% endif %}
 </div>
 <div class="modal-footer">

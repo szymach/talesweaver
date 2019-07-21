@@ -1,11 +1,12 @@
 {% macro displayButton(link) %}
-    <a class="btn btn-outline-secondary"
+    <a class="btn btn-outline-secondary js-display"
        href="{{ link }}"
+       data-display-url="{{ link }}"
        target="_blank"
        title="{{ 'display.title'|trans }}"
     >
         <span class="fa fa-eye"></span>
-        <span>{{ 'display.label'|trans }}</span>
+        {{ 'display.label'|trans }}
     </a>
 {% endmacro %}
 
@@ -16,14 +17,15 @@
        title="{{ 'pdf.title'|trans }}"
     >
         <span class="fa fa-file-pdf-o"></span>
-        <span>{{ 'pdf.label'|trans }}</span>
+        {{ 'pdf.label'|trans }}
     </a>
 {% endmacro %}
 
 {% macro menuItem(url, attributes, icon, label, linkClass) %}
     <li class="nav-item{% if linkClass is not empty %} {{ linkClass }}{% endif %}">
-        <a href="{{ url }}"{% for name, value in attributes %} {{ name }}="{{ value }}"{% endfor %} class="nav-link">
-            <span class="fa {{ icon }}"></span> {{ label }}
+        <a href="{{ url }}" class="nav-link"{% for name, value in attributes %} {{ name }}="{{ value }}"{% endfor %}>
+            <span class="fa {{ icon }}"></span>
+            {{ label }}
         </a>
     </li>
 {% endmacro %}

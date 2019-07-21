@@ -5,9 +5,10 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
-<div class="modal-body">
+<div class="display modal-body">
     {% if chapters is defined %}
         {% for chapter in chapters if chapter.scenes|length > 0 %}
+            <h2 class="pb-2">{{ chapter.title }}</h2>
             {{ macros.scenes(chapter.scenes) }}
         {% endfor %}
     {% elseif scenes is defined %}
@@ -24,11 +25,11 @@
 
 {% macro scenes(scenes) %}
     {% for scene in scenes if scene.text is not empty %}
-        <h3>{{ scene.title }}</h3>
+        <h3 class="pb-2">{{ scene.title }}</h3>
         {{ macros.text(scene.text) }}
     {% endfor %}
 {% endmacro %}
 
 {% macro text(text) %}
-    <div>{{ text|raw }}</div>
+    <section class="scene-content pb-2">{{ text|raw }}</section>
 {% endmacro %}

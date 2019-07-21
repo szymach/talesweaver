@@ -4,7 +4,6 @@
     <head>
         <meta charset="UTF-8" />
         <title>{{ title }}</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700">
         <link rel="stylesheet" href="{{ absolute_url(asset('assets/main.css')) }}">
     </head>
     <body>
@@ -15,10 +14,10 @@
                     {% if chapters is defined %}
                         {% for chapter in chapters if chapter.scenes|length > 0 %}
                             <h2 class="text-center">{{ chapter.title }}</h2>
-                            {{ macros.scenes(chapter.scenes) }}
+                            {{ macros.scenes(chapter.scenes, 'h3') }}
                         {% endfor %}
                     {% elseif scenes is defined %}
-                        {{ macros.scenes(scenes) }}
+                        {{ macros.scenes(scenes, 'h2') }}
                     {% elseif text is defined %}
                         {{ macros.text(text) }}
                     {% endif %}
@@ -29,14 +28,13 @@
     </body>
 </html>
 
-{% macro scenes(scenes) %}
-    {% import _self as macros %}
+{% macro scenes(scenes, tag) %}
     {% for scene in scenes if scene.text is not empty %}
-        <h3 class="text-center">{{ scene.title }}</h3>
+        <{{ tag }} class="text-center">{{ scene.title }}</{{ tag }}>
         {{ macros.text(scene.text) }}
     {% endfor %}
 {% endmacro %}
 
 {% macro text(text) %}
-    <section>{{ text|raw }}</section>
+    <section class="scene-content">{{ text|raw }}</section>
 {% endmacro %}
