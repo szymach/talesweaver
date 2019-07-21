@@ -79,14 +79,20 @@
     </div>
 {% else %}
     <div class="row">
-        <div class="col-sm text-center">
-            <h4>{{ noResults.header|trans }}</h4>
-            <a class="btn btn-sm btn-success"
-               href="{{ create.path }}"
-               title="{{ noResults.title|trans }}"
-            >
-                <span class="fa fa-plus"></span> {{ noResults.action|trans }}
-            </a>
+        <div class="col text-center">
+            <div class="card w-50 mx-auto">
+                <div class="card-body">
+                    <h4 class="card-header">{{ noResults.header|trans }}</h4>
+                    <p class="card-body">
+                        <a class="btn btn-sm btn-success"
+                           href="{{ create.path }}"
+                           title="{{ noResults.title|trans }}"
+                        >
+                            <span class="fa fa-plus"></span> {{ noResults.action|trans }}
+                        </a>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 {% endif %}

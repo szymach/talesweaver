@@ -1,15 +1,19 @@
 {% extends 'base.html.twig' %}
 
+{% set hasTimeline = timeline|length > 0 %}
+
 {% block body %}
     <div class="row">
-        <div class="col-sm col-md-7 text-center">
+        <div class="col-sm col-md-7">
             <h3>{{ 'dashboard.header.top'|trans }}</h3>
         </div>
-        {% if timeline|length > 0 %}
-            <div class="col-sm col-md-5">
-                <div class="card border-secondary">
-                    <h4 class="card-header border-secondary">{{ 'dashboard.timeline'|trans }}</h4>
-                    <div class="card-body">
+        <div class="col-sm col-md-5">
+            <div class="card">
+                <h4 class="card-header">
+                    {{- ('dashboard.' ~ (hasTimeline ? 'timeline' : 'actions.header'))|trans -}}
+                </h4>
+                <div class="card-body">
+                    {% if hasTimeline %}
                         <ul class="list-unstyled">
                             {% for item in timeline %}
                                 <li>
@@ -24,9 +28,32 @@
                                 </li>
                             {% endfor %}
                         </ul>
-                    </div>
+                    {% else %}
+                        <ol>
+                            <li>
+                                <a href="{{ path('about') }}">
+                                    {{ 'dashboard.actions.learn_more'|trans }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('scene_create') }}">
+                                    {{ 'dashboard.actions.create_scene'|trans }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('chapter_create') }}">
+                                    {{ 'dashboard.actions.create_chapter'|trans }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('book_create') }}">
+                                    {{ 'dashboard.actions.create_book'|trans }}
+                                </a>
+                            </li>
+                        </ol>
+                    {% endif %}
                 </div>
             </div>
-        {% endif %}
+        </div>
     </div>
 {% endblock %}

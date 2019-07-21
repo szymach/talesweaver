@@ -20,6 +20,7 @@ crud:
     remove_from_scene: Usuń ze sceny
 
 common:
+    start: Start
     books: Książki
     chapters: Rozdziały
     scenes: Sceny
@@ -116,6 +117,12 @@ dashboard:
     header:
         top: Witaj w aplikacji Bajkopisarz!
     timeline: Ostatnie zmiany
+    actions:
+        header: Pierwsze kroki
+        learn_more: Dowiedz się więcej
+        create_scene: Stwórz pierwszą scenę
+        create_chapter: Stwórz pierwszy rozdział
+        create_book: Stwórz pierwszą książkę
     type:
         'Talesweaver\Domain\Book': Książka
         'Talesweaver\Domain\Chapter': Rozdział

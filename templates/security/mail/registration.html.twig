@@ -5,6 +5,7 @@
     <body>
         {{ 'security.registration.mail.body'|trans }}
         <br />
+        <br />
         <a href="{{ url('activation', { code: code }) }}" target="_blank">
             {{ 'security.registration.mail.link'|trans }}
         </a>

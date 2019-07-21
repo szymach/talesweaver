@@ -14,13 +14,15 @@
         {{ macros.card('scene') }}
         {{ macros.card('publication') }}
     </div>
-    <div class="row pt-4">
-        <div class="col text-center">
-            <a class="btn btn-success btn-lg" href="{{ path('register') }}">
-                {{- 'register'|trans -}}
-            </a>
+    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+        <div class="row pt-4">
+            <div class="col text-center">
+                <a class="btn btn-success btn-lg" href="{{ path('register') }}">
+                    {{- 'register'|trans -}}
+                </a>
+            </div>
         </div>
-    </div>
+    {% endif %}
 {% endblock %}
 
 {% macro card(key) %}

@@ -14,7 +14,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-collapse collapse" id="menu">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav ml-auto">
+                {{ macros.mainMenuItem('index', 'common.start'|trans, currentRoute) }}
                 {{ macros.mainMenuItem('book_list', 'common.books'|trans, currentRoute) }}
                 {{ macros.mainMenuItem('chapter_list', 'common.chapters'|trans, currentRoute) }}
                 {{ macros.mainMenuItem('scene_list', 'common.scenes'|trans, currentRoute) }}
