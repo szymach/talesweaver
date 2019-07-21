@@ -4,6 +4,11 @@ index:
     controller: Talesweaver\Application\Controller\DashboardController
     methods:  GET
 
+about:
+    path: /page/about
+    controller: Talesweaver\Application\Controller\Information\AboutController
+    methods:  GET
+
 alerts:
     path: /alerts
     controller: Talesweaver\Application\Controller\AlertsController

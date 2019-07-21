@@ -1,0 +1,33 @@
+{% extends 'information/base.html.twig' %}
+
+{% trans_default_domain 'information' %}
+
+{% import _self as macros %}
+
+{% block title 'about.title'|trans %}
+{% block header 'about.header'|trans %}
+
+{% block content %}
+    <div class="row">
+        {{ macros.card('preface') }}
+        {{ macros.card('structure') }}
+        {{ macros.card('scene') }}
+        {{ macros.card('publication') }}
+    </div>
+    <div class="row pt-4">
+        <div class="col text-center">
+            <a class="btn btn-success btn-lg" href="{{ path('register') }}">
+                {{- 'register'|trans -}}
+            </a>
+        </div>
+    </div>
+{% endblock %}
+
+{% macro card(key) %}
+    <div class="card col-sm-6 col-md-3">
+        <div class="card-header">{{ ('about.' ~ key ~ '.header')|trans }}</div>
+        <div class="card-body">
+            <p class="card-text">{{ ('about.' ~ key ~ '.content')|trans }}</p>
+        </div>
+    </div>
+{% endmacro %}

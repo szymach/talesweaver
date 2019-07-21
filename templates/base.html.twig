@@ -5,7 +5,6 @@
         <title>{% block seoTitle 'meta.title'|trans %}</title>
         <meta name="description" content="{% block seoDescription '' %}" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700">
         <link rel="stylesheet" href="{{ absolute_url(asset('assets/main.css')) }}">
         {% block stylesheets '' %}
         <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
@@ -16,7 +15,7 @@
         <main class="container">
             {% block body '' %}
         </main>
-        <footer>{% block footer '' %}</footer>
+        <footer class="fixed-bottom">{% block footer '' %}</footer>
         <script src="{{ absolute_url(asset('assets/main.js')) }}" async></script>
         {% block javascripts '' %}
         {% include 'modal/delete.html.twig' %}

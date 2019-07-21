@@ -90,7 +90,7 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
     private function addScenesToChapter(ObjectManager $manager, Chapter $chapter, int $bookIndex, $chapterIndex): void
     {
         for ($i = 1; $i <= self::SCENE_COUNT; $i++) {
-            $title = new ShortText("Scena {$i} {$bookIndex} {$chapterIndex}");
+            $title = new ShortText("Scena {$i} {$chapterIndex} {$bookIndex}");
             $scene = new Scene(Uuid::uuid4(), $title, $chapter, $chapter->getCreatedBy());
             $scene->edit($title, LongText::fromNullableString($this->createRandomText(40)), $chapter);
             $scene->setLocale(self::LOCALE);

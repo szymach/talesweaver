@@ -1,0 +1,31 @@
+---
+login: Powrót do strony głównej
+register: Zarejestruj się!
+
+about:
+    title: O aplikacji Bajkopisarz
+    header: Bajkopisarz
+    preface:
+        header: Opis
+        content: >
+            Bajkopisarz jest aplikacją stworzoną by pomóc pisarzom zorganizować
+            swoją pracę w łatwo zarządzalne części.
+    structure:
+        header: Struktura
+        content: >
+            Podstawowym elementem każdego dzieła jest scena. Sceny można przypisać do
+            rozdziału, a je do książki.
+
+    scene:
+        header: Scena
+        content: >
+            Zawiera faktyczną treść, można do niej dodać postacie, przedmioty,
+            miejsca oraz wydarzenia. Elementy te można dodawać między scenami
+            z tego samego rozdziału lub książki.
+
+    publication:
+        header: Publikacja treści
+        content: >
+            Treść każdego elementu - książki, rozdziału czy sceny - można opublikować.
+            Stworzy to stronę ze sformatowaną treścią, którą można również udostępnić
+            innym osobom.

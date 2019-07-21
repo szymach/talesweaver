@@ -27,6 +27,7 @@ common:
 
 security:
     header: Bajkopisarz
+    about: O aplikacji
     login:
         header: Logowanie
         register: Rejestracja
@@ -40,7 +41,7 @@ security:
             placeholder: Podaj swoje hasło
     registration:
         header: Rejestracja
-        login: Logowanie
+        login: Powrót do logowania
         email:
             label: Email
             placeholder: 'np. email@example.com'

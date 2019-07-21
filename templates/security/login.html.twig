@@ -4,8 +4,15 @@
 {% block subheader 'security.login.header'|trans %}
 
 {% block links %}
-    <a class="btn btn-link btn-sm" href="{{ path('register') }}" tabindex="4">{{ 'security.login.register'|trans }}</a>
-    <a class="btn btn-link btn-sm" href="{{ path('password_reset_request') }}"tabindex="5">{{ 'security.login.password_reset'|trans }}</a>
+    <a class="btn btn-link btn-sm" href="{{ path('register') }}" tabindex="4">
+        {{- 'security.login.register'|trans -}}
+    </a>
+    <a class="btn btn-link btn-sm" href="{{ path('password_reset_request') }}"tabindex="5">
+        {{- 'security.login.password_reset'|trans -}}
+    </a>
+    <a class="btn btn-link btn-sm" href="{{ path('about') }}"tabindex="6">
+        {{- 'security.about'|trans -}}
+    </a>
 {% endblock %}
 
 {% block body %}
