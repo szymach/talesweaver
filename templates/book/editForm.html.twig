@@ -24,7 +24,7 @@
                 {{ macros.tabContent(
                     'formContent',
                     'formContentTab',
-                    include('book/tab/content.html.twig', { form: form }, with_context = false),
+                    include('book/tab/content.html.twig', { id: bookId, form: form }, with_context = false),
                     'active show'
                 ) }}
                 {{ macros.tabContent(
@@ -58,13 +58,6 @@
             </div>
         </div>
     </div>
-    {% embed 'partial/sidemenu.html.twig' with { bookId: bookId } %}
-        {% import 'partial/macros.html.twig' as macros %}
-        {% block content %}
-            {{ macros.sidemenuDisplayLink(path('book_display', { id: bookId })) }}
-            {{ macros.sidemenuPdfLink(path('book_pdf', { id: bookId })) }}
-        {% endblock %}
-    {% endembed %}
 {% endblock %}
 
 {% block modals %}

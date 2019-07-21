@@ -25,7 +25,7 @@
                 {{ macros.tabContent(
                     'formContent',
                     'formContentTab',
-                    include('chapter/tab/content.html.twig', { form: form }, with_context = false),
+                    include('chapter/tab/content.html.twig', { id: chapterId, form: form }, with_context = false),
                     'active show'
                 ) }}
                 {{ macros.tabContent(
@@ -57,13 +57,4 @@
         {% include 'modal/display.html.twig' with { class: 'modal-lg' } only %}
         {% include 'modal/form.html.twig' with {} only %}
     {% endblock %}
-    {% embed 'partial/sidemenu.html.twig' with {
-        display: macros.sidemenuDisplayLink(path('chapter_display', { id: chapterId })),
-        pdf: macros.sidemenuPdfLink(path('chapter_pdf', { id: chapterId }))
-    } %}
-        {% block content %}
-            {{ display|raw }}
-            {{ pdf|raw }}
-        {% endblock %}
-    {% endembed %}
 {% endblock %}

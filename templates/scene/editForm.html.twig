@@ -28,7 +28,7 @@
                 {{ macros.tabContent(
                     'formContent',
                     'formContentTab',
-                    include('scene/form/editForm.html.twig', { form: form }, with_context = false),
+                    include('scene/form/editForm.html.twig', { id: sceneId, form: form }, with_context = false),
                     'active show'
                 ) }}
                 {{ macros.tabContent(
@@ -91,15 +91,6 @@
             </div>
         </div>
     </div>
-    {% embed 'partial/sidemenu.html.twig' with {
-        display: macros.sidemenuDisplayLink(path('scene_display', { id: sceneId })),
-        pdf: macros.sidemenuPdfLink(path('scene_pdf', { id: sceneId }))
-    } %}
-        {% block content %}
-            {{ display|raw }}
-            {{ pdf|raw }}
-        {% endblock %}
-    {% endembed %}
 {% endblock %}
 
 {% block modals %}

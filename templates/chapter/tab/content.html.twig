@@ -1,3 +1,8 @@
+{% import 'partial/macros.html.twig' as macros %}
+<div class="text-right pb-2">
+   {{ macros.displayButton(path('chapter_display', { id: id })) }}
+   {{ macros.pdfButton(path('chapter_pdf', { id: id })) }}
+</div>
 {{ form_start(form) }}
     {{ form_row(form.title) }}
     <div class="form-group row">
