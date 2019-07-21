@@ -50,7 +50,7 @@ export module Alerts {
             }
         );
 
-        document.querySelectorAll('#alerts .alert').forEach(
+        document.querySelectorAll('#alerts .alert:not(.alert-unfadable)').forEach(
             (alert: Element): void => {
                 window.setTimeout((): void => {
                     fadeOut(alert, 1);

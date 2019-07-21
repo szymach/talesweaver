@@ -57,6 +57,16 @@ table:not(.dashboard) {
     }
 }
 
+body.security {
+    #alerts {
+        .alert {
+            @include media-breakpoint-up(md) {
+                margin-left: -300px;
+            }
+        }
+    }
+}
+
 .btn-success:focus {
     background-color: darken($success, 6%);
 }

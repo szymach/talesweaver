@@ -13,7 +13,7 @@ use Talesweaver\Domain\PasswordResetToken;
 use Talesweaver\Domain\PasswordResetTokens;
 use Talesweaver\Domain\ValueObject\Email;
 
-class PasswordResetTokenRepository extends ServiceEntityRepository implements PasswordResetTokens
+final class PasswordResetTokenRepository extends ServiceEntityRepository implements PasswordResetTokens
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -57,7 +57,7 @@ class PasswordResetTokenRepository extends ServiceEntityRepository implements Pa
         $this->getEntityManager()
             ->createQueryBuilder()
             ->update($this->getEntityName(), 'pt')
-            ->set('pt.active', false)
+            ->set('pt.active', 'false')
             ->where('pt.id IN (:ids)')
             ->setParameter('ids', $previousTokensIds)
             ->getQuery()
