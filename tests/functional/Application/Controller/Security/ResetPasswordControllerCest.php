@@ -16,7 +16,7 @@ class ResetPasswordControllerCest
         $I->seeElement('form[name="reset_password_request"]');
         $I->see('Email');
         $I->see('Wyślij');
-        $I->see('Logowanie');
+        $I->see('Powrót do logowania');
     }
 
     public function resetPasswordFormRequestSubmit(FunctionalTester $I)
@@ -42,7 +42,7 @@ class ResetPasswordControllerCest
         $I->see('Nowe hasło');
         $I->see('Powtórz nowe hasło');
         $I->see('Zmień hasło');
-        $I->see('Logowanie');
+        $I->see('Powrót do logowania');
 
         $I->fillField('Nowe hasło', 'nowe_haslo_123');
         $I->fillField('Powtórz nowe hasło', 'nowe_haslo_123');

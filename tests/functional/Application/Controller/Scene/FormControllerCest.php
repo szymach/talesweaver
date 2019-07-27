@@ -32,7 +32,6 @@ final class FormControllerCest
         $I->seeElement('a[title="Przejdź do strony z podglądem"]');
         $I->seeElement('a[title="Pobierz w formacie PDF"]');
         $I->see('Wróć do listy', 'a');
-        $I->seeElement('nav.side-menu');
         $I->see('Postacie', 'a');
         $I->see('Przedmioty', 'a');
         $I->see('Miejsca', 'a');
