@@ -169,8 +169,9 @@ chapter:
             standalone: Podaj tytuł rozdziału i zapisz, by móc dodawać sceny
         book: 'Przypisz do książki'
     book: Książka
-    scenes:
-        info: Lista scen przypisanych do rozdziału.
+    info:
+        book: 'Lista rozdziałóœ przypisanych do książki "%title%".'
+        scenes: Lista scen przypisanych do rozdziału.
     actions:
         create: Nowy
         create_scene: Nowa scena

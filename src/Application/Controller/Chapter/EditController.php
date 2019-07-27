@@ -14,6 +14,7 @@ use Talesweaver\Application\Form\Type\Chapter\Edit;
 use Talesweaver\Application\Http\Entity\ChapterResolver;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
 use Talesweaver\Application\Http\UrlGenerator;
+use Talesweaver\Application\Query\Book\ChaptersPage;
 use Talesweaver\Application\Query\Chapter\PublicationsPage;
 use Talesweaver\Application\Query\Chapter\ScenesPage;
 use Talesweaver\Domain\Chapter;
@@ -69,13 +70,15 @@ final class EditController
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
         $chapter = $this->chapterResolver->fromRequest($request);
-        $bookId = null !== $chapter->getBook() ? $chapter->getBook()->getId() : null;
+        $book = $chapter->getBook();
+        $bookId = null !== $book ? $book->getId() : null;
         $formHandler = $this->formHandlerFactory->createWithRequest(
             $request,
             Edit::class,
             new DTO($chapter),
             ['chapterId' => $chapter->getId(), 'bookId' => $bookId]
         );
+
         if (true === $formHandler->isSubmissionValid()) {
             return $this->processFormDataAndRedirect($chapter, $formHandler->getData());
         }
@@ -86,7 +89,9 @@ final class EditController
                 'form' => $formHandler->createView(),
                 'chapterId' => $chapter->getId(),
                 'bookId' => $bookId,
+                'bookTitle' => null !== $book ? $book->getTitle() : null,
                 'title' => $chapter->getTitle(),
+                'chapters' => null !== $book ? $this->queryBus->query(new ChaptersPage($book, 1)) : null,
                 'scenes' => $this->queryBus->query(new ScenesPage($chapter, 1)),
                 'publications' => $this->queryBus->query(new PublicationsPage($chapter, 1)),
             ]

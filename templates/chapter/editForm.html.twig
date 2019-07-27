@@ -12,6 +12,7 @@
             {{ macros.tabNavigation([
                 macros.tab('formContentTab', 'formContent', 'common.content', 'active'),
                 macros.tab('publicationsTab', 'publications', 'publication.tab', ''),
+                chapters is not null ? macros.tab('chaptersTab', 'chapters', 'chapter.book', '') : '',
                 macros.tab('scenesTab', 'scenes', 'common.scenes', '')
             ], {
                 link: bookId is not null ? path('book_edit', { id: bookId }) : path('chapter_list'),
@@ -44,6 +45,19 @@
                     ),
                     'js-list-container'
                 ) }}
+                {% if chapters is not null %}
+                    {{ macros.tabContent(
+                        'chapters',
+                        'chaptersTab',
+                        include('book/tab/chapters.html.twig', {
+                            bookId: bookId,
+                            chapters: chapters,
+                            title: 'chapter.info.book'|trans({ '%title%': bookTitle }),
+                            page: 1
+                        }, with_context = false),
+                        'js-list-container'
+                    ) }}
+                {% endif %}
                 {{ macros.tabContent(
                     'scenes',
                     'scenesTab',

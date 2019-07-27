@@ -1,4 +1,4 @@
-<div class="alert alert-outline-default">{{ 'chapter.scenes.info'|trans }}</div>
+<div class="alert alert-outline-default">{{ 'chapter.info.scenes'|trans }}</div>
 <div class="text-right pb-2">
     <button class="btn btn-sm btn-success js-load-form"
             title="{{ 'chapter.actions.create_scene'|trans }}"
@@ -7,7 +7,7 @@
         <span class="fa fa-plus"></span>
     </button>
 </div>
-<ul class="js-ajax-pagination list-inline" data-list-url="{{ path('chapter_scenes_list', { id: chapterId }) }}">
+<ul class="js-ajax-pagination list-inline" data-list-url="{{ path('chapter_scenes_list', { id: chapterId, page: page }) }}">
     {% if scenes|length > 0 %}
         {% for scene in scenes %}
         {% set displayLink = path('scene_display', { id: scene.id }) %}
@@ -43,4 +43,8 @@
         {% endfor %}
     {% endif %}
 </ul>
-{% include 'partial/pagination.html.twig' with { paginator: scenes, route: 'chapter_scenes_list', parameters: { id: chapterId }} only %}
+{% include 'partial/pagination.html.twig' with {
+    paginator: scenes,
+    route: 'chapter_scenes_list',
+    parameters: { id: chapterId, page: page }
+} only %}
