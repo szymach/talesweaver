@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="{{ column|default('col') }}">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{ path('index') }}">
+                    {{- 'common.start'|trans -}}
+                </a>
+            </li>
+            {% for item in items %}
+                <li class="breadcrumb-item{% if loop.last %} active{% endif %}">
+                    {% if loop.last %}
+                        {{- item.label -}}
+                    {% else %}
+                        <a href="{{ item.url }}">
+                            {{- item.label -}}
+                        </a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+</div>

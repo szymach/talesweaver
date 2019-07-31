@@ -13,6 +13,7 @@
         {% include 'partial/topMenu.html.twig' with {} only %}
         {% include 'partial/alertsContainer.html.twig' with {} only %}
         <main class="container">
+            {% block breadcrumbs '' %}
             {% block body '' %}
         </main>
         <footer class="fixed-bottom">{% block footer '' %}</footer>

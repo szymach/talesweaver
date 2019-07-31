@@ -3,6 +3,15 @@
 {% form_theme form 'form/formTheme.html.twig' %}
 
 {% block seoTitle 'scene.seo_title.form.create'|trans %}
+{% block breadcrumbs %}
+    {% include 'partial/breadcrumbs.html.twig' with {
+        items: [
+            { label: 'common.scenes'|trans, url: path('scene_list') },
+            { label: 'scene.seo_title.form.create'|trans }
+        ],
+        column: 'col col-md-10 offset-md-1'
+    } only %}
+{% endblock %}
 {% block body %}
     <div class="row">
         <div class="col-md-10 offset-md-1">

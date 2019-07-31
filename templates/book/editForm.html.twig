@@ -4,6 +4,15 @@
 {% form_theme form 'form/formTheme.html.twig' %}
 
 {% block seoTitle 'book.seo_title.form.edit'|trans({ '%title%': title }) %}
+{% block breadcrumbs %}
+    {% include 'partial/breadcrumbs.html.twig' with {
+        items: [
+            { label: 'common.books'|trans, url: path('book_list') },
+            { label: title }
+        ],
+        column: 'col col-md-10 offset-md-1'
+    } only %}
+{% endblock %}
 {% block body %}
     <div class="row">
         <div class="col col-md-10 offset-md-1">

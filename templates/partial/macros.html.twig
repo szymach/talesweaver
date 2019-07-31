@@ -56,19 +56,11 @@
     </li>
 {% endmacro %}
 
-{% macro tabNavigation(tabs, return = null) %}
+{% macro tabNavigation(tabs) %}
     <ul class="nav nav-tabs" role="tablist">
         {% for tab in tabs %}
             {{ tab|raw }}
         {% endfor %}
-        {% if return is not null %}
-            <li class="nav-item">
-                <a class="nav-link" href="{{ return.link }}">
-                    <span class="fa fa-angle-left"></span>
-                    {{ return.label }}
-                </a>
-            </li>
-        {% endif %}
     </ul>
 {% endmacro %}
 

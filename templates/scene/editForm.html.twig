@@ -4,7 +4,18 @@
 {% set hasChapter = chapterId is not null %}
 
 {% block seoTitle 'scene.seo_title.form.edit'|trans({ '%title%': title }) %}
-
+{% block breadcrumbs %}
+    {% include 'partial/breadcrumbs.html.twig' with {
+        items: [
+            chapterId is not null
+                ? { label: chapterTitle, url: path('chapter_edit', { id: chapterId }) }
+                : { label: 'common.scenes'|trans, url: path('scene_list') }
+            ,
+            { label: title }
+        ],
+        column: 'col col-md-10 offset-md-1'
+    } only %}
+{% endblock %}
 {% block body %}
     <div class="row">
         <div class="col col-md-10 offset-md-1">
@@ -16,10 +27,7 @@
                 macros.tab('itemsTab', 'items', 'scene.tabs.items', ''),
                 macros.tab('locationsTab', 'locations', 'scene.tabs.locations', ''),
                 macros.tab('eventsTab', 'events', 'scene.tabs.events', '')
-            ], {
-                label: (chapterId is not null  ? 'scene.back.to_chapter' : 'scene.back.to_list')|trans,
-                link: chapterId is not null ? path('chapter_edit', { id: chapterId }) : path('scene_list', { page: app.request.get('page') })
-            }) }}
+            ]) }}
         </div>
     </div>
     <div class="row">
