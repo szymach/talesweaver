@@ -106,3 +106,19 @@ blockquote {
         font-weight: 600;
     }
 }
+
+.custom-select {
+    -moz-appearance: none;
+}
+
+[lang="pl"] {
+    .custom-file-label::after {
+        content: "Wybierz";
+    }
+}
+
+[lang="en"] {
+    .custom-file-label::after {
+        content: "Browse";
+    }
+}
