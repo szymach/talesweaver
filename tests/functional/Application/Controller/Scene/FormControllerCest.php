@@ -16,7 +16,6 @@ final class FormControllerCest
         $I->seeElement('form[name="create"]');
         $I->see('Tytuł', 'label[for="create_title"]');
         $I->see('Rozdział', 'label[for="create_chapter"]');
-        $I->see('Wróć do listy', 'a');
     }
 
     public function submitForms(FunctionalTester $I): void
@@ -31,7 +30,6 @@ final class FormControllerCest
         $I->seeInTitle('Tytuł nowej sceny');
         $I->seeElement('a[title="Przejdź do strony z podglądem"]');
         $I->seeElement('a[title="Pobierz w formacie PDF"]');
-        $I->see('Wróć do listy', 'a');
         $I->see('Postacie', 'a');
         $I->see('Przedmioty', 'a');
         $I->see('Miejsca', 'a');
