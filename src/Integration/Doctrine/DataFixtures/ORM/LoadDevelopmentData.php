@@ -80,6 +80,7 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
                 $book->getCreatedBy()
             );
             $chapter->setLocale(self::LOCALE);
+            $chapter->setPosition($i - 1);
             $book->addChapter($chapter);
             $manager->persist($chapter);
 
@@ -94,6 +95,7 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
             $scene = new Scene(Uuid::uuid4(), $title, $chapter, $chapter->getCreatedBy());
             $scene->edit($title, LongText::fromNullableString($this->createRandomText(40)), $chapter);
             $scene->setLocale(self::LOCALE);
+            $scene->setPosition($i - 1);
 
             $this->addCharactersToScene($scene);
             $this->addItemsToScene($scene);

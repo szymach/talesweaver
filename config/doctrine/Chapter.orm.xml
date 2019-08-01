@@ -12,6 +12,7 @@
         <id name="id" type="uuid"/>
         <field name="createdAt" type="datetime"/>
         <field name="updatedAt" type="datetime" nullable="true"/>
+        <field name="position" type="smallint"/>
 
         <one-to-many field="scenes" target-entity="Talesweaver\Domain\Scene" mapped-by="chapter" />
         <one-to-many field="translations" target-entity="Talesweaver\Domain\Translation\ChapterTranslation" mapped-by="chapter">

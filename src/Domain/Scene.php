@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Traits\CreatedByTrait;
+use Talesweaver\Domain\Traits\PositionableTrait;
 use Talesweaver\Domain\Traits\PublishableTrait;
 use Talesweaver\Domain\Traits\TimestampableTrait;
 use Talesweaver\Domain\Traits\TranslatableTrait;
@@ -17,7 +18,7 @@ use Talesweaver\Domain\ValueObject\ShortText;
 
 class Scene
 {
-    use CreatedByTrait, PublishableTrait, TimestampableTrait, TranslatableTrait;
+    use CreatedByTrait, PositionableTrait, PublishableTrait, TimestampableTrait, TranslatableTrait;
 
     /**
      * @var UuidInterface
@@ -70,7 +71,7 @@ class Scene
         $this->id = $id;
         $this->title = $title;
         $this->chapter = $chapter;
-
+        $this->position = 0;
         $this->characters = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->items = new ArrayCollection();
