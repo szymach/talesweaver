@@ -25,7 +25,6 @@ final class PositionControllerCest
         $chapter2 = $I->haveCreatedAChapter('Rozdział 2', $book);
         $I->assertEquals(0, $chapter2->getPosition());
 
-        $I->amOnPage("/pl/chapter/edit/{$book->getId()->toString()}");
         $I->haveHttpHeader('X-Requested-With', 'XMLHttpRequest');
 
         $I->sendPOST('/pl/chapter/position/multiple', [

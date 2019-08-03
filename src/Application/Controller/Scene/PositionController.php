@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Application\Controller\Chapter;
+namespace Talesweaver\Application\Controller\Scene;
 
 use Assert\Assertion;
 use Psr\Http\Message\ResponseInterface;
@@ -14,8 +14,8 @@ use Talesweaver\Application\Command\Positionable\UpdateMultiple\Command;
 use Talesweaver\Application\Command\Positionable\UpdateMultiple\DTO;
 use Talesweaver\Application\Http\ApiResponseFactoryInterface;
 use Talesweaver\Application\Http\Entity\PositionableRequestResolver;
-use Talesweaver\Application\Query\Chapter\ByIds;
-use Talesweaver\Domain\Chapter;
+use Talesweaver\Application\Query\Scene\ByIds;
+use Talesweaver\Domain\Scene;
 
 final class PositionController
 {
@@ -58,11 +58,11 @@ final class PositionController
             return $item['id'];
         }, $parsedRequest);
 
-        $chapters = $this->queryBus->query(new ByIds($ids));
+        $scenes = $this->queryBus->query(new ByIds($ids));
         $dtos = array_map(
-            function (array $item) use ($chapters): DTO {
+            function (array $item) use ($scenes): DTO {
                 return new DTO(
-                    $this->idToChapter($item['id'], $chapters),
+                    $this->idToScene($item['id'], $scenes),
                     $item['position']
                 );
             },
@@ -73,24 +73,24 @@ final class PositionController
         return $this->responseFactory->success();
     }
 
-    public function idToChapter(UuidInterface $id, array $chapters): Chapter
+    public function idToScene(UuidInterface $id, array $scenes): Scene
     {
-        $chapter = array_reduce(
-            $chapters,
-            function (?Chapter $accumulator, Chapter $chapter) use ($id): ?Chapter {
+        $scene = array_reduce(
+            $scenes,
+            function (?Scene $accumulator, Scene $scenes) use ($id): ?Scene {
                 if (null !== $accumulator) {
                     return $accumulator;
                 }
 
-                if (true === $chapter->getId()->equals($id)) {
-                    $accumulator = $chapter;
+                if (true === $scenes->getId()->equals($id)) {
+                    $accumulator = $scenes;
                 }
 
                 return $accumulator;
             }
         );
 
-        Assertion::notNull($chapter);
-        return $chapter;
+        Assertion::notNull($scene);
+        return $scene;
     }
 }

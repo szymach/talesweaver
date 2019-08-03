@@ -47,6 +47,12 @@ chapter_delete:
         page: 1
     methods: GET
 
+chapter_position_multiple:
+    path: /position/multiple
+    controller: Talesweaver\Application\Controller\Chapter\PositionController
+    methods: POST
+    condition: "request.isXmlHttpRequest()"
+
 chapter_publish:
     path: /publish/{id}
     controller: Talesweaver\Application\Controller\Chapter\PublishController
@@ -61,9 +67,3 @@ chapter_pdf:
     path: /pdf/{id}
     controller: Talesweaver\Application\Controller\Chapter\PdfController
     methods: GET
-
-chapter_position_multiple:
-    path: /position/multiple
-    controller: Talesweaver\Application\Controller\Chapter\PositionController
-    methods: POST
-    condition: "request.isXmlHttpRequest()"

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Application\Command\Chapter\UpdatePositionMultiple;
+namespace Talesweaver\Application\Command\Positionable\UpdateMultiple;
 
 use Talesweaver\Application\Bus\CommandHandlerInterface;
 
@@ -12,7 +12,7 @@ final class CommandHandler implements CommandHandlerInterface
     {
         $items = $command->getItems();
         array_walk($items, function (DTO $dto): void {
-            $dto->getChapter()->setPosition($dto->getPosition());
+            $dto->getPositionable()->setPosition($dto->getPosition());
         });
     }
 }

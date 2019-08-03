@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Repository;
 
-use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManagerInterface;
 use FSi\DoctrineExtensions\Translatable\TranslatableListener;
 use Ramsey\Uuid\UuidInterface;

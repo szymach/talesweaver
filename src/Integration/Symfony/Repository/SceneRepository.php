@@ -58,6 +58,27 @@ final class SceneRepository implements Scenes
         );
     }
 
+    public function findByIds(array $ids): array
+    {
+        return $this->doctrineRepository
+            ->createQueryBuilder('s')
+            ->where('s.createdBy = :author')
+            ->andWhere('s.id IN (:ids)')
+            ->setParameter('author', $this->authorContext->getAuthor())
+            ->setParameter(
+                'ids',
+                array_map(
+                    function (UuidInterface $id): string {
+                        return $id->toString();
+                    },
+                    $ids
+                )
+            )
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function createBookListView(Book $book): array
     {
         return $this->doctrineRepository->createBookListView(

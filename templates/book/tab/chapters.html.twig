@@ -33,12 +33,12 @@
                         >
                             <span class="fa fa-eye"></span>
                         </a>
-                        <button class="js-list-delete js-delete btn btn-sm btn-danger"
-                                data-delete-url="{{ path('chapter_delete', { id: chapter.id }) }}"
-                                title="{{ 'crud.delete'|trans }}"
+                        <a class="js-list-delete js-delete btn btn-sm btn-danger"
+                           data-delete-url="{{ path('chapter_delete', { id: id }) }}"
+                           title="{{ 'crud.delete'|trans }}"
                         >
                             <span class="fa fa-trash"></span>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
