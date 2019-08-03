@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Repository;
 
+use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManagerInterface;
 use FSi\DoctrineExtensions\Translatable\TranslatableListener;
 use Ramsey\Uuid\UuidInterface;
@@ -55,6 +56,27 @@ final class ChapterRepository implements Chapters
             'id' => $id->toString(),
             'createdBy' => $this->authorContext->getAuthor()
         ]);
+    }
+
+    public function findByIds(array $ids): array
+    {
+        return $this->doctrineRepository
+            ->createQueryBuilder('c')
+            ->where('c.createdBy = :author')
+            ->andWhere('c.id IN (:ids)')
+            ->setParameter('author', $this->authorContext->getAuthor())
+            ->setParameter(
+                'ids',
+                array_map(
+                    function (UuidInterface $id): string {
+                        return $id->toString();
+                    },
+                    $ids
+                )
+            )
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
     public function createListView(?Book $book, ?Sort $sort): array

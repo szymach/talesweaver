@@ -5,21 +5,21 @@ chapter_create:
     defaults:
         page: 1
         bookId: null
-    methods:  [GET, POST]
+    methods: [GET, POST]
 
 chapter_edit:
     path: /edit/{id}/{page}
     controller: Talesweaver\Application\Controller\Chapter\EditController
     defaults:
         page: 1
-    methods:  [GET, POST]
+    methods: [GET, POST]
 
 chapter_list:
     path: /list/{page}
     controller: Talesweaver\Application\Controller\Chapter\ListController
     defaults:
         page: 1
-    methods:  GET
+    methods: GET
 
 chapter_scenes_list:
     path: /scenes/{id}/{page}
@@ -27,12 +27,12 @@ chapter_scenes_list:
     defaults:
         page: 1
     condition: "request.isXmlHttpRequest()"
-    methods:  GET
+    methods: GET
 
 chapter_display:
     path: /display/{id}
     controller: Talesweaver\Application\Controller\Chapter\DisplayController
-    methods:  GET
+    methods: GET
 
 chapter_add_scene:
     path: /scene/{id}
@@ -45,19 +45,25 @@ chapter_delete:
     controller: Talesweaver\Application\Controller\Chapter\DeleteController
     defaults:
         page: 1
-    methods:  GET
+    methods: GET
 
 chapter_publish:
     path: /publish/{id}
     controller: Talesweaver\Application\Controller\Chapter\PublishController
-    methods:  GET|POST
+    methods: [GET,POST]
 
 chapter_publication_list:
     path: /publications/{id}
     controller: Talesweaver\Application\Controller\Chapter\PublicationListController
-    methods:  GET
+    methods: GET
 
 chapter_pdf:
     path: /pdf/{id}
     controller: Talesweaver\Application\Controller\Chapter\PdfController
-    methods:  GET
+    methods: GET
+
+chapter_position_multiple:
+    path: /position/multiple
+    controller: Talesweaver\Application\Controller\Chapter\PositionController
+    methods: POST
+    condition: "request.isXmlHttpRequest()"

@@ -4,7 +4,7 @@ modules:
         - Asserts
         - Symfony:
             app_path: 'src/Integration/Symfony'
-            cache_router: true
+            cache_router: false
             environment: 'test'
             kernel_class: 'Talesweaver\Integration\Symfony\Kernel'
             var_path: 'var'

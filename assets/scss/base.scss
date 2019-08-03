@@ -130,3 +130,9 @@ blockquote {
     padding-bottom: 0;
     padding-left: 0;
 }
+
+.js-list-sortable {
+    .card-body {
+        cursor: grab;
+    }
+}

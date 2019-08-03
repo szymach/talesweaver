@@ -11,6 +11,7 @@ final class PublishControllerCest
 {
     public function testChapterPublication(FunctionalTester $I): void
     {
+        $I->loginAsUser();
         /** @var Chapter $chapter */
         $chapter = $I->haveCreatedAChapter('Rozdział');
         $chapterId = $chapter->getId()->toString();
@@ -34,13 +35,5 @@ final class PublishControllerCest
         $currentPublication = $chapter->getCurrentPublication('pl');
         $I->assertNotNull($currentPublication);
         $I->assertTrue($currentPublication->isVisible());
-    }
-
-    /**
-     * @phpcs:disable
-     */
-    public function _before(FunctionalTester $I): void
-    {
-        $I->loginAsUser();
     }
 }

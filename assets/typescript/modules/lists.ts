@@ -1,15 +1,37 @@
 import { Alerts } from './alerts';
-import { ajaxGetCall, findAncestor, hasClass } from '../common';
+import { ajaxGetCall, findAncestor, hasClass, ajaxPostCall } from '../common';
 const bootstrap = require('bootstrap.native/dist/bootstrap-native-v4');
 const Gator = require('gator');
+import Sortable from 'sortablejs';
 
 interface ListResponse {
     list?: string | null,
     title?: string | null
 }
 
+interface PositionableItem {
+    id: string,
+    position: number
+}
+
 export module Lists {
     export function init(): void {
+        document.querySelectorAll('.js-list-sortable').forEach((list: HTMLElement) => {
+            Sortable.create(list, {
+                onEnd: (): void => {
+                    const data: PositionableItem[] = [];
+                    list.querySelectorAll('[data-item-id]').forEach((item: HTMLElement, key) => {
+                        data.push({
+                            id: item.getAttribute('data-item-id'),
+                            position: key
+                        });
+                    });
+
+                    ajaxPostCall(list.getAttribute('data-positionable-url'), data, () => { });
+                }
+            });
+        });
+
         Gator(document.querySelector('main')).on(
             'click',
             '.js-delete',

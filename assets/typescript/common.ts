@@ -65,7 +65,7 @@ export function ajaxGetCall(
 
 export function ajaxPostCall(
     url: string,
-    data: FormData,
+    data: FormData | any[],
     successCallback: any,
     errorCallback?: any
 ): void {

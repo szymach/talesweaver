@@ -70,8 +70,8 @@ final class SceneRepository extends AutoWireableTranslatableRepository
             ->innerJoin('s', 'chapter', 'c', 's.chapter_id = c.id')
             ->innerJoin('c', 'book', 'b', 'c.book_id = b.id AND b.id = :book')
             ->where('s.created_by_id = :author')
-            ->orderBy('s.chapter_id')
-            ->addOrderBy('st.title')
+            ->orderBy('c.position')
+            ->addOrderBy('s.position')
             ->setParameter('author', $author->getId())
             ->setParameter('book', $book->getId())
             ->setParameter('locale', $this->getTranslatableListener()->getLocale())
@@ -115,8 +115,12 @@ final class SceneRepository extends AutoWireableTranslatableRepository
                     $query->orderBy('book', $sort->getDirection());
                     break;
                 default:
-                    $query->orderBy('book', 'asc')->addOrderBy('chapter', 'asc')->addOrderBy('title', 'asc');
+                    $query->orderBy('bt.title', 'asc')->addOrderBy('ct.tile', 'asc')->addOrderBy('title', 'asc');
             }
+        } elseif (null !== $book) {
+            $query->orderBy('c.position')->addOrderBy('s.position');
+        } elseif (null !== $chapter) {
+            $query->orderBy('s.position');
         }
 
         if (null !== $book) {

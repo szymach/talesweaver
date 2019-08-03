@@ -16,7 +16,7 @@ use Talesweaver\Domain\Traits\TimestampableTrait;
 use Talesweaver\Domain\Traits\TranslatableTrait;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-class Chapter
+class Chapter implements Positionable
 {
     use CreatedByTrait, PositionableTrait, PublishableTrait, TimestampableTrait, TranslatableTrait;
 

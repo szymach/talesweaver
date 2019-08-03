@@ -16,7 +16,7 @@ use Talesweaver\Domain\Traits\TranslatableTrait;
 use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-class Scene
+class Scene implements Positionable
 {
     use CreatedByTrait, PositionableTrait, PublishableTrait, TimestampableTrait, TranslatableTrait;
 

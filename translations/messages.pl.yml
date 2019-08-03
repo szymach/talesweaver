@@ -170,7 +170,7 @@ chapter:
         book: 'Przypisz do książki'
     book: Książka
     info:
-        book: 'Lista rozdziałóœ przypisanych do książki "%title%".'
+        book: 'Lista rozdziałów przypisanych do książki "%title%".'
         scenes: Lista scen przypisanych do rozdziału.
     actions:
         create: Nowy

@@ -7,16 +7,20 @@
         <span class="fa fa-plus"></span>
     </button>
 </div>
-<ul class="js-ajax-pagination list-inline" data-list-url="{{ path('book_chapter_list', { id: bookId, page: page }) }}">
+<ul class="js-ajax-pagination js-list-sortable list-inline"
+    data-list-url="{{ path('book_chapter_list', { id: bookId, page: page }) }}"
+    data-positionable-url="{{ path('chapter_position_multiple') }}"
+>
     {% for chapter in chapters %}
-        {% set displayUrl = path('chapter_display', { id: chapter.id }) %}
+        {% set id = chapter.id %}
+        {% set displayUrl = path('chapter_display', { id: id }) %}
         <li class="list-inline-item pt-2">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body" data-item-id="{{ id }}">
                     <h5 class="card-title">{{ chapter.title }}</h5>
                     <div class="text-center">
                         <a class="btn btn-sm btn-primary"
-                           href="{{ path('chapter_edit', { id: chapter.id }) }}"
+                           href="{{ path('chapter_edit', { id: id }) }}"
                            title="{{ 'crud.edit'|trans }}"
                         >
                             <span class="fa fa-edit"></span>

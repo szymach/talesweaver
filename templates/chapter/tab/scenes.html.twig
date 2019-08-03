@@ -7,7 +7,7 @@
         <span class="fa fa-plus"></span>
     </button>
 </div>
-<ul class="js-ajax-pagination list-inline" data-list-url="{{ path('chapter_scenes_list', { id: chapterId, page: page }) }}">
+<ul class="js-ajax-pagination js-list-sortable list-inline" data-list-url="{{ path('chapter_scenes_list', { id: chapterId, page: page }) }}">
     {% if scenes|length > 0 %}
         {% for scene in scenes %}
         {% set displayLink = path('scene_display', { id: scene.id }) %}

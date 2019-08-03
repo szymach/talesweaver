@@ -44,15 +44,13 @@ final class ChapterRepository extends AutoWireableTranslatableRepository
         $query = $this->getEntityManager()
             ->getConnection()
             ->createQueryBuilder()
-            ->select('c.id, ct.title AS title')
+            ->select('c.id, c.position, ct.title AS title')
             ->addSelect('bt.title AS book')
             ->from($this->getClassMetadata()->getTableName(), 'c')
             ->leftJoin('c', 'chapter_translation', 'ct', 'c.id = ct.chapter_id AND ct.locale = :locale')
             ->leftJoin('c', 'book', 'b', 'c.book_id = b.id')
             ->leftJoin('b', 'book_translation', 'bt', 'b.id = bt.book_id AND bt.locale = :locale')
             ->where('c.created_by_id = :author')
-            ->orderBy('c.book_id')
-            ->addOrderBy('ct.title')
             ->setParameter('author', $author->getId()->toString())
             ->setParameter('locale', $this->getTranslatableListener()->getLocale())
         ;
@@ -68,6 +66,10 @@ final class ChapterRepository extends AutoWireableTranslatableRepository
                 default:
                     $query->orderBy('title', 'asc');
             }
+        } elseif (null !== $book) {
+            $query->orderBy('c.position');
+        } else {
+            $query->orderBy('bt.title')->addOrderBy('ct.title');
         }
 
         if (null !== $book) {
