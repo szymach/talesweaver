@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Tests\Application\Controller\Chapter;
+namespace Talesweaver\Tests\Application\Controller\Scene;
 
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Scene;

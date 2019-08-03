@@ -41,7 +41,6 @@ final class Command implements AuthorAccessInterface
 
     private function getAuthor(array $items): Author
     {
-        /** @var Author $author */
         $author = array_reduce(
             $items,
             function (?Author $accumulator, DTO $dto): ?Author {
