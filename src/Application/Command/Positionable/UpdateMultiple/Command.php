@@ -63,6 +63,7 @@ final class Command implements AuthorAccessInterface
             }
         );
 
+        Assertion::notNull($author, "No user supplied!");
         return $author;
     }
 }
