@@ -84,6 +84,7 @@ final class FormModule extends Module
     public function fetchTokenFromAjaxResponse(string $fieldId): string
     {
         $response = json_decode($this->rest->grabResponse(), true);
+        $this->assertIsArray($response);
         $this->assertArrayHasKey('form', $response);
 
         $crawler = new Crawler($response['form']);
