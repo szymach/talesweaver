@@ -38,11 +38,11 @@ script:
     - composer run linters
     - composer run stan
     - composer run validate-schema
+    - yarn install
     - node_modules/.bin/webpack
     - composer run codecept
     - bin/console doctrine:fixtures:load -n --group=integration
     - APP_ENV=test php -d variables_order=EGPCS -S 127.0.0.1:8000 -t public > var/log/server.log 2>&1 &
-    - yarn install
     - node_modules/.bin/cypress run
 
 after_failure:
