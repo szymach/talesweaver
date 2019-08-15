@@ -53,7 +53,7 @@ final class SceneRepository extends AutoWireableTranslatableRepository
         if (null !== $scene->getChapter()) {
             $this->getEntityManager()->createQueryBuilder()
                 ->update($this->getEntityName(), 's')
-                ->set('c.position', 's.position - 1')
+                ->set('s.position', 's.position - 1')
                 ->where('s.chapter = :chapter')
                 ->andWhere('s.position > :position')
                 ->andWhere('s.position > 0')
