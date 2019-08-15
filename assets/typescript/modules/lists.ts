@@ -16,21 +16,7 @@ interface PositionableItem {
 
 export module Lists {
     export function init(): void {
-        document.querySelectorAll('.js-list-sortable').forEach((list: HTMLElement) => {
-            Sortable.create(list, {
-                onEnd: (): void => {
-                    const data: PositionableItem[] = [];
-                    list.querySelectorAll('[data-item-id]').forEach((item: HTMLElement, key) => {
-                        data.push({
-                            id: item.getAttribute('data-item-id'),
-                            position: key
-                        });
-                    });
-
-                    ajaxPostCall(list.getAttribute('data-positionable-url'), data, () => { });
-                }
-            });
-        });
+        initializeSortable();
 
         Gator(document.querySelector('main')).on(
             'click',
@@ -85,6 +71,7 @@ export module Lists {
             target.getAttribute('data-list-url'),
             function (response: ListResponse): void {
                 findAncestor(target, '.js-list-container').innerHTML = response.list;
+                initializeSortable();
             }
         );
     }
@@ -152,6 +139,24 @@ export module Lists {
                 findAncestor(target, '.js-list-container').innerHTML = response.list;
             }
         );
+    }
+
+    function initializeSortable(): void {
+        document.querySelectorAll('.js-list-sortable').forEach((list: HTMLElement) => {
+            Sortable.create(list, {
+                onEnd: (): void => {
+                    const data: PositionableItem[] = [];
+                    list.querySelectorAll('[data-item-id]').forEach((item: HTMLElement, key) => {
+                        data.push({
+                            id: item.getAttribute('data-item-id'),
+                            position: key
+                        });
+                    });
+
+                    ajaxPostCall(list.getAttribute('data-positionable-url'), data, () => { });
+                }
+            });
+        });
     }
 
     function getModal(): HTMLElement {

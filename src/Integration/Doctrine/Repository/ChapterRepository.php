@@ -26,17 +26,48 @@ final class ChapterRepository extends AutoWireableTranslatableRepository
     public function persist(Chapter $chapter): void
     {
         $this->getEntityManager()->persist($chapter);
+
+        if (null !== $chapter->getBook()) {
+            $this->getEntityManager()
+                ->createQueryBuilder()
+                ->update($this->getEntityName(), 'c')
+                ->set('c.position', 'c.position + 1')
+                ->where('c.book = :book')
+                ->andWhere('c.createdBy = :createdBy')
+                ->getQuery()
+                ->execute(['book' => $chapter->getBook(), 'createdBy' => $chapter->getCreatedBy()])
+            ;
+        }
     }
 
-    public function remove(Author $author, UuidInterface $id): void
+    public function remove(Author $author, Chapter $chapter): void
     {
-        $this->createQueryBuilder('c')
-            ->delete()
+        $this->getEntityManager()
+            ->createQueryBuilder()
+            ->delete($this->getEntityName(), 'c')
             ->where('c.id = :id')
             ->andWhere('c.createdBy = :createdBy')
             ->getQuery()
-            ->execute(['id' => $id->toString(), 'createdBy' => $author])
+            ->execute(['id' => $chapter->getId(), 'createdBy' => $author])
         ;
+
+        if (null !== $chapter->getBook()) {
+            $this->getEntityManager()
+                ->createQueryBuilder()
+                ->update($this->getEntityName(), 'c')
+                ->set('c.position', 'c.position - 1')
+                ->where('c.book = :book')
+                ->andWhere('c.position > :position')
+                ->andWhere('c.position > 0')
+                ->andWhere('c.createdBy = :createdBy')
+                ->getQuery()
+                ->execute([
+                    'book' => $chapter->getBook(),
+                    'position' => $chapter->getPosition(),
+                    'createdBy' => $author
+                ])
+            ;
+        }
     }
 
     public function createListView(Author $author, ?Book $book, ?Sort $sort): array

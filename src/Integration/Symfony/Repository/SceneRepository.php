@@ -112,9 +112,9 @@ final class SceneRepository implements Scenes
         $this->doctrineRepository->persist($scene);
     }
 
-    public function remove(UuidInterface $id): void
+    public function remove(Scene $scene): void
     {
-        $this->doctrineRepository->remove($this->authorContext->getAuthor(), $id);
+        $this->doctrineRepository->remove($this->authorContext->getAuthor(), $scene);
     }
 
     public function findLatest(int $limit = 3): array

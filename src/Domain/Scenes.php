@@ -17,7 +17,7 @@ interface Scenes
     public function findLatest(int $limit = 3): array;
     public function findOneByTitle(ShortText $title): ?Scene;
     public function add(Scene $scene): void;
-    public function remove(UuidInterface $id): void;
+    public function remove(Scene $scene): void;
     public function entityExists(string $title, ?UuidInterface $id, ?UuidInterface $chapterId): bool;
     public function createPublicationListPage(Scene $scene): array;
 }

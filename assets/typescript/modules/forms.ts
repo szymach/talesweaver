@@ -54,7 +54,6 @@ export module Forms {
         Gator(modal).off('submit');
         Gator(modal).on('submit', '.js-form', (event: Event): boolean => {
             event.preventDefault();
-            console.log(event.target);
             submitForm(<HTMLFormElement>event.target);
 
             return false;

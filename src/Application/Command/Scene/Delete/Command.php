@@ -4,56 +4,42 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Command\Scene\Delete;
 
-use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Messages\DeletionSuccessMessage;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
-use Talesweaver\Domain\ValueObject\ShortText;
 
 final class Command implements AuthorAccessInterface, MessageCommandInterface
 {
     /**
-     * @var UuidInterface
+     * @var Scene
      */
-    private $id;
-
-    /**
-     * @var ShortText
-     */
-    private $title;
-
-    /**
-     * @var Author
-     */
-    private $createdBy;
+    private $scene;
 
     public function __construct(Scene $scene)
     {
-        $this->id = $scene->getId();
-        $this->title = $scene->getTitle();
-        $this->createdBy = $scene->getCreatedBy();
-    }
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
+        $this->scene = $scene;
     }
 
     public function isAllowed(Author $author): bool
     {
-        return $author === $this->createdBy;
+        return $author === $this->scene->getCreatedBy();
     }
 
     public function getMessage(): Message
     {
-        return new DeletionSuccessMessage('scene', ['%title%' => $this->title]);
+        return new DeletionSuccessMessage('scene', ['%title%' => $this->scene->getTitle()]);
     }
 
     public function isMuted(): bool
     {
         return false;
+    }
+
+    public function getScene(): Scene
+    {
+        return $this->scene;
     }
 }

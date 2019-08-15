@@ -27,17 +27,45 @@ final class SceneRepository extends AutoWireableTranslatableRepository
     public function persist(Scene $scene): void
     {
         $this->getEntityManager()->persist($scene);
+        if (null !== $scene->getChapter()) {
+            $this->getEntityManager()
+                ->createQueryBuilder()
+                ->update($this->getEntityName(), 's')
+                ->set('s.position', 's.position + 1')
+                ->where('s.chapter = :chapter')
+                ->andWhere('s.createdBy = :createdBy')
+                ->getQuery()
+                ->execute(['chapter' => $scene->getChapter(), 'createdBy' => $scene->getCreatedBy()])
+            ;
+        }
     }
 
-    public function remove(Author $author, UuidInterface $id): void
+    public function remove(Author $author, Scene $scene): void
     {
         $this->createQueryBuilder('s')
             ->delete()
             ->where('s.id = :id')
             ->andWhere('s.createdBy = :createdBy')
             ->getQuery()
-            ->execute(['id' => $id->toString(), 'createdBy' => $author])
+            ->execute(['id' => $scene->getId(), 'createdBy' => $author])
         ;
+
+        if (null !== $scene->getChapter()) {
+            $this->getEntityManager()->createQueryBuilder()
+                ->update($this->getEntityName(), 's')
+                ->set('c.position', 's.position - 1')
+                ->where('s.chapter = :chapter')
+                ->andWhere('s.position > :position')
+                ->andWhere('s.position > 0')
+                ->andWhere('s.createdBy = :createdBy')
+                ->getQuery()
+                ->execute([
+                    'chapter' => $scene->getChapter(),
+                    'createdBy' => $author,
+                    'position' => $scene->getPosition()
+                ])
+            ;
+        }
     }
 
     public function findByIdForAuthor(Author $author, UuidInterface $id): ?Scene

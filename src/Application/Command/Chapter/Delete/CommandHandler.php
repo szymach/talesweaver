@@ -21,6 +21,6 @@ final class CommandHandler implements CommandHandlerInterface
 
     public function __invoke(Command $command): void
     {
-        $this->chapters->remove($command->getId());
+        $this->chapters->remove($command->getChapter());
     }
 }

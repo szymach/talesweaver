@@ -125,9 +125,9 @@ final class ChapterRepository implements Chapters
         $this->doctrineRepository->persist($chapter);
     }
 
-    public function remove(UuidInterface $id): void
+    public function remove(Chapter $chapter): void
     {
-        $this->doctrineRepository->remove($this->authorContext->getAuthor(), $id);
+        $this->doctrineRepository->remove($this->authorContext->getAuthor(), $chapter);
     }
 
     public function entityExists(string $title, ?UuidInterface $id, ?UuidInterface $bookId): bool
