@@ -20,6 +20,7 @@ env:
           APP_SECRET=some_secret
 
 before_install:
+    - mysql -e "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));";
     - phpenv config-rm xdebug.ini
     - echo 'date.timezone = "Europe/Warsaw"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
     - "curl -o- -L https://yarnpkg.com/install.sh | bash -s --"
