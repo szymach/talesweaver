@@ -28,7 +28,7 @@ final class ScenesPageHandler implements QueryHandlerInterface
                 $this->scenes->createBookListView($query->getBook())
             )
         );
-        $pager->setMaxPerPage(9);
+        $pager->setMaxPerPage(18);
         $pager->setCurrentPage($query->getPage());
 
         return $pager;

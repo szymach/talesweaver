@@ -28,7 +28,7 @@ final class ChaptersPageHandler implements QueryHandlerInterface
                 $this->chapters->createListView($query->getBook(), null)
             )
         );
-        $pager->setMaxPerPage(9);
+        $pager->setMaxPerPage(18);
         $pager->setCurrentPage($query->getPage());
 
         return $pager;
