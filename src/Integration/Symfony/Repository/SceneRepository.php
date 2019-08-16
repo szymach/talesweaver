@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Repository;
 
+use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use FSi\DoctrineExtensions\Translatable\TranslatableListener;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\Positionable;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\Scenes;
 use Talesweaver\Domain\ValueObject\ShortText;
@@ -151,5 +153,63 @@ final class SceneRepository implements Scenes
             $this->authorContext->getAuthor(),
             $scene
         );
+    }
+
+    /**
+     * @param Scene|Positionable $item
+     */
+    public function decreasePosition(Positionable $item): void
+    {
+        Assertion::isInstanceOf($item, Scene::class);
+        if (0 === $item->getPosition()) {
+            return;
+        }
+
+        /** @var Scene|null $itemBefore */
+        $itemBefore = $this->doctrineRepository->findOneBy([
+            'position' => $item->getPosition() - 1,
+            'chapter' => $item->getChapter(),
+            'createdBy' => $this->authorContext->getAuthor()
+        ]);
+
+        if (null !== $itemBefore) {
+            $itemBefore->setPosition($itemBefore->getPosition() + 1);
+        }
+
+        $item->setPosition($item->getPosition() - 1);
+    }
+
+    /**
+     * @param Scene|Positionable $item
+     */
+    public function increasePosition(Positionable $item): void
+    {
+        Assertion::isInstanceOf($item, Scene::class);
+        if (null === $item->getChapter()) {
+            return;
+        }
+
+        $totalItemCount = $this->doctrineRepository->countForChapter($item->getChapter());
+        if ($totalItemCount <= $item->getPosition()) {
+            return;
+        }
+
+        /** @var Scene|null $itemAfter */
+        $itemAfter = $this->doctrineRepository->findOneBy([
+            'position' => $item->getPosition() + 1,
+            'chapter' => $item->getChapter(),
+            'createdBy' => $this->authorContext->getAuthor()
+        ]);
+
+        if (null !== $itemAfter) {
+            $itemAfter->setPosition($itemAfter->getPosition() - 1);
+        }
+
+        $item->setPosition($item->getPosition() + 1);
+    }
+
+    public function supportsPositionable(Positionable $item): bool
+    {
+        return $item instanceof Scene;
     }
 }

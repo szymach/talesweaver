@@ -92,7 +92,7 @@ final class SceneRepository extends AutoWireableTranslatableRepository
     {
         $query = $this->getEntityManager()->getConnection()
             ->createQueryBuilder()
-            ->select('s.id, st.title')
+            ->select('s.id, s.position, st.title')
             ->from($this->getClassMetadata()->getTableName(), 's')
             ->innerJoin('s', 'scene_translation', 'st', 's.id = st.scene_id AND st.locale = :locale')
             ->innerJoin('s', 'chapter', 'c', 's.chapter_id = c.id')
@@ -117,7 +117,7 @@ final class SceneRepository extends AutoWireableTranslatableRepository
     {
         $query = $this->getEntityManager()->getConnection()
             ->createQueryBuilder()
-            ->select('s.id, st.title AS title')
+            ->select('s.id, s.position, st.title AS title')
             ->addSelect('ct.title AS chapter')
             ->addSelect('bt.title AS book')
             ->from($this->getClassMetadata()->getTableName(), 's')
@@ -229,6 +229,19 @@ final class SceneRepository extends AutoWireableTranslatableRepository
             ->setParameter('scene', $scene)
             ->getQuery()
             ->getResult()
+        ;
+    }
+
+    public function countForChapter(Chapter $chapter): int
+    {
+        return (int) $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('COUNT(s)')
+            ->from($this->getEntityName(), 's')
+            ->where('s.chapter = :chapter')
+            ->setParameter('chapter', $chapter)
+            ->getQuery()
+            ->getSingleScalarResult()
         ;
     }
 

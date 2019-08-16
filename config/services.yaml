@@ -11,6 +11,11 @@ services:
             $mailerFrom: "%mailer_from%"
             $newAuthorMailer: '@Talesweaver\Integration\Symfony\Mail\RegistrationMailer'
             $passwordResetMailer: '@Talesweaver\Integration\Symfony\Mail\PasswordResetMailer'
+            $positionableRepositories: !tagged talesweaver.repository.positionable
+
+    _instanceof:
+        Talesweaver\Domain\PositionableRepository:
+            tags: ['talesweaver.repository.positionable']
 
     FSi\DoctrineExtensions\Translatable\TranslatableListener: "@fsi_doctrine_extensions.listener.translatable"
     Knp\Snappy\GeneratorInterface: "@knp_snappy.pdf"

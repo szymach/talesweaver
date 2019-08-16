@@ -6,6 +6,7 @@ namespace Talesweaver\Tests;
 
 use Codeception\Actor;
 use Codeception\Lib\Friend;
+use Doctrine\Common\Persistence\ObjectManager;
 use Talesweaver\Tests\_generated\FunctionalTesterActions;
 
 /**
@@ -22,12 +23,21 @@ use Talesweaver\Tests\_generated\FunctionalTesterActions;
  *
  * @SuppressWarnings(PHPMD)
 */
-class FunctionalTester extends Actor
+final class FunctionalTester extends Actor
 {
     use FunctionalTesterActions;
 
     public function canSeeAlert(string $content, string $type = 'success'): void
     {
         $this->canSee($content, sprintf('.alert.alert-%s', $type));
+    }
+
+    public function refreshEntities(array $objects): void
+    {
+        /** @var ObjectManager $manager */
+        $manager = $this->grabService('doctrine.orm.entity_manager');
+        array_walk($objects, function (object $object) use ($manager): void {
+            $manager->refresh($object);
+        });
     }
 }

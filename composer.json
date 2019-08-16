@@ -109,8 +109,8 @@
             "vendor/bin/deptrac.phar analyze --formatter-graphviz=0 config/layers.yml"
         ],
         "linters": [
-            "bin/console --ansi lint:yaml config",
-            "bin/console --ansi lint:yaml translations",
+            "bin/console --ansi lint:yaml config --parse-tags",
+            "bin/console --ansi lint:yaml translations --parse-tags",
             "bin/console --ansi lint:twig templates"
         ],
         "codecept": "vendor/bin/codecept run --ansi",

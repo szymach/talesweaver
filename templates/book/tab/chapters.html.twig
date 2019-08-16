@@ -33,6 +33,20 @@
                         >
                             <span class="fa fa-eye"></span>
                         </a>
+                        {% if chapter.position != 0 %}
+                            <button class="js-list-action btn btn-sm btn-outline-secondary"
+                               data-action-url="{{ path('chapter_position_single_decrease', { id: id }) }}"
+                               title="{{ 'crud.move_down'|trans }}"
+                            >
+                                <span class="fa fa-arrow-left"></span>
+                            </button>
+                        {% endif %}
+                        <button class="js-list-action btn btn-sm btn-outline-secondary"
+                           data-action-url="{{ path('chapter_position_single_increase', { id: id }) }}"
+                           title="{{ 'crud.move_up'|trans }}"
+                        >
+                            <span class="fa fa-arrow-right"></span>
+                        </button>
                         <button class="js-list-delete js-delete btn btn-sm btn-danger"
                            data-delete-url="{{ path('chapter_delete', { id: id }) }}"
                            title="{{ 'crud.delete'|trans }}"

@@ -180,6 +180,19 @@ final class ChapterRepository extends AutoWireableTranslatableRepository
         ;
     }
 
+    public function countForBook(Book $book): int
+    {
+        return (int) $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('COUNT(c)')
+            ->from($this->getEntityName(), 'c')
+            ->where('c.book = :book')
+            ->setParameter('book', $book)
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
+
     private function countForTitleQb(Author $author, string $title): QueryBuilder
     {
         return $this->getEntityManager()

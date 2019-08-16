@@ -20,7 +20,7 @@ use Talesweaver\Domain\ValueObject\Email;
 use Talesweaver\Integration\Symfony\Security\User;
 use Talesweaver\Tests\Query\Security\TokenByAuthor;
 
-class AuthorModule extends Module
+final class AuthorModule extends Module
 {
     public const AUTHOR_EMAIL = 'test@example.com';
     public const AUTHOR_PASSWORD = 'password123';

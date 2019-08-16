@@ -8,7 +8,7 @@ use Codeception\Lib\ModuleContainer;
 use Codeception\Module;
 use Codeception\Module\Symfony;
 
-class ContainerModule extends Module
+final class ContainerModule extends Module
 {
     /**
      * @var Symfony

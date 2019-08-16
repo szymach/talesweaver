@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Integration\Symfony\Repository;
 
+use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use FSi\DoctrineExtensions\Translatable\TranslatableListener;
 use Ramsey\Uuid\UuidInterface;
@@ -11,6 +12,7 @@ use Talesweaver\Application\Security\AuthorContext;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Chapters;
+use Talesweaver\Domain\Positionable;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Domain\ValueObject\Sort;
 use Talesweaver\Integration\Doctrine\Repository\ChapterRepository as DoctrineRepository;
@@ -156,5 +158,63 @@ final class ChapterRepository implements Chapters
             $this->authorContext->getAuthor(),
             $chapter
         );
+    }
+
+    /**
+     * @param Chapter|Positionable $item
+     */
+    public function decreasePosition(Positionable $item): void
+    {
+        Assertion::isInstanceOf($item, Chapter::class);
+        if (0 === $item->getPosition() || null === $item->getBook()) {
+            return;
+        }
+
+        /** @var Chapter|null $itemBefore */
+        $itemBefore = $this->doctrineRepository->findOneBy([
+            'position' => $item->getPosition() - 1,
+            'book' => $item->getBook(),
+            'createdBy' => $this->authorContext->getAuthor()
+        ]);
+
+        if (null !== $itemBefore) {
+            $itemBefore->setPosition($itemBefore->getPosition() + 1);
+        }
+
+        $item->setPosition($item->getPosition() - 1);
+    }
+
+    /**
+     * @param Chapter|Positionable $item
+     */
+    public function increasePosition(Positionable $item): void
+    {
+        Assertion::isInstanceOf($item, Chapter::class);
+        if (null === $item->getBook()) {
+            return;
+        }
+
+        $totalItemCount = $this->doctrineRepository->countForBook($item->getBook());
+        if ($totalItemCount <= $item->getPosition()) {
+            return;
+        }
+
+        /** @var Chapter|null $itemAfter */
+        $itemAfter = $this->doctrineRepository->findOneBy([
+            'position' => $item->getPosition() + 1,
+            'book' => $item->getBook(),
+            'createdBy' => $this->authorContext->getAuthor()
+        ]);
+
+        if (null !== $itemAfter && 0 !== $itemAfter->getPosition()) {
+            $itemAfter->setPosition($itemAfter->getPosition() - 1);
+        }
+
+        $item->setPosition($item->getPosition() + 1);
+    }
+
+    public function supportsPositionable(Positionable $item): bool
+    {
+        return $item instanceof Chapter;
     }
 }

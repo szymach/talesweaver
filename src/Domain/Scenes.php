@@ -8,7 +8,7 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Domain\ValueObject\Sort;
 
-interface Scenes
+interface Scenes extends PositionableRepository
 {
     public function find(UuidInterface $id): ?Scene;
     public function findByIds(array $ids): array;

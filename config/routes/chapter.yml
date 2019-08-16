@@ -47,6 +47,18 @@ chapter_delete:
         page: 1
     methods: GET
 
+chapter_position_single_increase:
+    path: /position/single/increase/{id}
+    controller: Talesweaver\Application\Controller\Chapter\IncreasePositionController
+    methods: GET
+    condition: "request.isXmlHttpRequest()"
+
+chapter_position_single_decrease:
+    path: /position/single/decrease/{id}
+    controller: Talesweaver\Application\Controller\Chapter\DecreasePositionController
+    methods: GET
+    condition: "request.isXmlHttpRequest()"
+
 chapter_position_multiple:
     path: /position/multiple
     controller: Talesweaver\Application\Controller\Chapter\PositionController

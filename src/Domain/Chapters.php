@@ -8,7 +8,7 @@ use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Domain\ValueObject\Sort;
 
-interface Chapters
+interface Chapters extends PositionableRepository
 {
     public function createListView(?Book $book, ?Sort $sort): array;
     public function find(UuidInterface $id): ?Chapter;

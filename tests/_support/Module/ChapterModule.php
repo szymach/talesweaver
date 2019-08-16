@@ -17,7 +17,7 @@ use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Tests\Query\Chapter\ByTitle;
 
-class ChapterModule extends Module
+final class ChapterModule extends Module
 {
     /**
      * @var CommandBus

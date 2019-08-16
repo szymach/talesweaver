@@ -18,6 +18,8 @@ crud:
     display: Podgląd
     close: Zamknij
     remove_from_scene: Usuń ze sceny
+    move_up: W prawo
+    move_down: W lewo
 
 common:
     start: Start
