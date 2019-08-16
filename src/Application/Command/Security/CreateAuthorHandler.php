@@ -36,7 +36,9 @@ final class CreateAuthorHandler implements CommandHandlerInterface
             Uuid::uuid4(),
             $command->getEmail(),
             $command->getPassword(),
-            generate_user_token()
+            generate_user_token(),
+            null,
+            null
         );
 
         $this->authors->add($author);

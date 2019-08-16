@@ -10,6 +10,7 @@ use DomainException;
 use Ramsey\Uuid\UuidInterface;
 use RuntimeException;
 use Talesweaver\Domain\ValueObject\Email;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class Author
 {
@@ -29,9 +30,19 @@ class Author
     private $password;
 
     /**
+     * @var ShortText|null
+     */
+    private $name;
+
+    /**
+     * @var ShortText|null
+     */
+    private $surname;
+
+    /**
      * @var boolean
      */
-    private $active = false;
+    private $active;
 
     /**
      * @var ActivationToken[]|Collection
@@ -43,13 +54,22 @@ class Author
      */
     private $passwordResetTokens;
 
-    public function __construct(UuidInterface $id, Email $email, string $password, string $activationToken)
-    {
+    public function __construct(
+        UuidInterface $id,
+        Email $email,
+        string $password,
+        string $activationToken,
+        ?ShortText $name,
+        ?ShortText $surname
+    ) {
         $this->id = $id;
         $this->email = $email;
         $this->password = $this->encodePassword($password);
+        $this->name = $name;
+        $this->surname = $surname;
+        $this->active = false;
         $this->activationTokens = new ArrayCollection([new ActivationToken($this, $activationToken)]);
-        $this->passwordResetTokens = new ArrayCollection();
+        $this->passwordResetTokens = new ArrayCollection([]);
     }
 
     public function getId(): UuidInterface
@@ -72,6 +92,22 @@ class Author
         $this->password = $this->encodePassword($password);
     }
 
+    public function updatePersonalInformation(?ShortText $name, ?ShortText $surname): void
+    {
+        $this->name = $name;
+        $this->surname = $surname;
+    }
+
+    public function getName(): ?ShortText
+    {
+        return $this->name;
+    }
+
+    public function getSurname(): ?ShortText
+    {
+        return $this->surname;
+    }
+
     public function isActive(): bool
     {
         return $this->active;
@@ -80,7 +116,7 @@ class Author
     public function activate(): void
     {
         if (true === $this->active) {
-            throw new DomainException(sprintf('User "%s" is already active!', $this->id->toString()));
+            throw new DomainException("'User \"{$this->id->toString()}\" is already active!'");
         }
 
         $this->active = true;
@@ -92,7 +128,11 @@ class Author
             return $code->isValid();
         })->first();
 
-        return (true === $token instanceof ActivationToken) ? $token : null;
+        if (false === $token instanceof ActivationToken) {
+            return null;
+        }
+
+        return $token;
     }
 
     public function addPasswordResetToken(string $token): void
@@ -102,11 +142,15 @@ class Author
 
     public function getPasswordResetToken(): ?PasswordResetToken
     {
-        $tokens = $this->passwordResetTokens->filter(function (PasswordResetToken $token): bool {
+        $token = $this->passwordResetTokens->filter(function (PasswordResetToken $token): bool {
             return true === $token->isActive() && true === $token->isValid();
-        });
+        })->first();
 
-        return false === $tokens->isEmpty() ? $tokens->first() : null;
+        if (false === $token instanceof PasswordResetToken) {
+            return null;
+        }
+
+        return $token;
     }
 
     private function encodePassword(string $password): string

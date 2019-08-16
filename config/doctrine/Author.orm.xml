@@ -8,6 +8,8 @@
         <id name="id" type="uuid" />
         <field name="email" type="email" />
         <field name="password"/>
+        <field name="name" type="short_text" nullable="true" />
+        <field name="surname" type="short_text" nullable="true" />
         <field name="active" type="boolean"/>
 
         <one-to-many field="activationTokens" target-entity="Talesweaver\Domain\ActivationToken" mapped-by="author">
