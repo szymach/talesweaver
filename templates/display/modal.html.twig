@@ -7,7 +7,7 @@
 </div>
 <div class="display modal-body">
     {% if chapters is defined %}
-        {% for chapter in chapters if chapter.scenes|length > 0 %}
+        {% for chapter in chapters|filter(chapter => chapter.scenes|length > 0) %}
             <h2 class="pb-2">{{ chapter.title }}</h2>
             {{ macros.scenes(chapter.scenes) }}
         {% endfor %}
@@ -24,7 +24,7 @@
 </div>
 
 {% macro scenes(scenes) %}
-    {% for scene in scenes if scene.text is not empty %}
+    {% for scene in scenes|filter(scene => scene.text is not empty) %}
         <h3 class="pb-2">{{ scene.title }}</h3>
         {{ macros.text(scene.text) }}
     {% endfor %}

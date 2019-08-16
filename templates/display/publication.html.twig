@@ -14,7 +14,7 @@
                 <div class="col">
                     <h1 class="text-center">{{ title }}</h1>
                     {% if chapters is defined %}
-                        {% for chapter in chapters if chapter.scenes|length > 0 %}
+                        {% for chapter in chapters|filter(chapter => chapter.scenes|length > 0) %}
                             <h2 class="text-center">{{ chapter.title }}</h2>
                             {{ macros.scenes(chapter.scenes) }}
                         {% endfor %}
@@ -33,7 +33,7 @@
 </html>
 
 {% macro scenes(scenes) %}
-    {% for scene in scenes if scene.text is not empty %}
+    {% for scene in scenes|filter(scene => scene.text is not empty) %}
         <h3 class="text-center">{{ scene.title }}</h3>
         {{ macros.text(scene.text) }}
     {% endfor %}
