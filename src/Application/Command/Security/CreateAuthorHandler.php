@@ -37,8 +37,8 @@ final class CreateAuthorHandler implements CommandHandlerInterface
             $command->getEmail(),
             $command->getPassword(),
             generate_user_token(),
-            null,
-            null
+            $command->getName(),
+            $command->getSurname()
         );
 
         $this->authors->add($author);

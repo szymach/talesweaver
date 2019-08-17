@@ -15,6 +15,8 @@ class RegisterControllerCest
         $I->see('Email');
         $I->see('Hasło');
         $I->see('Powtórz hasło');
+        $I->see('Imię');
+        $I->see('Nazwisko');
     }
 
     public function validRegistrationAndLogin(FunctionalTester $I): void
@@ -23,10 +25,12 @@ class RegisterControllerCest
         $I->fillField('Email', 'email@example.com');
         $I->fillField('Hasło', 'haslo123');
         $I->fillField('Powtórz hasło', 'haslo123');
+        $I->fillField('Imię', 'Imię autora');
+        $I->fillField('Nazwisko', 'Nazwisko autora');
         $I->click('Zarejestruj');
 
         $I->canSeeCurrentUrlEquals('/pl/login');
-        $I->seeNewAuthorHasBeenCreated('email@example.com');
+        $I->seeNewAuthorHasBeenCreated('email@example.com', 'Imię autora', 'Nazwisko autora');
         $I->canSeeAlert(
             'Pomyślnie zarejstrowano konto w aplikacji Bajkopisarz! Na podane'
             . ' konto email wysłano wiadomość do aktywacji konta.'

@@ -54,6 +54,12 @@ security:
         password_repeat:
             label: Powtórz hasło
             placeholder: Powtórz podane hasło
+        name:
+            label: Imię
+            placeholder: Podaj swoje imię
+        surname:
+            label: Nazwisko
+            placeholder: Podaj swoje nazwisko
         submit: Zarejestruj
         mail:
             title: Bajkopisarz - rejestracja

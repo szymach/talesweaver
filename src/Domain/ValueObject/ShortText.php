@@ -24,6 +24,15 @@ final class ShortText
         $this->value = $value;
     }
 
+    public static function nullableFromString(?string $string): ?self
+    {
+        if (null === $string || 0 === mb_strlen($string)) {
+            return null;
+        }
+
+        return new self($string);
+    }
+
     public function __toString()
     {
         return $this->value;

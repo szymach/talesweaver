@@ -16,7 +16,7 @@ final class PublicationTest extends TestCase
 {
     public function testPublication(): void
     {
-        $author = new Author(Uuid::uuid4(), new Email('email@example.com'), 'password', 'token');
+        $author = new Author(Uuid::uuid4(), new Email('email@example.com'), 'password', 'token', null, null);
         $book = new Book(Uuid::uuid4(), new ShortText('Książka'), $author);
         $book->setLocale('pl');
         $book->edit($book->getTitle(), null, null);

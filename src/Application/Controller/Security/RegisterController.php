@@ -7,10 +7,12 @@ namespace Talesweaver\Application\Controller\Security;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Talesweaver\Application\Bus\CommandBus;
+use Talesweaver\Application\Command\Security\CreateAuthor;
 use Talesweaver\Application\Form\FormHandlerFactoryInterface;
 use Talesweaver\Application\Form\Type\Security\Register;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
-use Talesweaver\Application\Command\Security\CreateAuthor;
+use Talesweaver\Domain\ValueObject\Email;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 final class RegisterController
 {
@@ -43,15 +45,26 @@ final class RegisterController
     {
         $formHandler = $this->formHandlerFactory->createWithRequest($request, Register::class);
         if (true === $formHandler->isSubmissionValid()) {
-            $data = $formHandler->getData();
-            $this->commandBus->dispatch(new CreateAuthor($data['email'], $data['password']));
-
-            return $this->responseFactory->redirectToRoute('login');
+            return $this->handleSubmissionAndRedirect($formHandler->getData());
         }
 
         return $this->responseFactory->fromTemplate(
             'security/register.html.twig',
             ['form' => $formHandler->createView()]
         );
+    }
+
+    private function handleSubmissionAndRedirect(array $data): ResponseInterface
+    {
+        $this->commandBus->dispatch(
+            new CreateAuthor(
+                new Email($data['email']),
+                $data['password'],
+                ShortText::nullableFromString($data['name']),
+                ShortText::nullableFromString($data['surname'])
+            )
+        );
+
+        return $this->responseFactory->redirectToRoute('login');
     }
 }

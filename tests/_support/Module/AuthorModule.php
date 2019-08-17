@@ -17,6 +17,7 @@ use Talesweaver\Application\Command\Security\CreateAuthor;
 use Talesweaver\Application\Query\Security\AuthorByEmail;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\ValueObject\Email;
+use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Integration\Symfony\Security\User;
 use Talesweaver\Tests\Query\Security\TokenByAuthor;
 
@@ -78,12 +79,21 @@ final class AuthorModule extends Module
     public function getAuthor(
         string $email = self::AUTHOR_EMAIL,
         string $password = self::AUTHOR_PASSWORD,
-        bool $active = true
+        bool $active = true,
+        ?string $name = null,
+        ?string $surname = null
     ): Author {
         $emailVO = new Email($email);
         $author = $this->queryBus->query(new AuthorByEmail($emailVO));
         if (null === $author) {
-            $this->commandBus->dispatch(new CreateAuthor($email, $password));
+            $this->commandBus->dispatch(
+                new CreateAuthor(
+                    new Email($email),
+                    $password,
+                    ShortText::nullableFromString($name),
+                    ShortText::nullableFromString($surname)
+                )
+            );
             $author = $this->queryBus->query(new AuthorByEmail($emailVO));
             if (true === $active) {
                 $this->commandBus->dispatch(new ActivateAuthor($author));
@@ -93,12 +103,20 @@ final class AuthorModule extends Module
         return $author;
     }
 
-    public function seeNewAuthorHasBeenCreated(string $email): void
+    public function seeNewAuthorHasBeenCreated(string $email, ?string $name = null, ?string $surname = null): void
     {
         /* @var $author Author */
         $author = $this->queryBus->query(new AuthorByEmail(new Email($email)));
         $this->assertNotNull($author);
         $this->assertFalse($author->isActive());
+
+        if (null !== $name) {
+            $this->assertEquals($name, (string) $author->getName());
+        }
+
+        if (null !== $surname) {
+            $this->assertEquals($surname, (string) $author->getSurname());
+        }
 
         $activationToken = $author->getActivationToken();
         $this->assertNotNull($activationToken);

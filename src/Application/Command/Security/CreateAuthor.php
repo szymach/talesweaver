@@ -5,6 +5,7 @@ namespace Talesweaver\Application\Command\Security;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
 use Talesweaver\Domain\ValueObject\Email;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 final class CreateAuthor implements MessageCommandInterface
 {
@@ -18,9 +19,21 @@ final class CreateAuthor implements MessageCommandInterface
      */
     private $password;
 
-    public function __construct(string $email, string $password)
+    /**
+     * @var ShortText|null
+     */
+    private $name;
+
+    /**
+     * @var ShortText|null
+     */
+    private $surname;
+
+    public function __construct(Email $email, string $password, ?ShortText $name, ?ShortText $surname)
     {
-        $this->email = new Email($email);
+        $this->email = $email;
+        $this->name = $name;
+        $this->surname = $surname;
         $this->password = $password;
     }
 
@@ -32,6 +45,16 @@ final class CreateAuthor implements MessageCommandInterface
     public function getPassword(): string
     {
         return $this->password;
+    }
+
+    public function getName(): ?ShortText
+    {
+        return $this->name;
+    }
+
+    public function getSurname(): ?ShortText
+    {
+        return $this->surname;
     }
 
     public function getMessage(): Message
