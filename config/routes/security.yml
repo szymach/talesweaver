@@ -2,29 +2,34 @@
 login:
     path: /login
     controller: Talesweaver\Application\Controller\Security\LoginController
-    methods:  GET|POST
+    methods: [GET,POST]
 
 register:
     path: /registration
     controller: Talesweaver\Application\Controller\Security\RegisterController
-    methods:  GET|POST
+    methods: [GET,POST]
 
 activation:
     path: /activate/{code}
     controller: Talesweaver\Application\Controller\Security\ActivationController
     methods:  GET
 
+profile:
+    path: /profile
+    controller: Talesweaver\Application\Controller\Security\ProfileController
+    methods: [GET,POST]
+
 password_reset_request:
     path: /reset-password/request
     controller: Talesweaver\Application\Controller\Security\ResetPasswordRequestController
-    methods:  GET|POST
+    methods: [GET,POST]
 
 password_reset_change:
     path: /reset-password/change/{code}
     controller: Talesweaver\Application\Controller\Security\ResetPasswordChangeController
-    methods:  GET|POST
+    methods: [GET,POST]
 
 change_password:
     path: /change-password
     controller: Talesweaver\Application\Controller\Security\ChangePasswordController
-    methods:  GET|POST
+    methods: [GET,POST]

@@ -36,8 +36,8 @@
     </li>
 {% endmacro %}
 
-{% macro dropdownToggle(label, target) %}
-    <button class="btn btn-link dropdown-toggle nav-link"
+{% macro dropdownToggle(label, target, class = '') %}
+    <button class="btn btn-link dropdown-toggle nav-link{{ ' ' ~ class }}"
             type="button"
             id="{{ target }}"
             data-toggle="dropdown"

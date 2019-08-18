@@ -21,12 +21,17 @@
                 {{ macros.mainMenuItem('scene_list', 'common.scenes'|trans, currentRoute) }}
             </ul>
             <ul class="nav navbar-nav nav-actions">
+                <li class="nav-item d-sm-block d-md-none d-xl-none">
+                    <span class="nav-link profile-label">{{ currentUserName() }}</span>
+                </li>
                 {{ macros.menuItem(path('change_password'), {}, 'fa-lock', 'menu.change_password'|trans, 'd-sm-block d-md-none d-xl-none') }}
+                {{ macros.menuItem(path('profile'), {}, 'fa-user', 'menu.profile'|trans, 'd-sm-block d-md-none d-xl-none') }}
                 {{ macros.menuItem(path('logout'), {}, 'fa-power-off', 'menu.logout'|trans, 'd-sm-block d-md-none d-xl-none') }}
                 <li class="dropdown d-none d-sm-none d-md-block d-xl-block">
-                    {{ macros.dropdownToggle(app.user.username, 'menu-user') }}
+                    {{ macros.dropdownToggle(currentUserName(), 'menu-user', 'profile-label') }}
                     <ul class="dropdown-menu" aria-labelledby="menu-user">
                         {{ macros.dropdownItem(path('change_password'), {}, 'fa-lock', 'menu.change_password'|trans, '') }}
+                        {{ macros.dropdownItem(path('profile'), {}, 'fa-user', 'menu.profile'|trans, '') }}
                         {{ macros.dropdownItem(path('logout'), {}, 'fa-power-off', 'menu.logout'|trans, '') }}
                     </ul>
                 </li>

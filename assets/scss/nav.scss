@@ -17,6 +17,13 @@ nav.navbar {
             }
         }
     }
+
+    .profile-label {
+        max-width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }
 
 .dropdown-toggle {

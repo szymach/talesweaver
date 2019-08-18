@@ -58,9 +58,11 @@ final class AuthorModule extends Module
 
     public function loginAsUser(
         string $email = self::AUTHOR_EMAIL,
-        string $password = self::AUTHOR_PASSWORD
+        string $password = self::AUTHOR_PASSWORD,
+        ?string $name = null,
+        ?string $surname = null
     ): void {
-        $user = new User($this->getAuthor($email, $password));
+        $user = new User($this->getAuthor($email, $password, true, $name, $surname));
         $token = new UsernamePasswordToken(
             $user,
             self::AUTHOR_PASSWORD,
@@ -105,10 +107,19 @@ final class AuthorModule extends Module
 
     public function seeNewAuthorHasBeenCreated(string $email, ?string $name = null, ?string $surname = null): void
     {
-        /* @var $author Author */
+        $author = $this->canSeeAuthorExists($email, $name, $surname);
+        $this->assertFalse($author->isActive());
+
+        $activationToken = $author->getActivationToken();
+        $this->assertNotNull($activationToken);
+        $this->assertTrue($activationToken->isValid());
+    }
+
+    public function canSeeAuthorExists(string $email, ?string $name = null, ?string $surname = null): Author
+    {
+        /** @var Author $author */
         $author = $this->queryBus->query(new AuthorByEmail(new Email($email)));
         $this->assertNotNull($author);
-        $this->assertFalse($author->isActive());
 
         if (null !== $name) {
             $this->assertEquals($name, (string) $author->getName());
@@ -118,9 +129,7 @@ final class AuthorModule extends Module
             $this->assertEquals($surname, (string) $author->getSurname());
         }
 
-        $activationToken = $author->getActivationToken();
-        $this->assertNotNull($activationToken);
-        $this->assertTrue($activationToken->isValid());
+        return $author;
     }
 
     public function canSeeResetPasswordTokenGenerated(Author $author):void

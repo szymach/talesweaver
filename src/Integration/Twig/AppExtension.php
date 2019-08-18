@@ -6,11 +6,17 @@ namespace Talesweaver\Integration\Twig;
 
 use Exception;
 use Talesweaver\Application\Data\Sortable;
+use Talesweaver\Application\Security\AuthorContext;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 final class AppExtension extends AbstractExtension
 {
+    /**
+     * @var AuthorContext
+     */
+    private $authorContext;
+
     /**
      * @var Sortable
      */
@@ -21,8 +27,9 @@ final class AppExtension extends AbstractExtension
      */
     private $projectDirectory;
 
-    public function __construct(Sortable $sortable, string $projectDirectory)
+    public function __construct(AuthorContext $authorContext, Sortable $sortable, string $projectDirectory)
     {
+        $this->authorContext = $authorContext;
         $this->sortable = $sortable;
         $this->projectDirectory = $projectDirectory;
     }
@@ -30,6 +37,23 @@ final class AppExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
+            new TwigFunction('currentUserName', function (): string {
+                $author = $this->authorContext->getAuthor();
+                $username = (string) $author->getEmail();
+                $name = $author->getName();
+                $surname = $author->getSurname();
+                if (null === $name && null === $surname) {
+                    return $username;
+                }
+
+                return sprintf(
+                    '%s (%s%s%s)',
+                    $username,
+                    (string) $name,
+                    null !== $surname ? ' ' : '',
+                    (string) $surname
+                );
+            }),
             new TwigFunction(
                 'isActiveMenuItem',
                 function (string $currentRoute, string $checkedRoute): bool {

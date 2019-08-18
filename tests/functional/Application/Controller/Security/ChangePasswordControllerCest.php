@@ -14,7 +14,6 @@ class ChangePasswordControllerCest
         $I->loginAsUser();
         $I->canSeeIAmOnRouteLocale('change_password');
         $I->canSeeInTitle('Zmiana hasła');
-        $I->canSee('Zmiana hasła', 'h1');
         $I->canSeeElement('form[name="change_password"]');
         $I->canSee('Aktualne hasło');
         $I->canSee('Nowe hasło');

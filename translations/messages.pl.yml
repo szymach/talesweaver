@@ -5,6 +5,7 @@ meta:
 menu:
     start: Start
     change_password: Zmień hasło
+    profile: Profil
     toggle: Przełącz nawigację
     logout: Wyloguj
 
@@ -120,6 +121,16 @@ security:
         submit: Wyślij
         alert:
             success: Pomyślnie zmieniono hasło do aplikacji. Wymagane jest ponowne zalogowanie.
+
+    profile:
+        header: Profil
+        name:
+            label: Imię
+            placeholder: Twoje imię
+        surname:
+            label: Nazwisko
+            placeholder: Twoje nazwisko
+        submit: Wyślij
 
 dashboard:
     header:
