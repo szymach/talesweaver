@@ -37,18 +37,16 @@ final class AppExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new TwigFunction('currentUserName', function (): string {
+            new TwigFunction('currentAuthorName', function (): ?string {
                 $author = $this->authorContext->getAuthor();
-                $username = (string) $author->getEmail();
                 $name = $author->getName();
                 $surname = $author->getSurname();
                 if (null === $name && null === $surname) {
-                    return $username;
+                    return null;
                 }
 
                 return sprintf(
-                    '%s (%s%s%s)',
-                    $username,
+                    '%s%s%s',
                     (string) $name,
                     null !== $surname ? ' ' : '',
                     (string) $surname
