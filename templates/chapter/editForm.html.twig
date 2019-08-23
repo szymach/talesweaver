@@ -10,7 +10,7 @@
         items: [
             bookId is not null
                 ? { label: bookTitle, url: path('book_edit', { id: bookId }) }
-                : { label: 'common.books'|trans, url: path('book_list') }
+                : { label: 'common.chapters'|trans, url: path('chapter_list') }
             ,
             { label: title }
         ],

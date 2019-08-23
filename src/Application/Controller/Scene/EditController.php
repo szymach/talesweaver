@@ -129,6 +129,11 @@ final class EditController
             $parameters['chapterTitle'] = $chapter->getTitle();
             $parameters['chapterId'] = $chapter->getId();
             $parameters['relatedScenes'] = $this->queryBus->query(new ScenesPage($chapter, 1));
+            if (null !== $chapter->getBook()) {
+                $book = $chapter->getBook();
+                $parameters['bookTitle'] = $book->getTitle();
+                $parameters['bookId'] = $book->getId();
+            }
         } else {
             $parameters['chapterTitle'] = null;
             $parameters['chapterId'] = null;
