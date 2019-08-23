@@ -1,0 +1,37 @@
+{% import 'partial/macros.html.twig' as macros %}
+{% form_theme form 'form/formTheme.html.twig' %}
+
+<div class="row">
+    <div class="col">
+        {{ macros.tabNavigation([
+            macros.tab('eventContentTab', 'eventContent', 'common.content', 'active'),
+            macros.tab('eventCharactersTab', 'eventCharacters', 'event.characters', ''),
+            macros.tab('eventItemsTab', 'eventItems', 'event.items', '')
+        ]) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        {{ form_start(form) }}
+        <div class="tab-content">
+            <div class="tab-pane fade active show" id="eventContent" role="tabpanel" aria-labelledby="eventContentTab">
+                {{ form_row(form.name) }}
+                {{ form_row(form.location) }}
+                {{ form_row(form.description) }}
+            </div>
+            <div class="tab-pane fade" id="eventCharacters" role="tabpanel" aria-labelledby="eventCharactersTab">
+                {{ form_row(form.characters) }}
+            </div>
+            <div class="tab-pane fade" id="eventItems" role="tabpanel" aria-labelledby="eventItemsTab">
+                {{ form_row(form.items) }}
+            </div>
+        </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+</div>
+<script>
+    var event = document.createEvent('Event');
+    event.initEvent('ckeditor:initialize', true, true);
+    document.getElementById('modal-form').dispatchEvent(event);
+</script>

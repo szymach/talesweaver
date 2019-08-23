@@ -93,6 +93,7 @@ export module Forms {
         modal.querySelector('.modal-title').innerHTML = response.title;
         modal.querySelector('.modal-body').innerHTML = response.form;
         trigger(modal, 'ckeditor:initialize');
+        Display.initScripts();
         new bootstrap.Modal(modal).show()
     }
 

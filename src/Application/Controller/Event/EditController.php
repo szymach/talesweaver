@@ -74,7 +74,7 @@ final class EditController
         }
 
         return $this->responseFactory->form(
-            'form\modalContent.html.twig',
+            'scene\events\form.html.twig',
             ['form' => $formHandler->createView()],
             $formHandler->displayErrors(),
             'event.header.edit'

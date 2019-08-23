@@ -45,7 +45,7 @@ export module Display {
         );
     }
 
-    function initScripts() {
+    export function initScripts() {
         document.querySelectorAll('[data-toggle="tab"]').forEach((element: Element) => {
             new bootstrap.Tab(element);
         });
