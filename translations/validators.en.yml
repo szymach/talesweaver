@@ -1,0 +1,27 @@
+---
+event:
+    exists: An event with this name already exists!
+
+unqiue_dto:
+    exists: This value is already in use!
+
+book:
+    exists: A book with this title already exists!
+
+chapter:
+    exists: A chapter with this title already exists!
+
+scene:
+    exists: A scene with this title already exists!
+
+character:
+    exists: A character with this name already exists!
+
+item:
+    exists: An item with this name already exists!
+
+location:
+    exists: A location with this name already exists!
+
+security:
+    email_taken: This email is already in use!

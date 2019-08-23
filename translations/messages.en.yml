@@ -1,0 +1,444 @@
+---
+meta:
+    title: Talesweaver
+
+menu:
+    start: Start
+    change_password: Change password
+    profile: Profile
+    toggle: Toggle navigation
+    logout: Sign out
+
+crud:
+    save: Save
+    edit: Edit
+    back: Return
+    actions: Action
+    list: List
+    delete: Delete
+    display: Display
+    close: Close
+    remove_from_scene: Remove from scene
+    move_up: Move right
+    move_down: Move left
+
+common:
+    start: Start
+    books: Books
+    chapters: Chapters
+    scenes: Scenes
+    content: Content
+
+security:
+    about: About
+    login:
+        header: Login
+        register: Registration
+        password_reset: Password reset
+        submit: Sign in
+        email:
+            label: Email
+            placeholder: Enter your email address
+        password:
+            label: Password
+            placeholder: Enter your password
+    registration:
+        header: Registration
+        login: Return to login
+        email:
+            label: Email
+            placeholder: 'ex. email@example.com'
+        password:
+            label: Password
+            placeholder: The password needs to have at least 6 characters
+        password_repeat:
+            label: Repeat password
+            placeholder: Repeated the provided password
+        name:
+            label: Name
+            placeholder: Enter your name
+        surname:
+            label: Surname
+            placeholder: Enter your surname
+        submit: Register
+        mail:
+            title: Talesweaver - account registration
+            body: >
+                Welcome to Talesweaver! Below you will find the link to activate
+                Your account:
+            link: Activate account
+        alert:
+            success: >
+                Your account has been successfuly registered! We have sent a
+                message to the provided email with a link required to activate it.
+    activation:
+        alert:
+            success: 'The account "%email%" has been successfuly activated! You can now sign in.'
+    reset_password:
+        login: Login
+        request:
+            header: Password reset
+            email:
+                label: Email
+                placeholder: Enter your account's email
+            submit: Submit
+            alert:
+                success: >
+                    If the provided address is correct, then it should receive an
+                    email with instruction on how to reset the password.
+        change:
+            header: Password change
+            first_password:
+                label: New password
+                placeholder: Enter the new password
+            second_password:
+                label: Repeat password
+                placeholder: Repeat the new password
+            submit: Change password
+            alert:
+                success: >
+                    The password has been successfuly changed. You can now use it
+                    to sign into your account.
+        mail:
+            title: Talesweaver - password reset
+            body: >
+                Following Your request we have sent a message with a link that
+                will allow You to change the password to Your account:
+            link: Password reset
+    change_password:
+        header: Password change
+        current_password:
+            label: Current password
+            placeholder: Enter your current password
+        new_password:
+            first:
+                label: New password
+                placeholder: Enter a new password (at least 6 characters)
+            second:
+                label: Repeat new password
+                placeholder: Repeat the new password
+        submit: Submit
+        alert:
+            success: The password has been successfuly changed. Signing in is required.
+
+    profile:
+        header: Profile
+        name:
+            label: Name
+            placeholder: Your name
+        surname:
+            label: Surname
+            placeholder: Your surname
+        submit: Submit
+
+dashboard:
+    header:
+        top: Welcome to Talesweaver!
+    timeline: Recent changes
+    actions:
+        header: First steps
+        learn_more: Learn more
+        create_scene: Create a first scene
+        create_chapter: Create a first chapter
+        create_book: Create a first book
+    type:
+        'Talesweaver\Domain\Book': Book
+        'Talesweaver\Domain\Chapter': Chapter
+        'Talesweaver\Domain\Scene': Scene
+    updated:
+        0: Added
+        1: Updated
+
+book:
+    title: Title
+    description: Description
+    chapters:
+        info: A list of chapters assigned to the book.
+    scenes:
+        info: A list of scenes assigned to the book.
+    placeholder:
+        title: Enter the title and save in order to add chapters
+    actions:
+        create: New
+        create_chapter: New chapter
+    back:
+        to_list: Return to list
+    list:
+        create: New
+        no_results:
+            header: No books found
+            add_new: Add a new one!
+    alert:
+        created: 'The book with title "%title%" has been successfuly created.'
+        edit: The changes to the book have been saved.
+        deleted: 'The book "%title%" has been deleted.'
+        published: 'The content of the book "%title%" has been successfuly published.'
+    seo_title:
+        list: Books
+        form:
+            create: New book
+            edit: '%title% - edit'
+
+chapter:
+    title: Title
+    placeholder:
+        title:
+            book: Enter the chapter title
+            standalone: Enter the chapter title and save in order to add scenes
+        book: 'Assign to book'
+    book: Book
+    info:
+        book: 'A list of chapters assigned to book "%title%".'
+        scenes: A list of scenes assigned to the chapter.
+    actions:
+        create: New
+        create_scene: New scene
+    header:
+        new: New chapter
+    list:
+        create: New
+        standalone:
+            no_results:
+                header: No chapters found
+                add_new: Add a new one!
+    back:
+        to_book: Return to the book
+        to_list: Return to the list
+    tabs:
+        basic: Basic
+        scenes: Scenes
+    alert:
+        created: 'The chapter with title "%title%" has been successfuly created.'
+        edit: The changes to the chapter have been saved.
+        deleted: 'Chapter "%title%" has been deleted.'
+        published: 'The content of the chapter "%title%" has been successfuly published.'
+    seo_title:
+        list: Chapters
+        form:
+            create: New chapter
+            edit: '%title% - edit'
+
+scene:
+    title: Title
+    text: Content
+    placeholder:
+        title:
+            chapter: Enter the scene title
+            standalone: Enter the scene title and save in order to add content
+        chapter: 'Assign to chapter'
+    chapter: Chapter
+    book: Book
+    related:
+        info: 'A list of scenes assigned to chapter "%title%".'
+    header:
+        new: New scene
+    actions:
+        create: New
+    back:
+        to_chapter: Return to the chapter
+        to_list: Return to the list
+    list:
+        create: New
+        standalone:
+            no_results:
+                header: No scenes found
+                add_new: Add a new one!
+    tabs:
+        characters: Characters
+        locations: Locations
+        items: Items
+        events: Events
+        related: Chapter
+    alert:
+        created: 'The scene with title "%title%" has been successfuly created.'
+        edit: The changes to the scene have been saved.
+        deleted: 'Scene "%title%" has been removed.'
+        published: 'The content of the scene "%title%" has been successfuly published.'
+    seo_title:
+        list: Scenes
+        form:
+            create: New scene
+            edit: '%title% - edit'
+    modal:
+        events: Events
+        description: Description
+
+event:
+    name: Name
+    description: Description
+    location: Location
+    characters: Participants
+    items: Items
+    info: A list of events that have occured in this scene.
+    header:
+        new: New event
+        edit: Edit event
+    actions:
+        create: New event
+    display:
+        location: Location
+    timeline:
+        creation: 'First appearance in scene:'
+    alert:
+        created: 'The event with name "%title%" has been successfuly created.'
+        edit: The changes to the event have been saved.
+        deleted: 'Event "%title%" has been removed.'
+    list:
+        no_results: The scene does not have any events.
+
+character:
+    name: Name
+    description: Description
+    avatar: Image
+    info:
+        chapter: >
+            A list of characters assigned to the scene. You can add characters from
+            other scenes assigned to the chapter or book.
+        standalone: A list of characters assigned to the scene
+    actions:
+        add_to_scene: 'Add to scene "%scene%"'
+        create: New character
+        add_existing: Add a character from another scene
+    header:
+        new: New character
+        edit: Character edit
+        related: Adding an existing character
+    alert:
+        created: 'The character with name "%title%" has been successfuly created.'
+        edit: Changes to character have been saved.
+        deleted: 'Character "%title%" has been removed.'
+        added_to_scene: 'Added character "%title%" to scenes "%sceneTitle%".'
+        removed_from_scene: 'Removed character "%title%" from scene "%sceneTitle%".'
+    list:
+        no_results: Scene does not have any characters assigned.
+    related_list:
+        no_results: No characters to assign.
+
+item:
+    name: Name
+    description: Description
+    avatar: Image
+    info:
+        chapter: >
+            A list of items assigned to the scene. You can add items from
+            other scenes assigned to the chapter or book.
+        standalone: A list of items assigned to the scene.
+    actions:
+        create: New item
+        add_existing: Add an item from another scene
+        add_to_scene: 'Add to scene "%scene%"'
+    header:
+        new: New item
+        edit: Item edit
+        related: Adding an existing item
+    alert:
+        created: 'The item with name "%title%" has been successfuly created.'
+        edit: Changes to item have been saved.
+        deleted: 'Item "%title%" has been removed.'
+        added_to_scene: 'Added item "%title%" to scene "%sceneTitle%".'
+        removed_from_scene: 'Removed item "%title%" from scene "%sceneTitle%".'
+    list:
+        no_results: Scene does not have any items assigned.
+    related_list:
+        no_results: No items to assign.
+
+location:
+    name: Name
+    description: Description
+    avatar: Image
+    info:
+        chapter: >
+            A list of locations assigned to the scene. You can add locations from
+            other scenes assigned to the chapter or book.
+        standalone: A list of locations assigned to the scene.
+    actions:
+        create: New location
+        add_existing: Add location from another scene
+        add_to_scene: 'Add to scene "%scene%"'
+    header:
+        new: New location
+        edit: Location edit
+        related: Add an existing location
+    alert:
+        created: 'The location with name "%title%" has been successfuly created.'
+        edit: Changes to location have been saved.
+        deleted: 'Location "%title%" has been removed.'
+        added_to_scene: 'Added location "%title%" to scene "%sceneTitle%".'
+        removed_from_scene: 'Removed location "%title%" from scene "%sceneTitle%".'
+    list:
+        no_results: Scene does not have any locations assigned.
+    related_list:
+        no_results: No locations assigned.
+
+modal:
+    delete:
+        title: Confirm action
+        content: Are you certain that you want to remove the selected item?
+    form:
+        title: Form
+        submit: Submit
+    list:
+        title: List
+    close: Close
+
+yes: Yes
+no: No
+
+alert:
+    success: Action completed successfuly!
+    error: There has been an error while performing the action!
+    timed_out: Your session has expired, refresh the page and sign in again.
+    close: Close
+
+pagination:
+    previous: Next
+    next: Previous
+
+display:
+    title: Go to display page
+    label: Display
+
+pdf:
+    label: PDF
+    title: Download as PDF
+
+publication:
+    tab: Publications
+    header: New publication
+    info: >
+        Publications are snapshots of the content. You can toggle a publicly
+        available address for it on and off.
+    title:
+        label: Title
+        placeholder:
+            scene: Title by default, provide a different one if you want to
+    visible:
+        label: Publicy visible
+        help: >
+            Toggling this option on will generate a publicy visible address for
+            the content, which you can share with people without an account in the
+            application.
+    locale:
+        pl: Polish language
+        en: English language
+    action:
+        create: Publish
+        public_display: Public page
+        toggle_visibility:
+            on: Toggle public visibility
+            off: Hide
+    alert:
+        visibility_toggled:
+            on: 'Publication "%title%" is publicly visible.'
+            off: 'Publication "%title%" is not publicly visible.'
+        deleted: 'Publication "%title%" has been removed.'
+
+filter:
+    book: Choose a book
+    chapter: Choose a chapter
+    submit: Filter
+    clear: Clear
+
+sort:
+    asc: Sort ascending
+    desc: Sort descending

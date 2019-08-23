@@ -32,8 +32,8 @@ class RegisterControllerCest
         $I->canSeeCurrentUrlEquals('/pl/login');
         $I->seeNewAuthorHasBeenCreated('email@example.com', 'Imię autora', 'Nazwisko autora');
         $I->canSeeAlert(
-            'Pomyślnie zarejstrowano konto w aplikacji Bajkopisarz! Na podane'
-            . ' konto email wysłano wiadomość do aktywacji konta.'
+            'Pomyślnie zarejstrowano konto w aplikacji Bajkopisarz! Na podane '
+            . 'konto email wysłano wiadomość z instrukcją do aktywacji konta.'
         );
 
         $I->fillField('Email', 'email@example.com');

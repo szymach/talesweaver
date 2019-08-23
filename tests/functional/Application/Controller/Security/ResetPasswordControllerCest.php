@@ -28,8 +28,8 @@ class ResetPasswordControllerCest
         $I->click('Wyślij');
         $I->canSeeCurrentUrlEquals('/pl/login');
         $I->canSeeAlert(
-            'Jeżeli podany adres email był prawidłowy, przesłano na niego email'
-            . ' z instrukcjami zmiany hasła.'
+            'Jeżeli podany adres email był prawidłowy, przesłano na niego wiadomość'
+            . ' z instrukcją zmiany hasła.'
         );
 
         /* @var $author Author */

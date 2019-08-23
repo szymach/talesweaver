@@ -1,0 +1,29 @@
+---
+login: Return to home page
+register: Sign up!
+
+about:
+    title: About Talesweaver
+    header: Talesweaver
+    preface:
+        header: Description
+        content: >
+            Talesweaver is an application created to help authors organize their
+            work into easily managable chunks.
+    structure:
+        header: Structure
+        content: >
+            The most basic element of every piece is a scene. Scenes can be assigned
+            to a chapter, which can be assigned to book.
+    scene:
+        header: Scene
+        content: >
+            Contains the actual content, you can add characters, items, location
+            and events to them. These can be moved between scenes that are a part
+            of the same chapter or book.
+    publication:
+        header: Publishing content
+        content: >
+            Every piece - book, chapter or scene - can be published. This will create
+            a publicly available page with formatted content, which can be shared
+            with other people.

@@ -30,7 +30,6 @@ common:
     content: Treść
 
 security:
-    header: Bajkopisarz
     about: O aplikacji
     login:
         header: Logowanie
@@ -65,13 +64,14 @@ security:
         mail:
             title: Bajkopisarz - rejestracja
             body: >
-                Witamy w aplikacji Bajkopisarz! Poniżej znajdziesz link z kodem
-                aktywującym konto!
+                Witamy w aplikacji Bajkopisarz! Poniżej znajdziesz link do
+                aktywacji Twojego konta!
             link: Aktywuj konto
         alert:
             success: >
                 Pomyślnie zarejstrowano konto w aplikacji Bajkopisarz!
-                Na podane konto email wysłano wiadomość do aktywacji konta.
+                Na podane konto email wysłano wiadomość z instrukcją do aktywacji
+                konta.
     activation:
         alert:
             success: 'Pomyślnie aktywowano konto "%email%"! Możesz się teraz zalogować.'
@@ -86,12 +86,12 @@ security:
             alert:
                 success: >
                     Jeżeli podany adres email był prawidłowy, przesłano na niego
-                    email z instrukcjami zmiany hasła.
+                    wiadomość z instrukcją zmiany hasła.
         change:
             header: Zmiana hasła
             first_password:
                 label: Nowe hasło
-                placeholder: Podaj nowe hasło do swojego konta
+                placeholder: Podaj nowe hasło (co najmniej 6 znaków)
             second_password:
                 label: Powtórz nowe hasło
                 placeholder: Powtórz hasło wpisane powyżej
@@ -154,9 +154,11 @@ book:
     title: Tytuł
     description: Opis
     chapters:
-        info: Lista rozdziałów przypisanych do książki.
+        info: Lista rozdziałów przypisanych do książki. Można zmieniać ich kolejność.
     scenes:
-        info: Lista scen przypisanych do książki.
+        info: >
+            Lista scen przypisanych do książki. Kolejność scen można ustawić z
+            poziomu rozdziału.
     placeholder:
         title: Podaj tytuł książki i zapisz, by móc dodawać rozdziały
     actions:
@@ -167,7 +169,7 @@ book:
     list:
         create: Nowa
         no_results:
-            header: Nie masz jeszcze żadnej książki.
+            header: Nie znaleziono żadnej książki.
             add_new: Dodaj nową!
     alert:
         created: 'Pomyślnie dodano nową książkę o tytule "%title%".'
@@ -200,7 +202,7 @@ chapter:
         create: Nowy
         standalone:
             no_results:
-                header: Nie masz jeszcze żadnego rozdziału.
+                header: Nie znaleziono żadnego rozdziału.
                 add_new: Dodaj nowy!
     back:
         to_book: Wróć do książki
@@ -226,7 +228,6 @@ scene:
         title:
             chapter: Podaj tytuł sceny
             standalone: Podaj tytuł sceny i zapisz, by wprowadzać treść
-            next: Następna scena
         chapter: 'Przypisz do rozdziału'
     chapter: Rozdział
     book: Książka
@@ -243,7 +244,7 @@ scene:
         create: Nowa
         standalone:
             no_results:
-                header: Nie masz jeszcze żadnej sceny.
+                header: Nie znaleziono żadnej sceny.
                 add_new: Dodaj nową!
     tabs:
         characters: Postacie
@@ -279,8 +280,6 @@ event:
         create: Nowe wydarzenie
     display:
         location: Miejsce
-    modal:
-        title: Wybierz wydarzenie do dodania
     timeline:
         creation: 'Pierwsze wystąpienie w scenie:'
     alert:
@@ -297,7 +296,7 @@ character:
     info:
         chapter: >
             Lista postaci występujących w scenie. Możesz dodać postacie z innych
-            scen przypisanych do rozdziału.
+            scen przypisanych do rozdziału lub książki.
         standalone: Lista postaci występujących w scenie.
     actions:
         add_to_scene: 'Dodaj do sceny "%scene%"'
@@ -325,7 +324,7 @@ item:
     info:
         chapter: >
             Lista przedmiotów występujących w scenie. Możesz dodać przedmioty
-            z innych scen przypisanych do rozdziału.
+            z innych scen przypisanych do rozdziału lub książki.
         standalone: Lista przedmiotów występujących w scenie.
     actions:
         create: Nowy przedmiot
@@ -353,7 +352,7 @@ location:
     info:
         chapter: >
             Lista miejsc występujących w scenie. Możesz dodać miejsca z innych
-            scen przypisanych do rozdziału.
+            scen przypisanych do rozdziału lub książki.
         standalone: Lista miejsc występujących w scenie.
     actions:
         create: Nowe miejsce
@@ -385,16 +384,11 @@ modal:
         title: Lista
     close: Zamknij
 
-side_menu:
-    toggle_navigation: Pokaż/ukryj menu
-    toggle_list: Pokaż
-
 yes: Tak
 no: Nie
 
 alert:
     success: Operacja wykonana pomyślnie!
-    autosave_success: Pomyślnie dokonano operacji autozapisu!
     error: Nastąpił błąd podczas wykonywania operacji!
     timed_out: Twoja sesja wygasła, odśwież stronę i zaloguj się ponownie.
     close: Zamknij
@@ -406,7 +400,6 @@ pagination:
 display:
     title: Przejdź do strony z podglądem
     label: Podgląd
-    show_hide: Pokaż / ukryj
 
 pdf:
     label: PDF
@@ -416,8 +409,8 @@ publication:
     tab: Publikacje
     header: Nowa publikacja
     info: >
-        Publikacje są migawką treści. Można dla nich włączyć publicznie dostępny
-        adres, a w razie czego go wyłączyć.
+        Publikacje są migawką treści. Można dla nich włączyć i wyłączyc publicznie
+        adres.
     title:
         label: Tytuł
         placeholder:

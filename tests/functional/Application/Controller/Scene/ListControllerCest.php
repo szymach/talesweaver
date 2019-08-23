@@ -11,7 +11,7 @@ final class ListControllerCest
     public function testSceneList(FunctionalTester $I)
     {
         $I->amOnPage('/pl/scene/list');
-        $I->see('Nie masz jeszcze żadnej sceny.', 'h4');
+        $I->see('Nie znaleziono żadnej sceny.', 'h4');
         $I->see('Dodaj nową!', 'a[href="/pl/scene/create"]');
         $I->cantSeeElement('table');
 

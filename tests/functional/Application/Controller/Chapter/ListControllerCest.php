@@ -11,7 +11,7 @@ final class ListControllerCest
     public function testChapterList(FunctionalTester $I): void
     {
         $I->amOnPage('/pl/chapter/list');
-        $I->see('Nie masz jeszcze żadnego rozdziału.', 'h4');
+        $I->see('Nie znaleziono żadnego rozdziału.', 'h4');
         $I->see('Dodaj nowy!', 'a[href="/pl/chapter/create"]');
         $I->cantSeeElement('table');
 

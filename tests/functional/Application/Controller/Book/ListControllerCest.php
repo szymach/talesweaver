@@ -12,7 +12,7 @@ class ListControllerCest
     {
         $I->loginAsUser();
         $I->amOnPage('/pl/book/list');
-        $I->see('Nie masz jeszcze żadnej książki', 'h4');
+        $I->see('Nie znaleziono żadnej książki', 'h4');
         $I->see('Dodaj nową!', 'a[href="/pl/book/create"]');
         $I->cantSeeElement('table');
 
