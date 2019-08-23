@@ -5,8 +5,8 @@
     <div class="col">
         {{ macros.tabNavigation([
             macros.tab('eventContentTab', 'eventContent', 'common.content', 'active'),
-            macros.tab('eventCharactersTab', 'eventCharacters', 'event.characters', ''),
-            macros.tab('eventItemsTab', 'eventItems', 'event.items', '')
+            form.characters is defined ? macros.tab('eventCharactersTab', 'eventCharacters', 'event.characters', '') : '',
+            form.items is defined ? macros.tab('eventItemsTab', 'eventItems', 'event.items', '') : ''
         ]) }}
     </div>
 </div>
@@ -16,15 +16,21 @@
         <div class="tab-content">
             <div class="tab-pane fade active show" id="eventContent" role="tabpanel" aria-labelledby="eventContentTab">
                 {{ form_row(form.name) }}
-                {{ form_row(form.location) }}
+                {% if form.location is defined %}
+                    {{ form_row(form.location) }}
+                {% endif %}
                 {{ form_row(form.description) }}
             </div>
-            <div class="tab-pane fade" id="eventCharacters" role="tabpanel" aria-labelledby="eventCharactersTab">
-                {{ form_row(form.characters) }}
-            </div>
-            <div class="tab-pane fade" id="eventItems" role="tabpanel" aria-labelledby="eventItemsTab">
-                {{ form_row(form.items) }}
-            </div>
+            {% if form.characters is defined %}
+                <div class="tab-pane fade" id="eventCharacters" role="tabpanel" aria-labelledby="eventCharactersTab">
+                    {{ form_row(form.characters) }}
+                </div>
+            {% endif %}
+            {% if form.items is defined %}
+                <div class="tab-pane fade" id="eventItems" role="tabpanel" aria-labelledby="eventItemsTab">
+                    {{ form_row(form.items) }}
+                </div>
+            {% endif %}
         </div>
         {{ form_rest(form) }}
         {{ form_end(form) }}

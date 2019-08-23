@@ -109,13 +109,13 @@
     <script src="{{ absolute_url(asset('assets/ckeditor.js')) }}" async></script>
 {% endblock %}
 
-{% if chapterId is defined and bookId is defined %}
+{% if chapterId is defined and chapterId is not null and bookId is defined and bookId is not null %}
     {% set breadcrumbs = [
         { label: bookTitle, url: path('book_edit', { id: bookId }) },
         { label: chapterTitle, url: path('chapter_edit', { id: chapterId }) },
         { label: title }
     ] %}
-{% elseif chapterId is defined %}
+{% elseif chapterId is defined and chapterId is not null %}
     {% set breadcrumbs = [
         { label: chapterTitle, url: path('chapter_edit', { id: chapterId }) },
         { label: title }
