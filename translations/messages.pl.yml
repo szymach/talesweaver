@@ -114,7 +114,7 @@ security:
         new_password:
             first:
                 label: Nowe hasło
-                placeholder: Podaj nowe hasło
+                placeholder: Podaj nowe hasło (co najmniej 6 znaków)
             second:
                 label: Powtórz nowe hasło
                 placeholder: Podaj ponownie nowe hasło

@@ -18,7 +18,7 @@ use Talesweaver\Application\Command\Chapter\Create\DTO;
 use Talesweaver\Application\Form\Type\Chapter\Create;
 use Talesweaver\Application\Query\Chapter\EntityExists;
 
-class CreateType extends AbstractType implements Create
+final class CreateType extends AbstractType implements Create
 {
     /**
      * @var QueryBus

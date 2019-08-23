@@ -95,9 +95,20 @@ final class CreateType extends AbstractType implements Create
 
     private function getChapterChoices(?Book $book): array
     {
-        return $this->queryBus->query(
-            null !== $book ? new ForBook($book) : new Standalone()
+        $hasBook = null !== $book;
+
+        $chapters = $this->queryBus->query(
+            true === $hasBook ? new ForBook($book) : new Standalone()
         );
+
+        usort($chapters, function (Chapter $a, Chapter $b) use ($hasBook): int {
+            return true === $hasBook
+                ? $a->getPosition() <=> $b->getPosition()
+                : strnatcmp((string) $a->getTitle(), (string) $b->getTitle())
+            ;
+        });
+
+        return $chapters;
     }
 
     private function getChapterChoiceLabel(?Book $book): callable

@@ -90,7 +90,7 @@ security:
             header: Password change
             first_password:
                 label: New password
-                placeholder: Enter the new password
+                placeholder: Enter the new password (at least 6 characters)
             second_password:
                 label: Repeat password
                 placeholder: Repeat the new password
