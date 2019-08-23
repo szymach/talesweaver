@@ -15,7 +15,7 @@ use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
 
-class EventRepository extends AutoWireableTranslatableRepository
+final class EventRepository extends AutoWireableTranslatableRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -42,6 +42,7 @@ class EventRepository extends AutoWireableTranslatableRepository
     {
         return $this->createForAuthorQueryBuilder($author)
             ->andWhere('e.scene = :scene')
+            ->orderBy('t.name', 'ASC')
             ->setParameter('scene', $scene)
             ->getQuery()
             ->getResult()
@@ -50,7 +51,7 @@ class EventRepository extends AutoWireableTranslatableRepository
 
     public function findForCharacter(Author $author, Character $character): array
     {
-        return $this->createForAuthorQueryBuilder($author)
+        return $this->createForSceneItemAndAuthorQueryBuilder($author)
             ->andWhere(':character MEMBER OF e.characters')
             ->setParameter('character', $character)
             ->getQuery()
@@ -60,7 +61,7 @@ class EventRepository extends AutoWireableTranslatableRepository
 
     public function findForItem(Author $author, Item $item): array
     {
-        return $this->createForAuthorQueryBuilder($author)
+        return $this->createForSceneItemAndAuthorQueryBuilder($author)
             ->andWhere(':item MEMBER OF e.items')
             ->setParameter('item', $item)
             ->getQuery()
@@ -70,7 +71,7 @@ class EventRepository extends AutoWireableTranslatableRepository
 
     public function findForLocation(Author $author, Location $location): array
     {
-        return $this->createForAuthorQueryBuilder($author)
+        return $this->createForSceneItemAndAuthorQueryBuilder($author)
             ->andWhere('e.location = :location')
             ->setParameter('location', $location)
             ->getQuery()
@@ -104,15 +105,23 @@ class EventRepository extends AutoWireableTranslatableRepository
         ;
     }
 
+    private function createForSceneItemAndAuthorQueryBuilder(Author $author): QueryBuilder
+    {
+        return $this->createForAuthorQueryBuilder($author)
+            ->innerJoin('e.scene', 's')
+            ->orderBy('s.position', 'asc')
+            ->addOrderBy('t.name', 'ASC')
+        ;
+    }
+
     private function createForAuthorQueryBuilder(Author $author): QueryBuilder
     {
         return $this->getEntityManager()
             ->createQueryBuilder()
             ->select('e.id, t.name')
             ->from($this->getEntityName(), 'e')
-            ->join('e.translations', 't', Join::WITH, 't.locale = :locale')
+            ->innerJoin('e.translations', 't', Join::WITH, 't.locale = :locale')
             ->where('e.createdBy = :author')
-            ->orderBy('t.name', 'ASC')
             ->groupBy('e.id')
             ->setParameter('author', $author)
             ->setParameter('locale', $this->getTranslatableListener()->getLocale())
