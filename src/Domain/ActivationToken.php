@@ -56,6 +56,11 @@ class ActivationToken
         return $this->createdAt;
     }
 
+    public function getValidUntil(): DateTimeImmutable
+    {
+        return $this->createdAt->add(new DateInterval('P1D'));
+    }
+
     public function getAuthor(): Author
     {
         return $this->author;
@@ -63,7 +68,7 @@ class ActivationToken
 
     public function isValid(): bool
     {
-        /* @var $interval DateInterval */
+        /** @var DateInterval $interval */
         $interval = (new DateTimeImmutable())->diff($this->createdAt);
         return $interval->days <= 1 && $interval->h <= 24;
     }

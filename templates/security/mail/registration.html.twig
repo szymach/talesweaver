@@ -9,5 +9,7 @@
         <a href="{{ url('activation', { code: code }) }}" target="_blank">
             {{ 'security.registration.mail.link'|trans }}
         </a>
+        <br />
+        <p>{{ 'security.registration.mail.valid_until'|trans({ '%date%': code.validUntil|date('Y-m-d H:i') }) }}</p>
     </body>
 </html>

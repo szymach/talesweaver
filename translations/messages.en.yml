@@ -68,6 +68,9 @@ security:
                 Welcome to Talesweaver! Below you will find the link to activate
                 Your account:
             link: Activate account
+            valid_until: >
+                The above link is valid until %date%. After then You will have to
+                contact the administrator in order to activate Your account.
         alert:
             success: >
                 Your account has been successfuly registered! We have sent a
@@ -106,6 +109,9 @@ security:
                 Following Your request we have sent a message with a link that
                 will allow You to change the password to Your account:
             link: Password reset
+            valid_until: >
+                The above link is valid until %date%. After then you will have to
+                resubmit the password reset form in order to receive a new one.
     change_password:
         header: Password change
         current_password:

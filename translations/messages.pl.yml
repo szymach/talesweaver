@@ -66,12 +66,15 @@ security:
             title: Bajkopisarz - rejestracja
             body: >
                 Witamy w aplikacji Bajkopisarz! Poniżej znajdziesz link do
-                aktywacji Twojego konta!
+                aktywacji Twojego konta:
             link: Aktywuj konto
+            valid_until: >
+                Powyższy link jest ważny do %date%. Po tym czasie musisz skontaktować
+                się z administratorem w celu aktywacji konta.
         alert:
             success: >
                 Pomyślnie zarejstrowano konto w aplikacji Bajkopisarz!
-                Na podane konto email wysłano wiadomość z instrukcją do aktywacji
+                Na podany adres email wysłano wiadomość z instrukcją aktywacji
                 konta.
     activation:
         alert:
@@ -107,6 +110,9 @@ security:
                 Na Twoją prośbę przesyłamy link do resetowania hasła w aplikacji
                 Bajkopisarz:
             link: Resetowanie hasła
+            valid_until: >
+                Powyższy link jest ważny do %date%. Po tym czasie musisz ponownie
+                wysłać formularz resetowania hasła w celu otrzymania nowego.
     change_password:
         header: Zmiana hasła
         current_password:
