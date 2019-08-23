@@ -7,7 +7,7 @@ namespace Talesweaver\Tests\Application\Controller\Security;
 use Talesweaver\Tests\FunctionalTester;
 use Talesweaver\Tests\Module\AuthorModule;
 
-class ResetPasswordControllerCest
+final class ResetPasswordControllerCest
 {
     public function resetPasswordFormRequestView(FunctionalTester $I)
     {

@@ -6,7 +6,7 @@ namespace Talesweaver\Tests\Application\Controller\Book;
 
 use Talesweaver\Tests\FunctionalTester;
 
-class ListControllerCest
+final class ListControllerCest
 {
     public function testBookList(FunctionalTester $I)
     {

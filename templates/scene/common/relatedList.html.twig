@@ -1,29 +1,21 @@
-<table class="table">
-    {% if 0 != list|length %}
-        <thead>
-            <tr>
-                <th>{{ (type ~ '.name')|trans }}</th>
-                <th>{{ 'crud.actions'|trans }}</th>
-            </tr>
-        </thead>
-        <tbody>
+<table class="table table-borderless table-sm">
+    <tbody>
+        {% if 0 != list|length %}
             {% for item in list %}
                 <tr>
-                    <td>{{ item }}</td>
                     <td>
-                        <button class="btn btn-success btn-sm js-list-action"
-                            data-action-url="{{ path(type ~ '_add_to_scene', { scene_id: sceneId, id: item.id }) }}"
-                            title="{{ (type ~ '.actions.add_to_scene')|trans({ '%scene%': sceneTitle }) }}"
-                        >
-                            <span class="fa fa-plus"></span>
+                        <button class="btn btn-outline-secondary btn-block js-list-action"
+                                data-action-url="{{ path(type ~ '_add_to_scene', { scene_id: sceneId, id: item.id }) }}"
+                                title="{{ (type ~ '.actions.add_to_scene')|trans({ '%scene%': sceneTitle }) }}"
+                                >
+                            {{ item }}
+                            <span class="fa fa-2x fa-plus float-right text-success"></span>
                         </button>
                     </td>
                 </tr>
             {% endfor %}
-        </tbody>
-    {% else %}
-        <tbody>
+        {% else %}
             <tr><td>{{ (type ~ '.related_list.no_results')|trans }}</td></tr>
-        </tbody>
-    {% endif %}
+        {% endif %}
+    </tbody>
 </table>

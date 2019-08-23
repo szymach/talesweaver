@@ -6,7 +6,7 @@ namespace Talesweaver\Tests\Application\Controller\Security;
 
 use Talesweaver\Tests\FunctionalTester;
 
-class RegisterControllerCest
+final class RegisterControllerCest
 {
     public function registrationFormView(FunctionalTester $I): void
     {
