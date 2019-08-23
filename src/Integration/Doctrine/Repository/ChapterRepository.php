@@ -78,7 +78,7 @@ final class ChapterRepository extends AutoWireableTranslatableRepository
             ->select('c.id, c.position, ct.title AS title')
             ->addSelect('bt.title AS book')
             ->from($this->getClassMetadata()->getTableName(), 'c')
-            ->leftJoin('c', 'chapter_translation', 'ct', 'c.id = ct.chapter_id AND ct.locale = :locale')
+            ->innerJoin('c', 'chapter_translation', 'ct', 'c.id = ct.chapter_id AND ct.locale = :locale')
             ->leftJoin('c', 'book', 'b', 'c.book_id = b.id')
             ->leftJoin('b', 'book_translation', 'bt', 'b.id = bt.book_id AND bt.locale = :locale')
             ->where('c.created_by_id = :author')
