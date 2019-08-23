@@ -4,6 +4,7 @@ meta:
 
 menu:
     start: Start
+    about: About
     change_password: Change password
     profile: Profile
     toggle: Toggle navigation
@@ -138,13 +139,13 @@ dashboard:
     actions:
         header: First steps
         learn_more: Learn more
-        create_scene: Create a first scene
-        create_chapter: Create a first chapter
-        create_book: Create a first book
+        create_scene: Create a scene
+        create_chapter: Create a chapter
+        create_book: Create a book
     type:
-        'Talesweaver\Domain\Book': Book
-        'Talesweaver\Domain\Chapter': Chapter
-        'Talesweaver\Domain\Scene': Scene
+        'Talesweaver\Domain\Book': Books
+        'Talesweaver\Domain\Chapter': Chapters
+        'Talesweaver\Domain\Scene': Scenes
     updated:
         0: Added
         1: Updated

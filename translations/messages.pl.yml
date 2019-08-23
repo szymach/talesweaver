@@ -4,6 +4,7 @@ meta:
 
 menu:
     start: Start
+    about: O aplikacji
     change_password: Zmień hasło
     profile: Profil
     toggle: Przełącz nawigację
@@ -143,9 +144,9 @@ dashboard:
         create_chapter: Stwórz pierwszy rozdział
         create_book: Stwórz pierwszą książkę
     type:
-        'Talesweaver\Domain\Book': Książka
-        'Talesweaver\Domain\Chapter': Rozdział
-        'Talesweaver\Domain\Scene': Scena
+        'Talesweaver\Domain\Book': Książki
+        'Talesweaver\Domain\Chapter': Rozdziały
+        'Talesweaver\Domain\Scene': Sceny
     updated:
         0: Dodano
         1: Zaktualizowano

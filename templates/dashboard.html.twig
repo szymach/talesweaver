@@ -5,7 +5,7 @@
 {% block body %}
     <div class="row">
         <div class="col-sm col-md-7">
-            <h3>{{ 'dashboard.header.top'|trans }}</h3>
+            <h4 class="alert alert-outline-default">{{ 'dashboard.header.top'|trans }}</h4>
         </div>
         <div class="col-sm col-md-5">
             <div class="card">
@@ -14,20 +14,19 @@
                 </h4>
                 <div class="card-body">
                     {% if hasTimeline %}
-                        <ul class="list-unstyled">
-                            {% for item in timeline %}
-                                <li>
-                                    <h5>
-                                        <i class="fa fa-{{ item.updated ? 'history' : 'plus-circle' }} mr-2"
-                                           title="{{ ('dashboard.updated.' ~ item.updated)|trans }}"
-                                        ></i>
-                                        <a href="{{ item.url }}" title="{{ ('dashboard.type.' ~ item.class)|trans }}">
-                                            {{ item.label|truncate(25) }}
-                                        </a>
-                                    </h5>
-                                </li>
-                            {% endfor %}
-                        </ul>
+                        {% for class, items in timeline|filter((items) => 0 != items|length) %}
+                            <h5>{{ ('dashboard.type.' ~ class)|trans }}</h5>
+                            <ul class="list-unstyled">
+                                {% for item in items %}
+                                    <li>
+                                        <h5 title="{{ ('dashboard.updated.' ~ item.updated)|trans }}">
+                                            <i class="fa fa-{{ item.updated ? 'history' : 'plus-circle' }} mr-2"></i>
+                                            <a href="{{ item.url }}" title="{{ 'crud.edit'|trans }}">{{ item.label|truncate(25) }}</a>
+                                        </h5>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endfor %}
                     {% else %}
                         <ol>
                             <li>

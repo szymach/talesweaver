@@ -50,29 +50,32 @@ final class LatestChangesHandler implements QueryHandlerInterface
 
     public function __invoke(LatestChanges $query): array
     {
-        $timeline = array_merge(
-            $this->mapItemsToView($this->bookRepository->findLatest(), Book::class, 'book_edit'),
-            $this->mapItemsToView($this->chapterRepository->findLatest(), Chapter::class, 'chapter_edit'),
-            $this->mapItemsToView($this->sceneRepository->findLatest(), Scene::class, 'scene_edit')
-        );
+        $timeline = [
+            Book::class => $this->mapItemsToView($this->bookRepository->findLatest(), 'book_edit'),
+            Chapter::class => $this->mapItemsToView($this->chapterRepository->findLatest(), 'chapter_edit'),
+            Scene::class => $this->mapItemsToView($this->sceneRepository->findLatest(), 'scene_edit')
+        ];
 
-        uasort($timeline, function (array $a, array $b): int {
-            return -($a['date'] <=> $b['date']);
+        return array_filter($timeline, function (array $items): bool {
+            return 0 !== count($items);
         });
-
-        return $timeline;
     }
 
-    private function mapItemsToView(array $items, string $entity, string $route): array
+    private function mapItemsToView(array $items, string $route): array
     {
-        return array_map(function (array $data) use ($entity, $route): array {
+        $viewItems = array_map(function (array $data) use ($route): array {
             return [
-                'class' => $entity,
                 'date' => new DateTimeImmutable($data['date']),
                 'label' => $data['label'],
                 'updated' => $data['updated'],
                 'url' => $this->urlGenerator->generate($route, ['id' => $data['id']])
             ];
         }, $items);
+
+        uasort($viewItems, function (array $a, array $b): int {
+            return $b['date'] <=> $a['date'];
+        });
+
+        return $viewItems;
     }
 }
