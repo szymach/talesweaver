@@ -6,6 +6,16 @@
     >
         <span class="fa fa-plus"></span>
     </button>
+    {% if bookDisplayLink|default(false) == true %}
+        {% set bookDisplayUrl = path('book_display', { id: bookId }) %}
+        <a class="btn btn-sm btn-outline-secondary js-display"
+           title="{{ 'book.actions.display'|trans }}"
+           href="{{ bookDisplayUrl }}"
+           data-display-url="{{ bookDisplayUrl }}"
+        >
+            <span class="fa fa-eye"></span>
+        </a>
+    {% endif %}
 </div>
 <ul class="js-ajax-pagination js-list-sortable list-inline"
     data-list-url="{{ path('book_chapter_list', { id: bookId, page: page }) }}"

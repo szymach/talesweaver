@@ -168,6 +168,7 @@ book:
     actions:
         create: New
         create_chapter: New chapter
+        display: Display book content
     back:
         to_list: Return to list
     list:
@@ -200,6 +201,7 @@ chapter:
     actions:
         create: New
         create_scene: New scene
+        display: Display chapter content
     header:
         new: New chapter
     list:

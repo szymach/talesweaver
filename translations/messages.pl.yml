@@ -171,6 +171,7 @@ book:
     actions:
         create: Nowa
         create_chapter: Nowy rozdział
+        display: Podgląd treści książki
     back:
         to_list: Powrót do listy
     list:
@@ -203,6 +204,7 @@ chapter:
     actions:
         create: Nowy
         create_scene: Nowa scena
+        display: Podgląd treści rozdziału
     header:
         new: Nowy rozdział
     list:

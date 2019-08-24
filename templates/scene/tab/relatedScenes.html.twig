@@ -8,6 +8,14 @@
     >
         <span class="fa fa-plus"></span>
     </button>
+    {% set chapterDisplayUrl = path('chapter_display', { id: chapterId }) %}
+    <a class="btn btn-sm btn-outline-secondary js-display"
+       title="{{ 'chapter.actions.display'|trans }}"
+       href="{{ chapterDisplayUrl }}"
+       data-display-url="{{ chapterDisplayUrl }}"
+    >
+        <span class="fa fa-eye"></span>
+    </a>
 </div>
 <ul class="js-ajax-pagination list-inline" data-list-url="{{ path('scene_related_list', { id: chapterId, page: page }) }}">
     {% for item in list %}
