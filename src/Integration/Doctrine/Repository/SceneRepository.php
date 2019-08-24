@@ -40,6 +40,26 @@ final class SceneRepository extends AutoWireableTranslatableRepository
         }
     }
 
+    public function findByIdForAuthor(Author $author, UuidInterface $id): ?Scene
+    {
+        return $this->createQueryBuilder('s')
+            ->addSelect('t')
+            ->addSelect('c')
+            ->addSelect('ct')
+            ->innerJoin('s.translations', 't', Join::WITH, 't.locale = :locale')
+            ->leftJoin('s.chapter', 'c')
+            ->leftJoin('c.translations', 'ct', Join::WITH, 'ct.locale = :locale')
+            ->where('s.id = :id')
+            ->andWhere('s.createdBy = :author')
+            ->groupBy('s.id')
+            ->setParameter('id', $id)
+            ->setParameter('author', $author)
+            ->setParameter('locale', $this->getTranslatableListener()->getLocale())
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     public function remove(Author $author, Scene $scene): void
     {
         $this->createQueryBuilder('s')
@@ -66,26 +86,6 @@ final class SceneRepository extends AutoWireableTranslatableRepository
                 ])
             ;
         }
-    }
-
-    public function findByIdForAuthor(Author $author, UuidInterface $id): ?Scene
-    {
-        return $this->createQueryBuilder('s')
-            ->addSelect('t')
-            ->addSelect('c')
-            ->addSelect('ct')
-            ->innerJoin('s.translations', 't', Join::WITH, 't.locale = :locale')
-            ->leftJoin('s.chapter', 'c')
-            ->leftJoin('c.translations', 'ct', Join::WITH, 'ct.locale = :locale')
-            ->where('s.id = :id')
-            ->andWhere('s.createdBy = :author')
-            ->groupBy('s.id')
-            ->setParameter('id', $id)
-            ->setParameter('author', $author)
-            ->setParameter('locale', $this->getTranslatableListener()->getLocale())
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
     }
 
     public function createBookListView(Author $author, Book $book): array

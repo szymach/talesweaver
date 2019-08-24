@@ -40,6 +40,20 @@ final class ChapterRepository extends AutoWireableTranslatableRepository
         }
     }
 
+    public function findByIdAndAuthor(UuidInterface $id, Author $author): ?Chapter
+    {
+        return $this->createQueryBuilder('c')
+            ->innerJoin('c.translations', 't', Join::WITH, 't.locale = :locale')
+            ->where('c.id = :id')
+            ->andWhere('c.createdBy = :createdBy')
+            ->setParameter('id', $id)
+            ->setParameter('createdBy', $author->getId())
+            ->setParameter('locale', $this->getTranslatableListener()->getLocale())
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     public function remove(Author $author, Chapter $chapter): void
     {
         $this->getEntityManager()

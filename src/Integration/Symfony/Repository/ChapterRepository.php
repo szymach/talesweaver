@@ -53,10 +53,7 @@ final class ChapterRepository implements Chapters
 
     public function find(UuidInterface $id): ?Chapter
     {
-        return $this->doctrineRepository->findOneBy([
-            'id' => $id->toString(),
-            'createdBy' => $this->authorContext->getAuthor()
-        ]);
+        return $this->doctrineRepository->findByIdAndAuthor($id, $this->authorContext->getAuthor());
     }
 
     public function findByIds(array $ids): array

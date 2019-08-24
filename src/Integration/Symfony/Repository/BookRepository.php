@@ -57,18 +57,7 @@ final class BookRepository implements Books
 
     public function find(UuidInterface $id): ?Book
     {
-        return $this->doctrineRepository->findOneBy([
-            'id' => $id->toString(),
-            'createdBy' => $this->authorContext->getAuthor()
-        ]);
-    }
-
-    public function findByBook(Book $book): array
-    {
-        return $this->doctrineRepository->findBy([
-            'book' => $book,
-            'createdBy' => $this->authorContext->getAuthor()
-        ]);
+        return $this->doctrineRepository->findByIdAndAuthor($id, $this->authorContext->getAuthor());
     }
 
     public function createListView(?Sort $sort): array

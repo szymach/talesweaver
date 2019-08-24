@@ -26,6 +26,20 @@ final class BookRepository extends AutoWireableTranslatableRepository
         $this->getEntityManager()->persist($book);
     }
 
+    public function findByIdAndAuthor(UuidInterface $id, Author $author): ?Book
+    {
+        return $this->createQueryBuilder('b')
+            ->innerJoin('b.translations', 't', Join::WITH, 't.locale = :locale')
+            ->where('b.id = :id')
+            ->andWhere('b.createdBy = :createdBy')
+            ->setParameter('id', $id)
+            ->setParameter('createdBy', $author->getId())
+            ->setParameter('locale', $this->getTranslatableListener()->getLocale())
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     public function remove(Author $author, UuidInterface $id): void
     {
         $this->createQueryBuilder('d')
