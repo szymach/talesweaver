@@ -4,10 +4,16 @@
     h1 + h2,
     h1 + h3,
     h2 + h3,
+    h3 + h4,
+    h4 + h5,
     h2 + .scene-content,
     h3 + .scene-content,
+    h4 + .scene-content,
+    h5 + .scene-content,
     .scene-content + h2,
-    .scene-content + h3 {
+    .scene-content + h3,
+    .scene-content + h4,
+    .scene-content + h5 {
         margin-top: 20px;
     }
 }

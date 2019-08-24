@@ -9,7 +9,7 @@
     {% if event.location is not null %}
         <div class="pb-2">
             <h5>{{ 'event.display.location'|trans }}</h5>
-            {{ event.location }}
+            <p>{{ event.location }}</p>
         </div>
     {% endif %}
     {% if event.characters|length > 0 %}
