@@ -8,13 +8,12 @@
         items: [
             { label: 'common.books'|trans, url: path('book_list') },
             { label: 'book.seo_title.form.create'|trans }
-        ],
-        column: 'col col-md-10 offset-md-1'
+        ]
     } only %}
 {% endblock %}
 {% block body %}
     <div class="row">
-        <div class="col-md-10 offset-md-1">
+        <div class="col">
             {{ form_start(form) }}
                 {{ form_row(form.title) }}
                 {{ form_row(form.description) }}

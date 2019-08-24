@@ -13,13 +13,12 @@
                 : { label: 'common.chapters'|trans, url: path('chapter_list') }
             ,
             { label: title }
-        ],
-        column: 'col col-md-10 offset-md-1'
+        ]
     } only %}
 {% endblock %}
 {% block body %}
     <div class="row">
-        <div class="col col-md-10 offset-md-1">
+        <div class="col col">
             {{ macros.tabNavigation([
                 macros.tab('formContentTab', 'formContent', 'common.content', 'active'),
                 macros.tab('publicationsTab', 'publications', 'publication.tab', ''),
@@ -29,7 +28,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col col-md-10 offset-md-1">
+        <div class="col col">
             <div class="tab-content pt-2 pb-2">
                 {{ macros.tabContent(
                     'formContent',

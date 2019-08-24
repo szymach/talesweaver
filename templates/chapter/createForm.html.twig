@@ -8,18 +8,23 @@
         items: [
             { label: 'common.chapters'|trans, url: path('chapter_list') },
             { label: 'chapter.seo_title.form.create'|trans }
-        ],
-        column: 'col col-md-10 offset-md-1'
+        ]
     } only %}
 {% endblock %}
 {% block body %}
     <div class="row">
-        <div class="col-md-10 offset-md-1">
+        <div class="col">
             {{ form_start(form) }}
                 {{ form_row(form.title) }}
                 {{ form_row(form.book) }}
                 <div class="form-group row">
                     <div class="col text-right">
+                        <a class="btn btn-outline-secondary"
+                           href="{{ bookId is not null ? path('book_edit', { id: bookId }) : path('chapter_list') }}"
+                        >
+                            <span class="fa fa-angle-left"></span>
+                            {{ (bookId is not null ? 'chapter.back.to_book' : 'chapter.back.to_list')|trans }}
+                        </a>
                         <button class="btn btn-success">{{ 'crud.save'|trans }}</button>
                     </div>
                 </div>

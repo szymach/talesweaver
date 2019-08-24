@@ -6,14 +6,13 @@
 {% block seoTitle 'scene.seo_title.form.edit'|trans({ '%title%': title }) %}
 {% block breadcrumbs %}
     {% include 'partial/breadcrumbs.html.twig' with {
-        items: breadcrumbs,
-        column: 'col col-md-10 offset-md-1'
+        items: breadcrumbs
     } only %}
 {% endblock %}
 
 {% block body %}
     <div class="row">
-        <div class="col col-md-10 offset-md-1">
+        <div class="col">
             {{ macros.tabNavigation([
                 macros.tab('formContentTab', 'formContent', 'common.content', 'active'),
                 macros.tab('publicationsTab', 'publications', 'publication.tab', ''),
@@ -26,7 +25,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col col-md-10 offset-md-1">
+        <div class="col">
             <div class="tab-content pt-2 pb-2">
                 {{ macros.tabContent(
                     'formContent',
