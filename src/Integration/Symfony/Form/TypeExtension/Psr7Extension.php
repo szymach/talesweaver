@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class Psr7Extension extends AbstractTypeExtension
+final class Psr7Extension extends AbstractTypeExtension
 {
     /**
      * @var Psr7FormRequestHandler

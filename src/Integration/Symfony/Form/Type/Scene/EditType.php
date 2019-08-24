@@ -64,7 +64,7 @@ final class EditType extends AbstractType implements Edit
 
             $form->add('chapter', EntityType::class, [
                 'label' => 'scene.chapter',
-                'class' => Chapter::Class,
+                'class' => Chapter::class,
                 'choices' => $this->getChapterChoices($book),
                 'choice_label' => $this->getChapterChoiceLabel($book),
                 'placeholder' => 'scene.placeholder.chapter',

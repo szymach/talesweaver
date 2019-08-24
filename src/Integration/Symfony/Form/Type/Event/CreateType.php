@@ -62,7 +62,6 @@ class CreateType extends AbstractType implements Create
         if (0 < count($options['locations'])) {
             $builder->add('location', EntityType::class, [
                 'label' => 'event.location',
-                'attr' => ['class' => 'custom-select'],
                 'class' => Location::class,
                 'choices' => $options['locations'],
                 'choice_label' => function (Location $choice): string {
@@ -75,7 +74,6 @@ class CreateType extends AbstractType implements Create
         if (0 < count($options['characters'])) {
             $builder->add('characters', EntityType::class, [
                 'label' => false,
-                'label_attr' => ['class' => 'checkbox-custom'],
                 'class' => Character::class,
                 'choices' => $options['characters'],
                 'choice_label' => function (Character $choice): string {
@@ -90,7 +88,6 @@ class CreateType extends AbstractType implements Create
         if (0 < count($options['items'])) {
             $builder->add('items', EntityType::class, [
                 'label' => false,
-                'label_attr' => ['class' => 'checkbox-custom'],
                 'class' => Item::class,
                 'choices' => $options['items'],
                 'choice_label' => function (Item $choice): string {

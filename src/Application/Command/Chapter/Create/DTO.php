@@ -16,11 +16,21 @@ final class DTO
      */
     private $title;
 
+    /**
+     * @var Book|null
+     */
+    private $book;
+
     public function toCommand(UuidInterface $chapterId, ?Book $book): Command
     {
         Assertion::notNull($this->title);
 
-        return new Command($chapterId, new ShortText($this->title), $book);
+        return new Command($chapterId, new ShortText($this->title), $this->book ?? $book);
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
     }
 
     public function setTitle(?string $title): void
@@ -28,8 +38,13 @@ final class DTO
         $this->title = $title;
     }
 
-    public function getTitle(): ?string
+    public function getBook(): ?Book
     {
-        return $this->title;
+        return $this->book;
+    }
+
+    public function setBook(?Book $book): void
+    {
+        $this->book = $book;
     }
 }

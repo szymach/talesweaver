@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Form\Type\Chapter;
 
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,7 +18,9 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Chapter\Edit\DTO;
 use Talesweaver\Application\Form\Type\Chapter\Edit;
+use Talesweaver\Application\Query\Book\AllBooks;
 use Talesweaver\Application\Query\Chapter\EntityExists;
+use Talesweaver\Domain\Book;
 
 final class EditType extends AbstractType implements Edit
 {
@@ -43,6 +46,17 @@ final class EditType extends AbstractType implements Edit
                 new Length(['max' => 255]),
                 $this->createTitleConstraint($bookId, $chapterId)
             ]
+        ]);
+
+        $builder->add('book', EntityType::class, [
+            'label' => 'chapter.book',
+            'class' => Book::class,
+            'choices' => $this->getBookChoices(),
+            'choice_label' => function (Book $book): string {
+                return (string) $book->getTitle();
+            },
+            'placeholder' => 'chapter.placeholder.book',
+            'required' => false
         ]);
     }
 
@@ -79,5 +93,16 @@ final class EditType extends AbstractType implements Edit
                 }
             }
         ]);
+    }
+
+    private function getBookChoices(): array
+    {
+        $books = $this->queryBus->query(new AllBooks());
+
+        usort($books, function (Book $a, Book $b): int {
+            return strnatcmp((string) $a->getTitle(), (string) $b->getTitle());
+        });
+
+        return $books;
     }
 }

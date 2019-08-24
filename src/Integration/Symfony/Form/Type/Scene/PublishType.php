@@ -27,7 +27,6 @@ final class PublishType extends AbstractType implements Publish
 
         $builder->add('visible', CheckboxType::class, [
             'label' => 'publication.visible.label',
-            'attr' => ['class' => 'checkbox-custom'],
             'help' => 'publication.visible.help',
             'required' => false
         ]);

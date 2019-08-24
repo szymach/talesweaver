@@ -98,6 +98,7 @@ services:
     Talesweaver\Integration\Symfony\Form\FormClassResolver: ~
     Talesweaver\Integration\Symfony\Form\FormHandlerFactory: ~
     Talesweaver\Integration\Symfony\Form\Psr7FormRequestHandler: ~
+    Talesweaver\Integration\Symfony\Form\TypeExtension\ChoiceTypeExtension: ~
     Talesweaver\Integration\Symfony\Form\TypeExtension\Psr7Extension:
         tags: [{ name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType, priority: -1 }]
     Talesweaver\Integration\Symfony\Form\TypeExtension\Psr7FileExtension:

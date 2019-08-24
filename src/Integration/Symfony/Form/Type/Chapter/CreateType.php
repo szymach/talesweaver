@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Form\Type\Chapter;
 
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,7 +17,9 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Chapter\Create\DTO;
 use Talesweaver\Application\Form\Type\Chapter\Create;
+use Talesweaver\Application\Query\Book\AllBooks;
 use Talesweaver\Application\Query\Chapter\EntityExists;
+use Talesweaver\Domain\Book;
 
 final class CreateType extends AbstractType implements Create
 {
@@ -48,6 +51,17 @@ final class CreateType extends AbstractType implements Create
                 }
             ])]
         ]);
+
+        $builder->add('book', EntityType::class, [
+            'label' => 'chapter.book',
+            'class' => Book::class,
+            'choices' => $this->getBookChoices(),
+            'choice_label' => function (Book $book): string {
+                return (string) $book->getTitle();
+            },
+            'placeholder' => 'chapter.placeholder.book',
+            'required' => false
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -61,5 +75,16 @@ final class CreateType extends AbstractType implements Create
 
         $resolver->setAllowedTypes('bookId', ['null', UuidInterface::class]);
         $resolver->setAllowedTypes('title_placeholder', ['null', 'string']);
+    }
+
+    private function getBookChoices(): array
+    {
+        $books = $this->queryBus->query(new AllBooks());
+
+        usort($books, function (Book $a, Book $b): int {
+            return strnatcmp((string) $a->getTitle(), (string) $b->getTitle());
+        });
+
+        return $books;
     }
 }

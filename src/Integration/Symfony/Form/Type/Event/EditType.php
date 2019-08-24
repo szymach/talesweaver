@@ -75,7 +75,6 @@ final class EditType extends AbstractType implements Edit
         if (0 < count($options['characters'])) {
             $builder->add('characters', EntityType::class, [
                 'label' => 'event.characters',
-                'label_attr' => ['class' => 'checkbox-custom'],
                 'class' => Character::class,
                 'choices' => $options['characters'],
                 'choice_label' => function (Character $choice): string {
@@ -90,7 +89,6 @@ final class EditType extends AbstractType implements Edit
         if (0 < count($options['items'])) {
             $builder->add('items', EntityType::class, [
                 'label' => 'event.items',
-                'label_attr' => ['class' => 'checkbox-custom'],
                 'class' => Item::class,
                 'choices' => $options['items'],
                 'choice_label' => function (Item $choice): string {
