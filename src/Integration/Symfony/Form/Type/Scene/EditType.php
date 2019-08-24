@@ -103,14 +103,12 @@ final class EditType extends AbstractType implements Edit
 
     private function getChapterChoices(?Book $book): array
     {
-        $hasBook = null !== $book;
-
         $chapters = $this->queryBus->query(
-            true === $hasBook ? new ForBook($book) : new Standalone()
+            null !== $book ? new ForBook($book) : new Standalone()
         );
 
-        usort($chapters, function (Chapter $a, Chapter $b) use ($hasBook): int {
-            return true === $hasBook
+        usort($chapters, function (Chapter $a, Chapter $b) use ($book): int {
+            return null !== $book
                 ? $a->getPosition() <=> $b->getPosition()
                 : strnatcmp((string) $a->getTitle(), (string) $b->getTitle())
             ;
