@@ -6,23 +6,25 @@ namespace Talesweaver\Domain\Translation;
 
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Traits\LocaleTrait;
+use Talesweaver\Domain\ValueObject\LongText;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class BookTranslation
 {
     use LocaleTrait;
 
     /**
-     * @var integer
+     * @var int|null
      */
     private $id;
 
     /**
-     * @var string
+     * @var ShortText
      */
     private $title;
 
     /**
-     * @var string
+     * @var LongText|null
      */
     private $description;
 

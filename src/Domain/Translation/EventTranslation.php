@@ -6,23 +6,25 @@ namespace Talesweaver\Domain\Translation;
 
 use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Traits\LocaleTrait;
+use Talesweaver\Domain\ValueObject\LongText;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 class EventTranslation
 {
     use LocaleTrait;
 
     /**
-     * @var integer
+     * @var int|null
      */
     private $id;
 
     /**
-     * @var string
+     * @var ShortText
      */
     private $name;
 
     /**
-     * @var string|null
+     * @var LongText|null
      */
     private $description;
 

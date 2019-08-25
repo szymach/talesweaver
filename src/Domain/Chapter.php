@@ -14,6 +14,7 @@ use Talesweaver\Domain\Traits\PositionableTrait;
 use Talesweaver\Domain\Traits\PublishableTrait;
 use Talesweaver\Domain\Traits\TimestampableTrait;
 use Talesweaver\Domain\Traits\TranslatableTrait;
+use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 
 class Chapter implements Positionable
@@ -31,6 +32,11 @@ class Chapter implements Positionable
     private $title;
 
     /**
+     * @var LongText|null
+     */
+    private $preface;
+
+    /**
      * @var Book|null
      */
     private $book;
@@ -40,12 +46,13 @@ class Chapter implements Positionable
      */
     private $scenes;
 
-    public function __construct(UuidInterface $id, ShortText $title, ?Book $book, Author $author)
+    public function __construct(UuidInterface $id, ShortText $title, ?LongText $preface, ?Book $book, Author $author)
     {
         $this->assertCorrectConstructorData($title, $author, $book);
 
         $this->id = $id;
         $this->title = $title;
+        $this->preface = $preface;
         $this->book = $book;
         $this->position = 0;
         $this->scenes = new ArrayCollection();
@@ -62,14 +69,16 @@ class Chapter implements Positionable
 
     /**
      * @param ShortText $title
+     * @param LongText|null $preface
      * @param Book|null $book
      * @return void
      */
-    public function edit(ShortText $title, ?Book $book): void
+    public function edit(ShortText $title, ?LongText $preface, ?Book $book): void
     {
         $this->assertCorrectEditionData($title, $book);
 
         $this->title = $title;
+        $this->preface = $preface;
         $this->book = $book;
 
         $this->update();
