@@ -6,9 +6,15 @@
     </button>
 </div>
 <div class="display modal-body">
+    {% if preface is defined %}
+        {{ macros.text(preface) }}
+    {% endif %}
     {% if chapters is defined %}
         {% for chapter in chapters|filter(chapter => chapter.scenes|length > 0) %}
             <h4 class="pb-2 text-center">{{ chapter.title }}</h4>
+            {% if chapter.preface is not empty %}
+                {{ macros.text(chapter.preface) }}
+            {% endif %}
             {{ macros.scenes(chapter.scenes) }}
         {% endfor %}
     {% elseif scenes is defined %}

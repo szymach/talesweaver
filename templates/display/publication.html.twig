@@ -15,8 +15,14 @@
                 <div class="col">
                     <h1 class="text-center book">{{ title }}</h1>
                     {% if authorName is not empty %}<h4 class="text-center mb-3">{{ authorName  }}</h4>{% endif %}
+                    {% if preface is defined %}
+                        {{ macros.text(preface) }}
+                    {% endif %}
                     {% if chapters is defined %}
                         {% for chapter in chapters|filter(chapter => chapter.scenes|length > 0) %}
+                            {% if chapter.preface is not empty %}
+                                {{ macros.text(chapter.preface) }}
+                            {% endif %}
                             <h2 class="text-center chapter">{{ chapter.title }}</h2>
                             {{ macros.scenes(chapter.scenes) }}
                         {% endfor %}

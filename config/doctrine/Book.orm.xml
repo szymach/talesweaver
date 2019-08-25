@@ -14,7 +14,11 @@
         <field name="createdAt" type="datetime" />
         <field name="updatedAt" type="datetime" nullable="true"/>
 
-        <one-to-many field="chapters" target-entity="Talesweaver\Domain\Chapter" mapped-by="book" />
+        <one-to-many field="chapters" target-entity="Talesweaver\Domain\Chapter" mapped-by="book">
+            <order-by>
+                <order-by-field name="position" direction="ASC" />
+            </order-by>
+        </one-to-many>
         <one-to-many field="translations" target-entity="Talesweaver\Domain\Translation\BookTranslation" mapped-by="book">
             <cascade>
                 <cascade-persist/>
