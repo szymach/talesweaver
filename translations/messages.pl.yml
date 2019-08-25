@@ -192,6 +192,7 @@ book:
 
 chapter:
     title: Tytuł
+    preface: Wstęp
     placeholder:
         title:
             book: Podaj tytuł rozdziału

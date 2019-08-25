@@ -29,8 +29,8 @@ final class ListControllerCest
     public function testFilteringChapterList(FunctionalTester $I): void
     {
         $book = $I->haveCreatedABook('Książka 1');
-        $I->haveCreatedAChapter('Rozdział książki 1', $book);
-        $I->haveCreatedAChapter('Rozdział książki 2', $I->haveCreatedABook('Książka 2'));
+        $I->haveCreatedAChapter('Rozdział książki 1', null, $book);
+        $I->haveCreatedAChapter('Rozdział książki 2', null, $I->haveCreatedABook('Książka 2'));
 
         $I->amOnPage("/pl/chapter/list");
         $I->see('Rozdział książki 1', 'td');

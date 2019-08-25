@@ -64,8 +64,8 @@ final class FormControllerCest
 
         $book = $I->haveCreatedABook('Książka');
 
-        $chapter1 = $I->haveCreatedAChapter('Rozdział 1', $book);
-        $chapter2 = $I->haveCreatedAChapter('Rozdział 2', $book);
+        $chapter1 = $I->haveCreatedAChapter('Rozdział 1', null, $book);
+        $chapter2 = $I->haveCreatedAChapter('Rozdział 2', null, $book);
 
         $scene1 = $I->haveCreatedAScene('Scena 1', $chapter1);
         $scene2 = $I->haveCreatedAScene('Scena 2', $chapter1);

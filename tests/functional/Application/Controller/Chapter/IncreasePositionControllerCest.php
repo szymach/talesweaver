@@ -18,10 +18,10 @@ final class IncreasePositionControllerCest
         $book = $I->haveCreatedABook('Książka');
 
         /** @var Chapter $chapter1 */
-        $chapter1 = $I->haveCreatedAChapter('Rozdział 1', $book);
+        $chapter1 = $I->haveCreatedAChapter('Rozdział 1', null, $book);
 
         /** @var Chapter $chapter2 */
-        $chapter2 = $I->haveCreatedAChapter('Rozdział 2', $book);
+        $chapter2 = $I->haveCreatedAChapter('Rozdział 2', null, $book);
 
         $I->refreshEntities([$chapter1, $chapter2]);
 

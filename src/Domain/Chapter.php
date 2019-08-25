@@ -94,6 +94,11 @@ class Chapter implements Positionable
         return $this->title;
     }
 
+    public function getPreface(): ?LongText
+    {
+        return $this->preface;
+    }
+
     public function getBook(): ?Book
     {
         return $this->book;

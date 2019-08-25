@@ -7,6 +7,7 @@ namespace Talesweaver\Application\Command\Chapter\Create;
 use Assert\Assertion;
 use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Book;
+use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 
 final class DTO
@@ -17,6 +18,11 @@ final class DTO
     private $title;
 
     /**
+     * @var string|null
+     */
+    private $preface;
+
+    /**
      * @var Book|null
      */
     private $book;
@@ -25,7 +31,12 @@ final class DTO
     {
         Assertion::notNull($this->title);
 
-        return new Command($chapterId, new ShortText($this->title), null, $this->book ?? $book);
+        return new Command(
+            $chapterId,
+            new ShortText($this->title),
+            LongText::fromNullableString($this->preface),
+            $this->book ?? $book
+        );
     }
 
     public function getTitle(): ?string
@@ -36,6 +47,16 @@ final class DTO
     public function setTitle(?string $title): void
     {
         $this->title = $title;
+    }
+
+    public function getPreface(): ?string
+    {
+        return $this->preface;
+    }
+
+    public function setPreface(?string $preface): void
+    {
+        $this->preface = $preface;
     }
 
     public function getBook(): ?Book

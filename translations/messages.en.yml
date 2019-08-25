@@ -189,6 +189,7 @@ book:
 
 chapter:
     title: Title
+    preface: Preface
     placeholder:
         title:
             book: Enter the chapter title

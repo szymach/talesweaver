@@ -18,11 +18,11 @@ final class PositionControllerCest
         $book = $I->haveCreatedABook('Książka');
 
         /** @var Chapter $chapter1 */
-        $chapter1 = $I->haveCreatedAChapter('Rozdział 1', $book);
+        $chapter1 = $I->haveCreatedAChapter('Rozdział 1', null, $book);
         $I->assertEquals(0, $chapter1->getPosition());
 
         /** @var Chapter $chapter2 */
-        $chapter2 = $I->haveCreatedAChapter('Rozdział 2', $book);
+        $chapter2 = $I->haveCreatedAChapter('Rozdział 2', null, $book);
         $I->assertEquals(0, $chapter2->getPosition());
 
         $I->haveHttpHeader('X-Requested-With', 'XMLHttpRequest');

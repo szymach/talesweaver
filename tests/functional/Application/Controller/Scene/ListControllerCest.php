@@ -32,7 +32,7 @@ final class ListControllerCest
         $chapter = $I->haveCreatedAChapter('Rozdział 1');
         $I->haveCreatedAScene('Scena 1 rozdziału 1', $chapter);
         $I->haveCreatedAScene('Scena 2 rozdziału 1', $chapter);
-        $I->haveCreatedAScene('Scena 1 rozdziału 2', $I->haveCreatedAChapter('Rozdział 2', $book));
+        $I->haveCreatedAScene('Scena 1 rozdziału 2', $I->haveCreatedAChapter('Rozdział 2', null, $book));
 
         $I->amOnPage('/pl/scene/list');
         $I->see('Scena 1 rozdziału 1', 'td');

@@ -14,6 +14,7 @@ use Talesweaver\Application\Command\Chapter\Create\Command;
 use Talesweaver\Application\Query\Chapter\ById;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
+use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 use Talesweaver\Tests\Query\Chapter\ByTitle;
 
@@ -40,9 +41,16 @@ final class ChapterModule extends Module
         $this->queryBus = $container->getService(QueryBus::class);
     }
 
-    public function haveCreatedAChapter(string $title, Book $book = null): Chapter
+    public function haveCreatedAChapter(string $title, ?string $preface = null, Book $book = null): Chapter
     {
-        $this->commandBus->dispatch(new Command(Uuid::uuid4(), new ShortText($title), null, $book));
+        $this->commandBus->dispatch(
+            new Command(
+                Uuid::uuid4(),
+                new ShortText($title),
+                LongText::fromNullableString($preface),
+                $book
+            )
+        );
 
         return $this->grabChapterByTitle($title);
     }

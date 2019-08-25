@@ -19,7 +19,7 @@ use Talesweaver\Application\Command\Book\Edit\DTO;
 use Talesweaver\Application\Form\Type\Book\Edit;
 use Talesweaver\Application\Query\Book\EntityExists;
 
-class EditType extends AbstractType implements Edit
+final class EditType extends AbstractType implements Edit
 {
     /**
      * @var QueryBus
