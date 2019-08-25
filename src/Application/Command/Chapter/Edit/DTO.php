@@ -41,6 +41,7 @@ final class DTO
         return new Command(
             $chapter,
             new ShortText($this->title),
+            null,
             $this->book
         );
     }

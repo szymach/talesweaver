@@ -38,7 +38,7 @@ class LoadIntegrationChapterData extends Fixture implements DependentFixtureInte
         $author = $this->getReference(LoadUserData::AUTHOR);
         Assertion::isInstanceOf($author, Author::class);
 
-        $chapter = new Chapter(Uuid::uuid4(), new ShortText('Rozdział'), null, $author);
+        $chapter = new Chapter(Uuid::uuid4(), new ShortText('Rozdział'), null, null, $author);
         $chapter->setLocale(self::LOCALE);
         $scene1 = new Scene(Uuid::uuid4(), new ShortText('Scena 1'), $chapter, $author);
         $scene2 = new Scene(Uuid::uuid4(), new ShortText('Scena 2'), $chapter, $author);

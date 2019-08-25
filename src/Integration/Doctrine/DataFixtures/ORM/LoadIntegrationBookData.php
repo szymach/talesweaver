@@ -38,7 +38,7 @@ class LoadIntegrationBookData extends Fixture implements DependentFixtureInterfa
         $book = new Book(Uuid::uuid4(), new ShortText('Książka'), $author);
         $book->setLocale(self::LOCALE);
 
-        $chapter = new Chapter(Uuid::uuid4(), new ShortText('Rozdział 1'), $book, $author);
+        $chapter = new Chapter(Uuid::uuid4(), new ShortText('Rozdział 1'), null, $book, $author);
         $chapter->setLocale(self::LOCALE);
 
         $manager->persist($book);

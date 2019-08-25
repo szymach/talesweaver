@@ -76,6 +76,7 @@ final class LoadDevelopmentData extends Fixture implements DependentFixtureInter
             $chapter = new Chapter(
                 Uuid::uuid4(),
                 new ShortText("Rozdział {$i} {$bookIndex}"),
+                null,
                 $book,
                 $book->getCreatedBy()
             );

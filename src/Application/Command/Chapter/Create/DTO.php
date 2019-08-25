@@ -25,7 +25,7 @@ final class DTO
     {
         Assertion::notNull($this->title);
 
-        return new Command($chapterId, new ShortText($this->title), $this->book ?? $book);
+        return new Command($chapterId, new ShortText($this->title), null, $this->book ?? $book);
     }
 
     public function getTitle(): ?string

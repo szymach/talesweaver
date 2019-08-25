@@ -103,7 +103,7 @@ final class ChapterAddController
     private function handeFormSubmissionAndReturnSuccessResponse(Book $book, ?string $title): ResponseInterface
     {
         Assertion::notNull($title);
-        $this->commandBus->dispatch(new Command(Uuid::uuid4(), new ShortText($title), $book));
+        $this->commandBus->dispatch(new Command(Uuid::uuid4(), new ShortText($title), null, $book));
         return $this->apiResponseFactory->success([]);
     }
 }

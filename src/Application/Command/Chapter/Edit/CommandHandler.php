@@ -13,7 +13,7 @@ final class CommandHandler implements CommandHandlerInterface
         $chapter = $command->getChapter();
         $book = $command->getBook();
 
-        $chapter->edit($command->getTitle(), $book);
+        $chapter->edit($command->getTitle(), $command->getPreface(), $book);
         if (null === $book && null !== $chapter->getBook()) {
             $chapter->getBook()->removeChapter($chapter);
         }

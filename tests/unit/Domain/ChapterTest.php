@@ -41,6 +41,7 @@ class ChapterTest extends TestCase
         new Chapter(
             $this->createMock(UuidInterface::class),
             new ShortText('Chapter'),
+            null,
             $book,
             $chapterAuthor
         );
@@ -65,6 +66,7 @@ class ChapterTest extends TestCase
         $chapter = new Chapter(
             $this->createMock(UuidInterface::class),
             new ShortText('Chapter'),
+            null,
             $chapterBook,
             $chapterAuthor
         );
@@ -80,6 +82,6 @@ class ChapterTest extends TestCase
         $newBook->expects(self::once())->method('getId')->willReturn($newBookId);
         $newBook->expects(self::exactly(2))->method('getCreatedBy')->willReturn($newBookAuthor);
 
-        $chapter->edit(new ShortText('Chapter'), $newBook);
+        $chapter->edit(new ShortText('Chapter'), null, $newBook);
     }
 }

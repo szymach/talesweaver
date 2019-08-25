@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace Talesweaver\Application\Command\Chapter\Create;
 
 use Ramsey\Uuid\UuidInterface;
+use Talesweaver\Application\Command\Security\Traits\AuthorAwareTrait;
 use Talesweaver\Application\Messages\CreationSuccessMessage;
 use Talesweaver\Application\Messages\Message;
 use Talesweaver\Application\Messages\MessageCommandInterface;
-use Talesweaver\Application\Command\Security\Traits\AuthorAwareTrait;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
 use Talesweaver\Domain\Security\AuthorAwareInterface;
+use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 
 final class Command implements AuthorAccessInterface, AuthorAwareInterface, MessageCommandInterface
@@ -30,14 +31,20 @@ final class Command implements AuthorAccessInterface, AuthorAwareInterface, Mess
     private $title;
 
     /**
+     * @var LongText|null
+     */
+    private $preface;
+
+    /**
      * @var Book|null
      */
     private $book;
 
-    public function __construct(UuidInterface $id, ShortText $title, ?Book $book)
+    public function __construct(UuidInterface $id, ShortText $title, ?LongText $preface, ?Book $book)
     {
         $this->id = $id;
         $this->title = $title;
+        $this->preface = $preface;
         $this->book = $book;
     }
 
@@ -49,6 +56,11 @@ final class Command implements AuthorAccessInterface, AuthorAwareInterface, Mess
     public function getTitle(): ShortText
     {
         return $this->title;
+    }
+
+    public function getPreface(): ?LongText
+    {
+        return $this->preface;
     }
 
     public function getBook(): ?Book

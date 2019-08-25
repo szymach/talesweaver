@@ -42,7 +42,7 @@ final class ChapterModule extends Module
 
     public function haveCreatedAChapter(string $title, Book $book = null): Chapter
     {
-        $this->commandBus->dispatch(new Command(Uuid::uuid4(), new ShortText($title), $book));
+        $this->commandBus->dispatch(new Command(Uuid::uuid4(), new ShortText($title), null, $book));
 
         return $this->grabChapterByTitle($title);
     }

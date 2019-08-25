@@ -11,6 +11,7 @@ use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Book;
 use Talesweaver\Domain\Chapter;
 use Talesweaver\Domain\Security\AuthorAccessInterface;
+use Talesweaver\Domain\ValueObject\LongText;
 use Talesweaver\Domain\ValueObject\ShortText;
 
 final class Command implements AuthorAccessInterface, MessageCommandInterface
@@ -26,14 +27,20 @@ final class Command implements AuthorAccessInterface, MessageCommandInterface
     private $title;
 
     /**
+     * @var LongText|null
+     */
+    private $preface;
+
+    /**
      * @var Book|null
      */
     private $book;
 
-    public function __construct(Chapter $chapter, ShortText $title, ?Book $book)
+    public function __construct(Chapter $chapter, ShortText $title, ?LongText $preface, ?Book $book)
     {
         $this->chapter = $chapter;
         $this->title = $title;
+        $this->preface = $preface;
         $this->book = $book;
     }
 
@@ -45,6 +52,11 @@ final class Command implements AuthorAccessInterface, MessageCommandInterface
     public function getTitle(): ShortText
     {
         return $this->title;
+    }
+
+    public function getPreface(): ?LongText
+    {
+        return $this->preface;
     }
 
     public function getBook(): ?Book

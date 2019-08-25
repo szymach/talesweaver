@@ -26,6 +26,7 @@ final class CommandHandler implements CommandHandlerInterface
             new Chapter(
                 $command->getId(),
                 $command->getTitle(),
+                $command->getPreface(),
                 $command->getBook(),
                 $command->getAuthor()
             )
