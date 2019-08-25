@@ -1,7 +1,8 @@
 {% if filters is not null %}
     {% include 'partial/filters.html.twig' with { filters: filters } only %}
 {% endif %}
-{% if rows|length > 0 %}
+{% set dataLength = rows|length %}
+{% if 0 != dataLength %}
     <div class="row">
         <div class="col">
             <table class="table">
@@ -26,7 +27,11 @@
                                 {% endif %}
                             </th>
                         {% endfor %}
-                        <th></th>
+                        <th>
+                            <a class="btn btn-sm btn-success" href="{{ create.path }}" title="{{ create.label|trans }}">
+                                <span class="fa fa-plus"></span>
+                            </a>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,15 +65,17 @@
                         </tr>
                     {% endfor %}
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="{{ headers|length + 1 }}" class="text-right">
-                            <a class="btn btn-sm btn-success" href="{{ create.path }}" title="{{ create.label|trans }}">
-                                <span class="fa fa-plus"></span>
-                            </a>
-                        </td>
-                    </tr>
-                </tfoot>
+                {% if 10 < dataLength %}
+                    <tfoot>
+                        <tr>
+                            <td colspan="{{ headers|length + 1 }}" class="text-right">
+                                <a class="btn btn-sm btn-success" href="{{ create.path }}" title="{{ create.label|trans }}">
+                                    <span class="fa fa-plus"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    </tfoot>
+                {% endif %}
             </table>
         </div>
     </div>
