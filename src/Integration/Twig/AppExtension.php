@@ -92,6 +92,8 @@ final class AppExtension extends AbstractExtension
             $isActive = true;
         } elseif ('scene_list' === $checkedRoute && 0 === strpos($currentRoute, 'scene_')) {
             $isActive = true;
+        } elseif ($currentRoute === $checkedRoute) {
+            $isActive = true;
         } else {
             $isActive = false;
         }

@@ -1,4 +1,4 @@
-{% extends 'information/base.html.twig' %}
+{% extends is_granted('IS_AUTHENTICATED_FULLY') ? 'base.html.twig' : 'information/base.html.twig' %}
 
 {% trans_default_domain 'information' %}
 
@@ -7,7 +7,7 @@
 {% block title 'about.title'|trans %}
 {% block header 'about.header'|trans %}
 
-{% block content %}
+{% block body %}
     <div class="row">
         {{ macros.card('preface') }}
         {{ macros.card('structure') }}
@@ -26,7 +26,7 @@
 {% endblock %}
 
 {% macro card(key) %}
-    <div class="card col-sm-6 col-md-3">
+    <div class="card col-sm-6">
         <div class="card-header">{{ ('about.' ~ key ~ '.header')|trans }}</div>
         <div class="card-body">
             <p class="card-text">{{ ('about.' ~ key ~ '.content')|trans }}</p>

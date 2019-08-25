@@ -21,7 +21,7 @@ about:
             Zawiera faktyczną treść, można do niej dodać postacie, przedmioty,
             miejsca oraz wydarzenia. Elementy te można dodawać między scenami
             z tego samego rozdziału lub książki. Wyjątkiem są wydarzenia, które
-            mogą należeć do maksymalnie jednej sceny.
+            mogą należeć do tylko jednej sceny.
     publication:
         header: Publikacja treści
         content: >

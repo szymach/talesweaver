@@ -20,7 +20,8 @@ about:
         content: >
             Contains the actual content, you can add characters, items, location
             and events to them. These can be moved between scenes that are a part
-            of the same chapter or book.
+            of the same chapter or book. The exception are events, which can only
+            be assigned to single scene.
     publication:
         header: Publishing content
         content: >
