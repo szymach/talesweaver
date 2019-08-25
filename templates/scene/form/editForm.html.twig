@@ -1,9 +1,10 @@
 {% import 'partial/macros.html.twig' as macros %}
+{% form_theme form 'form/horizontalTheme.html.twig' %}
+
 <div class="text-right pb-2">
    {{ macros.displayButton(path('scene_display', { id: id })) }}
    {{ macros.pdfButton(path('scene_pdf', { id: id })) }}
 </div>
-{% form_theme form 'scene/form/theme.html.twig' %}
 {{ form_start(form) }}
     <div class="row">
         {{ form_row(form.text, { row_class: 'col-sm-12 mh-550' }) }}

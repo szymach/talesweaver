@@ -80,3 +80,10 @@
         {% include 'modal/form.html.twig' with {} only %}
     {% endblock %}
 {% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/ckeditor.css')) }}">
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ absolute_url(asset('assets/ckeditor.js')) }}" async></script>
+{% endblock %}

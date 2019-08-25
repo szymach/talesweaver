@@ -74,6 +74,7 @@ final class CreateType extends AbstractType implements Create
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            'attr' => ['class' => 'ckeditor-small'],
             'data_class' => DTO::class,
             'method' => Request::METHOD_POST,
             'title_placeholder' => 'chapter.placeholder.title.standalone',

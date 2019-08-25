@@ -17,6 +17,7 @@
             {{ form_start(form) }}
                 {{ form_row(form.title) }}
                 {{ form_row(form.book) }}
+                {{ form_row(form.preface) }}
                 <div class="form-group row">
                     <div class="col text-right">
                         <a class="btn btn-outline-secondary"
@@ -32,4 +33,11 @@
             {{ form_end(form) }}
         </div>
     </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/ckeditor.css')) }}">
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ absolute_url(asset('assets/ckeditor.js')) }}" async></script>
 {% endblock %}
