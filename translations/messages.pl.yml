@@ -140,15 +140,14 @@ security:
         submit: Wyślij
 
 dashboard:
-    header:
-        top: Witaj w aplikacji Bajkopisarz!
+    header: Witaj w aplikacji Bajkopisarz!
     timeline: Ostatnie zmiany
     actions:
         header: Pierwsze kroki
-        learn_more: Dowiedz się więcej
-        create_scene: Stwórz pierwszą scenę
-        create_chapter: Stwórz pierwszy rozdział
-        create_book: Stwórz pierwszą książkę
+        learn_more: Jak zacząć?
+        create_scene: Stwórz pierwszą scenę.
+        create_chapter: Stwórz pierwszy rozdział.
+        create_book: Stwórz pierwszą książkę.
     type:
         'Talesweaver\Domain\Book': Książki
         'Talesweaver\Domain\Chapter': Rozdziały

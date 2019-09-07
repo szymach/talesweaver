@@ -28,3 +28,32 @@ about:
             Every piece - book, chapter or scene - can be published. This will create
             a publicly available page with formatted content, which can be shared
             with other people.
+    return: Go back
+
+first_steps:
+    title: Pierwsze kroki
+    text:
+        1: >
+            <a href="%url%" target="_blank">Add a new scene</a>. After providing
+            a title and saving, you get full access to all the scene's functionalities.
+        2: >
+            Having a first scene, you can add characters, items, locations and events
+            to it. Changes to the <i>Text</i> field are automatically saved, but other
+            fields require manual saving.
+        3: >
+            If you have enough content, you may want to add another scene. In order to
+            group scenes together, you need to
+            <a href="%url%" target="_blank">add a new chapter</a>. Then in the scene edit
+            form you may assign the newly created chapter and save the changes.
+        4: >
+            Just like scenes can be grouped into chapters, chapters can be grouped
+            within a book. <a href="%url%" target="_blank">Add a new book</a>, so you
+            can assign chapters to them in the same manner as scenes to a chapter.
+        5: >
+            Of course you can always create the book first, then chapter and lastly
+            the scene.
+        6: >
+            Once you are ready to share your work, you can publish selected content.
+            Each book, chapter and scene can be published independently, which you can
+            do through the <i>Publications</i> tab of their edit form.
+    return: Go back

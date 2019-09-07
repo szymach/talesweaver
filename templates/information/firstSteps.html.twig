@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'information' %}
+{% import _self as macros %}
+
+{% block seoTitle 'first_steps.title'|trans %}
+{% block body %}
+        <div class="row">
+            {{ macros.card(1, 'first_steps.text.1'|trans({ '%url%': path('scene_create') })) }}
+            {{ macros.card(2, 'first_steps.text.2'|trans) }}
+            {{ macros.card(3, 'first_steps.text.3'|trans({ '%url%': path('chapter_create') })) }}
+            {{ macros.card(4, 'first_steps.text.4'|trans({ '%url%': path('book_create') })) }}
+            {{ macros.card(5, 'first_steps.text.5'|trans) }}
+            {{ macros.card(6, 'first_steps.text.6'|trans) }}
+        </div>
+        <div class="row pt-4">
+            <div class="col text-center">
+                <a class="btn btn-success btn-lg" href="{{ path('index') }}">
+                    {{- 'first_steps.return'|trans -}}
+                </a>
+            </div>
+        </div>
+{% endblock %}
+
+{% macro card(index, content) %}
+    <div class="card col-12 col-sm-6 col-md-4">
+        <div class="card-header"><b>{{ index }}.</b></div>
+        <div class="card-body">
+            <div class="card-text">{{ content|raw }}</div>
+        </div>
+    </div>
+{% endmacro %}

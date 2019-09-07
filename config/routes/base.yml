@@ -2,23 +2,28 @@
 index:
     path: /
     controller: Talesweaver\Application\Controller\DashboardController
-    methods:  GET
+    methods: GET
 
 about:
     path: /page/about
     controller: Talesweaver\Application\Controller\Information\AboutController
-    methods:  GET
+    methods: GET
+
+first_steps:
+    path: /page/first-steps
+    controller: Talesweaver\Application\Controller\Information\FirstStepsController
+    methods: GET
 
 alerts:
     path: /alerts
     controller: Talesweaver\Application\Controller\AlertsController
-    methods:  GET
+    methods: GET
     condition: "request.isXmlHttpRequest()"
 
 sort:
     path: /sort/{list}/{direction}/{field}/{redirect}
     controller: Talesweaver\Application\Controller\SortController
-    methods:  GET
+    methods: GET
     requirements:
         direction: asc|desc
         redirect: .+

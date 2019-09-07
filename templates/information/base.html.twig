@@ -3,21 +3,14 @@
 <html lang="{{ app.request.locale }}">
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title '' %}</title>
+        <title>{% block seoTitle '' %}</title>
         <link rel="stylesheet" href="{{ absolute_url(asset('assets/main.css')) }}">
     </head>
     <body>
         <main class="page container px-lg-5">
             <div class="row px-lg-5">
                 <div class="col">
-                    <h1 class="text-center">{% block header '' %}</h1>
-                    <div class="row" style="margin-bottom: 30px;">
-                        <div class="col-sm text-center">
-                            <a href="{{ path('index') }}" class="btn btn-sm btn-link">
-                                {{- 'login'|trans -}}
-                            </a>
-                        </div>
-                    </div>
+                    <h1 class="text-center pb-2">{% block header '' %}</h1>
                     <div class="row">
                         <div class="col text-center">
                             {% block body '' %}

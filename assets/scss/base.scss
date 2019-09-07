@@ -59,6 +59,8 @@ table:not(.dashboard) {
 body.security {
     #alerts {
         .alert {
+            min-height: 50px;
+            line-height: 30px;
             @include media-breakpoint-up(md) {
                 margin-left: -300px;
             }

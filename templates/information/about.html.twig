@@ -4,20 +4,31 @@
 
 {% import _self as macros %}
 
-{% block title 'about.title'|trans %}
+{% block seoTitle 'about.title'|trans %}
 {% block header 'about.header'|trans %}
 
 {% block body %}
     <div class="row">
-        {{ macros.card('preface') }}
-        {{ macros.card('structure') }}
-        {{ macros.card('scene') }}
-        {{ macros.card('publication') }}
+        {{ macros.card(1, 'preface') }}
+        {{ macros.card(2, 'structure') }}
+        {{ macros.card(3, 'scene') }}
+        {{ macros.card(4, 'publication') }}
     </div>
-    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <div class="row pt-4">
             <div class="col text-center">
-                <a class="btn btn-success btn-lg" href="{{ path('register') }}">
+                <a class="btn btn-success btn-lg" href="{{ path('index') }}">
+                    {{- 'about.return'|trans -}}
+                </a>
+            </div>
+        </div>
+    {% else %}
+        <div class="row pt-4">
+            <div class="col text-center">
+                <a href="{{ path('index') }}" class="btn btn-lg btn-outline-secondary">
+                    {{- 'login'|trans -}}
+                </a>
+                <a href="{{ path('register') }}" class="btn btn-success btn-lg">
                     {{- 'register'|trans -}}
                 </a>
             </div>
@@ -25,9 +36,11 @@
     {% endif %}
 {% endblock %}
 
-{% macro card(key) %}
+{% macro card(index, key) %}
     <div class="card col-sm-6">
-        <div class="card-header">{{ ('about.' ~ key ~ '.header')|trans }}</div>
+        <div class="card-header">
+            <b>{{ index ~ '. ' ~ ('about.' ~ key ~ '.header')|trans }}</b>
+        </div>
         <div class="card-body">
             <p class="card-text">{{ ('about.' ~ key ~ '.content')|trans }}</p>
         </div>

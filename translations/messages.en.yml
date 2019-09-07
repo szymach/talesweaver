@@ -139,15 +139,14 @@ security:
         submit: Submit
 
 dashboard:
-    header:
-        top: Welcome to Talesweaver!
+    header: Welcome to the Talesweaver!
     timeline: Recent changes
     actions:
         header: First steps
-        learn_more: Learn more
-        create_scene: Create a scene
-        create_chapter: Create a chapter
-        create_book: Create a book
+        learn_more: How to begin?
+        create_scene: Create a first scene.
+        create_chapter: Create a first chapter.
+        create_book: Create a first book.
     type:
         'Talesweaver\Domain\Book': Books
         'Talesweaver\Domain\Chapter': Chapters
