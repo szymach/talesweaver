@@ -6,12 +6,14 @@ namespace Talesweaver\Integration\Doctrine\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\DBAL\Driver\Statement;
+use Doctrine\DBAL\FetchMode;
 use Doctrine\ORM\Query\Expr\Join;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Authors;
 use Talesweaver\Domain\ValueObject\Email;
 
-class AuthorRepository extends ServiceEntityRepository implements Authors
+final class AuthorRepository extends ServiceEntityRepository implements Authors
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -42,5 +44,22 @@ class AuthorRepository extends ServiceEntityRepository implements Authors
             ->getQuery()
             ->getOneOrNullResult()
         ;
+    }
+
+    public function createListView(): array
+    {
+        $query = $this->getEntityManager()
+            ->getConnection()
+            ->createQueryBuilder()
+            ->select('a.id, a.email, a.active')
+            ->from($this->getClassMetadata()->getTableName(), 'a')
+        ;
+
+        $statement = $query->execute();
+        if (false === $statement instanceof Statement) {
+            return [];
+        }
+
+        return $statement->fetchAll(FetchMode::ASSOCIATIVE);
     }
 }

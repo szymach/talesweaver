@@ -8,3 +8,23 @@ login:
         label: Hasło
         placeholder: Podaj swoje hasło
     submit: Zaloguj
+
+menu:
+    title: Bajkopisarz - Administracja
+    start: Start
+    author: Autorzy
+    toggle: Przełącz nawigację
+    logout: Wyloguj
+
+index:
+    title: Administracja
+
+bool:
+    0: Nie
+    1: Tak
+
+author:
+    title: Autorzy
+    email: Email
+    active: Aktywny
+    no_results: Brak wyników

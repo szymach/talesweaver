@@ -9,5 +9,10 @@ admin_index:
     controller: Talesweaver\Application\Controller\Administration\IndexController
     methods: GET
 
+admin_author_list:
+    path: /author/list
+    controller: Talesweaver\Application\Controller\Administration\Author\ListController
+    methods: GET
+
 admin_logout:
     path: /logout

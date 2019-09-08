@@ -1,0 +1,40 @@
+{% trans_default_domain 'administration' %}
+{% set dataLength = rows|length %}
+{% if 0 != dataLength %}
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        {% for header in headers %}
+                            <th>{{ header.label|trans }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in rows %}
+                        <tr>
+                            {% for column in row.columns %}
+                                <td>{{
+                                    column.translationKey is not null
+                                    ? column.translationKey|format(column.value)|trans
+                                    : column.value
+                                }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% else %}
+    <div class="row">
+        <div class="col text-center">
+            <div class="card w-50 mx-auto">
+                <div class="card-body">
+                    <h4>{{ noResults.header|trans }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

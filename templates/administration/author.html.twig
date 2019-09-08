@@ -1,0 +1,14 @@
+{% extends 'administration/base.html.twig' %}
+
+{% trans_default_domain 'administration' %}
+
+{% block seoTitle 'author.title'|trans %}
+{% block body %}
+    {% include 'administration/partial/dataList.html.twig' with {
+        headers: authors.headers,
+        rows: authors.paginator,
+        noResults: {
+            header: 'author.no_results'
+        },
+    } only %}
+{% endblock %}
