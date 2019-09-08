@@ -65,7 +65,7 @@ final class AuthorModule extends Module
         $user = new User($this->getAuthor($email, $password, true, $name, $surname));
         $token = new UsernamePasswordToken(
             $user,
-            self::AUTHOR_PASSWORD,
+            $password,
             self::FIREWALL,
             $user->getRoles()
         );
@@ -96,6 +96,7 @@ final class AuthorModule extends Module
                     ShortText::nullableFromString($surname)
                 )
             );
+
             $author = $this->queryBus->query(new AuthorByEmail($emailVO));
             if (true === $active) {
                 $this->commandBus->dispatch(new ActivateAuthor($author));

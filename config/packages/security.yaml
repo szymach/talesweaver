@@ -1,22 +1,38 @@
 security:
     encoders:
+        Talesweaver\Integration\Symfony\Security\AdministratorUser: sodium
         Talesweaver\Integration\Symfony\Security\User: sodium
 
     providers:
         database_users:
             id: Talesweaver\Integration\Symfony\Security\UserProvider
+        admin_database_users:
+            id: Talesweaver\Integration\Symfony\Security\AdministratorUserProvider
 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        admin:
+            pattern: ^/administration
+            anonymous: ~
+            provider: admin_database_users
+            guard:
+                authenticators: [app.security.admin_login_form_authenticator]
+            form_login:
+                check_path: admin_login_check
+                login_path: admin_login
+            logout:
+                path:   admin_logout
+                target: admin_login
+
         main:
             pattern: ^/
             anonymous: ~
             provider: database_users
             guard:
-                authenticators: [app.security.login_form_authenticator]
+                authenticators: [app.security.user_login_form_authenticator]
             form_login:
                 check_path: login_check
                 login_path: login
@@ -33,4 +49,6 @@ security:
         - { path: ^/(pl|en)/reset-password/change, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/(pl|en)/page, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/(pl|en)/publication/public, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/administration/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/administration, roles: ROLE_ADMIN }
         - { path: ^/, roles: ROLE_USER }

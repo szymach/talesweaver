@@ -23,12 +23,10 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Translation\TranslatorInterface;
-use Talesweaver\Integration\Symfony\Security\User;
 
-class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
+final class AdministratorLoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
-    private const TEST_ENVIRONMENT = 'test';
-    private const TEST_CYPRESS_ENVIRONMENT = 'test_cypress';
+    private const TEST_ENVIRONMENTS = ['test', 'test_cypress'];
 
     /**
      * @var CsrfTokenManagerInterface
@@ -71,7 +69,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function start(Request $request, AuthenticationException $authException = null): Response
     {
-        return $this->redirectTo('login', $request->getLocale());
+        return $this->redirectTo('admin_login');
     }
 
     public function checkCredentials($credentials, UserInterface $user): bool
@@ -85,14 +83,14 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             throw new BadCredentialsException();
         }
 
-        if (false === $user instanceof User) {
+        if (false === $user instanceof AdministratorUser) {
             throw new BadCredentialsException();
         }
 
-        if (false === $user->getAuthor()->isActive()) {
+        if (false === $user->getAdministrator()->isActive()) {
             throw new CustomUserMessageAuthenticationException(sprintf(
-                'User "%s" is inactive',
-                (string) $user->getAuthor()->getEmail()
+                'Administrator "%s" is inactive',
+                (string) $user->getAdministrator()->getEmail()
             ));
         }
 
@@ -123,12 +121,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             $this->translator->trans($exception->getMessageKey(), $exception->getMessageData(), 'security')
         );
 
-        return $this->redirectTo('index', $request->getLocale());
+        return $this->redirectTo();
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        return $this->redirectTo('index', $request->getLocale());
+        return $this->redirectTo();
     }
 
     public function supportsRememberMe(): bool
@@ -138,7 +136,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function supports(Request $request): bool
     {
-        return $request->getPathInfo() === sprintf('/%s/login', $request->getLocale())
+        return '/administration/login' === $request->getPathInfo()
             && true === $request->isMethod(Request::METHOD_POST)
         ;
     }
@@ -158,18 +156,18 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     private function validateCsrfToken(Request $request): void
     {
-        if (true === in_array($this->environment, [self::TEST_ENVIRONMENT, self::TEST_CYPRESS_ENVIRONMENT], true)) {
+        if (true === in_array($this->environment, self::TEST_ENVIRONMENTS, true)) {
             return;
         }
 
         $csrfToken = $request->request->get('_csrf_token');
-        if (false === $this->csrfTokenManager->isTokenValid(new CsrfToken('authenticate', $csrfToken))) {
+        if (false === $this->csrfTokenManager->isTokenValid(new CsrfToken('admin_authenticate', $csrfToken))) {
             throw new InvalidCsrfTokenException('Invalid CSRF token.');
         }
     }
 
-    private function redirectTo(string $route, string $locale): RedirectResponse
+    private function redirectTo(string $path = 'admin_index'): RedirectResponse
     {
-        return new RedirectResponse($this->router->generate($route, ['_locale' => $locale]));
+        return new RedirectResponse($this->router->generate($path));
     }
 }

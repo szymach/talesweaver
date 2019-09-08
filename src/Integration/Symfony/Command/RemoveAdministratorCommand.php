@@ -45,6 +45,7 @@ final class RemoveAdministratorCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /** @var string $email */
         $email = $input->getArgument('email');
         if (false === $this->validateEmail($email)) {
             $output->writeln("<error>\"{$email}\" is not a valid email address.</error>");

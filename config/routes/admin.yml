@@ -1,0 +1,13 @@
+---
+admin_login:
+    path: /login
+    controller: Talesweaver\Application\Controller\Administration\LoginController
+    methods: [GET,POST]
+
+admin_index:
+    path: /
+    controller: Talesweaver\Application\Controller\Administration\IndexController
+    methods: GET
+
+admin_logout:
+    path: /logout

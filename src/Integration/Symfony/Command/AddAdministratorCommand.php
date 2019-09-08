@@ -16,6 +16,7 @@ use Talesweaver\Application\Command\Security\AddAdministrator;
 use Talesweaver\Domain\Administrator;
 use Talesweaver\Domain\ValueObject\Email;
 use function filter_var;
+use function is_string;
 use function mb_strlen;
 
 final class AddAdministratorCommand extends Command
@@ -44,6 +45,7 @@ final class AddAdministratorCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
+        /** @var string $email */
         $email = $input->getArgument('email');
         if (false === $this->validateEmail($email)) {
             $output->writeln("<error>\"{$email}\" is not a valid email address.</error>");
@@ -83,6 +85,10 @@ final class AddAdministratorCommand extends Command
 
     private function validatePassword($password): bool
     {
+        if (false === is_string($password)) {
+            return false;
+        }
+
         if (6 > mb_strlen($password)) {
             return false;
         }

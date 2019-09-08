@@ -14,6 +14,7 @@ use Talesweaver\Application\Command\Security\DeactivateAdministrator;
 use Talesweaver\Application\Query\Security\AdministratorByEmail;
 use Talesweaver\Domain\Administrator;
 use Talesweaver\Domain\ValueObject\Email;
+use function is_string;
 use function filter_var;
 
 final class DeactivateAdministratorCommand extends Command
@@ -45,6 +46,7 @@ final class DeactivateAdministratorCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /** @var string $email */
         $email = $input->getArgument('email');
         if (false === $this->validateEmail($email)) {
             $output->writeln("<error>\"{$email}\" is not a valid email address.</error>");

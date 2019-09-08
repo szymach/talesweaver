@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block seoTitle '' %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <link rel="stylesheet" href="{{ absolute_url(asset('assets/main.css')) }}">
+        {% block stylesheets '' %}
+        <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    </head>
+    <body>
+        {% include 'partial/alertsContainer.html.twig' with {} only %}
+        <main class="container">
+            {% block breadcrumbs '' %}
+            {% block body '' %}
+        </main>
+        <footer class="fixed-bottom">{% block footer '' %}</footer>
+        <script src="{{ absolute_url(asset('assets/main.js')) }}" async></script>
+        {% block javascripts '' %}
+        {% include 'modal/delete.html.twig' %}
+        {% block modals '' %}
+    </body>
+</html>

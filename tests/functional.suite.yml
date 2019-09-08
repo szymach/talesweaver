@@ -12,6 +12,7 @@ modules:
            depends: Symfony
         - Doctrine2:
             depends: Symfony
+        - Talesweaver\Tests\Module\AdministrationModule
         - Talesweaver\Tests\Module\ContainerModule
         - Talesweaver\Tests\Module\LocaleModule
         - Talesweaver\Tests\Module\AuthorModule

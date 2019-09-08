@@ -106,8 +106,11 @@ services:
         tags: [{ name: form.type_extension, extended_type: FSi\Bundle\DoctrineExtensionsBundle\Form\Type\FSi\FileType, priority: -1 }]
 
     # Security
-    app.security.login_form_authenticator:
-        class: Talesweaver\Integration\Symfony\Security\LoginFormAuthenticator
+    app.security.user_login_form_authenticator:
+        class: Talesweaver\Integration\Symfony\Security\UserLoginFormAuthenticator
+
+    app.security.admin_login_form_authenticator:
+        class: Talesweaver\Integration\Symfony\Security\AdministratorLoginFormAuthenticator
 
     # Session
     Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface:

@@ -1,0 +1,10 @@
+---
+login:
+    title: Administracja - logowanie
+    email:
+        label: Email
+        placeholder: Podaj swój adres email
+    password:
+        label: Hasło
+        placeholder: Podaj swoje hasło
+    submit: Zaloguj

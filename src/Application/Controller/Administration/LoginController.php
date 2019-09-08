@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Application\Controller\Security;
+namespace Talesweaver\Application\Controller\Administration;
 
 use Psr\Http\Message\ResponseInterface;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
@@ -31,7 +31,7 @@ final class LoginController
     public function __invoke(): ResponseInterface
     {
         return $this->responseFactory->fromTemplate(
-            'security/login.html.twig',
+            'administration/login.html.twig',
             [
                 'error' => $this->authenticationContext->lastError(),
                 'lastUsername' => $this->authenticationContext->lastProvidedUsername()

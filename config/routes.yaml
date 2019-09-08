@@ -98,3 +98,7 @@ publication:
 logout:
     path: /logout
     methods:  GET
+
+admin:
+    resource: 'routes/admin.yml'
+    prefix: /administration
