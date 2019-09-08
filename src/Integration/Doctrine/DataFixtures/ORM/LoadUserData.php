@@ -8,6 +8,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
+use Talesweaver\Domain\Administrator;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\ValueObject\Email;
 use Talesweaver\Domain\ValueObject\ShortText;
@@ -34,8 +35,13 @@ final class LoadUserData extends Fixture implements FixtureGroupInterface
         );
         $user->activate();
         $manager->persist($user);
-        $manager->flush();
 
         $this->addReference(self::AUTHOR, $user);
+
+        $administrator = new Administrator(Uuid::uuid4(), new Email('admin@example.com'), 'admin');
+        $administrator->activate();
+        $manager->persist($administrator);
+
+        $manager->flush();
     }
 }

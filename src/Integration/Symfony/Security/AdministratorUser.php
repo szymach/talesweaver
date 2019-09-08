@@ -5,46 +5,46 @@ declare(strict_types=1);
 namespace Talesweaver\Integration\Symfony\Security;
 
 use Symfony\Component\Security\Core\User\UserInterface;
-use Talesweaver\Domain\Author;
+use Talesweaver\Domain\Administrator;
 
-class User implements UserInterface
+final class AdministratorUser implements UserInterface
 {
-    public const ROLE = 'ROLE_USER';
+    public const ROLE = 'ROLE_ADMIN';
 
     /**
-     * @var Author
+     * @var Administrator
      */
-    private $author;
+    private $administrator;
 
     /**
      * @var array
      */
     private $roles;
 
-    public function __construct(Author $author)
+    public function __construct(Administrator $administrator)
     {
-        $this->author = $author;
+        $this->administrator = $administrator;
         $this->roles = [self::ROLE];
     }
 
     public function __toString()
     {
-        return (string) $this->author->getEmail();
+        return (string) $this->administrator->getEmail();
     }
 
-    public function getAuthor(): Author
+    public function getAdministrator(): Administrator
     {
-        return $this->author;
+        return $this->administrator;
     }
 
     public function getUsername(): string
     {
-        return (string) $this->author->getEmail();
+        return (string) $this->administrator->getEmail();
     }
 
     public function getPassword(): string
     {
-        return $this->author->getPassword();
+        return $this->administrator->getPassword();
     }
 
     public function getRoles(): array
