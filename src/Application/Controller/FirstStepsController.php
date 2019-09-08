@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Application\Controller\Information;
+namespace Talesweaver\Application\Controller;
 
 use Psr\Http\Message\ResponseInterface;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
@@ -21,6 +21,6 @@ final class FirstStepsController
 
     public function __invoke(): ResponseInterface
     {
-        return $this->responseFactory->fromTemplate('information/firstSteps.html.twig');
+        return $this->responseFactory->fromTemplate('firstSteps.html.twig');
     }
 }

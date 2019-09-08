@@ -5,6 +5,14 @@ base:
         en: /en
         pl: /pl
 
+sort:
+    path: /sort/{list}/{direction}/{field}/{redirect}
+    controller: Talesweaver\Application\Controller\SortController
+    methods: GET
+    requirements:
+        direction: asc|desc
+        redirect: .+
+
 # Security
 security:
     resource: "routes/security.yml"

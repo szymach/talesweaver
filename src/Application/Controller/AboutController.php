@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Talesweaver\Application\Controller\Information;
+namespace Talesweaver\Application\Controller;
 
 use Psr\Http\Message\ResponseInterface;
 use Talesweaver\Application\Http\ResponseFactoryInterface;
