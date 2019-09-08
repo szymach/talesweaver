@@ -1,0 +1,15 @@
+---
+404:
+    title: Ups! Strona nie odnaleziona
+    content: Niestety szukana strona nie istnieje.
+    subcontent: >
+        Jeżeli wcześniej mieli Państwo do niej dostęp, prosimy o kontakt z
+        administratorem serwisu.
+
+
+500:
+    title: Ups! Aplikacja napotkała błąd
+    content: Niestety wystąpił błąd aplikacji.
+    subcontent: Prosimy spróbować później lub zgłosić problem do administratora serwisu.
+
+return: Powrót

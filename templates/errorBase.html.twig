@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block seoTitle 'meta.title'|trans %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <link rel="stylesheet" href="{{ absolute_url(asset('assets/main.css')) }}">
+        <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    </head>
+    <body>
+        {% trans_default_domain 'error' %}
+        <main class="container">
+            <div class="jumbotron">
+                <h1>{% block content '' %}</h1>
+                <p class="lead">{% block subcontent '' %}</p>
+                <hr class="my-4">
+                <div class="text-right">
+                    <a href="{{ path('index') }}" class="btn btn-lg btn-outline-secondary d-block">
+                        {{- 'return'|trans -}}
+                    </a>
+                </div>
+            </div>
+        </main>
+        <footer class="fixed-bottom">{% block footer '' %}</footer>
+    </body>
+</html>

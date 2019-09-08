@@ -34,7 +34,7 @@ styles:
   custom-forms: true
   dropdown: true
   input-group: true
-  jumbotron: false
+  jumbotron: true
   list-group: true
   media: true
   nav: true
