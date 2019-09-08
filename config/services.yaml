@@ -31,6 +31,7 @@ services:
     Talesweaver\Application\Security\AuthenticationContext: '@Talesweaver\Integration\Symfony\Security\AuthenticationContext'
     Talesweaver\Application\Session\FlashBag: '@Talesweaver\Integration\Symfony\Session\FlashBag'
     Talesweaver\Application\Session\Session: '@Talesweaver\Integration\Symfony\Session\Session'
+    Talesweaver\Domain\Administrators: '@Talesweaver\Integration\Doctrine\Repository\AdministratorRepository'
     Talesweaver\Domain\Authors: '@Talesweaver\Integration\Doctrine\Repository\AuthorRepository'
     Talesweaver\Domain\Books: '@Talesweaver\Integration\Symfony\Repository\BookRepository'
     Talesweaver\Domain\Chapters: '@Talesweaver\Integration\Symfony\Repository\ChapterRepository'
@@ -83,7 +84,7 @@ services:
         resource: "../src/Integration/Doctrine/{DataFixtures,Repository}/*"
 
     Talesweaver\Integration\Symfony\:
-        resource: "../src/Integration/Symfony/{Bus/Middleware,Form/{Event,Type},Http,Mail,Menu,Repository,Security,Session,Validation}/*"
+        resource: "../src/Integration/Symfony/{Bus/Middleware,Command,Form/{Event,Type},Http,Mail,Menu,Repository,Security,Session,Validation}/*"
 
     # Doctrine Extensions
     fsi_doctrine_extensions.filehandler.chain:

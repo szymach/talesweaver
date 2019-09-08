@@ -37,6 +37,7 @@ final class Administrator
         $this->id = $id;
         $this->email = $email;
         $this->password = $this->encodePassword($password);
+        $this->active = false;
     }
 
     public function getId(): UuidInterface
