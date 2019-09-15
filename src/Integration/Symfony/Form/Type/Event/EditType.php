@@ -104,7 +104,7 @@ final class EditType extends AbstractType implements Edit
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'attr' => ['class' => 'js-form ckeditor-small'],
+            'attr' => ['class' => 'js-form js-event-form ckeditor-small'],
             'data_class' => DTO::class
         ]);
 

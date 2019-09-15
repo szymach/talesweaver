@@ -281,7 +281,9 @@ event:
     location: Miejsce
     characters: Uczestnicy
     items: Przedmioty
-    info: Lista wydarzeń, jakie miały miejsce w tej scenie.
+    info: >
+        Lista wydarzeń, jakie miały miejsce w tej scenie. Jeśli użyta w niej postać,
+        przedmiot lub miejsce nie były dodane do tej sceny, zostaną dodane automatycznie.
     header:
         new: Nowe wydarzenie
         edit: Edycja wydarzenia

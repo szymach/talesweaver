@@ -40,4 +40,5 @@
     var event = document.createEvent('Event');
     event.initEvent('ckeditor:initialize', true, true);
     document.getElementById('modal-form').dispatchEvent(event);
+    delete event;
 </script>

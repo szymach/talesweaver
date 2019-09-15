@@ -1,4 +1,4 @@
-import { ajaxGetCall, ajaxPostCall, offset, scrollTo, trigger } from '../common';
+import { ajaxGetCall, ajaxPostCall, offset, scrollTo, trigger, hasClass } from '../common';
 import { Alerts } from './alerts';
 import { Display } from './display';
 import { Lists } from './lists';
@@ -70,8 +70,14 @@ export module Forms {
                     trigger(input, 'focus');
                 }
             } else {
-                clearModal(modal);
                 Lists.refreshList(document.querySelector('.tab-content .tab-pane.active .js-ajax-pagination'));
+                if (true === hasClass(form, 'js-event-form')) {
+                    Lists.refreshList(document.querySelector('#characters .js-ajax-pagination'));
+                    Lists.refreshList(document.querySelector('#items .js-ajax-pagination'));
+                    Lists.refreshList(document.querySelector('#locations .js-ajax-pagination'));
+                }
+
+                clearModal(modal);
             }
 
             Alerts.displayAlerts();

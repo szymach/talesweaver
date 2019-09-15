@@ -278,7 +278,10 @@ event:
     location: Location
     characters: Participants
     items: Items
-    info: A list of events that have occured in this scene.
+    info: >
+        A list of events that have occured in this scene. If any of used characters,
+        items or locations were not previously assigned to this scene, they will
+        be automatically added.
     header:
         new: New event
         edit: Edit event

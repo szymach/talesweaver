@@ -111,9 +111,9 @@ class Item
         return $this->description;
     }
 
-    public function getScenes(): Collection
+    public function getScenes(): array
     {
-        return $this->scenes;
+        return $this->scenes->toArray();
     }
 
     public function addScene(Scene $scene): void

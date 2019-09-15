@@ -83,6 +83,9 @@ class Event
         $this->characters = new ArrayCollection($characters);
         $this->items = new ArrayCollection($items);
         $this->translations = new ArrayCollection();
+        $this->addCharactersToSceneIfNotAssgined($characters);
+        $this->addItemsToSceneIfNotAssgined($items);
+        $this->addLocationToSceneIfNotAssigned($location);
     }
 
     public function __toString()
@@ -110,6 +113,9 @@ class Event
         $this->location = $location;
         $this->characters = new ArrayCollection($characters);
         $this->items = new ArrayCollection($items);
+        $this->addCharactersToSceneIfNotAssgined($characters);
+        $this->addItemsToSceneIfNotAssgined($items);
+        $this->addLocationToSceneIfNotAssigned($location);
         $this->update();
     }
 
@@ -146,5 +152,36 @@ class Event
     public function getItems(): array
     {
         return $this->items->toArray();
+    }
+
+    private function addLocationToSceneIfNotAssigned(?Location $location): void
+    {
+        if (null === $location || true === in_array($this->scene, $location->getScenes(), true)) {
+            return;
+        }
+
+        $this->scene->addLocation($location);
+    }
+
+    private function addCharactersToSceneIfNotAssgined(array $characters): void
+    {
+        array_walk($characters, function (Character $character): void {
+            if (true === in_array($this->scene, $character->getScenes(), true)) {
+                return;
+            }
+
+            $this->scene->addCharacter($character);
+        });
+    }
+
+    private function addItemsToSceneIfNotAssgined(array $items): void
+    {
+        array_walk($items, function (Item $item): void {
+            if (true === in_array($this->scene, $item->getScenes(), true)) {
+                return;
+            }
+
+            $this->scene->addItem($item);
+        });
     }
 }
