@@ -96,6 +96,36 @@ final class LocationRepository extends AutoWireableTranslatableRepository
         ;
     }
 
+    public function findForEvent(Author $author, Scene $scene): array
+    {
+        $qb = $this->createQueryBuilder('l')
+            ->innerJoin('l.translations', 't', Join::WITH, 't.locale = :locale')
+            ->innerJoin('l.scenes', 's')
+            ->andWhere('l.createdBy = :author')
+        ;
+
+        $chapter = $scene->getChapter();
+        if (null !== $chapter && null !== $chapter->getBook()) {
+            $qb->innerJoin('s.chapter', 'ch')
+                ->innerJoin('ch.book', 'b')
+                ->andWhere('ch.book = :book')
+                ->setParameter('book', $chapter->getBook())
+            ;
+        } elseif (null !== $chapter) {
+            $qb->andWhere('s.chapter = :chapter')->setParameter('chapter', $chapter);
+        } else {
+            $qb->andWhere(':scene MEMBER OF l.scenes')->setParameter('scene', $scene);
+        }
+
+        return $qb->orderBy('t.name', 'ASC')
+            ->groupBy('l.id')
+            ->setParameter('author', $author)
+            ->setParameter('locale', $this->getTranslatableListener()->getLocale())
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function existsForSceneWithName(Author $author, string $name, Scene $scene): bool
     {
         $qb = $this->countForNameQb($author, $name, null);

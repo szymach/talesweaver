@@ -11,6 +11,7 @@ interface Locations
     public function find(UuidInterface $id): ?Location;
     public function findForScene(Scene $scene): array;
     public function findRelated(Scene $scene): array;
+    public function findForEvent(Scene $scene): array;
     public function add(Location $location): void;
     public function remove(UuidInterface $id): void;
     public function entityExists(string $name, ?UuidInterface $id, ?Scene $scene): bool;

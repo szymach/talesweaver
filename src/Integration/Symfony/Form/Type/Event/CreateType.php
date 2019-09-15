@@ -22,7 +22,7 @@ use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Location;
 
-class CreateType extends AbstractType implements Create
+final class CreateType extends AbstractType implements Create
 {
     /**
      * @var QueryBus

@@ -64,6 +64,14 @@ final class ItemRepository implements Items
         );
     }
 
+    public function findForEvent(Scene $scene): array
+    {
+        return $this->doctrineRepository->findForEvent(
+            $this->authorContext->getAuthor(),
+            $scene
+        );
+    }
+
     public function entityExists(string $name, ?UuidInterface $id, ?Scene $scene): bool
     {
         if (null !== $scene) {

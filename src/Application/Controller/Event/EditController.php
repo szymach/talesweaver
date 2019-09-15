@@ -90,10 +90,10 @@ final class EditController
             new DTO($event),
             [
                 'action' => $this->urlGenerator->generate('event_edit', ['id' => $event->getId()]),
-                'characters' => $this->queryBus->query(new Query\Character\ForScene($scene)),
+                'characters' => $this->queryBus->query(new Query\Character\ForEvent($scene)),
+                'items' => $this->queryBus->query(new Query\Item\ForEvent($scene)),
+                'locations' => $this->queryBus->query(new Query\Location\ForEvent($scene)),
                 'eventId' => $event->getId(),
-                'items' => $this->queryBus->query(new Query\Item\ForScene($scene)),
-                'locations' => $this->queryBus->query(new Query\Location\ForScene($scene)),
                 'scene' => $event->getScene()
             ]
         );
