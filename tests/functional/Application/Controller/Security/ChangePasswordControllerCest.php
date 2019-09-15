@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace Talesweaver\Tests\Application\Controller\Security;
 
 use Talesweaver\Tests\FunctionalTester;
-use Talesweaver\Tests\Module\AuthorModule;
 
-class ChangePasswordControllerCest
+final class ChangePasswordControllerCest
 {
     public function changePasswordFormView(FunctionalTester $I): void
     {
-        $I->loginAsUser();
         $I->canSeeIAmOnRouteLocale('change_password');
         $I->canSeeInTitle('Zmiana hasła');
         $I->canSeeElement('form[name="change_password"]');
@@ -22,15 +20,14 @@ class ChangePasswordControllerCest
 
     public function successfullPasswordChange(FunctionalTester $I): void
     {
-        $I->loginAsUser();
         $I->canSeeIAmOnRouteLocale('change_password');
-        $I->fillField('Aktualne hasło', AuthorModule::AUTHOR_PASSWORD);
+        $I->fillField('Aktualne hasło', 'password');
         $I->fillField('Nowe hasło', 'newPassword123');
         $I->fillField('Powtórz nowe hasło', 'newPassword123');
         $I->click('Wyślij');
         $I->canSeeCurrentUrlEquals($I->createUrl('login'));
         $I->canSeeAlert('Pomyślnie zmieniono hasło do aplikacji. Wymagane jest ponowne zalogowanie.');
-        $I->fillField('Email', AuthorModule::AUTHOR_EMAIL);
+        $I->fillField('Email', 'user@example.com');
         $I->fillField('Hasło', 'newPassword123');
         $I->click('Zaloguj');
         $I->canSeeIAmOnRouteLocale('index');
@@ -38,7 +35,6 @@ class ChangePasswordControllerCest
 
     public function incorrectPasswordSubmit(FunctionalTester $I): void
     {
-        $I->loginAsUser();
         $I->canSeeIAmOnRouteLocale('change_password');
         $I->click('Wyślij');
         $I->canSeeCurrentUrlEquals($I->createUrl('change_password'));
@@ -67,5 +63,13 @@ class ChangePasswordControllerCest
         $I->click('Wyślij');
         $I->seeNumberOfErrors(2);
         $I->seeError('Ta wartość jest nieprawidłowa.', 'change_password[newPassword][first]');
+    }
+
+    /**
+     * @phpcs:disable
+     */
+    public function _before(FunctionalTester $I): void
+    {
+        $I->loginAsUser('user@example.com', 'password');
     }
 }

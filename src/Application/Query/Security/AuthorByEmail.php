@@ -6,7 +6,7 @@ namespace Talesweaver\Application\Query\Security;
 
 use Talesweaver\Domain\ValueObject\Email;
 
-class AuthorByEmail
+final class AuthorByEmail
 {
     /**
      * @var Email

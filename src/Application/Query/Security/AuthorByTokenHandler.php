@@ -8,7 +8,7 @@ use Talesweaver\Application\Bus\QueryHandlerInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Authors;
 
-class AuthorByTokenHandler implements QueryHandlerInterface
+final class AuthorByTokenHandler implements QueryHandlerInterface
 {
     /**
      * @var Authors

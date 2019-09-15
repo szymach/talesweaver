@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Talesweaver\Application\Query\Security;
 
-class AuthorByToken
+final class AuthorByToken
 {
     /**
      * @var string

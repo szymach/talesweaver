@@ -9,6 +9,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\DBAL\Driver\Statement;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\ORM\Query\Expr\Join;
+use Ramsey\Uuid\UuidInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Authors;
 use Talesweaver\Domain\ValueObject\Email;
@@ -23,6 +24,11 @@ final class AuthorRepository extends ServiceEntityRepository implements Authors
     public function add(Author $author): void
     {
         $this->getEntityManager()->persist($author);
+    }
+
+    public function findOneById(UuidInterface $id): ?Author
+    {
+        return $this->find($id);
     }
 
     public function findOneByActivationToken(string $code): ?Author

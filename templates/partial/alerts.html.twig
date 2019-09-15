@@ -1,5 +1,6 @@
+{% set types = { success: 'success', warning: 'warning', error: 'danger' } %}
 {% for type, messages in app.flashes %}
-    <div class="alert alert-dismissible alert-{{ type }}" role="alert">
+    <div class="alert alert-dismissible alert-{{ types[type] }}" role="alert">
         {%- for message in messages -%}
             <div>
                 {{ message }}

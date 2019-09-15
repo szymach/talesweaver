@@ -27,4 +27,6 @@ author:
     title: Autorzy
     email: Email
     active: Aktywny
+    resend_activation_code: Wyślij ponownie kod aktywacyjny
+    already_active: 'Autor "%email% jest już aktywny.'
     no_results: Brak wyników

@@ -9,6 +9,7 @@
                         {% for header in headers %}
                             <th>{{ header.label|trans }}</th>
                         {% endfor %}
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -21,6 +22,18 @@
                                     : column.value
                                 }}</td>
                             {% endfor %}
+                            {% if 0 != actions|length %}
+                                <td>
+                                    {% for action in actions %}
+                                        <a class="btn btn-sm btn-{{ action.button }}"
+                                           href="{{ path(action.path, { id: row.id }) }}"
+                                           title="{{ action.title|trans }}"
+                                        >
+                                            <span class="fa fa-{{ action.icon }}"></span>
+                                        </a>
+                                    {% endfor %}
+                                </td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                 </tbody>

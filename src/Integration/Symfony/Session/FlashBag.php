@@ -35,7 +35,7 @@ class FlashBag implements ApplicationFlashBag
 
     public function add(Flash $flash): void
     {
-        $message = $this->translator->trans($flash->getKey(), $flash->getParameters());
+        $message = $this->translator->trans($flash->getKey(), $flash->getParameters(), $flash->getDomain());
         if (true === $this->hasEqualMessage($flash->getType(), $message)) {
             return;
         }

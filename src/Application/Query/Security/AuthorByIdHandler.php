@@ -8,7 +8,7 @@ use Talesweaver\Application\Bus\QueryHandlerInterface;
 use Talesweaver\Domain\Author;
 use Talesweaver\Domain\Authors;
 
-final class AuthorByEmailHandler implements QueryHandlerInterface
+final class AuthorByIdHandler implements QueryHandlerInterface
 {
     /**
      * @var Authors
@@ -20,8 +20,8 @@ final class AuthorByEmailHandler implements QueryHandlerInterface
         $this->authors = $authors;
     }
 
-    public function __invoke(AuthorByEmail $query): ?Author
+    public function __invoke(AuthorById $query): ?Author
     {
-        return $this->authors->findOneByEmail($query->getEmail());
+        return $this->authors->findOneById($query->getId());
     }
 }

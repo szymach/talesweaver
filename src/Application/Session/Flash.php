@@ -27,12 +27,18 @@ final class Flash
      */
     private $parameters;
 
-    public function __construct(string $type, string $key, array $parameters)
+    /**
+     * @var string
+     */
+    private $domain;
+
+    public function __construct(string $type, string $key, array $parameters, string $domain = 'messages')
     {
         Assertion::inArray($type, [self::SUCCESS, self::WARNING, self::ERROR]);
         $this->type = $type;
         $this->key = $key;
         $this->parameters = $parameters;
+        $this->domain = $domain;
     }
 
     public function getType(): string
@@ -48,5 +54,10 @@ final class Flash
     public function getParameters(): array
     {
         return $this->parameters;
+    }
+
+    public function getDomain(): string
+    {
+        return $this->domain;
     }
 }

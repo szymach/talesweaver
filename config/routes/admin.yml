@@ -14,5 +14,10 @@ admin_author_list:
     controller: Talesweaver\Application\Controller\Administration\Author\ListController
     methods: GET
 
+admin_resend_activation_code:
+    path: /author/resend-activation-code/{id}
+    controller: Talesweaver\Application\Controller\Administration\Author\ResendActivationCodeController
+    methods: GET
+
 admin_logout:
     path: /logout

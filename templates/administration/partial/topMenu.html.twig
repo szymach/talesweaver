@@ -14,23 +14,25 @@
         >
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-collapse collapse" id="menu">
-            <ul class="navbar-nav ml-auto">
-                {{ macros.mainMenuItem('admin_index', 'menu.start'|trans, currentRoute) }}
-                {{ macros.mainMenuItem('admin_author_list', 'menu.author'|trans, currentRoute) }}
-            </ul>
-            <ul class="nav navbar-nav nav-actions">
-                <li class="nav-item d-sm-block d-md-none d-xl-none">
-                    <span class="nav-link profile-label">{{ app.user.username }}</span>
-                </li>
-                {{ macros.menuItem(path('admin_logout'), {}, 'fa-power-off', 'menu.logout'|trans, 'd-sm-block d-md-none d-xl-none') }}
-                <li class="dropdown d-none d-sm-none d-md-block d-xl-block">
-                    {{ macros.dropdownToggle(app.user.username, 'menu-user', 'profile-label') }}
-                    <ul class="dropdown-menu" aria-labelledby="menu-user">
-                        {{ macros.dropdownItem(path('admin_logout'), {}, 'fa-power-off', 'menu.logout'|trans, '') }}
-                    </ul>
-                </li>
-            </ul>
-        </div>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div class="navbar-collapse collapse" id="menu">
+                <ul class="navbar-nav ml-auto">
+                    {{ macros.mainMenuItem('admin_index', 'menu.start'|trans, currentRoute) }}
+                    {{ macros.mainMenuItem('admin_author_list', 'menu.author'|trans, currentRoute) }}
+                </ul>
+                <ul class="nav navbar-nav nav-actions">
+                    <li class="nav-item d-sm-block d-md-none d-xl-none">
+                        <span class="nav-link profile-label">{{ app.user.username }}</span>
+                    </li>
+                    {{ macros.menuItem(path('admin_logout'), {}, 'fa-power-off', 'menu.logout'|trans, 'd-sm-block d-md-none d-xl-none') }}
+                    <li class="dropdown d-none d-sm-none d-md-block d-xl-block">
+                        {{ macros.dropdownToggle(app.user.username, 'menu-user', 'profile-label') }}
+                        <ul class="dropdown-menu" aria-labelledby="menu-user">
+                            {{ macros.dropdownItem(path('admin_logout'), {}, 'fa-power-off', 'menu.logout'|trans, '') }}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
     </div>
 </nav>

@@ -7,8 +7,14 @@
     {% include 'administration/partial/dataList.html.twig' with {
         headers: authors.headers,
         rows: authors.paginator,
-        noResults: {
-            header: 'author.no_results'
-        },
+        actions: [
+            {
+                button: 'primary',
+                path: 'admin_resend_activation_code',
+                title: 'author.resend_activation_code',
+                icon: 'mail-forward'
+            }
+        ],
+        noResults: { header: 'author.no_results' }
     } only %}
 {% endblock %}
