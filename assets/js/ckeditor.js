@@ -33,7 +33,7 @@ function initializeCKEditor(elements)
             'redo'
         ],
         alignment: {
-            options: [ 'left', 'justify', 'right' ]
+            options: [ 'left', 'center', 'right', 'justify' ]
         },
         autosave: {
             save(editor) {
