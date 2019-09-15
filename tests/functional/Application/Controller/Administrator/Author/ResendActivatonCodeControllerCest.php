@@ -20,6 +20,7 @@ final class ResendActivatonCodeControllerCest
         /** @var Author $author */
         $author = $I->getAuthor('user@example.com', 'password');
         $I->assertNotNull($author->getActivationToken());
+        $I->seeAnEmailHasBeenSent('Bajkopisarz - rejestracja', 'user@example.com');
     }
 
     /**
@@ -29,5 +30,6 @@ final class ResendActivatonCodeControllerCest
     {
         $I->loginAsAnAdministrator();
         $I->getAuthor('user@example.com', 'password', false);
+        $I->haveClearedEmailSpool();
     }
 }

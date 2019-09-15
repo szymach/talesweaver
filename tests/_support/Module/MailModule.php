@@ -49,6 +49,9 @@ final class MailModule extends Module
         $this->filesystem = new Filesystem();
     }
 
+    /**
+     * @phpcs:disable
+     */
     public function _before(TestInterface $test): void
     {
         $this->clearSpoolFiles();
