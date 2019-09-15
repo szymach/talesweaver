@@ -35,6 +35,7 @@ final class RegisterControllerCest
             'Pomyślnie zarejstrowano konto w aplikacji Bajkopisarz! Na podany adres'
             . ' email wysłano wiadomość z instrukcją aktywacji konta.'
         );
+        $I->seeAnEmailHasBeenSent('Bajkopisarz - rejestracja', 'email@example.com');
 
         $I->fillField('Email', 'email@example.com');
         $I->fillField('Hasło', 'haslo123');
@@ -49,6 +50,7 @@ final class RegisterControllerCest
         $I->seeNumberOfErrors(2);
         $I->seeError('Ta wartość nie powinna być pusta.', 'register[email]');
         $I->seeError('Ta wartość nie powinna być pusta.', 'register[password][first]');
+        $I->seeAnEmailHasNotBeenSent('Bajkopisarz - rejestracja');
     }
 
     public function invalidRegistrationForm(FunctionalTester $I): void

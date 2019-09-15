@@ -9,7 +9,7 @@ modules:
             kernel_class: 'Talesweaver\Integration\Symfony\Kernel'
             var_path: 'var'
         - REST:
-           depends: Symfony
+            depends: Symfony
         - Doctrine2:
             depends: Symfony
         - Talesweaver\Tests\Module\AdministrationModule
@@ -17,6 +17,7 @@ modules:
         - Talesweaver\Tests\Module\LocaleModule
         - Talesweaver\Tests\Module\AuthorModule
         - Talesweaver\Tests\Module\FormModule
+        - Talesweaver\Tests\Module\MailModule
         - Talesweaver\Tests\Module\NavigationModule
         - Talesweaver\Tests\Module\BookModule
         - Talesweaver\Tests\Module\ChapterModule

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Talesweaver\Tests\Application\Controller\Security;
 
 use Talesweaver\Tests\FunctionalTester;
-use Talesweaver\Tests\Module\AuthorModule;
 
 final class ResetPasswordControllerCest
 {
@@ -21,19 +20,20 @@ final class ResetPasswordControllerCest
 
     public function resetPasswordFormRequestSubmit(FunctionalTester $I)
     {
-        $I->getAuthor();
+        $I->getAuthor('test@example.com');
         $I->canSeeIAmOnRouteLocale('password_reset_request');
 
-        $I->fillField('Email', AuthorModule::AUTHOR_EMAIL);
+        $I->fillField('Email', 'test@example.com');
         $I->click('Wyślij');
         $I->canSeeCurrentUrlEquals('/pl/login');
         $I->canSeeAlert(
             'Jeżeli podany adres email był prawidłowy, przesłano na niego wiadomość'
             . ' z instrukcją zmiany hasła.'
         );
+        $I->seeAnEmailHasBeenSent('Bajkopisarz - resetowanie hasła', 'test@example.com');
 
-        /* @var $author Author */
-        $author = $I->getAuthor();
+        /** @var Author $author */
+        $author = $I->getAuthor('test@example.com');
         $I->canSeeResetPasswordTokenGenerated($author);
         $I->canSeeIAmOnRouteLocale('password_reset_change', [
             'code' => (string) $author->getPasswordResetToken()
@@ -51,7 +51,7 @@ final class ResetPasswordControllerCest
         $I->canSeeAlert(
             'Pomyślnie zmieniono hasło do konta. Możesz się teraz nim zalogować do aplikacji.'
         );
-        $I->fillField('Email', AuthorModule::AUTHOR_EMAIL);
+        $I->fillField('Email', 'test@example.com');
         $I->fillField('Hasło', 'nowe_haslo_123');
         $I->click('Zaloguj');
 

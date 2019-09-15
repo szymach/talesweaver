@@ -25,4 +25,9 @@ final class ContainerModule extends Module
     {
         return $this->symfony->grabService("test.{$id}");
     }
+
+    public function getParameter(string $name)
+    {
+        return $this->symfony->_getContainer()->getParameter($name);
+    }
 }
