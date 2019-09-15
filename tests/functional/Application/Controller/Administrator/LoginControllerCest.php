@@ -39,6 +39,14 @@ final class LoginControllerCest
         $I->seeCurrentUrlEquals('/administration/login');
     }
 
+    public function testAuthorNotPermitted(FunctionalTester $I): void
+    {
+        $I->loginAsUser('user@example.com');
+
+        $I->amOnPage('/administration');
+        $I->seeCurrentUrlEquals('/administration/login');
+    }
+
     public function testCorrectLogin(FunctionalTester $I): void
     {
         $I->grabAdministrator('admin@example.com', 'password');
