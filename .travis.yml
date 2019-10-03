@@ -33,18 +33,18 @@ before_install:
 install:
     - composer install -n
     - composer validate
-    - composer run create-schema
+    - composer create-schema
     - nvm install 10
 
 script:
-    - composer run sniffer
-    - composer run deptrac
-    - composer run linters
-    - composer run stan
-    - composer run validate-schema
+    - composer sniffer
+    - composer deptrac
+    - composer linters
+    - composer stan
+    - composer validate-schema
     - yarn install
     - node_modules/.bin/webpack
-    - composer run codecept
+    - composer cept
     - bin/console doctrine:fixtures:load -n --group=integration
     - APP_ENV=test php -d variables_order=EGPCS -S 127.0.0.1:8000 -t public > var/log/server.log 2>&1 &
     - node_modules/.bin/cypress run
