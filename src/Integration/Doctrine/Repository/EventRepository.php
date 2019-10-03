@@ -14,6 +14,7 @@ use Talesweaver\Domain\Event;
 use Talesweaver\Domain\Item;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
+use Talesweaver\Domain\ValueObject\ShortText;
 
 final class EventRepository extends AutoWireableTranslatableRepository
 {
@@ -77,6 +78,33 @@ final class EventRepository extends AutoWireableTranslatableRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function findNamesForScene(Author $author, Scene $scene): array
+    {
+        $result = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('t.name')
+            ->from($this->getEntityName(), 'e')
+            ->innerJoin('e.translations', 't', Join::WITH, 't.locale = :locale')
+            ->andWhere('e.scene = :scene')
+            ->andWhere('e.createdBy = :author')
+            ->orderBy('t.name', 'ASC')
+            ->setParameter('scene', $scene)
+            ->setParameter('author', $author)
+            ->setParameter('locale', $this->getTranslatableListener()->getLocale())
+            ->getQuery()
+            ->getResult()
+        ;
+
+        return array_map(
+            function (array $row): string {
+                /** @var ShortText $name */
+                $name = $row['name'];
+                return (string) $name;
+            },
+            $result
+        );
     }
 
     public function existsForSceneWithName(Author $author, string $name, UuidInterface $sceneId): bool

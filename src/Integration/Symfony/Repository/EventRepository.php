@@ -15,7 +15,7 @@ use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Integration\Doctrine\Repository\EventRepository as DoctrineRepository;
 
-class EventRepository implements Events
+final class EventRepository implements Events
 {
     /**
      * @var DoctrineRepository
@@ -80,6 +80,14 @@ class EventRepository implements Events
         return $this->doctrineRepository->findForLocation(
             $this->authorContext->getAuthor(),
             $location
+        );
+    }
+
+    public function findNamesForScene(Scene $scene): array
+    {
+        return $this->doctrineRepository->findNamesForScene(
+            $this->authorContext->getAuthor(),
+            $scene
         );
     }
 

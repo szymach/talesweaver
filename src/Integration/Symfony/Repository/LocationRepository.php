@@ -72,6 +72,14 @@ final class LocationRepository implements Locations
         );
     }
 
+    public function findNamesForScene(Scene $scene): array
+    {
+        return $this->doctrineRepository->findNamesForScene(
+            $this->authorContext->getAuthor(),
+            $scene
+        );
+    }
+
     public function entityExists(string $name, ?UuidInterface $id, ?Scene $scene): bool
     {
         if (null !== $scene) {

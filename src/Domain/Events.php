@@ -13,6 +13,7 @@ interface Events
     public function findForCharacter(Character $character): array;
     public function findForItem(Item $item): array;
     public function findForLocation(Location $location): array;
+    public function findNamesForScene(Scene $scene): array;
     public function add(Event $event): void;
     public function remove(UuidInterface $id): void;
     public function entityExists(string $name, ?UuidInterface $id, ?UuidInterface $sceneId): bool;

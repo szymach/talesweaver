@@ -1,12 +1,12 @@
-{% macro displayButton(link) %}
+{% macro displayButton(link, title = 'display.title', label = 'display.label') %}
     <a class="btn btn-outline-secondary js-display"
        href="{{ link }}"
        data-display-url="{{ link }}"
        target="_blank"
-       title="{{ 'display.title'|trans }}"
+       title="{{ title|trans }}"
     >
         <span class="fa fa-eye"></span>
-        {{ 'display.label'|trans }}
+        {{ label|trans }}
     </a>
 {% endmacro %}
 

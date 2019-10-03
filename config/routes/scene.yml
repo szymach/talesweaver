@@ -37,6 +37,12 @@ scene_display:
     controller: Talesweaver\Application\Controller\Scene\DisplayController
     methods:  GET
 
+scene_summary:
+    path: /summary/{id}
+    controller: Talesweaver\Application\Controller\Scene\SummaryController
+    methods:  GET
+    condition: "request.isXmlHttpRequest()"
+
 scene_position_single_increase:
     path: /position/single/increase/{id}
     controller: Talesweaver\Application\Controller\Scene\IncreasePositionController

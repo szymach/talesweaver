@@ -113,7 +113,7 @@
             "bin/console --ansi lint:yaml translations --parse-tags",
             "bin/console --ansi lint:twig templates"
         ],
-        "codecept": "vendor/bin/codecept run --ansi",
+        "cept": "vendor/bin/codecept run --ansi",
         "create-schema": [
             "bin/console --ansi doctrine:database:create",
             "bin/console --ansi doctrine:schema:create"

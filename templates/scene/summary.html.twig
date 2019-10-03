@@ -1,0 +1,35 @@
+{% import _self as self_macros %}
+<div class="modal-header">
+    <h4 class="modal-title">{{ title }}</h4>
+    <button type="button" class="js-close-modal close" aria-label="{{ 'modal.close'|trans }}">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    {% if 0 != lists.characters|length %}
+        {{ self_macros.list('scene.tabs.characters', lists.characters) }}
+    {% endif %}
+    {% if 0 != lists.items|length %}
+        {{ self_macros.list('scene.tabs.items', lists.items) }}
+    {% endif %}
+    {% if 0 != lists.locations|length %}
+        {{ self_macros.list('scene.tabs.locations', lists.locations) }}
+    {% endif %}
+    {% if 0 != lists.events|length %}
+        {{ self_macros.list('scene.tabs.events', lists.events) }}
+    {% endif %}
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary js-close-modal">
+        {{- 'modal.close'|trans -}}
+    </button>
+</div>
+
+{% macro list(name, items) %}
+    <h5 class="modal-title">{{ name|trans }}</h5>
+    <ul>
+        {% for item in items %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+{% endmacro %}

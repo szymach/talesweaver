@@ -11,14 +11,12 @@ use Talesweaver\Application\Bus\CommandBus;
 use Talesweaver\Application\Bus\QueryBus;
 use Talesweaver\Application\Command\Event\Create\Command;
 use Talesweaver\Application\Query\Event\ById;
-use Talesweaver\Domain\Character;
 use Talesweaver\Domain\Event;
-use Talesweaver\Domain\Event\Meeting;
 use Talesweaver\Domain\Location;
 use Talesweaver\Domain\Scene;
 use Talesweaver\Domain\ValueObject\ShortText;
 
-class EventModule extends Module
+final class EventModule extends Module
 {
     /**
      * @var CommandBus
@@ -50,7 +48,7 @@ class EventModule extends Module
     ): Event {
         $id = Uuid::uuid4();
         $this->commandBus->dispatch(
-            new Command($id, $scene, new ShortText($name), $location, null, $characters, $items)
+            new Command($id, $scene, new ShortText($name), null, $location, $characters, $items)
         );
 
         $event = $this->queryBus->query(new ById($id));

@@ -274,6 +274,9 @@ scene:
     modal:
         events: Wydarzenia
         description: Opis
+    summary:
+        label: Podsumowanie
+        title: Lista wszystkich postaci, przedmiotów, miejsc oraz wydarzeń
 
 event:
     name: Nazwa
