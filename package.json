@@ -10,7 +10,7 @@
     "@types/sortablejs": "^1.7.2",
     "autoprefixer": "^6.6.1",
     "awesome-typescript-loader": "^5.2",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bootstrap": "^4.3.1",
     "bootstrap-loader": "^3.0",
     "bootstrap.native": "^2.0.24",
